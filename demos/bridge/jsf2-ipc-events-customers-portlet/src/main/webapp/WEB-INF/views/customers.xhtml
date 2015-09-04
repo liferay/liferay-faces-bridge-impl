@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 	<h:head />
 	<h:body>
 		<ui:include src="styling.xhtml" />
@@ -34,28 +33,6 @@
 					<h:outputText value="#{customer.lastName}" />
 				</h:column>
 			</h:dataTable>
-			<c:if test="#{bridgeContext.bridgeConfig.attributes['Liferay Portal'].detected}">
-				<h:selectBooleanCheckbox id="sendRedirect" value="#{customersViewBean.sendRedirect}">
-					<f:ajax render="redirectPages" />
-				</h:selectBooleanCheckbox>
-				<h:outputLabel for="sendRedirect" value="#{i18n['sendRedirect']} #{i18n['liferayOnly']} " />
-				<h:panelGroup id="redirectPages">
-					<h:panelGroup id="redirectContent" rendered="#{customersViewBean.sendRedirect}">
-						<h:selectOneMenu value="#{customersViewBean.portalPageId}">
-							<f:selectItems value="#{customersViewBean.portalPages}" var="portalPage" itemValue="#{portalPage.id}"
-								itemLabel="#{portalPage.name}" />
-							<f:ajax render="@form" />
-						</h:selectOneMenu>
-						<hr />
-						<em><h:outputText value="#{i18n['noteSettings']}" /></em>
-						<pre>
-portlet.event.distribution=layout-set
-layout.default.p_l_reset=false
-tags.compiler.enabled=false
-						</pre>
-					</h:panelGroup>
-				</h:panelGroup>
-			</c:if>
 		</h:form>
 	</h:body>
 
