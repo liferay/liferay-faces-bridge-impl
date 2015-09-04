@@ -27,7 +27,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgePartialActionURLImpl extends BridgeURLBase {
+public class BridgePartialActionURLImpl extends BridgeURLInternalBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgePartialActionURLImpl.class);
@@ -46,7 +46,7 @@ public class BridgePartialActionURLImpl extends BridgeURLBase {
 	}
 
 	@Override
-	protected BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL() throws MalformedURLException {
 
 		BaseURL baseURL = null;
 

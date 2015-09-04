@@ -11,24 +11,24 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.filter.internal;
+package com.liferay.faces.bridge.internal;
 
-import javax.portlet.PortletContext;
-
-import com.liferay.faces.bridge.filter.BridgePortletContextFactory;
+import com.liferay.faces.bridge.WindowStateValidator;
+import com.liferay.faces.bridge.WindowStateValidatorFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletContextFactoryImpl extends BridgePortletContextFactory {
+public class WindowStateValidatorFactoryImpl extends WindowStateValidatorFactory {
 
 	@Override
-	public PortletContext getPortletContext(PortletContext portletContext) {
-		return portletContext;
+	public WindowStateValidator getWindowStateValidator() {
+		return new WindowStateValidatorImpl();
 	}
 
-	public BridgePortletContextFactory getWrapped() {
+	@Override
+	public WindowStateValidatorFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
 		return null;

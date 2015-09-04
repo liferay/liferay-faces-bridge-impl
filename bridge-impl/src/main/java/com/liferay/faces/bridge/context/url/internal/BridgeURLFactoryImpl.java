@@ -21,19 +21,12 @@ import com.liferay.faces.bridge.context.url.BridgeResourceURL;
 import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.bridge.context.url.BridgeURL;
 import com.liferay.faces.bridge.context.url.BridgeURLFactory;
-import com.liferay.faces.bridge.context.url.internal.liferay.BridgeRedirectURLLiferayImpl;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
 
 
 /**
  * @author  Neil Griffin
  */
 public class BridgeURLFactoryImpl extends BridgeURLFactory {
-
-	// Private Constants
-	private static final boolean LIFERAY_PORTAL_DETECTED = ProductMap.getInstance().get(ProductConstants.LIFERAY_PORTAL)
-		.isDetected();
 
 	@Override
 	public BridgeURL getBridgeActionURL(BridgeContext bridgeContext, BridgeURI bridgeURI, String viewId) {
@@ -55,12 +48,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory {
 	public BridgeURL getBridgeRedirectURL(BridgeContext bridgeContext, BridgeURI bridgeURI,
 		Map<String, List<String>> parameters, String viewId) {
 
-		if (LIFERAY_PORTAL_DETECTED) {
-			return new BridgeRedirectURLLiferayImpl(bridgeContext, bridgeURI, parameters, viewId);
-		}
-		else {
-			return new BridgeRedirectURLImpl(bridgeContext, bridgeURI, parameters, viewId);
-		}
+		return new BridgeRedirectURLImpl(bridgeContext, bridgeURI, parameters, viewId);
 	}
 
 	@Override
@@ -73,5 +61,4 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory {
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
 		return null;
 	}
-
 }

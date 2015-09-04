@@ -19,7 +19,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import javax.faces.context.ResponseWriterWrapper;
 
-import com.liferay.faces.bridge.util.internal.FacesURLEncoder;
+import com.liferay.faces.bridge.BridgeFactoryFinder;
+import com.liferay.faces.util.render.FacesURLEncoder;
+import com.liferay.faces.util.render.FacesURLEncoderFactory;
 
 
 /**
@@ -73,7 +75,10 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 
 		if ((value != null) && (value instanceof String)) {
 			String encoding = wrappedResponseWriter.getCharacterEncoding();
-			String encodedURI = FacesURLEncoder.encode((String) value, encoding);
+			FacesURLEncoderFactory facesURLEncoderFactory = (FacesURLEncoderFactory) BridgeFactoryFinder.getFactory(
+					FacesURLEncoderFactory.class);
+			FacesURLEncoder facesURLEncoder = facesURLEncoderFactory.getFacesURLEncoder();
+			String encodedURI = facesURLEncoder.encode((String) value, encoding);
 
 			if (encodedURI != null) {
 

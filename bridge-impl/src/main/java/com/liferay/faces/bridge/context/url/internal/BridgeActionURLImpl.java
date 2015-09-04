@@ -31,18 +31,20 @@ import com.liferay.faces.util.helper.BooleanHelper;
 /**
  * @author  Neil Griffin
  */
-public class BridgeActionURLImpl extends BridgeURLBase implements BridgeURL {
+public class BridgeActionURLImpl extends BridgeURLInternalBase implements BridgeURL {
 
 	// Private Data Members
+	private BridgeURI bridgeURI;
 	private PortletRequest portletRequest;
 
 	public BridgeActionURLImpl(BridgeContext bridgeContext, BridgeURI bridgeURI, String viewId) {
 		super(bridgeContext, bridgeURI, viewId);
+		this.bridgeURI = bridgeURI;
 		this.portletRequest = bridgeContext.getPortletRequest();
 	}
 
 	@Override
-	protected BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL() throws MalformedURLException {
 
 		BaseURL baseURL;
 		String uri = bridgeURI.toString();

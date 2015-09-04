@@ -31,13 +31,14 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeBookmarkableURLImpl extends BridgeURLBase {
+public class BridgeBookmarkableURLImpl extends BridgeURLInternalBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeBookmarkableURLImpl.class);
 
 	// Private Data Members
 	private String uri;
+	private String viewId;
 	private String viewIdRenderParameterName;
 
 	public BridgeBookmarkableURLImpl(BridgeContext bridgeContext, BridgeURI bridgeURI,
@@ -45,6 +46,7 @@ public class BridgeBookmarkableURLImpl extends BridgeURLBase {
 
 		super(bridgeContext, bridgeURI, viewId);
 		this.uri = bridgeURI.toString();
+		this.viewId = viewId;
 		this.viewIdRenderParameterName = bridgeContext.getBridgeConfig().getViewIdRenderParameterName();
 
 		if (uri != null) {
@@ -71,7 +73,7 @@ public class BridgeBookmarkableURLImpl extends BridgeURLBase {
 	}
 
 	@Override
-	protected BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL() throws MalformedURLException {
 
 		BaseURL baseURL = null;
 

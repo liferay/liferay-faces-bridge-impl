@@ -33,27 +33,21 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
-import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
-import javax.portlet.faces.annotation.ExcludeFromManagedRequestScope;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.IncongruityContext;
+import com.liferay.faces.bridge.scope.RequestAttributeInspector;
+import com.liferay.faces.bridge.scope.RequestAttributeInspectorFactory;
 import com.liferay.faces.bridge.util.internal.FacesMessageWrapper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -83,20 +77,12 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	protected static final String BRIDGE_REQ_SCOPE_NON_EXCLUDED_ATTR_NAMES =
 		"com.liferay.faces.bridge.nonExcludedAttributeNames";
 
-	// Protected Constants for EXCLUDED namespaces listed in Section 5.1.2 of the JSR 329 Spec
-	protected static final String EXCLUDED_NAMESPACE_JAVAX_FACES = "javax.faces";
-	protected static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET = "javax.portlet";
-	protected static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET_FACES = "javax.portlet.faces";
-	protected static final String EXCLUCED_NAMESPACE_JAVAX_SERVLET = "javax.servlet";
-	protected static final String EXCLUCED_NAMESPACE_JAVAX_SERVLET_INCLUDE = "javax.servlet.include";
-
 	// Other Private Constants
 	private static final String JAVAX_FACES_ENCODED_URL_PARAM = "javax.faces.encodedURL";
 
 	// Private Data Members
 	private Bridge.PortletPhase beganInPhase;
 	private long dateCreated;
-	private List<String> excludedAttributeNames;
 	private boolean facesLifecycleExecuted;
 	private String idPrefix;
 	private String idSuffix;
@@ -105,9 +91,9 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	private PortletMode portletMode;
 	private String portletName;
 	private boolean portletModeChanged;
-	private Set<String> preExistingAttributeNames;
 	private boolean redirect;
 	private Set<String> removedAttributeNames;
+	private RequestAttributeInspector requestAttributeInspector;
 
 	public BridgeRequestScopeImpl(PortletRequest portletRequest, PortletConfig portletConfig,
 		BridgeConfig bridgeConfig) {
@@ -122,31 +108,17 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		this.idPrefix = portletName + ":::" + sessionId + ":::";
 		this.idSuffix = Long.toString(this.dateCreated);
 
-		this.excludedAttributeNames = new ArrayList<String>();
-
-		// Get the list of excluded BridgeRequestScope attributes from the WEB-INF/portlet.xml descriptor.
-		PortletContext portletContext = portletConfig.getPortletContext();
-		@SuppressWarnings("unchecked")
-		List<String> portletContextExcludedAttributeNames = (List<String>) portletContext.getAttribute(
-				Bridge.BRIDGE_PACKAGE_PREFIX + portletName + "." + Bridge.EXCLUDED_REQUEST_ATTRIBUTES);
-
-		// Combine the two lists into a single list of excluded BridgeRequestScope attributes.
-		Set<String> facesConfigExcludedAttributeNames = bridgeConfig.getExcludedRequestAttributes();
-
-		if (facesConfigExcludedAttributeNames != null) {
-			this.excludedAttributeNames.addAll(facesConfigExcludedAttributeNames);
-		}
-
-		if (portletContextExcludedAttributeNames != null) {
-			this.excludedAttributeNames.addAll(portletContextExcludedAttributeNames);
-		}
-
 		this.portletMode = PortletMode.VIEW;
-		this.preExistingAttributeNames = getPreExistingRequestAttributeNames(portletRequest);
 
 		this.beganInPhase = (Bridge.PortletPhase) portletRequest.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE);
 
 		this.removedAttributeNames = new HashSet<String>();
+
+		BridgeFactoryFinder bridgeFactoryFinder = BridgeFactoryFinder.getInstance();
+		RequestAttributeInspectorFactory requestAttributeInspectorFactory = (RequestAttributeInspectorFactory)
+			bridgeFactoryFinder.getFactoryInstance(RequestAttributeInspectorFactory.class);
+		this.requestAttributeInspector = requestAttributeInspectorFactory.getRequestAttributeInspector(portletRequest,
+				portletConfig, bridgeConfig);
 	}
 
 	/**
@@ -208,9 +180,9 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			String attributeName = attributeNames.nextElement();
 			Object attributeValue = renderRequest.getAttribute(attributeName);
 
-			if (preExistingAttributeNames.contains(attributeName)) {
+			if (requestAttributeInspector.isExcludedByPreExisting(attributeName, attributeValue)) {
 
-				if (isExcludedRequestAttributeByConfig(attributeName, attributeValue)) {
+				if (requestAttributeInspector.isExcludedByConfig(attributeName, attributeValue)) {
 
 					// TCK TestPage151 (requestMapRequestScopeTest) remove "verifyPreBridgeExclusion"
 					renderRequest.removeAttribute(attributeName);
@@ -225,10 +197,10 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			}
 			else {
 
-				if (isExcludedRequestAttributeByConfig(attributeName, attributeValue) ||
-						isExcludedRequestAttributeByAnnotation(attributeValue) ||
-						isExcludedRequestAttributeByInstance(attributeName, attributeValue) ||
-						isExcludedRequestAttributeByNamespace(attributeName)) {
+				if (requestAttributeInspector.isExcludedByConfig(attributeName, attributeValue) ||
+						requestAttributeInspector.isExcludedByAnnotation(attributeName, attributeValue) ||
+						requestAttributeInspector.isExcludedByType(attributeName, attributeValue) ||
+						requestAttributeInspector.containsExcludedNamespace(attributeName)) {
 
 					renderRequest.removeAttribute(attributeName);
 
@@ -480,11 +452,11 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 						String attributeName = mapEntry.getKey();
 						Object attributeValue = mapEntry.getValue();
 
-						if (isExcludedRequestAttributeByConfig(attributeName, attributeValue) ||
-								isExcludedRequestAttributeByAnnotation(attributeValue) ||
-								isExcludedRequestAttributeByNamespace(attributeName) ||
-								isExcludedRequestAttributeByInstance(attributeName, attributeValue) ||
-								isExcludedRequestAttributeByPreExisting(attributeName)) {
+						if (requestAttributeInspector.isExcludedByConfig(attributeName, attributeValue) ||
+								requestAttributeInspector.isExcludedByAnnotation(attributeName, attributeValue) ||
+								requestAttributeInspector.containsExcludedNamespace(attributeName) ||
+								requestAttributeInspector.isExcludedByType(attributeName, attributeValue) ||
+								requestAttributeInspector.isExcludedByPreExisting(attributeName, attributeValue)) {
 
 							logger.trace("NOT saving EXCLUDED attribute name=[{0}]", attributeName);
 						}
@@ -591,91 +563,8 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		return dateCreated;
 	}
 
-	protected boolean isExcludedRequestAttributeByInstance(String attributeName, Object attributeValue) {
-
-		// EXCLUDED attributes listed in Section 5.1.2 of the JSR 329 Spec
-		return ((attributeValue != null) &&
-				((attributeValue instanceof ExternalContext) || (attributeValue instanceof FacesContext) ||
-					(attributeValue instanceof HttpSession) || (attributeValue instanceof PortalContext) ||
-					(attributeValue instanceof PortletConfig) || (attributeValue instanceof PortletContext) ||
-					(attributeValue instanceof PortletPreferences) || (attributeValue instanceof PortletRequest) ||
-					(attributeValue instanceof PortletResponse) || (attributeValue instanceof PortletSession) ||
-					(attributeValue instanceof ServletConfig) || (attributeValue instanceof ServletContext) ||
-					(attributeValue instanceof ServletRequest) || (attributeValue instanceof ServletResponse)));
-	}
-
-	protected boolean isExcludedRequestAttributeByNamespace(String attributeName) {
-
-		if (isNamespaceMatch(attributeName, EXCLUDED_NAMESPACE_JAVAX_FACES) ||
-				isNamespaceMatch(attributeName, EXCLUDED_NAMESPACE_JAVAX_PORTLET) ||
-				isNamespaceMatch(attributeName, EXCLUDED_NAMESPACE_JAVAX_PORTLET_FACES) ||
-				isNamespaceMatch(attributeName, EXCLUCED_NAMESPACE_JAVAX_SERVLET) ||
-				isNamespaceMatch(attributeName, EXCLUCED_NAMESPACE_JAVAX_SERVLET_INCLUDE)) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
 	public void setFacesLifecycleExecuted(boolean facesLifecycleExecuted) {
 		this.facesLifecycleExecuted = facesLifecycleExecuted;
-	}
-
-	protected boolean isExcludedRequestAttributeByConfig(String attributeName, Object attributeValue) {
-
-		boolean excluded = false;
-
-		if (excludedAttributeNames != null) {
-
-			for (String excludedAttribute : excludedAttributeNames) {
-
-				if (attributeName.equals(excludedAttribute)) {
-					excluded = true;
-
-					break;
-				}
-				else if (excludedAttribute.endsWith("*")) {
-
-					String wildcardNamespace = excludedAttribute;
-					int dotPos = wildcardNamespace.lastIndexOf(".");
-
-					if (dotPos > 0) {
-						wildcardNamespace = wildcardNamespace.substring(0, dotPos);
-					}
-
-					if (isNamespaceMatch(attributeName, wildcardNamespace)) {
-						excluded = true;
-
-						break;
-					}
-				}
-			}
-		}
-
-		return excluded;
-	}
-
-	protected boolean isExcludedRequestAttributeByPreExisting(String attributeName) {
-		return preExistingAttributeNames.contains(attributeName);
-	}
-
-	protected boolean isNamespaceMatch(String attributeName, String namespace) {
-
-		boolean match = false;
-
-		String attributeNamespace = attributeName;
-		int dotPos = attributeNamespace.lastIndexOf(".");
-
-		if (dotPos > 0) {
-			attributeNamespace = attributeNamespace.substring(0, dotPos);
-		}
-
-		if (namespace.equals(attributeNamespace)) {
-			match = true;
-		}
-
-		return match;
 	}
 
 	public String getId() {
@@ -695,18 +584,6 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		return managedBeanMap;
 	}
 
-	protected boolean isExcludedRequestAttributeByAnnotation(Object attributeValue) {
-
-		boolean excluded = false;
-
-		if ((attributeValue != null) &&
-				(attributeValue.getClass().getAnnotation(ExcludeFromManagedRequestScope.class) != null)) {
-			excluded = true;
-		}
-
-		return excluded;
-	}
-
 	public void setNavigationOccurred(boolean navigationOccurred) {
 		this.navigationOccurred = navigationOccurred;
 	}
@@ -721,28 +598,6 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 
 	public void setPortletModeChanged(boolean portletModeChanged) {
 		this.portletModeChanged = portletModeChanged;
-	}
-
-	/**
-	 * According to section 5.1.2 of the JSR 329 spec, the request attributes that exist before the bridge acquires the
-	 * FacesContext must not be part of the bridge request scope. Having noted that, we have to save-off a list of names
-	 * of these pre-existing request attributes, so that we know to NOT restore them.
-	 */
-	protected Set<String> getPreExistingRequestAttributeNames(PortletRequest portletRequest) {
-		Set<String> attributeNames = null;
-		Enumeration<String> requestAttributeNames = portletRequest.getAttributeNames();
-
-		if (requestAttributeNames != null) {
-			attributeNames = new HashSet<String>();
-
-			while (requestAttributeNames.hasMoreElements()) {
-				String attributeName = requestAttributeNames.nextElement();
-				attributeNames.add(attributeName);
-				logger.trace("Saving name of pre-existing request attribute [{0}]", attributeName);
-			}
-		}
-
-		return attributeNames;
 	}
 
 	@SuppressWarnings("unchecked")

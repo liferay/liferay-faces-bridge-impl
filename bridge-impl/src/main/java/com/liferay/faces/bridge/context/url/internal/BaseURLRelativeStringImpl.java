@@ -31,6 +31,9 @@ import com.liferay.faces.bridge.context.BridgeContext;
  */
 public class BaseURLRelativeStringImpl extends BaseURLNonEncodedStringImpl {
 
+	// Private Constants
+	private static final String RELATIVE_PATH_PREFIX = "../";
+
 	// Private Data Members
 	private String contextPath;
 	private String toStringValue;
@@ -46,11 +49,11 @@ public class BaseURLRelativeStringImpl extends BaseURLNonEncodedStringImpl {
 		if (toStringValue == null) {
 			toStringValue = super.toString();
 
-			if (toStringValue.startsWith(BridgeURLBase.RELATIVE_PATH_PREFIX)) {
+			if (toStringValue.startsWith(RELATIVE_PATH_PREFIX)) {
 				StringBuilder buf = new StringBuilder();
 				buf.append(contextPath);
 				buf.append("/");
-				buf.append(toStringValue.substring(BridgeURLBase.RELATIVE_PATH_PREFIX.length()));
+				buf.append(toStringValue.substring(RELATIVE_PATH_PREFIX.length()));
 				toStringValue = buf.toString();
 			}
 		}

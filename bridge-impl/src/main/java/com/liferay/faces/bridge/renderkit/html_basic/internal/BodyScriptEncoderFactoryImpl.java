@@ -11,24 +11,24 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.filter.internal;
+package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
-import javax.portlet.PortletContext;
-
-import com.liferay.faces.bridge.filter.BridgePortletContextFactory;
+import com.liferay.faces.bridge.render.BodyScriptEncoder;
+import com.liferay.faces.bridge.render.BodyScriptEncoderFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletContextFactoryImpl extends BridgePortletContextFactory {
+public class BodyScriptEncoderFactoryImpl extends BodyScriptEncoderFactory {
 
 	@Override
-	public PortletContext getPortletContext(PortletContext portletContext) {
-		return portletContext;
+	public BodyScriptEncoder getBodyScriptEncoder() {
+		return new BodyScriptEncoderImpl();
 	}
 
-	public BridgePortletContextFactory getWrapped() {
+	@Override
+	public BodyScriptEncoderFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
 		return null;

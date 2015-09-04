@@ -37,7 +37,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeResourceURLImpl extends BridgeURLBase implements BridgeResourceURL {
+public class BridgeResourceURLImpl extends BridgeURLInternalBase implements BridgeResourceURL {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeResourceURLImpl.class);
@@ -55,11 +55,15 @@ public class BridgeResourceURLImpl extends BridgeURLBase implements BridgeResour
 	}
 
 	// Private Data Members
+	private BridgeContext bridgeContext;
+	private BridgeURI bridgeURI;
 	private boolean inProtocol;
 	private boolean viewLink;
 
 	public BridgeResourceURLImpl(BridgeContext bridgeContext, BridgeURI bridgeURI, String viewId) {
 		super(bridgeContext, bridgeURI, viewId);
+		this.bridgeContext = bridgeContext;
+		this.bridgeURI = bridgeURI;
 	}
 
 	public void replaceBackLinkParameter(FacesContext facesContext) {
@@ -81,7 +85,7 @@ public class BridgeResourceURLImpl extends BridgeURLBase implements BridgeResour
 	}
 
 	@Override
-	protected BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL() throws MalformedURLException {
 
 		BaseURL baseURL;
 		String uri = bridgeURI.toString();

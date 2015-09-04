@@ -11,26 +11,36 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.filter.internal;
+package com.liferay.faces.bridge.internal;
 
-import javax.portlet.PortletContext;
+import javax.portlet.WindowState;
 
-import com.liferay.faces.bridge.filter.BridgePortletContextFactory;
+import com.liferay.faces.bridge.WindowStateValidator;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletContextFactoryImpl extends BridgePortletContextFactory {
+public class WindowStateValidatorImpl implements WindowStateValidator {
 
-	@Override
-	public PortletContext getPortletContext(PortletContext portletContext) {
-		return portletContext;
-	}
+	// Private Constants
+	private static final String[] WINDOW_STATES = new String[] {
+			WindowState.MAXIMIZED.toString(), WindowState.MINIMIZED.toString(), WindowState.NORMAL.toString()
+		};
 
-	public BridgePortletContextFactory getWrapped() {
+	public boolean isValid(String windowState) {
 
-		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
-		return null;
+		boolean valid = false;
+
+		for (String curWindowState : WINDOW_STATES) {
+
+			if (curWindowState.equals(windowState)) {
+				valid = true;
+
+				break;
+			}
+		}
+
+		return valid;
 	}
 }

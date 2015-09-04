@@ -30,12 +30,17 @@ import com.liferay.faces.bridge.context.url.BridgeURI;
 /**
  * @author  Neil Griffin
  */
-public class BridgeRedirectURLImpl extends BridgeURLBase {
+public class BridgeRedirectURLImpl extends BridgeURLInternalBase {
+
+	// Private Data Members
+	private BridgeURI bridgeURI;
 
 	public BridgeRedirectURLImpl(BridgeContext bridgeContext, BridgeURI bridgeURI, Map<String, List<String>> parameters,
 		String viewId) {
 
 		super(bridgeContext, bridgeURI, viewId);
+
+		this.bridgeURI = bridgeURI;
 
 		if (parameters != null) {
 
@@ -58,7 +63,7 @@ public class BridgeRedirectURLImpl extends BridgeURLBase {
 	}
 
 	@Override
-	protected BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL() throws MalformedURLException {
 
 		BaseURL baseURL;
 
@@ -86,5 +91,4 @@ public class BridgeRedirectURLImpl extends BridgeURLBase {
 
 		return baseURL;
 	}
-
 }

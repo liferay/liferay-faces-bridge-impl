@@ -20,16 +20,20 @@ import javax.portlet.BaseURL;
 
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.url.internal.BaseURLNonEncodedStringImpl;
-import com.liferay.faces.bridge.context.url.internal.BridgeURLBase;
+import com.liferay.faces.bridge.context.url.internal.BridgeURLInternalBase;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgeURLMockImpl extends BridgeURLBase {
+public class BridgeURLMockImpl extends BridgeURLInternalBase {
+
+	// Private Data Members
+	private BridgeURI bridgeURI;
 
 	public BridgeURLMockImpl(BridgeContext bridgeContext, BridgeURI bridgeURI, String viewId) {
 		super(bridgeContext, bridgeURI, viewId);
+		this.bridgeURI = bridgeURI;
 	}
 
 	@Override

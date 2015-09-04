@@ -11,26 +11,17 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.filter.internal;
+package com.liferay.faces.test;
 
-import javax.portlet.PortletContext;
-
-import com.liferay.faces.bridge.filter.BridgePortletContextFactory;
+import com.liferay.faces.util.lang.NameValuePair;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletContextFactoryImpl extends BridgePortletContextFactory {
+public class HeadResourceAttribute extends NameValuePair<String, String> {
 
-	@Override
-	public PortletContext getPortletContext(PortletContext portletContext) {
-		return portletContext;
-	}
-
-	public BridgePortletContextFactory getWrapped() {
-
-		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
-		return null;
+	public HeadResourceAttribute(String name, String value) {
+		super(name, value);
 	}
 }

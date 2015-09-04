@@ -11,24 +11,28 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.filter.internal;
+package com.liferay.faces.bridge.context.internal;
 
-import javax.portlet.PortletContext;
+import javax.faces.context.ResponseWriter;
 
-import com.liferay.faces.bridge.filter.BridgePortletContextFactory;
+import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.context.HeadResponseWriter;
+import com.liferay.faces.bridge.context.HeadResponseWriterFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletContextFactoryImpl extends BridgePortletContextFactory {
+public class HeadResponseWriterFactoryImpl extends HeadResponseWriterFactory {
 
 	@Override
-	public PortletContext getPortletContext(PortletContext portletContext) {
-		return portletContext;
+	public HeadResponseWriter getHeadResponseWriter(BridgeContext bridgeContext, ResponseWriter responseWriter) {
+
+		return new HeadResponseWriterImpl(responseWriter, bridgeContext.getPortletResponse());
 	}
 
-	public BridgePortletContextFactory getWrapped() {
+	@Override
+	public HeadResponseWriterFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
 		return null;

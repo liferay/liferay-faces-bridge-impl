@@ -11,24 +11,29 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.filter.internal;
+package com.liferay.faces.bridge.scope.internal;
 
-import javax.portlet.PortletContext;
+import javax.portlet.PortletConfig;
+import javax.portlet.PortletRequest;
 
-import com.liferay.faces.bridge.filter.BridgePortletContextFactory;
+import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.scope.RequestAttributeInspector;
+import com.liferay.faces.bridge.scope.RequestAttributeInspectorFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletContextFactoryImpl extends BridgePortletContextFactory {
+public class RequestAttributeInspectorFactoryImpl extends RequestAttributeInspectorFactory {
 
 	@Override
-	public PortletContext getPortletContext(PortletContext portletContext) {
-		return portletContext;
+	public RequestAttributeInspector getRequestAttributeInspector(PortletRequest portletRequest, PortletConfig portletConfig,
+		BridgeConfig bridgeConfig) {
+		return new RequestAttributeInspectorImpl(portletRequest, portletConfig, bridgeConfig);
 	}
 
-	public BridgePortletContextFactory getWrapped() {
+	@Override
+	public RequestAttributeInspectorFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
 		return null;

@@ -11,26 +11,36 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.faces.bridge.filter.internal;
+package com.liferay.faces.bridge.internal;
 
-import javax.portlet.PortletContext;
+import javax.portlet.PortletMode;
 
-import com.liferay.faces.bridge.filter.BridgePortletContextFactory;
+import com.liferay.faces.bridge.PortletModeValidator;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletContextFactoryImpl extends BridgePortletContextFactory {
+public class PortletModeValidatorImpl implements PortletModeValidator {
 
-	@Override
-	public PortletContext getPortletContext(PortletContext portletContext) {
-		return portletContext;
-	}
+	// Private Constants
+	private static final String[] PORTLET_MODES = new String[] {
+			PortletMode.VIEW.toString(), PortletMode.EDIT.toString(), PortletMode.HELP.toString()
+		};
 
-	public BridgePortletContextFactory getWrapped() {
+	public boolean isValid(String portletMode) {
 
-		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
-		return null;
+		boolean valid = false;
+
+		for (String curPortletMode : PORTLET_MODES) {
+
+			if (curPortletMode.equals(portletMode)) {
+				valid = true;
+
+				break;
+			}
+		}
+
+		return valid;
 	}
 }

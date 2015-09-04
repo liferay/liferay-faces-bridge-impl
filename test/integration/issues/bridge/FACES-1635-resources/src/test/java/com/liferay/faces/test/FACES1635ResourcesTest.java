@@ -33,7 +33,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.liferay.faces.bridge.renderkit.html_basic.internal.HeadResource;
 import com.liferay.faces.test.util.TesterBase;
 
 

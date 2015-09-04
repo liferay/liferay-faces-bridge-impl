@@ -25,8 +25,7 @@ import com.liferay.faces.util.product.ProductMap;
 public class ResourceValidatorFactoryBridgeImpl extends ResourceValidatorFactory {
 
 	// Private Constants
-	private static final boolean LIFERAY_PORTAL_DETECTED = ProductMap.getInstance().get(ProductConstants.LIFERAY_PORTAL)
-		.isDetected();
+	private static final boolean PLUTO_DETECTED = ProductMap.getInstance().get(ProductConstants.PLUTO).isDetected();
 
 	// Private Data Members
 	private ResourceValidatorFactory wrappedResourceValidatorFactory;
@@ -38,13 +37,13 @@ public class ResourceValidatorFactoryBridgeImpl extends ResourceValidatorFactory
 	@Override
 	public ResourceValidator getResourceValidator() {
 
-		ResourceValidator wrappedResourceValidator = getWrapped().getResourceValidator();
+		ResourceValidator wrappedResourceValidator = wrappedResourceValidatorFactory.getResourceValidator();
 
-		if (LIFERAY_PORTAL_DETECTED) {
-			return new ResourceValidatorLiferayImpl(wrappedResourceValidator);
+		if (PLUTO_DETECTED) {
+			return new ResourceValidatorPlutoImpl(wrappedResourceValidator);
 		}
 		else {
-			return new ResourceValidatorPlutoImpl(wrappedResourceValidator);
+			return wrappedResourceValidator;
 		}
 	}
 

@@ -44,7 +44,6 @@
 	</component>
 	<factory>
 		<application-factory>com.liferay.faces.bridge.application.internal.ApplicationFactoryImpl</application-factory>
-		<client-window-factory>com.liferay.faces.bridge.lifecycle.internal.ClientWindowFactoryImpl</client-window-factory>
 		<exception-handler-factory>com.liferay.faces.bridge.context.internal.ExceptionHandlerFactoryImpl</exception-handler-factory>
 		<external-context-factory>com.liferay.faces.bridge.context.internal.ExternalContextFactoryImpl</external-context-factory>
 		<faces-context-factory>com.liferay.faces.bridge.context.internal.FacesContextFactoryImpl</faces-context-factory>
@@ -53,6 +52,7 @@
 		<visit-context-factory>com.liferay.faces.bridge.component.visit.internal.VisitContextFactoryImpl</visit-context-factory>
 		<factory-extension>
 			<bridge:bean-manager-factory>com.liferay.faces.bridge.bean.internal.BeanManagerFactoryImpl</bridge:bean-manager-factory>
+			<bridge:body-script-encoder-factory>com.liferay.faces.bridge.renderkit.html_basic.internal.BodyScriptEncoderFactoryImpl</bridge:body-script-encoder-factory>
 			<bridge:bridge-config-factory>com.liferay.faces.bridge.config.internal.BridgeConfigFactoryImpl</bridge:bridge-config-factory>
 			<bridge:bridge-context-factory>com.liferay.faces.bridge.context.internal.BridgeContextFactoryImpl</bridge:bridge-context-factory>
 			<bridge:bridge-phase-factory>com.liferay.faces.bridge.internal.BridgePhaseFactoryImpl</bridge:bridge-phase-factory>
@@ -69,7 +69,10 @@
 			<bridge:head-response-writer-factory>com.liferay.faces.bridge.context.internal.HeadResponseWriterFactoryImpl</bridge:head-response-writer-factory>
 			<bridge:incongruity-context-factory>com.liferay.faces.bridge.context.internal.IncongruityContextFactoryImpl</bridge:incongruity-context-factory>
 			<bridge:liferay-url-factory>com.liferay.faces.bridge.filter.liferay.internal.LiferayURLFactoryImpl</bridge:liferay-url-factory>
+			<bridge:portlet-mode-validator-factory>com.liferay.faces.bridge.internal.PortletModeValidatorFactoryImpl</bridge:portlet-mode-validator-factory>
 			<bridge:pre-destroy-invoker-factory>com.liferay.faces.bridge.bean.internal.PreDestroyInvokerFactoryImpl</bridge:pre-destroy-invoker-factory>
+			<bridge:request-attribute-inspector-factory>com.liferay.faces.bridge.scope.internal.RequestAttributeInspectorFactoryImpl</bridge:request-attribute-inspector-factory>
+			<bridge:window-state-validator-factory>com.liferay.faces.bridge.internal.WindowStateValidatorFactoryImpl</bridge:window-state-validator-factory>
 			<util:browser-sniffer-factory>com.liferay.faces.bridge.client.internal.BrowserSnifferFactoryBridgeImpl</util:browser-sniffer-factory>
 			<util:resource-validator-factory>com.liferay.faces.bridge.application.internal.ResourceValidatorFactoryBridgeImpl</util:resource-validator-factory>
 		</factory-extension>
@@ -82,10 +85,6 @@
 		<!-- Add the PortletContainerProxyPhaseListener so that the PortletContainer will be able to respond to each -->
 		<!-- phase of the JSF lifecycle. -->
 		<phase-listener>com.liferay.faces.bridge.event.internal.ManagedBeanScopePhaseListener</phase-listener>
-		<!-- Section 5.2.6 also indicates that the bridge must proactively ensure that only the- RESTORE_VIEW phase -->
-		<!-- executes, and Section 6.4 indicates that a PhaseListener must be used. The RenderRequestPhaseListener -->
-		<!-- satisfies this requirement. -->
-		<phase-listener>com.liferay.faces.bridge.event.internal.liferay.LiferyPageTopPhaseListener</phase-listener>
 		<!-- Add the ManagedBeanScopePhaseListener so that after the RENDER_RESPONSE phase, the managed-beans in -->
 		<!-- bridgeRequestScope will go out-of-scope which will in turn cause any annotated PreDestroy methods to -->
 		<!-- be called. -->
