@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.liferay.faces</groupId>
+		<artifactId>liferay-faces</artifactId>
+		<version>4.2.6-ga7-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>com.liferay.faces.support</groupId>
+	<artifactId>liferay-faces-support</artifactId>
+	<packaging>pom</packaging>
+	<name>Liferay Faces Support</name>
+
+	<modules>
+		<module>cdi/cdi-compat</module>
+		<module>cdi/cdi-weld</module>
+	</modules>
+
+	<profiles>
+
+		<!-- The release profile ensures that the version elements in the child pom.xml descriptors -->
+		<!-- will be auto-versioned by the maven-release-plugin. -->
+		<profile>
+			<id>release</id>
+			<modules>
+				<module>cdi/cdi-compat</module>
+				<module>cdi/cdi-weld</module>
+				<module>weblogic</module>
+			</modules>
+		</profile>
+
+		<!-- The weblogic profile provides a way for developers to manually build the weblogic related -->
+		<!-- modules since they are not deployed during the release process. -->
+		<profile>
+			<id>weblogic</id>
+			<modules>
+				<module>weblogic</module>
+			</modules>
+		</profile>
+
+	</profiles>
+
+</project>

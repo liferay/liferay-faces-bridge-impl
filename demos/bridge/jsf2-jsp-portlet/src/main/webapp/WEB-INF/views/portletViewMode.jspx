@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" version="2.1">
+
+	<jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
+	<f:view>
+		<f:subview id="head">
+			<jsp:include page="styling.jspx" />
+		</f:subview>
+		<f:subview id="applicant">
+			<jsp:include page="applicant.jspx" />
+		</f:subview>
+		<br />
+		<h:panelGroup layout="block" styleClass="row-fluid">
+			<h:panelGroup layout="block" styleClass="span12">
+				<ul>
+					<li><em><h:outputText value="#{bridgeContext.bridgeConfig.attributes['JSF']}" /></em></li>
+					<li><em><h:outputText value="#{bridgeContext.bridgeConfig.attributes['Liferay Faces Alloy']}" /></em></li>
+					<li><em><h:outputText value="#{bridgeContext.bridgeConfig.attributes['Liferay Faces Bridge']}" /></em></li>
+				</ul>
+			</h:panelGroup>
+		</h:panelGroup>
+	</f:view>
+
+</jsp:root>

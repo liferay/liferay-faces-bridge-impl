@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:alloy="http://liferay.com/faces/alloy"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+		<h:outputStylesheet library="travel" name="travel.css" />
+	</h:head>
+	<h:body>
+		<h:form>
+			<h:graphicImage styleClass="travel-booking" value="#{resource['travel:travel-booking.png']}" />
+			<h:graphicImage styleClass="liferay-logo" value="#{resource['logos:liferay-logo.png']}" />
+			<br />
+			<h:commandButton action="booking" value="#{i18n['enter-booking-flow']}">
+				<f:ajax execute="@form" />
+			</h:commandButton>
+		</h:form>
+		<br />
+		<alloy:row>
+			<alloy:column>
+				<ul>
+					<li><em><h:outputText value="#{bridgeContext.bridgeConfig.attributes['JSF']}" /></em></li>
+					<li><em><h:outputText value="Client Window ID #{facesContext.externalContext.clientWindow.id}" /></em></li>
+					<li><em><h:outputText value="#{bridgeContext.bridgeConfig.attributes['Liferay Faces Alloy']}" /></em></li>
+					<li><em><h:outputText value="#{bridgeContext.bridgeConfig.attributes['Liferay Faces Bridge']}" /></em></li>
+					<li><em><h:outputText value="#{bridgeContext.bridgeConfig.attributes['CDI']}" /></em></li>
+					<li><em><h:outputText value="bookingFlowModelBeanInScope=#{scopeTrackingBean.bookingFlowModelBeanInScope}" /></em></li>
+					<li><em><h:outputText value="cartModelBeanInScope=#{scopeTrackingBean.cartModelBeanInScope}" /></em></li>
+					<li><em><h:outputText value="flightSearchModelBeanInScope=#{scopeTrackingBean.flightSearchModelBeanInScope}" /></em></li>
+					<li><em><h:outputText value="surveyFlowModelBeanInScope=#{scopeTrackingBean.surveyFlowModelBeanInScope}" /></em></li>
+				</ul>
+			</alloy:column>
+		</alloy:row>
+	</h:body>
+</f:view>

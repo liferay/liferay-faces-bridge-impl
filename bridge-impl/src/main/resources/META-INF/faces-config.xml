@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	xmlns:bridge="http://www.liferay.com/xml/ns/liferay-faces-bridge-2.0-extension"
+	xmlns:util="http://www.liferay.com/xml/ns/liferay-faces-util-extension">
+	<name>LiferayFacesBridge</name>
+	<ordering>
+		<after>
+			<name>LiferayFacesUtil</name>
+		</after>
+		<before>
+			<others/>
+		</before>
+	</ordering>
+	<application>
+		<application-extension>
+			<bridge:excluded-attributes>
+				<bridge:excluded-attribute>com.liferay.faces.bridge.context.BridgeContext</bridge:excluded-attribute>
+			</bridge:excluded-attributes>
+			<bridge:write-behind-response-wrappers>
+				<bridge:render-response-wrapper-class>com.liferay.faces.bridge.application.view.internal.BridgeWriteBehindResponseRenderImpl</bridge:render-response-wrapper-class>
+				<bridge:resource-response-wrapper-class>com.liferay.faces.bridge.application.view.internal.BridgeWriteBehindResponseResourceImpl</bridge:resource-response-wrapper-class>
+			</bridge:write-behind-response-wrappers>
+		</application-extension>
+		<el-resolver>com.liferay.faces.bridge.el.internal.ELResolverImpl</el-resolver>
+		<resource-handler>com.liferay.faces.bridge.application.internal.ResourceHandlerInnerImpl</resource-handler>
+		<view-handler>com.liferay.faces.bridge.application.internal.ViewHandlerImpl</view-handler>
+	</application>
+	<component>
+		<component-type>javax.faces.HtmlMessage</component-type>
+		<component-class>com.liferay.faces.bridge.component.html.internal.HtmlMessageBridgeImpl</component-class>
+		<component-extension>
+			<base-component-type>javax.faces.Message</base-component-type>
+			<renderer-type>javax.faces.Message</renderer-type>
+		</component-extension>
+	</component>
+	<component>
+		<component-type>javax.faces.HtmlMessages</component-type>
+		<component-class>com.liferay.faces.bridge.component.html.internal.HtmlMessagesBridgeImpl</component-class>
+		<component-extension>
+			<base-component-type>javax.faces.Messages</base-component-type>
+			<renderer-type>javax.faces.Messages</renderer-type>
+		</component-extension>
+	</component>
+	<factory>
+		<application-factory>com.liferay.faces.bridge.application.internal.ApplicationFactoryImpl</application-factory>
+		<client-window-factory>com.liferay.faces.bridge.lifecycle.internal.ClientWindowFactoryImpl</client-window-factory>
+		<exception-handler-factory>com.liferay.faces.bridge.context.internal.ExceptionHandlerFactoryImpl</exception-handler-factory>
+		<external-context-factory>com.liferay.faces.bridge.context.internal.ExternalContextFactoryImpl</external-context-factory>
+		<faces-context-factory>com.liferay.faces.bridge.context.internal.FacesContextFactoryImpl</faces-context-factory>
+		<partial-view-context-factory>com.liferay.faces.bridge.context.internal.PartialViewContextFactoryBridgeImpl</partial-view-context-factory>
+		<view-declaration-language-factory>com.liferay.faces.bridge.application.view.internal.ViewDeclarationLanguageFactoryImpl</view-declaration-language-factory>
+		<visit-context-factory>com.liferay.faces.bridge.component.visit.internal.VisitContextFactoryImpl</visit-context-factory>
+		<factory-extension>
+			<bridge:bean-manager-factory>com.liferay.faces.bridge.bean.internal.BeanManagerFactoryImpl</bridge:bean-manager-factory>
+			<bridge:bridge-config-factory>com.liferay.faces.bridge.config.internal.BridgeConfigFactoryImpl</bridge:bridge-config-factory>
+			<bridge:bridge-context-factory>com.liferay.faces.bridge.context.internal.BridgeContextFactoryImpl</bridge:bridge-context-factory>
+			<bridge:bridge-phase-factory>com.liferay.faces.bridge.internal.BridgePhaseFactoryImpl</bridge:bridge-phase-factory>
+			<bridge:bridge-portlet-context-factory>com.liferay.faces.bridge.filter.internal.BridgePortletContextFactoryImpl</bridge:bridge-portlet-context-factory>
+			<bridge:bridge-portlet-request-factory>com.liferay.faces.bridge.filter.internal.BridgePortletRequestFactoryImpl</bridge:bridge-portlet-request-factory>
+			<bridge:bridge-portlet-response-factory>com.liferay.faces.bridge.filter.internal.BridgePortletResponseFactoryImpl</bridge:bridge-portlet-response-factory>
+			<bridge:bridge-request-scope-factory>com.liferay.faces.bridge.scope.internal.BridgeRequestScopeFactoryImpl</bridge:bridge-request-scope-factory>
+			<bridge:bridge-request-scope-cache-factory>com.liferay.faces.bridge.scope.internal.BridgeRequestScopeCacheFactoryImpl</bridge:bridge-request-scope-cache-factory>
+			<bridge:bridge-request-scope-manager-factory>com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerFactoryImpl</bridge:bridge-request-scope-manager-factory>
+			<bridge:bridge-write-behind-support-factory>com.liferay.faces.bridge.application.view.internal.BridgeWriteBehindSupportFactoryImpl</bridge:bridge-write-behind-support-factory>
+			<bridge:bridge-uri-factory>com.liferay.faces.bridge.context.url.internal.BridgeURIFactoryImpl</bridge:bridge-uri-factory>
+			<bridge:bridge-url-factory>com.liferay.faces.bridge.context.url.internal.BridgeURLFactoryImpl</bridge:bridge-url-factory>
+			<bridge:context-map-factory>com.liferay.faces.bridge.context.map.internal.ContextMapFactoryImpl</bridge:context-map-factory>
+			<bridge:head-response-writer-factory>com.liferay.faces.bridge.context.internal.HeadResponseWriterFactoryImpl</bridge:head-response-writer-factory>
+			<bridge:incongruity-context-factory>com.liferay.faces.bridge.context.internal.IncongruityContextFactoryImpl</bridge:incongruity-context-factory>
+			<bridge:liferay-url-factory>com.liferay.faces.bridge.filter.liferay.internal.LiferayURLFactoryImpl</bridge:liferay-url-factory>
+			<bridge:pre-destroy-invoker-factory>com.liferay.faces.bridge.bean.internal.PreDestroyInvokerFactoryImpl</bridge:pre-destroy-invoker-factory>
+			<util:browser-sniffer-factory>com.liferay.faces.bridge.client.internal.BrowserSnifferFactoryBridgeImpl</util:browser-sniffer-factory>
+			<util:resource-validator-factory>com.liferay.faces.bridge.application.internal.ResourceValidatorFactoryBridgeImpl</util:resource-validator-factory>
+		</factory-extension>
+	</factory>
+	<lifecycle>
+		<!-- Section 5.2.4 of the JSR 329 Spec requires that a phase listener be registered in order to handle Portlet -->
+		<!-- 2.0 Public Render Parameters after the RESTORE_VIEW phase of the JSF lifecycle executes. The IPCPhaseListener -->
+		<!-- satisfies this requirement. -->
+		<phase-listener>com.liferay.faces.bridge.event.internal.IPCPhaseListener</phase-listener>
+		<!-- Add the PortletContainerProxyPhaseListener so that the PortletContainer will be able to respond to each -->
+		<!-- phase of the JSF lifecycle. -->
+		<phase-listener>com.liferay.faces.bridge.event.internal.ManagedBeanScopePhaseListener</phase-listener>
+		<!-- Section 5.2.6 also indicates that the bridge must proactively ensure that only the- RESTORE_VIEW phase -->
+		<!-- executes, and Section 6.4 indicates that a PhaseListener must be used. The RenderRequestPhaseListener -->
+		<!-- satisfies this requirement. -->
+		<phase-listener>com.liferay.faces.bridge.event.internal.liferay.LiferyPageTopPhaseListener</phase-listener>
+		<!-- Add the ManagedBeanScopePhaseListener so that after the RENDER_RESPONSE phase, the managed-beans in -->
+		<!-- bridgeRequestScope will go out-of-scope which will in turn cause any annotated PreDestroy methods to -->
+		<!-- be called. -->
+		<phase-listener>com.liferay.faces.bridge.event.internal.RenderRequestPhaseListener</phase-listener>
+		<!-- Add the HeadPhaseListener in order to handle the case of Ajax-initiated execution of navigation-rules -->
+		<!-- in a portlet. -->
+		<phase-listener>com.liferay.faces.bridge.renderkit.html_basic.internal.HeadPhaseListener</phase-listener>
+	</lifecycle>
+	<render-kit>
+		<render-kit-id>HTML_BASIC</render-kit-id>
+		<render-kit-class>com.liferay.faces.bridge.renderkit.html_basic.internal.RenderKitBridgeImpl</render-kit-class>
+		<renderer>
+			<description>Overrides the BodyRenderer that comes with the JSF implementation</description>
+			<component-family>javax.faces.Output</component-family>
+			<renderer-type>javax.faces.Body</renderer-type>
+			<renderer-class>com.liferay.faces.bridge.renderkit.html_basic.internal.BodyRendererBridgeImpl</renderer-class>
+		</renderer>
+	</render-kit>
+	<render-kit>
+		<renderer>
+			<description>HtmlInputFile Renderer</description>
+			<component-family>javax.faces.Input</component-family>
+			<renderer-type>javax.faces.File</renderer-type>
+			<renderer-class>com.liferay.faces.bridge.component.inputfile.internal.HtmlInputFileRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+</faces-config>

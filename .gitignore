@@ -1,0 +1,16 @@
+.classpath
+.project
+.settings
+doc/src/main/docbook/style
+issues/lsv
+overlays
+target
+rebel.xml
+*.sh
+.idea
+*.iml
+*.ipr
+*.iws
+faces-config.pageflow
+nb-configuration.xml
+navigation-rule.NavData

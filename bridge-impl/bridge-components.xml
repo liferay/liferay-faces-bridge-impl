@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components>
+<components extends="../util/common-components.xml">
+	<description>
+		<![CDATA[The Liferay Faces Bridge facelet component tags with the <code>bridge:</code> tag name prefix.]]>
+	</description>
+	<component name="InputFile" delegateRendererType="javax.faces.File"
+		extendsTags="AltInherited AutocompleteInherited DisabledInherited FacesMessageLabelInheritedGenerateJavaFalse HTMLAccessibilityEvents HTMLInputEvents SizeInherited"
+		handlerClass="com.liferay.faces.bridge.component.inputfile.internal.InputFileHandler"
+		module="uploader" parentClass="javax.faces.component.html.HtmlInputFile"
+		rendererParentClass="com.liferay.faces.util.render.DelegatingRendererBase"
+		styleable="false">
+		<description>
+			<![CDATA[InputFile is a UIInput component that renders an <code>&lt;input&gt;</code> element with type=file. Since it extends HtmlInputFile, it supports all the features of h:inputFile and also supports multi-file uploads.]]>
+		</description>
+		<attributes>
+			<attribute>
+				<defaultValue>false</defaultValue>
+				<description>
+					<![CDATA[When this flag is true, files are uploaded automatically as soon as they are selected. The default value is false.]]>
+				</description>
+				<name>auto</name>
+				<type>boolean</type>
+			</attribute>
+			<attribute>
+				<description>
+					<![CDATA[A method that is executed when a file is uploaded. The method must be <code>public</code>, return <code>void</code>, and take a <code>FileUploadEvent</code> argument.]]>
+				</description>
+				<name>fileUploadListener</name>
+				<method-signature>
+					void fileUploadListener(com.liferay.faces.util.component.inputfile.FileUploadEvent)
+				</method-signature>
+			</attribute>
+			<attribute>
+				<description>
+					<![CDATA[HTML passthrough attribute specifying whether or not multiple files can be uploaded. Valid values are blank (to upload a single file) or "multiple" (to upload multiple files).]]>
+				</description>
+				<type>java.lang.String</type>
+				<name>multiple</name>
+			</attribute>
+			<attribute>
+				<description>
+					<![CDATA[HTML passthrough attribute specifying the maximum length of characters allowed in the element.]]>
+				</description>
+				<name>maxlength</name>
+				<type>int</type>
+				<generateJava>false</generateJava>
+			</attribute>
+			<attribute>
+				<description>
+					<![CDATA[List of CSS class names (separated by spaces) that are to be rendered within the class attribute.]]>
+				</description>
+				<generateJava>false</generateJava>
+				<name>styleClass</name>
+				<type>java.lang.String</type>
+			</attribute>
+		</attributes>
+	</component>
+</components>

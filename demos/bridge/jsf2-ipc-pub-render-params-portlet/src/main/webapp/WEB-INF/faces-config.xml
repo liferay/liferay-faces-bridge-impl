@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	xmlns:bridge="http://www.liferay.com/xml/ns/liferay-faces-bridge-2.0-extension">
+
+	<application>
+		<application-extension>
+			<bridge:public-parameter-mappings>
+				<bridge:public-parameter-mapping>
+					<parameter>customersPortlet:selectedCustomerId</parameter>
+					<model-el>#{customersModelBean.selectedCustomerId}</model-el>
+				</bridge:public-parameter-mapping>
+				<bridge:public-parameter-mapping>
+					<parameter>bookingsPortlet:selectedCustomerId</parameter>
+					<model-el>#{bookingsModelBean.selectedCustomerId}</model-el>
+				</bridge:public-parameter-mapping>
+			</bridge:public-parameter-mappings>
+		</application-extension>
+		<message-bundle>i18nFaces</message-bundle>
+		<resource-bundle>
+			<base-name>i18n</base-name>
+			<var>i18n</var>
+		</resource-bundle>
+	</application>
+	<lifecycle>
+		<phase-listener>com.liferay.faces.util.lifecycle.DebugPhaseListener</phase-listener>
+	</lifecycle>
+</faces-config>
