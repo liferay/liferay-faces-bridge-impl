@@ -3,20 +3,19 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.liferay.faces</groupId>
-		<artifactId>liferay-faces</artifactId>
-		<version>4.2.6-ga7-SNAPSHOT</version>
+		<groupId>com.liferay.faces.bridge</groupId>
+		<artifactId>liferay-faces-bridge-impl-parent</artifactId>
+		<version>4.0.0-SNAPSHOT</version>
 		<relativePath>../../../pom.xml</relativePath>
 	</parent>
 	<artifactId>liferay-faces-cdi-compat</artifactId>
-	<name>Liferay Faces CDI Compat</name>
+	<name>Liferay Faces Bridge CDI Compat</name>
 	<description>Compatibility Library for CDI Portlet Bridge</description>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.liferay.faces</groupId>
+			<groupId>com.liferay.faces.util</groupId>
 			<artifactId>liferay-faces-util</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.faces</groupId>

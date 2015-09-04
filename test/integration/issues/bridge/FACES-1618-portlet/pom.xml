@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.liferay.faces.test</groupId>
-		<artifactId>liferay-faces-test-integration-issues-bridge</artifactId>
-		<version>4.2.6-ga7-SNAPSHOT</version>
+		<groupId>com.liferay.faces.bridge.test</groupId>
+		<artifactId>liferay-faces-bridge-test-integration-portlet-issues</artifactId>
+		<version>4.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 

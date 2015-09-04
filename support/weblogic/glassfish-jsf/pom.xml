@@ -3,9 +3,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.liferay.faces.support</groupId>
-		<artifactId>liferay-faces-support-weblogic</artifactId>
-		<version>4.2.6-ga7-SNAPSHOT</version>
+		<groupId>com.liferay.faces.bridge.support</groupId>
+		<artifactId>liferay-faces-bridge-support-weblogic</artifactId>
+		<version>4.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>com.oracle.weblogic</groupId>
@@ -63,23 +63,6 @@
 										<propertyregex property="weblogic.mojarra.version" input="${weblogic-mojarra-version}" regexp="[-]" replace="." />
 										<propertyregex property="mojarra-version" input="${mojarra.version}" regexp="[.]" replace="-" />
 										<echoproperties destfile="${project.build.directory}/weblogic.mojarra.properties" regex="(weblogic.mojarra|weblogic[.]dir|mojarra.version)" />
-									</tasks>
-								</configuration>
-							</execution>
-							<execution>
-								<id>replace-properties</id>
-								<phase>prepare-package</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<tasks>
-										<replace token="${weblogic.mojarra.version}" value="${mojarra.version}" dir="${project.build.directory}/classes/META-INF">
-											<include name="MANIFEST.MF" />
-										</replace>
-										<replace token="${weblogic-mojarra-version}" value="${mojarra-version}" dir="${project.build.directory}/classes/META-INF">
-											<include name="MANIFEST.MF" />
-										</replace>
 									</tasks>
 								</configuration>
 							</execution>
@@ -171,6 +154,27 @@
 										</artifactItem>
 									</artifactItems>
 								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>prepare-package</phase>
+								<configuration>
+									<tasks>
+										<replace token="${weblogic.mojarra.version}" value="${mojarra.version}" dir="${project.build.directory}/classes/META-INF">
+											<include name="MANIFEST.MF" />
+										</replace>
+										<replace token="${weblogic-mojarra-version}" value="${mojarra-version}" dir="${project.build.directory}/classes/META-INF">
+											<include name="MANIFEST.MF" />
+										</replace>
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
 							</execution>
 						</executions>
 					</plugin>
