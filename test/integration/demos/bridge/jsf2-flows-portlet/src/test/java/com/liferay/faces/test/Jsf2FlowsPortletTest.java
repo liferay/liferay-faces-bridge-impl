@@ -1,15 +1,17 @@
 /**
  * Copyright (c) 2000-2015 Liferay, Inc. All rights reserved.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.liferay.faces.test;
 //J-
@@ -54,7 +56,7 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 	private static final String addToCartButtonXpath = "(//input[@value='Add To Cart'])[1]";
 	private static final String removeButtonXpath = "(//input[@value='Remove'])[1]";
 	private static final String bookAdditionalTravelButtonXpath = "//input[@value='Book Additional Travel']";
-	private static final String onlyFlightBookingXpath = "//p[contains(text(),'the only type of booking')]";	
+	private static final String onlyFlightBookingXpath = "//p[contains(text(),'the only type of booking')]";
 	private static final String checkoutButtonXpath = "//input[@value='Checkout']";
 	private static final String purchaseButtonXpath = "//input[@value='Purchase']";
 	private static final String firstNameXpath = "//input[contains(@id,':firstName')]";
@@ -66,7 +68,7 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 	private static final String thankYouFormSurveyXpath = "//form[contains(.,'Thank you Gilbert for participating in our survey')]";
 	private static final String returnFromSurveyFlowButtonXpath = "//input[@value='Return From Survey Flow']";
 	private static final String exitBookingFlowButtonXpath = "//input[@value='Exit Booking Flow']";
-	
+
 	static final String url = baseUrl + webContext + "/jsf2-flows";
 
 	@FindBy(xpath = weldServletVersionXpath)
@@ -125,7 +127,7 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 	private WebElement returnFromSurveyFlowButton;
 	@FindBy(xpath = exitBookingFlowButtonXpath)
 	private WebElement exitBookingFlowButton;
-	
+
 	@Drone
 	WebDriver browser;
 
@@ -141,14 +143,14 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
 		getPortletDisplayName();
 		logger.log(Level.INFO, "displayName.getText() = " + displayName.getText());
-		
+
 		if (isThere(browser, weldServletVersionXpath)) {
 			logger.log(Level.INFO, "weldServletVersion.isDisplayed() = " + weldServletVersion.isDisplayed());
 			logger.log(Level.INFO, "weldServletVersion.getText() = " + weldServletVersion.getText());
 		}
 
 		assertTrue("portletDisplayName displayName.isDisplayed()", displayName.isDisplayed());
-		
+
 		if (isThere(browser, enterBookingFlowButtonXpath)) {
 
 			enterBookingFlowButton.click();
@@ -160,9 +162,9 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 				logger.log(Level.INFO, "Exception e.getMessage() = " + e.getMessage());
 				assertTrue("bookingTypeSelect should be visible, but "+ bookingTypeSelectXpath +" is not there.", e == null);
 			}
-			
+
 			exitBookingFlowButton.click();
-			
+
 			try {
 				waitForElement(browser, enterBookingFlowButtonXpath);
 				logger.log(Level.INFO, "We exited the flow.");
@@ -171,7 +173,7 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 				logger.log(Level.INFO, "Exception e.getMessage() = " + e.getMessage());
 				assertTrue("enterBookingFlowButton should be visible, but "+ enterBookingFlowButtonXpath +" is not there.", e == null);
 			}
-			
+
 			enterBookingFlowButton.click();
 
 			try {
@@ -181,10 +183,10 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 				logger.log(Level.INFO, "Exception e.getMessage() = " + e.getMessage());
 				assertTrue("bookingTypeSelect should be visible, but "+ bookingTypeSelectXpath +" is not there.", e == null);
 			}
-			
+
 			if (isThere(browser, bookingTypeSelectFlightXpath)) {
 				bookingTypeSelectFlight.click();
-				
+
 				waitForElement(browser, departureLaxXpath);
 				departureLax.click();
 
@@ -217,10 +219,10 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 
 					waitForElement(browser, bookingTypeSelectXpath);
 					assertTrue("The selector for the booking type should be showing now, but it is not visible.", isThere(browser, bookingTypeSelectXpath));
-					
+
 					if (isThere(browser, bookingTypeSelectFlightXpath)) {
 						bookingTypeSelectCruise.click();
-						
+
 						try {
 							waitForElement(browser, onlyFlightBookingXpath);
 						}
@@ -228,9 +230,9 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 							logger.log(Level.INFO, "Exception e.getMessage() = " + e.getMessage());
 							assertTrue("onlyFlightBooking message should be visible, but "+ onlyFlightBookingXpath +" is not there.", e == null);
 						}
-						
+
 						bookingTypeSelectFlight.click();
-						
+
 						waitForElement(browser, departureSdfXpath);
 						departureSdf.click();
 
@@ -239,7 +241,7 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 
 						waitForElement(browser, departureDateXpath);
 						departureDate.sendKeys("2015-08-12T00:00:01Z");
-						
+
 						if (isThere(browser, searchFlightsButtonXpath)) {
 							searchFlightsButton.click();
 
@@ -251,10 +253,10 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 								assertTrue("addToCartButton should be visible, but "+ addToCartButtonXpath +" is not there.", e == null);
 							}
 							addToCartButton.click();
-														
+
 							waitForElement(browser, checkoutButtonXpath);
 							checkoutButton.click();
-							
+
 							try {
 								waitForElement(browser, purchaseButtonXpath);
 							}
@@ -268,9 +270,9 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 								firstName.sendKeys("Gilbert");
 								firstName.sendKeys(Keys.TAB);
 							}
-							
+
 							purchaseButton.click();
-							
+
 							try {
 								waitForElement(browser, thankYouFormPurchaseXpath);
 								logger.log(Level.INFO, "We booked a flight.");
@@ -279,10 +281,10 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 								logger.log(Level.INFO, "Exception e.getMessage() = " + e.getMessage());
 								assertTrue("thankYouForm for the purchase should be visible, but "+ thankYouFormPurchaseXpath +" is not there.", e == null);
 							}
-							
+
 							if (isThere(browser, callSurveyFlowButtonXpath)) {
 								callSurveyFlowButton.click();
-								
+
 								try {
 									waitForElement(browser, finishButtonXpath);
 								}
@@ -293,7 +295,7 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 								question1.sendKeys("Liferay");
 								question2.sendKeys("cockpit");
 								finishButton.click();
-								
+
 								try {
 									waitForElement(browser, returnFromSurveyFlowButtonXpath);
 								}
@@ -302,7 +304,7 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 									assertTrue("returnFromSurveyFlowButton should be visible, but "+ returnFromSurveyFlowButtonXpath +" is not there.", e == null);
 								}
 								returnFromSurveyFlowButton.click();
-								
+
 								try {
 									waitForElement(browser, enterBookingFlowButtonXpath);
 									logger.log(Level.INFO, "We completed the survey flow.  Yay!");
