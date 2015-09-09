@@ -18,7 +18,7 @@ For the latest news and updates, follow [@FacesBridgeSpec](https://twitter.com/F
 
 Using [Maven](https://maven.apache.org/) 3.x:
 
-	mvn clean package
+	mvn clean install
 
 ## Community Participation
 
