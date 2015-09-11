@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.liferay.faces.bridge.test</groupId>
 		<artifactId>liferay-faces-bridge-test-integration-portlet-demos</artifactId>
-		<version>4.0.0-SNAPSHOT</version>
+		<version>3.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
