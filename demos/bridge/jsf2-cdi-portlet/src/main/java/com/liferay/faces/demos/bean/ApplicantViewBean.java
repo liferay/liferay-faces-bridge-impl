@@ -17,15 +17,15 @@ package com.liferay.faces.demos.bean;
 
 import java.io.Serializable;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
 
 
 /**
  * @author  Neil Griffin
  */
-@Named
+@ManagedBean
 @ViewScoped
 public class ApplicantViewBean implements Serializable {
 
