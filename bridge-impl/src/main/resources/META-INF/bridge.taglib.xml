@@ -62,7 +62,7 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When this flag is true, the component will be disabled, and the user will be unable to interact with the component.]]></description>
+			<description><![CDATA[When this flag is true, the component will be disabled, and the user will be unable to interact with the component. The default value is <code>false</code>.]]></description>
 			<name>disabled</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -200,7 +200,7 @@
 			<type>java.lang.Boolean</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value of this attribute is true.]]></description>
+			<description><![CDATA[When this flag is true, this component will be rendered to there response. When false, it will not be rendered to the response. The default value is <code>true</code>.]]></description>
 			<name>rendered</name>
 			<required>false</required>
 			<type>boolean</type>
@@ -279,7 +279,8 @@ java.lang.Object)</method-signature>
 			<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
 		</attribute>
 		<tag-extension>
-			<vdldoc:since>4.2.5-ga6</vdldoc:since>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/bridge/inputfile/general</vdldoc:example-url>
+			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
 </facelet-taglib>
