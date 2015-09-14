@@ -95,10 +95,10 @@
 		<faces.api.version>${faces.spec.version}</faces.api.version>
 		<faces.impl.artifact.id>jsf-impl</faces.impl.artifact.id>
 		<faces.impl.scope>runtime</faces.impl.scope>
-		<faces.spec.version>2.2</faces.spec.version>
+		<faces.spec.version>2.1</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
-		<icefaces4.version>4.0.0</icefaces4.version>
+		<icefaces3.version>3.3.0</icefaces3.version>
 		<jstl.version>1.2</jstl.version>
 		<log4j.version>1.2.14</log4j.version>
 		<liferay.app.server.dir>${liferay.home}/tomcat-${liferay.tomcat.version}</liferay.app.server.dir>
@@ -115,7 +115,7 @@
 		<liferay.tomcat.version>default</liferay.tomcat.version>
 		<liferay.weblogic.version>default</liferay.weblogic.version>
 		<liferay.websphere.version>default</liferay.websphere.version>
-		<mojarra.version>2.2.12</mojarra.version>
+		<mojarra.version>2.1.29-04</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
 		<pluto.deploy.dir>${pluto.tomcat.dir}/webapps</pluto.deploy.dir>
 		<pluto.home>${env.PORTALS_HOME}/liferay.com/${pluto.portal}-jsf-${faces.spec.version}</pluto.home>
@@ -739,7 +739,7 @@
 					<dependency>
 						<groupId>org.icefaces</groupId>
 						<artifactId>icefaces</artifactId>
-						<version>${icefaces4.version}</version>
+						<version>${icefaces3.version}</version>
 						<exclusions>
 							<!-- FACES-1725/FACES-1598/PUSH-247: Exclude icepush.jar on WebLogic -->
 							<exclusion>
@@ -1004,7 +1004,7 @@
 			<dependency>
 				<groupId>org.icefaces</groupId>
 				<artifactId>icefaces</artifactId>
-				<version>${icefaces4.version}</version>
+				<version>${icefaces3.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.glassfish</groupId>
@@ -1023,12 +1023,12 @@
 			<dependency>
 				<groupId>org.icefaces</groupId>
 				<artifactId>icefaces-ace</artifactId>
-				<version>${icefaces4.version}</version>
+				<version>${icefaces3.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.icepush</groupId>
 				<artifactId>icepush</artifactId>
-				<version>${icefaces4.version}</version>
+				<version>${icefaces3.version}</version>
 				<exclusions>
 					<exclusion>
 						<artifactId>jsp-api</artifactId>
