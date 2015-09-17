@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>javax.el</groupId>
-			<artifactId>javax.el-api</artifactId>
+			<artifactId>el-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.faces</groupId>
@@ -27,7 +27,7 @@
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<artifactId>servlet-api</artifactId>
 		</dependency>
 		<!-- Because the Bridge-TCK portlet is not an OSGi module, this jar (Bridge TCK Compat) can rely on the bridge-impl jar without concerns about breaking OSGi or modularity. -->
 		<dependency>

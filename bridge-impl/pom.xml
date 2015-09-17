@@ -35,7 +35,7 @@
 		</dependency>
 		<dependency>
 			<groupId>javax.el</groupId>
-			<artifactId>javax.el-api</artifactId>
+			<artifactId>el-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.faces</groupId>
@@ -47,11 +47,11 @@
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<artifactId>servlet-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
+			<artifactId>jsp-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
