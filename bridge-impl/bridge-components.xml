@@ -4,10 +4,11 @@
 	<description>
 		<![CDATA[The Liferay Faces Bridge facelet component tags with the <code>bridge:</code> tag name prefix.]]>
 	</description>
-	<component name="InputFile" delegateRendererType="javax.faces.File"
+	<component name="InputFile" delegateComponentFamily="javax.faces.component.html.HtmlInputText.COMPONENT_FAMILY"
+		delegateRendererType="javax.faces.Text"
 		extendsTags="AltInherited AutocompleteInherited DisabledInherited FacesMessageLabelInheritedGenerateJavaFalse HTMLAccessibilityEvents HTMLInputEvents SizeInherited"
 		handlerClass="com.liferay.faces.bridge.component.inputfile.internal.InputFileHandler"
-		module="uploader" parentClass="javax.faces.component.html.HtmlInputFile"
+		module="uploader" parentClass="javax.faces.component.html.HtmlInputText"
 		rendererParentClass="com.liferay.faces.util.render.DelegatingRendererBase"
 		styleable="false">
 		<description>
