@@ -27,12 +27,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionListener;
 import javax.faces.render.Renderer;
-import javax.faces.render.RendererWrapper;
 
 import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.url.BridgeURL;
 import com.liferay.faces.bridge.internal.BridgeExt;
+import com.liferay.faces.util.render.RendererWrapper;
 
 
 /**

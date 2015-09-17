@@ -29,7 +29,6 @@ import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.render.Renderer;
-import javax.faces.render.RendererWrapper;
 
 import com.liferay.faces.bridge.context.HeadResponseWriter;
 import com.liferay.faces.util.application.ComponentResource;
@@ -37,6 +36,7 @@ import com.liferay.faces.util.application.ComponentResourceFactory;
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.render.RendererWrapper;
 
 
 /**

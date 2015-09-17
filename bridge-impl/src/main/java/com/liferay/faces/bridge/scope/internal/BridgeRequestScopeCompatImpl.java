@@ -49,7 +49,7 @@ public abstract class BridgeRequestScopeCompatImpl extends BridgeRequestScopeBas
 
 	protected void restoreFlashState(ExternalContext externalContext) {
 
-		if (flash != null) {
+		if ((flash != null) && (flash instanceof com.liferay.faces.bridge.context.flash.internal.BridgeFlash)) {
 
 			while (externalContext instanceof ExternalContextWrapper) {
 				ExternalContextWrapper externalContextWrapper = (ExternalContextWrapper) externalContext;

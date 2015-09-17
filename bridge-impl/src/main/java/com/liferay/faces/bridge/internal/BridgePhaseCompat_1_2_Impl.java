@@ -34,12 +34,14 @@ public abstract class BridgePhaseCompat_1_2_Impl extends BridgePhaseBaseImpl {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	protected void removeBridgeContextAttribute(PortletRequest portletRequest) {
-		// no-op since this is only used to support legacy ICEFaces (which is not compatible with JSF2.2).
+		portletRequest.removeAttribute(BridgeExt.BRIDGE_CONTEXT_ATTRIBUTE);
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	protected void setBridgeContextAttribute(PortletRequest portletRequest, BridgeContext bridgeContext) {
-		// no-op since this is only used to support legacy ICEFaces (which is not compatible with JSF2.2).
+		portletRequest.setAttribute(BridgeExt.BRIDGE_CONTEXT_ATTRIBUTE, bridgeContext);
 	}
 }

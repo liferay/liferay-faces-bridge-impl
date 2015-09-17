@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.NavigationCase;
-import javax.faces.application.NavigationCaseWrapper;
 import javax.faces.context.FacesContext;
 import javax.portlet.faces.Bridge;
 
