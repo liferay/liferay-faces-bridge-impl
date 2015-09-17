@@ -33,7 +33,7 @@ public class HeadResponseWriterFactoryImpl extends HeadResponseWriterFactory {
 		return new HeadResponseWriterImpl(responseWriter, bridgeContext.getPortletResponse());
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public HeadResponseWriterFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.

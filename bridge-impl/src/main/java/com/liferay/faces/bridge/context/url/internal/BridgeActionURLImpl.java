@@ -45,7 +45,7 @@ public class BridgeActionURLImpl extends BridgeURLInternalBase implements Bridge
 		this.portletRequest = bridgeContext.getPortletRequest();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public BaseURL toBaseURL() throws MalformedURLException {
 
 		BaseURL baseURL;

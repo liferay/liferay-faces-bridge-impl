@@ -47,7 +47,7 @@ public class BridgePartialActionURLImpl extends BridgeURLInternalBase {
 		this.viewIdResourceParameterName = bridgeConfig.getViewIdResourceParameterName();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public BaseURL toBaseURL() throws MalformedURLException {
 
 		BaseURL baseURL = null;

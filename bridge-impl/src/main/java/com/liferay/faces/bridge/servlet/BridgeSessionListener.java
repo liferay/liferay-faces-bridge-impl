@@ -59,7 +59,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 	// Private Data Members
 	private boolean firstInstance;
 
-	@Override
+	// Java 1.6+ @Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {
 		// no-op
 	}
@@ -178,6 +178,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 
 				try {
 
+					@SuppressWarnings("unchecked")
 					Enumeration<String> attributeNames = httpSession.getAttributeNames();
 
 					while (attributeNames.hasMoreElements()) {
@@ -328,12 +329,12 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 			this.servletContext = servletContext;
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Object getValue() {
 			return servletContext.getAttribute(getKey());
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Object setValue(Object value) {
 
 			Object oldValue = getValue();

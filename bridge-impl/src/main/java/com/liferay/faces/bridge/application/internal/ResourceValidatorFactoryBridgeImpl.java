@@ -49,7 +49,7 @@ public class ResourceValidatorFactoryBridgeImpl extends ResourceValidatorFactory
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public ResourceValidatorFactory getWrapped() {
 		return wrappedResourceValidatorFactory;
 	}

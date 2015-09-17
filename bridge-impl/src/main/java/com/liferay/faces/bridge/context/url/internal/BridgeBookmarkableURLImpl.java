@@ -74,7 +74,7 @@ public class BridgeBookmarkableURLImpl extends BridgeURLInternalBase {
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public BaseURL toBaseURL() throws MalformedURLException {
 
 		BaseURL baseURL = null;

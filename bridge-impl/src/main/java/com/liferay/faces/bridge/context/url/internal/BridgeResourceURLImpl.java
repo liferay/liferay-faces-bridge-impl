@@ -86,7 +86,7 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 		setParameter(newParamName, backLinkEncodedActionURL);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public BaseURL toBaseURL() throws MalformedURLException {
 
 		BaseURL baseURL;
