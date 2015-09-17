@@ -37,8 +37,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
  *
  * @author  Neil Griffin
  */
-public class HttpServletResponseAdapter extends HttpServletResponse_3_0_Adapter
-	implements FacesWrapper<PortletResponse> {
+public class HttpServletResponseAdapter implements HttpServletResponse, FacesWrapper<PortletResponse> {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(HttpServletResponseAdapter.class);
