@@ -107,14 +107,16 @@
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.portal}-jsf-${faces.spec.version}</liferay.home>
 		<liferay.faces.bridge.ext.version>2.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
-		<liferay.glassfish.version>default</liferay.glassfish.version>
-		<liferay.jboss.version>default</liferay.jboss.version>
-		<liferay.jetty.version>default</liferay.jetty.version>
+		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
+		<liferay.jboss.version>7.1.1</liferay.jboss.version>
+		<liferay.jetty.version>8.1.10</liferay.jetty.version>
 		<liferay.portal>liferay-portal-${liferay.deploy.version}</liferay.portal>
-		<liferay.resin.version>default</liferay.resin.version>
-		<liferay.tomcat.version>default</liferay.tomcat.version>
-		<liferay.weblogic.version>default</liferay.weblogic.version>
-		<liferay.websphere.version>default</liferay.websphere.version>
+		<liferay.resin.version>4.0.33</liferay.resin.version>
+		<liferay.tomcat.version>7.0.42</liferay.tomcat.version>
+		<liferay.version>6.2.3</liferay.version>
+		<liferay.weblogic.version>12.1.3.0</liferay.weblogic.version>
+		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
+
 		<mojarra.version>2.1.29-04</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
 		<pluto.deploy.dir>${pluto.tomcat.dir}/webapps</pluto.deploy.dir>
@@ -441,24 +443,9 @@
 			</activation>
 		</profile>
 		<profile>
-			<id>liferay62</id>
-			<properties>
-				<liferay.faces.bridge.ext.version>1.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
-				<liferay.version>6.2.3</liferay.version>
-				<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
-				<liferay.jboss.version>7.1.1</liferay.jboss.version>
-				<liferay.jetty.version>8.1.10</liferay.jetty.version>
-				<liferay.portal>liferay-portal-${liferay.deploy.version}</liferay.portal>
-				<liferay.resin.version>4.0.33</liferay.resin.version>
-				<liferay.tomcat.version>7.0.42</liferay.tomcat.version>
-				<liferay.weblogic.version>12.1.3.0</liferay.weblogic.version>
-				<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
-			</properties>
-		</profile>
-		<profile>
 			<id>liferay70</id>
 			<properties>
-				<liferay.faces.bridge.ext.version>2.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
+				<liferay.faces.bridge.ext.version>4.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
 				<liferay.version>7.0.0</liferay.version>
 				<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 				<liferay.jboss.version>7.1.1</liferay.jboss.version>
