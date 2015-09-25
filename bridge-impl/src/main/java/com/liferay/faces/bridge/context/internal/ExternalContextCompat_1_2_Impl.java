@@ -16,13 +16,11 @@
 package com.liferay.faces.bridge.context.internal;
 
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
-import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.IncongruityContext;
@@ -35,6 +33,10 @@ import com.liferay.faces.bridge.context.IncongruityContext;
  * @author  Neil Griffin
  */
 public abstract class ExternalContextCompat_1_2_Impl extends ExternalContext {
+
+	// Private Constants
+	private static final String TRINIDAD_DISABLE_DIALOG_OUTCOMES =
+		"org.apache.myfaces.trinidad.DISABLE_DIALOG_OUTCOMES";
 
 	// Protected Data Members
 	protected BridgeContext bridgeContext;
@@ -59,6 +61,11 @@ public abstract class ExternalContextCompat_1_2_Impl extends ExternalContext {
 		// Determine whether or not lifecycle incongruities should be managed.
 		PortletConfig portletConfig = bridgeContext.getPortletConfig();
 		this.manageIncongruities = PortletConfigParam.ManageIncongruities.getBooleanValue(portletConfig);
+
+		// Disable the Apache Trinidad 1.2.x "dialog:" URL feature as it causes navigation-handler failures during the
+		// EVENT_PHASE of the portlet lifecycle. For more information on the feature, see:
+		// http://jsfatwork.irian.at/book_de/trinidad.html
+		portletContext.setAttribute(TRINIDAD_DISABLE_DIALOG_OUTCOMES, Boolean.TRUE);
 	}
 
 	/**
@@ -71,23 +78,6 @@ public abstract class ExternalContextCompat_1_2_Impl extends ExternalContext {
 	 */
 	@Override
 	public String encodeActionURL(String url) {
-
-		if (isEncodingFormWithPrimeFacesAjaxFileUpload()) {
-			return encodePartialActionURL(url);
-		}
-		else {
-			return bridgeContext.encodeActionURL(url).toString();
-		}
-	}
-
-	protected boolean isEncodingFormWithPrimeFacesAjaxFileUpload() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-
-		if (facesContext.getAttributes().get(PrimeFacesFileUpload.AJAX_FILE_UPLOAD) != null) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return bridgeContext.encodeActionURL(url).toString();
 	}
 }

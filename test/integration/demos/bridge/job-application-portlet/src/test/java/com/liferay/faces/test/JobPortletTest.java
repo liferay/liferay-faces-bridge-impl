@@ -107,7 +107,7 @@ public class JobPortletTest extends TesterBase {
 	private static final String windowInnerHeightXpath = "//em[@id='window.innerHeight']";
 	private static final String windowInnerWidthXpath = "//em[@id='window.innerWidth']";
 
-	static final String url = baseUrl + webContext + "/jsf2";
+	static final String url = baseUrl + webContext + "/jsf1";
 
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;
@@ -1097,7 +1097,7 @@ public class JobPortletTest extends TesterBase {
 		else {
 
 			// the ice1-portlet seems to render the input type="file" in a separate iframe ... why bother?
-			// assuming that this is the jsf2-jsp-portlet and waiting for its 'Add Attachment' button to appear
+			// assuming that this is the jsf1-jsp-portlet and waiting for its 'Add Attachment' button to appear
 			logger.log(Level.INFO, "Waiting for the //input[@type='submit' and @value='Add Attachment'] to show on the page ...");
 			try {
 				WebDriverWait wait = new WebDriverWait(browser, 10);
@@ -1109,7 +1109,7 @@ public class JobPortletTest extends TesterBase {
 				" but //input[@type='submit' and @value='Add Attachment'] is not visible.", false);
 			}
 
-			// As of the time of this comment, only the jsf2-jsp-portlet did not render a fileUploadChooser on the
+			// As of the time of this comment, only the jsf1-jsp-portlet did not render a fileUploadChooser on the
 			// front view
 			logger.log(Level.INFO, "clicking the Add Attachment button ...");
 			browser.findElement(By.xpath("//input[@type='submit' and @value='Add Attachment']")).click();

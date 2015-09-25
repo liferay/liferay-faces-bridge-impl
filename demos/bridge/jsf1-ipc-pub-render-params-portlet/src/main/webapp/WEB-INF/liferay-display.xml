@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!DOCTYPE display PUBLIC "-//Liferay//DTD Display //EN" "http://www.liferay.com/dtd/liferay-display_.dtd">
+
+<display>
+	<category name="category.sample">
+		<portlet id="customersPortlet" />
+		<portlet id="bookingsPortlet" />
+	</category>
+</display>

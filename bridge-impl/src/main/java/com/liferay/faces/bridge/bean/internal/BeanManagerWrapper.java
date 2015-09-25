@@ -15,13 +15,13 @@
  */
 package com.liferay.faces.bridge.bean.internal;
 
-import javax.faces.FacesWrapper;
+import com.liferay.faces.util.helper.Wrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public abstract class BeanManagerWrapper implements BeanManager, FacesWrapper<BeanManager> {
+public abstract class BeanManagerWrapper implements BeanManager, Wrapper<BeanManager> {
 
 	public boolean isManagedBean(String name, Object value) {
 		return getWrapped().isManagedBean(name, value);

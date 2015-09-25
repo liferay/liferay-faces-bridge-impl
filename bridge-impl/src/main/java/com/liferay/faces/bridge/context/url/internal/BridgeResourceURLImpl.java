@@ -39,7 +39,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeResourceURLImpl extends BridgeURLInternalBase implements BridgeResourceURL {
+public class BridgeResourceURLImpl extends BridgeResourceURLCompatImpl implements BridgeResourceURL {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeResourceURLImpl.class);

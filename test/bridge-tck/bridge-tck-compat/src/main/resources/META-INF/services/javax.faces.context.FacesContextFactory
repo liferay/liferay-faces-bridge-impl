@@ -1,1 +1,1 @@
-com.liferay.faces.bridge.tck.context.FacesContextFactoryTCKImpl
+com.liferay.faces.bridge.context.internal.FacesContextFactoryImpl

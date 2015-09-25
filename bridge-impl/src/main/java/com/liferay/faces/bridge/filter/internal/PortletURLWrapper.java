@@ -15,18 +15,19 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import javax.faces.FacesWrapper;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 
+import com.liferay.faces.util.helper.Wrapper;
+
 
 /**
  * @author  Neil Griffin
  */
-public abstract class PortletURLWrapper extends BaseURLWrapper implements PortletURL, FacesWrapper<PortletURL> {
+public abstract class PortletURLWrapper extends BaseURLWrapper implements PortletURL, Wrapper<PortletURL> {
 
 	public void removePublicRenderParameter(String name) {
 		getWrapped().removePublicRenderParameter(name);

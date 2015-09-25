@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Locale;
 
-import javax.faces.FacesWrapper;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletResponse;
 import javax.portlet.ResourceResponse;
@@ -27,6 +26,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import com.liferay.faces.util.helper.Wrapper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -37,7 +37,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
  *
  * @author  Neil Griffin
  */
-public class HttpServletResponseAdapter implements HttpServletResponse, FacesWrapper<PortletResponse> {
+public class HttpServletResponseAdapter implements HttpServletResponse, Wrapper<PortletResponse> {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(HttpServletResponseAdapter.class);

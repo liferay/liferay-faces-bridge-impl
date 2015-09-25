@@ -52,16 +52,8 @@ my $foo;
 
 # hashes
 my %in = (
-   Jsf2PortletTest => "./jsf2-portlet/src/test/java/com/liferay/faces/test/Jsf2.java",
-   Jsf2JspPortletTest => "./jsf2-jsp-portlet/src/test/java/com/liferay/faces/test/Jsf2Jsp.java",
-   Jsf2CdiPortletTest => "./jsf2-cdi-portlet/src/test/java/com/liferay/faces/test/Jsf2Cdi.java",
-   Jsf2Html5PortletTest => "./jsf2-html5-portlet/src/test/java/com/liferay/faces/test/Jsf2Html5.java",
-   Jsf2SpringPortletTest => "./jsf2-spring-portlet/src/test/java/com/liferay/faces/test/Jsf2Spring.java",
-   Liferayfaces4PortletTest => "./liferayfaces4-portlet/src/test/java/com/liferay/faces/test/Liferayfaces4.java",
-   Icefaces4PortletTest => "./icefaces4-portlet/src/test/java/com/liferay/faces/test/Icefaces4.java",
-   Richfaces4PortletTest => "./richfaces4-portlet/src/test/java/com/liferay/faces/test/Richfaces4.java",
-   Primefaces4PortletTest => "./primefaces4-portlet/src/test/java/com/liferay/faces/test/Primefaces4.java",
-   Primefaces5PortletTest => "./primefaces5-portlet/src/test/java/com/liferay/faces/test/Primefaces5.java",
+   Jsf1PortletTest => "./jsf1-portlet/src/test/java/com/liferay/faces/test/Jsf1.java",
+   Icefaces1PortletTest => "./icefaces1-portlet/src/test/java/com/liferay/faces/test/Icefaces1.java",
 );
 my %variables = ();
 my %xpaths = ();

@@ -34,7 +34,7 @@ public class RequestAttributeInspectorFactoryImpl extends RequestAttributeInspec
 		return new RequestAttributeInspectorImpl(portletRequest, portletConfig, bridgeConfig);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public RequestAttributeInspectorFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.

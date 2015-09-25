@@ -19,8 +19,6 @@ import javax.portlet.PortletRequest;
 
 
 /**
- * This class provides a compatibility layer that isolates differences between JSF1 and JSF2.
- *
  * @author  Neil Griffin
  */
 public abstract class RequestHeaderValuesMapCompat extends CaseInsensitiveHashMap<String[]> {
@@ -28,8 +26,20 @@ public abstract class RequestHeaderValuesMapCompat extends CaseInsensitiveHashMa
 	// serialVersionUID
 	private static final long serialVersionUID = 5256297252491398013L;
 
+	// Private Constants
+	private static final String HEADER_TRINIDAD_PPR = "Tr-XHR-Message";
+
 	protected void addJSF1Headers(PortletRequest portletRequest) {
 
-		// This is a no-op for JSF 2.x
+		String[] trinidadPPRHeader = get(HEADER_TRINIDAD_PPR);
+
+		if (trinidadPPRHeader == null) {
+
+			String pprHeader = portletRequest.getProperty(HEADER_TRINIDAD_PPR);
+
+			if (pprHeader != null) {
+				put(HEADER_TRINIDAD_PPR, new String[] { pprHeader });
+			}
+		}
 	}
 }

@@ -15,16 +15,10 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.faces.context.Flash;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.servlet.http.HttpServletResponse;
-
-import com.liferay.faces.bridge.context.flash.internal.BridgeFlash;
-import com.liferay.faces.bridge.context.flash.internal.BridgeFlashFactory;
-import com.liferay.faces.bridge.context.flash.internal.FlashHttpServletResponse;
-import com.liferay.faces.util.factory.FactoryExtensionFinder;
 
 
 /**
@@ -32,52 +26,20 @@ import com.liferay.faces.util.factory.FactoryExtensionFinder;
  */
 public abstract class ExternalContextCompat_2_0_FlashImpl extends ExternalContextCompat_1_2_Impl {
 
-	// Lazy-Initialized Data Members
-	private Flash flash;
-
 	public ExternalContextCompat_2_0_FlashImpl(PortletContext portletContext, PortletRequest portletRequest,
 		PortletResponse portletResponse) {
 		super(portletContext, portletRequest, portletResponse);
 	}
 
 	protected HttpServletResponse createFlashHttpServletResponse() {
-		return new FlashHttpServletResponse(portletResponse, getRequestLocale());
+
+		// no-op for JSF 1.2
+		return null;
 	}
 
 	protected boolean isBridgeFlashServletResponseRequired() {
 
-		if ((flash != null) && (flash instanceof BridgeFlash)) {
-			BridgeFlash bridgeFlash = (BridgeFlash) flash;
-
-			return bridgeFlash.isServletResponseRequired();
-		}
-		else {
-			return false;
-		}
+		// no-op for JSF 1.2
+		return false;
 	}
-
-	/**
-	 * @see    {@link ExternalContext#getFlash()}
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public Flash getFlash() {
-
-		if (flash == null) {
-			BridgeFlashFactory bridgeFlashFactory = (BridgeFlashFactory) FactoryExtensionFinder.getFactory(
-					BridgeFlashFactory.class);
-			flash = bridgeFlashFactory.getBridgeFlash();
-		}
-
-		return flash;
-	}
-
-	// NOTE: PROPOSED-FOR-JSR344-API
-	// http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1070
-	// NOTE: PROPOSED-FOR-BRIDGE3-API (Called by BridgeRequestScope in order to restore the Flash scope)
-	// https://issues.apache.org/jira/browse/PORTLETBRIDGE-207
-	public void setFlash(Flash flash) {
-		this.flash = flash;
-	}
-
 }

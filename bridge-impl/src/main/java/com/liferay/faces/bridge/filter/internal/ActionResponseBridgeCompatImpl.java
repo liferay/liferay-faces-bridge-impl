@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.filter.internal;
 
 import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
 import javax.portlet.ActionResponse;
 import javax.portlet.filter.ActionResponseWrapper;
 
@@ -33,11 +32,6 @@ public abstract class ActionResponseBridgeCompatImpl extends ActionResponseWrapp
 	}
 
 	protected void partialViewContextRenderAll(FacesContext facesContext) {
-
-		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
-
-		if (!partialViewContext.isRenderAll()) {
-			partialViewContext.setRenderAll(true);
-		}
+		// no-op for JSF 1.2
 	}
 }

@@ -15,14 +15,15 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import javax.faces.FacesWrapper;
 import javax.portlet.ResourceURL;
+
+import com.liferay.faces.util.helper.Wrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public abstract class ResourceURLWrapper extends BaseURLWrapper implements ResourceURL, FacesWrapper<ResourceURL> {
+public abstract class ResourceURLWrapper extends BaseURLWrapper implements ResourceURL, Wrapper<ResourceURL> {
 
 	public String getCacheability() {
 		return getWrapped().getCacheability();

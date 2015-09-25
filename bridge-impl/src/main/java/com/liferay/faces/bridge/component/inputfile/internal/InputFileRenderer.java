@@ -23,7 +23,6 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.component.inputfile.InputFile;
@@ -39,7 +38,7 @@ import com.liferay.faces.util.render.internal.DelegationResponseWriter;
  * @author  Neil Griffin
  */
 //J-
-@FacesRenderer(componentFamily = InputFile.COMPONENT_FAMILY, rendererType = InputFile.RENDERER_TYPE)
+//
 //J+
 public class InputFileRenderer extends InputFileRendererCompat {
 

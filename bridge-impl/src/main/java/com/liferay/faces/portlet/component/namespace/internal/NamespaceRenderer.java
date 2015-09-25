@@ -15,13 +15,14 @@
  */
 package com.liferay.faces.portlet.component.namespace.internal;
 
+// JSF 2: import javax.faces.render.FacesRenderer;
+
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.FacesRenderer;
 
 import com.liferay.faces.portlet.component.namespace.Namespace;
 
@@ -30,7 +31,7 @@ import com.liferay.faces.portlet.component.namespace.Namespace;
  * @author  Neil Griffin
  */
 //J-
-@FacesRenderer(componentFamily = Namespace.COMPONENT_FAMILY, rendererType = Namespace.RENDERER_TYPE)
+// JSF 2: @FacesRenderer(componentFamily = Namespace.COMPONENT_FAMILY, rendererType = Namespace.RENDERER_TYPE)
 //J+
 public class NamespaceRenderer extends NamespaceRendererBase {
 

@@ -15,12 +15,13 @@
  */
 package com.liferay.faces.portlet.component.resourceurl.internal;
 
+// JSF 2: import javax.faces.render.FacesRenderer;
+
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.render.FacesRenderer;
 import javax.portlet.BaseURL;
 import javax.portlet.MimeResponse;
 
@@ -31,7 +32,7 @@ import com.liferay.faces.portlet.component.resourceurl.ResourceURL;
  * @author  Kyle Stiemann
  */
 //J-
-@FacesRenderer(componentFamily = ResourceURL.COMPONENT_FAMILY, rendererType = ResourceURL.RENDERER_TYPE)
+// JSF 2: @FacesRenderer(componentFamily = ResourceURL.COMPONENT_FAMILY, rendererType = ResourceURL.RENDERER_TYPE)
 //J+
 public class ResourceURLRenderer extends ResourceURLRendererBase {
 

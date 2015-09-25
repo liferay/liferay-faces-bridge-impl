@@ -15,8 +15,9 @@
  */
 package com.liferay.faces.portlet.component.actionurl.internal;
 
+// JSF 2: import javax.faces.render.FacesRenderer;
+
 import javax.faces.component.UIComponent;
-import javax.faces.render.FacesRenderer;
 import javax.portlet.ActionRequest;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletURL;
@@ -28,7 +29,7 @@ import com.liferay.faces.portlet.component.actionurl.ActionURL;
  * @author  Kyle Stiemann
  */
 //J-
-@FacesRenderer(componentFamily = ActionURL.COMPONENT_FAMILY, rendererType = ActionURL.RENDERER_TYPE)
+// JSF 2: @FacesRenderer(componentFamily = ActionURL.COMPONENT_FAMILY, rendererType = ActionURL.RENDERER_TYPE)
 //J+
 public class ActionURLRenderer extends ActionURLRendererBase {
 

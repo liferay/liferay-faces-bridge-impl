@@ -93,7 +93,7 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 		this.preExistingAttributeNames = getPreExistingRequestAttributeNames(portletRequest);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public boolean containsExcludedNamespace(String name) {
 
 		if (isNamespaceMatch(name, EXCLUDED_NAMESPACE_JAVAX_FACES) ||
@@ -108,7 +108,7 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public boolean isExcludedByType(String name, Object value) {
 
 		// EXCLUDED attributes listed in Section 5.1.2 of the JSR 329 Spec
@@ -122,7 +122,7 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 					(value instanceof ServletRequest) || (value instanceof ServletResponse)));
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public boolean isExcludedByConfig(String name, Object value) {
 
 		boolean excluded = false;
@@ -157,7 +157,7 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 		return excluded;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public boolean isExcludedByPreExisting(String name, Object value) {
 		return preExistingAttributeNames.contains(name);
 	}
@@ -180,7 +180,7 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 		return match;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public boolean isExcludedByAnnotation(String name, Object value) {
 
 		boolean excluded = false;

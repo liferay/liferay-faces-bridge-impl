@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletMode;
@@ -34,7 +33,7 @@ import javax.portlet.faces.Bridge;
  *
  * @author  Neil Griffin
  */
-public abstract class BridgeNavigationHandler extends ConfigurableNavigationHandler {
+public abstract class BridgeNavigationHandler extends NavigationHandler {
 
 	/**
 	 * This method is defined in the {@link NavigationHandler} superclass and must be overridden in the bridge

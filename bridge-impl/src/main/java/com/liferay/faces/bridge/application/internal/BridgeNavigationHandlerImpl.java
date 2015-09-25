@@ -15,18 +15,12 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
-import javax.faces.application.ConfigurableNavigationHandler;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.NavigationCase;
 import javax.faces.application.NavigationHandler;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
 import javax.portlet.PortletResponse;
@@ -36,6 +30,7 @@ import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.url.BridgeURL;
+import com.liferay.faces.bridge.scope.BridgeRequestScope;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -60,37 +55,33 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
 
 		logger.debug("fromAction=[{0}] outcome=[{1}]", fromAction, outcome);
 
-		NavigationCase navigationCase = getNavigationCase(facesContext, fromAction, outcome);
-
-		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
+		UIViewRoot uiViewRoot = facesContext.getViewRoot();
+		String fromViewId = uiViewRoot.getViewId();
 
 		// Ask the wrapped NavigationHandler to perform the navigation.
 		wrappedNavigationHandler.handleNavigation(facesContext, fromAction, outcome);
 
-		if (navigationCase != null) {
+		uiViewRoot = facesContext.getViewRoot();
 
-			// Hack for http://jira.icesoft.org/browse/ICE-7996
-			Iterator<FacesMessage> itr = facesContext.getMessages();
+		String toViewId = uiViewRoot.getViewId();
 
-			while (itr.hasNext()) {
-				FacesMessage facesMessage = itr.next();
+		if (!fromViewId.equals(toViewId)) {
 
-				if (facesMessage.getDetail().contains("Unable to find matching navigation case")) {
-					logger.warn("Removed bogus FacesMessage caused by http://jira.icesoft.org/browse/ICE-7996");
-					itr.remove();
-				}
-			}
+			BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
 
-			// If the navigation-case is NOT a redirect, then directly encode the {@link PortletMode} and {@link
-			// WindowState} to the response. Don't need to worry about the redirect case here because that's handled in
-			// the BridgeContext#redirect(String) method. It would be nice to handle the redirect case here but it needs
-			// to stay in BridgeContext#redirect(String) since it's possible for developers to call
-			// ExternalContext.redirect(String) directly from their application.
-			if (!navigationCase.isRedirect()) {
+			// FACES-1986: In the case of ICEfaces 1.8 Ajax Push, the bridgeContext can be null.
+			if (bridgeContext != null) {
 
-				String toViewId = navigationCase.getToViewId(facesContext);
+				// If the navigation-case is NOT a redirect, then directly encode the {@link PortletMode} and {@link
+				// WindowState} to the response. Don't need to worry about the redirect case here because that's handled
+				// in the BridgeContext#redirect(String) method. It would be nice to handle the redirect case here but
+				// it needs to stay in BridgeContext#redirect(String) since it's possible for developers to call
+				// ExternalContext.redirect(String) directly from their application.
+				BridgeRequestScope bridgeRequestScope = bridgeContext.getBridgeRequestScope();
 
-				if (toViewId != null) {
+				boolean navigationCaseRedirect = bridgeRequestScope.isRedirectOccurred();
+
+				if (!navigationCaseRedirect) {
 
 					PortletResponse portletResponse = bridgeContext.getPortletResponse();
 
@@ -100,7 +91,7 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
 
 						try {
 
-							BridgeNavigationCase bridgeNavigationCase = new BridgeNavigationCaseImpl(navigationCase);
+							BridgeNavigationCase bridgeNavigationCase = new BridgeNavigationCaseImpl(toViewId);
 							String portletMode = bridgeNavigationCase.getPortletMode();
 
 							if (portletMode != null) {
@@ -151,51 +142,9 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
 
 					if (viewRoot != null) {
 						facesContext.setViewRoot(viewRoot);
-
-						PartialViewContext partialViewContext = facesContext.getPartialViewContext();
-						partialViewContext.setRenderAll(true);
 					}
 				}
 			}
 		}
 	}
-
-	@Override
-	public NavigationCase getNavigationCase(FacesContext facesContext, String fromAction, String outcome) {
-
-		if (wrappedNavigationHandler instanceof ConfigurableNavigationHandler) {
-			ConfigurableNavigationHandler wrappedConfigurableNavigationHandler = (ConfigurableNavigationHandler)
-				wrappedNavigationHandler;
-
-			return wrappedConfigurableNavigationHandler.getNavigationCase(facesContext, fromAction, outcome);
-		}
-		else {
-
-			// So as not to reinvent the wheel, we currently rely on the default NavigationHandler provided by
-			// Mojarra/MyFaces being an instance of ConfigurableNavigationHandler. If that's not the case for some
-			// reason, then throw an exception.
-			throw new UnsupportedOperationException(
-				"JSF runtime does not provide an instance of ConfigurableNavigationHandler");
-		}
-	}
-
-	@Override
-	public Map<String, Set<NavigationCase>> getNavigationCases() {
-
-		if (wrappedNavigationHandler instanceof ConfigurableNavigationHandler) {
-			ConfigurableNavigationHandler wrappedConfigurableNavigationHandler = (ConfigurableNavigationHandler)
-				wrappedNavigationHandler;
-
-			return wrappedConfigurableNavigationHandler.getNavigationCases();
-		}
-		else {
-
-			// So as not to reinvent the wheel, we currently rely on the default NavigationHandler provided by
-			// Mojarra/MyFaces being an instance of ConfigurableNavigationHandler. If that's not the case for some
-			// reason, then throw an exception.
-			throw new UnsupportedOperationException(
-				"JSF runtime does not provide an instance of ConfigurableNavigationHandler");
-		}
-	}
-
 }

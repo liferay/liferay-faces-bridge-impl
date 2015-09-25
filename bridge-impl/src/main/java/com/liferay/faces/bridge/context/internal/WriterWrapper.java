@@ -18,13 +18,13 @@ package com.liferay.faces.bridge.context.internal;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.faces.FacesWrapper;
+import com.liferay.faces.util.helper.Wrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public abstract class WriterWrapper extends Writer implements FacesWrapper<Writer> {
+public abstract class WriterWrapper extends Writer implements Wrapper<Writer> {
 
 	@Override
 	public void close() throws IOException {

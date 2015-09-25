@@ -18,25 +18,25 @@ package com.liferay.faces.bridge.context.map.internal;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.FacesWrapper;
 import javax.portlet.PortletContext;
 import javax.servlet.ServletContext;
 
 import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.util.helper.Wrapper;
 import com.liferay.faces.util.model.UploadedFile;
 
 
 /**
  * This abstract class provides a contract for defining a factory that knows how to create {@link Map} instances. It is
  * inspired by the factory pattern found in the JSF API like {@link javax.faces.context.FacesContextFactory} and {@link
- * javax.faces.context.ExternalContextFactory}. By implementing the {@link javax.faces.FacesWrapper} interface, the
- * class provides implementations with the opportunity to wrap another factory (participate in a chain-of-responsibility
- * pattern). If an implementation wraps a factory, then it should provide a one-arg constructor so that the wrappable
- * factory can be passed at initialization time.
+ * javax.faces.context.ExternalContextFactory}. By implementing the {@link com.liferay.faces.util.helper.Wrapper}
+ * interface, the class provides implementations with the opportunity to wrap another factory (participate in a
+ * chain-of-responsibility pattern). If an implementation wraps a factory, then it should provide a one-arg constructor
+ * so that the wrappable factory can be passed at initialization time.
  *
  * @author  Neil Griffin
  */
-public abstract class ContextMapFactory implements FacesWrapper<ContextMapFactory> {
+public abstract class ContextMapFactory implements Wrapper<ContextMapFactory> {
 
 	/**
 	 * Returns a {@link Map} of application-scoped attributes stored in the underlying {@link

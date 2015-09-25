@@ -16,20 +16,24 @@
 package com.liferay.faces.bridge.application.internal;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
 import javax.faces.FacesException;
+import javax.faces.application.ViewHandler;
 import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.faces.Bridge;
-import javax.portlet.faces.Bridge.PortletPhase;
-import javax.portlet.faces.BridgeUtil;
+import javax.portlet.faces.Bridge.BridgeRenderPolicy;
 
 import com.liferay.faces.bridge.context.BridgeContext;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.factory.FactoryExtensionFinder;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -39,18 +43,110 @@ import com.liferay.faces.util.product.ProductMap;
  */
 public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(ViewHandlerCompatImpl.class);
+
 	// Public Constants
 	public static final String RESPONSE_CHARACTER_ENCODING = "com.liferay.faces.bridge.responseCharacterEncoding";
 
 	// Private Constants
-	private static final boolean MOJARRA_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
-		.equals(ProductConstants.MOJARRA);
+	private static final String EL_EXPRESSION_PREFIX = "#{";
 
 	@Override
-	public void renderView(FacesContext context, UIViewRoot viewToRender) throws IOException, FacesException {
+	public void renderView(FacesContext facesContext, UIViewRoot uiViewRoot) throws IOException, FacesException {
 
-		// This method has overridden behavior for JSF 1 but is simply a pass-through for JSF 2
-		super.renderView(context, viewToRender);
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		String initParam = externalContext.getInitParameter(Bridge.RENDER_POLICY);
+		BridgeRenderPolicy bridgeRenderPolicy = BridgeRenderPolicy.DEFAULT;
+
+		if (initParam != null) {
+			bridgeRenderPolicy = BridgeRenderPolicy.valueOf(initParam);
+		}
+
+		// If the developer has specified ALWAYS_DELEGATE in the WEB-INF/web.xml descriptor, then execute
+		// the Mojarra/MyFaces ViewDeclarationLanguage.
+		if (bridgeRenderPolicy == BridgeRenderPolicy.ALWAYS_DELEGATE) {
+			super.renderView(facesContext, uiViewRoot);
+		}
+
+		// Otherwise, if the developer specified NEVER_DELEGATE or didn't specify a value, then execute then emulate
+		// the JSF 2.x distinction between buildView/renderView.
+		else {
+			_buildView(facesContext, uiViewRoot);
+			_renderView(facesContext, uiViewRoot, bridgeRenderPolicy);
+		}
+	}
+
+	@Override
+	public UIViewRoot restoreView(FacesContext facesContext, String viewId) {
+		logger.debug("Restoring view for viewId=[{0}]", viewId);
+
+		return super.restoreView(facesContext, viewId);
+	}
+
+	protected void _buildView(FacesContext facesContext, UIViewRoot uiViewRoot) {
+
+		// Set a flag on the BridgeContext indicating that JSP AFTER_VIEW_CONTENT processing has been activated. The
+		// flag is referenced by {@link ExternalContextImpl#getRequest()} and {@link ExternalContextImpl#getResponse()}
+		// and is unset by {@link ExternalContextImpl#dispatch(String)}.
+		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
+		bridgeContext.setProcessingAfterViewContent(true);
+
+		logger.debug("Activated JSP AFTER_VIEW_CONTENT feature");
+	}
+
+	protected void _renderView(FacesContext facesContext, UIViewRoot uiViewRoot, BridgeRenderPolicy bridgeRenderPolicy)
+		throws IOException, FacesException {
+
+		// This code is required by the spec in order to support a JSR 301 legacy feature to support usage of a
+		// servlet filter to capture the AFTER_VIEW_CONTENT. In reality it will likely never be used.
+		Map<String, Object> attributes = facesContext.getExternalContext().getRequestMap();
+		attributes.put(Bridge.RENDER_CONTENT_AFTER_VIEW, Boolean.TRUE);
+
+		// If the specified render policy is NEVER_DELEGATE, then execute the Mojarra/MyFaces render directly,
+		// bypassing the view-handler chain-of-responsibility.
+		if (bridgeRenderPolicy == BridgeRenderPolicy.NEVER_DELEGATE) {
+			ViewHandlerFactory viewHandlerFactory = (ViewHandlerFactory) FactoryExtensionFinder.getFactory(
+					ViewHandlerFactory.class);
+			ViewHandler viewHandler = viewHandlerFactory.getViewHandler();
+			viewHandler.renderView(facesContext, uiViewRoot);
+		}
+
+		// Otherwise,
+		else {
+
+			// Delegate the render to the view-handler chain-of-responsibility.
+			try {
+				super.renderView(facesContext, uiViewRoot);
+			}
+
+			// If an exception is thrown, then execute the Mojarra/MyFaces render directly, bypassing the view-handler
+			// chain-of-responsibility.
+			catch (FacesException e) {
+				ViewHandlerFactory viewHandlerFactory = (ViewHandlerFactory) FactoryExtensionFinder.getFactory(
+						ViewHandlerFactory.class);
+				ViewHandler viewHandler = viewHandlerFactory.getViewHandler();
+				viewHandler.renderView(facesContext, uiViewRoot);
+			}
+		}
+
+		attributes.remove(Bridge.RENDER_CONTENT_AFTER_VIEW);
+
+		// TCK TestPage201: renderContentAfterViewTest
+		Object afterViewContent = facesContext.getExternalContext().getRequestMap().get(Bridge.AFTER_VIEW_CONTENT);
+
+		if (afterViewContent != null) {
+
+			if (afterViewContent instanceof char[]) {
+				facesContext.getResponseWriter().write((char[]) afterViewContent);
+			}
+			else if (afterViewContent instanceof byte[]) {
+				facesContext.getResponseWriter().write(new String((byte[]) afterViewContent));
+			}
+			else {
+				logger.error("Invalid type for {0}={1}", Bridge.AFTER_VIEW_CONTENT, afterViewContent.getClass());
+			}
+		}
 	}
 
 	/**
@@ -66,32 +162,19 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 	 */
 	protected String evaluateExpressionJSF1(FacesContext facesContext, String viewId) {
 
-		// This method has overridden behavior for JSF 1 but simply returns the specified viewId for JSF 2
+		int pos = viewId.indexOf(EL_EXPRESSION_PREFIX);
+
+		if (pos > 0) {
+			ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+			ELContext elContext = facesContext.getELContext();
+			ValueExpression valueExpression = expressionFactory.createValueExpression(elContext, viewId, String.class);
+			viewId = (String) valueExpression.getValue(elContext);
+
+			if ((viewId != null) && !viewId.startsWith("/")) {
+				viewId = "/" + viewId;
+			}
+		}
+
 		return viewId;
-	}
-
-	@Override
-	public String getRedirectURL(FacesContext facesContext, String viewId, Map<String, List<String>> parameters,
-		boolean includeViewParams) {
-
-		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
-
-		// Determine whether or not it is necessary to work-around the patch applied to Mojarra in JAVASERVERFACES-3023
-		boolean workaroundMojarra = (MOJARRA_DETECTED) &&
-			((portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) ||
-				(portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE));
-
-		if (workaroundMojarra) {
-			bridgeContext.getAttributes().put(RESPONSE_CHARACTER_ENCODING, "UTF-8");
-		}
-
-		String redirectURL = super.getRedirectURL(facesContext, viewId, parameters, includeViewParams);
-
-		if (workaroundMojarra) {
-			bridgeContext.getAttributes().remove(RESPONSE_CHARACTER_ENCODING);
-		}
-
-		return redirectURL;
 	}
 }

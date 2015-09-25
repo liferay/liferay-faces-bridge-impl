@@ -18,9 +18,6 @@ package com.liferay.faces.bridge.context.internal;
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
 import javax.portlet.ResourceResponse;
 
 import com.liferay.faces.bridge.context.BridgeContext;
@@ -32,37 +29,17 @@ import com.liferay.faces.bridge.context.BridgeContext;
  * @author  Neil Griffin
  */
 public abstract class BridgeContextCompatImpl extends BridgeContext {
+
 	protected void partialViewContextRenderAll(FacesContext facesContext) {
-
-		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
-
-		if (!partialViewContext.isRenderAll()) {
-			partialViewContext.setRenderAll(true);
-		}
+		// no-op for JSF 1.2
 	}
 
 	protected void redirectJSF2PartialResponse(FacesContext facesContext, ResourceResponse resourceResponse, String url)
 		throws IOException {
-		resourceResponse.setContentType("text/xml");
-		resourceResponse.setCharacterEncoding("UTF-8");
-
-		PartialResponseWriter partialResponseWriter;
-		ResponseWriter responseWriter = facesContext.getResponseWriter();
-
-		if (responseWriter instanceof PartialResponseWriter) {
-			partialResponseWriter = (PartialResponseWriter) responseWriter;
-		}
-		else {
-			partialResponseWriter = facesContext.getPartialViewContext().getPartialResponseWriter();
-		}
-
-		partialResponseWriter.startDocument();
-		partialResponseWriter.redirect(url);
-		partialResponseWriter.endDocument();
-		facesContext.responseComplete();
+		// no-op for JSF 1.2
 	}
 
 	protected boolean isJSF2PartialRequest(FacesContext facesContext) {
-		return facesContext.getPartialViewContext().isPartialRequest();
+		return false;
 	}
 }

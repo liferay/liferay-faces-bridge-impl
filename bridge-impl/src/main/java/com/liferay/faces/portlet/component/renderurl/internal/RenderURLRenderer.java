@@ -15,16 +15,15 @@
  */
 package com.liferay.faces.portlet.component.renderurl.internal;
 
-import javax.faces.render.FacesRenderer;
+// JSF 2: import javax.faces.render.FacesRenderer;
 
-import com.liferay.faces.portlet.component.renderurl.RenderURL;
-
+// JSF 2: import com.liferay.faces.portlet.component.renderurl.RenderURL;
 
 /**
  * @author  Kyle Stiemann
  */
 //J-
-@FacesRenderer(componentFamily = RenderURL.COMPONENT_FAMILY, rendererType = RenderURL.RENDERER_TYPE)
+// JSF 2: @FacesRenderer(componentFamily = RenderURL.COMPONENT_FAMILY, rendererType = RenderURL.RENDERER_TYPE)
 //J+
 public class RenderURLRenderer extends AbstractRenderURLRenderer {
 	// Initial Generation

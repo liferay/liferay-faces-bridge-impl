@@ -21,7 +21,7 @@ import javax.portlet.PortletResponse;
 
 
 /**
- * This class provides a compatibility layer that isolates differences between JSF 2.1 and JSF 2.2.
+ * This class provides a compatibility layer that isolates differences between JSF 2.1/2.0 and JSF 2.2.
  *
  * @author  Neil Griffin
  */

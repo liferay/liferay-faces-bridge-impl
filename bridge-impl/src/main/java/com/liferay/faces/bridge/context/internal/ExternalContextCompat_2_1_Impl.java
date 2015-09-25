@@ -18,7 +18,6 @@ package com.liferay.faces.bridge.context.internal;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
-import javax.portlet.PortletSession;
 
 
 /**
@@ -31,36 +30,5 @@ public abstract class ExternalContextCompat_2_1_Impl extends ExternalContextComp
 	public ExternalContextCompat_2_1_Impl(PortletContext portletContext, PortletRequest portletRequest,
 		PortletResponse portletResponse) {
 		super(portletContext, portletRequest, portletResponse);
-	}
-
-	/**
-	 * @see    {@link ExternalContext#isSecure()}
-	 * @since  JSF 2.1
-	 */
-	@Override
-	public boolean isSecure() {
-		return portletRequest.isSecure();
-	}
-
-	/**
-	 * @see    {@link ExternalContext#getSessionMaxInactiveInterval()}
-	 * @since  JSF 2.1
-	 */
-	@Override
-	public int getSessionMaxInactiveInterval() {
-
-		PortletSession portletSession = (PortletSession) getSession(true);
-
-		return portletSession.getMaxInactiveInterval();
-	}
-
-	/**
-	 * @see    {@link ExternalContext#setSessionMaxInactiveInterval(int)}
-	 * @since  JSF 2.1
-	 */
-	@Override
-	public void setSessionMaxInactiveInterval(int sessionMaxInactiveInterval) {
-		PortletSession portletSession = (PortletSession) getSession(true);
-		portletSession.setMaxInactiveInterval(sessionMaxInactiveInterval);
 	}
 }

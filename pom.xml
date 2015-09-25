@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.liferay.faces.bridge</groupId>
 	<artifactId>liferay-faces-bridge-impl-parent</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>2.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Liferay Faces Bridge Impl Parent</name>
 	<description>Parent POM for all Liferay Faces Bridge implementation modules</description>
@@ -75,8 +75,8 @@
 	</scm>
 
 	<modules>
+		<module>bridge-ice</module>
 		<module>bridge-impl</module>
-		<module>support</module>
 		<module>demos</module>
 		<module>issues</module>
 		<module>test</module>
@@ -89,16 +89,16 @@
 		<arquillian.graphene.version>2.0.3.Final</arquillian.graphene.version>
 		<cdi.version>1.0-SP4</cdi.version>
 		<component.namespace>none</component.namespace>
-		<faces.group.id>com.sun.faces</faces.group.id>
+		<faces.group.id>javax.faces</faces.group.id>
 		<faces.api.artifact.id>jsf-api</faces.api.artifact.id>
 		<faces.api.scope>compile</faces.api.scope>
-		<faces.api.version>${faces.spec.version}</faces.api.version>
+		<faces.api.version>${faces.version}</faces.api.version>
 		<faces.impl.artifact.id>jsf-impl</faces.impl.artifact.id>
 		<faces.impl.scope>runtime</faces.impl.scope>
-		<faces.spec.version>2.1</faces.spec.version>
+		<faces.spec.version>1.2</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
-		<icefaces3.version>3.3.0</icefaces3.version>
+		<icefaces1.version>1.8.2</icefaces1.version>
 		<jstl.version>1.2</jstl.version>
 		<log4j.version>1.2.14</log4j.version>
 		<liferay.app.server.dir>${liferay.home}/tomcat-${liferay.tomcat.version}</liferay.app.server.dir>
@@ -116,26 +116,25 @@
 		<liferay.version>6.2.3</liferay.version>
 		<liferay.weblogic.version>12.1.3.0</liferay.weblogic.version>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
-
-		<mojarra.version>2.1.29-04</mojarra.version>
+		<mojarra.version>1.2_15</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
 		<pluto.deploy.dir>${pluto.tomcat.dir}/webapps</pluto.deploy.dir>
 		<pluto.home>${env.PORTALS_HOME}/liferay.com/${pluto.portal}-jsf-${faces.spec.version}</pluto.home>
 		<pluto.portal>pluto-${pluto.version}</pluto.portal>
 		<pluto.tomcat.dir>${pluto.home}/tomcat-${pluto.tomcat.version}</pluto.tomcat.dir>
-		<pluto.tomcat.version>7.0.42</pluto.tomcat.version>
+		<pluto.tomcat.version>7.0.21</pluto.tomcat.version>
 		<pluto.version>2.0.3</pluto.version>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
-		<primefaces5.version>5.2</primefaces5.version>
+		<primefaces1.version>UNSUPPORTED</primefaces1.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.stage>Production</project.stage>
-		<richfaces4.version>4.5.6.Final</richfaces4.version>
+		<richfaces3.version>UNSUPPORTED</richfaces3.version>
 		<selenium.version>2.46.0</selenium.version>
 		<spring.version>3.0.7.RELEASE</spring.version>
 		<surefire.version>2.12</surefire.version>
 		<tck.version>jsr329-1.0.1-liferay</tck.version>
-		<tck.trinidad.version>2.0.1</tck.trinidad.version>
+		<tck.trinidad.version>1.2.13</tck.trinidad.version>
 		<war.packaging.excludes>
 			WEB-INF/glassfish-*.xml,
 			WEB-INF/ibm-*.xml,
@@ -699,41 +698,6 @@
 					WEB-INF/web-*.xml
 				</war.packaging.excludes>
 			</properties>
-			<dependencies>
-			    <dependency>
-			        <groupId>xerces</groupId>
-			        <artifactId>xercesImpl</artifactId>
-			        <version>${weblogic.xerces.version}</version>
-			    </dependency>
-			</dependencies>
-			<dependencyManagement>
-				<dependencies>
-					<dependency>
-						<groupId>org.icefaces</groupId>
-						<artifactId>icefaces</artifactId>
-						<version>${icefaces3.version}</version>
-						<exclusions>
-							<!-- FACES-1725/FACES-1598/PUSH-247: Exclude icepush.jar on WebLogic -->
-							<exclusion>
-								<groupId>org.icepush</groupId>
-								<artifactId>icepush</artifactId>
-							</exclusion>
-							<exclusion>
-								<groupId>org.glassfish</groupId>
-								<artifactId>javax.faces</artifactId>
-							</exclusion>
-							<exclusion>
-								<groupId>javax.mail</groupId>
-								<artifactId>mail</artifactId>
-							</exclusion>
-							<exclusion>
-								<groupId>javax.activation</groupId>
-								<artifactId>javax.activation</artifactId>
-							</exclusion>
-						</exclusions>
-					</dependency>
-				</dependencies>
-			</dependencyManagement>
 		</profile>
 		<profile>
 			<id>websphere</id>
@@ -829,23 +793,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>com.liferay.cdi</groupId>
-				<artifactId>cdi-portlet-bridge-shared</artifactId>
-				<version>6.2.0.2</version>
-			</dependency>
-			<dependency>
-				<groupId>com.liferay.faces.alloy</groupId>
-				<artifactId>liferay-faces-alloy</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
-				<scope>runtime</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.liferay.faces.alloy</groupId>
-				<artifactId>liferay-faces-reslib</artifactId>
-				<version>3.0.0-SNAPSHOT</version>
-				<scope>runtime</scope>
-			</dependency>
-			<dependency>
 				<groupId>com.liferay.faces.bridge</groupId>
 				<artifactId>liferay-faces-bridge-api</artifactId>
 				<version>${project.version}</version>
@@ -860,20 +807,13 @@
 			<dependency>
 				<groupId>com.liferay.faces.util</groupId>
 				<artifactId>liferay-faces-util</artifactId>
-				<version>2.0.0-SNAPSHOT</version>
+				<version>1.0.0-SNAPSHOT</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.sun.faces</groupId>
-				<artifactId>jsf-api</artifactId>
-				<version>${mojarra.version}</version>
-				<scope>${faces.api.scope}</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.sun.faces</groupId>
-				<artifactId>jsf-impl</artifactId>
-				<version>${mojarra.version}</version>
-				<scope>${faces.impl.scope}</scope>
+				<groupId>com.sun.facelets</groupId>
+				<artifactId>jsf-facelets</artifactId>
+				<version>1.1.15</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-fileupload</groupId>
@@ -903,21 +843,14 @@
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.enterprise</groupId>
-				<artifactId>cdi-api</artifactId>
-				<version>${cdi.version}</version>
-				<scope>provided</scope>
+				<groupId>javax.faces</groupId>
+				<artifactId>jsf-api</artifactId>
+				<version>${faces.api.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.faces</groupId>
-				<artifactId>javax.faces-api</artifactId>
-				<version>${faces.api.version}</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>javax.inject</groupId>
-				<artifactId>javax.inject</artifactId>
-				<version>1</version>
+				<artifactId>jsf-impl</artifactId>
+				<version>${mojarra.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.portlet</groupId>
@@ -930,6 +863,11 @@
 				<artifactId>jsp-api</artifactId>
 				<version>2.1</version>
 				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>jstl</artifactId>
+				<version>${jstl.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>
@@ -959,28 +897,17 @@
 				<version>${myfaces.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.glassfish.web</groupId>
-				<artifactId>jstl-impl</artifactId>
-				<version>${jstl.version}</version>
-				<exclusions>
-				    <exclusion>
-				        <groupId>javax.servlet</groupId>
-				        <artifactId>servlet-api</artifactId>
-				    </exclusion>
-				    <exclusion>
-				        <groupId>javax.servlet.jsp</groupId>
-				        <artifactId>jsp-api</artifactId>
-				    </exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
 				<groupId>org.icefaces</groupId>
 				<artifactId>icefaces</artifactId>
-				<version>${icefaces3.version}</version>
+				<version>${icefaces1.version}</version>
 				<exclusions>
 					<exclusion>
-						<groupId>org.glassfish</groupId>
-						<artifactId>javax.faces</artifactId>
+						<groupId>javax.el</groupId>
+						<artifactId>el-api</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.servlet</groupId>
+						<artifactId>servlet-api</artifactId>
 					</exclusion>
 					<exclusion>
 						<groupId>javax.mail</groupId>
@@ -994,28 +921,17 @@
 			</dependency>
 			<dependency>
 				<groupId>org.icefaces</groupId>
-				<artifactId>icefaces-ace</artifactId>
-				<version>${icefaces3.version}</version>
+				<artifactId>icefaces-comps</artifactId>
+				<version>${icefaces1.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.icepush</groupId>
-				<artifactId>icepush</artifactId>
-				<version>${icefaces3.version}</version>
+				<groupId>org.icefaces</groupId>
+				<artifactId>icefaces-facelets</artifactId>
+				<version>${icefaces1.version}</version>
 				<exclusions>
 					<exclusion>
-						<artifactId>jsp-api</artifactId>
-						<groupId>javax.servlet.jsp</groupId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces</groupId>
-				<artifactId>richfaces</artifactId>
-				<version>${richfaces4.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.jboss.spec.javax.el</groupId>
-						<artifactId>jboss-el-api_3.0_spec</artifactId>
+						<groupId>javax.el</groupId>
+						<artifactId>el-api</artifactId>
 					</exclusion>
 				</exclusions>
 			</dependency>
@@ -1064,9 +980,15 @@
 				<type>pom</type>
 			</dependency>
 			<dependency>
-				<groupId>org.jboss.weld.servlet</groupId>
-				<artifactId>weld-servlet</artifactId>
-				<version>${weld.version}</version>
+				<groupId>org.jboss.seam</groupId>
+				<artifactId>jboss-el</artifactId>
+				<version>2.0.0.GA</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javax.el</groupId>
+						<artifactId>el-api</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>

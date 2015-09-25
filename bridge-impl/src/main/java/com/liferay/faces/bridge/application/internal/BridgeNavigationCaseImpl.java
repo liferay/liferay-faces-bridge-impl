@@ -18,8 +18,6 @@ package com.liferay.faces.bridge.application.internal;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.NavigationCase;
-import javax.faces.context.FacesContext;
 import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.util.internal.URLUtil;
@@ -28,14 +26,14 @@ import com.liferay.faces.bridge.util.internal.URLUtil;
 /**
  * @author  Neil Griffin
  */
-public class BridgeNavigationCaseImpl extends NavigationCaseWrapper implements BridgeNavigationCase {
+public class BridgeNavigationCaseImpl implements BridgeNavigationCase {
 
 	// Private Data Members
 	private Map<String, List<String>> parameters;
-	private NavigationCase wrappedNavigationCase;
+	private String toViewId;
 
-	public BridgeNavigationCaseImpl(NavigationCase navigationCase) {
-		this.wrappedNavigationCase = navigationCase;
+	public BridgeNavigationCaseImpl(String toViewId) {
+		this.toViewId = toViewId;
 	}
 
 	protected String getParameter(String parameterName) {
@@ -55,16 +53,10 @@ public class BridgeNavigationCaseImpl extends NavigationCaseWrapper implements B
 		return parameter;
 	}
 
-	@Override
 	public Map<String, List<String>> getParameters() {
 
 		if (parameters == null) {
-			parameters = super.getParameters();
-
-			if (parameters == null) {
-				FacesContext facesContext = FacesContext.getCurrentInstance();
-				parameters = URLUtil.parseParameterMapValuesList(wrappedNavigationCase.getToViewId(facesContext));
-			}
+			parameters = URLUtil.parseParameterMapValuesList(toViewId);
 		}
 
 		return parameters;
@@ -77,10 +69,4 @@ public class BridgeNavigationCaseImpl extends NavigationCaseWrapper implements B
 	public String getWindowState() {
 		return getParameter(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
 	}
-
-	@Override
-	public NavigationCase getWrapped() {
-		return wrappedNavigationCase;
-	}
-
 }
