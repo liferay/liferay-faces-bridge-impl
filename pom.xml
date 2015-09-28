@@ -445,7 +445,7 @@
 			<id>liferay70</id>
 			<properties>
 				<liferay.faces.bridge.ext.version>4.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
-				<liferay.version>7.0.0</liferay.version>
+				<liferay.version>7.0.0-a1</liferay.version>
 				<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 				<liferay.jboss.version>7.1.1</liferay.jboss.version>
 				<liferay.jetty.version>8.1.10</liferay.jetty.version>
