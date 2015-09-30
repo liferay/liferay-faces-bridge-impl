@@ -16,12 +16,11 @@
 package com.liferay.faces.bridge.component.inputfile.internal;
 //J-
 
-
 import javax.annotation.Generated;
 
-import com.liferay.faces.bridge.component.inputfile.InputFile;
-
 import com.liferay.faces.util.render.DelegatingRendererBase;
+
+import com.liferay.faces.bridge.component.inputfile.InputFile;
 
 
 /**
