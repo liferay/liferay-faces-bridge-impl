@@ -16,7 +16,6 @@
 package com.liferay.faces.portlet.component.baseurl.internal;
 //J-
 
-
 import javax.annotation.Generated;
 
 import javax.faces.render.Renderer;
