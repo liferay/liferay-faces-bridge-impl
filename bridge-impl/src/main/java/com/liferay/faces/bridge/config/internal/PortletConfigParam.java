@@ -22,7 +22,7 @@ import com.liferay.faces.util.helper.BooleanHelper;
 
 
 /**
- * This enumeration contains constant names for various implementation-specific contex-param entries that portlet
+ * This enumeration contains constant names for various implementation-specific context-param entries that portlet
  * developers can use in the WEB-INF/web.xml descriptor.
  *
  * @author  Neil Griffin
