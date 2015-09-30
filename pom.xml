@@ -793,6 +793,12 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>com.liferay.faces.alloy</groupId>
+				<artifactId>liferay-faces-alloy</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
 				<groupId>com.liferay.faces.bridge</groupId>
 				<artifactId>liferay-faces-bridge-api</artifactId>
 				<version>${project.version}</version>

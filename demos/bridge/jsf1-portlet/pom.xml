@@ -38,6 +38,10 @@
 			<artifactId>jboss-el</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.liferay.faces.alloy</groupId>
+			<artifactId>liferay-faces-alloy</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.liferay.faces.bridge</groupId>
 			<artifactId>liferay-faces-bridge-impl</artifactId>
 			<version>${project.version}</version>
