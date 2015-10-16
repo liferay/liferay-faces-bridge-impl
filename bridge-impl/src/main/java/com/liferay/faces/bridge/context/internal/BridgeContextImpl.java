@@ -294,13 +294,6 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		if (isJSF2PartialRequest(facesContext)) {
-
-			ArrayList<String> bridgeAjaxRedirect = new ArrayList<String>();
-			bridgeAjaxRedirect.add("true");
-			parameters.put("_bridgeAjaxRedirect", bridgeAjaxRedirect);
-		}
-
 		try {
 
 			BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
@@ -312,7 +305,13 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 				redirectViewId = bridgeURI.getContextRelativePath(contextPath);
 			}
 
-			return bridgeURLFactory.getBridgeRedirectURL(bridgeContext, bridgeURI, parameters, redirectViewId);
+			BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(bridgeContext, bridgeURI, parameters, redirectViewId);
+
+			if (isJSF2PartialRequest(facesContext)) {
+				bridgeRedirectURL.setParameter("_bridgeAjaxRedirect", "true");
+			}
+
+			return bridgeRedirectURL;
 		}
 		catch (URISyntaxException e) {
 			throw new FacesException(e);
