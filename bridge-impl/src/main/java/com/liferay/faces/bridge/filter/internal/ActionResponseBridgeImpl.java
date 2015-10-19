@@ -19,8 +19,6 @@ import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
 
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.scope.BridgeRequestScope;
@@ -30,10 +28,6 @@ import com.liferay.faces.bridge.scope.BridgeRequestScope;
  * @author  Neil Griffin
  */
 public class ActionResponseBridgeImpl extends ActionResponseBridgeCompatImpl {
-
-	// Private Data Members
-	private String namespace;
-	private String namespaceWSRP;
 
 	public ActionResponseBridgeImpl(ActionResponse actionResponse) {
 		super(actionResponse);
@@ -67,37 +61,5 @@ public class ActionResponseBridgeImpl extends ActionResponseBridgeCompatImpl {
 		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
 		BridgeRequestScope bridgeRequestScope = bridgeContext.getBridgeRequestScope();
 		bridgeRequestScope.setRedirectOccurred(true);
-	}
-
-	@Override
-	public String getNamespace() {
-
-		if (namespace == null) {
-
-			namespace = super.getNamespace();
-
-			if (namespace.startsWith("wsrp_rewrite")) {
-
-				BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-				namespace = getNamespaceWSRP(bridgeContext);
-			}
-		}
-
-		return namespace;
-	}
-
-	protected String getNamespaceWSRP(BridgeContext bridgeContext) {
-
-		if (namespaceWSRP == null) {
-
-			PortletConfig portletConfig = bridgeContext.getPortletConfig();
-			String portletName = portletConfig.getPortletName();
-			PortletContext portletContext = bridgeContext.getPortletContext();
-			String portletContextName = portletContext.getPortletContextName();
-
-			namespaceWSRP = portletName + portletContextName;
-		}
-
-		return namespaceWSRP;
 	}
 }

@@ -16,12 +16,13 @@
 package com.liferay.faces.bridge.filter.internal;
 
 import javax.portlet.RenderResponse;
+import javax.portlet.filter.RenderResponseWrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public class RenderResponseBridgePlutoImpl extends RenderResponseBridgeImpl {
+public class RenderResponseBridgePlutoImpl extends RenderResponseWrapper {
 
 	public RenderResponseBridgePlutoImpl(RenderResponse renderResponse) {
 		super(renderResponse);
