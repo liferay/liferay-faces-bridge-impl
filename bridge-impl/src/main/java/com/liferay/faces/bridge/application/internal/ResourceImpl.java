@@ -266,50 +266,55 @@ public class ResourceImpl extends ResourceWrapper implements Serializable {
 
 			if (wrappedRequestPath.contains(ResourceHandler.RESOURCE_IDENTIFIER)) {
 
+				// If this resource request was initiated from a ResourceURL (not via the FacesServlet), then
 				BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-				BridgeConfig bridgeConfig = bridgeContext.getBridgeConfig();
 
-				List<ConfiguredServletMapping> configuredFacesServletMappings = (List<ConfiguredServletMapping>)
-					bridgeConfig.getAttributes().get(BridgeConfigAttributeMap.CONFIGURED_FACES_SERVLET_MAPPINGS);
+				if (bridgeContext != null) {
+					BridgeConfig bridgeConfig = bridgeContext.getBridgeConfig();
 
-				if (configuredFacesServletMappings != null) {
+					List<ConfiguredServletMapping> configuredFacesServletMappings = (List<ConfiguredServletMapping>)
+						bridgeConfig.getAttributes().get(BridgeConfigAttributeMap.CONFIGURED_FACES_SERVLET_MAPPINGS);
 
-					for (ConfiguredServletMapping configuredServletMapping : configuredFacesServletMappings) {
+					if (configuredFacesServletMappings != null) {
 
-						if (configuredServletMapping.isExtensionMapped()) {
-							String extension = configuredServletMapping.getExtension();
+						for (ConfiguredServletMapping configuredServletMapping : configuredFacesServletMappings) {
 
-							// Note: Both Mojarra and MyFaces construct a requestPath that looks something like
-							// "/javax.faces.resource/jsf.js.faces?ln=javax.faces" and so we look for the ".faces?ln" as
-							// an indicator that ".faces" needs to be removed from the requestPath.
-							String token = extension + "?ln";
-							int pos = wrappedRequestPath.indexOf(token);
+							if (configuredServletMapping.isExtensionMapped()) {
+								String extension = configuredServletMapping.getExtension();
 
-							// If the servlet-mapping extension is found, then remove it since this is an implicit
-							// Servlet-API dependency on the FacesServlet that has no meaning in a portlet environment.
-							if (pos > 0) {
+								// Note: Both Mojarra and MyFaces construct a requestPath that looks something like
+								// "/javax.faces.resource/jsf.js.faces?ln=javax.faces" and so we look for the
+								// ".faces?ln" as an indicator that ".faces" needs to be removed from the requestPath.
+								String token = extension + "?ln";
+								int pos = wrappedRequestPath.indexOf(token);
 
-								wrappedRequestPath = wrappedRequestPath.substring(0, pos) +
-									wrappedRequestPath.substring(pos + extension.length());
-								logger.debug("Removed extension=[{0}] from requestPath=[{1}]", extension,
-									wrappedRequestPath);
-							}
-							else if (wrappedRequestPath.endsWith(extension)) {
+								// If the servlet-mapping extension is found, then remove it since this is an implicit
+								// Servlet-API dependency on the FacesServlet that has no meaning in a portlet
+								// environment.
+								if (pos > 0) {
 
-								if (extension.equals(EXTENSION_FACES) &&
-										wrappedRequestPath.endsWith(LIBRARY_NAME_JAVAX_FACES)) {
-									// Special case: Don't remove ".faces" if request path ends with "javax.faces"
-									// http://issues.liferay.com/browse/FACES-1202
-								}
-								else {
-
-									// Sometimes resources like the ICEfaces bridge.js file don't have a library name
-									// (ln=) parameter and simply look like this:
-									// /my-portlet/javax.faces.resource/bridge.js.faces
-									wrappedRequestPath = wrappedRequestPath.substring(0,
-											wrappedRequestPath.lastIndexOf(extension));
+									wrappedRequestPath = wrappedRequestPath.substring(0, pos) +
+										wrappedRequestPath.substring(pos + extension.length());
 									logger.debug("Removed extension=[{0}] from requestPath=[{1}]", extension,
 										wrappedRequestPath);
+								}
+								else if (wrappedRequestPath.endsWith(extension)) {
+
+									if (extension.equals(EXTENSION_FACES) &&
+											wrappedRequestPath.endsWith(LIBRARY_NAME_JAVAX_FACES)) {
+										// Special case: Don't remove ".faces" if request path ends with "javax.faces"
+										// http://issues.liferay.com/browse/FACES-1202
+									}
+									else {
+
+										// Sometimes resources like the ICEfaces bridge.js file don't have a library
+										// name (ln=) parameter and simply look like this:
+										// /my-portlet/javax.faces.resource/bridge.js.faces
+										wrappedRequestPath = wrappedRequestPath.substring(0,
+												wrappedRequestPath.lastIndexOf(extension));
+										logger.debug("Removed extension=[{0}] from requestPath=[{1}]", extension,
+											wrappedRequestPath);
+									}
 								}
 							}
 						}
