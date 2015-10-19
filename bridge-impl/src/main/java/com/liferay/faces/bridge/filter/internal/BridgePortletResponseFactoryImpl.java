@@ -35,7 +35,7 @@ public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFacto
 
 	@Override
 	public EventResponse getEventResponse(EventResponse eventResponse) {
-		return new EventResponseBridgeImpl(eventResponse);
+		return eventResponse;
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFacto
 			return new RenderResponseBridgePlutoImpl(renderResponse);
 		}
 		else {
-			return new RenderResponseBridgeImpl(renderResponse);
+			return renderResponse;
 		}
 	}
 
@@ -56,7 +56,7 @@ public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFacto
 			return new ResourceResponseBridgePlutoImpl(resourceResponse);
 		}
 		else {
-			return new ResourceResponseBridgeImpl(resourceResponse);
+			return resourceResponse;
 		}
 	}
 
