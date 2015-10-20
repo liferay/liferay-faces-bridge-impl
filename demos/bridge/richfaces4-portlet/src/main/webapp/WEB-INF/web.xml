@@ -50,4 +50,12 @@
 		<servlet-name>Resource Servlet</servlet-name>
 		<url-pattern>/org.richfaces.resources/*</url-pattern>
 	</servlet-mapping>
+	<security-constraint>
+		<display-name>Prevent direct access to Facelet XHTML</display-name>
+		<web-resource-collection>
+			<web-resource-name>Facelet XHTML</web-resource-name>
+			<url-pattern>*.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint />
+	</security-constraint>
 </web-app>
