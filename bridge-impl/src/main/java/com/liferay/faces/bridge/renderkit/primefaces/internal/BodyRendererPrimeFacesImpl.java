@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import com.liferay.faces.bridge.renderkit.html_basic.internal.BodyRendererBridgeImpl;
@@ -65,8 +63,7 @@ public class BodyRendererPrimeFacesImpl extends BodyRendererBridgeImpl {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	protected void encodeScripts(FacesContext facesContext, ResponseWriter responseWriter, UIComponent uiComponent)
-		throws IOException {
+	protected void encodeScripts(ResponseWriter responseWriter) throws IOException {
 
 		Object requestContext = getRequestContextCurrentInstance();
 
@@ -88,7 +85,7 @@ public class BodyRendererPrimeFacesImpl extends BodyRendererBridgeImpl {
 		}
 
 		// Allow the BodyRendererBridgeImpl to render the scripts.
-		super.encodeScripts(facesContext, responseWriter, uiComponent);
+		super.encodeScripts(responseWriter);
 	}
 
 	protected Object getRequestContextCurrentInstance() {

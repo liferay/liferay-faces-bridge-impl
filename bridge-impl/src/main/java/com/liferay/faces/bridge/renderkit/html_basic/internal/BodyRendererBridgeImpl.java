@@ -25,13 +25,12 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
-import com.liferay.faces.bridge.render.BodyScriptEncoder;
-import com.liferay.faces.bridge.render.BodyScriptEncoderFactory;
 import com.liferay.faces.bridge.renderkit.bridge.internal.BridgeRenderer;
 import com.liferay.faces.util.application.ComponentResource;
 import com.liferay.faces.util.application.ComponentResourceFactory;
 import com.liferay.faces.util.application.ComponentResourceUtil;
+import com.liferay.faces.util.client.ScriptEncoder;
+import com.liferay.faces.util.client.ScriptEncoderFactory;
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -190,20 +189,22 @@ public class BodyRendererBridgeImpl extends BridgeRenderer {
 
 		// If non-Ajax request, render scripts from FacesRequestContext.
 		if (!facesContext.getPartialViewContext().isAjaxRequest()) {
-
-			encodeScripts(facesContext, responseWriter, uiComponent);
+			encodeScripts(responseWriter);
 		}
 
 		// Render the closing </div> tag.
 		responseWriter.endElement(ELEMENT_DIV);
 	}
 
-	protected void encodeScripts(FacesContext facesContext, ResponseWriter responseWriter, UIComponent uiComponent)
-		throws IOException {
+	protected void encodeScripts(ResponseWriter responseWriter) throws IOException {
 
-		BodyScriptEncoderFactory bodyScriptEncoderFactory = (BodyScriptEncoderFactory) BridgeFactoryFinder.getFactory(
-				BodyScriptEncoderFactory.class);
-		BodyScriptEncoder bodyScriptEncoder = bodyScriptEncoderFactory.getBodyScriptEncoder();
-		bodyScriptEncoder.encodeScripts(facesContext, responseWriter, uiComponent);
+		responseWriter.startElement("script", null);
+		responseWriter.writeAttribute("type", "text/javascript", null);
+
+		ScriptEncoderFactory scriptEncoderFactory = (ScriptEncoderFactory) FactoryExtensionFinder.getFactory(
+				ScriptEncoderFactory.class);
+		ScriptEncoder scriptEncoder = scriptEncoderFactory.getScriptEncoder();
+		scriptEncoder.encodeScripts(responseWriter);
+		responseWriter.endElement("script");
 	}
 }
