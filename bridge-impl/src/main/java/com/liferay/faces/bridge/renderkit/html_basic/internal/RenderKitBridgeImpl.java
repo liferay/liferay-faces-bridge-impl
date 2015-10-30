@@ -102,6 +102,9 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 					(PRIMEFACES.getMajorVersion() >= 5)) {
 				renderer = new BodyRendererPrimeFacesImpl();
 			}
+			else if (JAVAX_FACES_BODY.equals(rendererType)) {
+				renderer = new BodyRendererBridgeImpl();
+			}
 			else if (SCRIPT_RENDERER_TYPE.equals(rendererType) || STYLESHEET_RENDERER_TYPE.equals(rendererType)) {
 				renderer = new ResourceRendererBridgeImpl(renderer);
 			}
