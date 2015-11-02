@@ -31,7 +31,7 @@
 				</dependency>
 				<dependency>
 					<groupId>com.liferay.faces.alloy</groupId>
-					<artifactId>liferay-faces-reslib</artifactId>
+					<artifactId>liferay-faces-alloy-reslib</artifactId>
 				</dependency>
 			</dependencies>
 		</profile>
