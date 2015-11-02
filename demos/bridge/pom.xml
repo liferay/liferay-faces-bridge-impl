@@ -29,10 +29,6 @@
 					<groupId>log4j</groupId>
 					<artifactId>log4j</artifactId>
 				</dependency>
-				<dependency>
-					<groupId>com.liferay.faces.alloy</groupId>
-					<artifactId>liferay-faces-alloy-reslib</artifactId>
-				</dependency>
 			</dependencies>
 		</profile>
 	</profiles>
