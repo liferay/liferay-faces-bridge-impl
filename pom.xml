@@ -940,6 +940,12 @@
 				<artifactId>icefaces-ace</artifactId>
 				<version>${icefaces3.version}</version>
 			</dependency>
+			<!-- Note: icefaces-compat required due to http://jira.icesoft.org/browse/ICE-8444 -->
+			<dependency>
+				<groupId>org.icefaces</groupId>
+				<artifactId>icefaces-compat</artifactId>
+				<version>${icefaces3.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.icepush</groupId>
 				<artifactId>icepush</artifactId>
