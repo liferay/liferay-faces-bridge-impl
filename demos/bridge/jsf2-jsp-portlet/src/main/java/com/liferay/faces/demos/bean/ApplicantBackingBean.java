@@ -29,7 +29,7 @@ import javax.faces.event.ValueChangeEvent;
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.demos.dto.City;
-import com.liferay.faces.demos.util.FacesMessageUtil;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -106,7 +106,7 @@ public class ApplicantBackingBean implements Serializable {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(FacesContext.getCurrentInstance());
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 
@@ -152,7 +152,7 @@ public class ApplicantBackingBean implements Serializable {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(FacesContext.getCurrentInstance());
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 
 			return "failure";
 		}

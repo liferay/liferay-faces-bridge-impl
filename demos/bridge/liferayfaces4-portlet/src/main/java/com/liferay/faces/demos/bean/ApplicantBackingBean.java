@@ -27,7 +27,7 @@ import javax.faces.event.ValueChangeEvent;
 
 import com.liferay.faces.alloy.component.inputfile.FileUploadEvent;
 import com.liferay.faces.demos.dto.City;
-import com.liferay.faces.demos.util.FacesMessageUtil;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.model.UploadedFile;
@@ -106,7 +106,7 @@ public class ApplicantBackingBean implements Serializable {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(FacesContext.getCurrentInstance());
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 
@@ -151,7 +151,7 @@ public class ApplicantBackingBean implements Serializable {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(FacesContext.getCurrentInstance());
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 
 			return "failure";
 		}
