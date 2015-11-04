@@ -18,7 +18,9 @@ package com.liferay.faces.demos.bean;
 import java.io.File;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -26,7 +28,7 @@ import javax.faces.event.ValueChangeEvent;
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.demos.dto.City;
-import com.liferay.faces.demos.util.FacesMessageUtil;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -60,8 +62,10 @@ public class ApplicantBackingBean implements Serializable {
 
 	public void deleteUploadedFile(ActionEvent actionEvent) {
 
-		String fileId = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(
-				"fileId");
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
+		String fileId = requestParameterMap.get("fileId");
 
 		try {
 			List<UploadedFile> uploadedFiles = applicantModelBean.getUploadedFiles();
@@ -102,7 +106,7 @@ public class ApplicantBackingBean implements Serializable {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(FacesContext.getCurrentInstance());
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 
@@ -143,7 +147,7 @@ public class ApplicantBackingBean implements Serializable {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(FacesContext.getCurrentInstance());
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 
 			return "failure";
 		}

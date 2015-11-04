@@ -29,7 +29,7 @@ import com.icesoft.faces.component.inputfile.InputFile;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.demos.dto.City;
 import com.liferay.faces.demos.dto.UploadedFileWrapper;
-import com.liferay.faces.demos.util.FacesMessageUtil;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -95,10 +95,10 @@ public class ApplicantBackingBean implements Serializable {
 			int status = fileInfo.getStatus();
 
 			if (status == InputFile.INVALID) {
-				FacesMessageUtil.addGlobalErrorMessage(facesContext, "you-have-entered-invalid-data", null);
+				FacesContextHelperUtil.addGlobalErrorMessage("you-have-entered-invalid-data");
 			}
 			else if ((status == InputFile.INVALID_CONTENT_TYPE) || (status == InputFile.INVALID_NAME_PATTERN)) {
-				FacesMessageUtil.addGlobalErrorMessage(facesContext, "file-type-is-invalid", null);
+				FacesContextHelperUtil.addGlobalErrorMessage("file-type-is-invalid");
 			}
 			else if (status == InputFile.SAVED) {
 				List<UploadedFile> uploadedFiles = applicantModelBean.getUploadedFiles();
@@ -111,13 +111,12 @@ public class ApplicantBackingBean implements Serializable {
 				}
 			}
 			else if (status == InputFile.SIZE_LIMIT_EXCEEDED) {
-				FacesMessageUtil.addGlobalErrorMessage(facesContext, "please-enter-a-file-with-a-valid-file-size",
-					null);
+				FacesContextHelperUtil.addGlobalErrorMessage("please-enter-a-file-with-a-valid-file-size");
 			}
 		}
 		catch (Exception e) {
 			logger.error(e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(facesContext);
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 
@@ -134,7 +133,7 @@ public class ApplicantBackingBean implements Serializable {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(FacesContext.getCurrentInstance());
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 
@@ -175,7 +174,7 @@ public class ApplicantBackingBean implements Serializable {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(FacesContext.getCurrentInstance());
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 
 			return "failure";
 		}
@@ -202,5 +201,4 @@ public class ApplicantBackingBean implements Serializable {
 		// Injected via WEB-INF/faces-config.xml managed-property
 		this.listModelBean = listModelBean;
 	}
-
 }

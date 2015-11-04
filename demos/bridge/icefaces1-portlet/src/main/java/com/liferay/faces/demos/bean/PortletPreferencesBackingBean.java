@@ -27,7 +27,7 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.faces.preference.Preference;
 
-import com.liferay.faces.demos.util.FacesMessageUtil;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -64,10 +64,10 @@ public class PortletPreferencesBackingBean implements Serializable {
 
 			portletPreferences.store();
 
-			FacesMessageUtil.addGlobalSuccessInfoMessage(facesContext);
+			FacesContextHelperUtil.addGlobalSuccessInfoMessage();
 		}
 		catch (Exception e) {
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(facesContext);
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 
 	}
@@ -114,11 +114,11 @@ public class PortletPreferencesBackingBean implements Serializable {
 			portletPreferences.store();
 
 			// Report a successful message back to the user as feedback.
-			FacesMessageUtil.addGlobalSuccessInfoMessage(facesContext);
+			FacesContextHelperUtil.addGlobalSuccessInfoMessage();
 		}
 		catch (Exception e) {
 			logger.error(e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(facesContext);
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 }
