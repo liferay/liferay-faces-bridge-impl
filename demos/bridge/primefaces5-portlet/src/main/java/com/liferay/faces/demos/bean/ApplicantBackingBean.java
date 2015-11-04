@@ -31,7 +31,7 @@ import org.primefaces.event.FileUploadEvent;
 
 import com.liferay.faces.demos.dto.City;
 import com.liferay.faces.demos.dto.UploadedFileWrapper;
-import com.liferay.faces.demos.util.FacesMessageUtil;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.model.UploadedFile;
@@ -115,7 +115,7 @@ public class ApplicantBackingBean implements Serializable {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(FacesContext.getCurrentInstance());
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 
@@ -160,7 +160,7 @@ public class ApplicantBackingBean implements Serializable {
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage(), e);
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(FacesContext.getCurrentInstance());
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 
 			return "failure";
 		}
@@ -183,5 +183,4 @@ public class ApplicantBackingBean implements Serializable {
 		// Injected via @ManagedProperty annotation
 		this.listModelBean = listModelBean;
 	}
-
 }

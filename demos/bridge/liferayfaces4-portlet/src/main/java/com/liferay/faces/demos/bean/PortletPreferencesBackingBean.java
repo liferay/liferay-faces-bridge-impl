@@ -30,7 +30,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.WindowState;
 import javax.portlet.faces.preference.Preference;
 
-import com.liferay.faces.demos.util.FacesMessageUtil;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 
 
 /**
@@ -66,12 +66,11 @@ public class PortletPreferencesBackingBean {
 			actionResponse.setPortletMode(PortletMode.VIEW);
 			actionResponse.setWindowState(WindowState.NORMAL);
 
-			FacesMessageUtil.addGlobalSuccessInfoMessage(facesContext);
+			FacesContextHelperUtil.addGlobalSuccessInfoMessage();
 		}
 		catch (Exception e) {
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(facesContext);
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
-
 	}
 
 	/**
@@ -121,10 +120,10 @@ public class PortletPreferencesBackingBean {
 			actionResponse.setWindowState(WindowState.NORMAL);
 
 			// Report a successful message back to the user as feedback.
-			FacesMessageUtil.addGlobalSuccessInfoMessage(facesContext);
+			FacesContextHelperUtil.addGlobalSuccessInfoMessage();
 		}
 		catch (Exception e) {
-			FacesMessageUtil.addGlobalUnexpectedErrorMessage(facesContext);
+			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
 	}
 }
