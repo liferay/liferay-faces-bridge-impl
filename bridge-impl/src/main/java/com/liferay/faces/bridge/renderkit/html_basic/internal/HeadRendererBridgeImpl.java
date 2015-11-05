@@ -26,6 +26,7 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
@@ -35,7 +36,6 @@ import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.HeadResponseWriter;
 import com.liferay.faces.bridge.context.HeadResponseWriterFactory;
-import com.liferay.faces.bridge.renderkit.bridge.internal.BridgeRenderer;
 import com.liferay.faces.util.application.ComponentResource;
 import com.liferay.faces.util.application.ComponentResourceFactory;
 import com.liferay.faces.util.application.ComponentResourceUtil;
@@ -51,7 +51,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
  *
  * @author  Neil Griffin
  */
-public class HeadRendererBridgeImpl extends BridgeRenderer {
+public class HeadRendererBridgeImpl extends Renderer {
 
 	// Private Constants
 	private static final String ADDED = UIComponentBase.class.getName() + ".ADDED";
@@ -306,7 +306,7 @@ public class HeadRendererBridgeImpl extends BridgeRenderer {
 		// in order to prevent events from firing during the relocation process.
 		for (UIComponent uiComponentResource : resourcesForRelocatingToBody) {
 
-			uiComponentResource.getAttributes().put(ORIGINAL_TARGET, "head");
+			uiComponentResource.getAttributes().put(RenderKitBridgeImpl.ORIGINAL_TARGET, "head");
 			uiComponentResource.getAttributes().put(ADDED, Boolean.TRUE);
 			uiViewRoot.addComponentResource(facesContext, uiComponentResource, "body");
 
