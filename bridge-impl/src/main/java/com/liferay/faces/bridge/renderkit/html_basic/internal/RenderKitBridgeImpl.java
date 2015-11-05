@@ -27,7 +27,6 @@ import javax.faces.render.Renderer;
 import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
 import com.liferay.faces.bridge.renderkit.bridge.internal.ResponseWriterBridgeImpl;
 import com.liferay.faces.bridge.renderkit.icefaces.internal.HeadRendererICEfacesImpl;
-import com.liferay.faces.bridge.renderkit.primefaces.internal.BodyRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.FileUploadRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.FormRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.HeadRendererPrimeFacesImpl;
@@ -38,22 +37,29 @@ import com.liferay.faces.util.product.ProductMap;
 
 
 /**
+ * This class extends {@link RenderKitWrapper} in order to programatically control the {@link RenderKit} delegation
+ * chain and wrapping of renderers.
+ *
  * @author  Neil Griffin
  */
 public class RenderKitBridgeImpl extends RenderKitWrapper {
 
+	// Package-Private Constants
+	/* package-private */ static final String ORIGINAL_TARGET = "originalTarget";
+
 	// Private Constants
+	private static final boolean ICEFACES_DETECTED = ProductMap.getInstance().get(ProductConstants.ICEFACES)
+		.isDetected();
 	private static final String JAVAX_FACES_BODY = "javax.faces.Body";
 	private static final String JAVAX_FACES_FORM = "javax.faces.Form";
 	private static final String JAVAX_FACES_HEAD = "javax.faces.Head";
-	private static final Object ICEFACES_HEAD_RENDERER = "org.icefaces.ace.renderkit.HeadRenderer";
+	private static final Product PRIMEFACES = ProductMap.getInstance().get(ProductConstants.PRIMEFACES);
+	private static final boolean PRIMEFACES_DETECTED = PRIMEFACES.isDetected();
 	private static final String PRIMEFACES_FAMILY = "org.primefaces.component";
-	private static final String PRIMEFACES_HEAD_RENDERER = "org.primefaces.renderkit.HeadRenderer";
 	private static final String RICHFACES_FILE_UPLOAD_FAMILY = "org.richfaces.FileUpload";
 	private static final String RICHFACES_FILE_UPLOAD_RENDERER_TYPE = "org.richfaces.FileUploadRenderer";
 	private static final String SCRIPT_RENDERER_TYPE = "javax.faces.resource.Script";
 	private static final String STYLESHEET_RENDERER_TYPE = "javax.faces.resource.Stylesheet";
-	private static final Product PRIMEFACES = ProductMap.getInstance().get(ProductConstants.PRIMEFACES);
 
 	// Private Data Members
 	private RenderKit wrappedRenderKit;
@@ -82,35 +88,25 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 
 			if (JAVAX_FACES_HEAD.equals(rendererType)) {
 
-				// The ICEfaces and PrimeFaces HeadRenderer instances wrap/decorate the one supplied by the JSF runtime.
-				// But since the bridge's faces-config has <ordering><before><others/></before></ordering>, it is not
-				// possible for the bridge to decorate with renderers that are compatible with a portlet environment.
-				// Therefore it is necessary to have the bridge intercede at the RenderKit level.
-				String rendererClassName = renderer.getClass().getName();
-
-				if (ICEFACES_HEAD_RENDERER.equals(rendererClassName)) {
+				if (ICEFACES_DETECTED) {
 					renderer = new HeadRendererICEfacesImpl();
 				}
-				else if (PRIMEFACES_HEAD_RENDERER.equals(rendererClassName)) {
+				else if (PRIMEFACES_DETECTED) {
 					renderer = new HeadRendererPrimeFacesImpl();
 				}
 				else {
 					renderer = new HeadRendererBridgeImpl();
 				}
 			}
-			else if (JAVAX_FACES_BODY.equals(rendererType) && PRIMEFACES.isDetected() &&
-					(PRIMEFACES.getMajorVersion() >= 5)) {
-				renderer = new BodyRendererPrimeFacesImpl();
-			}
 			else if (JAVAX_FACES_BODY.equals(rendererType)) {
-				renderer = new BodyRendererBridgeImpl();
+				renderer = new BodyRendererBridgeImpl(renderer);
 			}
 			else if (SCRIPT_RENDERER_TYPE.equals(rendererType) || STYLESHEET_RENDERER_TYPE.equals(rendererType)) {
 				renderer = new ResourceRendererBridgeImpl(renderer);
 			}
 		}
 		else if (UIForm.COMPONENT_FAMILY.equals(family) && JAVAX_FACES_FORM.equals(rendererType) &&
-				PRIMEFACES.isDetected()) {
+				PRIMEFACES_DETECTED) {
 
 			renderer = new FormRendererPrimeFacesImpl(PRIMEFACES.getMajorVersion(), PRIMEFACES.getMinorVersion(),
 					renderer);
