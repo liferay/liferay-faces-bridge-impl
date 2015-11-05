@@ -36,7 +36,7 @@ public class ResponseWriterBridgeBodyImpl extends ResponseWriterWrapper {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ResponseWriterBridgeBodyImpl.class);
 
-	// Private Members
+	// Private Data Members
 	private ResponseWriter wrapppedResponseWriter;
 
 	public ResponseWriterBridgeBodyImpl(ResponseWriter wrapppedResponseWriter) {
@@ -70,16 +70,16 @@ public class ResponseWriterBridgeBodyImpl extends ResponseWriterWrapper {
 
 		if ("class".equals(name) && (value != null)) {
 
-			String valueString = value.toString();
+			String valueAsString = value.toString();
 
 			// Add a special CSS class name, BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY, in the rendered markup
 			// in order to clue-in the developer that a <div> was rendered instead of <body> if the styleClass does not
 			// already contain BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY.
-			if (!valueString.contains(BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY)) {
-				valueString = valueString + " " + BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY;
+			if (!valueAsString.contains(BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY)) {
+				valueAsString = valueAsString.concat(" ").concat(BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY);
 			}
 
-			super.writeAttribute(name, valueString, property);
+			super.writeAttribute(name, valueAsString, property);
 		}
 		else if ("onload".equals(name) || "onunload".equals(name) || "role".equals(name) || "xmlns".equals(name)) {
 			logger.warn("Suppressed writing of illegal attribute {0} on portlet body <div>.", name);

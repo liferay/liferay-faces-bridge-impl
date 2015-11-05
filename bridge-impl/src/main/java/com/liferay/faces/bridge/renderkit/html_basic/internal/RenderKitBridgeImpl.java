@@ -37,6 +37,9 @@ import com.liferay.faces.util.product.ProductMap;
 
 
 /**
+ * This class extends {@link RenderKitWrapper} in order to programatically control the {@link RenderKit} delegation
+ * chain and wrapping of renderers.
+ *
  * @author  Neil Griffin
  */
 public class RenderKitBridgeImpl extends RenderKitWrapper {
@@ -50,12 +53,13 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 	private static final String JAVAX_FACES_BODY = "javax.faces.Body";
 	private static final String JAVAX_FACES_FORM = "javax.faces.Form";
 	private static final String JAVAX_FACES_HEAD = "javax.faces.Head";
+	private static final Product PRIMEFACES = ProductMap.getInstance().get(ProductConstants.PRIMEFACES);
+	private static final boolean PRIMEFACES_DETECTED = PRIMEFACES.isDetected();
 	private static final String PRIMEFACES_FAMILY = "org.primefaces.component";
 	private static final String RICHFACES_FILE_UPLOAD_FAMILY = "org.richfaces.FileUpload";
 	private static final String RICHFACES_FILE_UPLOAD_RENDERER_TYPE = "org.richfaces.FileUploadRenderer";
 	private static final String SCRIPT_RENDERER_TYPE = "javax.faces.resource.Script";
 	private static final String STYLESHEET_RENDERER_TYPE = "javax.faces.resource.Stylesheet";
-	private static final Product PRIMEFACES = ProductMap.getInstance().get(ProductConstants.PRIMEFACES);
 
 	// Private Data Members
 	private RenderKit wrappedRenderKit;
@@ -87,7 +91,7 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 				if (ICEFACES_DETECTED) {
 					renderer = new HeadRendererICEfacesImpl();
 				}
-				else if (PRIMEFACES.isDetected()) {
+				else if (PRIMEFACES_DETECTED) {
 					renderer = new HeadRendererPrimeFacesImpl();
 				}
 				else {
@@ -102,7 +106,7 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 			}
 		}
 		else if (UIForm.COMPONENT_FAMILY.equals(family) && JAVAX_FACES_FORM.equals(rendererType) &&
-				PRIMEFACES.isDetected()) {
+				PRIMEFACES_DETECTED) {
 
 			renderer = new FormRendererPrimeFacesImpl(PRIMEFACES.getMajorVersion(), PRIMEFACES.getMinorVersion(),
 					renderer);

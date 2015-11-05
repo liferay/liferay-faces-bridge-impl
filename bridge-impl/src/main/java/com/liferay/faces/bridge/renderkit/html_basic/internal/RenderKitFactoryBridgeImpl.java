@@ -21,28 +21,44 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 
+import com.liferay.faces.util.context.FacesRequestContext;
+
 
 /**
- * This {@link RenderKitFactory} is designed to ensure that the Bridge's {@link RenderKitBridgeImpl} wraps other {@link
- * RenderKit}s. Since the Bridge comes <code>&lt;before&gt;&lt;others /&gt;&lt;/before&gt;</code> in faces-config.xml
- * configuration scanning, the Bridge's {@link RenderKitBridgeImpl} would be wrapped by other {@link RenderKit}s if it
- * was declared in the Bridge's faces-config.xml. Instead, this {@link RenderKitFactory} causes all {@link RenderKit}s
- * to be wrapped with Bridge's {@link RenderKit}, effectively making {@link RenderKitBridgeImpl} the outermost {@link
- * RenderKit}.<br />
- * <br />
- * <strong>Note:</strong> If another JSF library declares a {@link RenderKitFactory}, then the Bridge's {@link
- * RenderKitBRidgeImpl} is not guaranteed to be the outermost {@link RenderKit}. Currently, we are not aware of any JSF
- * libraries which utilize a {@link RenderKitFactory}.
+ * <p>Since liferay-faces-bridge-impl.jar!META-INF/faces-config.xml specifies ordering <code>
+ * &lt;after&gt;&lt;name&gt;LiferayFacesUtil&lt;/name&gt;&lt;/after&gt;&lt;before&gt;&lt;others/&gt;&lt;/before&gt;</code>
+ * , the factories in this module can only decorate those provided by liferay-faces-util.jar and the JSF implementation.
+ * As a result, factories registered by Non-Liferay/3rd-Party component suites like ICEfaces, PrimeFaces, and RichFaces
+ * will end up decorating the factories registered by this module.</p>
+ *
+ * <p>However, in order to ensure that scripts contained in {@link FacesRequestContext#getScripts()} are encoded before
+ * the closing <code>&lt;/body&gt;</code> element, {@link BodyRendererBridgeImpl} needs to decorate body renderers
+ * provided by any of the aforementioned component suites. This could be accomplished in one of two ways:
+ *
+ * <ol>
+ *   <li>The {@link RenderKitBridgeImpl} class from this module could exist in a separate module that specifies
+ *     &lt;after&gt;&lt;others/&gt;&lt;/after&gt;</code> and the separate module would register an HTML_BASIC <code>
+ *     render-kit</code>.</li>
+ *   <li>The {@link RenderKitBridgeImpl} class could remain in this module, but this module would have to register a
+ *     <code>render-kit-factory</code> in order to programatically control the {@link RenderKit} delegation chain and
+ *     wrapping of renderers. But the only reason why this works is because <strong>none</strong> of the aforementioned
+ *     component suites register a <code>render-kit-factory</code>.</li>
+ * </ol>
+ *
+ * For the sake of minimizing the number of modules, the second option has been implemented.</p>
+ *
+ * <p><strong>Note:</strong> liferay-faces-util.jar!META-INF/faces-config.xml also specifies a <code>
+ * render-kit-factory</code> that will be decorated by this one.</p>
  *
  * @author  Kyle Stiemann
  */
 public class RenderKitFactoryBridgeImpl extends RenderKitFactory {
 
-	// Private Members
+	// Private Data Members
 	private RenderKitFactory wrappedRenderKitFactory;
 
-	public RenderKitFactoryBridgeImpl(RenderKitFactory wrappedRenderKitFactory) {
-		this.wrappedRenderKitFactory = wrappedRenderKitFactory;
+	public RenderKitFactoryBridgeImpl(RenderKitFactory renderKitFactory) {
+		this.wrappedRenderKitFactory = renderKitFactory;
 	}
 
 	@Override
@@ -55,7 +71,12 @@ public class RenderKitFactoryBridgeImpl extends RenderKitFactory {
 
 		RenderKit renderKit = wrappedRenderKitFactory.getRenderKit(facesContext, renderKitId);
 
-		return new RenderKitBridgeImpl(renderKit);
+		if ("HTML_BASIC".equals(renderKitId)) {
+			return new RenderKitBridgeImpl(renderKit);
+		}
+		else {
+			return renderKit;
+		}
 	}
 
 	@Override

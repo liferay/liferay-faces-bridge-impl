@@ -178,11 +178,11 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 			}
 		}
 
-		ResponseWriter responseWriter = facesContext.getResponseWriter();
-		ResponseWriterBridgeBodyImpl responseWriterPortletBodyImpl = new ResponseWriterBridgeBodyImpl(responseWriter);
-		facesContext.setResponseWriter(responseWriterPortletBodyImpl);
-		super.encodeEnd(facesContext, uiComponent);
+		ResponseWriter originalResponseWriter = facesContext.getResponseWriter();
+		ResponseWriter responseWriter = new ResponseWriterBridgeBodyImpl(originalResponseWriter);
 		facesContext.setResponseWriter(responseWriter);
+		super.encodeEnd(facesContext, uiComponent);
+		facesContext.setResponseWriter(originalResponseWriter);
 	}
 
 	@Override
