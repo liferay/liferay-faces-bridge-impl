@@ -108,6 +108,7 @@
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.portal}-jsf-${faces.spec.version}</liferay.home>
 		<liferay.faces.alloy.version>2.0.0-SNAPSHOT</liferay.faces.alloy.version>
 		<liferay.faces.bridge.ext.version>3.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
+		<liferay.faces.showcase.version>3.0.0-SNAPSHOT</liferay.faces.showcase.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.jetty.version>8.1.10</liferay.jetty.version>
