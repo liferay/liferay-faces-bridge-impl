@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.liferay.faces.bridge.demos</groupId>
+		<artifactId>liferay-faces-bridge-portlet-demos</artifactId>
+		<version>5.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>jsf-showcase-portlet</artifactId>
+	<packaging>war</packaging>
+	<name>JSF Showcase Portlet</name>
+	<description>This plugin is the Liferay Faces JSF Showcase demo portlet.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.portlet</groupId>
+			<artifactId>portlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces.bridge</groupId>
+			<artifactId>liferay-faces-bridge-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces.bridge</groupId>
+			<artifactId>liferay-faces-bridge-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces.showcase</groupId>
+			<artifactId>showcase-common</artifactId>
+			<version>${liferay.faces.showcase.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces.showcase</groupId>
+			<artifactId>jsf-showcase-webapp</artifactId>
+			<version>${liferay.faces.showcase.version}</version>
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+	<!-- Note that this pom.xml provides similar functionality as the maven-assembly-plugin -->
+	<!-- but the "unpack" approach found below meets our needs better than the maven-assembly-plugin -->
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-install-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<dependentWarExcludes>**/*jsf-*.jar,**/showcase-common*.jar,**/*faces-util*.jar</dependentWarExcludes>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.java</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+</project>

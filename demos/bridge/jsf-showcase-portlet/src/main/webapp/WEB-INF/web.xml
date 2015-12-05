@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+
+	<!-- Inform the JSF runtime of additional faces-config.xml files. -->
+	<context-param>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value>/WEB-INF/navigation-rule.xml</param-value>
+	</context-param>
+    <!-- Inform the JSF runtime (Mojarra) that this application is under development. -->
+	<context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>${project.stage}</param-value>
+	</context-param>
+    <!-- Instruct Mojarra to namespace parameters according to NamingContainer rules. -->
+	<!-- JAVASERVERFACES-3031 -->
+	<context-param>
+		<param-name>com.sun.faces.namespaceParameters</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.liferay.faces.showcase.servlet.UploadedFileCleanupListener</listener-class>
+	</listener>
+	<!-- Although the FacesServlet will not be invoked by any portlet requests, it is required to initialize JSF. -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- MyFaces will not initialize unless a servlet-mapping to the Faces Servlet is present. -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	<security-constraint>
+		<display-name>Prevent direct access to Facelet XHTML</display-name>
+		<web-resource-collection>
+			<web-resource-name>Facelet XHTML</web-resource-name>
+			<url-pattern>*.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint />
+	</security-constraint>
+</web-app>
