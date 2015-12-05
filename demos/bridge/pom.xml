@@ -13,6 +13,7 @@
 	<name>Liferay Faces Bridge Portlet Demos</name>
 
 	<modules>
+		<module>alloy-showcase-portlet</module>
 		<module>jsf2-cdi-portlet</module>
 		<module>jsf2-export-pdf-portlet</module>
 		<module>jsf2-ipc-events-bookings-portlet</module>
