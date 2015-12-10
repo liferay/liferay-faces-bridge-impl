@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.liferay.faces.bridge.demos</groupId>
-		<artifactId>liferay-faces-bridge-portlet-demos</artifactId>
+		<artifactId>liferay-faces-bridge-demos</artifactId>
 		<version>2.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>jsf1-ipc-events-bookings-portlet</artifactId>
+	<artifactId>jsf1-ipc-events-customers-portlet</artifactId>
 	<packaging>war</packaging>
-	<name>JSF1 IPC (Events) - Bookings</name>
+	<name>JSF1 IPC (Events) - Customers</name>
 
 	<dependencies>
 		<dependency>
@@ -24,6 +24,10 @@
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>el-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.portlet</groupId>

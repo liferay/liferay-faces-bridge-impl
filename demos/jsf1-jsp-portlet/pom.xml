@@ -4,18 +4,23 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.liferay.faces.bridge.demos</groupId>
-		<artifactId>liferay-faces-bridge-portlet-demos</artifactId>
+		<artifactId>liferay-faces-bridge-demos</artifactId>
 		<version>2.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>jsf1-portlet</artifactId>
+	<artifactId>jsf1-jsp-portlet</artifactId>
 	<packaging>war</packaging>
-	<name>JSF1 Portlet</name>
+	<name>JSF1 JSP Portlet</name>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.sun.facelets</groupId>
-			<artifactId>jsf-facelets</artifactId>
+			<groupId>com.liferay.faces.alloy</groupId>
+			<artifactId>liferay-faces-alloy</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces.bridge</groupId>
+			<artifactId>liferay-faces-bridge-impl</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -34,17 +39,24 @@
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.jboss.seam</groupId>
 			<artifactId>jboss-el</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.liferay.faces.alloy</groupId>
-			<artifactId>liferay-faces-alloy</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.liferay.faces.bridge</groupId>
-			<artifactId>liferay-faces-bridge-impl</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
