@@ -4,22 +4,18 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.liferay.faces.bridge.demos</groupId>
-		<artifactId>liferay-faces-bridge-portlet-demos</artifactId>
+		<artifactId>liferay-faces-bridge-demos</artifactId>
 		<version>3.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>liferayfaces4-portlet</artifactId>
+	<artifactId>jsf2-ipc-pub-render-params-portlet</artifactId>
 	<packaging>war</packaging>
-	<name>Liferay Faces 4 Portlet</name>
+	<name>JSF2 IPC Public Render Parameters Portlet</name>
 
 	<dependencies>
 		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.el</groupId>
@@ -34,11 +30,7 @@
 			<artifactId>liferay-faces-bridge-impl</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.liferay.faces.alloy</groupId>
-			<artifactId>liferay-faces-alloy</artifactId>
-			<scope>compile</scope>
-		</dependency>
+
 	</dependencies>
 
 </project>

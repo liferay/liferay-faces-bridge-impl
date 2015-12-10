@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.liferay.faces.bridge.demos</groupId>
-		<artifactId>liferay-faces-bridge-portlet-demos</artifactId>
+		<artifactId>liferay-faces-bridge-demos</artifactId>
 		<version>3.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
