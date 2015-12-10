@@ -14,7 +14,22 @@
 	<name>Liferay Faces Bridge Demos</name>
 
 	<modules>
-		<module>bridge</module>
+		<module>alloy-showcase-portlet</module>
+		<module>jsf2-cdi-portlet</module>
+		<module>jsf2-export-pdf-portlet</module>
+		<module>jsf2-flows-portlet</module>
+		<module>jsf2-html5-portlet</module>
+		<module>jsf2-ipc-events-bookings-portlet</module>
+		<module>jsf2-ipc-events-customers-portlet</module>
+		<module>jsf2-ipc-pub-render-params-portlet</module>
+		<module>jsf2-portlet</module>
+		<module>jsf2-jsp-portlet</module>
+		<module>jsf-showcase-portlet</module>
+		<module>jsf2-spring-portlet</module>
+		<module>icefaces4-portlet</module>
+		<module>liferayfaces4-portlet</module>
+		<module>primefaces5-portlet</module>
+		<module>richfaces4-portlet</module>
 	</modules>
 
 	<profiles>
@@ -142,6 +157,19 @@
 					</plugin>
 				</plugins>
 			</build>
+		</profile>
+		<profile>
+			<id>pluto</id>
+			<dependencies>
+				<dependency>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>com.liferay.faces.alloy</groupId>
+					<artifactId>liferay-faces-alloy-reslib</artifactId>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>war-license-packaging</id>
