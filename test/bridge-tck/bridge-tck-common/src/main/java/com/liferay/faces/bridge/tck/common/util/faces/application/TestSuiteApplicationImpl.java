@@ -179,7 +179,7 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.getConverterIds();
 	}
 
-	public Iterator<Class<?>> getConverterTypes() {
+	public Iterator<Class> getConverterTypes() {
 		return mWrapped.getConverterTypes();
 	}
 
