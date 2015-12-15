@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
-		<groupId>com.liferay.faces.bridge.test</groupId>
-		<artifactId>liferay-faces-test-bridge-tck</artifactId>
+		<groupId>com.liferay.faces.bridge.tck</groupId>
+		<artifactId>liferay-faces-bridge-tck</artifactId>
 		<version>2.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>bridge-tck-harness</artifactId>
-	<name>Bridge TCK</name>
+	<artifactId>bridge-tck-common</artifactId>
+	<name>Bridge TCK Common</name>
 
 	<dependencies>
 		<dependency>
@@ -18,14 +18,24 @@
 			<artifactId>liferay-faces-bridge-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>compile</scope>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
-			<artifactId>selenium-java-client-driver</artifactId>
-			<scope>compile</scope>
+			<groupId>${faces.group.id}</groupId>
+			<artifactId>${faces.api.artifact.id}</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${faces.group.id}</groupId>
+			<artifactId>${faces.impl.artifact.id}</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.portlet</groupId>
+			<artifactId>portlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
 		</dependency>
 	</dependencies>
 
