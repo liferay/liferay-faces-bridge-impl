@@ -14,7 +14,6 @@
 	<name>Liferay Faces Bridge Test</name>
 
 	<modules>
-		<module>bridge-tck</module>
 		<module>integration</module>
 	</modules>
 

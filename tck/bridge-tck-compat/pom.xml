@@ -2,32 +2,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
-		<groupId>com.liferay.faces.bridge.test</groupId>
-		<artifactId>liferay-faces-test-bridge-tck</artifactId>
+		<groupId>com.liferay.faces.bridge.tck</groupId>
+		<artifactId>liferay-faces-bridge-tck</artifactId>
 		<version>3.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>bridge-tck-common</artifactId>
-	<name>Bridge TCK Common</name>
+	<artifactId>bridge-tck-compat</artifactId>
+	<name>Bridge TCK Compat</name>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.liferay.faces.bridge</groupId>
-			<artifactId>liferay-faces-bridge-api</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>el-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>${faces.group.id}</groupId>
-			<artifactId>${faces.api.artifact.id}</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>${faces.group.id}</groupId>
-			<artifactId>${faces.impl.artifact.id}</artifactId>
+			<groupId>javax.faces</groupId>
+			<artifactId>javax.faces-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.portlet</groupId>
@@ -36,6 +28,12 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
+		</dependency>
+		<!-- Because the Bridge-TCK portlet is not an OSGi module, this jar (Bridge TCK Compat) can rely on the bridge-impl jar without concerns about breaking OSGi or modularity. -->
+		<dependency>
+			<groupId>com.liferay.faces.bridge</groupId>
+			<artifactId>liferay-faces-bridge-impl</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
