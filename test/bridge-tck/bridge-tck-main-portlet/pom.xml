@@ -15,6 +15,17 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.bekk.boss</groupId>
+			<artifactId>maven-jetty-pluto-embedded</artifactId>
+			<version>1.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>bridge-tck-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>bridge-tck-compat</artifactId>
 			<version>${project.version}</version>
@@ -29,12 +40,24 @@
 			<artifactId>jstl</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>${faces.group.id}</groupId>
 			<artifactId>${faces.api.artifact.id}</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${faces.group.id}</groupId>
 			<artifactId>${faces.impl.artifact.id}</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.portlet</groupId>
@@ -48,36 +71,6 @@
 			<groupId>org.apache.myfaces.trinidad</groupId>
 			<artifactId>trinidad-impl</artifactId>
 			<version>${tck.trinidad.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.myfaces.portlet-bridge</groupId>
-			<artifactId>portlet-bridge-tck-main</artifactId>
-			<version>${tck.version}</version>
-			<type>war</type>
-			<exclusions>
-				<exclusion>
-					<groupId>com.bekk.boss</groupId>
-					<artifactId>maven-jetty-pluto-embedded</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.faces</groupId>
-					<artifactId>jsf-impl</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.myfaces.portlet-bridge</groupId>
-					<artifactId>portlet-bridge-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.myfaces.portlet-bridge</groupId>
-					<artifactId>portlet-bridge-impl</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.myfaces.portlet-bridge</groupId>
-			<artifactId>portlet-bridge-tck-main</artifactId>
-			<version>${tck.version}</version>
-			<type>warpath</type>
 		</dependency>
 	</dependencies>
 
@@ -148,8 +141,8 @@
 									<goal>unpack-dependencies</goal>
 								</goals>
 								<configuration>
-									<includeArtifactIds>portlet-bridge-tck-harness</includeArtifactIds>
-									<includes>**/*.xml,org/apache/myfaces/portlet/faces/signature/*,org/apache/myfaces/portlet/faces/tckharness/*</includes>
+									<includeArtifactIds>bridge-tck-harness</includeArtifactIds>
+									<includes>**/*.xml,com/liferay/faces/bridge/tck/signature/*,com/liferay/faces/bridge/tck/harness/*</includes>
 									<outputDirectory>target/test-classes</outputDirectory>
 								</configuration>
 							</execution>
@@ -264,9 +257,9 @@
 					<artifactId>selenium-java-client-driver</artifactId>
 				</dependency>
 				<dependency>
-					<groupId>org.apache.myfaces.portlet-bridge</groupId>
-					<artifactId>portlet-bridge-tck-harness</artifactId>
-					<version>${tck.version}</version>
+					<groupId>${project.groupId}</groupId>
+					<artifactId>bridge-tck-harness</artifactId>
+					<version>${project.version}</version>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -293,24 +286,5 @@
 			</properties>
 		</profile>
 	</profiles>
-
-	<!-- Note that this pom.xml provides similar functionality as the maven-assembly-plugin -->
-	<!-- but the "unpack" approach found below meets our needs better than the maven-assembly-plugin -->
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.appfuse.plugins</groupId>
-				<artifactId>maven-warpath-plugin</artifactId>
-				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<goals>
-							<goal>add-classes</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+	<factory>
+		<application-factory>com.liferay.faces.bridge.tck.common.util.faces.application.TestSuiteApplicationFactoryImpl</application-factory>
+		<faces-context-factory>com.liferay.faces.bridge.tck.common.util.faces.context.TCK_FacesContextFactoryImpl</faces-context-factory>
+		<lifecycle-factory>com.liferay.faces.bridge.tck.common.util.faces.application.TestSuiteLifecycleFactoryImpl</lifecycle-factory>
+	</factory>
+	<managed-bean>
+		<managed-bean-name>chapter3Tests</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_3.Tests</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>test</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.beans.TestRunnerBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+</faces-config>
