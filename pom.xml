@@ -79,6 +79,7 @@
 		<module>support</module>
 		<module>demos</module>
 		<module>issues</module>
+		<module>tck</module>
 		<module>test</module>
 	</modules>
 
