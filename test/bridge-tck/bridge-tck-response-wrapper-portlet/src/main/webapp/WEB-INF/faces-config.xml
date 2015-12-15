@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.1" xmlns="http://java.sun.com/xml/ns/javaee"
+			  xmlns:bridge="http://www.liferay.com/xml/ns/liferay-faces-bridge-2.0-extension"
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+
+	<application>
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>de</supported-locale>
+			<supported-locale>fr</supported-locale>
+			<supported-locale>es</supported-locale>
+		</locale-config>
+		<application-extension>
+			<bridge:write-behind-response-wrappers>
+				<bridge:render-response-wrapper-class>com.liferay.faces.bridge.tck.filter.TCKRenderResponseWrapper</bridge:render-response-wrapper-class>
+				<bridge:resource-response-wrapper-class>com.liferay.faces.bridge.tck.filter.TCKResourceResponseWrapper</bridge:resource-response-wrapper-class>
+			</bridge:write-behind-response-wrappers>
+		</application-extension>
+	</application>
+
+	<factory>
+		<application-factory>com.liferay.faces.bridge.tck.common.util.faces.application.TestSuiteApplicationFactoryImpl</application-factory>
+		<faces-context-factory>com.liferay.faces.bridge.tck.common.util.faces.context.TCK_FacesContextFactoryImpl</faces-context-factory>
+		<lifecycle-factory>com.liferay.faces.bridge.tck.common.util.faces.application.TestSuiteLifecycleFactoryImpl</lifecycle-factory>
+	</factory>
+
+	<managed-bean>
+		<managed-bean-name>chapter6_2_1Tests</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_2_1.Tests</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>test</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.beans.TestRunnerBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+</faces-config>

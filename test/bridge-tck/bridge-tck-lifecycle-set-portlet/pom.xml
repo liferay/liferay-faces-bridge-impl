@@ -16,6 +16,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>bridge-tck-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>bridge-tck-compat</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -23,6 +28,14 @@
 			<groupId>com.liferay.faces.bridge</groupId>
 			<artifactId>liferay-faces-bridge-impl</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${faces.group.id}</groupId>
+			<artifactId>${faces.api.artifact.id}</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${faces.group.id}</groupId>
+			<artifactId>${faces.impl.artifact.id}</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
@@ -36,36 +49,6 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.myfaces.portlet-bridge</groupId>
-			<artifactId>portlet-bridge-tck-section3-2-lifecycle-set</artifactId>
-			<version>${tck.version}</version>
-			<type>war</type>
-			<exclusions>
-				<exclusion>
-					<groupId>com.bekk.boss</groupId>
-					<artifactId>maven-jetty-pluto-embedded</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.faces</groupId>
-					<artifactId>jsf-impl</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.myfaces.portlet-bridge</groupId>
-					<artifactId>portlet-bridge-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.myfaces.portlet-bridge</groupId>
-					<artifactId>portlet-bridge-impl</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.myfaces.portlet-bridge</groupId>
-			<artifactId>portlet-bridge-tck-section3-2-lifecycle-set</artifactId>
-			<version>${tck.version}</version>
-			<type>warpath</type>
 		</dependency>
 	</dependencies>
 
@@ -87,31 +70,5 @@
 			</properties>
 		</profile>
 	</profiles>
-
-	<!-- Note that this pom.xml provides similar functionality as the maven-assembly-plugin -->
-	<!-- but the "unpack" approach found below meets our needs better than the maven-assembly-plugin -->
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<dependentWarExcludes>WEB-INF/lib/*</dependentWarExcludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.appfuse.plugins</groupId>
-				<artifactId>maven-warpath-plugin</artifactId>
-				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<goals>
-							<goal>add-classes</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>
