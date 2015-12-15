@@ -12,7 +12,7 @@
 	<groupId>com.liferay.faces.bridge.tck</groupId>
 	<artifactId>liferay-faces-bridge-tck</artifactId>
 	<packaging>pom</packaging>
-	<name>Liferay Faces Bridge TCK</name>
+	<name>Bridge TCK Parent</name>
 
 	<modules>
 		<module>bridge-tck-common</module>
