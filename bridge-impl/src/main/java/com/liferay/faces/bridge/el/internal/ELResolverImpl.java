@@ -28,10 +28,10 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeUtil;
 import javax.servlet.jsp.JspContext;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.config.internal.PortletConfigWrapper;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;

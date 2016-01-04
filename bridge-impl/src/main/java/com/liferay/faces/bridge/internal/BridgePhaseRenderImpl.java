@@ -38,8 +38,8 @@ import javax.portlet.RenderResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeException;
+import javax.portlet.faces.BridgeFactoryFinder;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandler;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandlerImpl;
 import com.liferay.faces.bridge.config.BridgeConfig;

@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.servlet;
 
 import java.util.Enumeration;
 
+import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -24,7 +25,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.bean.internal.BeanManager;
 import com.liferay.faces.bridge.bean.internal.BeanManagerFactory;
 import com.liferay.faces.bridge.bean.internal.PreDestroyInvoker;

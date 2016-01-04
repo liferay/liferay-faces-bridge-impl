@@ -26,10 +26,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.render.Renderer;
 import javax.faces.render.RendererWrapper;
+import javax.portlet.faces.BridgeFactoryFinder;
 
 import org.apache.commons.fileupload.FileItem;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;

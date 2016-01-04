@@ -29,9 +29,9 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletRequest;
+import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.HeadResponseWriter;

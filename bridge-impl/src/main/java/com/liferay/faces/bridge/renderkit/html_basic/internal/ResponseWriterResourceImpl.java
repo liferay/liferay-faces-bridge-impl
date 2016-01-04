@@ -20,8 +20,8 @@ import java.io.IOException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import javax.faces.context.ResponseWriterWrapper;
+import javax.portlet.faces.BridgeFactoryFinder;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.util.render.FacesURLEncoder;
 import com.liferay.faces.util.render.FacesURLEncoderFactory;
 

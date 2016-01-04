@@ -15,7 +15,8 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
+import javax.portlet.faces.BridgeFactoryFinder;
+
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
 
 

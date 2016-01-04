@@ -43,8 +43,8 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
+import javax.portlet.faces.BridgeFactoryFinder;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.IncongruityContext;

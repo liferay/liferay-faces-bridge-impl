@@ -34,9 +34,9 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeException;
+import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeUninitializedException;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.BridgePhase;
 import com.liferay.faces.bridge.BridgePhaseFactory;
 import com.liferay.faces.bridge.config.BridgeConfig;

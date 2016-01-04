@@ -23,8 +23,8 @@ import javax.portlet.PortletModeException;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeException;
+import javax.portlet.faces.BridgeFactoryFinder;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;

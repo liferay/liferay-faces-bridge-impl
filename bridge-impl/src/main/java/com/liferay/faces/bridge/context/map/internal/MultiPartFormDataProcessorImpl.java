@@ -40,6 +40,7 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.WindowState;
+import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.http.Cookie;
 
 import org.apache.commons.fileupload.FileItemHeaders;
@@ -52,7 +53,6 @@ import org.apache.commons.fileupload.portlet.PortletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 import org.apache.commons.io.FileUtils;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.logging.Logger;

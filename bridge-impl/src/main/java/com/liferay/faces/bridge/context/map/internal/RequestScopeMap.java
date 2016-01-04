@@ -28,8 +28,8 @@ import javax.faces.context.ExternalContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
+import javax.portlet.faces.BridgeFactoryFinder;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.bean.internal.BeanManager;
 import com.liferay.faces.bridge.bean.internal.BeanManagerFactory;
 import com.liferay.faces.bridge.bean.internal.PreDestroyInvoker;

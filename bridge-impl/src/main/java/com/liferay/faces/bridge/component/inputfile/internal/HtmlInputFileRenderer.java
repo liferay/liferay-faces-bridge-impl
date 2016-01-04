@@ -22,9 +22,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputFile;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
+import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.http.Part;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;

@@ -38,11 +38,11 @@ import javax.portlet.PortletSession;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeWriteBehindResponse;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.application.internal.ViewHandlerImpl;
 import com.liferay.faces.bridge.application.view.internal.BridgeAfterViewContentRequest;
 import com.liferay.faces.bridge.application.view.internal.BridgeAfterViewContentResponse;

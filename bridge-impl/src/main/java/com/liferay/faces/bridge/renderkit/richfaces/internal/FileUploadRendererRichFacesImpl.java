@@ -24,8 +24,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.render.Renderer;
 import javax.faces.render.RendererWrapper;
+import javax.portlet.faces.BridgeFactoryFinder;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.util.logging.Logger;

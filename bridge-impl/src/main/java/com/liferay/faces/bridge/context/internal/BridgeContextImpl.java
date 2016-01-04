@@ -22,7 +22,6 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -46,10 +45,10 @@ import javax.portlet.StateAwareResponse;
 import javax.portlet.WindowStateException;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
+import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeInvalidViewPathException;
 import javax.portlet.faces.GenericFacesPortlet;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationUtil;
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.BridgeConfigAttributeMap;
@@ -305,7 +304,8 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 				redirectViewId = bridgeURI.getContextRelativePath(contextPath);
 			}
 
-			BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(bridgeContext, bridgeURI, parameters, redirectViewId);
+			BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(bridgeContext, bridgeURI, parameters,
+					redirectViewId);
 
 			if (isJSF2PartialRequest(facesContext)) {
 				bridgeRedirectURL.setParameter("_bridgeAjaxRedirect", "true");
