@@ -31,9 +31,7 @@ import javax.faces.event.PostAddToViewEvent;
 import javax.faces.render.Renderer;
 
 import com.liferay.faces.bridge.context.HeadResponseWriter;
-import com.liferay.faces.util.application.ComponentResource;
-import com.liferay.faces.util.application.ComponentResourceFactory;
-import com.liferay.faces.util.factory.FactoryExtensionFinder;
+import com.liferay.faces.util.application.ResourceUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.render.RendererWrapper;
@@ -74,12 +72,9 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 	}
 
 	@Override
-	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+	public void encodeEnd(FacesContext facesContext, UIComponent uiComponentResource) throws IOException {
 
-		ComponentResourceFactory componentResourceFactory = (ComponentResourceFactory) FactoryExtensionFinder
-			.getFactory(ComponentResourceFactory.class);
-		ComponentResource componentResource = componentResourceFactory.getComponentResource(uiComponent);
-		String resourceId = componentResource.getId();
+		String resourceId = ResourceUtil.getResourceDependencyId(uiComponentResource);
 
 		// Determine whether or not the specified resource is already present in the <head> section of the portal page.
 		HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
@@ -110,7 +105,7 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 				facesContext.setResponseWriter(new ResponseWriterResourceImpl(responseWriter));
 
 				// Ask the wrapped renderer to encode the script to a custom ResponseWriter
-				super.encodeEnd(facesContext, uiComponent);
+				super.encodeEnd(facesContext, uiComponentResource);
 
 				// Restore the original response writer.
 				facesContext.setResponseWriter(responseWriter);
@@ -120,7 +115,7 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 			else {
 
 				// Ask the wrapped renderer to encode the script to a custom ResponseWriter
-				super.encodeEnd(facesContext, uiComponent);
+				super.encodeEnd(facesContext, uiComponentResource);
 
 				// If the h:head part of the component tree is being rendered, then
 				if (facesContext.getResponseWriter() instanceof HeadResponseWriter) {
@@ -140,6 +135,7 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 	 * class. Mojarra uses this method to intercept {@link PostAddToViewEvent} in order to add script and link resources
 	 * to the head (if the target attribute has a value of "head").
 	 */
+	@Override
 	public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
 
 		// If the wrapped renderer has the ability to listen to component system events, then invoke the event
@@ -155,6 +151,7 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 		}
 	}
 
+	@Override
 	public void restoreState(FacesContext facesContext, Object state) {
 
 		if (wrappedRenderer == null) {
@@ -170,14 +167,17 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 		}
 	}
 
+	@Override
 	public Object saveState(FacesContext facesContext) {
 		return wrappedRenderer.getClass().getName();
 	}
 
+	@Override
 	public boolean isTransient() {
 		return transientFlag;
 	}
 
+	@Override
 	public void setTransient(boolean newTransientValue) {
 		this.transientFlag = newTransientValue;
 	}
