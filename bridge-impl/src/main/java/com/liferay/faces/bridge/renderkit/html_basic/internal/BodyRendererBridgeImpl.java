@@ -26,10 +26,6 @@ import javax.faces.render.Renderer;
 import javax.faces.render.RendererWrapper;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
-import com.liferay.faces.util.application.ComponentResource;
-import com.liferay.faces.util.application.ComponentResourceFactory;
-import com.liferay.faces.util.application.ComponentResourceUtil;
-import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -95,41 +91,9 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 
 		if (uiComponentResources != null) {
 
-			ComponentResourceFactory componentResourceFactory = (ComponentResourceFactory) FactoryExtensionFinder
-				.getFactory(ComponentResourceFactory.class);
-
 			for (UIComponent uiComponentResource : uiComponentResources) {
 
-				String originalTarget = (String) uiComponentResource.getAttributes().get(
-						RenderKitBridgeImpl.ORIGINAL_TARGET);
-
-				if ("head".equals(originalTarget)) {
-
-					ComponentResource componentResource = componentResourceFactory.getComponentResource(
-							uiComponentResource);
-
-					if (componentResource.isRenderable()) {
-						uiComponentResource.encodeAll(facesContext);
-
-						if (logger.isDebugEnabled()) {
-
-							if (logger.isDebugEnabled()) {
-
-								logger.debug(
-									"Rendering resource just after opening liferay-faces-bridge-body <div> name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
-									new Object[] {
-										componentResource.getName(), componentResource.getLibrary(),
-										uiComponentResource.getRendererType(),
-										ComponentResourceUtil.getComponentValue(uiComponentResource),
-										uiComponentResource.getClass().getName(),
-									});
-							}
-						}
-					}
-					else {
-						logger.debug("Skipped rendering componentResourceId=[{0}]", componentResource.getId());
-					}
-				}
+				uiComponentResource.encodeAll(facesContext);
 			}
 		}
 	}
@@ -143,38 +107,9 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 
 		if (uiComponentResources != null) {
 
-			ComponentResourceFactory componentResourceFactory = (ComponentResourceFactory) FactoryExtensionFinder
-				.getFactory(ComponentResourceFactory.class);
-
 			for (UIComponent uiComponentResource : uiComponentResources) {
 
-				String originalTarget = (String) uiComponentResource.getAttributes().get(
-						RenderKitBridgeImpl.ORIGINAL_TARGET);
-
-				if (!"head".equals(originalTarget)) {
-
-					ComponentResource componentResource = componentResourceFactory.getComponentResource(
-							uiComponentResource);
-
-					if (componentResource.isRenderable()) {
-						uiComponentResource.encodeAll(facesContext);
-
-						if (logger.isDebugEnabled()) {
-
-							logger.debug(
-								"Rendering resource just before closing liferay-faces-bridge-body </div> name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
-								new Object[] {
-									componentResource.getName(), componentResource.getLibrary(),
-									uiComponentResource.getRendererType(),
-									ComponentResourceUtil.getComponentValue(uiComponentResource),
-									uiComponentResource.getClass().getName(),
-								});
-						}
-					}
-					else {
-						logger.debug("Skipped rendering componentResourceId=[{0}]", componentResource.getId());
-					}
-				}
+				uiComponentResource.encodeAll(facesContext);
 			}
 		}
 
