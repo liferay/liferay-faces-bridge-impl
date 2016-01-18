@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.component.UIComponent;
@@ -106,9 +107,10 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 	@Override
 	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-		// Render all of the non-stylesheet resources.
+		// Allow the wrapped body renderer to render all of the non-stylesheet resources.
 		UIViewRoot uiViewRoot = facesContext.getViewRoot();
 		List<UIComponent> uiComponentResources = uiViewRoot.getComponentResources(facesContext, "body");
+		List<UIComponent> renderedUIComponentResources = new ArrayList<UIComponent>();
 
 		if (uiComponentResources != null) {
 
@@ -117,8 +119,12 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 				String originalTarget = (String) uiComponentResource.getAttributes().get(
 						RenderKitBridgeImpl.ORIGINAL_TARGET);
 
-				if (!"head".equals(originalTarget)) {
-					uiComponentResource.encodeAll(facesContext);
+				// Resources which were originally target="head" were already rendered in encodeBegin() so avoid
+				// rendering them by removing them from the UIViewRoot before delegating to the wrapped body renderer.
+				if ("head".equals(originalTarget)) {
+
+					uiViewRoot.removeComponentResource(facesContext, uiComponentResource, "body");
+					renderedUIComponentResources.add(uiComponentResource);
 				}
 			}
 		}
@@ -128,6 +134,10 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 		facesContext.setResponseWriter(responseWriter);
 		super.encodeEnd(facesContext, uiComponent);
 		facesContext.setResponseWriter(originalResponseWriter);
+
+		for (UIComponent renderedUIComponentResource : renderedUIComponentResources) {
+			uiViewRoot.addComponentResource(facesContext, renderedUIComponentResource, "body");
+		}
 	}
 
 	@Override
