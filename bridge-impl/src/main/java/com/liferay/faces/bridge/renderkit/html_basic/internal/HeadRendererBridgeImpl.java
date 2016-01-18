@@ -192,12 +192,9 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 						logger.debug(
 							"Resource already present in head: name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
-							new Object[] {
-								componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
-								uiComponentResource.getRendererType(),
-								ComponentUtil.getComponentValue(uiComponentResource),
-								uiComponentResource.getClass().getName(),
-							});
+							componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
+							uiComponentResource.getRendererType(), ComponentUtil.getComponentValue(uiComponentResource),
+							uiComponentResource.getClass().getName());
 					}
 				}
 
@@ -209,11 +206,9 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 					logger.debug(
 						"Relocating resource to body (since it was added via Ajax and is not yet present in head): name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
-						new Object[] {
-							componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
-							uiComponentResource.getRendererType(), ComponentUtil.getComponentValue(uiComponentResource),
-							uiComponentResource.getClass().getName(),
-						});
+						componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
+						uiComponentResource.getRendererType(), ComponentUtil.getComponentValue(uiComponentResource),
+						uiComponentResource.getClass().getName());
 
 					resourcesForRelocatingToBody.add(uiComponentResource);
 				}
@@ -309,11 +304,9 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 				logger.debug(
 					"Relocating resource to body: name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
-					new Object[] {
-						componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
-						uiComponentResource.getRendererType(), ComponentUtil.getComponentValue(uiComponentResource),
-						uiComponentResource.getClass().getName(),
-					});
+					componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
+					uiComponentResource.getRendererType(), ComponentUtil.getComponentValue(uiComponentResource),
+					uiComponentResource.getClass().getName());
 			}
 		}
 
