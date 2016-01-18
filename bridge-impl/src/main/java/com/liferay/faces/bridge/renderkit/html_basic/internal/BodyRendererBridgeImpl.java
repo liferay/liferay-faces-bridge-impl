@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2015 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -93,7 +93,12 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 
 			for (UIComponent uiComponentResource : uiComponentResources) {
 
-				uiComponentResource.encodeAll(facesContext);
+				String originalTarget = (String) uiComponentResource.getAttributes().get(
+						RenderKitBridgeImpl.ORIGINAL_TARGET);
+
+				if ("head".equals(originalTarget)) {
+					uiComponentResource.encodeAll(facesContext);
+				}
 			}
 		}
 	}
@@ -109,7 +114,12 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 
 			for (UIComponent uiComponentResource : uiComponentResources) {
 
-				uiComponentResource.encodeAll(facesContext);
+				String originalTarget = (String) uiComponentResource.getAttributes().get(
+						RenderKitBridgeImpl.ORIGINAL_TARGET);
+
+				if (!"head".equals(originalTarget)) {
+					uiComponentResource.encodeAll(facesContext);
+				}
 			}
 		}
 

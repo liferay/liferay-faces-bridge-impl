@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2015 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
+import com.liferay.faces.bridge.component.internal.ComponentUtil;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.HeadResponseWriter;
@@ -194,7 +195,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 							new Object[] {
 								componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
 								uiComponentResource.getRendererType(),
-								ResourceUtil.getComponentValue(uiComponentResource),
+								ComponentUtil.getComponentValue(uiComponentResource),
 								uiComponentResource.getClass().getName(),
 							});
 					}
@@ -210,7 +211,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 						"Relocating resource to body (since it was added via Ajax and is not yet present in head): name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
 						new Object[] {
 							componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
-							uiComponentResource.getRendererType(), ResourceUtil.getComponentValue(uiComponentResource),
+							uiComponentResource.getRendererType(), ComponentUtil.getComponentValue(uiComponentResource),
 							uiComponentResource.getClass().getName(),
 						});
 
@@ -310,7 +311,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 					"Relocating resource to body: name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
 					new Object[] {
 						componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
-						uiComponentResource.getRendererType(), ResourceUtil.getComponentValue(uiComponentResource),
+						uiComponentResource.getRendererType(), ComponentUtil.getComponentValue(uiComponentResource),
 						uiComponentResource.getClass().getName(),
 					});
 			}
