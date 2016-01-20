@@ -25,8 +25,8 @@ import javax.faces.context.FacesContext;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
-import com.liferay.faces.util.application.ResourceDependencyVerifier;
-import com.liferay.faces.util.application.ResourceDependencyVerifierFactory;
+import com.liferay.faces.util.application.ResourceVerifier;
+import com.liferay.faces.util.application.ResourceVerifierFactory;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -52,12 +52,11 @@ public class UIViewRootBridgeImpl extends PortletNamingContainerUIViewRoot {
 
 		// Determine which of the component resources are unsatisfied.
 		List<UIComponent> unsatisfiedComponentResources = new ArrayList<UIComponent>(allComponentResources.size());
-		ResourceDependencyVerifier resourceDependencyVerifier = ResourceDependencyVerifierFactory
-			.getResourceDependencyHandlerInstance();
+		ResourceVerifier resourceVerifier = ResourceVerifierFactory.getResourceDependencyHandlerInstance();
 
 		for (UIComponent componentResource : allComponentResources) {
 
-			if (resourceDependencyVerifier.isResourceDependencySatisfied(componentResource)) {
+			if (resourceVerifier.isDependencySatisfied(facesContext, componentResource)) {
 
 				if (logger.isDebugEnabled()) {
 
