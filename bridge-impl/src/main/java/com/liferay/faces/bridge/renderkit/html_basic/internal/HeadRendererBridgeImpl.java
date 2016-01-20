@@ -180,7 +180,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 				// doing Ajax) but has already added the resour	ce during initial page HTTP-GET render, or 2) By another
 				// NON-Liferay-Runtime portlet that has already added the same JavaScript resource.
 				boolean alreadyPresentInPortalPageHead = headResourceIdsFromManagedBean.contains(ResourceUtil
-						.getResourceDependencyId(uiComponentResource));
+						.getResourceId(uiComponentResource));
 
 				// If the resource is already present in the <head> section of the portal page, then simply output a
 				// logger message to this fact.
@@ -254,7 +254,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 				// Command the resource to render itself to the HeadResponseWriter
 				uiComponentResource.encodeAll(facesContext);
 
-				String resourceId = ResourceUtil.getResourceDependencyId(uiComponentResource);
+				String resourceId = ResourceUtil.getResourceId(uiComponentResource);
 
 				// If the resource has not yet been marked as having been added, then mark it now. Note that unless the
 				// resource is a RichFaces Resource Library (see comments below), the resource has probably already been
