@@ -77,6 +77,7 @@
 	<properties>
 		<!-- Default Portal: Liferay -->
 		<bridge.tck.portal>liferay</bridge.tck.portal>
+		<bridge.tck.portal.version>${liferay.version.major}</bridge.tck.portal.version>
 		<bridge.tck.test.base-url>http://${bridge.tck.test.host}:${bridge.tck.test.port}?p_p_id=58&amp;p_p_lifecycle=0&amp;p_p_state=exclusive&amp;p_p_mode=view&amp;saveLastPath=0&amp;_58_struts_action=%2Flogin%2Flogin</bridge.tck.test.base-url>
 		<bridge.tck.test.host>localhost</bridge.tck.test.host>
 		<bridge.tck.test.port>8080</bridge.tck.test.port>
@@ -121,6 +122,7 @@
 			<id>pluto</id>
 			<properties>
 				<bridge.tck.portal>pluto</bridge.tck.portal>
+				<bridge.tck.portal.version>${pluto.version.major}</bridge.tck.portal.version>
 				<bridge.tck.test.base-url>http://${bridge.tck.test.host}:${bridge.tck.test.port}</bridge.tck.test.base-url>
 			</properties>
 		</profile>
@@ -129,7 +131,7 @@
 			<properties>
 				<bridge.tck.selenium.host>localhost</bridge.tck.selenium.host>
 				<bridge.tck.selenium.port>4444</bridge.tck.selenium.port>
-				<bridge.tck.login.file>src/test/resources/${bridge.tck.portal}-login.properties</bridge.tck.login.file>
+				<bridge.tck.login.file>src/test/resources/${bridge.tck.portal}${bridge.tck.portal.version}-login.properties</bridge.tck.login.file>
 				<bridge.tck.test.exclusions.file>target/test-classes/test-exclusions.xml</bridge.tck.test.exclusions.file>
 				<bridge.tck.test.file>src/test/resources/${bridge.tck.portal}-tests.xml</bridge.tck.test.file>
 			</properties>

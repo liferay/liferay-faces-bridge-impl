@@ -115,6 +115,7 @@
 		<liferay.resin.version>4.0.33</liferay.resin.version>
 		<liferay.tomcat.version>7.0.62</liferay.tomcat.version>
 		<liferay.version>6.2.5</liferay.version>
+		<liferay.version.major>6</liferay.version.major>
 		<liferay.weblogic.version>12.1.3.0</liferay.weblogic.version>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
 		<mojarra.version>1.2_15</mojarra.version>
@@ -125,6 +126,7 @@
 		<pluto.tomcat.dir>${pluto.home}/tomcat-${pluto.tomcat.version}</pluto.tomcat.dir>
 		<pluto.tomcat.version>7.0.21</pluto.tomcat.version>
 		<pluto.version>2.0.3</pluto.version>
+		<pluto.version.major>2</pluto.version.major>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
 		<primefaces1.version>UNSUPPORTED</primefaces1.version>
