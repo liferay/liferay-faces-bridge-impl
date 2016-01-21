@@ -90,7 +90,7 @@ public class FACES1638PortletTest extends TesterBase {
 		browser.navigate().to(url);
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
-		getPortletDisplayName();
+		// getPortletDisplayName();
 		logger.log(Level.INFO, "displayName.getText() = " + displayName.getText());
 		logger.log(Level.INFO, "formTag.getText() = " + formTag.getText());
 
