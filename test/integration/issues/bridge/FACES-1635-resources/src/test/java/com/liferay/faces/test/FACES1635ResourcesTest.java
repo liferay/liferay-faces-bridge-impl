@@ -134,7 +134,7 @@ public class FACES1635ResourcesTest extends TesterBase {
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
 
-		getPortletDisplayName();
+		// getPortletDisplayName();
 
 		if (isThere(browser, displayNameXpath)) {
 
