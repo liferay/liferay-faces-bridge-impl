@@ -39,7 +39,6 @@ import com.liferay.faces.test.util.TesterBase;
 @RunWith(Arquillian.class)
 public class FACES1638PortletTest extends TesterBase {
 
-	// portlet topper and menu elements
 	private static final String formTagXpath = "//form[@method='post']";
 
 	private static final String firstByItemIdXpath = "//a[contains(@href,'portlet_itemId') and text()='First-Item']";
@@ -90,13 +89,8 @@ public class FACES1638PortletTest extends TesterBase {
 		browser.navigate().to(url);
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
-		getPortletDisplayName();
-		logger.log(Level.INFO, "displayName.getText() = " + displayName.getText());
 		logger.log(Level.INFO, "formTag.getText() = " + formTag.getText());
-
-		assertTrue("displayName.isDisplayed()", displayName.isDisplayed());
 		assertTrue("formTag.isDisplayed()", formTag.isDisplayed());
-
 
 		int firstItemIndex = firstByItemId.getAttribute("href").indexOf(ITEM_ID) + ITEM_ID.length();
 		String firstItemID = firstByItemId.getAttribute("href").substring(firstItemIndex);

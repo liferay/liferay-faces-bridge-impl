@@ -42,7 +42,6 @@ public class FACES224PortletTest extends TesterBase {
 
 	private static final Logger logger = Logger.getLogger(FACES224PortletTest.class.getName());
 
-	// portlet topper and menu elements
 	private static final String formTagXpath = "//form[@method='post']";
 
 	// <input id="A2535:httpGetButton" type="button" value="Click me to render view2.xhtml via HTTP GET">
@@ -78,8 +77,6 @@ public class FACES224PortletTest extends TesterBase {
 		browser.navigate().to(url);
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
-		getPortletDisplayName();
-		logger.log(Level.INFO, "displayName.getText() = " + displayName.getText());
 
 		logger.log(Level.INFO, "button.isDisplayed() = " + button.isDisplayed());
 

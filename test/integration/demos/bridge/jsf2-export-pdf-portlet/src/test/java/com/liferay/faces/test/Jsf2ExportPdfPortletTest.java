@@ -39,8 +39,6 @@ import com.liferay.faces.test.util.TesterBase;
 @RunWith(Arquillian.class)
 public class Jsf2ExportPdfPortletTest extends TesterBase {
 
-	// portlet topper
-	// <a href="http://localhost:8080/group/bridge-demos/jsf2-pdf?p_p_id=1_WAR_jsf2e...let_customerId=1" target="_blank" id="yui_patched_dev_3_x_1_1383368924455_492">Export</a>
 	private static final String brianExportXpath =
 		"//a[contains(text(),'Export')]/../following-sibling::td[1][contains(text(),'Green')]/preceding-sibling::td[1]/a";
 	private static final String LizExportXpath =
@@ -70,10 +68,6 @@ public class Jsf2ExportPdfPortletTest extends TesterBase {
 		browser.navigate().to(url);
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
-		getPortletDisplayName();
-		logger.log(Level.INFO, "displayName.getText() = " + displayName.getText());
-
-		assertTrue("customerPortletDisplayName displayName.isDisplayed()", displayName.isDisplayed());
 
 		if (isThere(browser, brianExportXpath)) {
 			logger.log(Level.INFO, "isThere(brianExportXpath) = " + isThere(browser, brianExportXpath));

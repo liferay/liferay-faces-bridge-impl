@@ -134,54 +134,41 @@ public class FACES1635ResourcesTest extends TesterBase {
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
 
-		getPortletDisplayName();
+		// check that scriptsInHead only occur once
+		List<WebElement> scriptsInHead = browser.findElements(By.xpath("//head/script"));
+		ArrayList<HeadResource> scriptResourcesInHead = convertToHeadResources(scriptsInHead, "src");
+		logger.log(Level.INFO, "scriptResourcesInHead.size() = " + scriptResourcesInHead.size());
+		checkResourcesForDuplicates(scriptResourcesInHead, "scriptResourcesInHead");
 
-		if (isThere(browser, displayNameXpath)) {
+		// check that scriptsInBody only occur once
+		List<WebElement> scriptsInBody = browser.findElements(By.xpath("//body/script"));
+		ArrayList<HeadResource> scriptResourcesInBody = convertToHeadResources(scriptsInBody, "src");
+		logger.log(Level.INFO, "scriptResourcesInBody.size() = " + scriptResourcesInBody.size());
+		checkResourcesForDuplicates(scriptResourcesInBody, "scriptResourcesInBody");
 
-			logger.log(Level.INFO, "displayName.getText() = " + displayName.getText());
-			waitForElement(browser, displayNameXpath);
+		// check that styleSheetsInHead only occur once
+		List<WebElement> styleSheetsInHead = browser.findElements(By.xpath("//head/link"));
+		ArrayList<HeadResource> styleSheetResourcesInHead = convertToHeadResources(styleSheetsInHead, "href");
+		logger.log(Level.INFO, "styleSheetResourcesInHead.size() = " + styleSheetResourcesInHead.size());
+		checkResourcesForDuplicates(styleSheetResourcesInHead, "styleSheetResourcesInHead");
 
-			// check that scriptsInHead only occur once
-			List<WebElement> scriptsInHead = browser.findElements(By.xpath("//head/script"));
-			ArrayList<HeadResource> scriptResourcesInHead = convertToHeadResources(scriptsInHead, "src");
-			logger.log(Level.INFO, "scriptResourcesInHead.size() = " + scriptResourcesInHead.size());
-			checkResourcesForDuplicates(scriptResourcesInHead, "scriptResourcesInHead");
+		// check that styleSheetsInBody only occur once
+		List<WebElement> styleSheetsInBody = browser.findElements(By.xpath("//body/link"));
+		ArrayList<HeadResource> styleSheetResourcesInBody = convertToHeadResources(styleSheetsInBody, "href");
+		logger.log(Level.INFO, "styleSheetResourcesInBody.size() = " + styleSheetResourcesInBody.size());
+		checkResourcesForDuplicates(styleSheetResourcesInBody, "styleSheetResourcesInBody");
 
-			// check that scriptsInBody only occur once
-			List<WebElement> scriptsInBody = browser.findElements(By.xpath("//body/script"));
-			ArrayList<HeadResource> scriptResourcesInBody = convertToHeadResources(scriptsInBody, "src");
-			logger.log(Level.INFO, "scriptResourcesInBody.size() = " + scriptResourcesInBody.size());
-			checkResourcesForDuplicates(scriptResourcesInBody, "scriptResourcesInBody");
+		// check that scripts only occur once
+		List<WebElement> scripts = browser.findElements(By.xpath("//script"));
+		ArrayList<HeadResource> scriptResources = convertToHeadResources(scripts, "src");
+		logger.log(Level.INFO, "scriptResources.size() = " + scriptResources.size());
+		checkResourcesForDuplicates(scriptResources, "scriptResources");
 
-			// check that styleSheetsInHead only occur once
-			List<WebElement> styleSheetsInHead = browser.findElements(By.xpath("//head/link"));
-			ArrayList<HeadResource> styleSheetResourcesInHead = convertToHeadResources(styleSheetsInHead, "href");
-			logger.log(Level.INFO, "styleSheetResourcesInHead.size() = " + styleSheetResourcesInHead.size());
-			checkResourcesForDuplicates(styleSheetResourcesInHead, "styleSheetResourcesInHead");
+		// check that styleSheets only occur once
+		List<WebElement> styleSheets = browser.findElements(By.xpath("//link"));
+		ArrayList<HeadResource> styleSheetResources = convertToHeadResources(styleSheets, "href");
+		logger.log(Level.INFO, "styleSheetResources.size() = " + styleSheetResources.size());
+		checkResourcesForDuplicates(styleSheetResources, "styleSheetResources");
 
-			// check that styleSheetsInBody only occur once
-			List<WebElement> styleSheetsInBody = browser.findElements(By.xpath("//body/link"));
-			ArrayList<HeadResource> styleSheetResourcesInBody = convertToHeadResources(styleSheetsInBody, "href");
-			logger.log(Level.INFO, "styleSheetResourcesInBody.size() = " + styleSheetResourcesInBody.size());
-			checkResourcesForDuplicates(styleSheetResourcesInBody, "styleSheetResourcesInBody");
-
-			// check that scripts only occur once
-			List<WebElement> scripts = browser.findElements(By.xpath("//script"));
-			ArrayList<HeadResource> scriptResources = convertToHeadResources(scripts, "src");
-			logger.log(Level.INFO, "scriptResources.size() = " + scriptResources.size());
-			checkResourcesForDuplicates(scriptResources, "scriptResources");
-
-			// check that styleSheets only occur once
-			List<WebElement> styleSheets = browser.findElements(By.xpath("//link"));
-			ArrayList<HeadResource> styleSheetResources = convertToHeadResources(styleSheets, "href");
-			logger.log(Level.INFO, "styleSheetResources.size() = " + styleSheetResources.size());
-			checkResourcesForDuplicates(styleSheetResources, "styleSheetResources");
-
-		}
-		else {
-			logger.log(Level.SEVERE, "ERROR: Perhaps the portlets for this tester were not deployed ...");
-			assertTrue("No portlets found on the page.  Perhaps the portlets for this tester were not deployed.",
-				false);
-		}
 	}
 }

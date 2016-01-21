@@ -141,15 +141,11 @@ public class Jsf2FlowsPortletTest extends TesterBase {
 		browser.navigate().to(url);
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
-		getPortletDisplayName();
-		logger.log(Level.INFO, "displayName.getText() = " + displayName.getText());
 
 		if (isThere(browser, weldServletVersionXpath)) {
 			logger.log(Level.INFO, "weldServletVersion.isDisplayed() = " + weldServletVersion.isDisplayed());
 			logger.log(Level.INFO, "weldServletVersion.getText() = " + weldServletVersion.getText());
 		}
-
-		assertTrue("portletDisplayName displayName.isDisplayed()", displayName.isDisplayed());
 
 		if (isThere(browser, enterBookingFlowButtonXpath)) {
 

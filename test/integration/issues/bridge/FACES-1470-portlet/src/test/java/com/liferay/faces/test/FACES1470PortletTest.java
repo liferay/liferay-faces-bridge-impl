@@ -39,7 +39,6 @@ import com.liferay.faces.test.util.TesterBase;
 @RunWith(Arquillian.class)
 public class FACES1470PortletTest extends TesterBase {
 
-	// portlet topper and menu elements
 	private static final String formTagXpath = "//form[@method='post']";
 
 	// <input id="A5773:f1:j_idt18" type="submit" name="A5773:f1:j_idt18" value="Click me to navigate to view2.xhtml
@@ -87,13 +86,10 @@ public class FACES1470PortletTest extends TesterBase {
 		browser.navigate().to(url);
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
-		getPortletDisplayName();
-		logger.log(Level.INFO, "displayName.getText() = " + displayName.getText());
 
 		logger.log(Level.INFO, "ajaxButton.isDisplayed() = " + ajaxButton.isDisplayed());
 		logger.log(Level.INFO, "fullPostBackButton.isDisplayed() = " + fullPostBackButton.isDisplayed());
 
-		assertTrue("displayName.isDisplayed()", displayName.isDisplayed());
 		assertTrue("ajaxButton should be displayed, but it is not", ajaxButton.isDisplayed());
 		assertTrue("fullPostBackButton should be displayed, but it is not", fullPostBackButton.isDisplayed());
 
