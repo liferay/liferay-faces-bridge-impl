@@ -69,6 +69,8 @@ public class Jsf2ExportPdfPortletTest extends TesterBase {
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
 
+		assertTrue("An 'Export' link for Brian should be visible, but it is not there.", isThere(browser, brianExportXpath));
+
 		if (isThere(browser, brianExportXpath)) {
 			logger.log(Level.INFO, "isThere(brianExportXpath) = " + isThere(browser, brianExportXpath));
 			richExport.click();
