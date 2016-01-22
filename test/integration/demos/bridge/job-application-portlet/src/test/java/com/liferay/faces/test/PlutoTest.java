@@ -46,8 +46,7 @@ public class PlutoTest extends TesterBase {
 	// form tag found after submitting
 	private static final String formTagXpath = "//form[@method='post']";
 
-	// portlet topper and menu elements
-	private static final String portletDisplayNameXpath = "//td[@class='header']/h2";
+	// portlet menu elements
 	private static final String menuButtonXpath = "//form[@name='modeSelectionForm']/select";
 	private static final String menuPreferencesXpath = "//input[@type='submit' and @value='Edit Preferences']";
 
@@ -116,8 +115,6 @@ public class PlutoTest extends TesterBase {
 
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;
-	@FindBy(xpath = portletDisplayNameXpath)
-	private WebElement portletDisplayName;
 	@FindBy(xpath = menuButtonXpath)
 	private WebElement menuButton;
 	@FindBy(xpath = menuPreferencesXpath)
@@ -206,9 +203,6 @@ public class PlutoTest extends TesterBase {
 		browser.navigate().to(url);
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
-		logger.log(Level.INFO, "portletDisplayName.getText() = " + portletDisplayName.getText());
-
-		assertTrue("portletDisplayName.isDisplayed()", portletDisplayName.isDisplayed());
 		assertTrue("menuButton.isDisplayed()", menuButton.isDisplayed());
 
 		if (isThere(browser, logoXpath)) {

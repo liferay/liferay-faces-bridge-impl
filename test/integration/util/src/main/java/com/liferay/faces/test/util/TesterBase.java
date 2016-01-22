@@ -76,19 +76,6 @@ public class TesterBase {
 	@FindBy(xpath = logoutXpath)
 	private WebElement logout;
 
-	// portlet name for liferay
-	private static final String portletDisplayNameXpath = "//header[@class='portlet-topper']/h1/span";
-	@FindBy(xpath = portletDisplayNameXpath)
-	protected WebElement portletDisplayName;
-
-	// portlet name element for pluto
-	private static final String plutoPortletDisplayNameXpath = "//td[@class='header']/h2";
-	@FindBy(xpath = plutoPortletDisplayNameXpath)
-	protected WebElement plutoPortletDisplayName;
-
-	protected String displayNameXpath;
-	protected WebElement displayName;
-
 	// elements for switching to edit mode in liferay
 	private static final String menuButtonXpath = "//a[contains(@title,'Options')]";
 	private static final String menuPreferencesXpath = "//span[contains(text(),'Preferences')]/..";
