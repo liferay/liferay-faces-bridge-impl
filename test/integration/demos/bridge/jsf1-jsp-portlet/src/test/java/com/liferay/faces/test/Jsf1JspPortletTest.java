@@ -215,12 +215,6 @@ public class Jsf1JspPortletTest extends TesterBase {
 		browser.navigate().to(url);
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
-		getPortletDisplayName();
-		logger.log(Level.INFO, "displayName.getText() = " + displayName.getText());
-
-		assertTrue("displayName.isDisplayed()", displayName.isDisplayed());
-		// assertTrue("preferencesMenuButton.isDisplayed()", preferencesMenuButton.isDisplayed());
-		// assertFalse("preferencesMenuItem is NOT displayed()", preferencesMenuItem.isDisplayed());
 
 		if (isThere(browser, logoXpath)) {
 			assertTrue("logo.isDisplayed()", logo.isDisplayed());

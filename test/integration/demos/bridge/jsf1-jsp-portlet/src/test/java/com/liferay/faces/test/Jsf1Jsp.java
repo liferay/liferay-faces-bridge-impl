@@ -35,8 +35,7 @@ public class Jsf1Jsp extends TesterBase {
 	// form tag found after submitting
 	private static final String formTagXpath = "//form[@method='post']";
 
-	// portlet topper and menu elements
-	private static final String portletDisplayNameXpath = "//header[@class='portlet-topper']/h1/span";
+	// portlet menu elements
 	private static final String menuButtonXpath = "//a[contains(@id,'menuButton')]";
 	private static final String menuPreferencesXpath = "//a[contains(@id,'menu_preferences')]";
 
@@ -102,8 +101,6 @@ public class Jsf1Jsp extends TesterBase {
 
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;
-	@FindBy(xpath = portletDisplayNameXpath)
-	private WebElement portletDisplayName;
 	@FindBy(xpath = menuButtonXpath)
 	private WebElement menuButton;
 	@FindBy(xpath = menuPreferencesXpath)

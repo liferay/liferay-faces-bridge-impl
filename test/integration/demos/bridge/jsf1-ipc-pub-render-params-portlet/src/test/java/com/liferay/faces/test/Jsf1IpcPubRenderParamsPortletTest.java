@@ -39,8 +39,6 @@ import com.liferay.faces.test.util.TesterBase;
 @RunWith(Arquillian.class)
 public class Jsf1IpcPubRenderParamsPortletTest extends TesterBase {
 
-	// portlet topper for customer
-	private static final String customerPortletDisplayNameXpath = "(//header[@class='portlet-topper']/h1/span)[1]";
 	private static final String briansInputXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'1')]/../td[1]/input";
 	private static final String briansFirstNameXpath =
@@ -54,8 +52,6 @@ public class Jsf1IpcPubRenderParamsPortletTest extends TesterBase {
 	private static final String lizsLastNameXpath =
 		"//input[@type='image']/../following-sibling::td[1][contains(text(),'2')]/following-sibling::*[1]/following-sibling::*[1]";
 
-	// portlet topper for bookings
-	private static final String bookingsPortletDisplayNameXpath = "(//header[@class='portlet-topper']/h1/span)[2]";
 	// <input id="A8622:f1:firstName" type="text" name="A8622:f1:firstName" value="Brian" class="focus">
 	private static final String firstNameXpath = "//input[contains(@id,':firstName')]";
 	// <input id="A8622:f1:firstName" type="text" name="A8622:f1:firstName" value="Brian" class="focus">
@@ -68,8 +64,6 @@ public class Jsf1IpcPubRenderParamsPortletTest extends TesterBase {
 
 	private static final String url = baseUrl + "/group/bridge-demos/jsf1-prp?p_p_parallel=0";
 
-	@FindBy(xpath = customerPortletDisplayNameXpath)
-	private WebElement customerPortletDisplayName;
 	@FindBy(xpath = briansInputXpath)
 	private WebElement briansInput;
 	@FindBy(xpath = briansFirstNameXpath)
@@ -82,8 +76,6 @@ public class Jsf1IpcPubRenderParamsPortletTest extends TesterBase {
 	private WebElement lizsFirstName;
 	@FindBy(xpath = lizsLastNameXpath)
 	private WebElement lizsLastName;
-	@FindBy(xpath = bookingsPortletDisplayNameXpath)
-	private WebElement bookingsPortletDisplayName;
 	@FindBy(xpath = firstNameXpath)
 	private WebElement firstName;
 	@FindBy(xpath = lastNameXpath)
@@ -110,15 +102,7 @@ public class Jsf1IpcPubRenderParamsPortletTest extends TesterBase {
 		browser.navigate().to(url);
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
-		logger.log(Level.INFO, "customerPortletDisplayName.getText() = " + customerPortletDisplayName.getText());
-		logger.log(Level.INFO, "bookingsPortletDisplayName.getText() = " + bookingsPortletDisplayName.getText());
 
-		assertTrue("customerPortletDisplayName.isDisplayed()", customerPortletDisplayName.isDisplayed());
-		assertTrue("bookingsPortletDisplayName.isDisplayed()", bookingsPortletDisplayName.isDisplayed());
-
-		logger.log(Level.INFO,
-			"browser.findElements(By.xpath(portletDisplayNameXpath)).size() = " +
-			browser.findElements(By.xpath(customerPortletDisplayNameXpath)).size());
 		logger.log(Level.INFO,
 			"browser.findElements(By.xpath(briansInputXpath)).size() = " +
 			browser.findElements(By.xpath(briansInputXpath)).size());

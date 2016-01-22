@@ -39,7 +39,6 @@ import com.liferay.faces.test.util.TesterBase;
 @RunWith(Arquillian.class)
 public class FACES1478PortletTest extends TesterBase {
 
-	// portlet topper and menu elements
 	private static final String formTagXpath = "//form[@method='post']";
 
 	private static final String secondLinkXpath = "//form[@method='post']/a[2]";
@@ -67,12 +66,9 @@ public class FACES1478PortletTest extends TesterBase {
 		browser.navigate().to(url);
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 		logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
-		getPortletDisplayName();
-		logger.log(Level.INFO, "displayName.getText() = " + displayName.getText());
 		logger.log(Level.INFO, "formTag.getText() = " + formTag.getText());
 		logger.log(Level.INFO, "secondLink.getAttribute('href') = " + secondLink.getAttribute("href"));
 
-		assertTrue("displayName.isDisplayed()", displayName.isDisplayed());
 		assertTrue("formTag.isDisplayed()", formTag.isDisplayed());
 		assertTrue("secondLink.isDisplayed()", secondLink.isDisplayed());
 
