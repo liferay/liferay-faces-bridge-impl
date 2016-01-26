@@ -233,6 +233,19 @@ public class ResourceOutputStreamRichFacesImpl extends ResourceOutputStream impl
 			javaScriptText = buf.toString();
 		}
 
+		token = "$.atmosphere.unsubscribe();";
+		pos = javaScriptText.indexOf(token);
+
+		if (pos > 0) {
+			logger.debug("Found fourth token in packed.js");
+
+			StringBuilder buf = new StringBuilder();
+			buf.append(javaScriptText.substring(0, pos));
+			buf.append("if (!$.atmosphere) { return; }; ");
+			buf.append(javaScriptText.substring(pos));
+			javaScriptText = buf.toString();
+		}
+
 		return javaScriptText;
 	}
 
