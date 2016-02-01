@@ -18,7 +18,6 @@ package com.liferay.faces.bridge.application.internal;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -27,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.util.application.ResourceValidator;
 import com.liferay.faces.util.application.ResourceValidatorFactory;
-import com.liferay.faces.util.io.ResourceOutputStream;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -35,7 +33,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * Unlike the {@link ResourceHandlerOuterImpl} class, this class is designed to be the innermost {@link ResourceHandler}
  * in the chain-of-responsibility (only the Mojarra/MyFaces ResourceHandlerImpl has a more inner status). In order to
- * achive this innermost status, it is registered in the application section of the bridge's faces-config.xml
+ * achieve this innermost status, it is registered in the application section of the bridge's faces-config.xml
  * descriptor. It is responsible for wrapping resources created by Mojarra/MyFaces so that resource URLs will work in a
  * portlet environment. It is also responsible for serving up resources via the {@link
  * #handleResourceRequest(FacesContext)} method.
@@ -46,9 +44,6 @@ public class ResourceHandlerInnerImpl extends ResourceHandlerBridgeImpl {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ResourceHandlerInnerImpl.class);
-
-	// Private Constants
-	private static final String RICHFACES_STATIC_RESOURCE = "org.richfaces.staticResource";
 
 	public ResourceHandlerInnerImpl(ResourceHandler resourceHandler) {
 		super(resourceHandler);
@@ -115,22 +110,4 @@ public class ResourceHandlerInnerImpl extends ResourceHandlerBridgeImpl {
 			super.handleResourceRequest(facesContext);
 		}
 	}
-
-	@Override
-	protected ResourceOutputStream getResourceOutputStream(Resource resource, int size) {
-
-		String resourceName = resource.getResourceName();
-
-		// If this is a RichFaces static resource, then return a resource output stream that knows hot to filter
-		// RichFaces static resources.
-		if (resourceName.startsWith(RICHFACES_STATIC_RESOURCE)) {
-			return new ResourceOutputStreamRichFacesImpl(resource, size);
-		}
-
-		// Otherwise, return a normal resource output stream.
-		else {
-			return super.getResourceOutputStream(resource, size);
-		}
-	}
-
 }

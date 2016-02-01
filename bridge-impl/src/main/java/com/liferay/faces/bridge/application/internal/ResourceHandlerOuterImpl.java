@@ -19,6 +19,9 @@ import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceHandlerWrapper;
 
+import com.liferay.faces.util.product.ProductConstants;
+import com.liferay.faces.util.product.ProductMap;
+
 
 /**
  * Unlike the {@link ResourceHandlerInnerImpl} class, this class is designed to be the outermost {@link ResourceHandler}
@@ -35,6 +38,9 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 
 	// Private Constants
 	private static final String ORG_RICHFACES_RESOURCE = "org.richfaces.resource";
+	private static final boolean RICHFACES_DETECTED = ProductMap.getInstance().get(ProductConstants.RICHFACES)
+		.isDetected();
+	private static final String RICHFACES_STATIC_RESOURCE = "org.richfaces.staticResource";
 
 	// Private Data Members
 	private ResourceHandler wrappedResourceHandler;
@@ -47,10 +53,7 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 	public Resource createResource(String resourceName) {
 
 		Resource resource = super.createResource(resourceName);
-
-		if ((resource != null) && resource.getClass().getName().startsWith(ORG_RICHFACES_RESOURCE)) {
-			resource = new ResourceRichFacesImpl(resource);
-		}
+		resource = createResource(resourceName, resource);
 
 		return resource;
 	}
@@ -59,10 +62,7 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 	public Resource createResource(String resourceName, String libraryName) {
 
 		Resource resource = super.createResource(resourceName, libraryName);
-
-		if ((resource != null) && resource.getClass().getName().startsWith(ORG_RICHFACES_RESOURCE)) {
-			resource = new ResourceRichFacesImpl(resource);
-		}
+		resource = createResource(resourceName, resource);
 
 		return resource;
 	}
@@ -71,9 +71,28 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 	public Resource createResource(String resourceName, String libraryName, String contentType) {
 
 		Resource resource = super.createResource(resourceName, libraryName, contentType);
+		resource = createResource(resourceName, resource);
 
-		if ((resource != null) && resource.getClass().getName().startsWith(ORG_RICHFACES_RESOURCE)) {
-			resource = new ResourceRichFacesImpl(resource);
+		return resource;
+	}
+
+	private Resource createResource(String resourceName, Resource resource) {
+
+		if ((resource != null) && RICHFACES_DETECTED) {
+
+			// If this is a RichFaces static css resource, then return a filtered Richfaces static CSS resource.
+			if (resourceName.startsWith(RICHFACES_STATIC_RESOURCE) && resourceName.endsWith(".css")) {
+				resource = new ResourceRichFacesCSSImpl(resource);
+			}
+
+			// If this is a RichFaces static packed.js resource, then return a filtered Richfaces static packed.js
+			// resource.
+			else if (resourceName.startsWith(RICHFACES_STATIC_RESOURCE) && resourceName.endsWith("packed.js")) {
+				resource = new ResourceRichFacesPackedJSImpl(resource);
+			}
+			else if (resource.getClass().getName().startsWith(ORG_RICHFACES_RESOURCE)) {
+				resource = new ResourceRichFacesImpl(resource);
+			}
 		}
 
 		return resource;
@@ -83,5 +102,4 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 	public ResourceHandler getWrapped() {
 		return wrappedResourceHandler;
 	}
-
 }

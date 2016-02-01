@@ -28,7 +28,9 @@ public class ResourceRichFacesImpl extends ResourceWrapper {
 
 	// Public Constants
 	public static final String ORG_RICHFACES = "org.richfaces";
-	public static final String RICHFACES_PATH_TOKEN = "/rfRes/";
+
+	// Private Constants
+	private static final String RICHFACES_PATH_TOKEN = "/rfRes/";
 
 	// Private Data Members
 	private Resource wrappedResource;
