@@ -24,9 +24,9 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.faces.util.model.UploadedFile;
 
 
 /**
@@ -56,6 +56,7 @@ public class RichFacesUploadedFileHandler implements InvocationHandler, Serializ
 		this.uploadedFile = uploadedFile;
 	}
 
+	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
 		String methodName = method.getName();

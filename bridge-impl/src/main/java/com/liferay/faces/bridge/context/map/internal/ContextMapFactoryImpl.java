@@ -15,9 +15,12 @@
  */
 package com.liferay.faces.bridge.context.map.internal;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.portlet.ClientDataRequest;
 import javax.portlet.PortletContext;
@@ -27,10 +30,12 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 
 import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.context.ContextMapFactory;
+import com.liferay.faces.bridge.model.UploadedFile;
+import com.liferay.faces.bridge.model.internal.UploadedFileBridgeImpl;
 import com.liferay.faces.bridge.scope.BridgeRequestScope;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.context.map.MultiPartFormData;
-import com.liferay.faces.util.model.UploadedFile;
 import com.liferay.faces.util.product.ProductConstants;
 import com.liferay.faces.util.product.ProductMap;
 
@@ -76,8 +81,9 @@ public class ContextMapFactoryImpl extends ContextMapFactory {
 							facesViewParameterMap, defaultRenderKitId);
 
 					MultiPartFormDataProcessor multiPartFormDataProcessor = new MultiPartFormDataProcessorImpl();
-					Map<String, List<UploadedFile>> uploadedFileMap = multiPartFormDataProcessor.process(
-							clientDataRequest, bridgeContext.getPortletConfig(), facesRequestParameterMap);
+					Map<String, List<com.liferay.faces.util.model.UploadedFile>> uploadedFileMap =
+						multiPartFormDataProcessor.process(clientDataRequest, bridgeContext.getPortletConfig(),
+							facesRequestParameterMap);
 
 					multiPartFormData = new MultiPartFormDataImpl(facesRequestParameterMap, uploadedFileMap);
 
@@ -165,15 +171,38 @@ public class ContextMapFactoryImpl extends ContextMapFactory {
 	@Override
 	public Map<String, List<UploadedFile>> getUploadedFileMap(BridgeContext bridgeContext) {
 
+		Map<String, List<UploadedFile>> bridgeUploadedFileMap = null;
 		PortletRequest portletRequest = bridgeContext.getPortletRequest();
 		MultiPartFormData multiPartFormData = (MultiPartFormData) portletRequest.getAttribute(MULTIPART_FORM_DATA_FQCN);
-		Map<String, List<UploadedFile>> uploadedFileMap = null;
 
 		if (multiPartFormData != null) {
-			uploadedFileMap = multiPartFormData.getUploadedFileMap();
+			Map<String, List<com.liferay.faces.util.model.UploadedFile>> uploadedFileMap =
+				multiPartFormData.getUploadedFileMap();
+
+			if (uploadedFileMap != null) {
+				bridgeUploadedFileMap = new HashMap<String, List<UploadedFile>>(uploadedFileMap.size());
+				Set<Map.Entry<String, List<com.liferay.faces.util.model.UploadedFile>>> entrySet =
+					uploadedFileMap.entrySet();
+
+				for (Map.Entry<String, List<com.liferay.faces.util.model.UploadedFile>> mapEntry : entrySet) {
+					List<com.liferay.faces.util.model.UploadedFile> uploadedFileList = mapEntry.getValue();
+
+					if (uploadedFileList != null) {
+						List<UploadedFile> bridgeUploadedFileList = new ArrayList<UploadedFile>(
+								uploadedFileList.size());
+
+						for (com.liferay.faces.util.model.UploadedFile uploadedFile : uploadedFileList) {
+							bridgeUploadedFileList.add(new UploadedFileBridgeImpl(uploadedFile));
+						}
+
+						bridgeUploadedFileMap.put(mapEntry.getKey(), bridgeUploadedFileList);
+					}
+				}
+
+			}
 		}
 
-		return uploadedFileMap;
+		return bridgeUploadedFileMap;
 	}
 
 	@Override
