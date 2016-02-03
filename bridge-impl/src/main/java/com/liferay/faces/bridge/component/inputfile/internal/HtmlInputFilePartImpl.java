@@ -23,7 +23,7 @@ import java.util.Collection;
 import javax.faces.FacesWrapper;
 import javax.servlet.http.Part;
 
-import com.liferay.faces.util.model.UploadedFile;
+import com.liferay.faces.bridge.model.UploadedFile;
 
 
 /**

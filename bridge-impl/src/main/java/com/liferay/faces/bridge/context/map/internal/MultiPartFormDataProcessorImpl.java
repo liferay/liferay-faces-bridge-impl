@@ -73,7 +73,7 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 	public Map<String, List<UploadedFile>> process(ClientDataRequest clientDataRequest, PortletConfig portletConfig,
 		FacesRequestParameterMap facesRequestParameterMap) {
 
-		Map<String, List<UploadedFile>> uploadedFileMap = null;
+		Map<String, List<UploadedFile>> uploadedFileMap;
 
 		PortletSession portletSession = clientDataRequest.getPortletSession();
 
@@ -89,7 +89,10 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		File uploadedFilesPath = new File(uploadedFilesDir, sessionId);
 
 		if (!uploadedFilesPath.exists()) {
-			uploadedFilesPath.mkdirs();
+
+			if (!uploadedFilesPath.mkdirs()) {
+				logger.warn("Unable to create directory for uploadedFilesPath=[{0}]", uploadedFilesPath);
+			}
 		}
 
 		// Initialize commons-fileupload with the file upload path.
@@ -132,7 +135,7 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 
 		// Begin parsing the request for file parts:
 		try {
-			FileItemIterator fileItemIterator = null;
+			FileItemIterator fileItemIterator;
 
 			if (clientDataRequest instanceof ResourceRequest) {
 				ResourceRequest resourceRequest = (ResourceRequest) clientDataRequest;
@@ -146,7 +149,6 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 			if (fileItemIterator != null) {
 
 				int totalFiles = 0;
-				String namespace = facesRequestParameterMap.getNamespace();
 
 				// For each field found in the request:
 				while (fileItemIterator.hasNext()) {
@@ -155,7 +157,7 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 						totalFiles++;
 
 						// Get the stream of field data from the request.
-						FileItemStream fieldStream = (FileItemStream) fileItemIterator.next();
+						FileItemStream fieldStream = fileItemIterator.next();
 
 						// Get field name from the field stream.
 						String fieldName = fieldStream.getFieldName();
@@ -164,7 +166,7 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 						String contentType = fieldStream.getContentType();
 						boolean formField = fieldStream.isFormField();
 
-						String fileName = null;
+						String fileName;
 
 						try {
 							fileName = fieldStream.getName();
@@ -183,7 +185,7 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 						// If the current field is a simple form-field, then save the form field value in the map.
 						if (diskFileItem.isFormField()) {
 							String characterEncoding = clientDataRequest.getCharacterEncoding();
-							String requestParameterValue = null;
+							String requestParameterValue;
 
 							if (characterEncoding == null) {
 								requestParameterValue = diskFileItem.getString();
@@ -252,11 +254,11 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 								// uploaded file's attributes, along with a successful status.
 								Map<String, Object> attributeMap = new HashMap<String, Object>();
 								String id = Long.toString(((long) hashCode()) + System.currentTimeMillis());
-								String message = null;
-								UploadedFile uploadedFile = uploadedFileFactory.getUploadedFile(copiedFileAbsolutePath,
-										attributeMap, diskFileItem.getCharSet(), diskFileItem.getContentType(),
-										headersMap, id, message, fileName, diskFileItem.getSize(),
-										UploadedFile.Status.FILE_SAVED);
+								com.liferay.faces.util.model.UploadedFile uploadedFile =
+									uploadedFileFactory.getUploadedFile(copiedFileAbsolutePath, attributeMap,
+										diskFileItem.getCharSet(), diskFileItem.getContentType(), headersMap, id, null,
+										fileName, diskFileItem.getSize(),
+										com.liferay.faces.util.model.UploadedFile.Status.FILE_SAVED);
 
 								facesRequestParameterMap.addValue(fieldName, copiedFileAbsolutePath);
 								addUploadedFile(uploadedFileMap, fieldName, uploadedFile);
@@ -268,7 +270,8 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 								if ((fileName != null) && (fileName.trim().length() > 0)) {
 									Exception e = new IOException("Failed to copy the stream of uploaded file=[" +
 											fileName + "] to a temporary file (possibly a zero-length uploaded file)");
-									UploadedFile uploadedFile = uploadedFileFactory.getUploadedFile(e);
+									com.liferay.faces.util.model.UploadedFile uploadedFile =
+										uploadedFileFactory.getUploadedFile(e);
 									addUploadedFile(uploadedFileMap, fieldName, uploadedFile);
 								}
 							}
@@ -277,7 +280,7 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 					catch (Exception e) {
 						logger.error(e);
 
-						UploadedFile uploadedFile = uploadedFileFactory.getUploadedFile(e);
+						com.liferay.faces.util.model.UploadedFile uploadedFile = uploadedFileFactory.getUploadedFile(e);
 						String fieldName = Integer.toString(totalFiles);
 						addUploadedFile(uploadedFileMap, fieldName, uploadedFile);
 					}
@@ -290,7 +293,7 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		catch (Exception e) {
 			logger.error(e);
 
-			UploadedFile uploadedFile = uploadedFileFactory.getUploadedFile(e);
+			com.liferay.faces.util.model.UploadedFile uploadedFile = uploadedFileFactory.getUploadedFile(e);
 			addUploadedFile(uploadedFileMap, "unknown", uploadedFile);
 		}
 
@@ -342,182 +345,227 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 			this.resourceRequest = resourceRequest;
 		}
 
+		@Override
 		public void removeAttribute(String name) {
 			resourceRequest.removeAttribute(name);
 		}
 
+		@Override
 		public Object getAttribute(String name) {
 			return resourceRequest.getAttribute(name);
 		}
 
+		@Override
 		public void setAttribute(String name, Object value) {
 			resourceRequest.setAttribute(name, value);
 		}
 
+		@Override
 		public Enumeration<String> getAttributeNames() {
 			return resourceRequest.getAttributeNames();
 		}
 
+		@Override
 		public String getAuthType() {
 			return resourceRequest.getAuthType();
 		}
 
+		@Override
 		public String getCharacterEncoding() {
 			return resourceRequest.getCharacterEncoding();
 		}
 
+		@Override
 		public void setCharacterEncoding(String enc) throws UnsupportedEncodingException {
 			resourceRequest.setCharacterEncoding(enc);
 		}
 
+		@Override
 		public int getContentLength() {
 			return resourceRequest.getContentLength();
 		}
 
+		@Override
 		public String getContentType() {
 			return resourceRequest.getContentType();
 		}
 
+		@Override
 		public String getContextPath() {
 			return resourceRequest.getContextPath();
 		}
 
+		@Override
 		public Cookie[] getCookies() {
 			return resourceRequest.getCookies();
 		}
 
+		@Override
 		public boolean isPortletModeAllowed(PortletMode mode) {
 			return resourceRequest.isPortletModeAllowed(mode);
 		}
 
+		@Override
 		public boolean isRequestedSessionIdValid() {
 			return resourceRequest.isRequestedSessionIdValid();
 		}
 
+		@Override
 		public boolean isWindowStateAllowed(WindowState state) {
 			return resourceRequest.isWindowStateAllowed(state);
 		}
 
+		@Override
 		public boolean isSecure() {
 			return resourceRequest.isSecure();
 		}
 
+		@Override
 		public boolean isUserInRole(String role) {
 			return resourceRequest.isUserInRole(role);
 		}
 
+		@Override
 		public Locale getLocale() {
 			return resourceRequest.getLocale();
 		}
 
+		@Override
 		public Enumeration<Locale> getLocales() {
 			return resourceRequest.getLocales();
 		}
 
+		@Override
 		public String getMethod() {
 			return resourceRequest.getMethod();
 		}
 
+		@Override
 		public String getParameter(String name) {
 			return resourceRequest.getParameter(name);
 		}
 
+		@Override
 		public Map<String, String[]> getParameterMap() {
 			return resourceRequest.getParameterMap();
 		}
 
+		@Override
 		public Enumeration<String> getParameterNames() {
 			return resourceRequest.getParameterNames();
 		}
 
+		@Override
 		public String[] getParameterValues(String name) {
 			return resourceRequest.getParameterValues(name);
 		}
 
+		@Override
 		public PortalContext getPortalContext() {
 			return resourceRequest.getPortalContext();
 		}
 
+		@Override
 		public InputStream getPortletInputStream() throws IOException {
 			return resourceRequest.getPortletInputStream();
 		}
 
+		@Override
 		public PortletMode getPortletMode() {
 			return resourceRequest.getPortletMode();
 		}
 
+		@Override
 		public PortletSession getPortletSession() {
 			return resourceRequest.getPortletSession();
 		}
 
+		@Override
 		public PortletSession getPortletSession(boolean create) {
 			return resourceRequest.getPortletSession();
 		}
 
+		@Override
 		public PortletPreferences getPreferences() {
 			return resourceRequest.getPreferences();
 		}
 
+		@Override
 		public Map<String, String[]> getPrivateParameterMap() {
 			return resourceRequest.getPrivateParameterMap();
 		}
 
+		@Override
 		public Enumeration<String> getProperties(String name) {
 			return resourceRequest.getProperties(name);
 		}
 
+		@Override
 		public String getProperty(String name) {
 			return resourceRequest.getProperty(name);
 		}
 
+		@Override
 		public Enumeration<String> getPropertyNames() {
 			return resourceRequest.getPropertyNames();
 		}
 
+		@Override
 		public Map<String, String[]> getPublicParameterMap() {
 			return resourceRequest.getPublicParameterMap();
 		}
 
-		public BufferedReader getReader() throws UnsupportedEncodingException, IOException {
+		@Override
+		public BufferedReader getReader() throws IOException {
 			return resourceRequest.getReader();
 		}
 
+		@Override
 		public String getRemoteUser() {
 			return resourceRequest.getRemoteUser();
 		}
 
+		@Override
 		public String getRequestedSessionId() {
 			return resourceRequest.getRequestedSessionId();
 		}
 
+		@Override
 		public String getResponseContentType() {
 			return resourceRequest.getResponseContentType();
 		}
 
+		@Override
 		public Enumeration<String> getResponseContentTypes() {
 			return resourceRequest.getResponseContentTypes();
 		}
 
+		@Override
 		public String getScheme() {
 			return resourceRequest.getScheme();
 		}
 
+		@Override
 		public String getServerName() {
 			return resourceRequest.getServerName();
 		}
 
+		@Override
 		public int getServerPort() {
 			return resourceRequest.getServerPort();
 		}
 
+		@Override
 		public Principal getUserPrincipal() {
 			return resourceRequest.getUserPrincipal();
 		}
 
+		@Override
 		public String getWindowID() {
 			return resourceRequest.getWindowID();
 		}
 
+		@Override
 		public WindowState getWindowState() {
 			return resourceRequest.getWindowState();
 		}
