@@ -32,10 +32,10 @@ import org.apache.commons.fileupload.FileItem;
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
 import com.liferay.faces.bridge.context.BridgeContext;
-import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
+import com.liferay.faces.bridge.context.ContextMapFactory;
+import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.faces.util.model.UploadedFile;
 
 
 /**
@@ -62,9 +62,9 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 	}
 
 	/**
-	 * This method overrides the {@link #decode(FacesContext, UIComponent)} method so that it can avoid a Servlet-API
-	 * dependency in the PrimeFaces FileUploadRenderer. Note that p:fileUpload will do an Ajax postback and invoke the
-	 * JSF lifecycle for each individual file.
+	 * This method overrides the {@link RendererWrapper#decode(FacesContext, UIComponent)} method so that it can avoid a
+	 * Servlet-API dependency in the PrimeFaces FileUploadRenderer. Note that p:fileUpload will do an Ajax postback and
+	 * invoke the JSF lifecycle for each individual file.
 	 */
 	@Override
 	public void decode(FacesContext facesContext, UIComponent uiComponent) {

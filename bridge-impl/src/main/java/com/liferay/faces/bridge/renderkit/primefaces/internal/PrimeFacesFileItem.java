@@ -25,9 +25,9 @@ import java.io.UnsupportedEncodingException;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemHeaders;
 
+import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.faces.util.model.UploadedFile;
 
 
 /**
@@ -51,12 +51,14 @@ public class PrimeFacesFileItem implements FileItem {
 		this.uploadedFile = uploadedFile;
 	}
 
+	@Override
 	public void delete() {
 
 		// Will never be called by the PrimeFaces UploadedFile interface.
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public byte[] get() {
 
 		byte[] bytes = null;
@@ -79,28 +81,34 @@ public class PrimeFacesFileItem implements FileItem {
 		return bytes;
 	}
 
+	@Override
 	public void write(File file) throws Exception {
 
 		// Will never be called by the PrimeFaces UploadedFile interface.
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public String getContentType() {
 		return uploadedFile.getContentType();
 	}
 
+	@Override
 	public boolean isFormField() {
 		return false;
 	}
 
+	@Override
 	public String getFieldName() {
 		return clientId;
 	}
 
+	@Override
 	public void setFieldName(String name) {
 		clientId = name;
 	}
 
+	@Override
 	public void setFormField(boolean state) {
 
 		// Will never be called by the PrimeFaces UploadedFile interface.
@@ -117,28 +125,34 @@ public class PrimeFacesFileItem implements FileItem {
 		this.fileItemHeaders = fileItemHeaders;
 	}
 
+	@Override
 	public InputStream getInputStream() throws IOException {
 		return new UploadedFileInputStream(uploadedFile.getAbsolutePath());
 	}
 
+	@Override
 	public String getName() {
 		return uploadedFile.getName();
 	}
 
+	@Override
 	public OutputStream getOutputStream() throws IOException {
 
 		// Will never be called by the PrimeFaces UploadedFile interface.
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public long getSize() {
 		return uploadedFile.getSize();
 	}
 
+	@Override
 	public String getString() {
 		return getString("UTF-8");
 	}
 
+	@Override
 	public String getString(String encoding) {
 		String stringValue = null;
 		byte[] bytes = get();
@@ -156,8 +170,8 @@ public class PrimeFacesFileItem implements FileItem {
 		return stringValue;
 	}
 
+	@Override
 	public boolean isInMemory() {
 		return false;
 	}
-
 }

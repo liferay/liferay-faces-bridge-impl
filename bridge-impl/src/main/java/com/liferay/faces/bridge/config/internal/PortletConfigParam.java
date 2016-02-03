@@ -50,12 +50,6 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		"org.portletfaces.bridge.containerAbleToSetHttpStatusCode", false),
 
 	/**
-	 * Flag indicating whether or not JSF {@link javax.faces.bean.ManagedBean} classes annotated with {@link
-	 * javax.faces.bean.RequestScoped} should be distinct for each portlet. Default value is false.
-	 */
-	DistinctRequestScopedManagedBeans("com.liferay.faces.bridge.distinctRequestScopedManagedBeans", false),
-
-	/**
 	 * Flag indicating whether or not the bridge should manage incongruities between the JSF lifecycle and the Portlet
 	 * lifecycle. The default is true.
 	 */
