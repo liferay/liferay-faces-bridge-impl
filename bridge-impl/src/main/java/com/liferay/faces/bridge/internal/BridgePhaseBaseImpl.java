@@ -77,8 +77,6 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 	// Private Data Members
 	private FacesContextFactory facesContextFactory;
-	private String pathInfo;
-	private String servletPath;
 
 	public BridgePhaseBaseImpl(PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
@@ -130,10 +128,6 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 			if (portletRequest != null) {
 				removeBridgeContextAttribute(portletRequest);
 				portletRequest.removeAttribute(Bridge.PORTLET_LIFECYCLE_PHASE);
-
-				// Restore the cached attributes.
-				portletRequest.setAttribute("javax.servlet.include.path_info", pathInfo);
-				portletRequest.setAttribute("javax.servlet.include.servlet_path", servletPath);
 			}
 
 			bridgeContext.release();
@@ -184,17 +178,6 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 		// Get the FacesContext.
 		facesContext = getFacesContext(portletRequest, portletResponse, facesLifecycle);
-
-		// Some portlet containers (like the one provided by Liferay Portal) uses a servlet dispatcher when executing
-		// the portlet lifecycle. This approach requires the portal to save some standard Servlet-API request attributes
-		// like javax.servlet.include.path_info and javax.servlet.include.servlet_path. Unfortunately, some JSF
-		// implementations (like Mojarra) assume a servlet (non-portlet) environment and check for attributes. In order
-		// to prevent the JSF implementation from working with bad values, the attributes must be removed before the
-		// Faces lifecycle is run, and then restored afterwards.
-		pathInfo = (String) portletRequest.getAttribute("javax.servlet.include.path_info");
-		portletRequest.removeAttribute("javax.servlet.include.path_info");
-		servletPath = (String) portletRequest.getAttribute("javax.servlet.include.servlet_path");
-		portletRequest.removeAttribute("javax.servlet.include.servlet_path");
 
 		// If not set by a previous request, then set the default viewIdHistory for the portlet modes.
 		for (String portletMode : PortletModeHelper.PORTLET_MODE_NAMES) {

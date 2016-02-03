@@ -15,9 +15,6 @@
  */
 package com.liferay.faces.bridge.config.internal;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 
@@ -34,10 +31,6 @@ import com.liferay.faces.util.helper.LongHelper;
  */
 public class PortletConfigParamUtil {
 
-	// Note: Performance is faster with a synchronized block around HashMap.put(String, Object) rather than using a
-	// ConcurrentHashMap.
-	private static final Map<String, Object> configParamCache = new HashMap<String, Object>();
-
 	public static boolean getBooleanValue(PortletConfig portletConfig, String name, String alternateName,
 		boolean defaultBooleanValue) {
 
@@ -53,22 +46,10 @@ public class PortletConfigParamUtil {
 			}
 		}
 		else {
-			String configParamName = portletName + name;
-			Object cachedValue = configParamCache.get(configParamName);
+			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
 
-			if ((cachedValue != null) && (cachedValue instanceof Boolean)) {
-				booleanValue = (Boolean) cachedValue;
-			}
-			else {
-				String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
-
-				if (configuredValue != null) {
-					booleanValue = BooleanHelper.isTrueToken(configuredValue);
-				}
-
-				synchronized (configParamCache) {
-					configParamCache.put(configParamName, Boolean.valueOf(booleanValue));
-				}
+			if (configuredValue != null) {
+				booleanValue = BooleanHelper.isTrueToken(configuredValue);
 			}
 		}
 
@@ -117,21 +98,11 @@ public class PortletConfigParamUtil {
 		}
 		else {
 			String configParamName = portletName + name;
-			Object cachedValue = configParamCache.get(configParamName);
 
-			if ((cachedValue != null) && (cachedValue instanceof Integer)) {
-				integerValue = (Integer) cachedValue;
-			}
-			else {
-				String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
+			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
 
-				if (configuredValue != null) {
-					integerValue = IntegerHelper.toInteger(configuredValue);
-				}
-
-				synchronized (configParamCache) {
-					configParamCache.put(configParamName, Integer.valueOf(integerValue));
-				}
+			if (configuredValue != null) {
+				integerValue = IntegerHelper.toInteger(configuredValue);
 			}
 		}
 
@@ -153,22 +124,10 @@ public class PortletConfigParamUtil {
 			}
 		}
 		else {
-			String configParamName = portletName + name;
-			Object cachedValue = configParamCache.get(configParamName);
+			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
 
-			if ((cachedValue != null) && (cachedValue instanceof Long)) {
-				longValue = (Long) cachedValue;
-			}
-			else {
-				String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
-
-				if (configuredValue != null) {
-					longValue = LongHelper.toLong(configuredValue);
-				}
-
-				synchronized (configParamCache) {
-					configParamCache.put(configParamName, Long.valueOf(longValue));
-				}
+			if (configuredValue != null) {
+				longValue = LongHelper.toLong(configuredValue);
 			}
 		}
 
@@ -190,22 +149,10 @@ public class PortletConfigParamUtil {
 			}
 		}
 		else {
-			String configParamName = portletName + name;
-			Object cachedValue = configParamCache.get(configParamName);
+			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
 
-			if ((cachedValue != null) && (cachedValue instanceof String)) {
-				stringValue = (String) cachedValue;
-			}
-			else {
-				String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
-
-				if (configuredValue != null) {
-					stringValue = configuredValue;
-				}
-
-				synchronized (configParamCache) {
-					configParamCache.put(configParamName, stringValue);
-				}
+			if (configuredValue != null) {
+				stringValue = configuredValue;
 			}
 		}
 

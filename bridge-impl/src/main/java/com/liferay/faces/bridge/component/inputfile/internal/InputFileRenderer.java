@@ -28,16 +28,16 @@ import javax.faces.render.FacesRenderer;
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.context.BridgeContext;
-import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
+import com.liferay.faces.bridge.context.ContextMapFactory;
 import com.liferay.faces.bridge.event.FileUploadEvent;
-import com.liferay.faces.bridge.model.internal.UploadedFileBridgeImpl;
-import com.liferay.faces.util.model.UploadedFile;
+import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.render.internal.DelegationResponseWriter;
 
 
 /**
  * @author  Neil Griffin
  */
+
 //J-
 @FacesRenderer(componentFamily = InputFile.COMPONENT_FAMILY, rendererType = InputFile.RENDERER_TYPE)
 //J+
@@ -48,7 +48,7 @@ public class InputFileRenderer extends InputFileRendererCompat {
 
 		InputFile inputFile = (InputFile) uiComponent;
 
-		Map<String, List<UploadedFile>> uploadedFileMap = getUploadedFileMap(facesContext);
+		Map<String, List<UploadedFile>> uploadedFileMap = getUploadedFileMap();
 
 		if (uploadedFileMap != null) {
 
@@ -61,9 +61,7 @@ public class InputFileRenderer extends InputFileRendererCompat {
 					new ArrayList<com.liferay.faces.bridge.model.UploadedFile>(uploadedFiles.size());
 
 				for (UploadedFile uploadedFile : uploadedFiles) {
-					com.liferay.faces.bridge.model.UploadedFile bridgeUploadedFile = new UploadedFileBridgeImpl(
-							uploadedFile);
-					bridgeUploadedFiles.add(bridgeUploadedFile);
+					bridgeUploadedFiles.add(uploadedFile);
 				}
 
 				inputFile.setSubmittedValue(bridgeUploadedFiles);
@@ -72,9 +70,7 @@ public class InputFileRenderer extends InputFileRendererCompat {
 				// ActionListener.
 				for (UploadedFile uploadedFile : uploadedFiles) {
 
-					com.liferay.faces.bridge.model.UploadedFile bridgeUploadedFile = new UploadedFileBridgeImpl(
-							uploadedFile);
-					FileUploadEvent fileUploadEvent = new FileUploadEvent(uiComponent, bridgeUploadedFile);
+					FileUploadEvent fileUploadEvent = new FileUploadEvent(uiComponent, uploadedFile);
 					uiComponent.queueEvent(fileUploadEvent);
 				}
 			}
@@ -89,7 +85,7 @@ public class InputFileRenderer extends InputFileRendererCompat {
 		super.encodeEnd(facesContext, uiComponent, delegationResponseWriter);
 	}
 
-	protected Map<String, List<UploadedFile>> getUploadedFileMap(FacesContext facesContext) {
+	protected Map<String, List<UploadedFile>> getUploadedFileMap() {
 
 		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
 				ContextMapFactory.class);
