@@ -32,6 +32,7 @@ import com.liferay.faces.bridge.bean.internal.PreDestroyInvoker;
 import com.liferay.faces.bridge.bean.internal.PreDestroyInvokerFactory;
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.context.ContextMapFactory;
 import com.liferay.faces.util.config.ApplicationConfig;
 import com.liferay.faces.util.map.AbstractPropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
