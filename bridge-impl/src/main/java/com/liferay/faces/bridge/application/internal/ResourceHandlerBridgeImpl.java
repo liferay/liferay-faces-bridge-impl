@@ -15,21 +15,29 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
+import javax.faces.application.ResourceHandlerWrapper;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.BridgePortalContext;
-import com.liferay.faces.util.application.ResourceHandlerWrapperBase;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -37,7 +45,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapperBase {
+public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ResourceHandlerBridgeImpl.class);
@@ -47,9 +55,10 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapperBase {
 
 	// Private Data Members
 	private Integer bufferSize;
+	private ResourceHandler wrappedResourceHandler;
 
-	public ResourceHandlerBridgeImpl(ResourceHandler resourceHandler) {
-		super(resourceHandler);
+	public ResourceHandlerBridgeImpl(ResourceHandler wrappedResourceHandler) {
+		this.wrappedResourceHandler = wrappedResourceHandler;
 	}
 
 	/**
@@ -88,6 +97,7 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapperBase {
 
 	@Override
 	public Resource createResource(String resourceName) {
+
 		Resource wrappableResource = getWrapped().createResource(resourceName);
 
 		if (wrappableResource == null) {
@@ -100,6 +110,7 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapperBase {
 
 	@Override
 	public Resource createResource(String resourceName, String libraryName) {
+
 		Resource wrappableResource = getWrapped().createResource(resourceName, libraryName);
 
 		if (wrappableResource == null) {
@@ -112,6 +123,7 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapperBase {
 
 	@Override
 	public Resource createResource(String resourceName, String libraryName, String contentType) {
+
 		Resource wrappableResource = getWrapped().createResource(resourceName, libraryName, contentType);
 
 		if (wrappableResource == null) {
@@ -138,6 +150,7 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapperBase {
 		// assume that calling resource.getInputStream() will provide the ability to send the contents of the
 		// resource to the response.
 		if (resourceName != null) {
+
 			String libraryName = requestParameterMap.get("ln");
 
 			if (logger.isTraceEnabled()) {
@@ -160,34 +173,198 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapperBase {
 				resource = resourceHandlerChain.createResource(resourceName, libraryName);
 			}
 
-			handleResource(facesContext, resource);
+			handleResource(facesContext, externalContext, resource);
 		}
 		else {
+
 			logger.debug("NOT HANDLED - Missing request parameter {0} so delegating handleResourceRequest to chain",
 				"javax.faces.resource");
 			getWrapped().handleResourceRequest(facesContext);
 		}
 	}
 
-	/**
-	 * Gets the size of the buffer (in bytes) that is to be used when loading contents of resources that are to be sent
-	 * back via {@link ExternalContext#getResponseOutputStream()}. The default value is 1024 (1 kilobyte).
-	 */
-	@Override
-	protected int getBufferSize(FacesContext facesContext) {
+	private void handleResource(FacesContext facesContext, ExternalContext externalContext, Resource resource)
+		throws IOException {
 
-		if (bufferSize == null) {
+		boolean needsUpdate = resource.userAgentNeedsUpdate(facesContext);
 
-			BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-			PortletConfig portletConfig = bridgeContext.getPortletConfig();
-			bufferSize = PortletConfigParam.ResourceBufferSize.getIntegerValue(portletConfig);
+		if (!isAbleToSetHttpStatusCode()) {
+
+			if (!needsUpdate) {
+				needsUpdate = true;
+				logger.debug(
+					"Unable to set the status code to HttpServletResponse.SC_NOT_MODIFIED ({0}) for resourceName=[{1}]",
+					HttpServletResponse.SC_NOT_MODIFIED, resource.getResourceName());
+			}
 		}
 
-		return bufferSize;
+		if (needsUpdate) {
+
+			logger.trace("Handling - Resource was either modified or has not yet been downloaded.");
+
+			ReadableByteChannel readableByteChannel = null;
+			WritableByteChannel writableByteChannel = null;
+			InputStream inputStream = null;
+
+			if (bufferSize == null) {
+
+				BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
+				PortletConfig portletConfig = bridgeContext.getPortletConfig();
+				bufferSize = PortletConfigParam.ResourceBufferSize.getIntegerValue(portletConfig);
+			}
+
+			ByteBuffer byteBuffer = ByteBuffer.allocate(bufferSize);
+
+			try {
+
+				// Open an input stream in order to read the resource's contents/data.
+				inputStream = resource.getInputStream();
+
+				if (inputStream != null) {
+
+					// Set the response headers by copying them from the resource.
+					Map<String, String> responseHeaderMap = resource.getResponseHeaders();
+
+					if (responseHeaderMap != null) {
+						Iterator<Map.Entry<String, String>> itr = responseHeaderMap.entrySet().iterator();
+
+						while (itr.hasNext()) {
+							Map.Entry<String, String> mapEntry = itr.next();
+							String name = mapEntry.getKey();
+							String value = mapEntry.getValue();
+							externalContext.setResponseHeader(name, value);
+
+							if (logger.isDebugEnabled()) {
+
+								// Surround with isDebugEnabled check in order to avoid unnecessary creation
+								// of object array.
+								logger.debug("Handling - COPIED resource header name=[{0}] value=[{1}]",
+									new Object[] { name, value });
+							}
+						}
+					}
+
+					// Set the response Content-Type header.
+					String responseContentType = resource.getContentType();
+					logger.trace("Handling - responseContentType=[{0}]", responseContentType);
+
+					if (responseContentType != null) {
+						externalContext.setResponseContentType(responseContentType);
+					}
+
+					// Rather than write the input stream directly to the response, write it to an
+					// buffered output stream so that the length can be calculated for the
+					// Content-Length header. See: http://issues.liferay.com/browse/FACES-1207
+					ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(bufferSize);
+
+					int responseContentLength = 0;
+					readableByteChannel = Channels.newChannel(inputStream);
+					writableByteChannel = Channels.newChannel(byteArrayOutputStream);
+
+					int bytesRead = readableByteChannel.read(byteBuffer);
+
+					if (logger.isTraceEnabled()) {
+
+						// Surround with isTraceEnabled check in order to avoid unnecessary conversion of
+						// int to String.
+						logger.trace("Handling - bytesRead=[{0}]", Integer.toString(bytesRead));
+					}
+
+					int bytesWritten = 0;
+
+					while (bytesRead != -1) {
+						byteBuffer.rewind();
+						byteBuffer.limit(bytesRead);
+
+						do {
+							bytesWritten += writableByteChannel.write(byteBuffer);
+						}
+						while (bytesWritten < responseContentLength);
+
+						byteBuffer.clear();
+						responseContentLength += bytesRead;
+						bytesRead = readableByteChannel.read(byteBuffer);
+
+						if (logger.isTraceEnabled()) {
+
+							// Surround with isTraceEnabled check in order to avoid unnecessary conversion
+							// of int to String.
+							logger.trace("Handling - MORE bytesRead=[{0}]", Integer.toString(bytesRead));
+						}
+					}
+
+					responseContentLength = byteArrayOutputStream.size();
+
+					// Now that we know how big the file is, set the response Content-Length header and the status.
+					externalContext.setResponseContentLength(responseContentLength);
+					externalContext.setResponseStatus(HttpServletResponse.SC_OK);
+
+					// Set the response buffer size.
+					externalContext.setResponseBufferSize(responseContentLength);
+
+					if (logger.isTraceEnabled()) {
+
+						// Surround with isTraceEnabled check in order to avoid unnecessary conversion of
+						// int to String.
+						logger.trace("Handling - responseBufferSize=[{0}]", Integer.toString(responseContentLength));
+					}
+
+					// Write the data to the response.
+					byteArrayOutputStream.writeTo(externalContext.getResponseOutputStream());
+					byteArrayOutputStream.flush();
+					byteArrayOutputStream.close();
+
+					if (logger.isDebugEnabled()) {
+						logger.debug(
+							"HANDLED (SC_OK) resourceName=[{0}], libraryName[{1}], responseContentType=[{4}], responseContentLength=[{5}]",
+							new Object[] {
+								resource.getResourceName(), resource.getLibraryName(), responseContentType,
+								responseContentLength
+							});
+					}
+				}
+				else {
+					externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
+					logger.error(
+						"NOT HANDLED (SC_NOT_FOUND) because InputStream was null - resourceName=[{0}], libraryName[{1}]",
+						new Object[] { resource.getResourceName(), resource.getLibraryName() });
+				}
+			}
+			catch (IOException e) {
+				externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
+				logger.error("NOT HANDLED (SC_NOT_FOUND) resourceName=[{0}], libraryName[{1}], errorMessage=[{4}]",
+					new Object[] { resource.getResourceName(), resource.getLibraryName(), e.getMessage() }, e);
+			}
+			finally {
+
+				if (writableByteChannel != null) {
+					writableByteChannel.close();
+				}
+
+				if (readableByteChannel != null) {
+					readableByteChannel.close();
+				}
+
+				if (inputStream != null) {
+					inputStream.close();
+				}
+			}
+		}
+		else {
+
+			externalContext.setResponseStatus(HttpServletResponse.SC_NOT_MODIFIED);
+
+			if (logger.isDebugEnabled()) {
+
+				// Surround with isDebugEnabled check in order to avoid unnecessary creation of object array.
+				logger.debug("HANDLED (SC_NOT_MODIFIED) resourceName=[{0}], libraryName[{1}]",
+					new Object[] { resource.getResourceName(), resource.getLibraryName() });
+			}
+
+		}
 	}
 
-	@Override
-	protected boolean isAbleToSetHttpStatusCode(FacesContext facesContext) {
+	private boolean isAbleToSetHttpStatusCode() {
 
 		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
 		PortletRequest portletRequest = bridgeContext.getPortletRequest();
@@ -218,5 +395,10 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapperBase {
 
 			return getWrapped().isResourceRequest(facesContext);
 		}
+	}
+
+	@Override
+	public ResourceHandler getWrapped() {
+		return wrappedResourceHandler;
 	}
 }
