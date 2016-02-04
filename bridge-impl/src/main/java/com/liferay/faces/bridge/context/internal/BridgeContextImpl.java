@@ -1318,7 +1318,7 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 		return renderRedirect;
 	}
 
-	protected class StringWrapper {
+	private static class StringWrapper {
 
 		private String value;
 

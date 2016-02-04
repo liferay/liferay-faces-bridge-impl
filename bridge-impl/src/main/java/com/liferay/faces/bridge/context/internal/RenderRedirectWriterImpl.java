@@ -42,7 +42,7 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 
 	@Override
 	public void close() throws IOException {
-		outputOperationList.add(new CloseOperation());
+		outputOperationList.add(new CloseOperation(wrappedWriter));
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 
 	@Override
 	public void flush() throws IOException {
-		outputOperationList.add(new FlushOperation());
+		outputOperationList.add(new FlushOperation(wrappedWriter));
 	}
 
 	@Override
@@ -67,20 +67,20 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 	public void write(char[] cbuf) throws IOException {
 
 		if (cbuf != null) {
-			outputOperationList.add(new CbufWriteOperation(cbuf));
+			outputOperationList.add(new CbufWriteOperation(wrappedWriter, cbuf));
 		}
 	}
 
 	@Override
 	public void write(int c) throws IOException {
-		outputOperationList.add(new IntWriteOperation(c));
+		outputOperationList.add(new IntWriteOperation(wrappedWriter, c));
 	}
 
 	@Override
 	public void write(String str) throws IOException {
 
 		if (str != null) {
-			outputOperationList.add(new StrWriteOperation(str));
+			outputOperationList.add(new StrWriteOperation(wrappedWriter, str));
 		}
 	}
 
@@ -88,7 +88,7 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 	public void write(char[] cbuf, int off, int len) throws IOException {
 
 		if (cbuf != null) {
-			outputOperationList.add(new CBufOffLenOutputOperation(cbuf, off, len));
+			outputOperationList.add(new CBufOffLenOutputOperation(wrappedWriter, cbuf, off, len));
 		}
 	}
 
@@ -96,7 +96,7 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 	public void write(String str, int off, int len) throws IOException {
 
 		if (str != null) {
-			outputOperationList.add(new StrOffLenWriteOperation(str, off, len));
+			outputOperationList.add(new StrOffLenWriteOperation(wrappedWriter, str, off, len));
 		}
 	}
 
@@ -108,88 +108,112 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 		void invoke() throws IOException;
 	}
 
-	protected class CBufOffLenOutputOperation implements OutputOperation {
+	private static class CBufOffLenOutputOperation implements OutputOperation {
 
 		private char[] cbuf;
 		private int off;
 		private int len;
+		private Writer writer;
 
-		public CBufOffLenOutputOperation(char[] cbuf, int off, int len) {
+		public CBufOffLenOutputOperation(Writer writer, char[] cbuf, int off, int len) {
 			this.cbuf = cbuf.clone();
 			this.off = off;
 			this.len = len;
+			this.writer = writer;
 		}
-
+		
 		public void invoke() throws IOException {
-			wrappedWriter.write(cbuf, off, len);
+			writer.write(cbuf, off, len);
 		}
 	}
 
-	protected class CbufWriteOperation implements OutputOperation {
+	private static class CbufWriteOperation implements OutputOperation {
 
 		private char[] cbuf;
+		private Writer writer;
 
-		public CbufWriteOperation(char[] cbuf) {
+		public CbufWriteOperation(Writer writer, char[] cbuf) {
 			this.cbuf = cbuf.clone();
+			this.writer = writer;
 		}
 
 		public void invoke() throws IOException {
-			wrappedWriter.write(cbuf);
+			writer.write(cbuf);
 		}
 	}
 
-	protected class CloseOperation implements OutputOperation {
+	private static class CloseOperation implements OutputOperation {
+		
+		private Writer writer;
+		
+		public CloseOperation(Writer writer) {
+			this.writer = writer;
+		}
+		
 		public void invoke() throws IOException {
-			wrappedWriter.close();
+			writer.close();
 		}
 	}
 
-	protected class FlushOperation implements OutputOperation {
+	private static class FlushOperation implements OutputOperation {
+		
+		private Writer writer;
+		
+		public FlushOperation(Writer writer) {
+			this.writer = writer;
+		}
+		
 		public void invoke() throws IOException {
-			wrappedWriter.flush();
+			writer.flush();
 		}
 	}
 
-	protected class IntWriteOperation implements OutputOperation {
+	private static class IntWriteOperation implements OutputOperation {
 
 		private int c;
+		private Writer writer;
 
-		public IntWriteOperation(int c) {
+		public IntWriteOperation(Writer writer, int c) {
 			this.c = c;
+			this.writer = writer;
 		}
 
 		public void invoke() throws IOException {
-			wrappedWriter.write(c);
+			writer.write(c);
 		}
 	}
 
-	protected class StrOffLenWriteOperation implements OutputOperation {
+	private static class StrOffLenWriteOperation implements OutputOperation {
 
 		private String str;
 		private int off;
 		private int len;
+		private Writer writer;
 
-		public StrOffLenWriteOperation(String str, int off, int len) {
+		public StrOffLenWriteOperation(Writer writer, String str, int off, int len) {
 			this.str = str;
 			this.off = off;
 			this.len = len;
+			this.writer = writer;
 		}
 
 		public void invoke() throws IOException {
-			wrappedWriter.write(str, off, len);
+			writer.write(str, off, len);
 		}
 	}
 
-	protected class StrWriteOperation implements OutputOperation {
+	private static class StrWriteOperation implements OutputOperation {
 
 		private String str;
+		private Writer writer;
 
-		public StrWriteOperation(String str) {
+		public StrWriteOperation(Writer writer, String str) {
 			this.str = str;
+			this.writer = writer;
 		}
 
 		public void invoke() throws IOException {
-			wrappedWriter.write(str);
+			writer.write(str);
 		}
 	}
 }

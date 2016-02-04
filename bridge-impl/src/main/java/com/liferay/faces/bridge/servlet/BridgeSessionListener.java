@@ -284,7 +284,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 		}
 	}
 
-	private class ExpirationApplicationMap extends AbstractPropertyMap<Object> {
+	private static class ExpirationApplicationMap extends AbstractPropertyMap<Object> {
 
 		// Private Data Members
 		private ServletContext servletContext;
@@ -319,7 +319,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 		}
 	}
 
-	private class ExpirationApplicationMapEntry extends AbstractPropertyMapEntry<Object> {
+	private static class ExpirationApplicationMapEntry extends AbstractPropertyMapEntry<Object> {
 
 		// Private Data Members
 		private ServletContext servletContext;

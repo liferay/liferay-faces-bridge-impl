@@ -147,7 +147,7 @@ public class WeldHelperPhaseListener implements PhaseListener {
 		return PhaseId.ANY_PHASE;
 	}
 
-	public class WeldHelperRenderRequest extends CDIRenderRequestImpl {
+	private static class WeldHelperRenderRequest extends CDIRenderRequestImpl {
 
 		public WeldHelperRenderRequest(RenderRequest renderRequest,
 			HttpServletRequestAdapter httpServletRequestAdapter) {
@@ -166,7 +166,7 @@ public class WeldHelperPhaseListener implements PhaseListener {
 		}
 	}
 
-	protected class WeldHelperLifecycle extends Lifecycle {
+	private static class WeldHelperLifecycle extends Lifecycle {
 
 		@Override
 		public void addPhaseListener(PhaseListener listener) {
