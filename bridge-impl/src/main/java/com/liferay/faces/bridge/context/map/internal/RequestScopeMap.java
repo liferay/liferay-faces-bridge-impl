@@ -47,7 +47,6 @@ import com.liferay.faces.util.map.AbstractPropertyMapEntry;
  */
 public class RequestScopeMap extends AbstractPropertyMap<Object> {
 
-
 	// Private Data Members
 	private BeanManager beanManager;
 	private PortletRequest portletRequest;
@@ -118,7 +117,19 @@ public class RequestScopeMap extends AbstractPropertyMap<Object> {
 
 	@Override
 	protected Object getProperty(String name) {
-		return portletRequest.getAttribute(name);
+
+		// If the specified name is a Servlet-API reserved attribute name, then the JSF runtime is attempting to
+		// determine the viewId for a webapp environment. Because of this, it is necessary to return null so that the
+		// JSF runtime will attempt to determine the viewId a different way, namely by calling
+		// ExternalContext#getRequestPathInfo() or ExternalContext#getRequestServletPath().
+		if ("javax.servlet.include.path_info".equals(name) || "javax.servlet.include.servlet_path".equals(name)) {
+			return null;
+		}
+
+		// Otherwise, return the portlet request attribute value.
+		else {
+			return portletRequest.getAttribute(name);
+		}
 	}
 
 	@Override
