@@ -148,7 +148,7 @@ public class AirportServiceMockImpl implements AirportService {
 		return airports;
 	}
 
-	protected class AirportComparator implements Comparator<Airport> {
+	private static class AirportComparator implements Comparator<Airport> {
 
 		@Override
 		public int compare(Airport airport1, Airport airport2) {
