@@ -337,7 +337,7 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 	 *
 	 * @author  Neil Griffin
 	 */
-	protected class ActionRequestAdapter implements ActionRequest {
+	private static class ActionRequestAdapter implements ActionRequest {
 
 		private ResourceRequest resourceRequest;
 

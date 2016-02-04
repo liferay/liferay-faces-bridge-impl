@@ -51,7 +51,7 @@ public class InputFileHandler extends ComponentHandler {
 		return metaRuleset;
 	}
 
-	protected class HtmlInputFileMethodRule extends MetaRule {
+	private static class HtmlInputFileMethodRule extends MetaRule {
 
 		@Override
 		public Metadata applyRule(String name, TagAttribute tagAttribute, MetadataTarget metadataTarget) {
