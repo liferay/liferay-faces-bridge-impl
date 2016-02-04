@@ -47,6 +47,12 @@
 
 	<profiles>
 		<profile>
+			<id>liferay62</id>
+			<properties>
+				<integration.portal>liferay62</integration.portal>
+			</properties>
+		</profile>
+		<profile>
 			<id>pluto</id>
 			<properties>
 				<integration.portal>pluto</integration.portal>
