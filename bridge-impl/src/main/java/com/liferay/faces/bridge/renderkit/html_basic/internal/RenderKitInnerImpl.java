@@ -34,6 +34,8 @@ public class RenderKitInnerImpl extends RenderKitWrapper {
 
 	// Private Members
 	private static final Product ICEFACES = ProductMap.getInstance().get(ProductConstants.ICEFACES);
+	private static final boolean ICEFACES_DETECTED = ICEFACES.isDetected();
+	private static final boolean ICEFACES3_OR_LOWER = (ICEFACES_DETECTED && (ICEFACES.getMajorVersion() <= 3));
 
 	// Private Members
 	private RenderKit wrappedRenderKit;
@@ -48,11 +50,11 @@ public class RenderKitInnerImpl extends RenderKitWrapper {
 		ResponseWriter responseWriter = wrappedRenderKit.createResponseWriter(writer, contentTypeList,
 				characterEncoding);
 
-		// FACES-2567 Icefaces ice: (or compat) components require that the outermost ResponseWriter be an Icefaces
-		// DOMResponseWriter. So when Icefaces3 or less is detected, RenderKitInnerImpl must add
+		// FACES-2567 ICEfaces ice: (or compat) components require that the outermost ResponseWriter be an ICEfaces
+		// DOMResponseWriter. So when ICEfaces or less is detected, RenderKitInnerImpl must add
 		// ResponseWriterBridgeImpl to the inside of the delegation chain, since RenderKitBridgeImpl avoids adding
 		// ResponseWriterBridgeImpl to the outside of the delegation chain.
-		if (ICEFACES.isDetected() && (ICEFACES.getMajorVersion() < 4)) {
+		if (ICEFACES3_OR_LOWER) {
 			responseWriter = new ResponseWriterBridgeImpl(responseWriter);
 		}
 
