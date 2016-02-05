@@ -59,6 +59,7 @@ public class BridgeResourceURLImpl extends BridgeResourceURLCompatImpl implement
 	// Private Data Members
 	private BridgeContext bridgeContext;
 	private BridgeURI bridgeURI;
+	private String contextPath;
 	private boolean inProtocol;
 	private boolean viewLink;
 
@@ -66,6 +67,7 @@ public class BridgeResourceURLImpl extends BridgeResourceURLCompatImpl implement
 		super(bridgeContext, bridgeURI, viewId);
 		this.bridgeContext = bridgeContext;
 		this.bridgeURI = bridgeURI;
+		this.contextPath = bridgeContext.getPortletRequest().getContextPath();
 	}
 
 	public void replaceBackLinkParameter(FacesContext facesContext) {
@@ -170,7 +172,7 @@ public class BridgeResourceURLImpl extends BridgeResourceURLCompatImpl implement
 		}
 
 		// Otherwise, if the URL is external, then return an encoded BaseURL string representation of the URL.
-		else if (bridgeURI.isExternal()) {
+		else if (bridgeURI.isExternal(contextPath)) {
 
 			// TCK TestPage130: encodeResourceURLForeignExternalURLBackLinkTest
 			baseURL = new BaseURLEncodedExternalStringImpl(uri, getParameterMap(), bridgeContext.getPortletResponse());
@@ -197,7 +199,7 @@ public class BridgeResourceURLImpl extends BridgeResourceURLCompatImpl implement
 			// If the URL targets a Faces viewId, then return a PortletURL (Action URL) that targets the view with the
 			// appropriate PortletMode, WindowState, and Security settings built into the URL. For more info, see
 			// JavaDoc comments for {@link Bridge#VIEW_LINK}.
-			if (isFacesViewTarget()) {
+			if (getViewId() != null) {
 
 				// TCK TestPage135: encodeResourceURLViewLinkTest
 				// TCK TestPage136: encodeResourceURLViewLinkWithBackLinkTest
@@ -231,7 +233,7 @@ public class BridgeResourceURLImpl extends BridgeResourceURLCompatImpl implement
 		}
 
 		// Otherwise, if the URL targets a Faces viewId, then return a ResourceURL that targets the view.
-		else if (isFacesViewTarget()) {
+		else if (getViewId() != null) {
 
 			// TCK TestPage073: scopeAfterRedisplayResourcePPRTest
 			// TCK TestPage121: encodeActionURLJSFViewResourceTest
