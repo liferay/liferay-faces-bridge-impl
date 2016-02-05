@@ -17,16 +17,10 @@ package com.liferay.faces.bridge.context.url;
 
 import java.net.URISyntaxException;
 
-import javax.portlet.PortletRequest;
 
 import org.junit.Test;
 
-import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.config.BridgeConfigMockImpl;
-import com.liferay.faces.bridge.context.BridgeContext;
-import com.liferay.faces.bridge.context.BridgeContextMockImpl;
 import com.liferay.faces.bridge.context.url.internal.BridgeURIImpl;
-import com.liferay.faces.portlet.PortletRequestMockImpl;
 
 import junit.framework.Assert;
 
@@ -38,16 +32,6 @@ public class BridgeURLTest {
 
 	// Private Constants
 	private static final String CONTEXT_PATH = "/my-portlet";
-	private static final String CURRENT_FACES_VIEW_ID = "/views/foo.faces";
-
-	// Private Data Members
-	private BridgeContext bridgeContext;
-
-	public BridgeURLTest() {
-		BridgeConfig bridgeConfig = new BridgeConfigMockImpl();
-		PortletRequest portletRequest = new PortletRequestMockImpl(CONTEXT_PATH);
-		this.bridgeContext = new BridgeContextMockImpl(bridgeConfig, portletRequest, CURRENT_FACES_VIEW_ID);
-	}
 
 	@Test
 	public void testEscaped() {
@@ -67,9 +51,9 @@ public class BridgeURLTest {
 	public void testExternal() {
 
 		try {
-			Assert.assertTrue(newBridgeURI("http://www.liferay.com").isExternal());
-			Assert.assertFalse(newBridgeURI(CONTEXT_PATH).isExternal());
-			Assert.assertFalse(newBridgeURI("/relativeToContextPath?someurl=" + CONTEXT_PATH).isExternal());
+			Assert.assertTrue(newBridgeURI("http://www.liferay.com").isExternal(CONTEXT_PATH));
+			Assert.assertFalse(newBridgeURI(CONTEXT_PATH).isExternal(CONTEXT_PATH));
+			Assert.assertTrue(newBridgeURI("/relativeToContextPath?someurl=" + CONTEXT_PATH).isExternal(CONTEXT_PATH));
 		}
 		catch (URISyntaxException e) {
 			Assert.fail(e.getMessage());
@@ -133,9 +117,5 @@ public class BridgeURLTest {
 
 	protected BridgeURI newBridgeURI(String uri) throws URISyntaxException {
 		return new BridgeURIImpl(uri);
-	}
-
-	protected BridgeURL newBridgeURL(String url) throws URISyntaxException {
-		return new BridgeURLMockImpl(bridgeContext, newBridgeURI(url), CURRENT_FACES_VIEW_ID);
 	}
 }

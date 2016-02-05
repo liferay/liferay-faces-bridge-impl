@@ -114,7 +114,7 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 	private boolean renderRedirect;
 	private boolean renderRedirectAfterDispatch;
 	private Boolean renderRedirectEnabled;
-	private BridgeURL renderRedirectURL;
+	private String renderRedirectViewId;
 	private Map<String, String> requestHeaderMap;
 	private Map<String, String[]> requestHeaderValuesMap;
 	private Map<String, String> requestParameterMap;
@@ -211,9 +211,9 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 				}
 
 				String contextRelativeViewPath = null;
+				String contextPath = bridgeContext.getPortletRequest().getContextPath();
+				if (!bridgeURI.isExternal(contextPath)) {
 
-				if (!bridgeURI.isExternal()) {
-					String contextPath = bridgeContext.getPortletRequest().getContextPath();
 					contextRelativeViewPath = bridgeURI.getContextRelativePath(contextPath);
 
 					if (contextRelativeViewPath == null) {
@@ -225,10 +225,9 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 						configuredFacesServletMappings);
 
 				if (!bridgeURI.isAbsolute() && !targetFacesView.isExtensionMapped() &&
-						!targetFacesView.isPathMapped() && !url.startsWith("#")) {
+						!targetFacesView.isPathMapped() && !url.startsWith("#") && (contextRelativeViewPath != null)) {
 					bridgeActionURL.setParameter(Bridge.NONFACES_TARGET_PATH_PARAMETER, contextRelativeViewPath);
 				}
-
 			}
 		}
 		catch (URISyntaxException e) {
@@ -298,9 +297,9 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 			BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
 			BridgeURI bridgeURI = bridgeURIFactory.getBridgeURI(baseUrl);
 			String redirectViewId = null;
+			String contextPath = bridgeContext.getPortletRequest().getContextPath();
 
-			if (!bridgeURI.isExternal()) {
-				String contextPath = bridgeContext.getPortletRequest().getContextPath();
+			if (!bridgeURI.isExternal(contextPath)) {
 				redirectViewId = bridgeURI.getContextRelativePath(contextPath);
 			}
 
@@ -341,6 +340,7 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 			// If the "javax.portlet.faces.ViewLink" parameter is found and set to "true", then
 			String viewLinkParam = bridgeResourceURL.getParameter(Bridge.VIEW_LINK);
 			Map<String, String[]> parameterMap = bridgeResourceURL.getParameterMap();
+			String contextPath = bridgeContext.getPortletRequest().getContextPath();
 
 			if (BooleanHelper.isTrueToken(viewLinkParam)) {
 
@@ -389,7 +389,7 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 			}
 
 			// Otherwise, if the specified URL is hierarchical and targets an external resource, then
-			else if (bridgeURI.isHierarchical() && bridgeURI.isExternal()) {
+			else if (bridgeURI.isHierarchical() && bridgeURI.isExternal(contextPath)) {
 
 				// If the "javax.portlet.faces.BackLink" parameter is found, then replace it's value with
 				// a URL that can cause navigation back to the current view.
@@ -400,7 +400,7 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 
 			// Otherwise, if the specified URL is hierarchical and targets a resource internal to this
 			// application, then
-			else if (bridgeURI.isHierarchical() && !bridgeURI.isExternal()) {
+			else if (bridgeURI.isHierarchical() && !bridgeURI.isExternal(contextPath)) {
 
 				// If the "javax.portlet.faces.BackLink" parameter is found, then replace it's value with a URL
 				// that can cause navigation back to the current view.
@@ -451,9 +451,11 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 					BridgeURI bridgeURI = bridgeURIFactory.getBridgeURI(url);
 					String queryString = bridgeURI.getQuery();
 					boolean directLink = (queryString != null) && queryString.contains(DIRECT_LINK_EQUALS_TRUE);
+					BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
+					String contextPath = bridgeContext.getPortletRequest().getContextPath();
 
 					if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) &&
-							(url.startsWith("#") || bridgeURI.isExternal() || directLink)) {
+							(url.startsWith("#") || bridgeURI.isExternal(contextPath) || directLink)) {
 
 						bridgeRequestScope.setRedirectOccurred(true);
 
@@ -473,7 +475,6 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 						// If running in the ACTION_PHASE of the portlet lifecycle and the portlet container has the
 						// ability to create a render URL during the ACTION_PHASE, then assume that the specified URL is
 						// an encoded RenderURL and issue a redirect.
-						BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
 						PortalContext portalContext = bridgeContext.getPortletRequest().getPortalContext();
 						String createRenderUrlDuringActionPhaseSupport = portalContext.getProperty(
 								BridgePortalContext.CREATE_RENDER_URL_DURING_ACTION_PHASE_SUPPORT);
@@ -498,7 +499,6 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 
 							// TCK NOTE: The TCK will invoke this condition during the
 							// TestPage039-requestNoScopeOnRedirectTest and TestPage176-redirectActionTest.
-							String contextPath = bridgeContext.getPortletRequest().getContextPath();
 							String newViewId = bridgeURI.getContextRelativePath(contextPath);
 
 							// If redirecting to a different view, then create the target view and place it into the
@@ -546,9 +546,10 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(bridgeContext,
 									bridgeURI, null, null);
 
-							if (bridgeRedirectURL.isFacesViewTarget()) {
+							String redirectURLViewId = bridgeRedirectURL.getViewId();
+							if (redirectURLViewId != null) {
 								renderRedirect = true;
-								renderRedirectURL = bridgeRedirectURL;
+								renderRedirectViewId = redirectURLViewId;
 							}
 
 							// Otherwise,
@@ -564,14 +565,7 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 
 									// TCK TestPage 179: redirectRenderPRP1Test
 									renderRedirect = true;
-									viewIdRenderParameterValue = URLDecoder.decode(viewIdRenderParameterValue, "UTF-8");
-
-									BridgeURI redirectURI = bridgeURIFactory.getBridgeURI(viewIdRenderParameterValue);
-									UIViewRoot viewRoot = facesContext.getViewRoot();
-									String currentFacesViewId = viewRoot.getViewId();
-									bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(bridgeContext,
-											redirectURI, null, currentFacesViewId);
-									renderRedirectURL = bridgeRedirectURL;
+									renderRedirectViewId = URLDecoder.decode(viewIdRenderParameterValue, "UTF-8");
 								}
 
 								// Otherwise, throw an IllegalStateException according to Section 6.1.3.1 of the Spec.
@@ -643,7 +637,7 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 		this.preservedActionParams = null;
 		this.renderRedirect = false;
 		this.renderRedirectAfterDispatch = false;
-		this.renderRedirectURL = null;
+		this.renderRedirectViewId = null;
 		this.requestHeaderMap = null;
 		this.requestHeaderValuesMap = null;
 		this.requestParameterMap = null;
@@ -807,8 +801,8 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 					// Try #3: Get the viewId from a prior render-redirect (if one has occurred). Note that this logic
 					// depends on the BridgePhaseRenderImpl calling the setRenderRedirectURL(BridgeRedirectURL) method
 					// on this class instance when a render-redirect takes place.
-					if (renderRedirectURL != null) {
-						viewIdAndQueryString = renderRedirectURL.toString();
+					if (renderRedirectViewId != null) {
+						viewIdAndQueryString = renderRedirectViewId;
 					}
 
 					if (viewIdAndQueryString == null) {
@@ -1031,10 +1025,6 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 		return preFacesRequestAttrNames;
 	}
 
-	public void setPreFacesRequestAttrNames(List<String> preFacesRequestAttrNames) {
-		this.preFacesRequestAttrNames = preFacesRequestAttrNames;
-	}
-
 	@Override
 	public Map<String, String[]> getPreservedActionParams() {
 
@@ -1043,12 +1033,6 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 		}
 
 		return preservedActionParams;
-	}
-
-	public void setPreservedActionParams(Map<String, String[]> preservedActionParams) {
-
-		// TODO: This never actually gets called anywhere in the bridge.
-		this.preservedActionParams = preservedActionParams;
 	}
 
 	@Override
@@ -1062,13 +1046,13 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 	}
 
 	@Override
-	public BridgeURL getRenderRedirectURL() {
-		return renderRedirectURL;
+	public String getRenderRedirectViewId() {
+		return renderRedirectViewId;
 	}
 
 	@Override
-	public void setRenderRedirectURL(BridgeURL renderRedirectURL) {
-		this.renderRedirectURL = renderRedirectURL;
+	public void setRenderRedirectViewId(String viewId) {
+		this.renderRedirectViewId = viewId;
 	}
 
 	@Override

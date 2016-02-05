@@ -17,7 +17,6 @@ package com.liferay.faces.bridge.internal;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.net.URISyntaxException;
 
 import javax.faces.application.NavigationHandler;
 import javax.faces.application.ViewHandler;
@@ -46,9 +45,6 @@ import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.internal.RenderRedirectWriter;
-import com.liferay.faces.bridge.context.url.BridgeURI;
-import com.liferay.faces.bridge.context.url.BridgeURIFactory;
-import com.liferay.faces.bridge.context.url.BridgeURL;
 import com.liferay.faces.bridge.event.internal.IPCPhaseListener;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
@@ -130,7 +126,7 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 			renderRequest, renderResponse);
 	}
 
-	protected void execute(BridgeURL renderRedirectURL) throws BridgeException, IOException {
+	protected void execute(String renderRedirectViewId) throws BridgeException, IOException {
 
 		init(renderRequest, renderResponse, Bridge.PortletPhase.RENDER_PHASE);
 
@@ -146,27 +142,16 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 
 		// If a render-redirect URL was specified, then it is necessary to create a new view from the URL and place it
 		// in the FacesContext.
-		if (renderRedirectURL != null) {
-			bridgeContext.setRenderRedirectURL(renderRedirectURL);
+		if (renderRedirectViewId != null) {
+			bridgeContext.setRenderRedirectViewId(renderRedirectViewId);
 			bridgeContext.setRenderRedirectAfterDispatch(true);
 
 			ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
-			BridgeURIFactory bridgeURIFactory = (BridgeURIFactory) BridgeFactoryFinder.getFactory(
-					BridgeURIFactory.class);
+			UIViewRoot uiViewRoot = viewHandler.createView(facesContext, renderRedirectViewId);
+			facesContext.setViewRoot(uiViewRoot);
 
-			try {
-				BridgeURI bridgeURI = bridgeURIFactory.getBridgeURI(renderRedirectURL.toString());
-				String contextPath = bridgeContext.getPortletRequest().getContextPath();
-				String contextRelativePath = bridgeURI.getContextRelativePath(contextPath);
-				UIViewRoot uiViewRoot = viewHandler.createView(facesContext, contextRelativePath);
-				facesContext.setViewRoot(uiViewRoot);
-
-				String viewId = bridgeContext.getFacesViewId();
-				logger.debug("Performed render-redirect to viewId=[{0}]", viewId);
-			}
-			catch (URISyntaxException e) {
-				throw new IOException(e.getMessage());
-			}
+			String viewId = bridgeContext.getFacesViewId();
+			logger.debug("Performed render-redirect to viewId=[{0}]", viewId);
 		}
 
 		// NOTE: PROPOSE-FOR-BRIDGE3-API Actually, the proposal would be to REMOVE
@@ -284,7 +269,7 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 
 			// Recursively call this method with the render-redirect URL so that the RENDER_RESPONSE phase of the
 			// JSF lifecycle will be re-executed according to the new Faces viewId found in the redirect URL.
-			execute(bridgeContext.getRenderRedirectURL());
+			execute(bridgeContext.getRenderRedirectViewId());
 		}
 
 		// Otherwise,
