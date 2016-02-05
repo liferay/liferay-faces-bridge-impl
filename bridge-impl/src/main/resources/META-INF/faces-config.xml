@@ -93,4 +93,8 @@
 		<!-- in a portlet. -->
 		<phase-listener>com.liferay.faces.bridge.renderkit.html_basic.internal.HeadPhaseListener</phase-listener>
 	</lifecycle>
+	<render-kit>
+		<render-kit-id>HTML_BASIC</render-kit-id>
+		<render-kit-class>com.liferay.faces.bridge.renderkit.html_basic.internal.RenderKitInnerImpl</render-kit-class>
+	</render-kit>
 </faces-config>

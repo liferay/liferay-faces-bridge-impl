@@ -48,8 +48,7 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 	/* package-private */ static final String ORIGINAL_TARGET = "originalTarget";
 
 	// Private Constants
-	private static final boolean ICEFACES_DETECTED = ProductMap.getInstance().get(ProductConstants.ICEFACES)
-		.isDetected();
+	private static final Product ICEFACES = ProductMap.getInstance().get(ProductConstants.ICEFACES);
 	private static final String JAVAX_FACES_BODY = "javax.faces.Body";
 	private static final String JAVAX_FACES_FORM = "javax.faces.Form";
 	private static final String JAVAX_FACES_HEAD = "javax.faces.Head";
@@ -73,10 +72,19 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 	 */
 	@Override
 	public ResponseWriter createResponseWriter(Writer writer, String contentTypeList, String characterEncoding) {
-		ResponseWriter wrappedResponseWriter = wrappedRenderKit.createResponseWriter(writer, contentTypeList,
+
+		ResponseWriter responseWriter = wrappedRenderKit.createResponseWriter(writer, contentTypeList,
 				characterEncoding);
 
-		return new ResponseWriterBridgeImpl(wrappedResponseWriter);
+		// FACES-2567 Icefaces ice: (or compat) components require that the outermost ResponseWriter be an Icefaces
+		// DOMResponseWriter. So if Icefaces version 3 or lower is detected, do not add the ResponseWriterBridgeImpl to
+		// outside of the delegation chain. Instead RenderKitInnerImpl will add ResponseWriterBridgeImpl to the inside
+		// of the delegation chain.
+		if (!(ICEFACES.isDetected() && (ICEFACES.getMajorVersion() < 4))) {
+			responseWriter = new ResponseWriterBridgeImpl(responseWriter);
+		}
+
+		return responseWriter;
 	}
 
 	@Override
@@ -88,7 +96,7 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 
 			if (JAVAX_FACES_HEAD.equals(rendererType)) {
 
-				if (ICEFACES_DETECTED) {
+				if (ICEFACES.isDetected()) {
 					renderer = new HeadRendererICEfacesImpl();
 				}
 				else if (PRIMEFACES_DETECTED) {
