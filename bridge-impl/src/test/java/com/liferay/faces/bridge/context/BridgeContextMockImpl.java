@@ -203,12 +203,12 @@ public class BridgeContextMockImpl extends BridgeContext {
 	}
 
 	@Override
-	public BridgeURL getRenderRedirectURL() {
+	public String getRenderRedirectViewId() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public void setRenderRedirectURL(BridgeURL renderRedirectURL) {
+	public void setRenderRedirectViewId(String renderRedirectViewId) {
 		throw new UnsupportedOperationException();
 	}
 

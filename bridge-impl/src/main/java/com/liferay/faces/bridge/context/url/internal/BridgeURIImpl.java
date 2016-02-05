@@ -70,13 +70,14 @@ public class BridgeURIImpl implements BridgeURI {
 		return stringValue;
 	}
 
+	@Override
 	public String getContextRelativePath(String contextPath) {
 
 		String contextRelativePath = null;
 
 		// If the URI is not external, then determine the relative path of the URI based on the specified context
 		// path.
-		if (!isExternal()) {
+		if (!isExternal(contextPath)) {
 
 			String path = uri.getPath();
 
@@ -98,6 +99,7 @@ public class BridgeURIImpl implements BridgeURI {
 		return contextRelativePath;
 	}
 
+	@Override
 	public boolean isEscaped() {
 
 		if (escaped == null) {
@@ -130,14 +132,17 @@ public class BridgeURIImpl implements BridgeURI {
 		return escaped;
 	}
 
+	@Override
 	public boolean isAbsolute() {
 		return uri.isAbsolute();
 	}
 
+	@Override
 	public boolean isOpaque() {
 		return portletScheme || uri.isOpaque();
 	}
 
+	@Override
 	public boolean isPathRelative() {
 
 		if (pathRelative == null) {
@@ -156,29 +161,33 @@ public class BridgeURIImpl implements BridgeURI {
 		return pathRelative;
 	}
 
+	@Override
 	public boolean isPortletScheme() {
 		return portletScheme;
 	}
 
+	@Override
 	public boolean isRelative() {
 		return !isAbsolute();
 	}
 
-	public boolean isExternal() {
+	@Override
+	public boolean isExternal(String contextPath) {
 
 		if (external == null) {
 
-			external = Boolean.FALSE;
+			external = Boolean.TRUE;
 
-			if (!portletScheme) {
+			if (portletScheme) {
+				external = Boolean.FALSE;
+			}
+			else {
 
-				if (isAbsolute()) {
-					external = Boolean.TRUE;
-				}
-				else {
+				if (!isAbsolute()) {
 
-					if (!stringValue.startsWith("/") && !stringValue.startsWith(RELATIVE_PATH_PREFIX)) {
-						external = Boolean.TRUE;
+					if (((contextPath != null) && stringValue.startsWith(contextPath)) ||
+							stringValue.startsWith(RELATIVE_PATH_PREFIX)) {
+						external = Boolean.FALSE;
 					}
 				}
 			}
@@ -191,6 +200,7 @@ public class BridgeURIImpl implements BridgeURI {
 		return external;
 	}
 
+	@Override
 	public boolean isHierarchical() {
 
 		if (hierarchical == null) {
@@ -205,6 +215,7 @@ public class BridgeURIImpl implements BridgeURI {
 		return hierarchical;
 	}
 
+	@Override
 	public Map<String, String[]> getParameterMap() {
 
 		if (parameters == null) {
@@ -219,6 +230,7 @@ public class BridgeURIImpl implements BridgeURI {
 		return uri.getPath();
 	}
 
+	@Override
 	public Bridge.PortletPhase getPortletPhase() {
 
 		if (portletPhase == null) {
@@ -253,6 +265,7 @@ public class BridgeURIImpl implements BridgeURI {
 		return portletPhase;
 	}
 
+	@Override
 	public String getQuery() {
 
 		if (query == null) {
