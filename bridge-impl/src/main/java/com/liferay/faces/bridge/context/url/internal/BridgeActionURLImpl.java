@@ -37,12 +37,14 @@ public class BridgeActionURLImpl extends BridgeURLInternalBase implements Bridge
 
 	// Private Data Members
 	private BridgeURI bridgeURI;
+	private String contextPath;
 	private PortletRequest portletRequest;
 
 	public BridgeActionURLImpl(BridgeContext bridgeContext, BridgeURI bridgeURI, String viewId) {
 		super(bridgeContext, bridgeURI, viewId);
 		this.bridgeURI = bridgeURI;
 		this.portletRequest = bridgeContext.getPortletRequest();
+		this.contextPath = portletRequest.getContextPath();
 	}
 
 	// Java 1.6+ @Override
@@ -74,7 +76,7 @@ public class BridgeActionURLImpl extends BridgeURLInternalBase implements Bridge
 
 			// Otherwise, if the URL string starts with a "#" character, or it's an absolute URL that is external to
 			// this portlet, then simply return the URL string as required by the Bridge Spec.
-			else if (uri.startsWith("#") || (bridgeURI.isAbsolute() && bridgeURI.isExternal())) {
+			else if (uri.startsWith("#") || (bridgeURI.isAbsolute() && bridgeURI.isExternal(contextPath))) {
 
 				// TCK TestPage084: encodeActionURLPoundCharTest
 				baseURL = new BaseURLNonEncodedStringImpl(uri, getParameterMap());
@@ -82,7 +84,7 @@ public class BridgeActionURLImpl extends BridgeURLInternalBase implements Bridge
 
 			// Otherwise, if the URL string has a "javax.portlet.faces.DirectLink" parameter with a value of "true",
 			// then return an absolute path (to the path in the URL string) as required by the Bridge Spec.
-			else if (bridgeURI.isExternal() || BooleanHelper.isTrueToken(getParameter(Bridge.DIRECT_LINK))) {
+			else if (bridgeURI.isExternal(contextPath) || BooleanHelper.isTrueToken(getParameter(Bridge.DIRECT_LINK))) {
 				baseURL = new BaseURLDirectStringImpl(uri, getParameterMap(), bridgeURI.getPath(), portletRequest);
 			}
 			else {
