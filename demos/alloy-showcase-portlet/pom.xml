@@ -95,7 +95,7 @@
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<dependentWarExcludes>**/h-tags*,**/component/h/**/*,**/images/jsf*.png,**/*jsf-*.jar,**/*reslib*.jar,**/showcase-common*.jar,**/*faces-util*.jar</dependentWarExcludes>
+					<dependentWarExcludes>**/h-tags*,**/component/h/**/*,**/images/jsf*.png,**/*jsf-*.jar,**/*reslib*.jar,**/showcase-common*.jar,**/*faces-alloy*.jar,**/*faces-util*.jar</dependentWarExcludes>
 				</configuration>
 			</plugin>
 		</plugins>
