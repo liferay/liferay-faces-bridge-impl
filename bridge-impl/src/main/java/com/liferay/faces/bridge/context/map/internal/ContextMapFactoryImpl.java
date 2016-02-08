@@ -181,6 +181,7 @@ public class ContextMapFactoryImpl extends ContextMapFactory {
 
 			if (uploadedFileMap != null) {
 				bridgeUploadedFileMap = new HashMap<String, List<UploadedFile>>(uploadedFileMap.size());
+
 				Set<Map.Entry<String, List<com.liferay.faces.util.model.UploadedFile>>> entrySet =
 					uploadedFileMap.entrySet();
 
