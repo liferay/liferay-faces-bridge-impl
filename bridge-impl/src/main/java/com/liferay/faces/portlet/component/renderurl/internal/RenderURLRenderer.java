@@ -23,6 +23,7 @@ import com.liferay.faces.portlet.component.renderurl.RenderURL;
 /**
  * @author  Kyle Stiemann
  */
+
 //J-
 @FacesRenderer(componentFamily = RenderURL.COMPONENT_FAMILY, rendererType = RenderURL.RENDERER_TYPE)
 //J+

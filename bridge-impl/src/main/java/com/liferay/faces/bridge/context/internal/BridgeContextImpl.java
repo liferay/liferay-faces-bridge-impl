@@ -55,8 +55,8 @@ import com.liferay.faces.bridge.config.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.BridgePortalContext;
-import com.liferay.faces.bridge.context.IncongruityContext;
 import com.liferay.faces.bridge.context.ContextMapFactory;
+import com.liferay.faces.bridge.context.IncongruityContext;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderMap;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderValuesMap;
 import com.liferay.faces.bridge.context.url.BridgeResourceURL;
@@ -212,6 +212,7 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 
 				String contextRelativeViewPath = null;
 				String contextPath = bridgeContext.getPortletRequest().getContextPath();
+
 				if (!bridgeURI.isExternal(contextPath)) {
 
 					contextRelativeViewPath = bridgeURI.getContextRelativePath(contextPath);
@@ -546,6 +547,7 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 									bridgeURI, null, null);
 
 							String redirectURLViewId = bridgeRedirectURL.getViewId();
+
 							if (redirectURLViewId != null) {
 								renderRedirect = true;
 								renderRedirectViewId = redirectURLViewId;
