@@ -31,6 +31,7 @@ import com.liferay.faces.portlet.component.resourceurl.ResourceURL;
 /**
  * @author  Kyle Stiemann
  */
+
 //J-
 // JSF 2: @FacesRenderer(componentFamily = ResourceURL.COMPONENT_FAMILY, rendererType = ResourceURL.RENDERER_TYPE)
 //J+
