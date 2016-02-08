@@ -44,11 +44,6 @@ public class BridgeConfigFactoryImpl extends BridgeConfigFactory {
 		return bridgeConfig;
 	}
 
-	@Override
-	public PortletConfig getPortletConfig(PortletConfig portletConfig) {
-		return portletConfig;
-	}
-
 	public BridgeConfigFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
