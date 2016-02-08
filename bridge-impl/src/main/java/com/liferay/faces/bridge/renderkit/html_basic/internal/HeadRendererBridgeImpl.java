@@ -177,7 +177,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 				// Determine whether or not the resource is already present in the <head> section of the portal page.
 				// Note that this can happen in one of two ways: 1) If this is NON-Liferay-Runtime portlet (currently
-				// doing Ajax) but has already added the resour	ce during initial page HTTP-GET render, or 2) By another
+				// doing Ajax) but has already added the resour ce during initial page HTTP-GET render, or 2) By another
 				// NON-Liferay-Runtime portlet that has already added the same JavaScript resource.
 				boolean alreadyPresentInPortalPageHead = headResourceIdsFromManagedBean.contains(ResourceUtil
 						.getResourceId(uiComponentResource));

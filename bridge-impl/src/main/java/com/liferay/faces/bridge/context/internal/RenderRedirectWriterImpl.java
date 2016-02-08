@@ -121,7 +121,7 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 			this.len = len;
 			this.writer = writer;
 		}
-		
+
 		public void invoke() throws IOException {
 			writer.write(cbuf, off, len);
 		}
@@ -143,26 +143,26 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 	}
 
 	private static class CloseOperation implements OutputOperation {
-		
+
 		private Writer writer;
-		
+
 		public CloseOperation(Writer writer) {
 			this.writer = writer;
 		}
-		
+
 		public void invoke() throws IOException {
 			writer.close();
 		}
 	}
 
 	private static class FlushOperation implements OutputOperation {
-		
+
 		private Writer writer;
-		
+
 		public FlushOperation(Writer writer) {
 			this.writer = writer;
 		}
-		
+
 		public void invoke() throws IOException {
 			writer.flush();
 		}

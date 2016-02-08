@@ -39,7 +39,7 @@ public class PortletConfigParamUtil {
 	private static final Map<String, Object> configParamCache = new HashMap<String, Object>();
 
 	public static boolean getBooleanValue(PortletConfig portletConfig, String name, String alternateName,
-										  boolean defaultBooleanValue) {
+		boolean defaultBooleanValue) {
 
 		boolean booleanValue = defaultBooleanValue;
 
@@ -102,7 +102,7 @@ public class PortletConfigParamUtil {
 	}
 
 	public static int getIntegerValue(PortletConfig portletConfig, String name, String alternateName,
-									  int defaultIntegerValue) {
+		int defaultIntegerValue) {
 
 		int integerValue = defaultIntegerValue;
 
@@ -139,7 +139,7 @@ public class PortletConfigParamUtil {
 	}
 
 	public static long getLongValue(PortletConfig portletConfig, String name, String alternateName,
-									long defaultLongValue) {
+		long defaultLongValue) {
 
 		long longValue = defaultLongValue;
 
@@ -176,7 +176,7 @@ public class PortletConfigParamUtil {
 	}
 
 	public static String getStringValue(PortletConfig portletConfig, String name, String alternateName,
-										String defaultStringValue) {
+		String defaultStringValue) {
 
 		String stringValue = defaultStringValue;
 
