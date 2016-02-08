@@ -41,6 +41,7 @@ import com.liferay.faces.bridge.BridgePhase;
 import com.liferay.faces.bridge.BridgePhaseFactory;
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.BridgeConfigFactory;
+import com.liferay.faces.bridge.filter.BridgePortletConfigFactory;
 import com.liferay.faces.bridge.scope.BridgeRequestScopeManager;
 import com.liferay.faces.bridge.scope.BridgeRequestScopeManagerFactory;
 import com.liferay.faces.util.logging.Logger;
@@ -83,10 +84,8 @@ public class BridgeImpl implements Bridge {
 
 		if (initialized) {
 
-			BridgeConfigFactory bridgeConfigFactory = (BridgeConfigFactory) BridgeFactoryFinder.getFactory(
-					BridgeConfigFactory.class);
-			BridgeConfig bridgeConfig = bridgeConfigFactory.getBridgeConfig(portletConfig);
-			PortletConfig wrappedPortletConfig = bridgeConfigFactory.getPortletConfig(portletConfig);
+			PortletConfig wrappedPortletConfig = BridgePortletConfigFactory.getPortletConfigInstance(portletConfig);
+			BridgeConfig bridgeConfig = BridgeConfigFactory.getBridgeConfigInstance(wrappedPortletConfig);
 			BridgePhaseFactory bridgePhaseFactory = (BridgePhaseFactory) BridgeFactoryFinder.getFactory(
 					BridgePhaseFactory.class);
 			BridgePhase bridgePhase = bridgePhaseFactory.getBridgeActionPhase(actionRequest, actionResponse,
@@ -104,10 +103,8 @@ public class BridgeImpl implements Bridge {
 		checkNull(eventRequest, eventResponse);
 
 		if (initialized) {
-			BridgeConfigFactory bridgeConfigFactory = (BridgeConfigFactory) BridgeFactoryFinder.getFactory(
-					BridgeConfigFactory.class);
-			BridgeConfig bridgeConfig = bridgeConfigFactory.getBridgeConfig(portletConfig);
-			PortletConfig wrappedPortletConfig = bridgeConfigFactory.getPortletConfig(portletConfig);
+			PortletConfig wrappedPortletConfig = BridgePortletConfigFactory.getPortletConfigInstance(portletConfig);
+			BridgeConfig bridgeConfig = BridgeConfigFactory.getBridgeConfigInstance(wrappedPortletConfig);
 			BridgePhaseFactory bridgePhaseFactory = (BridgePhaseFactory) BridgeFactoryFinder.getFactory(
 					BridgePhaseFactory.class);
 			BridgePhase bridgePhase = bridgePhaseFactory.getBridgeEventPhase(eventRequest, eventResponse,
@@ -117,7 +114,6 @@ public class BridgeImpl implements Bridge {
 		else {
 			throw new BridgeUninitializedException();
 		}
-
 	}
 
 	public void doFacesRequest(RenderRequest renderRequest, RenderResponse renderResponse)
@@ -126,10 +122,8 @@ public class BridgeImpl implements Bridge {
 		checkNull(renderRequest, renderResponse);
 
 		if (initialized) {
-			BridgeConfigFactory bridgeConfigFactory = (BridgeConfigFactory) BridgeFactoryFinder.getFactory(
-					BridgeConfigFactory.class);
-			BridgeConfig bridgeConfig = bridgeConfigFactory.getBridgeConfig(portletConfig);
-			PortletConfig wrappedPortletConfig = bridgeConfigFactory.getPortletConfig(portletConfig);
+			PortletConfig wrappedPortletConfig = BridgePortletConfigFactory.getPortletConfigInstance(portletConfig);
+			BridgeConfig bridgeConfig = BridgeConfigFactory.getBridgeConfigInstance(wrappedPortletConfig);
 			BridgePhaseFactory bridgePhaseFactory = (BridgePhaseFactory) BridgeFactoryFinder.getFactory(
 					BridgePhaseFactory.class);
 			BridgePhase bridgePhase = bridgePhaseFactory.getBridgeRenderPhase(renderRequest, renderResponse,
@@ -139,7 +133,6 @@ public class BridgeImpl implements Bridge {
 		else {
 			throw new BridgeUninitializedException();
 		}
-
 	}
 
 	public void doFacesRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
@@ -148,10 +141,8 @@ public class BridgeImpl implements Bridge {
 		checkNull(resourceRequest, resourceResponse);
 
 		if (initialized) {
-			BridgeConfigFactory bridgeConfigFactory = (BridgeConfigFactory) BridgeFactoryFinder.getFactory(
-					BridgeConfigFactory.class);
-			BridgeConfig bridgeConfig = bridgeConfigFactory.getBridgeConfig(portletConfig);
-			PortletConfig wrappedPortletConfig = bridgeConfigFactory.getPortletConfig(portletConfig);
+			PortletConfig wrappedPortletConfig = BridgePortletConfigFactory.getPortletConfigInstance(portletConfig);
+			BridgeConfig bridgeConfig = BridgeConfigFactory.getBridgeConfigInstance(wrappedPortletConfig);
 			BridgePhaseFactory bridgePhaseFactory = (BridgePhaseFactory) BridgeFactoryFinder.getFactory(
 					BridgePhaseFactory.class);
 			BridgePhase bridgePhase = bridgePhaseFactory.getBridgeResourcePhase(resourceRequest, resourceResponse,
@@ -161,7 +152,6 @@ public class BridgeImpl implements Bridge {
 		else {
 			throw new BridgeUninitializedException();
 		}
-
 	}
 
 	public void init(PortletConfig portletConfig) throws BridgeException {
