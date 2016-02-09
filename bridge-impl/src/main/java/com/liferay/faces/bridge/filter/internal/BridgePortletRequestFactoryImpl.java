@@ -16,11 +16,17 @@
 package com.liferay.faces.bridge.filter.internal;
 
 import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
+import javax.portlet.EventResponse;
 import javax.portlet.PortalContext;
+import javax.portlet.PortletConfig;
 import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
+import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.internal.BridgePortalContextImpl;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
@@ -32,7 +38,8 @@ import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory {
 
 	@Override
-	public ActionRequest getActionRequest(ActionRequest actionRequest) {
+	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		PortalContext portalContext = actionRequest.getPortalContext();
 		BridgePortalContext bridgePortalContext = new BridgePortalContextImpl(portalContext);
@@ -41,7 +48,8 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	}
 
 	@Override
-	public EventRequest getEventRequest(EventRequest eventRequest) {
+	public EventRequest getEventRequest(EventRequest eventRequest, EventResponse eventResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		PortalContext portalContext = eventRequest.getPortalContext();
 		BridgePortalContext bridgePortalContext = new BridgePortalContextImpl(portalContext);
@@ -50,7 +58,8 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	}
 
 	@Override
-	public RenderRequest getRenderRequest(RenderRequest renderRequest) {
+	public RenderRequest getRenderRequest(RenderRequest renderRequest, RenderResponse renderResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		PortalContext portalContext = renderRequest.getPortalContext();
 		BridgePortalContext bridgePortalContext = new BridgePortalContextImpl(portalContext);
@@ -59,7 +68,8 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	}
 
 	@Override
-	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest) {
+	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		PortalContext portalContext = resourceRequest.getPortalContext();
 		BridgePortalContext bridgePortalContext = new BridgePortalContextImpl(portalContext);
