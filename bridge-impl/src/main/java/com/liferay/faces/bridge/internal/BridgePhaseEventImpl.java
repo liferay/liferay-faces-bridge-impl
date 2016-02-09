@@ -63,13 +63,16 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 
 		BridgePortletRequestFactory bridgePortletRequestFactory = (BridgePortletRequestFactory) FactoryExtensionFinder
 			.getFactory(BridgePortletRequestFactory.class);
-		this.eventRequest = bridgePortletRequestFactory.getEventRequest(eventRequest);
+		this.eventRequest = bridgePortletRequestFactory.getEventRequest(eventRequest, eventResponse, portletConfig,
+				bridgeConfig);
 
 		BridgePortletResponseFactory bridgePortletResponseFactory = (BridgePortletResponseFactory) BridgeFactoryFinder
 			.getFactory(BridgePortletResponseFactory.class);
-		this.eventResponse = bridgePortletResponseFactory.getEventResponse(eventResponse);
+		this.eventResponse = bridgePortletResponseFactory.getEventResponse(eventRequest, eventResponse, portletConfig,
+				bridgeConfig);
 	}
 
+	@Override
 	public void execute() throws BridgeDefaultViewNotSpecifiedException, BridgeException {
 
 		logger.debug(Logger.SEPARATOR);

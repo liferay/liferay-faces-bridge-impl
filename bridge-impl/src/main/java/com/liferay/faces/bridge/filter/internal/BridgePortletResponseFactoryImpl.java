@@ -15,11 +15,17 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
+import javax.portlet.PortletConfig;
+import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
 
 
@@ -29,17 +35,20 @@ import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
 public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFactory {
 
 	@Override
-	public ActionResponse getActionResponse(ActionResponse actionResponse) {
+	public ActionResponse getActionResponse(ActionRequest actionRequest, ActionResponse actionResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 		return new ActionResponseBridgeImpl(actionResponse);
 	}
 
 	@Override
-	public EventResponse getEventResponse(EventResponse eventResponse) {
+	public EventResponse getEventResponse(EventRequest eventRequest, EventResponse eventResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 		return eventResponse;
 	}
 
 	@Override
-	public RenderResponse getRenderResponse(RenderResponse renderResponse) {
+	public RenderResponse getRenderResponse(RenderRequest renderRequest, RenderResponse renderResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		if (PortletContainerDetector.isPlutoPortletResponse(renderResponse)) {
 			return new RenderResponseBridgePlutoImpl(renderResponse);
@@ -50,7 +59,8 @@ public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFacto
 	}
 
 	@Override
-	public ResourceResponse getResourceResponse(ResourceResponse resourceResponse) {
+	public ResourceResponse getResourceResponse(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		if (PortletContainerDetector.isPlutoPortletResponse(resourceResponse)) {
 			return new ResourceResponseBridgePlutoImpl(resourceResponse);
