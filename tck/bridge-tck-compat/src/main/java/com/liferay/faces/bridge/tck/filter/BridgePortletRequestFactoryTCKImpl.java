@@ -16,12 +16,18 @@
 package com.liferay.faces.bridge.tck.filter;
 
 import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
+import javax.portlet.EventResponse;
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 import javax.portlet.filter.PortletRequestWrapper;
 
+import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 import com.liferay.faces.util.product.ProductConstants;
 import com.liferay.faces.util.product.ProductMap;
@@ -43,19 +49,22 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 	}
 
 	@Override
-	public ActionRequest getActionRequest(ActionRequest actionRequest) {
-		return getWrapped().getActionRequest(actionRequest);
+	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
+		return getWrapped().getActionRequest(actionRequest, actionResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
-	public EventRequest getEventRequest(EventRequest eventRequest) {
-		return getWrapped().getEventRequest(eventRequest);
+	public EventRequest getEventRequest(EventRequest eventRequest, EventResponse eventResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
+		return getWrapped().getEventRequest(eventRequest, eventResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
-	public RenderRequest getRenderRequest(RenderRequest renderRequest) {
+	public RenderRequest getRenderRequest(RenderRequest renderRequest, RenderResponse renderResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		renderRequest = getWrapped().getRenderRequest(renderRequest);
+		renderRequest = getWrapped().getRenderRequest(renderRequest, renderResponse, portletConfig, bridgeConfig);
 
 		if (RESIN_DETECTED) {
 
@@ -67,15 +76,18 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 	}
 
 	@Override
-	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest) {
+	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		if (isPlutoPortletRequest(resourceRequest)) {
-			resourceRequest = getWrapped().getResourceRequest(resourceRequest);
+			resourceRequest = getWrapped().getResourceRequest(resourceRequest, resourceResponse, portletConfig,
+					bridgeConfig);
 
 			return new ResourceRequestPlutoTCKImpl(resourceRequest);
 		}
 		else {
-			resourceRequest = getWrapped().getResourceRequest(resourceRequest);
+			resourceRequest = getWrapped().getResourceRequest(resourceRequest, resourceResponse, portletConfig,
+					bridgeConfig);
 		}
 
 		return resourceRequest;
