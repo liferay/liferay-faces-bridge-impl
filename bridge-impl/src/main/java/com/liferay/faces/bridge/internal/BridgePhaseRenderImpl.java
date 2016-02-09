@@ -72,13 +72,16 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 
 		BridgePortletRequestFactory bridgePortletRequestFactory = (BridgePortletRequestFactory) FactoryExtensionFinder
 			.getFactory(BridgePortletRequestFactory.class);
-		this.renderRequest = bridgePortletRequestFactory.getRenderRequest(renderRequest);
+		this.renderRequest = bridgePortletRequestFactory.getRenderRequest(renderRequest, renderResponse, portletConfig,
+				bridgeConfig);
 
 		BridgePortletResponseFactory bridgePortletResponseFactory = (BridgePortletResponseFactory) BridgeFactoryFinder
 			.getFactory(BridgePortletResponseFactory.class);
-		this.renderResponse = bridgePortletResponseFactory.getRenderResponse(renderResponse);
+		this.renderResponse = bridgePortletResponseFactory.getRenderResponse(renderRequest, renderResponse,
+				portletConfig, bridgeConfig);
 	}
 
+	@Override
 	public void execute() throws BridgeException {
 
 		logger.debug(Logger.SEPARATOR);

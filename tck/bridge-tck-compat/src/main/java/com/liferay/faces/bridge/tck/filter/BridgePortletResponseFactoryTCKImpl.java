@@ -15,11 +15,17 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
+import javax.portlet.PortletConfig;
+import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
 
 
@@ -36,26 +42,30 @@ public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFa
 	}
 
 	@Override
-	public ActionResponse getActionResponse(ActionResponse actionResponse) {
+	public ActionResponse getActionResponse(ActionRequest actionRequest, ActionResponse actionResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		actionResponse = getWrapped().getActionResponse(actionResponse);
+		actionResponse = getWrapped().getActionResponse(actionRequest, actionResponse, portletConfig, bridgeConfig);
 
 		return new ActionResponseTrinidadImpl(actionResponse);
 	}
 
 	@Override
-	public EventResponse getEventResponse(EventResponse eventResponse) {
-		return getWrapped().getEventResponse(eventResponse);
+	public EventResponse getEventResponse(EventRequest eventRequest, EventResponse eventResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
+		return getWrapped().getEventResponse(eventRequest, eventResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
-	public RenderResponse getRenderResponse(RenderResponse renderResponse) {
-		return getWrapped().getRenderResponse(renderResponse);
+	public RenderResponse getRenderResponse(RenderRequest renderRequest, RenderResponse renderResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
+		return getWrapped().getRenderResponse(renderRequest, renderResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
-	public ResourceResponse getResourceResponse(ResourceResponse resourceResponse) {
-		return getWrapped().getResourceResponse(resourceResponse);
+	public ResourceResponse getResourceResponse(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
+		return getWrapped().getResourceResponse(resourceRequest, resourceResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override

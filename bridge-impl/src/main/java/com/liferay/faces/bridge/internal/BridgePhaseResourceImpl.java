@@ -70,13 +70,16 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 
 		BridgePortletRequestFactory bridgePortletRequestFactory = (BridgePortletRequestFactory) FactoryExtensionFinder
 			.getFactory(BridgePortletRequestFactory.class);
-		this.resourceRequest = bridgePortletRequestFactory.getResourceRequest(resourceRequest);
+		this.resourceRequest = bridgePortletRequestFactory.getResourceRequest(resourceRequest, resourceResponse,
+				portletConfig, bridgeConfig);
 
 		BridgePortletResponseFactory bridgePortletResponseFactory = (BridgePortletResponseFactory) BridgeFactoryFinder
 			.getFactory(BridgePortletResponseFactory.class);
-		this.resourceResponse = bridgePortletResponseFactory.getResourceResponse(resourceResponse);
+		this.resourceResponse = bridgePortletResponseFactory.getResourceResponse(resourceRequest, resourceResponse,
+				portletConfig, bridgeConfig);
 	}
 
+	@Override
 	public void execute() throws BridgeDefaultViewNotSpecifiedException, BridgeException {
 
 		logger.debug(Logger.SEPARATOR);
