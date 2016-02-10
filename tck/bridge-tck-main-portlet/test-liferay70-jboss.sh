@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn surefire-report:report -P tck,liferay,liferay70,jboss
+mvn surefire-report:report -P tck,liferay,jboss
