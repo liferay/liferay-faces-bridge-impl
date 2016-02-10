@@ -36,6 +36,11 @@ public class ActionRequestBridgeImpl extends ActionRequestWrapper {
 	}
 
 	@Override
+	public Object getAttribute(String name) {
+		return RequestAttributeUtil.getAttribute(getRequest(), name);
+	}
+
+	@Override
 	public PortalContext getPortalContext() {
 		return bridgePortalContext;
 	}
