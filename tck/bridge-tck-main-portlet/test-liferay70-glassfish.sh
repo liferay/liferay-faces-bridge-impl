@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn surefire-report:report -P tck,liferay,liferay70,glassfish
+mvn surefire-report:report -P tck,liferay,glassfish
