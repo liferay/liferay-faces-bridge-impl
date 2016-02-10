@@ -15,18 +15,11 @@
  */
 package com.liferay.faces.bridge.component.internal;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
-import com.liferay.faces.util.application.ResourceVerifier;
-import com.liferay.faces.util.application.ResourceVerifierFactory;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -43,40 +36,6 @@ public class UIViewRootBridgeImpl extends PortletNamingContainerUIViewRoot {
 
 	// serialVersionUID
 	private static final long serialVersionUID = 1523062041951774729L;
-
-	@Override
-	public List<UIComponent> getComponentResources(FacesContext facesContext, String target) {
-
-		// Get the list of all component resources.
-		List<UIComponent> allComponentResources = super.getComponentResources(facesContext, target);
-
-		// Determine which of the component resources are unsatisfied.
-		List<UIComponent> unsatisfiedComponentResources = new ArrayList<UIComponent>(allComponentResources.size());
-		ResourceVerifier resourceVerifier = ResourceVerifierFactory.getResourceDependencyHandlerInstance();
-
-		for (UIComponent componentResource : allComponentResources) {
-
-			if (resourceVerifier.isDependencySatisfied(facesContext, componentResource)) {
-
-				if (logger.isDebugEnabled()) {
-
-					Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
-
-					logger.debug(
-						"Resource dependency already satisfied: name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
-						componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
-						componentResource.getRendererType(), ComponentUtil.getComponentValue(componentResource),
-						componentResource.getClass().getName());
-				}
-			}
-			else {
-				unsatisfiedComponentResources.add(componentResource);
-			}
-		}
-
-		// Return an immutable list of unsatisfied resources.
-		return Collections.unmodifiableList(unsatisfiedComponentResources);
-	}
 
 	/**
 	 * <p>This method fixes a problem with {@link UIComponent#findComponent(String)} where sometimes it is unable to
