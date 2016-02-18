@@ -3,6 +3,11 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
 	xmlns:bridge="http://www.liferay.com/xml/ns/liferay-faces-bridge-2.0-extension">
 	<name>LiferayFacesBridgeTCKCommon</name>
+	<ordering>
+		<after>
+			<name>LiferayFacesBridge</name>
+		</after>
+	</ordering>
 	<application>
 		<view-handler>com.liferay.faces.bridge.tck.application.ViewHandlerTCKImpl</view-handler>
 	</application>
@@ -11,6 +16,7 @@
 			<faces-context-factory>com.liferay.faces.bridge.tck.context.FacesContextFactoryTCKImpl</faces-context-factory> -->
 		<view-declaration-language-factory>com.liferay.faces.bridge.tck.application.view.ViewDeclarationLanguageFactoryTCKImpl</view-declaration-language-factory>
 		<factory-extension>
+			<bridge:bridge-portlet-context-factory>com.liferay.faces.bridge.tck.filter.BridgePortletContextFactoryTCKImpl</bridge:bridge-portlet-context-factory>
 			<bridge:bridge-portlet-request-factory>com.liferay.faces.bridge.tck.filter.BridgePortletRequestFactoryTCKImpl</bridge:bridge-portlet-request-factory>
 			<bridge:bridge-portlet-response-factory>com.liferay.faces.bridge.tck.filter.BridgePortletResponseFactoryTCKImpl</bridge:bridge-portlet-response-factory>
 		</factory-extension>
