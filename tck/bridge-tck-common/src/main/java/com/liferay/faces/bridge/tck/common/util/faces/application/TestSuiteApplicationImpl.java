@@ -15,10 +15,12 @@
  */
 package com.liferay.faces.bridge.tck.common.util.faces.application;
 
+import java.lang.reflect.Constructor;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 import javax.el.ELContextListener;
 import javax.el.ELException;
@@ -28,6 +30,7 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
+import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ReferenceSyntaxException;
@@ -38,7 +41,6 @@ import javax.faces.el.ReferenceSyntaxException;
  */
 public class TestSuiteApplicationImpl extends Application {
 	private Application mWrapped;
-	private boolean mAddedViewHandler = false;
 
 	public TestSuiteApplicationImpl(Application app) {
 		mWrapped = app;
@@ -293,18 +295,45 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.getViewHandler();
 	}
 
-	public void setViewHandler(javax.faces.application.ViewHandler handler) {
+	public void setViewHandler(javax.faces.application.ViewHandler viewHandler) {
 
-		if (!mAddedViewHandler) {
+		if (viewHandler instanceof ViewHandlerWrapper) {
 
-			// create our own ViewHandler and insert before anything else
-			ViewHandler testHandler = new TestSuiteViewHandlerImpl(handler);
-			mWrapped.setViewHandler(testHandler);
-			mAddedViewHandler = true;
+			// Create a new chain-of-delegation with the TCK's ViewHandler decorating the ViewHandler from the Faces
+			// implementation (which does not extend ViewHandlerWrapper).
+			Stack<ViewHandler> viewHandlerStack = new Stack<ViewHandler>();
+			while (viewHandler instanceof ViewHandlerWrapper) {
+
+				viewHandlerStack.push(viewHandler);
+				ViewHandlerWrapper viewHandlerWrapper = (ViewHandlerWrapper) viewHandler;
+				viewHandler = viewHandlerWrapper.getWrapped();
+			}
+
+			viewHandler = new TestSuiteViewHandlerImpl(viewHandler);
+
+			while (!viewHandlerStack.isEmpty()) {
+
+				ViewHandler poppedViewHandler = viewHandlerStack.pop();
+
+				if (!(poppedViewHandler instanceof TestSuiteViewHandlerImpl)) {
+					Class<ViewHandler> poppedViewHandlerClass = (Class<ViewHandler>) poppedViewHandler.getClass();
+					try {
+						Constructor<ViewHandler> constructor = poppedViewHandlerClass.getConstructor(ViewHandler.class);
+						viewHandler = constructor.newInstance(viewHandler);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		}
+
 		else {
-			mWrapped.setViewHandler(handler);
-		}
-	}
+			ViewHandler wrappedViewHandler = viewHandler;
 
+			// Decorate the specified ViewHandler with the TCK's ViewHandler.
+			viewHandler = new TestSuiteViewHandlerImpl(viewHandler);
+		}
+
+		mWrapped.setViewHandler(viewHandler);
+	}
 }
