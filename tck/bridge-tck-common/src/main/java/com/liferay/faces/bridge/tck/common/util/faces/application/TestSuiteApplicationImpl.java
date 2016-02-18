@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.tck.common.util.faces.application;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Locale;
@@ -306,7 +307,7 @@ public class TestSuiteApplicationImpl extends Application {
 
 				viewHandlerStack.push(viewHandler);
 				ViewHandlerWrapper viewHandlerWrapper = (ViewHandlerWrapper) viewHandler;
-				viewHandler = viewHandlerWrapper.getWrapped();
+				viewHandler = getWrappedViewHandler(viewHandlerWrapper);
 			}
 
 			viewHandler = new TestSuiteViewHandlerImpl(viewHandler);
@@ -335,5 +336,23 @@ public class TestSuiteApplicationImpl extends Application {
 		}
 
 		mWrapped.setViewHandler(viewHandler);
+	}
+
+	protected ViewHandler getWrappedViewHandler(ViewHandlerWrapper viewHandlerWrapper) {
+
+		ViewHandler wrappedViewHandler = null;
+
+		try {
+			Method getWrappedMethod = viewHandlerWrapper.getClass().getMethod("getWrapped");
+
+			// ViewHandlerWrapper.getWrapped() is public in JSF 2.x but is protected in JSF 1.2
+			getWrappedMethod.setAccessible(true);
+			wrappedViewHandler = (ViewHandler) getWrappedMethod.invoke(viewHandlerWrapper);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return wrappedViewHandler;
 	}
 }
