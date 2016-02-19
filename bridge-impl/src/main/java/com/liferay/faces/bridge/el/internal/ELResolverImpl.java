@@ -23,6 +23,7 @@ import java.util.Iterator;
 import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.ELResolver;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -35,8 +36,6 @@ import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.config.internal.PortletConfigWrapper;
 import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.ContextMapFactory;
-import com.liferay.faces.bridge.filter.internal.HttpServletRequestAdapter;
-import com.liferay.faces.bridge.filter.internal.HttpServletResponseAdapter;
 import com.liferay.faces.bridge.preference.internal.MutablePreferenceMap;
 
 
@@ -357,34 +356,28 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 
 	protected PortletRequest getPortletRequest(FacesContext facesContext) {
 
-		PortletRequest portletRequest = null;
-		Object request = facesContext.getExternalContext().getRequest();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Object request = externalContext.getRequest();
 
 		if (request instanceof PortletRequest) {
-			portletRequest = (PortletRequest) request;
+			return (PortletRequest) request;
 		}
-		else if (request instanceof HttpServletRequestAdapter) {
-			HttpServletRequestAdapter httpServletRequestAdapter = (HttpServletRequestAdapter) request;
-			portletRequest = httpServletRequestAdapter.getWrapped();
+		else {
+			return null;
 		}
-
-		return portletRequest;
 	}
 
 	protected PortletResponse getPortletResponse(FacesContext facesContext) {
 
-		PortletResponse portletResponse = null;
-		Object response = facesContext.getExternalContext().getResponse();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Object response = externalContext.getResponse();
 
 		if (response instanceof PortletResponse) {
-			portletResponse = (PortletResponse) response;
+			return (PortletResponse) response;
 		}
-		else if (response instanceof HttpServletResponseAdapter) {
-			HttpServletResponseAdapter httpServletResponseAdapter = (HttpServletResponseAdapter) response;
-			portletResponse = httpServletResponseAdapter.getWrapped();
+		else {
+			return null;
 		}
-
-		return portletResponse;
 	}
 
 	@Override

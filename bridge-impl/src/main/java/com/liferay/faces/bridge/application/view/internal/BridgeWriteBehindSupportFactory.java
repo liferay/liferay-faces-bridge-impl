@@ -15,14 +15,9 @@
  */
 package com.liferay.faces.bridge.application.view.internal;
 
-import java.util.Locale;
-
 import javax.faces.FacesException;
 import javax.portlet.MimeResponse;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
 import javax.portlet.faces.BridgeWriteBehindResponse;
-import javax.servlet.ServletResponse;
 
 import com.liferay.faces.util.helper.Wrapper;
 
@@ -32,11 +27,6 @@ import com.liferay.faces.util.helper.Wrapper;
  */
 public abstract class BridgeWriteBehindSupportFactory implements Wrapper<BridgeWriteBehindSupportFactory> {
 
-	public abstract BridgeAfterViewContentRequest getBridgeAfterViewContentRequest(PortletRequest portletRequest);
-
-	public abstract BridgeAfterViewContentResponse getBridgeAfterViewContentResponse(PortletResponse portletResponse,
-		Locale locale);
-
-	public abstract BridgeWriteBehindResponse getBridgeWriteBehindResponse(MimeResponse mimeResponse,
-		ServletResponse servletResponse) throws FacesException;
+	public abstract BridgeWriteBehindResponse getBridgeWriteBehindResponse(MimeResponse mimeResponse)
+		throws FacesException;
 }
