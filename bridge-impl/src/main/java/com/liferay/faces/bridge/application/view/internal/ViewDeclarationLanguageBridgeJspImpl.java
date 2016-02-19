@@ -70,7 +70,10 @@ public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguag
 		if (MYFACES_DETECTED) {
 
 			if (portletRequest instanceof RenderRequest) {
-				externalContext.setRequest(new RenderRequestHttpServletAdapter((RenderRequest) portletRequest));
+
+				String requestCharacterEncoding = externalContext.getRequestCharacterEncoding();
+				externalContext.setRequest(new RenderRequestHttpServletAdapter((RenderRequest) portletRequest,
+						requestCharacterEncoding));
 			}
 			else if (portletRequest instanceof ResourceRequest) {
 				externalContext.setRequest(new ResourceRequestHttpServletAdapter((ResourceRequest) portletRequest));
