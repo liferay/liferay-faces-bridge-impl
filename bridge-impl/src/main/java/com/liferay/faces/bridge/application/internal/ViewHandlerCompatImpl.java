@@ -17,14 +17,12 @@ package com.liferay.faces.bridge.application.internal;
 
 import java.lang.reflect.Method;
 
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
 import javax.faces.application.ViewHandler;
 import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.context.FacesContext;
-
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
 
 
 /**
@@ -34,15 +32,11 @@ import com.liferay.faces.util.product.ProductMap;
  */
 public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 
-	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(ViewHandlerCompatImpl.class);
-
 	// Public Constants
 	public static final String RESPONSE_CHARACTER_ENCODING = "com.liferay.faces.bridge.responseCharacterEncoding";
 
 	// Private Constants
-	private static final boolean MOJARRA_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
-		.equals(ProductConstants.MOJARRA);
+	private static final String EL_EXPRESSION_PREFIX = "#{";
 
 	/**
 	 * Mojarra 1.x does not have the ability to process faces-config navigation-rule entries with to-view-id containing
@@ -57,7 +51,19 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 	 */
 	protected String evaluateExpressionJSF1(FacesContext facesContext, String viewId) {
 
-		// This method has overridden behavior for JSF 1 but simply returns the specified viewId for JSF 2
+		int pos = viewId.indexOf(EL_EXPRESSION_PREFIX);
+
+		if (pos > 0) {
+			ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+			ELContext elContext = facesContext.getELContext();
+			ValueExpression valueExpression = expressionFactory.createValueExpression(elContext, viewId, String.class);
+			viewId = (String) valueExpression.getValue(elContext);
+
+			if ((viewId != null) && !viewId.startsWith("/")) {
+				viewId = "/" + viewId;
+			}
+		}
+
 		return viewId;
 	}
 

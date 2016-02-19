@@ -15,9 +15,27 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
+import java.io.IOException;
+
+import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
 import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
+
+import com.liferay.faces.bridge.filter.internal.RenderRequestHttpServletAdapter;
+import com.liferay.faces.bridge.filter.internal.RenderResponseHttpServletAdapter;
+import com.liferay.faces.bridge.filter.internal.ResourceRequestHttpServletAdapter;
+import com.liferay.faces.bridge.filter.internal.ResourceResponseHttpServletAdapter;
+import com.liferay.faces.util.product.ProductConstants;
+import com.liferay.faces.util.product.ProductMap;
 
 
 /**
@@ -26,6 +44,12 @@ import javax.faces.component.UIViewRoot;
  * @author  Neil Griffin
  */
 public class JspViewHandlerCompat extends ViewHandlerWrapper {
+
+	// Private Constants
+	private static final boolean MOJARRA_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
+		.equals(ProductConstants.MOJARRA);
+	private static final boolean MYFACES_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
+		.equals(ProductConstants.MYFACES);
 
 	// Private Data Members
 	private ViewHandler wrappedViewHandler;
@@ -36,13 +60,54 @@ public class JspViewHandlerCompat extends ViewHandlerWrapper {
 
 	public static boolean isJspView(UIViewRoot uiViewRoot) {
 
-		// Return false for JSF 2.x since JSP detection is done inside ViewDeclarationLanguageBridgeJspImpl.java
-		// (which is a more appropriate integration point for JSF 2.x).
-		return false;
+		String viewId = uiViewRoot.getViewId();
+
+		return ((viewId != null) && viewId.toLowerCase().contains(".jsp"));
+	}
+
+	// In the JSF 2.x branches, JSP detection and the following Servlet API work-arounds are found in the
+	// ViewDeclarationLanguageBridgeJspImp.java class (which is a more appropriate integration point for JSF 2.x).
+	@Override
+	public void renderView(FacesContext facesContext, UIViewRoot uiViewRoot) throws IOException, FacesException {
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
+
+		// If Mojarra or MyFaces is detected, then work-around a Servlet API dependency by decorating the
+		// PortletRequest with an adapter that implements HttpServletRequest and the PortletResponse with an adapter
+		// that implements HttpServletResponse.
+		if (MOJARRA_DETECTED || MYFACES_DETECTED) {
+
+			if (portletRequest instanceof RenderRequest) {
+				String requestCharacterEncoding = externalContext.getRequestCharacterEncoding();
+				externalContext.setRequest(new RenderRequestHttpServletAdapter((RenderRequest) portletRequest,
+						requestCharacterEncoding));
+			}
+			else if (portletRequest instanceof ResourceRequest) {
+				externalContext.setRequest(new ResourceRequestHttpServletAdapter((ResourceRequest) portletRequest));
+			}
+
+			if (portletResponse instanceof RenderResponse) {
+				externalContext.setResponse(new RenderResponseHttpServletAdapter((RenderResponse) portletResponse));
+			}
+			else if (portletResponse instanceof ResourceResponse) {
+				externalContext.setResponse(new ResourceResponseHttpServletAdapter((ResourceResponse) portletResponse));
+			}
+		}
+
+		// Delegate to the Mojarra/MyFaces ViewHandler.
+		super.renderView(facesContext, uiViewRoot);
+
+		// If Mojarra or MyFaces is detected, then un-decorate the PortletResponse and PortletRequest.
+		if (MOJARRA_DETECTED || MYFACES_DETECTED) {
+			externalContext.setResponse(portletResponse);
+			externalContext.setRequest(portletRequest);
+		}
 	}
 
 	@Override
-	public ViewHandler getWrapped() {
+	protected ViewHandler getWrapped() {
 		return wrappedViewHandler;
 	}
 }
