@@ -79,37 +79,7 @@ public class BridgeWriteBehindSupportFactoryImpl extends BridgeWriteBehindSuppor
 	}
 
 	@Override
-	public BridgeAfterViewContentRequest getBridgeAfterViewContentRequest(PortletRequest portletRequest) {
-
-		if (portletRequest instanceof RenderRequest) {
-			return new BridgeAfterViewContentRequestRenderImpl((RenderRequest) portletRequest);
-		}
-		else if (portletRequest instanceof ResourceRequest) {
-			return new BridgeAfterViewContentRequestResourceImpl((ResourceRequest) portletRequest);
-		}
-		else {
-			return null;
-		}
-	}
-
-	@Override
-	public BridgeAfterViewContentResponse getBridgeAfterViewContentResponse(PortletResponse portletResponse,
-		Locale locale) {
-
-		if (portletResponse instanceof RenderResponse) {
-			return new BridgeAfterViewContentResponseRenderImpl((RenderResponse) portletResponse, locale);
-		}
-		else if (portletResponse instanceof ResourceResponse) {
-			return new BridgeAfterViewContentResponseResourceImpl((ResourceResponse) portletResponse, locale);
-		}
-		else {
-			return null;
-		}
-	}
-
-	@Override
-	public BridgeWriteBehindResponse getBridgeWriteBehindResponse(MimeResponse mimeResponse,
-		ServletResponse servletResponse) throws FacesException {
+	public BridgeWriteBehindResponse getBridgeWriteBehindResponse(MimeResponse mimeResponse) throws FacesException {
 
 		BridgeWriteBehindResponse bridgeWriteBehindResponse = null;
 
@@ -143,70 +113,27 @@ public class BridgeWriteBehindSupportFactoryImpl extends BridgeWriteBehindSuppor
 
 		try {
 
-			try {
+			if (portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) {
 
-				// First try to call a constructor that takes MimeResponse and ServletResponse as parameters.
-				if (portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) {
-					@SuppressWarnings("unchecked")
-					Constructor<BridgeWriteBehindResponse> constructor = (Constructor<BridgeWriteBehindResponse>)
-						bridgeWriteBehindResponseClass.getConstructor(RenderResponse.class, ServletResponse.class);
-					bridgeWriteBehindResponse = constructor.newInstance((RenderResponse) mimeResponse, servletResponse);
-				}
-				else {
-					@SuppressWarnings("unchecked")
-					Constructor<BridgeWriteBehindResponse> constructor = (Constructor<BridgeWriteBehindResponse>)
-						bridgeWriteBehindResponseClass.getConstructor(ResourceResponse.class, ServletResponse.class);
-					bridgeWriteBehindResponse = constructor.newInstance((ResourceResponse) mimeResponse,
-							servletResponse);
-				}
+				// Third, try to call a constructor that takes a RenderResponse as a single parameter, which
+				// is the required signature for any class that extends RenderResponseWrapper.
+				@SuppressWarnings("unchecked")
+				Constructor<BridgeWriteBehindResponse> constructor = (Constructor<BridgeWriteBehindResponse>)
+					bridgeWriteBehindResponseClass.getConstructor(RenderResponse.class);
+				bridgeWriteBehindResponse = constructor.newInstance((RenderResponse) mimeResponse);
 			}
-			catch (NoSuchMethodException nsme1) {
+			else {
 
-				try {
-
-					// Second, try to call a constructor that takes a ServletResponse as a single parameter.
-					@SuppressWarnings("unchecked")
-					Constructor<BridgeWriteBehindResponse> constructor = (Constructor<BridgeWriteBehindResponse>)
-						bridgeWriteBehindResponseClass.getConstructor(ServletResponse.class);
-					bridgeWriteBehindResponse = constructor.newInstance(servletResponse);
-				}
-				catch (NoSuchMethodException nsme2) {
-
-					try {
-
-						if (portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) {
-
-							// Third, try to call a constructor that takes a RenderResponse as a single parameter, which
-							// is the required signature for any class that extends RenderResponseWrapper.
-							@SuppressWarnings("unchecked")
-							Constructor<BridgeWriteBehindResponse> constructor =
-								(Constructor<BridgeWriteBehindResponse>) bridgeWriteBehindResponseClass.getConstructor(
-									RenderResponse.class);
-							bridgeWriteBehindResponse = constructor.newInstance((RenderResponse) mimeResponse);
-						}
-						else {
-
-							// Third, try to call a constructor that takes a ResourceResponse as a single parameter,
-							// which is the required signature for any class that extends RenderResponseWrapper.
-							@SuppressWarnings("unchecked")
-							Constructor<BridgeWriteBehindResponse> constructor =
-								(Constructor<BridgeWriteBehindResponse>) bridgeWriteBehindResponseClass.getConstructor(
-									ResourceResponse.class);
-							bridgeWriteBehindResponse = constructor.newInstance((ResourceResponse) mimeResponse);
-						}
-					}
-					catch (NoSuchMethodException nsme3) {
-
-						// Finally, as a last resort, call the no-arg constructor.
-						bridgeWriteBehindResponse = bridgeWriteBehindResponseClass.newInstance();
-					}
-				}
-
+				// Third, try to call a constructor that takes a ResourceResponse as a single parameter,
+				// which is the required signature for any class that extends RenderResponseWrapper.
+				@SuppressWarnings("unchecked")
+				Constructor<BridgeWriteBehindResponse> constructor = (Constructor<BridgeWriteBehindResponse>)
+					bridgeWriteBehindResponseClass.getConstructor(ResourceResponse.class);
+				bridgeWriteBehindResponse = constructor.newInstance((ResourceResponse) mimeResponse);
 			}
-
 		}
-		catch (Exception e2) {
-			throw new FacesException(e2.getMessage());
+		catch (Exception e) {
+			throw new FacesException(e.getMessage());
 		}
 
 		return bridgeWriteBehindResponse;

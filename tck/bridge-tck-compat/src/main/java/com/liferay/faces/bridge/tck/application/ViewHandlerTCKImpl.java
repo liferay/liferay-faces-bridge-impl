@@ -24,6 +24,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewDeclarationLanguage;
 
+import com.liferay.faces.bridge.tck.filter.RenderSelfException;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -44,8 +45,6 @@ public class ViewHandlerTCKImpl extends ViewHandlerWrapper {
 	}
 
 	/**
-	 * The purpose of overriding this method is to work-around a JSF 1.2 dependency in the TCK. Once the
-	 * TestSuiteViewHandlerImpl is changed to be a subclass of ViewDeclarationLanguage this can be removed.
 	 */
 	@Override
 	public void renderView(FacesContext facesContext, UIViewRoot viewToRender) throws IOException, FacesException {
@@ -54,20 +53,30 @@ public class ViewHandlerTCKImpl extends ViewHandlerWrapper {
 			super.renderView(facesContext, viewToRender);
 		}
 		catch (FacesException e) {
-			String tckRequestAttribute = (String) facesContext.getExternalContext().getRequestMap().get(
-					"javax.portlet.faces.tck.testRenderPolicyPass");
 
-			if (tckRequestAttribute != null) {
-				logger.info("Working around JSF 1.2 dependency in the TCK");
+			Throwable cause = e.getCause();
 
-				ViewDeclarationLanguage viewDeclarationLanguage = getViewDeclarationLanguage(facesContext,
-						viewToRender.getViewId());
-				viewDeclarationLanguage.renderView(facesContext, viewToRender);
+			if ((cause != null) && (cause instanceof RenderSelfException)) {
+
+				ViewHandler facesRuntimeViewHandler = getFacesRuntimeViewHandler();
+				facesRuntimeViewHandler.renderView(facesContext, viewToRender);
 			}
 			else {
 				throw e;
 			}
 		}
+	}
+
+	protected ViewHandler getFacesRuntimeViewHandler() {
+
+		ViewHandler viewHandler = getWrapped();
+
+		while (viewHandler instanceof ViewHandlerWrapper) {
+			ViewHandlerWrapper viewHandlerWrapper = (ViewHandlerWrapper) viewHandler;
+			viewHandler = viewHandlerWrapper.getWrapped();
+		}
+
+		return viewHandler;
 	}
 
 	@Override

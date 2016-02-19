@@ -15,19 +15,19 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.FacesException;
+import javax.faces.application.ViewHandler;
 import javax.faces.application.ViewHandlerWrapper;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.product.ProductConstants;
 import com.liferay.faces.util.product.ProductMap;
 
@@ -39,19 +39,15 @@ import com.liferay.faces.util.product.ProductMap;
  */
 public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(ViewHandlerCompatImpl.class);
+
 	// Public Constants
 	public static final String RESPONSE_CHARACTER_ENCODING = "com.liferay.faces.bridge.responseCharacterEncoding";
 
 	// Private Constants
 	private static final boolean MOJARRA_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
 		.equals(ProductConstants.MOJARRA);
-
-	@Override
-	public void renderView(FacesContext context, UIViewRoot viewToRender) throws IOException, FacesException {
-
-		// This method has overridden behavior for JSF 1 but is simply a pass-through for JSF 2
-		super.renderView(context, viewToRender);
-	}
 
 	/**
 	 * Mojarra 1.x does not have the ability to process faces-config navigation-rule entries with to-view-id containing
@@ -68,6 +64,18 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 
 		// This method has overridden behavior for JSF 1 but simply returns the specified viewId for JSF 2
 		return viewId;
+	}
+
+	protected ViewHandler getFacesRuntimeViewHandler() {
+
+		ViewHandler viewHandler = getWrapped();
+
+		while (viewHandler instanceof ViewHandlerWrapper) {
+			ViewHandlerWrapper viewHandlerWrapper = (ViewHandlerWrapper) viewHandler;
+			viewHandler = viewHandlerWrapper.getWrapped();
+		}
+
+		return viewHandler;
 	}
 
 	@Override

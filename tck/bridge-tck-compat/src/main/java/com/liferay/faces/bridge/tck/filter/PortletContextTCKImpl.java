@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.filter.internal;
+package com.liferay.faces.bridge.tck.filter;
 
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -21,7 +21,6 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.Set;
 
-import javax.faces.FacesWrapper;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequestDispatcher;
 
@@ -29,87 +28,112 @@ import javax.portlet.PortletRequestDispatcher;
 /**
  * @author  Neil Griffin
  */
-public abstract class PortletContextWrapper implements PortletContext, FacesWrapper<PortletContext> {
+public class PortletContextTCKImpl implements PortletContext {
 
+	// Private Data Members
+	private PortletContext wrappedPortletContext;
+
+	public PortletContextTCKImpl(PortletContext portletContext) {
+		this.wrappedPortletContext = portletContext;
+	}
+
+	@Override
 	public void log(String msg) {
-		getWrapped().log(msg);
+		wrappedPortletContext.log(msg);
 	}
 
+	@Override
 	public void log(String message, Throwable throwable) {
-		getWrapped().log(message, throwable);
+		wrappedPortletContext.log(message, throwable);
 	}
 
+	@Override
 	public void removeAttribute(String name) {
-		getWrapped().removeAttribute(name);
+		wrappedPortletContext.removeAttribute(name);
 	}
 
+	@Override
 	public Object getAttribute(String name) {
-		return getWrapped().getAttribute(name);
+		return wrappedPortletContext.getAttribute(name);
 	}
 
+	@Override
 	public void setAttribute(String name, Object object) {
-		getWrapped().setAttribute(name, object);
+		wrappedPortletContext.setAttribute(name, object);
 	}
 
+	@Override
 	public Enumeration<String> getAttributeNames() {
-		return getWrapped().getAttributeNames();
+		return wrappedPortletContext.getAttributeNames();
 	}
 
+	@Override
 	public Enumeration<String> getContainerRuntimeOptions() {
-		return getWrapped().getContainerRuntimeOptions();
+		return wrappedPortletContext.getContainerRuntimeOptions();
 	}
 
+	@Override
 	public String getInitParameter(String name) {
-		return getWrapped().getInitParameter(name);
+		return wrappedPortletContext.getInitParameter(name);
 	}
 
+	@Override
 	public Enumeration<String> getInitParameterNames() {
-		return getWrapped().getInitParameterNames();
+		return wrappedPortletContext.getInitParameterNames();
 	}
 
+	@Override
 	public int getMajorVersion() {
-		return getWrapped().getMajorVersion();
+		return wrappedPortletContext.getMajorVersion();
 	}
 
+	@Override
 	public String getMimeType(String file) {
-		return getWrapped().getMimeType(file);
+		return wrappedPortletContext.getMimeType(file);
 	}
 
+	@Override
 	public int getMinorVersion() {
-		return getWrapped().getMinorVersion();
+		return wrappedPortletContext.getMinorVersion();
 	}
 
+	@Override
 	public PortletRequestDispatcher getNamedDispatcher(String name) {
-		return getWrapped().getNamedDispatcher(name);
+		return wrappedPortletContext.getNamedDispatcher(name);
 	}
 
+	@Override
 	public String getPortletContextName() {
-		return getWrapped().getPortletContextName();
+		return wrappedPortletContext.getPortletContextName();
 	}
 
+	@Override
 	public String getRealPath(String path) {
-		return getWrapped().getRealPath(path);
+		return wrappedPortletContext.getRealPath(path);
 	}
 
+	@Override
 	public PortletRequestDispatcher getRequestDispatcher(String path) {
-		return getWrapped().getRequestDispatcher(path);
+		return new PortletRequestDispatcherTCKImpl(wrappedPortletContext.getRequestDispatcher(path));
 	}
 
+	@Override
 	public URL getResource(String path) throws MalformedURLException {
-		return getWrapped().getResource(path);
+		return wrappedPortletContext.getResource(path);
 	}
 
+	@Override
 	public InputStream getResourceAsStream(String path) {
-		return getWrapped().getResourceAsStream(path);
+		return wrappedPortletContext.getResourceAsStream(path);
 	}
 
+	@Override
 	public Set<String> getResourcePaths(String path) {
-		return getWrapped().getResourcePaths(path);
+		return wrappedPortletContext.getResourcePaths(path);
 	}
 
+	@Override
 	public String getServerInfo() {
-		return getWrapped().getServerInfo();
+		return wrappedPortletContext.getServerInfo();
 	}
-
-	public abstract PortletContext getWrapped();
 }
