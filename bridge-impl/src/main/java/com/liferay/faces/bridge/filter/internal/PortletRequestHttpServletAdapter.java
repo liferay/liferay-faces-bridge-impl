@@ -47,8 +47,12 @@ import javax.servlet.http.Part;
  */
 public class PortletRequestHttpServletAdapter extends PortletRequestWrapper implements HttpServletRequest {
 
-	public PortletRequestHttpServletAdapter(PortletRequest portletRequest) {
+	// Private Data Members
+	private String characterEncoding;
+
+	public PortletRequestHttpServletAdapter(PortletRequest portletRequest, String characterEncoding) {
 		super(portletRequest);
+		this.characterEncoding = characterEncoding;
 	}
 
 	@Override
@@ -84,12 +88,12 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 
 	@Override
 	public String getCharacterEncoding() {
-		throw new UnsupportedOperationException();
+		return characterEncoding;
 	}
 
 	@Override
 	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
