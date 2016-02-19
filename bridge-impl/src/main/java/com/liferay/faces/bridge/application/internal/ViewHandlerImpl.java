@@ -20,7 +20,6 @@ import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
-import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -108,8 +107,13 @@ public class ViewHandlerImpl extends ViewHandlerCompatImpl {
 		// in the Faces runtime.
 		else if (bridgeRenderPolicy == Bridge.BridgeRenderPolicy.NEVER_DELEGATE) {
 
-			ViewHandler facesRuntimeViewHandler = getFacesRuntimeViewHandler();
-			facesRuntimeViewHandler.renderView(facesContext, uiViewRoot);
+			ViewHandler viewHandler = getFacesRuntimeViewHandler();
+
+			if (JspViewHandlerCompat.isJspView(uiViewRoot)) {
+				viewHandler = new JspViewHandlerCompat(viewHandler);
+			}
+
+			viewHandler.renderView(facesContext, uiViewRoot);
 		}
 
 		// Otherwise,
@@ -124,9 +128,13 @@ public class ViewHandlerImpl extends ViewHandlerCompatImpl {
 			// chain-of-responsibility.
 			catch (FacesException e) {
 
-				ViewHandler facesRuntimeViewHandler = getFacesRuntimeViewHandler();
+				ViewHandler viewHandler = getFacesRuntimeViewHandler();
 
-				facesRuntimeViewHandler.renderView(facesContext, uiViewRoot);
+				if (JspViewHandlerCompat.isJspView(uiViewRoot)) {
+					viewHandler = new JspViewHandlerCompat(viewHandler);
+				}
+
+				viewHandler.renderView(facesContext, uiViewRoot);
 			}
 		}
 	}
@@ -151,7 +159,14 @@ public class ViewHandlerImpl extends ViewHandlerCompatImpl {
 
 		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
 
-		super.renderView(facesContext, uiViewRoot);
+		if (JspViewHandlerCompat.isJspView(uiViewRoot)) {
+			ViewHandler jspViewHanlder = new JspViewHandlerCompat(wrappedViewHandler);
+			jspViewHanlder.renderView(facesContext, uiViewRoot);
+		}
+		else {
+			wrappedViewHandler.renderView(facesContext, uiViewRoot);
+		}
+
 		requestAttributeMap.remove(Bridge.RENDER_CONTENT_AFTER_VIEW);
 		externalContext.setResponse(portletResponse);
 
@@ -217,5 +232,4 @@ public class ViewHandlerImpl extends ViewHandlerCompatImpl {
 	public ViewHandler getWrapped() {
 		return wrappedViewHandler;
 	}
-
 }
