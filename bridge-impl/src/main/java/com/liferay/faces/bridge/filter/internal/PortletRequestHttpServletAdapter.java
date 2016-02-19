@@ -194,10 +194,10 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 	}
 
 	public HttpSession getSession() {
-		throw new UnsupportedOperationException();
+		return new PortletSessionHttpAdapter(super.getPortletSession());
 	}
 
 	public HttpSession getSession(boolean create) {
-		throw new UnsupportedOperationException();
+		return new PortletSessionHttpAdapter(super.getPortletSession(create));
 	}
 }
