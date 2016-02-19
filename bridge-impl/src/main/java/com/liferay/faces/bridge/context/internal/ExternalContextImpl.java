@@ -39,15 +39,14 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeWriteBehindResponse;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
+import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.application.internal.ViewHandlerImpl;
-import com.liferay.faces.bridge.application.view.internal.BridgeAfterViewContentRequest;
-import com.liferay.faces.bridge.application.view.internal.BridgeAfterViewContentResponse;
 import com.liferay.faces.bridge.application.view.internal.BridgeWriteBehindSupportFactory;
 import com.liferay.faces.bridge.context.ContextMapFactory;
+import com.liferay.faces.bridge.filter.internal.HttpServletResponseRenderAdapter;
+import com.liferay.faces.bridge.filter.internal.HttpServletResponseResourceAdapter;
 import com.liferay.faces.bridge.util.internal.LocaleIterator;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -77,8 +76,6 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 
 	// Lazily-Initialized Data Members
 	private String authType;
-	private BridgeAfterViewContentRequest bridgeAfterViewContentRequest;
-	private BridgeAfterViewContentResponse bridgeAfterViewContentResponse;
 	private Map<String, String> initParameterMap;
 	private String remoteUser;
 	private Map<String, Object> requestCookieMap;
@@ -92,26 +89,11 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 
 		this.contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(ContextMapFactory.class);
 
-		try {
-			boolean requestChanged = false;
-			boolean responseChanged = false;
-			preInitializeObjects(requestChanged, responseChanged);
-		}
-		catch (Exception e) {
-			logger.error(e);
-		}
+		preInitializeObjects();
 	}
 
 	@Override
 	public void dispatch(String path) throws IOException {
-
-		// Indicate that JSP AFTER_VIEW_CONTENT processing has been de-activated. This will make it possible for the
-		// Mojarra JspViewHandlingStrategy#executePageToBuildView(FacesContext, UIViewRoot) method to successfully call
-		// {@link ExternalContextImpl#setResponse(Object)} in order to undo the ViewHandlerResponseWrapper and restore
-		// the original PortletResponse.
-		bridgeContext.setProcessingAfterViewContent(false);
-
-		logger.debug("De-activated JSP AFTER_VIEW_CONTENT");
 
 		logger.debug("Acquiring dispatcher for JSP path=[{0}]", path);
 
@@ -200,21 +182,8 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 	 * In order to increase runtime performance, this method caches values of objects that are typically called more
 	 * than once during the JSF lifecycle. Other values will be cached lazily, or might not be cached since their getter
 	 * methods may never get called.
-	 *
-	 * @param  requestChanged   Flag indicating that this method is being called because {@link #setRequest(Object)} was
-	 *                          called.
-	 * @param  responseChanged  Flag indicating that this method is being called because {@link #setResponse(Object)}
-	 *                          was called.
 	 */
-	protected void preInitializeObjects(boolean requestChanged, boolean responseChanged) {
-
-		if (requestChanged) {
-			bridgeContext.setPortletRequest(portletRequest);
-		}
-
-		if (responseChanged) {
-			bridgeContext.setPortletResponse(portletResponse);
-		}
+	protected void preInitializeObjects() {
 
 		// Retrieve the portlet lifecycle phase.
 		portletPhase = bridgeContext.getPortletRequestPhase();
@@ -282,41 +251,19 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 
 	@Override
 	public Object getRequest() {
-
-		// If JSP AFTER_VIEW_CONTENT processing has been activated by the
-		// JspViewDeclarationLanguage#buildView(FacesContext, UIViewRoot) method, then return a ServletRequest that
-		// wraps/decorates the current PortletRequest. This is necessary because the MyFaces
-		// JspViewDeclarationLanguage#buildView(FacesContext, UIViewRoot) method has a Servlet API dependency due to
-		// explicit casts to HttpServletRequest.
-		if (bridgeContext.isProcessingAfterViewContent()) {
-
-			if ((bridgeAfterViewContentRequest == null) ||
-					(bridgeAfterViewContentRequest.getWrapped() != portletRequest)) {
-
-				BridgeWriteBehindSupportFactory bridgeWriteBehindSupportFactory = (BridgeWriteBehindSupportFactory)
-					BridgeFactoryFinder.getFactory(BridgeWriteBehindSupportFactory.class);
-				bridgeAfterViewContentRequest = bridgeWriteBehindSupportFactory.getBridgeAfterViewContentRequest(
-						portletRequest);
-			}
-
-			return bridgeAfterViewContentRequest;
-		}
-		else {
-			return portletRequest;
-		}
+		return portletRequest;
 	}
 
 	@Override
 	public void setRequest(Object request) {
-		this.portletRequest = (PortletRequest) request;
 
-		try {
-			boolean requestChanged = true;
-			boolean responseChanged = false;
-			preInitializeObjects(requestChanged, responseChanged);
+		if ((request != null) && (request instanceof PortletRequest)) {
+
+			this.portletRequest = (PortletRequest) request;
+			preInitializeObjects();
 		}
-		catch (Exception e) {
-			logger.error(e);
+		else {
+			throw new IllegalArgumentException("Must be an instance of javax.portlet.PortletRequest");
 		}
 	}
 
@@ -515,119 +462,70 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 
 	@Override
 	public Object getResponse() {
-
-		// If JSP AFTER_VIEW_CONTENT processing has been activated by the
-		// JspViewDeclarationLanguage#buildView(FacesContext, UIViewRoot) method, then return a ServletResponse that is
-		// able to handle the AFTER_VIEW_CONTENT feature. This is necessary because the Mojarra
-		// JspViewHandlingStrategy#getWrapper(ExternalContext) method has a Servlet API dependency due to explicit casts
-		// to HttpServletResponse. Additionally, the MyFaces JspViewDeclarationLanguage#buildView(FacesContext,
-		// UIViewRoot) method has an explicit cast to HttpServletResponse.
-		if (bridgeContext.isProcessingAfterViewContent()) {
-
-			if (facesImplementationServletResponse == null) {
-
-				if ((bridgeAfterViewContentResponse == null) ||
-						(bridgeAfterViewContentResponse.getWrapped() != portletResponse)) {
-					BridgeWriteBehindSupportFactory bridgeWriteBehindSupportFactory = (BridgeWriteBehindSupportFactory)
-						BridgeFactoryFinder.getFactory(BridgeWriteBehindSupportFactory.class);
-					bridgeAfterViewContentResponse = bridgeWriteBehindSupportFactory.getBridgeAfterViewContentResponse(
-							portletResponse, getRequestLocale());
-				}
-
-				return bridgeAfterViewContentResponse;
-			}
-			else {
-				return facesImplementationServletResponse;
-			}
-		}
-		else {
-
-			if (isBridgeFlashServletResponseRequired()) {
-				return createFlashHttpServletResponse();
-			}
-			else {
-				return portletResponse;
-			}
-		}
+		return portletResponse;
 	}
 
 	@Override
 	public void setResponse(Object response) {
 
-		// Assume that the JSP_AFTER_VIEW_CONTENT feature is deactivated.
-		facesImplementationServletResponse = null;
+		if (response != null) {
 
-		// If JSP AFTER_VIEW_CONTENT processing has been activated by the bridge's
-		// ViewDeclarationLanguageJspImpl#buildView(FacesContext, UIViewRoot) method, then wrap the specified response
-		// object with a ServletResponse that is able to handle the AFTER_VIEW_CONTENT feature. This is necessary
-		// because the Mojarra JspViewHandlingStrategy#getWrapper(ExternalContext) method has a Servlet API dependency
-		// due to explicit casts to HttpServletResponse.
-		if (bridgeContext.isProcessingAfterViewContent()) {
+			// If the specified response is a PortletResponse, then simply remember the value.
+			if (response instanceof PortletResponse) {
 
-			// If the specified response is of type HttpServletResponseWrapper, then it is almost certain that Mojarra's
-			// JspViewHandlingStrategy#executePageToBuildView(FacesContext, UIViewRoot) method is attempting to wrap the
-			// bridge's response object (that it originally got by calling the ExternalContext#getResponse() method)
-			// with it's ViewHandlerResponseWrapper, which extends HttpServletResponseWrapper.
-			if (response instanceof HttpServletResponseWrapper) {
+				portletResponse = (PortletResponse) response;
+				preInitializeObjects();
+			}
 
-				this.facesImplementationServletResponse = (ServletResponse) response;
+			// Otherwise, if it is an HttpServletResponse, then assume that the Faces runtime is attempting to decorate
+			// the response. This typically happens when a JSP view (rather than a Facelets view) is to be rendered and
+			// the Faces runtime is attempting to capture the plain HTML markup that may appear after the closing
+			// </f:view> component tag (a.k.a. "after view markup"). For example, the Mojarra
+			// com.sun.faces.application.view.JspViewHandlingStrategoy will attempt to decorate the response with an
+			// isntance of com.sun.faces.application.ViewHandlerResponseWrapper. Similarly, the MyFaces
+			// org.apache.myfaces.view.jsp.JspViewDeclarationLanguage class will attempt to decorate the response with
+			// an instance of org.apache.myfaces.application.jsp.ServletViewResponseWrapper.
+			else if (response instanceof HttpServletResponse) {
 
-				HttpServletResponseWrapper httpServletResponseWrapper = (HttpServletResponseWrapper) response;
-				ServletResponse wrappedServletResponse = httpServletResponseWrapper.getResponse();
+				// If executing the RENDER_PHASE of the portlet lifecycle, then decorate the specified
+				// HttpServletResponse with an adapter that implements RenderRequest.
+				HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+				Bridge.PortletPhase portletRequestPhase = bridgeContext.getPortletRequestPhase();
 
-				if (wrappedServletResponse instanceof BridgeAfterViewContentResponse) {
-					BridgeAfterViewContentResponse bridgeAfterViewContentPreResponse = (BridgeAfterViewContentResponse)
-						wrappedServletResponse;
-					PortletResponse wrappedPortletResponse = bridgeAfterViewContentPreResponse.getWrapped();
-
-					BridgeWriteBehindSupportFactory bridgeWriteBehindSupportFactory = (BridgeWriteBehindSupportFactory)
-						BridgeFactoryFinder.getFactory(BridgeWriteBehindSupportFactory.class);
-					BridgeWriteBehindResponse bridgeWriteBehindResponse =
-						bridgeWriteBehindSupportFactory.getBridgeWriteBehindResponse((MimeResponse)
-							wrappedPortletResponse, facesImplementationServletResponse);
-
-					// Note: See comments in BridgeContextImpl#dispatch(String) regarding Liferay's inability to
-					// accept a wrapped response. This is indeed supported in Pluto.
-					this.portletResponse = (PortletResponse) bridgeWriteBehindResponse;
+				if (portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) {
+					portletResponse = new HttpServletResponseRenderAdapter(httpServletResponse,
+							portletResponse.getNamespace());
 				}
+
+				// Otherwise, if executing the RESOURCE_PHASE of the portlet lifecycle, then decorate the specified
+				// HttpServletResponse with an adapter that implements ResourceResponse.
+				else if (portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE) {
+					portletResponse = new HttpServletResponseResourceAdapter(httpServletResponse,
+							portletResponse.getNamespace());
+				}
+
+				// Otherwise, throw an exception since HttpServletResponse is not supported in other phases of the
+				// portlet lifecycle.
 				else {
-
-					// Since we're unable to determine the wrapped PortletResponse, the following line will throw an
-					// intentional ClassCastException. Note that this case should never happen.
-					this.portletResponse = (PortletResponse) response;
+					throw new IllegalArgumentException("Unable to decorate httpServletResponse=[" + response +
+						"] in phase=[" + portletRequestPhase + "]");
 				}
-			}
 
-			// Otherwise, the specified response is of type BridgeAfterViewContentResponse, then Mojarra's
-			// JspViewHandlingStrategy#executePageToBuildView(FacesContext, UIViewRoot) method is trying to restore the
-			// bridge's response object that it originally got from calling the ExternalContext#getResponse() method
-			// prior to wrapping with it's ViewHandlerResponseWrapper.
-			else if (response instanceof BridgeAfterViewContentResponse) {
-				BridgeAfterViewContentResponse bridgeAfterViewContentResponse = (BridgeAfterViewContentResponse)
-					response;
-				this.portletResponse = bridgeAfterViewContentResponse.getWrapped();
+				// Section 7.2.1 of the Spec requires that the response be an instance of BridgeWriteBehindResponse.
+				BridgeWriteBehindSupportFactory bridgeWriteBehindSupportFactory = (BridgeWriteBehindSupportFactory)
+					BridgeFactoryFinder.getFactory(BridgeWriteBehindSupportFactory.class);
+				BridgeWriteBehindResponse bridgeWriteBehindResponse =
+					bridgeWriteBehindSupportFactory.getBridgeWriteBehindResponse((MimeResponse) portletResponse);
+				portletResponse = (PortletResponse) bridgeWriteBehindResponse;
+				preInitializeObjects();
 			}
-
-			// Otherwise, assume that the specified response is a PortletResponse.
 			else {
-				this.portletResponse = (PortletResponse) response;
+				throw new IllegalArgumentException("response=[" + response +
+					"] is not an instance of javax.portlet.PortletResponse");
 			}
-
 		}
-
-		// Otherwise, since the JSF AFTER_VIEW_CONTENT feature is not activated, assume that the specified response is
-		// a PortletResponse.
 		else {
-			this.portletResponse = (PortletResponse) response;
-		}
-
-		try {
-			boolean requestChanged = false;
-			boolean responseChanged = true;
-			preInitializeObjects(requestChanged, responseChanged);
-		}
-		catch (Exception e) {
-			logger.error(e);
+			throw new IllegalArgumentException("response cannot be null");
 		}
 	}
 

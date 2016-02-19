@@ -128,7 +128,7 @@ public abstract class ExternalContextCompat_2_2_Impl extends ExternalContextComp
 	 */
 	protected String encodeClientWindowURL(FacesContext facesContext, String url) {
 
-		if ((url != null) && (url.indexOf(ResponseStateManager.CLIENT_WINDOW_PARAM) < 0)) {
+		if ((url != null) && (!url.contains(ResponseStateManager.CLIENT_WINDOW_PARAM))) {
 
 			ClientWindow clientWindow = getClientWindow();
 

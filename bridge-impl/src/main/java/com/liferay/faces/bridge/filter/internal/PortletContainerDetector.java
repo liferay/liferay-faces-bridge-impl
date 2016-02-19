@@ -32,32 +32,6 @@ public class PortletContainerDetector {
 	 *
 	 * @param   portletResponse  The current {@link javax.portlet.PortletResponse}.
 	 *
-	 * @return  true if the specified portletRequest was created by Liferay Portal.
-	 */
-	public static boolean isLiferayPortletResponse(PortletResponse portletResponse) {
-
-		if (portletResponse != null) {
-
-			while (portletResponse instanceof PortletResponseWrapper) {
-				PortletResponseWrapper portletResponseWrapper = (PortletResponseWrapper) portletResponse;
-				portletResponse = portletResponseWrapper.getResponse();
-			}
-
-			return portletResponse.getClass().getName().startsWith("com.liferay");
-		}
-		else {
-			return false;
-		}
-	}
-
-	/**
-	 * Determines whether or not the specified {@link javax.portlet.PortletResponse} is one created by Liferay Portal.
-	 * If the specified {@link javax.portlet.PortletResponse} is an instance of {@link
-	 * javax.portlet.filter.PortletResponseWrapper} then it will work with the wrapped {@link
-	 * javax.portlet.PortletResponse}.
-	 *
-	 * @param   portletResponse  The current {@link javax.portlet.PortletResponse}.
-	 *
 	 * @return  true if the specified portletResponse was created by Pluto.
 	 */
 	public static boolean isPlutoPortletResponse(PortletResponse portletResponse) {

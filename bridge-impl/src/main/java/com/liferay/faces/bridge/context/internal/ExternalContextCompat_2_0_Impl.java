@@ -21,6 +21,7 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.context.ExternalContext;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortalContext;
@@ -29,7 +30,6 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
@@ -63,7 +63,6 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	private String portletContextName;
 
 	// Protected Data Members
-	protected ServletResponse facesImplementationServletResponse;
 	protected Bridge.PortletPhase portletPhase;
 
 	public ExternalContextCompat_2_0_Impl(PortletContext portletContext, PortletRequest portletRequest,
@@ -145,16 +144,8 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 
 		if (portletResponse instanceof MimeResponse) {
 
-			if (facesImplementationServletResponse != null) {
-
-				// This happens when Mojarra's JspViewHandlingStrategy#buildView(FacesContext context, UIViewRoot)
-				// executes.
-				facesImplementationServletResponse.flushBuffer();
-			}
-			else {
-				MimeResponse mimeResponse = (MimeResponse) portletResponse;
-				mimeResponse.flushBuffer();
-			}
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+			mimeResponse.flushBuffer();
 		}
 		else {
 
@@ -516,17 +507,9 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 
 		if (portletResponse instanceof MimeResponse) {
 
-			if (facesImplementationServletResponse != null) {
-				logger.debug("Delegating to AFTER_VIEW_CONTENT servletResponse=[{0}]",
-					facesImplementationServletResponse);
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
 
-				return facesImplementationServletResponse.getOutputStream();
-			}
-			else {
-				MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-				return mimeResponse.getPortletOutputStream();
-			}
+			return mimeResponse.getPortletOutputStream();
 		}
 		else {
 
@@ -547,17 +530,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	public Writer getResponseOutputWriter() throws IOException {
 
 		if (portletResponse instanceof MimeResponse) {
-
-			if (facesImplementationServletResponse != null) {
-				logger.debug("Delegating to AFTER_VIEW_CONTENT servletResponse=[{0}]",
-					facesImplementationServletResponse);
-
-				return facesImplementationServletResponse.getWriter();
-			}
-			else {
-				return bridgeContext.getResponseOutputWriter();
-			}
-
+			return bridgeContext.getResponseOutputWriter();
 		}
 		else {
 
@@ -582,6 +555,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	public void setResponseStatus(int statusCode) {
 
 		if (portletResponse instanceof ResourceResponse) {
+
 			ResourceResponse resourceResponse = (ResourceResponse) portletResponse;
 			resourceResponse.setProperty(ResourceResponse.HTTP_STATUS_CODE, Integer.toString(statusCode));
 		}
