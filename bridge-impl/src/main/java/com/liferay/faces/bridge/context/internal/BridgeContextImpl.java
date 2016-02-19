@@ -110,7 +110,6 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 	private PortletResponse portletResponse;
 	private Boolean preserveActionParams;
 	private Map<String, String[]> preservedActionParams;
-	private boolean processingAfterViewContent;
 	private boolean renderRedirect;
 	private boolean renderRedirectAfterDispatch;
 	private Boolean renderRedirectEnabled;
@@ -999,15 +998,6 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 	}
 
 	@Override
-	public void setPortletRequest(PortletRequest portletRequest) {
-		this.portletRequest = portletRequest;
-		this.requestParameterMap = null;
-		this.requestParameterValuesMap = null;
-		this.requestHeaderMap = null;
-		this.requestHeaderValuesMap = null;
-	}
-
-	@Override
 	public Bridge.PortletPhase getPortletRequestPhase() {
 		return portletPhase;
 	}
@@ -1015,11 +1005,6 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 	@Override
 	public PortletResponse getPortletResponse() {
 		return portletResponse;
-	}
-
-	@Override
-	public void setPortletResponse(PortletResponse portletResponse) {
-		this.portletResponse = portletResponse;
 	}
 
 	@Override
@@ -1035,11 +1020,6 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 		}
 
 		return preservedActionParams;
-	}
-
-	@Override
-	public void setProcessingAfterViewContent(boolean processingAfterViewContent) {
-		this.processingAfterViewContent = processingAfterViewContent;
 	}
 
 	@Override
@@ -1293,11 +1273,6 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 	@Override
 	public void setSavedViewState(String savedViewState) {
 		this.savedViewState = savedViewState;
-	}
-
-	@Override
-	public boolean isProcessingAfterViewContent() {
-		return processingAfterViewContent;
 	}
 
 	@Override

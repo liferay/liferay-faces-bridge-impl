@@ -163,22 +163,12 @@ public class BridgeContextMockImpl extends BridgeContext {
 	}
 
 	@Override
-	public void setPortletRequest(PortletRequest portletRequest) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public PortletPhase getPortletRequestPhase() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public PortletResponse getPortletResponse() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void setPortletResponse(PortletResponse portletResponse) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -190,11 +180,6 @@ public class BridgeContextMockImpl extends BridgeContext {
 	@Override
 	public Map<String, String[]> getPreservedActionParams() {
 		return null;
-	}
-
-	@Override
-	public void setProcessingAfterViewContent(boolean processingAfterViewContent) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -259,11 +244,6 @@ public class BridgeContextMockImpl extends BridgeContext {
 
 	@Override
 	public void setSavedViewState(String savedViewState) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean isProcessingAfterViewContent() {
 		throw new UnsupportedOperationException();
 	}
 
