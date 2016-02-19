@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.tck.common.util.faces.application;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Locale;
@@ -303,11 +302,13 @@ public class TestSuiteApplicationImpl extends Application {
 			// Create a new chain-of-delegation with the TCK's ViewHandler decorating the ViewHandler from the Faces
 			// implementation (which does not extend ViewHandlerWrapper).
 			Stack<ViewHandler> viewHandlerStack = new Stack<ViewHandler>();
+
 			while (viewHandler instanceof ViewHandlerWrapper) {
 
 				viewHandlerStack.push(viewHandler);
+
 				ViewHandlerWrapper viewHandlerWrapper = (ViewHandlerWrapper) viewHandler;
-				viewHandler = getWrappedViewHandler(viewHandlerWrapper);
+				viewHandler = viewHandlerWrapper.getWrapped();
 			}
 
 			viewHandler = new TestSuiteViewHandlerImpl(viewHandler);
@@ -318,41 +319,23 @@ public class TestSuiteApplicationImpl extends Application {
 
 				if (!(poppedViewHandler instanceof TestSuiteViewHandlerImpl)) {
 					Class<ViewHandler> poppedViewHandlerClass = (Class<ViewHandler>) poppedViewHandler.getClass();
+
 					try {
 						Constructor<ViewHandler> constructor = poppedViewHandlerClass.getConstructor(ViewHandler.class);
 						viewHandler = constructor.newInstance(viewHandler);
-					} catch (Exception e) {
+					}
+					catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 			}
 		}
-
 		else {
-			ViewHandler wrappedViewHandler = viewHandler;
 
 			// Decorate the specified ViewHandler with the TCK's ViewHandler.
 			viewHandler = new TestSuiteViewHandlerImpl(viewHandler);
 		}
 
 		mWrapped.setViewHandler(viewHandler);
-	}
-
-	protected ViewHandler getWrappedViewHandler(ViewHandlerWrapper viewHandlerWrapper) {
-
-		ViewHandler wrappedViewHandler = null;
-
-		try {
-			Method getWrappedMethod = viewHandlerWrapper.getClass().getMethod("getWrapped");
-
-			// ViewHandlerWrapper.getWrapped() is public in JSF 2.x but is protected in JSF 1.2
-			getWrappedMethod.setAccessible(true);
-			wrappedViewHandler = (ViewHandler) getWrappedMethod.invoke(viewHandlerWrapper);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return wrappedViewHandler;
 	}
 }
