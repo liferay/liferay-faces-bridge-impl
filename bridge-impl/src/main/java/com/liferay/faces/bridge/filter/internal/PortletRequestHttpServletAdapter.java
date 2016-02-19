@@ -41,8 +41,12 @@ import javax.servlet.http.HttpSession;
  */
 public class PortletRequestHttpServletAdapter extends PortletRequestWrapper implements HttpServletRequest {
 
-	public PortletRequestHttpServletAdapter(PortletRequest portletRequest) {
+	// Private Data Members
+	private String characterEncoding;
+
+	public PortletRequestHttpServletAdapter(PortletRequest portletRequest, String characterEncoding) {
 		super(portletRequest);
+		this.characterEncoding = characterEncoding;
 	}
 
 	public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
@@ -58,11 +62,11 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 	}
 
 	public String getCharacterEncoding() {
-		throw new UnsupportedOperationException();
+		return characterEncoding;
 	}
 
 	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
-
+		throw new UnsupportedOperationException();
 	}
 
 	public int getContentLength() {

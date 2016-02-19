@@ -15,8 +15,10 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import javax.portlet.ResourceRequest;
@@ -34,7 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServletAdapter implements ResourceRequest {
 
 	public ResourceRequestHttpServletAdapter(ResourceRequest resourceRequest) {
-		super(resourceRequest);
+		super(resourceRequest, null);
 	}
 
 	@Override
@@ -43,8 +45,33 @@ public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServlet
 	}
 
 	@Override
+	public String getCharacterEncoding() {
+		return ((ResourceRequest) getRequest()).getCharacterEncoding();
+	}
+
+	@Override
+	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
+		((ResourceRequest) getRequest()).setCharacterEncoding(env);
+	}
+
+	@Override
+	public int getContentLength() {
+		return ((ResourceRequest) getRequest()).getContentLength();
+	}
+
+	@Override
+	public String getContentType() {
+		return ((ResourceRequest) getRequest()).getContentType();
+	}
+
+	@Override
 	public String getETag() {
 		return ((ResourceRequest) getRequest()).getETag();
+	}
+
+	@Override
+	public String getMethod() {
+		return ((ResourceRequest) getRequest()).getMethod();
 	}
 
 	@Override
@@ -55,6 +82,17 @@ public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServlet
 	@Override
 	public Map<String, String[]> getPrivateRenderParameterMap() {
 		return ((ResourceRequest) getRequest()).getPrivateRenderParameterMap();
+	}
+
+	@Override
+	public BufferedReader getReader() throws UnsupportedEncodingException {
+
+		try {
+			return ((ResourceRequest) getRequest()).getReader();
+		}
+		catch (IOException e) {
+			throw new UnsupportedEncodingException(e.getMessage());
+		}
 	}
 
 	@Override
