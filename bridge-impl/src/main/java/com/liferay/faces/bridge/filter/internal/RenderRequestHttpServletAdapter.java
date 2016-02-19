@@ -33,7 +33,6 @@ public class RenderRequestHttpServletAdapter extends PortletRequestHttpServletAd
 		super(renderRequest, characterEncoding);
 	}
 
-	@Override
 	public String getETag() {
 		return ((RenderRequest) getRequest()).getETag();
 	}
