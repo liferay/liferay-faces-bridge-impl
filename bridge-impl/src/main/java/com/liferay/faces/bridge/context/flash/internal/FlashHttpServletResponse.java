@@ -21,21 +21,20 @@ import javax.portlet.PortletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.context.internal.ExternalContextImpl;
-import com.liferay.faces.bridge.filter.internal.HttpServletResponseAdapter;
+import com.liferay.faces.bridge.filter.internal.PortletResponseHttpServletAdapter;
 
 
 /**
  * This class provides the ability to trick the JSF implementation into thinking that the current {@link
  * PortletResponse} is actually an {@link HttpServletResponse}. It serves as a marker class that simply extends {@link
- * HttpServletResponseAdapter}. It's only purpose is to make the code in {@link ExternalContextImpl} easier to follow by
- * providing a meaningful (self documenting) name.
+ * PortletResponseHttpServletAdapter}. It's only purpose is to make the code in {@link ExternalContextImpl} easier to
+ * follow by providing a meaningful (self documenting) name.
  *
  * @author  Neil Griffin
  */
-public class FlashHttpServletResponse extends HttpServletResponseAdapter {
+public class FlashHttpServletResponse extends PortletResponseHttpServletAdapter {
 
-	public FlashHttpServletResponse(PortletResponse portletResponse, Locale requestLocale) {
-		super(portletResponse, requestLocale);
+	public FlashHttpServletResponse(PortletResponse portletResponse, Locale locale) {
+		super(portletResponse, locale);
 	}
-
 }

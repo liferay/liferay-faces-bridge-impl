@@ -303,7 +303,8 @@ public class BridgeContextImpl extends BridgeContextCompatImpl {
 				redirectViewId = bridgeURI.getContextRelativePath(contextPath);
 			}
 
-			BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(bridgeContext, bridgeURI, parameters, redirectViewId);
+			BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(bridgeContext, bridgeURI, parameters,
+					redirectViewId);
 
 			if (isJSF2PartialRequest(facesContext)) {
 				bridgeRedirectURL.setParameter("_bridgeAjaxRedirect", "true");
