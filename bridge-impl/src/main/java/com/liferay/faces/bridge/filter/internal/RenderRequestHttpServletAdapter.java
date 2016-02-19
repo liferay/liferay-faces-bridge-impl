@@ -29,8 +29,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class RenderRequestHttpServletAdapter extends PortletRequestHttpServletAdapter implements RenderRequest {
 
-	public RenderRequestHttpServletAdapter(RenderRequest renderRequest) {
-		super(renderRequest);
+	public RenderRequestHttpServletAdapter(RenderRequest renderRequest, String characterEncoding) {
+		super(renderRequest, characterEncoding);
 	}
 
 	@Override
