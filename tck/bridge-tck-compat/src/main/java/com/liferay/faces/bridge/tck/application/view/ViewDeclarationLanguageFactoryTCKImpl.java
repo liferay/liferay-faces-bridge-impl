@@ -35,7 +35,7 @@ public class ViewDeclarationLanguageFactoryTCKImpl extends ViewDeclarationLangua
 	public ViewDeclarationLanguage getViewDeclarationLanguage(String viewId) {
 		ViewDeclarationLanguage viewDeclarationLanguage = getWrapped().getViewDeclarationLanguage(viewId);
 
-		if (viewDeclarationLanguage.getClass().getName().contains("ViewDeclarationLanguageJspImpl")) {
+		if (viewDeclarationLanguage.getClass().getName().contains("ViewDeclarationLanguageBridgeJspImpl")) {
 			viewDeclarationLanguage = new ViewDeclarationLanguageJspTCKImpl(viewDeclarationLanguage);
 		}
 
