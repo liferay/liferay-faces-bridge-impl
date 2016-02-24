@@ -2787,7 +2787,7 @@
 
 	<portlet>
 		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithModeRenderTest-portlet</portlet-name>
-		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
+		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.ActionURLWithModePortlet</portlet-class>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
