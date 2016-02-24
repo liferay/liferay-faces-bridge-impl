@@ -1313,37 +1313,36 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) ctx.getExternalContext().getRequest();
+			Map<String, String> requestParameterMap = ctx.getExternalContext().getRequestParameterMap();
+
+			String testName = testRunner.getTestName();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = pReq.getPortletMode();
+			String portletMode = requestParameterMap.get(testName + "-portletMode");
 
 			// Check that the parameter came along too
-			String pVal = ctx.getExternalContext().getRequestParameterMap().get("param1");
+			String param1 = requestParameterMap.get(testName + "-param1");
 
-			if ((mode == null) || !mode.toString().equalsIgnoreCase("edit")) {
+			if (!"edit".equals(portletMode)) {
 				testRunner.setTestResult(false,
 					"encodeActionURL incorrectly encoded the new portlet mode.  The resulting request wasn't in the expected 'edit' mode.");
 			}
-			else if (pVal == null) {
+			else if (param1 == null) {
 				testRunner.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new mode and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 			}
-			else if (!pVal.equals("testValue")) {
+			else if (!param1.equals("testValue")) {
 				testRunner.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new mode and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					param1);
 			}
 			else {
 				testRunner.setTestResult(true,
 					"encodeActionURL correctly encoded a portlet action URL containing a new mode and parameter.");
 			}
 
-			return "encodeActionURLWithModeRenderTest"; // action Navigation result
-		}
-		else {
 			testRunner.setTestComplete(true);
 
 			if (testRunner.getTestStatus()) {
@@ -1352,6 +1351,12 @@ public class Tests extends Object {
 			else {
 				return Constants.TEST_FAILED;
 			}
+		}
+		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+			return "encodeActionURLWithModeRenderTest"; // action Navigation result
+		}
+		else {
+			return "";
 		}
 	}
 
@@ -1544,6 +1549,9 @@ public class Tests extends Object {
 			}
 
 			return "encodeActionURLWithParamRenderTest"; // action Navigation result
+		}
+		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+			return "encodeActionURLWithModeRenderTest";
 		}
 		else {
 			testRunner.setTestComplete(true);
