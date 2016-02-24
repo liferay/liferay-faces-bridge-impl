@@ -1550,9 +1550,6 @@ public class Tests extends Object {
 
 			return "encodeActionURLWithParamRenderTest"; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			return "encodeActionURLWithModeRenderTest";
-		}
 		else {
 			testRunner.setTestComplete(true);
 
