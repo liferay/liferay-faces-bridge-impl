@@ -86,8 +86,8 @@ public class BridgeBookmarkableURLImpl extends BridgeURLInternalBase {
 				(portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE)) {
 
 			baseURL = createRenderURL(uri);
-			baseURL.setParameter(viewIdRenderParameterName, viewId);
 			baseURL.setParameters(getParameterMap());
+			baseURL.setParameter(viewIdRenderParameterName, viewId);
 		}
 
 		// Otherwise, log an error.
