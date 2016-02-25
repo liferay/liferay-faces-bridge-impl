@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<h:head/>
+	<h:body>
+		<h:form>
+			<h:panelGroup layout="block">
+				<h:outputLabel value="PPR Result: " />
+				<h:outputText id="pprResult" escape="false" value="#{test.testResourceResult}"/>
+				<h:commandButton id="runPPR" value="#{test.redisplayCommandName}">
+					<f:ajax render="@form"/>
+				</h:commandButton>
+				<h:commandButton id="clearTest" value="Clear Test" />
+			</h:panelGroup>
+		</h:form>
+	</h:body>
+</f:view>

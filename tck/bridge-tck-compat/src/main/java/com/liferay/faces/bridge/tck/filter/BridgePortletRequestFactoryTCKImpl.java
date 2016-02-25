@@ -20,12 +20,10 @@ import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
 import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
-import javax.portlet.filter.PortletRequestWrapper;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
@@ -78,45 +76,7 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 	@Override
 	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-
-		if (isPlutoPortletRequest(resourceRequest)) {
-			resourceRequest = getWrapped().getResourceRequest(resourceRequest, resourceResponse, portletConfig,
-					bridgeConfig);
-
-			return new ResourceRequestPlutoTCKImpl(resourceRequest);
-		}
-		else {
-			resourceRequest = getWrapped().getResourceRequest(resourceRequest, resourceResponse, portletConfig,
-					bridgeConfig);
-		}
-
-		return resourceRequest;
-	}
-
-	/**
-	 * Determines whether or not the specified {@link javax.portlet.PortletRequest} is one created by Liferay Portal. If
-	 * the specified {@link javax.portlet.PortletRequest} is an instance of {@link
-	 * javax.portlet.filter.PortletRequestWrapper} then it will work with the wrapped {@link
-	 * javax.portlet.PortletRequest}.
-	 *
-	 * @param   portletRequest  The current {@link javax.portlet.PortletRequest}.
-	 *
-	 * @return  true if the specified portletRequest was created by Pluto.
-	 */
-	protected boolean isPlutoPortletRequest(PortletRequest portletRequest) {
-
-		if (portletRequest != null) {
-
-			while (portletRequest instanceof PortletRequestWrapper) {
-				PortletRequestWrapper portletRequestWrapper = (PortletRequestWrapper) portletRequest;
-				portletRequest = portletRequestWrapper.getRequest();
-			}
-
-			return portletRequest.getClass().getName().startsWith("org.apache.pluto");
-		}
-		else {
-			return false;
-		}
+		return getWrapped().getResourceRequest(resourceRequest, resourceResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override

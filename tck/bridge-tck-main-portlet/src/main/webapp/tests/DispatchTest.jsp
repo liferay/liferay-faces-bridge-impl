@@ -15,6 +15,12 @@
 	else
 		request.setAttribute("com.liferay.faces.bridge.tck.dispatchForward", Boolean.FALSE);
 %>
-<jsp:include page="SingleRequestTest.jsp"/>
+<f:view>
+<h:form>
+	<h:panelGrid columns="1">
+		<h:outputText escape="false" value="#{test.renderTestResult}"/>
+	</h:panelGrid>
+</h:form>
+</f:view>
 </body>
 </html>

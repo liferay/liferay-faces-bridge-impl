@@ -438,15 +438,15 @@ public class Tests extends Object {
 		testRunner.setTestComplete(true);
 
 		final String PORTLET_RENDER_TEST_STRING =
-			"portlet:resource?_jsfBridgeViewId=/tests/SingleRequestTest.jsp&param1=value1&param2=value2";
+			"portlet:resource?_jsfBridgeViewId=/tests/singleRequestTest.xhtml&param1=value1&param2=value2";
 		final String PORTLET_RENDER_TEST_STRING_XMLENCODED =
-			"portlet:resource?_jsfBridgeViewId=/tests/SingleRequestTest.jsp&amp;param1=value1&amp;param2=value2";
+			"portlet:resource?_jsfBridgeViewId=/tests/singleRequestTest.xhtml&amp;param1=value1&amp;param2=value2";
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
 		MimeResponse response = (MimeResponse) extCtx.getResponse();
 		ResourceURL portletURL = response.createResourceURL();
-		portletURL.setParameter("_jsfBridgeViewId", "/tests/SingleRequestTest.jsp");
+		portletURL.setParameter("_jsfBridgeViewId", "/tests/singleRequestTest.xhtml");
 		portletURL.setParameter("param1", "value1");
 		portletURL.setParameter("param2", "value2");
 
@@ -2591,7 +2591,7 @@ public class Tests extends Object {
 
 		String viewId = ctx.getViewRoot().getViewId();
 
-		if (viewId.equals("/tests/SingleRequestTest.jsp")) {
+		if (viewId.equals("/tests/singleRequestTest.xhtml")) {
 
 			try {
 				extCtx.redirect(ctx.getApplication().getViewHandler().getResourceURL(ctx, "/tests/NonJSFView.portlet"));
@@ -2638,7 +2638,7 @@ public class Tests extends Object {
 			extCtx.getRequestMap().put("myRedirectRequestObject", Boolean.TRUE);
 
 			String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
-					"/tests/RedirectTestResultRenderCheck.jsp");
+					"/tests/redirectTestResultRenderCheck.xhtml");
 
 			try {
 				extCtx.redirect(target);
@@ -2658,7 +2658,7 @@ public class Tests extends Object {
 
 			String viewId = ctx.getViewRoot().getViewId();
 
-			if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
+			if (viewId.equals("/tests/redirectTestResultRenderCheck.xhtml")) {
 				// the redirect worked
 
 				// now verify that the scope wasn't saved.
@@ -2673,7 +2673,7 @@ public class Tests extends Object {
 			}
 			else {
 				testRunner.setTestResult(false,
-					"extCtx.redirect() during action failed as we weren't redirected to the new view. The viewId should be /tests/RedirectTestResultRenderCheck.jsp but is: " +
+					"extCtx.redirect() during action failed as we weren't redirected to the new view. The viewId should be /tests/redirectTestResultRenderCheck.xhtml but is: " +
 					viewId);
 			}
 
@@ -2713,7 +2713,7 @@ public class Tests extends Object {
 
 			String viewId = ctx.getViewRoot().getViewId();
 
-			if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
+			if (viewId.equals("/tests/redirectTestResultRenderCheck.xhtml")) {
 				// the redirect worked
 
 				// now verify that the scope wasn't saved.
@@ -2728,7 +2728,7 @@ public class Tests extends Object {
 			}
 			else {
 				testRunner.setTestResult(false,
-					"extCtx.redirect() during event failed as we weren't redirected to the new view. The viewId should be /tests/RedirectTestResultRenderCheck.jsp but is: " +
+					"extCtx.redirect() during event failed as we weren't redirected to the new view. The viewId should be /tests/redirectTestResultRenderCheck.xhtml but is: " +
 					viewId);
 			}
 
@@ -2765,9 +2765,9 @@ public class Tests extends Object {
 		else {
 			String viewId = ctx.getViewRoot().getViewId();
 
-			if (viewId.equals("/tests/MultiRequestTestResultRenderCheck.jsp")) {
+			if (viewId.equals("/tests/multiRequestTestResultRenderCheck.xhtml")) {
 				String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
-						"/tests/RedirectTestResultRenderCheck.jsp");
+						"/tests/redirectTestResultRenderCheck.xhtml");
 
 				try {
 					extCtx.redirect(extCtx.encodeActionURL(target));
@@ -2781,7 +2781,7 @@ public class Tests extends Object {
 
 				return "";
 			}
-			else if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
+			else if (viewId.equals("/tests/redirectTestResultRenderCheck.xhtml")) {
 				testRunner.setTestComplete(true);
 
 				// ensure that both the public render paramter and the model are there and have the same value
@@ -2853,9 +2853,9 @@ public class Tests extends Object {
 		else {
 			String viewId = ctx.getViewRoot().getViewId();
 
-			if (viewId.equals("/tests/MultiRequestTestResultRenderCheck.jsp")) {
+			if (viewId.equals("/tests/multiRequestTestResultRenderCheck.xhtml")) {
 				String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
-						"/tests/RedirectTestResultRenderCheck.jsp");
+						"/tests/redirectTestResultRenderCheck.xhtml");
 
 				try {
 					extCtx.redirect(target);
@@ -2869,7 +2869,7 @@ public class Tests extends Object {
 
 				return "";
 			}
-			else if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
+			else if (viewId.equals("/tests/redirectTestResultRenderCheck.xhtml")) {
 				testRunner.setTestComplete(true);
 
 				// ensure that both the public render paramter and the model are there and have the same value
@@ -2926,9 +2926,9 @@ public class Tests extends Object {
 
 		String viewId = ctx.getViewRoot().getViewId();
 
-		if (viewId.equals("/tests/SingleRequestTest.jsp")) {
+		if (viewId.equals("/tests/singleRequestTest.xhtml")) {
 			String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
-					"/tests/RedirectTestResultRenderCheck.jsp");
+					"/tests/redirectTestResultRenderCheck.xhtml");
 
 			try {
 				extCtx.redirect(target);
@@ -2942,7 +2942,7 @@ public class Tests extends Object {
 
 			return "";
 		}
-		else if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
+		else if (viewId.equals("/tests/redirectTestResultRenderCheck.xhtml")) {
 			testRunner.setTestComplete(true);
 			testRunner.setTestResult(true,
 				"extCtx.redirect() during render worked correctly as we were redirected to the new view.");
