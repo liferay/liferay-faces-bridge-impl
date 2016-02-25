@@ -21,13 +21,12 @@ import java.util.Map;
 import javax.faces.application.ViewHandler;
 import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewDeclarationLanguage;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.context.BridgeContext;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.product.ProductConstants;
 import com.liferay.faces.util.product.ProductMap;
 
@@ -38,9 +37,6 @@ import com.liferay.faces.util.product.ProductMap;
  * @author  Neil Griffin
  */
 public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
-
-	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(ViewHandlerCompatImpl.class);
 
 	// Public Constants
 	public static final String RESPONSE_CHARACTER_ENCODING = "com.liferay.faces.bridge.responseCharacterEncoding";
@@ -101,5 +97,20 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 		}
 
 		return redirectURL;
+	}
+
+	@Override
+	public ViewDeclarationLanguage getViewDeclarationLanguage(FacesContext context, String viewId) {
+
+		if (viewId != null) {
+
+			int pos = viewId.indexOf("?");
+
+			if (pos > 0) {
+				viewId = viewId.substring(0, pos);
+			}
+		}
+
+		return super.getViewDeclarationLanguage(context, viewId);
 	}
 }

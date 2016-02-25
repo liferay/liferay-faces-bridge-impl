@@ -47,7 +47,7 @@ public class ViewDeclarationLanguageFactoryBridgeImpl extends ViewDeclarationLan
 		boolean facelets = facesRuntimeViewDeclarationLanguage.getClass().toString().toLowerCase().contains("facelet");
 
 		if (facelets) {
-			return wrappedViewDeclarationLanguage;
+			return new ViewDeclarationLanguageBridgeFaceletImpl(wrappedViewDeclarationLanguage);
 		}
 		else {
 			return new ViewDeclarationLanguageBridgeJspImpl(wrappedViewDeclarationLanguage);

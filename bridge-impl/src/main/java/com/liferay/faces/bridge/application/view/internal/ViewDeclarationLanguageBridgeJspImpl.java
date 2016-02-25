@@ -21,7 +21,6 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewDeclarationLanguage;
-import javax.faces.view.ViewDeclarationLanguageWrapper;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
@@ -43,7 +42,7 @@ import com.liferay.faces.util.product.ProductMap;
  *
  * @author  Neil Griffin
  */
-public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguageWrapper {
+public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguageBridgeBase {
 
 	// Private Constants
 	private static final boolean MOJARRA_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
@@ -51,11 +50,8 @@ public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguag
 	private static final boolean MYFACES_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
 		.equals(ProductConstants.MYFACES);
 
-	// Private Data Members
-	private ViewDeclarationLanguage wrappedViewDeclarationLanguage;
-
 	public ViewDeclarationLanguageBridgeJspImpl(ViewDeclarationLanguage viewDeclarationLanguage) {
-		this.wrappedViewDeclarationLanguage = viewDeclarationLanguage;
+		super(viewDeclarationLanguage);
 	}
 
 	@Override
@@ -92,7 +88,7 @@ public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguag
 			}
 		}
 
-		// Delegate to the Mojarra/MyFaces ViewHandler.
+		// Delegate
 		super.buildView(facesContext, uiViewRoot);
 
 		// If Mojarra or MyFaces is detected, then un-decorate the PortletRequest.
@@ -104,15 +100,5 @@ public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguag
 		if (MYFACES_DETECTED) {
 			externalContext.setRequest(portletRequest);
 		}
-	}
-
-	@Override
-	public void renderView(FacesContext context, UIViewRoot view) throws IOException {
-		super.renderView(context, view);
-	}
-
-	@Override
-	public ViewDeclarationLanguage getWrapped() {
-		return wrappedViewDeclarationLanguage;
 	}
 }
