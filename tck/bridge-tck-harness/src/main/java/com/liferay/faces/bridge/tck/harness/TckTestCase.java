@@ -59,23 +59,19 @@ public class TckTestCase {
 	protected static Selenium sSelenium;
 
 	// XPaths for results using span ids
-	private static final String TEST_RESULT_NAME_XPATH = "//span[@id=\"{0}-test-name\"]";
 	private static final String TEST_RESULT_STATUS_XPATH = "//span[@id=\"{0}-result-status\"]";
 	private static final String TEST_RESULT_DETAIL_XPATH = "//span[@id=\"{0}-result-detail\"]";
 
-	// XPaths for Trinidad PPR results which do not include TCK
-	// span ids.
-	private static final String TEST_RESULT_NAME_PPR_XPATH = "//span[contains(.,\"{0}\")]";
+	// XPaths for Ajax results which do not include TCK span ids.
 	private static final String TEST_RESULT_STATUS_PPR_XPATH = "//span[contains(.,\"{0}\")]/p[contains(.,\"Status\")]";
-	private static final String TEST_RESULT_DETAIL_PPR_XPATH = "//span[contains(.,\"{0}\")]/p[3]";
 
 	private static final String[] ACTION_FPR_XPATHS = {
 			"//input[@type=\"submit\" and @value=\"Run Test\"]", "//a[text()=\"Run Test\"]"
 		};
 
 	private static final String[] ACTION_PPR_XPATHS = {
-			"//button[@class=\"portlet-form-button\" and contains(.,\"Run Test\")]",
-			"//a[@class=\"portlet-font\" and contains(.,\"Run Test\")]"
+			"//input[@class=\"portlet-form-button\" and contains(.,\"Run Test\")]",
+			"//a[@class=\"redisplay-link\" and contains(.,\"Run Test\")]"
 		};
 
 	private static final String IFRAME_XPATH = "//iframe[@name=\"tck-iframe\"]";
@@ -207,8 +203,6 @@ public class TckTestCase {
 
 	private String mPageName;
 	private String mTestName;
-
-	private Boolean mIsTrinidadPPR = null;
 
 	public TckTestCase(String pageName, String testName) {
 		mPageName = pageName;
@@ -447,7 +441,13 @@ outer:
 
 					// Click component
 					sSelenium.click(action);
-					sSelenium.waitForPageToLoad(MAX_WAIT);
+
+					try {
+						Thread.sleep(1000l);
+					}
+					catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 
 					if (isResultPage()) {
 

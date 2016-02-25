@@ -82,7 +82,7 @@ public class TestEventHandler implements BridgeEventHandler {
 		Map<String, Object> requestMap = extCtx.getRequestMap();
 
 		String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
-				"/tests/RedirectTestResultRenderCheck.jsp");
+				"/tests/redirectTestResultRenderCheck.xhtml");
 
 		try {
 			extCtx.redirect(target);

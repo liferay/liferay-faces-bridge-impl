@@ -56,8 +56,8 @@ public class Tests extends Object {
 
 			// Create and raise the event -- this ensures isAutoDispatchEvents will get called
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
-			response.setEvent(new QName("http://liferay.com/faces/event_ns",
-					"faces.liferay.com.tck.testEvent"), testRunner.getTestName());
+			response.setEvent(new QName("http://liferay.com/faces/event_ns", "faces.liferay.com.tck.testEvent"),
+				testRunner.getTestName());
 
 			return "isAutoDispatchEventsTest"; // action Navigation result
 		}

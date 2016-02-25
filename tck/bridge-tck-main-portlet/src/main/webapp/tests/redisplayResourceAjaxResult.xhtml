@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<h:head/>
+	<h:body>
+		<h:form>
+			<h:panelGroup layout="block">
+				<h:outputLabel value="PPR Result: " />
+				<h:outputText escape="false" id="pprResult" value="#{test.testResourceResult}"/>
+				<h:commandButton id="runPPR" actionListener="#{test.runActionListener}" styleClass="run-ppr-button"
+					value="#{test.redisplayCommandName}">
+					<f:ajax render="@form"/>
+				</h:commandButton>
+				<h:outputLink id="redisplayLink" styleClass="redisplay-link"
+							  value="portlet:render?_jsfBridgeViewId=_jsfBridgeCurrentView&amp;org.apache.portlet.faces.tck.redisplay=1">
+					<h:outputText value="#{test.redisplayLinkName}" />
+				</h:outputLink>
+			</h:panelGroup>
+		</h:form>
+	</h:body>
+</f:view>

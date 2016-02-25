@@ -42,11 +42,11 @@ public class PortletSetsViewTestPortlet extends GenericFacesTestSuitePortlet {
 		IOException {
 
 		if (getTestName().equals(SETSVIEWID_TEST)) {
-			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/PortletSetsViewIdTestSuccess.jsp");
+			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/portletSetsViewIdTestSuccess.xhtml");
 			super.doDispatch(renderRequest, renderResponse);
 		}
 		else if (getTestName().equals(SETSVIEWPATH_TEST)) {
-			renderRequest.setAttribute(Bridge.VIEW_PATH, "/tests/PortletSetsViewIdTestSuccess.jsf");
+			renderRequest.setAttribute(Bridge.VIEW_PATH, "/tests/portletSetsViewIdTestSuccess.jsf");
 			super.doDispatch(renderRequest, renderResponse);
 		}
 		else if (getTestName().equals(SETSINVALIDVIEWPATH_TEST)) {

@@ -14,13 +14,6 @@
 				</bridge:excluded-attribute>
 				<bridge:excluded-attribute>com.liferay.faces.bridge.tck.ExcludeByFacesConfigRef
 				</bridge:excluded-attribute>
-				<bridge:excluded-attribute>org.apache.myfaces.trinidadinternal.*</bridge:excluded-attribute>
-				<bridge:excluded-attribute>org.apache.myfaces.trinidadinternal.application.*</bridge:excluded-attribute>
-				<bridge:excluded-attribute>org.apache.myfaces.trinidadinternal.config.*</bridge:excluded-attribute>
-				<bridge:excluded-attribute>org.apache.myfaces.trinidadinternal.context.*</bridge:excluded-attribute>
-				<bridge:excluded-attribute>org.apache.myfaces.trinidadinternal.dispatch.*</bridge:excluded-attribute>
-				<bridge:excluded-attribute>org.apache.myfaces.trinidadinternal.renderkit.*</bridge:excluded-attribute>
-				<bridge:excluded-attribute>org.apache.myfaces.trinidadinternal.uinode.*</bridge:excluded-attribute>
 			</bridge:excluded-attributes>
 			<bridge:public-parameter-mappings>
 				<bridge:public-parameter-mapping>
@@ -66,6 +59,7 @@
 	</application>
 	<factory>
 		<application-factory>com.liferay.faces.bridge.tck.common.util.faces.application.TestSuiteApplicationFactoryImpl</application-factory>
+		<render-kit-factory>com.liferay.faces.bridge.tck.renderkit.TestRenderKitFactory</render-kit-factory>
 		<faces-context-factory>com.liferay.faces.bridge.tck.common.util.faces.context.TCK_FacesContextFactoryImpl</faces-context-factory>
 		<lifecycle-factory>com.liferay.faces.bridge.tck.common.util.faces.application.TestSuiteLifecycleFactoryImpl</lifecycle-factory>
 	</factory>
@@ -189,181 +183,181 @@
 		<from-view-id>/tests/*</from-view-id>
 		<navigation-case>
 			<from-outcome>multiRequestTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>requestProcessingNonFacesTest</from-outcome>
 			<to-view-id>
-				/tests/MultiRequestTestResultRenderCheck.jsp?_jsfBridgeNonFacesView=/tests/chapter4_2_5Result.jsp
+				/tests/multiRequestTestResultRenderCheck.xhtml?_jsfBridgeNonFacesView=/tests/chapter4_2_5Result.jsp
 			</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<!-- Chapter 3 Test -->
 	<navigation-rule>
-		<from-view-id>/tests/MultiRequestTest.jsp</from-view-id>
+		<from-view-id>/tests/multiRequestTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>actionDestroyTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<from-view-id>/tests/MultiRequestTest.jsp</from-view-id>
+		<from-view-id>/tests/multiRequestTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>eventDestroyTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<from-view-id>/tests/MultiRequestTest.jsp</from-view-id>
+		<from-view-id>/tests/multiRequestTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>actionNullRequestTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
 	<!-- Chapter 4 Test -->
 	<navigation-rule>
-		<from-view-id>/tests/MultiRequestTest.jsp</from-view-id>
+		<from-view-id>/tests/multiRequestTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>getFacesBridgeMethodTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>isAutoDispatchEventsTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
 	<!-- Chapter 5 Tests -->
 	<navigation-rule>
-		<from-view-id>/tests/MultiRequestTest.jsp</from-view-id>
+		<from-view-id>/tests/multiRequestTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>requestScopeRestartedOnActionTest_Action2</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>requestNoScopeOnRedirectTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>requestNoScopeOnModeChangeTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>requestRenderIgnoresScopeViaCreateViewTest</from-outcome>
-			<to-view-id>/tests/RedisplayRenderNewModeRequestTest.jsp</to-view-id>
+			<to-view-id>/tests/redisplayRenderNewModeRequestTest.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>requestRenderRedisplayTest</from-outcome>
-			<to-view-id>/tests/RedisplayRenderRequestTest.jsp</to-view-id>
+			<to-view-id>/tests/redisplayRenderRequestTest.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>requestRedisplayOutOfScopeTest</from-outcome>
-			<to-view-id>/tests/RedisplayRenderNewModeRequestTest.jsp</to-view-id>
+			<to-view-id>/tests/redisplayRenderNewModeRequestTest.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>excludedAttributesTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>verifyPortletPhaseTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>renderRedirectTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>prpUpdatedFromActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>facesContextReleasedActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>portletPhaseRemovedActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>isPostbackTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>noViewStateParamOnModeChangeTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.PortletMode=edit</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=edit</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>eventPhaseListenerTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>eventScopeRestoredTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>eventScopeNotRestoredRedirectTestEventNavigation</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>eventScopeNotRestoredModeChangedTestEventNavigation</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.PortletMode=edit</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=edit</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>eventControllerTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>eventNoHandlerPRPPreservedTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>scopeNotRestoredResourceTest</from-outcome>
-			<to-view-id>/tests/ResourceRequestTest.jsp</to-view-id>
+			<to-view-id>/tests/resourceRequestTest.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>facesContextReleasedEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>portletPhaseRemovedEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/tests/NonFacesResourceTest.jsp</from-view-id>
+		<from-view-id>/tests/nonFacesResourceTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>nonFacesResourceTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
 
 	<navigation-rule>
-		<from-view-id>/tests/NonFacesResourceTestStartPage.jsp</from-view-id>
+		<from-view-id>/tests/nonFacesResourceTestStartPage.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>nonFacesResourceTest</from-outcome>
-			<to-view-id>/tests/NonFacesResourceTest.jsp</to-view-id>
+			<to-view-id>/tests/nonFacesResourceTest.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
 
 	<navigation-rule>
-		<from-view-id>/tests/MultiRequestFormDataTest.jsp</from-view-id>
+		<from-view-id>/tests/multiRequestFormDataTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>requestPreserveActionParamsTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/tests/MultiRequestTest.jsp*</from-view-id>
+		<from-view-id>/tests/multiRequestTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>navigateToLastViewTest1</from-outcome>
-			<to-view-id>/tests/RedisplayActionRequestTest.jsp?com.liferay.faces.bridge.tck.testAttr=value1</to-view-id>
+			<to-view-id>/tests/redisplayActionRequestTest.xhtml?com.liferay.faces.bridge.tck.testAttr=value1</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>navigateToLastViewTest3</from-outcome>
@@ -372,240 +366,236 @@
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/tests/RedisplayActionRequestTest.jsp*</from-view-id>
+		<from-view-id>/tests/redisplayActionRequestTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>navigateToLastViewTest2</from-outcome>
-			<to-view-id>/tests/MultiRequestTest.jsp?javax.portlet.faces.PortletMode=edit</to-view-id>
+			<to-view-id>/tests/multiRequestTest.xhtml?javax.portlet.faces.PortletMode=edit</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
 
 	<!-- Chapter 6 Tests -->
 	<navigation-rule>
-		<from-view-id>/tests/MultiRequestTest.jsp</from-view-id>
+		<from-view-id>/tests/multiRequestTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>wrappedFacesContextTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLJSFViewActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithParamActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithModeActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidModeActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.PortletMode=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithWindowStateActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.WindowState=maximized&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.WindowState=maximized&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidWindowStateActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.WindowState=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.WindowState=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithSecurityActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.Secure=true&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.Secure=true&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidSecurityActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.Secure=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.Secure=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLJSFViewEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithParamEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithModeEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidModeEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.PortletMode=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithWindowStateEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.WindowState=maximized&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.WindowState=maximized&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidWindowStateEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.WindowState=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.WindowState=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithSecurityEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.Secure=true&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.Secure=true&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidSecurityEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?javax.portlet.faces.Secure=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.Secure=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLJSFViewRenderTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithParamRenderTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>encodeActionURLWithModeRenderTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidModeRenderTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithWindowStateRenderTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidWindowStateRenderTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithSecurityRenderTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidSecurityRenderTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getSetRequestObjectTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>setRequestCharacterEncodingActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getRequestHeaderMapActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getRequestHeaderMapEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getRequestHeaderValuesMapActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getRequestHeaderValuesMapEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>requestMapRequestScopeTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>requestMapPreDestroyRemoveWithinActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getRequestCharacterEncodingActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getRequestCharacterEncodingEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getRequestContentTypeActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getRequestContentTypeEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getResponseCharacterEncodingActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getResponseCharacterEncodingEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getResponseContentTypeActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getResponseContentTypeEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>redirectActionTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>redirectEventTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp?param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>redirectRenderPRP1Test</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>redirectRenderPRP2Test</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>portletNamingContainerClientIdConsistentTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>restoredViewStateParameterTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>setsIsPostbackAttributeTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/tests/TrinidadMultiRequest.jsp</from-view-id>
+		<from-view-id>/tests/multiRequestTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>usesConfiguredRenderKitTest</from-outcome>
-			<to-view-id>/tests/TrinidadMultiRequestTestResult.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestNonEscapedResult.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
 	<navigation-rule>
-		<from-view-id>/tests/MultiRequestFormDataTest.jsp</from-view-id>
+		<from-view-id>/tests/multiRequestFormDataTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>getRequestParameterMapCoreTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getRequestParameterPreserveParamsTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getRequestParameterNamesCoreTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>getRequestParameterNamesPreserveParamsTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>JSF_ELTest</from-outcome>
-			<to-view-id>/tests/MultiRequestTestResultRenderCheck.jsp</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<h:head/>
+	<h:body>
+		<h:form>
+			<h:panelGrid columns="1">
+				<h:inputText id="formDataField1" label="field1" value="value1" readonly="true"/>
+				<h:inputText id="formDataField2" label="field2" value="value2" readonly="true"/>
+				<h:commandButton value="Run Test" action="#{test.runActionTest}"/>
+			</h:panelGrid>
+		</h:form>
+	</h:body>
+</f:view>

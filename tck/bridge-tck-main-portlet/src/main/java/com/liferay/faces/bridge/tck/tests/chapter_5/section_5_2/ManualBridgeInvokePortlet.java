@@ -81,7 +81,7 @@ public class ManualBridgeInvokePortlet extends GenericFacesTestSuitePortlet {
 			bridge.doFacesRequest(renderRequest, renderResponse);
 		}
 		else if (getTestName().equals(VIEWIDWITHPARAM_TEST)) {
-			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/SingleRequestTest.jsp?param1=testValue");
+			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/singleRequestTest.xhtml?param1=testValue");
 			super.doDispatch(renderRequest, renderResponse);
 		}
 		else if (getTestName().equals(FACESCONTEXTRELEASED_ACTION_TEST) ||

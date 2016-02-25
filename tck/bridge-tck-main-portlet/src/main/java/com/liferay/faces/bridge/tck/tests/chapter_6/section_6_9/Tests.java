@@ -76,9 +76,9 @@ public class Tests extends Object {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name isn't in the ExternalContext.getRequestParameterValuesMap map during the action request.<br> ";
 			}
-			else if (!vals[0].equalsIgnoreCase("org.apache.myfaces.trinidad.core")) {
+			else if (!vals[0].equalsIgnoreCase("TestRenderKit")) {
 				detail +=
-					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterValuesMap map during the action request contains an unexpected value.  Expected: org.apache.myfaces.trinidad.core but received:" +
+					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterValuesMap map during the action request contains an unexpected value.  Expected: TestRenderKit but received:" +
 					vals[0] + ".<br> ";
 			}
 
@@ -88,9 +88,9 @@ public class Tests extends Object {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name isn't in the ExternalContext.getRequestParameterMap map during the action request.<br> ";
 			}
-			else if (!val.equalsIgnoreCase("org.apache.myfaces.trinidad.core")) {
+			else if (!val.equalsIgnoreCase("TestRenderKit")) {
 				detail +=
-					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterMap map during the action request contains an unexpected value.  Expected: org.apache.myfaces.trinidad.core but received:" +
+					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterMap map during the action request contains an unexpected value.  Expected: TestRenderKit but received:" +
 					val + ".<br> ";
 			}
 
@@ -147,9 +147,9 @@ public class Tests extends Object {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name isn't in the ExternalContext.getRequestParameterValuesMap map during the render request.<br> ";
 			}
-			else if (!vals[0].equalsIgnoreCase("org.apache.myfaces.trinidad.core")) {
+			else if (!vals[0].equalsIgnoreCase("TestRenderKit")) {
 				detail +=
-					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterValuesMap map during the render request contains an unexpected value.  Expected: org.apache.myfaces.trinidad.core but received:" +
+					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterValuesMap map during the render request contains an unexpected value.  Expected: TestRenderKit but received:" +
 					vals[0] + ".<br> ";
 			}
 
@@ -159,9 +159,9 @@ public class Tests extends Object {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name isn't in the ExternalContext.getRequestParameterMap map during the render request.<br> ";
 			}
-			else if (!val.equalsIgnoreCase("org.apache.myfaces.trinidad.core")) {
+			else if (!val.equalsIgnoreCase("TestRenderKit")) {
 				detail +=
-					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterMap map during the render request contains an unexpected value.  Expected: org.apache.myfaces.trinidad.core but received:" +
+					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterMap map during the render request contains an unexpected value.  Expected: TestRenderKit but received:" +
 					val + ".<br> ";
 			}
 
