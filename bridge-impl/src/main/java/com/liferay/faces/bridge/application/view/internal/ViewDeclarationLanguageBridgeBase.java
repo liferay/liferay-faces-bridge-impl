@@ -20,7 +20,8 @@ import java.io.IOException;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewDeclarationLanguage;
-import javax.faces.view.ViewDeclarationLanguageWrapper;
+
+import com.liferay.faces.util.application.view.ViewDeclarationLanguageWrapper;
 
 
 /**
