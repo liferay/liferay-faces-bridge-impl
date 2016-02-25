@@ -60,12 +60,29 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
 
 		logger.debug("fromAction=[{0}] outcome=[{1}]", fromAction, outcome);
 
-		NavigationCase navigationCase = getNavigationCase(facesContext, fromAction, outcome);
+		String queryString = null;
+		UIViewRoot uiViewRoot = facesContext.getViewRoot();
+		String viewId = uiViewRoot.getViewId();
 
-		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
+		if (viewId != null) {
+
+			int pos = viewId.indexOf("?");
+
+			if (pos > 0) {
+				queryString = viewId.substring(pos);
+				viewId = viewId.substring(0, pos);
+				uiViewRoot.setViewId(viewId);
+			}
+		}
+
+		NavigationCase navigationCase = getNavigationCase(facesContext, fromAction, outcome);
 
 		// Ask the wrapped NavigationHandler to perform the navigation.
 		wrappedNavigationHandler.handleNavigation(facesContext, fromAction, outcome);
+
+		if (queryString != null) {
+			uiViewRoot.setViewId(viewId.concat(queryString));
+		}
 
 		if (navigationCase != null) {
 
@@ -92,6 +109,7 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
 
 				if (toViewId != null) {
 
+					BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
 					PortletResponse portletResponse = bridgeContext.getPortletResponse();
 
 					if (portletResponse instanceof StateAwareResponse) {
