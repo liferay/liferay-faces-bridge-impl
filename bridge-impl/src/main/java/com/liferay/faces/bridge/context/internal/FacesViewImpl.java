@@ -30,9 +30,6 @@ public class FacesViewImpl implements FacesView {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(FacesViewImpl.class);
 
-	// Private Constants
-	private static final String EXTENSION_JSP = ".jsp";
-
 	// Private Data Members
 	private String viewId;
 	private String extension;
@@ -52,7 +49,6 @@ public class FacesViewImpl implements FacesView {
 		this.navigationQueryString = navigationQueryString;
 
 		if (configuredFacesServletMappings != null) {
-			ConfiguredServletMapping extensionMappedServletMapping = null;
 
 			// Determine whether or not the target viewId matches any of the path-mapped servlet-mapping entries.
 			for (ConfiguredServletMapping facesServletMapping : configuredFacesServletMappings) {
@@ -74,34 +70,69 @@ public class FacesViewImpl implements FacesView {
 			// If not path-mapped, then
 			if (!this.pathMapped) {
 
-				// Determine whether or not the target viewId matches any of the extension-mapped servlet-mapping
-				// entries.
+				// Find the first EXPLICIT extension-mapped servlet-mapping that might be found in the WEB-INF/web.xml
+				// descriptor.
+				ConfiguredServletMapping explicitFacesServletMapping = null;
+
 				for (ConfiguredServletMapping facesServletMapping : configuredFacesServletMappings) {
 
-					if (facesServletMapping.isExtensionMapped()) {
+					if (facesServletMapping.isExtensionMapped() && !facesServletMapping.isImplicit()) {
+						explicitFacesServletMapping = facesServletMapping;
 
-						if (extensionMappedServletMapping == null) {
-							extensionMappedServletMapping = facesServletMapping;
-						}
+						break;
+					}
+				}
 
-						logger.debug("Attempting to determine if viewId=[{0}] is extension-mapped to urlPattern=[{1}]",
-							viewId, facesServletMapping.getUrlPattern());
+				// If an EXPLICIT extension-mapped servlet-mapping is found in the WEB-INF/web.xml descriptor, then
+				if (explicitFacesServletMapping != null) {
 
-						if (facesServletMapping.isMatch(viewId)) {
-							this.extension = facesServletMapping.getExtension();
-							this.extensionMapped = true;
+					// Determine if the EXPLICIT extension-mapped servlet-mapping matches the extension of the viewId.
+					if (explicitFacesServletMapping.isMatch(viewId)) {
 
-							// See: http://issues.liferay.com/browse/FACES-1224
-							if (EXTENSION_JSP.equals(this.extension)) {
+						this.extension = explicitFacesServletMapping.getExtension();
+						this.extensionMapped = true;
+					}
 
-								// TCK TestPage159: getRequestServletPathTest
+					// Otherwise, determine if the viewId matches any of the IMPLICIT extension-mapped servlet-mappings.
+					else {
+
+						for (ConfiguredServletMapping facesServletMapping : configuredFacesServletMappings) {
+
+							if (facesServletMapping.isExtensionMapped() && facesServletMapping.isImplicit() &&
+									facesServletMapping.isMatch(viewId)) {
+
+								this.extension = facesServletMapping.getExtension();
+								this.extensionMapped = true;
+
+								// As required by Section 6.1.3.1 of the Spec for
+								// ExternalContext.getRequestServletMapping(), replace the extension of the viewId with
+								// the extension found in the EXPLICIT servlet-mapping. For example, replace ".xhtml"
+								// with ".jsf" or ".faces"
 								int pos = viewId.lastIndexOf(".");
 
 								if (pos > 0) {
+
+									// TCK TestPage159: getRequestServletPathTest
 									this.extension = configuredFacesServletMappings.get(0).getExtension();
 									this.viewId = viewId.substring(0, pos) + this.extension;
 								}
+
+								break;
 							}
+						}
+					}
+				}
+
+				// Otherwise, determine if the viewId matches any of the IMPLICIT extension-mapped servlet-mappings.
+				else {
+
+					for (ConfiguredServletMapping facesServletMapping : configuredFacesServletMappings) {
+
+						if (facesServletMapping.isExtensionMapped() && facesServletMapping.isImplicit() &&
+								facesServletMapping.isMatch(viewId)) {
+
+							this.extension = facesServletMapping.getExtension();
+							this.extensionMapped = true;
 
 							break;
 						}
@@ -137,10 +168,12 @@ public class FacesViewImpl implements FacesView {
 		}
 	}
 
+	@Override
 	public boolean isExtensionMapped() {
 		return extensionMapped;
 	}
 
+	@Override
 	public boolean isPathMapped() {
 		return pathMapped;
 	}
@@ -149,18 +182,22 @@ public class FacesViewImpl implements FacesView {
 		return (extensionMapped || pathMapped);
 	}
 
+	@Override
 	public String getExtension() {
 		return extension;
 	}
 
+	@Override
 	public String getQueryString() {
 		return navigationQueryString;
 	}
 
+	@Override
 	public String getServletPath() {
 		return servletPath;
 	}
 
+	@Override
 	public String getViewId() {
 		return viewId;
 	}
