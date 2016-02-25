@@ -42,7 +42,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -61,7 +61,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -80,7 +80,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.defaultRenderKitId</name>
@@ -107,12 +107,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ModeViewIdTest.jsp</value>
+			<value>/tests/modeViewIdTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/ModeViewIdResult.jsp</value>
+			<value>/tests/modeViewIdResult.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -133,7 +133,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -152,7 +152,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -179,7 +179,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -198,7 +198,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceDestroyTest.jsp</value>
+			<value>/tests/resourceDestroyTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -218,7 +218,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -237,7 +237,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/PortletSetsViewIdTestFailed.jsp</value>
+			<value>/tests/portletSetsViewIdTestFailed.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -256,7 +256,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/PortletSetsViewIdTestFailed.jsp</value>
+			<value>/tests/portletSetsViewIdTestFailed.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -275,7 +275,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -294,7 +294,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -330,15 +330,15 @@
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.help</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.excludedRequestAttributes</name>
@@ -378,15 +378,15 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_1.InitMethodTestPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.help</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.excludedRequestAttributes</name>
@@ -426,7 +426,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.automaticNonFacesViewDispatching</name>
@@ -460,15 +460,15 @@
 		</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.help</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -715,7 +715,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.autoDispatchEvents</name>
@@ -746,7 +746,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -773,7 +773,7 @@
 		</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -797,7 +797,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/RedisplayActionRequestTest.jsp</value>
+			<value>/tests/redisplayActionRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -828,7 +828,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -848,7 +848,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -868,12 +868,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTestResultRenderCheck.jsp</value>
+			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -895,7 +895,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestFormDataTest.jsp</value>
+			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -919,12 +919,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTestResultRenderCheck.jsp</value>
+			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -946,7 +946,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -967,12 +967,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTestResultRenderCheck.jsp</value>
+			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -994,7 +994,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -1020,7 +1020,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1039,7 +1039,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1058,7 +1058,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/PortletSetsViewIdTestFailed.jsp</value>
+			<value>/tests/portletSetsViewIdTestFailed.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1077,7 +1077,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1096,12 +1096,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/RedisplayRenderNewModeRequestTest.jsp</value>
+			<value>/tests/redisplayRenderNewModeRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTestResultRenderCheck.jsp</value>
+			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1123,7 +1123,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/RedisplayRenderNewModeRequestTest.jsp</value>
+			<value>/tests/redisplayRenderNewModeRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1145,7 +1145,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 			<!-- Test overrides and sets initial view explicitly in portlet -->
 		</init-param>
 
@@ -1165,7 +1165,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp?param1=testValue</value>
+			<value>/tests/singleRequestTest.xhtml?param1=testValue</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1184,7 +1184,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1206,7 +1206,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1226,7 +1226,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1246,7 +1246,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1265,7 +1265,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1284,7 +1284,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1303,7 +1303,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -1335,7 +1335,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -1367,7 +1367,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -1399,12 +1399,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -1438,7 +1438,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -1472,7 +1472,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1502,7 +1502,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1530,7 +1530,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1558,7 +1558,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1578,7 +1578,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1597,7 +1597,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceRequestTest.jsp</value>
+			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1616,7 +1616,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonFacesResourceTestStartPage.jsp</value>
+			<value>/tests/nonFacesResourceTestStartPage.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.automaticResourceDispatching</name>
@@ -1639,7 +1639,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1658,12 +1658,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/RedisplayResourceTrinidadResult.jsp</value>
-		</init-param>
-		<init-param>
-			<!-- Use the Trinidad RenderKit -->
-			<name>javax.portlet.faces.defaultRenderKitId</name>
-			<value>org.apache.myfaces.trinidad.core</value>
+			<value>/tests/redisplayResourceAjaxResult.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1683,7 +1678,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceRequestTest.jsp</value>
+			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1703,7 +1698,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceRequestTest.jsp</value>
+			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1723,12 +1718,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTestResultRenderCheck.jsp</value>
+			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1749,17 +1744,17 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.help</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1781,12 +1776,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 
@@ -1808,7 +1803,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestPRPTest.jsp</value>
+			<value>/tests/multiRequestPRPTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1830,7 +1825,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestPRPTest.jsp</value>
+			<value>/tests/multiRequestPRPTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.bridgePublicRenderParameterHandler</name>
@@ -1883,7 +1878,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1909,7 +1904,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/DispatchTest.jsp</value>
+			<value>/tests/dispatchTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 
@@ -1933,7 +1928,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 
@@ -1951,7 +1946,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1970,7 +1965,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -1989,7 +1984,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2008,7 +2003,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2027,7 +2022,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2046,7 +2041,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2065,7 +2060,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2084,7 +2079,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2103,12 +2098,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTestResultRenderCheck.jsp</value>
+			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2129,7 +2124,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2148,7 +2143,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2167,7 +2162,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2189,7 +2184,7 @@
         
         <init-param>
           <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/MultiRequestTest.jsp</value>
+          <value>/tests/multiRequestTest.xhtml</value>
         </init-param>
 
         <expiration-cache>0</expiration-cache>
@@ -2208,7 +2203,7 @@
         
         <init-param>
           <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/MultiRequestTest.jsp</value>
+          <value>/tests/multiRequestTest.xhtml</value>
         </init-param>
 
         <expiration-cache>0</expiration-cache>
@@ -2230,7 +2225,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewTest.jsp</value>
+			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2250,7 +2245,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewTest.jsp</value>
+			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2270,12 +2265,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewTest.jsp</value>
+			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTestResultRenderCheck.jsp</value>
+			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2297,7 +2292,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewTest.jsp</value>
+			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2317,7 +2312,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewTest.jsp</value>
+			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2338,7 +2333,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewTest.jsp</value>
+			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2358,7 +2353,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewResourceTest.jsp</value>
+			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2378,7 +2373,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewResourceTest.jsp</value>
+			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2398,12 +2393,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewResourceTest.jsp</value>
+			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTestResultRenderCheck.jsp</value>
+			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2425,7 +2420,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewResourceTest.jsp</value>
+			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2445,7 +2440,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewResourceTest.jsp</value>
+			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2466,7 +2461,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/NonJSFViewResourceTest.jsp</value>
+			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2485,7 +2480,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -2517,7 +2512,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -2549,12 +2544,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTestResultRenderCheck.jsp</value>
+			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -2588,7 +2583,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -2620,7 +2615,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -2652,7 +2647,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -2687,7 +2682,7 @@
         
         <init-param>
           <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/MultiRequestTest.jsp</value>
+          <value>/tests/multiRequestTest.xhtml</value>
         </init-param>
         
         <init-param>
@@ -2719,7 +2714,7 @@
         
         <init-param>
           <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/MultiRequestTest.jsp</value>
+          <value>/tests/multiRequestTest.xhtml</value>
         </init-param>
         
         <init-param>
@@ -2753,7 +2748,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2772,7 +2767,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2791,12 +2786,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.edit</name>
-			<value>/tests/MultiRequestTestResultRenderCheck.jsp</value>
+			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2817,7 +2812,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2836,7 +2831,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2855,7 +2850,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2876,7 +2871,7 @@
         
         <init-param>
           <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/MultiRequestTest.jsp</value>
+          <value>/tests/multiRequestTest.xhtml</value>
         </init-param>
         
         <expiration-cache>0</expiration-cache>
@@ -2895,7 +2890,7 @@
         
         <init-param>
           <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/MultiRequestTest.jsp</value>
+          <value>/tests/multiRequestTest.xhtml</value>
         </init-param>
         
         <expiration-cache>0</expiration-cache>
@@ -2915,13 +2910,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceTrinidadResult.jsp</value>
-		</init-param>
-
-		<init-param>
-			<!-- Use the Trinidad RenderKit -->
-			<name>javax.portlet.faces.defaultRenderKitId</name>
-			<value>org.apache.myfaces.trinidad.core</value>
+			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2940,13 +2929,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceTrinidadResult.jsp</value>
-		</init-param>
-
-		<init-param>
-			<!-- Use the Trinidad RenderKit -->
-			<name>javax.portlet.faces.defaultRenderKitId</name>
-			<value>org.apache.myfaces.trinidad.core</value>
+			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2965,13 +2948,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceTrinidadResult.jsp</value>
-		</init-param>
-
-		<init-param>
-			<!-- Use the Trinidad RenderKit -->
-			<name>javax.portlet.faces.defaultRenderKitId</name>
-			<value>org.apache.myfaces.trinidad.core</value>
+			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -2990,13 +2967,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceTrinidadResult.jsp</value>
-		</init-param>
-
-		<init-param>
-			<!-- Use the Trinidad RenderKit -->
-			<name>javax.portlet.faces.defaultRenderKitId</name>
-			<value>org.apache.myfaces.trinidad.core</value>
+			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3015,13 +2986,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceTrinidadResult.jsp</value>
-		</init-param>
-
-		<init-param>
-			<!-- Use the Trinidad RenderKit -->
-			<name>javax.portlet.faces.defaultRenderKitId</name>
-			<value>org.apache.myfaces.trinidad.core</value>
+			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3040,13 +3005,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceTrinidadResult.jsp</value>
-		</init-param>
-
-		<init-param>
-			<!-- Use the Trinidad RenderKit -->
-			<name>javax.portlet.faces.defaultRenderKitId</name>
-			<value>org.apache.myfaces.trinidad.core</value>
+			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3068,14 +3027,9 @@
         
         <init-param>
           <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/ResourceTrinidadResult.jsp</value>
+          <value>/tests/resourceAjaxResult.xhtml</value>
         </init-param>
-        
-        <init-param>
-          <name>javax.portlet.faces.defaultRenderKitId</name>
-          <value>org.apache.myfaces.trinidad.core</value>
-        </init-param>
-        
+
         <expiration-cache>0</expiration-cache>
 
        <supports>
@@ -3092,14 +3046,9 @@
         
         <init-param>
           <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/ResourceTrinidadResult.jsp</value>
+          <value>/tests/resourceAjaxResult.xhtml</value>
         </init-param>
-        
-        <init-param>
-          <name>javax.portlet.faces.defaultRenderKitId</name>
-          <value>org.apache.myfaces.trinidad.core</value>
-        </init-param>
-        
+
         <expiration-cache>0</expiration-cache>
 
        <supports>
@@ -3117,7 +3066,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3142,7 +3091,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3161,7 +3110,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3180,7 +3129,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3199,7 +3148,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3218,7 +3167,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3237,7 +3186,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3256,7 +3205,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3274,7 +3223,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3293,7 +3242,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3312,12 +3261,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceTrinidadResult.jsp</value>
-		</init-param>
-
-		<init-param>
-			<name>javax.portlet.faces.defaultRenderKitId</name>
-			<value>org.apache.myfaces.trinidad.core</value>
+			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3336,12 +3280,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceTrinidadResult.jsp</value>
-		</init-param>
-
-		<init-param>
-			<name>javax.portlet.faces.defaultRenderKitId</name>
-			<value>org.apache.myfaces.trinidad.core</value>
+			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3365,7 +3304,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3390,7 +3329,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3409,7 +3348,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3434,7 +3373,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3453,7 +3392,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -3485,7 +3424,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3504,7 +3443,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceRequestTest.jsp</value>
+			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3528,7 +3467,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3547,7 +3486,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -3579,7 +3518,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3598,7 +3537,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceRequestTest.jsp</value>
+			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3622,7 +3561,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3641,7 +3580,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.excludedRequestAttributes</name>
@@ -3671,7 +3610,7 @@
         
         <init-param>
           <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/MultiRequestTest.jsp</value>
+          <value>/tests/multiRequestTest.xhtml</value>
         </init-param>
         
        <supports>
@@ -3695,7 +3634,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestFormDataTest.jsp</value>
+			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3714,7 +3653,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestFormDataTest.jsp</value>
+			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -3738,7 +3677,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp?field1=value1&amp;field2=value2</value>
+			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3763,7 +3702,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestFormDataTest.jsp</value>
+			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3782,7 +3721,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestFormDataTest.jsp</value>
+			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -3806,7 +3745,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp?field1=value1&amp;field2=value2</value>
+			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3831,7 +3770,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp?field1=value1&amp;field2=value2</value>
+			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3850,7 +3789,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp?field1=value1&amp;field2=value2</value>
+			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3876,7 +3815,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp?field1=value1&amp;field2=value2</value>
+			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3894,7 +3833,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -3926,7 +3865,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3945,7 +3884,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceRequestTest.jsp</value>
+			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3964,7 +3903,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp?field1=value1&amp;field2=value2</value>
+			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -3983,7 +3922,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4002,7 +3941,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -4034,7 +3973,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceRequestTest.jsp</value>
+			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4053,7 +3992,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp?field1=value1&amp;field2=value2</value>
+			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4072,7 +4011,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4091,7 +4030,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -4124,7 +4063,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceRequestTest.jsp</value>
+			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4143,7 +4082,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp?field1=value1&amp;field2=value2</value>
+			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4162,7 +4101,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4181,7 +4120,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -4213,7 +4152,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ResourceRequestTest.jsp</value>
+			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4240,7 +4179,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4259,7 +4198,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -4291,7 +4230,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4310,7 +4249,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4330,7 +4269,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4350,7 +4289,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4376,7 +4315,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4395,7 +4334,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4414,7 +4353,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4433,7 +4372,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4452,7 +4391,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4471,7 +4410,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4490,7 +4429,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4509,7 +4448,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4528,7 +4467,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4547,7 +4486,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4566,7 +4505,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4585,7 +4524,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4604,7 +4543,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4623,7 +4562,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4642,7 +4581,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4661,7 +4600,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4680,7 +4619,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4705,7 +4644,7 @@
         
         <init-param>
           <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/SingleRequestTest.jsp</value>
+          <value>/tests/singleRequestTest.xhtml</value>
         </init-param>   
         
         <expiration-cache>0</expiration-cache>
@@ -4731,7 +4670,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4750,7 +4689,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/renderContentAfterViewTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4769,7 +4708,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestAfterContentTest.jsp</value>
+			<value>/tests/singleRequestAfterContentTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4788,7 +4727,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/ImplementsBridgeWriteBehindResponseTest.jsp</value>
+			<value>/tests/implementsBridgeWriteBehindResponseTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4813,7 +4752,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestFormDataTest.jsp</value>
+			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 
 		<init-param>
@@ -4889,7 +4828,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4908,7 +4847,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4927,7 +4866,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4946,7 +4885,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/SingleRequestTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4965,7 +4904,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4984,7 +4923,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/MultiRequestTest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -5003,13 +4942,12 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/TrinidadMultiRequest.jsp</value>
+			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 
 		<init-param>
-			<!-- Use the Trinidad RenderKit -->
 			<name>javax.portlet.faces.defaultRenderKitId</name>
-			<value>org.apache.myfaces.trinidad.core</value>
+			<value>TestRenderKit</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>

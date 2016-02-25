@@ -41,32 +41,32 @@ public class NonJSFViewBean {
 		if (testName.equals("encodeActionURLNonJSFViewRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewResourceTest")) {
 			return extCtx.getRequestContextPath() +
-				"/NonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true";
+				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true";
 		}
 		else if (testName.equals("encodeActionURLNonJSFViewWithParamRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewWithParamResourceTest")) {
 			return extCtx.getRequestContextPath() +
-				"/NonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;param1=testValue";
+				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;param1=testValue";
 		}
 		else if (testName.equals("encodeActionURLNonJSFViewWithModeRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewWithModeResourceTest")) {
 			return extCtx.getRequestContextPath() +
-				"/NonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.PortletMode=edit&amp;param1=testValue";
+				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.PortletMode=edit&amp;param1=testValue";
 		}
 		else if (testName.equals("encodeActionURLNonJSFViewWithInvalidModeRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewWithInvalidModeResourceTest")) {
 			return extCtx.getRequestContextPath() +
-				"/NonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.PortletMode=blue&amp;param1=testValue";
+				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.PortletMode=blue&amp;param1=testValue";
 		}
 		else if (testName.equals("encodeActionURLNonJSFViewWithWindowStateRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewWithWindowStateResourceTest")) {
 			return extCtx.getRequestContextPath() +
-				"/NonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.WindowState=maximized&amp;param1=testValue";
+				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.WindowState=maximized&amp;param1=testValue";
 		}
 		else if (testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest")) {
 			return extCtx.getRequestContextPath() +
-				"/NonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.WindowState=blue&amp;param1=testValue";
+				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.WindowState=blue&amp;param1=testValue";
 		}
 
 		return null;

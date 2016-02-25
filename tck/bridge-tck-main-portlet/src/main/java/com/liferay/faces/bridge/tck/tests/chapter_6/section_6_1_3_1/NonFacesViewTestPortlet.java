@@ -65,10 +65,10 @@ public class NonFacesViewTestPortlet extends GenericFacesTestSuitePortlet {
 		if (target == null) {
 			return outputTestResult(false, "_jsfBridgeNonFacesView parameter not (encoded in) nonFaces request.");
 		}
-		else if (!target.equalsIgnoreCase(request.getContextPath() + "/NonFacesViewTestPortlet.ptlt")) {
+		else if (!target.equalsIgnoreCase(request.getContextPath() + "/nonFacesViewTestPortlet.ptlt")) {
 			return outputTestResult(false,
 					"_jsfBridgeNonFacesView parameter (encoded in) nonFaces request but with unexpected value. Expected: " +
-					request.getContextPath() + "/NonFacesViewTestPortlet.ptlt" + "but received: " + target);
+					request.getContextPath() + "/nonFacesViewTestPortlet.ptlt" + "but received: " + target);
 		}
 
 		String testName = getTestName();

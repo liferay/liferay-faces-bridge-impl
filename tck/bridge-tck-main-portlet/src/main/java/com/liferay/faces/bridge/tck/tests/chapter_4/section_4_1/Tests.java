@@ -114,9 +114,9 @@ public class Tests extends Object {
 		String PARAM_NAMESPACE = "javax.portlet.faces.chapter4_1Tests-portletInitializationParametersTest-portlet.";
 		Map<String, Object> expectedInitParams = new HashMap<String, Object>();
 		Map<String, String> viewIds = new HashMap<String, String>();
-		viewIds.put("view", "/tests/SingleRequestTest.jsp");
-		viewIds.put("edit", "/tests/SingleRequestTest.jsp");
-		viewIds.put("help", "/tests/SingleRequestTest.jsp");
+		viewIds.put("view", "/tests/singleRequestTest.xhtml");
+		viewIds.put("edit", "/tests/singleRequestTest.xhtml");
+		viewIds.put("help", "/tests/singleRequestTest.xhtml");
 		expectedInitParams.put("defaultViewIdMap", viewIds);
 
 		expectedInitParams.put("excludedRequestAttributes", "exclude1,exclude2");

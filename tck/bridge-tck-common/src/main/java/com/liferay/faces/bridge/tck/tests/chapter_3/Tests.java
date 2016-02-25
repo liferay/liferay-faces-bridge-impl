@@ -187,10 +187,10 @@ public class Tests extends Object {
 		// Are we in the rightview???
 		String s = ctx.getViewRoot().getViewId();
 
-		if (!s.contains("ModeViewIdResult")) {
+		if (!s.contains("modeViewIdResult")) {
 			testRunner.setTestResult(false,
 				"defaultViewId test failed:  entered EDIT mode at view: " + s + " but the default is: " +
-				"ModeViewIdResult.jsp");
+				"modeViewIdResult.xhtml");
 
 			return Constants.TEST_FAILED;
 		}

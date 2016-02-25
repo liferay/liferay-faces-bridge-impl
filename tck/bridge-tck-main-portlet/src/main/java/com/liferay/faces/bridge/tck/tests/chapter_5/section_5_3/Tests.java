@@ -164,7 +164,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			String viewId = ctx.getViewRoot().getViewId();
 
-			if (viewId.equals("/tests/MultiRequestTest.jsp")) {
+			if (viewId.equals("/tests/multiRequestTest.xhtml")) {
 
 				if (mode.toString().equals("view")) {
 

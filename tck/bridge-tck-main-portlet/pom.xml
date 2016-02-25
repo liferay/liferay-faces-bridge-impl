@@ -67,11 +67,6 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.myfaces.trinidad</groupId>
-			<artifactId>trinidad-impl</artifactId>
-			<version>${tck.trinidad.version}</version>
-		</dependency>
 	</dependencies>
 
 	<properties>
@@ -280,15 +275,6 @@
 			<properties>
 				<bridge.tck.test.port>7001</bridge.tck.test.port>
 			</properties>
-			<dependencies>
-				<!-- FACES-1599: Trinidad API must only appear in the global classpath -->
-				<dependency>
-					<groupId>org.apache.myfaces.trinidad</groupId>
-					<artifactId>trinidad-api</artifactId>
-					<version>${tck.trinidad.version}</version>
-					<scope>provided</scope>
-				</dependency>
-			</dependencies>
 		</profile>
 		<profile>
 			<id>websphere</id>

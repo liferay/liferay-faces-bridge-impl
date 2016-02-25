@@ -70,7 +70,8 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 					getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName(),
 						"getBridgePublicRenderParameter returned null but a PRPHandler was configured.");
 				}
-				else if (prpHandler.getClass().getName().startsWith("com.liferay.faces.bridge.tck.tests.chapter_5.section_5_3.Tests")) {
+				else if (prpHandler.getClass().getName().startsWith(
+							"com.liferay.faces.bridge.tck.tests.chapter_5.section_5_3.Tests")) {
 					getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(),
 						"getBridgePublicRenderParameter correctly returned the configured PRPHandler instance.");
 				}

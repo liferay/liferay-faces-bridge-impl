@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<h:head/>
+	<h:body>
+		<h:form>
+			<h:panelGrid columns="1">
+				<h:commandButton value="#{test.redisplayCommandName}" action="#{test.runActionTest}"/>
+				<!-- Not a resource, but by rendering this value we avoid the premature check for test complete -->
+				<h:outputText escape="false" value="#{test.testResourceResult}"/>
+			</h:panelGrid>
+		</h:form>
+	</h:body>
+</f:view>

@@ -19,7 +19,7 @@
 	</h:form>
 	<%
 		ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
-		String resource = extCtx.encodeActionURL("portlet:resource?_jsfBridgeViewId=/tests/NonJSFViewTest.jsp");
+		String resource = extCtx.encodeActionURL("portlet:resource?_jsfBridgeViewId=/tests/nonJSFViewTest.xhtml");
 		out.println("<iframe src=\"" + resource + "\" width=\"100%\" height=\"400px\" name=\"tck-iframe\"/>");
 	%>
 	</body>
