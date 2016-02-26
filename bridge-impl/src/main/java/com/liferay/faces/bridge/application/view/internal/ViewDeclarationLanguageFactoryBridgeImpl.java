@@ -18,8 +18,6 @@ package com.liferay.faces.bridge.application.view.internal;
 import javax.faces.view.ViewDeclarationLanguage;
 import javax.faces.view.ViewDeclarationLanguageFactory;
 
-import com.liferay.faces.util.application.view.ViewDeclarationLanguageWrapper;
-
 
 /**
  * @author  Neil Griffin
