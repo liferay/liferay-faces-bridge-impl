@@ -41,10 +41,6 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 	// Public Constants
 	public static final String RESPONSE_CHARACTER_ENCODING = "com.liferay.faces.bridge.responseCharacterEncoding";
 
-	// Private Constants
-	private static final boolean MOJARRA_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
-		.equals(ProductConstants.MOJARRA);
-
 	/**
 	 * Mojarra 1.x does not have the ability to process faces-config navigation-rule entries with to-view-id containing
 	 * EL-expressions. This method compensates for that shortcoming by evaluating the EL-expression that may be present
@@ -81,7 +77,10 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
 		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
 
-		// Determine whether or not it is necessary to work-around the patch applied to Mojarra in JAVASERVERFACES-3023
+		// Determine whether or not it is necessary to work-around the patch applied to Mojarra in JAVASERVERFACES-3023.
+		// NOTE: The detection of Mojarra is normally done with a static private constant, but that is not possible on
+		// WildFly so the detection must be done here. For more information, see FACES-2621.
+		boolean MOJARRA_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle().equals(ProductConstants.MOJARRA);
 		boolean workaroundMojarra = (MOJARRA_DETECTED) &&
 			((portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) ||
 				(portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE));
