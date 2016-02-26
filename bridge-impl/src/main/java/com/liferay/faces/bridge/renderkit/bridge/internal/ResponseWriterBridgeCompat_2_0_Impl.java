@@ -49,33 +49,6 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 	protected static final String VIEW_STATE_MARKER = PartialResponseWriter.VIEW_STATE_MARKER;
 	protected static final String XML_MARKER = "<?xml";
 
-	// Private Constants
-	private static final boolean JSF_RUNTIME_SUPPORTS_NAMESPACING_VIEWSTATE;
-
-	static {
-		boolean jsfRuntimeNamespacesViewState = true;
-		Product jsf = ProductMap.getInstance().get(ProductConstants.JSF);
-
-		if (jsf.getTitle().equals(ProductConstants.MOJARRA)) {
-
-			if (jsf.getMajorVersion() == 2) {
-
-				if (jsf.getMinorVersion() == 1) {
-					jsfRuntimeNamespacesViewState = (jsf.getRevisionVersion() >= 27);
-				}
-				else if (jsf.getMinorVersion() == 2) {
-					jsfRuntimeNamespacesViewState = (jsf.getRevisionVersion() >= 4);
-				}
-			}
-		}
-
-		JSF_RUNTIME_SUPPORTS_NAMESPACING_VIEWSTATE = jsfRuntimeNamespacesViewState;
-
-		logger.debug("JSF runtime [{0}] version [{1}].[{2}].[{3}] supports namespacing [{4}]: [{5}]", jsf.getTitle(),
-			jsf.getMajorVersion(), jsf.getMinorVersion(), jsf.getRevisionVersion(),
-			ResponseStateManager.VIEW_STATE_PARAM, JSF_RUNTIME_SUPPORTS_NAMESPACING_VIEWSTATE);
-	}
-
 	// Protected Data Members
 	protected boolean namespacedParameters;
 
@@ -86,7 +59,7 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 		PortalContext portalContext = portletRequest.getPortalContext();
 		String namespacedParametersSupport = portalContext.getProperty(
 				BridgePortalContext.STRICT_NAMESPACED_PARAMETERS_SUPPORT);
-		this.namespacedParameters = (namespacedParametersSupport != null) && JSF_RUNTIME_SUPPORTS_NAMESPACING_VIEWSTATE;
+		this.namespacedParameters = (namespacedParametersSupport != null) && isNamespacedViewStateSupported();
 	}
 
 	/**
@@ -161,5 +134,32 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 		writeAttribute("value", viewState, null);
 		writeAttribute(ATTRIBUTE_AUTOCOMPLETE, VALUE_OFF, null);
 		endElement("input");
+	}
+
+	// FACES-2622: Normally the return value from this type of method would be done in a static block, but since that doesn't
+	// work in WildFly, the value must be determined during request processing instead.
+	protected boolean isNamespacedViewStateSupported() {
+
+		boolean namespacedViewStateSupported = true;
+		Product jsf = ProductMap.getInstance().get(ProductConstants.JSF);
+
+		if (jsf.getTitle().equals(ProductConstants.MOJARRA)) {
+
+			if (jsf.getMajorVersion() == 2) {
+
+				if (jsf.getMinorVersion() == 1) {
+					namespacedViewStateSupported = (jsf.getRevisionVersion() >= 27);
+				}
+				else if (jsf.getMinorVersion() == 2) {
+					namespacedViewStateSupported = (jsf.getRevisionVersion() >= 4);
+				}
+			}
+		}
+
+		logger.debug("JSF runtime [{0}] version [{1}].[{2}].[{3}] supports namespacing [{4}]: [{5}]", jsf.getTitle(),
+			jsf.getMajorVersion(), jsf.getMinorVersion(), jsf.getRevisionVersion(),
+			ResponseStateManager.VIEW_STATE_PARAM, namespacedViewStateSupported);
+
+		return namespacedViewStateSupported;
 	}
 }
