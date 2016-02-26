@@ -32,7 +32,7 @@ import com.liferay.faces.bridge.filter.internal.RenderRequestHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.RenderResponseHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.ResourceRequestHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.ResourceResponseHttpServletAdapter;
-import com.liferay.faces.util.application.view.ViewDeclarationLanguageWrapper;
+import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductConstants;
 import com.liferay.faces.util.product.ProductMap;
 
@@ -44,12 +44,6 @@ import com.liferay.faces.util.product.ProductMap;
  * @author  Neil Griffin
  */
 public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguageBridgeBase {
-
-	// Private Constants
-	private static final boolean MOJARRA_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
-		.equals(ProductConstants.MOJARRA);
-	private static final boolean MYFACES_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
-		.equals(ProductConstants.MYFACES);
 
 	public ViewDeclarationLanguageBridgeJspImpl(ViewDeclarationLanguage viewDeclarationLanguage) {
 		super(viewDeclarationLanguage);
@@ -63,7 +57,14 @@ public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguag
 		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
 
 		// If MyFaces is detected, then work-around a Servlet API dependency by decorating the PortletRequest with an
-		// adapter that implements HttpServletRequest.
+		// adapter that implements HttpServletRequest. FACES-2626: Discovery of Mojarra/MyFaces can't be in a static
+		// block or a private static variable.
+		ProductMap instance = ProductMap.getInstance();
+		Product product = instance.get(ProductConstants.JSF);
+		String title = product.getTitle();
+		boolean MOJARRA_DETECTED = title.equals(ProductConstants.MOJARRA);
+		boolean MYFACES_DETECTED = title.equals(ProductConstants.MYFACES);
+
 		if (MYFACES_DETECTED) {
 
 			if (portletRequest instanceof RenderRequest) {
