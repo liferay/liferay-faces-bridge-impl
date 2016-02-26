@@ -37,17 +37,9 @@ public class ViewDeclarationLanguageFactoryBridgeImpl extends ViewDeclarationLan
 	public ViewDeclarationLanguage getViewDeclarationLanguage(String viewId) {
 
 		ViewDeclarationLanguage wrappedViewDeclarationLanguage = getWrapped().getViewDeclarationLanguage(viewId);
-		ViewDeclarationLanguage facesRuntimeViewDeclarationLanguage = wrappedViewDeclarationLanguage;
+		String viewDeclarationLanguageId = wrappedViewDeclarationLanguage.getId();
 
-		while (facesRuntimeViewDeclarationLanguage instanceof ViewDeclarationLanguageWrapper) {
-			ViewDeclarationLanguageWrapper viewDeclarationLanguageWrapper = (ViewDeclarationLanguageWrapper)
-				facesRuntimeViewDeclarationLanguage;
-			facesRuntimeViewDeclarationLanguage = viewDeclarationLanguageWrapper.getWrapped();
-		}
-
-		boolean facelets = facesRuntimeViewDeclarationLanguage.getClass().toString().toLowerCase().contains("facelet");
-
-		if (facelets) {
+		if (viewDeclarationLanguageId.equals(ViewDeclarationLanguage.FACELETS_VIEW_DECLARATION_LANGUAGE_ID)) {
 			return new ViewDeclarationLanguageBridgeFaceletImpl(wrappedViewDeclarationLanguage);
 		}
 		else {
