@@ -667,7 +667,7 @@ public class PlutoTest extends TesterBase {
 		}
 		else {
 
-			// As of the time of this comment, only the jsf2-jsp-portlet did not render a fileUploadChooser on the
+			// As of the time of this comment, only the jsf-jsp-applicant-portlet did not render a fileUploadChooser on the
 			// front view
 			logger.log(Level.INFO, "clicking the Add Attachment button ...");
 			browser.findElement(By.xpath("//input[@type='submit' and @value='Add Attachment']")).click();
