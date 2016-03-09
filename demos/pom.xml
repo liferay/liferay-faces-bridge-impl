@@ -14,12 +14,12 @@
 	<name>Liferay Faces Bridge Demos</name>
 
 	<modules>
-		<module>jsf1-ipc-events-bookings-portlet</module>
-		<module>jsf1-ipc-events-customers-portlet</module>
-		<module>jsf1-ipc-pub-render-params-portlet</module>
-		<module>jsf1-portlet</module>
-		<module>jsf1-jsp-portlet</module>
-		<module>icefaces1-portlet</module>
+		<module>jsf-ipc-events-bookings-portlet</module>
+		<module>jsf-ipc-events-customers-portlet</module>
+		<module>jsf-ipc-pub-render-params-portlet</module>
+		<module>jsf-applicant-portlet</module>
+		<module>jsf-jsp-applicant-portlet</module>
+		<module>icefaces-applicant-portlet</module>
 	</modules>
 
 	<profiles>

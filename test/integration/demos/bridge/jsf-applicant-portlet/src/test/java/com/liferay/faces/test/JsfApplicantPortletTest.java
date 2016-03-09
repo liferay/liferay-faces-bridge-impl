@@ -45,7 +45,7 @@ import com.liferay.faces.test.util.TesterBase;
  * @author	Liferay Faces Team
  */
 @RunWith(Arquillian.class)
-public class JobPortletTest extends TesterBase {
+public class JsfApplicantPortletTest extends TesterBase {
 
 	// form tag found after submitting
 	private static final String formTagXpath = "//form[@method='post']";
@@ -107,7 +107,7 @@ public class JobPortletTest extends TesterBase {
 	private static final String windowInnerHeightXpath = "//em[@id='window.innerHeight']";
 	private static final String windowInnerWidthXpath = "//em[@id='window.innerWidth']";
 
-	static final String url = baseUrl + webContext + "/jsf1";
+	static final String url = baseUrl + webContext + "/jsf-applicant";
 
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;

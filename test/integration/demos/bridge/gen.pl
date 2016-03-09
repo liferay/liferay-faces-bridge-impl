@@ -52,8 +52,8 @@ my $foo;
 
 # hashes
 my %in = (
-   Jsf1PortletTest => "./jsf1-portlet/src/test/java/com/liferay/faces/test/Jsf1.java",
-   Icefaces1PortletTest => "./icefaces1-portlet/src/test/java/com/liferay/faces/test/Icefaces1.java",
+   JsfApplicantPortletTest => "./jsf-applicant-portlet/src/test/java/com/liferay/faces/test/JsfApplicant.java",
+   IcefacesApplicantPortletTest => "./icefaces-applicant-portlet/src/test/java/com/liferay/faces/test/IcefacesApplicant.java",
 );
 my %variables = ();
 my %xpaths = ();
