@@ -50,8 +50,8 @@ public class TesterBase {
 	private WebElement signedInText;
 
 	// elements for logging into liferay
-	private static final String lr70emailFieldXpath = "//input[contains(@id,'_com_liferay_login_web_portlet_LoginPortlet_login')]";
-	private static final String lr70passwordFieldXpath = "//input[contains(@id,'_com_liferay_login_web_portlet_LoginPortlet_password')]";
+	private static final String lr70emailFieldXpath = "//input[@id='_com_liferay_login_web_portlet_LoginPortlet_login']";
+	private static final String lr70passwordFieldXpath = "//input[@id='_com_liferay_login_web_portlet_LoginPortlet_password']";
 	private static final String lr70signInButtonXpath = "//button[@type='submit' and contains(@id,'_com_liferay_login_web_portlet_LoginPortlet_')]";
 
 	@FindBy(xpath = lr70emailFieldXpath)
@@ -84,7 +84,7 @@ public class TesterBase {
 	private WebElement menuButton;
 	@FindBy(xpath = menuPreferencesXpath)
 	private WebElement menuPreferences;
-	
+
 	private static final String editLinkXpath = "//a[contains(@id,'editLink')]";
 	@FindBy(xpath = editLinkXpath)
 	private WebElement editLink;
@@ -95,24 +95,34 @@ public class TesterBase {
 	public static final String baseUrl = System.getProperty("integration.url", "http://localhost:8080");
 	public static final String signInContext = System.getProperty("integration.signin", "/web/guest/home");
 	public static final String webContext = System.getProperty("integration.context", "/web/bridge-demos");
-	protected static final String signInUrl = baseUrl + signInContext;
+	protected static final String signInUrl;
+
+	static {
+
+		if ("liferay".equals(portal)) {
+			signInUrl = baseUrl + signInContext + "?p_p_id=com_liferay_login_web_portlet_LoginPortlet&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view";
+		}
+		else {
+			signInUrl = baseUrl + signInContext;
+		}
+	}
 
 
 	public void signIn(WebDriver browser) throws Exception {
 		logger.log(Level.INFO, "portal = " + portal);
 		if ("liferay".equals(portal)) {
-			signIn(browser, lr70emailField, lr70passwordField, lr70signInButton, signedInText, signedInTextXpath, "test@liferay.com", "test");
+			signIn(browser, lr70emailFieldXpath, lr70emailField, lr70passwordField, lr70signInButton, signedInText, signedInTextXpath, "test@liferay.com", "test");
 		} else if (portal.contains("liferay")) {
 			logger.log(Level.INFO, "assuming legacy emailFieldXpath = " + emailFieldXpath + " for sign in ...");
-			signIn(browser, emailField, passwordField, signInButton, signedInText, signedInTextXpath, "test@liferay.com", "test");
+			signIn(browser, emailFieldXpath, emailField, passwordField, signInButton, signedInText, signedInTextXpath, "test@liferay.com", "test");
 		} else if ("pluto".equals(portal)) {
-			signIn(browser, userName, password, loginButton, logout, logoutXpath, "pluto", "pluto");
+			signIn(browser, emailFieldXpath, userName, password, loginButton, logout, logoutXpath, "pluto", "pluto");
 		} else {
 			logger.log(Level.SEVERE, "not a supported portal for this tester base: portal = " + portal + "");
 		}
 	}
 
-	public void signIn(WebDriver browser, WebElement user, WebElement pass, WebElement button, WebElement text, String textXpath, String u, String p) throws Exception {
+	public void signIn(WebDriver browser, String emailFieldXpath, WebElement user, WebElement pass, WebElement button, WebElement text, String textXpath, String u, String p) throws Exception {
 
 		java.util.logging.Logger.getLogger("com.gargoylesoftware.htmlunit").setLevel(Level.OFF);
 
@@ -151,6 +161,7 @@ public class TesterBase {
 			return;
 		}
 
+		waitForElement(browser, emailFieldXpath);
 		user.clear();
 		user.sendKeys(u);
 		pass.clear();
