@@ -658,13 +658,6 @@ outer:
 					}
 				}
 			}
-
-			// No valid response, wait for about a sec and retry
-			try {
-				Thread.sleep(1000);
-			}
-			catch (InterruptedException ie) {
-			}
 		}
 
 		StringBuilder sb = new StringBuilder().append("No valid response to PPR action.\n").append(
