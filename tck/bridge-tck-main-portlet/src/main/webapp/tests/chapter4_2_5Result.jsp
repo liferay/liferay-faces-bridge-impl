@@ -1,5 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-		 import="javax.portlet.*, com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter, com.liferay.faces.bridge.tck.common.Constants" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter" %>
+<%@ page import="com.liferay.faces.bridge.tck.common.Constants" %>
 <%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
 
 <html>

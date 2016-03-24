@@ -10,10 +10,12 @@
 </head>
 <body>
 <%
-	if (request.getAttribute("javax.servlet.forward.servlet_path") != null)
+	if (request.getAttribute("javax.servlet.forward.servlet_path") != null) {
 		request.setAttribute("com.liferay.faces.bridge.tck.dispatchForward", Boolean.TRUE);
-	else
+	}
+	else {
 		request.setAttribute("com.liferay.faces.bridge.tck.dispatchForward", Boolean.FALSE);
+	}
 %>
 <f:view>
 <h:form>
