@@ -1,12 +1,15 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" session="true"
-		 import="java.util.*,
-		 		javax.faces.context.*,
-		 		javax.faces.component.*,
-		 		javax.servlet.*,
-		 		javax.portlet.*,
-		 		javax.portlet.faces.*,
-		 		javax.portlet.faces.preference.*" %>
+<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" session="true" %>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="java.util.Enumeration" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="javax.faces.context.FacesContext" %>
+<%@ page import="javax.faces.component.*" %>
+<%@ page import="javax.portlet.PortletRequest" %>
+<%@ page import="javax.portlet.PortletSession" %>
+<%@ page import="javax.portlet.faces.preference.Preference" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
