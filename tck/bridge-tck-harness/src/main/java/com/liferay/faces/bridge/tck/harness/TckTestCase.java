@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,6 +55,7 @@ import static junit.framework.Assert.fail;
 public class TckTestCase {
 
 	private static final String MAX_WAIT = "60000";
+	private static final String LESS_WAIT = "6000";
 	private static final int MAX_NUMBER_ACTIONS = 10;
 
 	protected static Selenium sSelenium;
@@ -108,6 +110,48 @@ public class TckTestCase {
 
 	// Name of button in login page
 	private static String sLoginButton;
+
+	// These few tests commented out below appear to work whether waiting using either:
+	//
+	// 1) waitFor("span", "id", "result-status");
+	//       or
+	// 2) waitForPageToLoad(LESS_WAIT)
+	// 
+	// Decided to leave them out of the list of magicPages, so
+	// they use the first wairFor noted above instead of waitForPageToLoad.
+	//
+	//	"encodeActionURLNonJSFViewRenderTest",
+	//	"encodeActionURLNonJSFViewWithInvalidModeRenderTest",
+	//	"encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest",
+	//	"encodeActionURLNonJSFViewWithModeRenderTest",
+	//	"encodeActionURLNonJSFViewWithWindowStateRenderTest",
+	//	"modeViewIDTest",
+
+	// These pages do not use the waitFor method since they either have their
+	// results in an iFrame, or require several clicks to get to their results
+	// or for some other reason.
+	private String[] magicPages = {
+		"scopeNotRestoredResourceTest",
+		"encodeActionURLNonJSFViewResourceTest",
+		"encodeActionURLNonJSFViewWithInvalidModeResourceTest",
+		"encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest",
+		"encodeActionURLNonJSFViewWithModeResourceTest",
+		"encodeActionURLNonJSFViewWithParamResourceTest",
+		"encodeActionURLNonJSFViewWithWindowStateResourceTest",
+		"navigateToLastViewTest",
+		"nonFacesResourceTest",
+		"processPRPInRestoreViewPhaseTest",
+		"prpModelUpdateTest",
+		"renderRedirectTest",
+		"requestProcessingNonFacesTest",
+		"requestRedisplayOutOfScopeTest",
+		"requestRenderIgnoresScopeViaCreateViewTest",
+		"requestRenderRedisplayTest",
+		"requestScopeRestartedOnActionTest"
+	};
+
+	private HashMap magicMap;
+	private boolean magic;
 
 	static {
 		log("static block");
@@ -432,6 +476,13 @@ public class TckTestCase {
 
 	private void performFPRAction() {
 
+		magicMap = new HashMap();
+		for ( String page : magicPages ) {
+			magicMap.put(page, "1");
+		}
+
+		magic = true;
+
 outer:
 		for (int i = 0; i < MAX_NUMBER_ACTIONS; i++) {
 
@@ -439,14 +490,23 @@ outer:
 
 				if (sSelenium.isElementPresent(action)) {
 
+					String title = sSelenium.getEval("selenium.browserbot.getUserWindow().document.getElementsByTagName('h2')[0].innerHTML");
+					String name = (title.split("-"))[1];
+
 					// Click component
 					sSelenium.click(action);
 
-					try {
-						Thread.sleep(1000l);
-					}
-					catch (InterruptedException e) {
-						e.printStackTrace();
+					if (magicMap.get(name) == null) {
+
+						if (magic && "scopeAfterRedisplayResourcePPRTest".equals(name)) {
+							waitFor("a", "innerHTML", "Run Test");
+							magic = false;
+						} else {
+							waitFor("span", "id", "result-status");
+						}
+
+					} else {
+						sSelenium.waitForPageToLoad(LESS_WAIT);
 					}
 
 					if (isResultPage()) {
@@ -472,6 +532,19 @@ outer:
 				" actions have been performed on this portlet without any final result.\n").append(
 				sSelenium.getBodyText());
 		throw new SeleniumException(sb.toString());
+	}
+
+	private void waitFor(String tag, String part, String contains) {
+			String js =
+				"var elements = selenium.browserbot.getUserWindow().document.getElementsByTagName('" + tag + "'), e, result=undefined; " +
+				"for (var i=0; i<elements.length; i++) { " +
+					"e = elements[i]; " +
+					"if (e." + part + ".indexOf('" + contains + "') > -1) { " +
+						"result=e;" +
+					"} " +
+				"} " +
+				"result !== undefined;";
+			sSelenium.waitForCondition(js, LESS_WAIT);
 	}
 
 	private void performPPRAction() {
