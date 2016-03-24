@@ -36,6 +36,11 @@ public class EventRequestBridgeImpl extends EventRequestWrapper {
 	}
 
 	@Override
+	public Object getAttribute(String name) {
+		return RequestAttributeUtil.getAttribute(getRequest(), name);
+	}
+
+	@Override
 	public PortalContext getPortalContext() {
 		return bridgePortalContext;
 	}
