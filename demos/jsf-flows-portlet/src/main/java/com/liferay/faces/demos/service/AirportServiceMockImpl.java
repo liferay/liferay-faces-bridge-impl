@@ -51,7 +51,7 @@ public class AirportServiceMockImpl implements AirportService {
 	// Private Constants
 	private static final String AIRPORTS_FILENAME = "airports.csv";
 	private static final String AIRPORTS_URL =
-		"http://sourceforge.net/p/openflights/code/757/tree/openflights/data/airports.dat?format=raw";
+		"https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat";
 	private static final String CANADA = "Canada";
 	private static final String JAVA_IO_TMPDIR = "java.io.tmpdir";
 	private static final String UNITED_STATES = "United States";
@@ -74,9 +74,9 @@ public class AirportServiceMockImpl implements AirportService {
 			URL url = null;
 
 			try {
-				logger.info("Downloading url=[{0}]", url);
-
 				url = new URL(AIRPORTS_URL);
+
+				logger.info("Downloading url=[{0}]", url);
 
 				InputStream inputStream = url.openStream();
 				OutputStream outputStream = new FileOutputStream(airportsFile);
