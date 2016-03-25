@@ -93,10 +93,6 @@
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.cdi</groupId>
-			<artifactId>cdi-portlet-bridge-shared</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.liferay.faces.bridge</groupId>
 			<artifactId>liferay-faces-bridge-impl</artifactId>
 			<version>${project.version}</version>
@@ -106,9 +102,8 @@
 			<artifactId>liferay-faces-alloy</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces.bridge</groupId>
-			<artifactId>liferay-faces-cdi-weld</artifactId>
-			<version>${project.version}</version>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
 		</dependency>
 	</dependencies>
 
