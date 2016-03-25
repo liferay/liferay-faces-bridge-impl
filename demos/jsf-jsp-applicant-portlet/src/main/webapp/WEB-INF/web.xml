@@ -32,17 +32,7 @@
 	<!-- MyFaces will not initialize unless a servlet-mapping to the Faces Servlet is present. -->
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.xhtml</url-pattern>
-	</servlet-mapping>
-	<!-- For Extension Mapped Tests -->
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.faces</url-pattern>
-	</servlet-mapping>
-	<!-- For Path Mapped Tests -->
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>/faces/*</url-pattern>
 	</servlet-mapping>
 	<security-constraint>
 		<display-name>Prevent direct access to Facelet XHTML</display-name>
