@@ -66,12 +66,13 @@ public class TckTestCase {
 	private static final String TEST_RESULT_STATUS_PPR_XPATH = "//span[contains(.,\"{0}\")]/p[contains(.,\"Status\")]";
 
 	private static final String[] ACTION_FPR_XPATHS = {
-			"//input[@type=\"submit\" and @value=\"Run Test\"]", "//a[text()=\"Run Test\"]"
+			"//input[not(@class=\"run-ppr-button\") and @type=\"submit\" and @value=\"Run Test\"]",
+			"//a[not(@class=\"ppr-redisplay-link\") and text()=\"Run Test\"]"
 		};
 
 	private static final String[] ACTION_PPR_XPATHS = {
-			"//input[@class=\"portlet-form-button\" and contains(.,\"Run Test\")]",
-			"//a[@class=\"redisplay-link\" and contains(.,\"Run Test\")]"
+			"//input[@class=\"run-ppr-button\" and @value=\"Run Test\"]",
+			"//a[@class=\"ppr-redisplay-link\" and contains(.,\"Run Test\")]"
 		};
 
 	private static final String IFRAME_XPATH = "//iframe[@name=\"tck-iframe\"]";
@@ -441,13 +442,7 @@ outer:
 
 					// Click component
 					sSelenium.click(action);
-
-					try {
-						Thread.sleep(1000l);
-					}
-					catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+					sSelenium.waitForPageToLoad(MAX_WAIT);
 
 					if (isResultPage()) {
 
