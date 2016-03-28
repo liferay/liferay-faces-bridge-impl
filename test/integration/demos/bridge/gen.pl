@@ -53,7 +53,6 @@ my $foo;
 # hashes
 my %in = (
    JsfApplicantPortletTest => "./jsf-applicant-portlet/src/test/java/com/liferay/faces/test/JsfApplicant.java",
-   JsfJspApplicantPortletTest => "./jsf-jsp-applicant-portlet/src/test/java/com/liferay/faces/test/JsfJspApplicant.java",
    JsfCdiApplicantPortletTest => "./jsf-cdi-applicant-portlet/src/test/java/com/liferay/faces/test/JsfCdiApplicant.java",
    JsfHtml5ApplicantPortletTest => "./jsf-html5-applicant-portlet/src/test/java/com/liferay/faces/test/JsfHtml5Applicant.java",
    JsfSpringApplicantPortletTest => "./jsf-spring-applicant-portlet/src/test/java/com/liferay/faces/test/JsfSpringApplicant.java",
