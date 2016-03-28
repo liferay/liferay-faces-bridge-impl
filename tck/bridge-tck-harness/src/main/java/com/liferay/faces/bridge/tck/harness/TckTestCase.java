@@ -71,7 +71,7 @@ public class TckTestCase {
 		};
 
 	private static final String[] ACTION_PPR_XPATHS = {
-			"//input[@class=\"run-ppr-button\" and @value=\"Run Test\"]",
+			"//input[@class=\"run-ppr-button\" and @type=\"submit\" and @value=\"Run Test\"]",
 			"//a[@class=\"ppr-redisplay-link\" and contains(.,\"Run Test\")]"
 		};
 
