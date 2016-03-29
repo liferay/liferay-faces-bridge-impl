@@ -41,37 +41,36 @@ public class FACES1638PortletTest extends TesterBase {
 
 	private static final String formTagXpath = "//form[@method='post']";
 
-	private static final String firstByItemIdXpath = "//a[contains(@href,'portlet_itemId') and text()='First-Item']";
-	private static final String secondByItemIdXpath = "//a[contains(@href,'portlet_itemId') and text()='Second-Item']";
-	private static final String thirdByItemIdXpath = "//a[contains(@href,'portlet_itemId') and text()='Third-Item']";
+	private static final String firstLinkWithItemIdParamXpath = "//a[contains(@href,'1638') and contains(@href,'_itemId=') and text()='First-Item']";
+	private static final String secondLinkWithItemIdParamXpath = "//a[contains(@href,'1638') and contains(@href,'_itemId=') and text()='Second-Item']";
+	private static final String thirdLinkWithItemIdParamXpath = "//a[contains(@href,'1638') and contains(@href,'_itemId=') and text()='Third-Item']";
 
-	private static final String firstByItemNameXpath = "//a[contains(@href,'portlet_First-Item') and text()='First-Item']";
-	private static final String secondByItemNameXpath = "//a[contains(@href,'portlet_Second-Item') and text()='Second-Item']";
-	private static final String thirdByItemNameXpath = "//a[contains(@href,'portlet_Third-Item') and text()='Third-Item']";
+	private static final String firstLinkWithItemNameParamXpath = "//a[contains(@href,'1638') and contains(@href,'_First-Item=') and text()='First-Item']";
+	private static final String secondLinkWithItemNameParamXpath = "//a[contains(@href,'1638') and contains(@href,'_Second-Item=') and text()='Second-Item']";
+	private static final String thirdLinkWithItemNameParamXpath = "//a[contains(@href,'1638') and contains(@href,'_Third-Item=') and text()='Third-Item']";
 
 	// http://localhost:8080/web/bridge-issues/faces-1638?p_p_id=1_WAR_FACES1638portlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_1_WAR_FACES1638portlet__facesViewIdRender=%2Fviews%2Fview1.xhtml&_1_WAR_FACES1638portlet_itemId=3
 	// http://localhost:8080/web/bridge-issues/faces-1638?p_p_id=1_WAR_FACES1638portlet&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_count=1&_1_WAR_FACES1638portlet__facesViewIdRender=%2Fviews%2Fview1.xhtml&_1_WAR_FACES1638portlet_First-Item=1
 
 	static final String url = baseUrl + webContext + "/faces-1638";
-	static final String ITEM_ID = "itemId=";
-	static final String ITEM_NAME = "-Item=";
+	static final String ITEM_ID = "itemId";
 
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;
 
-	@FindBy(xpath = firstByItemIdXpath)
-	private WebElement firstByItemId;
-	@FindBy(xpath = secondByItemIdXpath)
-	private WebElement secondByItemId;
-	@FindBy(xpath = thirdByItemIdXpath)
-	private WebElement thirdByItemId;
+	@FindBy(xpath = firstLinkWithItemIdParamXpath)
+	private WebElement firstLinkWithItemIdParam;
+	@FindBy(xpath = secondLinkWithItemIdParamXpath)
+	private WebElement secondLinkWithItemIdParam;
+	@FindBy(xpath = thirdLinkWithItemIdParamXpath)
+	private WebElement thirdLinkWithItemIdParam;
 
-	@FindBy(xpath = firstByItemNameXpath)
-	private WebElement firstByItemName;
-	@FindBy(xpath = secondByItemNameXpath)
-	private WebElement secondByItemName;
-	@FindBy(xpath = thirdByItemNameXpath)
-	private WebElement thirdByItemName;
+	@FindBy(xpath = firstLinkWithItemNameParamXpath)
+	private WebElement firstLinkWithItemNameParam;
+	@FindBy(xpath = secondLinkWithItemNameParamXpath)
+	private WebElement secondLinkWithItemNameParam;
+	@FindBy(xpath = thirdLinkWithItemNameParamXpath)
+	private WebElement thirdLinkWithItemNameParam;
 
 	@Drone
 	WebDriver browser;
@@ -93,38 +92,31 @@ public class FACES1638PortletTest extends TesterBase {
 
 		assertTrue("formTag.isDisplayed()", formTag.isDisplayed());
 
-		int firstItemIndex = firstByItemId.getAttribute("href").indexOf(ITEM_ID) + ITEM_ID.length();
-		String firstItemID = firstByItemId.getAttribute("href").substring(firstItemIndex);
-		logger.log(Level.INFO, "firstItemID = " + firstItemID);
-		assertTrue("firstItemID should equal 1, but it does not.", firstItemID.equals("1"));
+		testLink(firstLinkWithItemIdParam, ITEM_ID, "1", firstLinkWithItemIdParamXpath);
+		testLink(secondLinkWithItemIdParam, ITEM_ID, "2", secondLinkWithItemIdParamXpath);
+		testLink(thirdLinkWithItemIdParam, ITEM_ID, "3", thirdLinkWithItemIdParamXpath);
 
-		int secondItemIndex = secondByItemId.getAttribute("href").indexOf(ITEM_ID) + ITEM_ID.length();
-		String secondItemID = secondByItemId.getAttribute("href").substring(secondItemIndex);
-		logger.log(Level.INFO, "secondItemID = " + secondItemID);
-		assertTrue("secondItemID should equal 2, but it does not", secondItemID.equals("2"));
-
-		int thirdItemIndex = thirdByItemId.getAttribute("href").indexOf(ITEM_ID) + ITEM_ID.length();
-		String thirdItemID = thirdByItemId.getAttribute("href").substring(thirdItemIndex);
-		logger.log(Level.INFO, "thirdItemID = " + thirdItemID);
-		assertTrue("thirdItemID should equal 3, but it does not", thirdItemID.equals("3"));
-
-
-		firstItemIndex = firstByItemName.getAttribute("href").indexOf(ITEM_NAME) + ITEM_NAME.length();
-		String firstItemName = firstByItemName.getAttribute("href").substring(firstItemIndex);
-		logger.log(Level.INFO, "firstItemName = " + firstItemName);
-		assertTrue("firstItemName should equal 1, but it does not.", firstItemName.equals("1"));
-
-		secondItemIndex = secondByItemName.getAttribute("href").indexOf(ITEM_NAME) + ITEM_NAME.length();
-		String secondItemName = secondByItemName.getAttribute("href").substring(secondItemIndex);
-		logger.log(Level.INFO, "secondItemName = " + secondItemName);
-		assertTrue("firstItemName should equal 2, but it does not", secondItemName.equals("2"));
-
-		thirdItemIndex = thirdByItemName.getAttribute("href").indexOf(ITEM_NAME) + ITEM_NAME.length();
-		String thirdItemName = thirdByItemName.getAttribute("href").substring(thirdItemIndex);
-		logger.log(Level.INFO, "thirdItemName = " + thirdItemName);
-		assertTrue("firstItemName should equal 3, but it does not", thirdItemName.equals("3"));
-
+		testLink(firstLinkWithItemNameParam, "First-Item", "1", firstLinkWithItemNameParamXpath);
+		testLink(secondLinkWithItemNameParam, "Second-Item", "2", secondLinkWithItemNameParamXpath);
+		testLink(thirdLinkWithItemNameParam, "Third-Item", "3", thirdLinkWithItemNameParamXpath);
 	}
 
+	private int countSubstringOccurrences(String string, String substring) {
+		return (string.length() - string.replace(substring, "").length()) / substring.length();
+	}
+
+	private void testLink(WebElement link, String parameterName, String expectedParameterValue, String linkXpath) {
+
+		String href = link.getAttribute("href");
+		// Add one to remove the equals (=) sign.
+		int parameterValueIndex = href.indexOf(parameterName) + parameterName.length() + 1;
+		String parameterValue = href.substring(parameterValueIndex, parameterValueIndex + 1);
+		logger.log(Level.INFO, "{0} = {1}", new Object[] { parameterName, parameterValue });
+		assertTrue(parameterName + " should equal " + expectedParameterValue + ", for\n" + linkXpath +
+			"\nbut it does not.", parameterValue.equals(expectedParameterValue));
+		int count = countSubstringOccurrences(href, parameterName);
+		assertTrue(parameterName + " occured " + count + " times in the href attribute of\n" + linkXpath + ".\n" +
+			parameterName + " should occur exactly once.", count == 1);
+	}
 }
 //J+
