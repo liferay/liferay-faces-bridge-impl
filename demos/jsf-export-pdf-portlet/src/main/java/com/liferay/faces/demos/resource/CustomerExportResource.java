@@ -19,6 +19,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.application.Resource;
@@ -156,9 +157,13 @@ public class CustomerExportResource extends Resource {
 		return requestPath;
 	}
 
+	
 	@Override
 	public Map<String, String> getResponseHeaders() {
-		return null;
+		Map<String, String> responseHeaders = new HashMap<String, String>();
+		String fileName = customer.getLastName() + "-" + customer.getFirstName() + ".pdf";
+		responseHeaders.put("Content-Disposition", "attachment; filename=" + fileName + ";");
+	return responseHeaders;
 	}
 
 	@Override
