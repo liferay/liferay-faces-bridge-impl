@@ -163,6 +163,7 @@ public class CustomerExportResource extends Resource {
 		responseHeaders.put("Content-Disposition", "attachment; filename=" + fileName + ";");
 		return responseHeaders;
 	}
+
 	@Override
 	public URL getURL() {
 		return null;
