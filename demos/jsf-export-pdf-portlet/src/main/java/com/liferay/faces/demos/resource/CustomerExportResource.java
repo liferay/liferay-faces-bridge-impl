@@ -158,7 +158,10 @@ public class CustomerExportResource extends Resource {
 
 	@Override
 	public Map<String, String> getResponseHeaders() {
-		return null;
+		Map<String, String> responseHeaders = new HashMap<String, String>();
+		String fileName = customer.getLastName() + "-" + customer.getFirstName() + ".pdf";
+		responseHeaders.put("Content-Disposition", "attachment; filename=" + fileName + ";");
+		return responseHeaders;
 	}
 
 	@Override
