@@ -18,6 +18,7 @@ package com.liferay.faces.bridge.context.internal;
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.ExternalContextFactory;
+import javax.portlet.Portlet;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -51,9 +52,11 @@ public class ExternalContextFactoryImpl extends ExternalContextFactory {
 		// initialization.
 		if (context instanceof PortletContext) {
 
-			ExternalContext externalContext = new ExternalContextImpl((PortletContext) context,
-					(PortletRequest) request, (PortletResponse) response);
-			String resourceName = externalContext.getRequestParameterMap().get("javax.faces.resource");
+			PortletContext portletContext = (PortletContext) context;
+			PortletRequest portletRequest = (PortletRequest) request;
+			PortletResponse portletResponse = (PortletResponse) response;
+			ExternalContext externalContext = new ExternalContextImpl(portletContext, portletRequest, portletResponse);
+			String resourceName = portletRequest.getParameter("javax.faces.resource");
 
 			// Workaround for FACES-2133
 			if ("org.richfaces.resource.MediaOutputResource".equals(resourceName)) {

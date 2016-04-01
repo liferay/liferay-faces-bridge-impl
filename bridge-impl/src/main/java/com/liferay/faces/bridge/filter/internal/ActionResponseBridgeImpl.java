@@ -20,8 +20,8 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.portlet.ActionResponse;
 
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
 
 /**
@@ -58,8 +58,7 @@ public class ActionResponseBridgeImpl extends ActionResponseBridgeCompatImpl {
 
 		// Set a flag on the {@link BridgeRequestScope} indicating that a <redirect />
 		// occurred which means that the request attributes should not be preserved.
-		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-		BridgeRequestScope bridgeRequestScope = bridgeContext.getBridgeRequestScope();
+		BridgeRequestScope bridgeRequestScope = RequestMapUtil.getBridgeRequestScope(facesContext);
 		bridgeRequestScope.setRedirectOccurred(true);
 	}
 }

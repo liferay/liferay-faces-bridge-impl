@@ -19,5 +19,10 @@ package com.liferay.faces.bridge.internal;
  * @author  Neil Griffin
  */
 public interface BridgeExt {
+
 	public static final String FACES_AJAX_PARAMETER = "_jsfBridgeAjax";
+	public static final String RENDER_REDIRECT = "com.liferay.faces.bridge.renderRedirect";
+	public static final String RENDER_REDIRECT_AFTER_DISPATCH = "com.liferay.faces.bridge.renderRedirectAfterDispatch";
+	public static final String RENDER_REDIRECT_VIEW_ID = "com.liferay.faces.bridge.renderRedirectViewId";
+	public static final String RESPONSE_CHARACTER_ENCODING = "com.liferay.faces.bridge.responseCharacterEncoding";
 }

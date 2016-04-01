@@ -180,7 +180,7 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 			throw new BridgeException(t);
 		}
 		finally {
-			cleanup();
+			cleanup(eventRequest);
 		}
 	}
 
@@ -271,7 +271,7 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 
 			if (phaseListener instanceof IPCPhaseListener) {
 				IPCPhaseListener ipcPhaseListener = (IPCPhaseListener) phaseListener;
-				ipcPhaseListener.processOutgoingPublicRenderParameters(bridgeContext, facesContext);
+				ipcPhaseListener.processOutgoingPublicRenderParameters(facesContext);
 
 				break;
 			}

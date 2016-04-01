@@ -20,8 +20,6 @@ import java.util.Map;
 
 import javax.portlet.BaseURL;
 
-import com.liferay.faces.bridge.context.BridgeContext;
-
 
 /**
  * This class represents a relative {@link BaseURL}, meaning an implementation that simply wraps a String based URL that
@@ -40,23 +38,20 @@ public class BaseURLRelativeStringImpl extends BaseURLNonEncodedStringImpl {
 	private String contextPath;
 	private String toStringValue;
 
-	public BaseURLRelativeStringImpl(String url, Map<String, String[]> parameterMap, BridgeContext bridgeContext) {
+	public BaseURLRelativeStringImpl(String url, Map<String, String[]> parameterMap, String contextPath) {
 		super(url, parameterMap);
-		this.contextPath = bridgeContext.getPortletRequest().getContextPath();
+		this.contextPath = contextPath;
 	}
 
 	@Override
 	public String toString() {
 
 		if (toStringValue == null) {
+
 			toStringValue = super.toString();
 
 			if (toStringValue.startsWith(RELATIVE_PATH_PREFIX)) {
-				StringBuilder buf = new StringBuilder();
-				buf.append(contextPath);
-				buf.append("/");
-				buf.append(toStringValue.substring(RELATIVE_PATH_PREFIX.length()));
-				toStringValue = buf.toString();
+				toStringValue = contextPath.concat("/").concat(toStringValue.substring(RELATIVE_PATH_PREFIX.length()));
 			}
 		}
 

@@ -15,7 +15,8 @@
  */
 package com.liferay.faces.bridge.bean.internal;
 
-import java.util.Map;
+import javax.portlet.PortletContext;
+import javax.servlet.ServletContext;
 
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductConstants;
@@ -28,13 +29,27 @@ import com.liferay.faces.util.product.ProductMap;
 public class PreDestroyInvokerFactoryImpl extends PreDestroyInvokerFactory {
 
 	@Override
-	public PreDestroyInvoker getPreDestroyInvoker(Map<String, Object> applicationMap) {
+	public PreDestroyInvoker getPreDestroyInvoker(ServletContext servletContext) {
 
 		Product jsf = ProductMap.getInstance().get(ProductConstants.JSF);
 
 		if (jsf.isDetected() && ProductConstants.MOJARRA.equals(jsf.getTitle())) {
 
-			return new PreDestroyInvokerMojarraImpl(applicationMap);
+			return new PreDestroyInvokerMojarraImpl(servletContext);
+		}
+		else {
+			return new PreDestroyInvokerImpl();
+		}
+	}
+
+	@Override
+	public PreDestroyInvoker getPreDestroyInvoker(PortletContext portletContext) {
+
+		Product jsf = ProductMap.getInstance().get(ProductConstants.JSF);
+
+		if (jsf.isDetected() && ProductConstants.MOJARRA.equals(jsf.getTitle())) {
+
+			return new PreDestroyInvokerMojarraImpl(portletContext);
 		}
 		else {
 			return new PreDestroyInvokerImpl();

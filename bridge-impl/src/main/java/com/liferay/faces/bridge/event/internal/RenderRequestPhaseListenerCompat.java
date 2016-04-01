@@ -18,7 +18,6 @@ package com.liferay.faces.bridge.event.internal;
 import javax.portlet.PortletConfig;
 
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
-import com.liferay.faces.bridge.context.BridgeContext;
 
 
 /**
@@ -26,10 +25,7 @@ import com.liferay.faces.bridge.context.BridgeContext;
  */
 public class RenderRequestPhaseListenerCompat {
 
-	protected boolean isViewParametersEnabled(BridgeContext bridgeContext) {
-
-		PortletConfig portletConfig = bridgeContext.getPortletConfig();
-
+	protected boolean isViewParametersEnabled(PortletConfig portletConfig) {
 		return PortletConfigParam.ViewParametersEnabled.getBooleanValue(portletConfig);
 	}
 }

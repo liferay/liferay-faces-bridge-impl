@@ -149,30 +149,37 @@ public class BridgeConfigImpl implements BridgeConfig {
 		this.viewIdRenderParameterName = PortletConfigParam.ViewIdRenderParameterName.getStringValue(portletConfig);
 	}
 
+	@Override
 	public Map<String, Object> getAttributes() {
 		return bridgeConfigAttributeMap;
 	}
 
+	@Override
 	public Set<String> getExcludedRequestAttributes() {
 		return excludedRequestAttributes;
 	}
 
+	@Override
 	public Map<String, String[]> getPublicParameterMappings() {
 		return publicParameterMappings;
 	}
 
+	@Override
 	public String getViewIdRenderParameterName() {
 		return viewIdRenderParameterName;
 	}
 
+	@Override
 	public String getViewIdResourceParameterName() {
 		return viewIdResourceParameterName;
 	}
 
+	@Override
 	public String getWriteBehindRenderResponseWrapper() {
 		return writeBehindRenderResponseWrapper;
 	}
 
+	@Override
 	public String getWriteBehindResourceResponseWrapper() {
 		return writeBehindResourceResponseWrapper;
 	}

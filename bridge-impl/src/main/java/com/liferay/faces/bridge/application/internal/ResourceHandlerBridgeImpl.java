@@ -22,7 +22,6 @@ import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.application.Resource;
@@ -36,8 +35,8 @@ import javax.portlet.PortletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.BridgePortalContext;
+import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -70,12 +69,7 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 	 */
 	public static boolean isEncodedFacesResourceURL(String url) {
 
-		if ((url != null) && (url.indexOf(ENCODED_RESOURCE_TOKEN) > 0)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return (url != null) && (url.indexOf(ENCODED_RESOURCE_TOKEN) > 0);
 	}
 
 	/**
@@ -87,12 +81,7 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 	 */
 	public static boolean isFacesResourceURL(String url) {
 
-		if ((url != null) && (url.indexOf("javax.faces.resource") >= 0)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return (url != null) && (url.contains("javax.faces.resource"));
 	}
 
 	@Override
@@ -156,15 +145,14 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 			if (logger.isTraceEnabled()) {
 
 				// Surround with isTraceEnabled check in order to avoid unnecessary creation of object array.
-				logger.trace("Handling - resourceName=[{0}], libraryName[{1}]",
-					new Object[] { resourceName, libraryName });
+				logger.trace("Handling - resourceName=[{0}], libraryName[{1}]", resourceName, libraryName);
 			}
 
 			// FACES-57: Provide the opportunity for applications to decorate the createResource methods of this
 			// class by delegating creation of the resource to the chain-of-responsibility found in the application's
 			// ResourceHandler.
 			ResourceHandler resourceHandlerChain = facesContext.getApplication().getResourceHandler();
-			Resource resource = null;
+			Resource resource;
 
 			if (libraryName == null) {
 				resource = resourceHandlerChain.createResource(resourceName);
@@ -188,7 +176,7 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 
 		boolean needsUpdate = resource.userAgentNeedsUpdate(facesContext);
 
-		if (!isAbleToSetHttpStatusCode()) {
+		if (!isAbleToSetHttpStatusCode(facesContext)) {
 
 			if (!needsUpdate) {
 				needsUpdate = true;
@@ -208,8 +196,7 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 
 			if (bufferSize == null) {
 
-				BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-				PortletConfig portletConfig = bridgeContext.getPortletConfig();
+				PortletConfig portletConfig = RequestMapUtil.getPortletConfig(facesContext);
 				bufferSize = PortletConfigParam.ResourceBufferSize.getIntegerValue(portletConfig);
 			}
 
@@ -226,10 +213,8 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 					Map<String, String> responseHeaderMap = resource.getResponseHeaders();
 
 					if (responseHeaderMap != null) {
-						Iterator<Map.Entry<String, String>> itr = responseHeaderMap.entrySet().iterator();
 
-						while (itr.hasNext()) {
-							Map.Entry<String, String> mapEntry = itr.next();
+						for (Map.Entry<String, String> mapEntry : responseHeaderMap.entrySet()) {
 							String name = mapEntry.getKey();
 							String value = mapEntry.getValue();
 							externalContext.setResponseHeader(name, value);
@@ -238,8 +223,7 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 
 								// Surround with isDebugEnabled check in order to avoid unnecessary creation
 								// of object array.
-								logger.debug("Handling - COPIED resource header name=[{0}] value=[{1}]",
-									new Object[] { name, value });
+								logger.debug("Handling - COPIED resource header name=[{0}] value=[{1}]", name, value);
 							}
 						}
 					}
@@ -317,17 +301,15 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 					if (logger.isDebugEnabled()) {
 						logger.debug(
 							"HANDLED (SC_OK) resourceName=[{0}], libraryName[{1}], responseContentType=[{4}], responseContentLength=[{5}]",
-							new Object[] {
-								resource.getResourceName(), resource.getLibraryName(), responseContentType,
-								responseContentLength
-							});
+							resource.getResourceName(), resource.getLibraryName(), responseContentType,
+							responseContentLength);
 					}
 				}
 				else {
 					externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
 					logger.error(
 						"NOT HANDLED (SC_NOT_FOUND) because InputStream was null - resourceName=[{0}], libraryName[{1}]",
-						new Object[] { resource.getResourceName(), resource.getLibraryName() });
+						resource.getResourceName(), resource.getLibraryName());
 				}
 			}
 			catch (IOException e) {
@@ -358,16 +340,16 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 
 				// Surround with isDebugEnabled check in order to avoid unnecessary creation of object array.
 				logger.debug("HANDLED (SC_NOT_MODIFIED) resourceName=[{0}], libraryName[{1}]",
-					new Object[] { resource.getResourceName(), resource.getLibraryName() });
+					resource.getResourceName(), resource.getLibraryName());
 			}
 
 		}
 	}
 
-	private boolean isAbleToSetHttpStatusCode() {
+	private boolean isAbleToSetHttpStatusCode(FacesContext facesContext) {
 
-		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-		PortletRequest portletRequest = bridgeContext.getPortletRequest();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 		PortalContext portalContext = portletRequest.getPortalContext();
 		String setHttpStatusCodeSupport = portalContext.getProperty(BridgePortalContext.SET_HTTP_STATUS_CODE_SUPPORT);
 
@@ -385,7 +367,7 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 
 		if (resourceId != null) {
 			logger.debug("Found {0} request parameter and recognized resourceId=[{1}] as a resource",
-				new Object[] { "javax.faces.resource", resourceId });
+				"javax.faces.resource", resourceId);
 
 			return true;
 		}

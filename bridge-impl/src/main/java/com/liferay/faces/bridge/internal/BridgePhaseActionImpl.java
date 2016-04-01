@@ -138,7 +138,7 @@ public class BridgePhaseActionImpl extends BridgePhaseCompat_2_2_Impl {
 			throw new BridgeException(t);
 		}
 		finally {
-			cleanup();
+			cleanup(actionRequest);
 		}
 	}
 }

@@ -30,7 +30,7 @@ import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 import com.liferay.faces.bridge.component.internal.UIViewRootBridgeImpl;
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.BridgeConfigAttributeMap;
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.config.ConfiguredSystemEventListener;
 
 
@@ -83,8 +83,8 @@ public class ApplicationImpl extends ApplicationCompatImpl {
 
 					// Need to check again within the synchronization block, just in case.
 					if (subscribeToEventsAtRuntime) {
-						BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-						BridgeConfig bridgeConfig = bridgeContext.getBridgeConfig();
+						FacesContext facesContext = FacesContext.getCurrentInstance();
+						BridgeConfig bridgeConfig = RequestMapUtil.getBridgeConfig(facesContext);
 						List<ConfiguredSystemEventListener> configuredSystemEventListeners =
 							(List<ConfiguredSystemEventListener>) bridgeConfig.getAttributes().get(
 								BridgeConfigAttributeMap.CONFIGURED_SYSTEM_EVENT_LISTENERS);
@@ -120,8 +120,8 @@ public class ApplicationImpl extends ApplicationCompatImpl {
 	 * META-INF/faces-config.xml file, the bridge must use
 	 * &lt;ordering&gt;&lt;before&gt;&lt;others/&gt;&lt;/before&gt;&lt;/others&gt; in order to maintain compatibility
 	 * with ICEfaces and other component libraries. So because of this, it is necessary to provide this override of the
-	 * {@link #getNavigationHandler()} method in order to ensure that the {@link BridgeNavigationHandler} is the
-	 * outermost instance.
+	 * getNavigationHandler method in order to ensure that the {@link BridgeNavigationHandler} is the outermost
+	 * instance.
 	 */
 	@Override
 	public NavigationHandler getNavigationHandler() {

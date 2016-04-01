@@ -20,13 +20,14 @@ import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputFile;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
+import javax.portlet.PortletRequest;
 import javax.servlet.http.Part;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.component.inputfile.InputFile;
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.ContextMapFactory;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.logging.Logger;
@@ -110,8 +111,10 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 
 		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
 				ContextMapFactory.class);
-		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
 
-		return contextMapFactory.getUploadedFileMap(bridgeContext);
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+
+		return contextMapFactory.getUploadedFileMap(portletRequest);
 	}
 }

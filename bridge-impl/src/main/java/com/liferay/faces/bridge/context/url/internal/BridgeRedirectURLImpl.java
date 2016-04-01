@@ -25,7 +25,7 @@ import javax.portlet.BaseURL;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.context.url.BridgeURI;
 
 
@@ -37,10 +37,12 @@ public class BridgeRedirectURLImpl extends BridgeURLInternalBase {
 	// Private Data Members
 	private BridgeURI bridgeURI;
 
-	public BridgeRedirectURLImpl(BridgeContext bridgeContext, BridgeURI bridgeURI, Map<String, List<String>> parameters,
-		String viewId) {
+	public BridgeRedirectURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
+		String viewIdRenderParameterName, String viewIdResourceParameterName, Map<String, List<String>> parameters,
+		BridgeConfig bridgeConfig) {
 
-		super(bridgeContext, bridgeURI, viewId);
+		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
+			bridgeConfig);
 
 		this.bridgeURI = bridgeURI;
 

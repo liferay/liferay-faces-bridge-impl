@@ -17,7 +17,6 @@ package com.liferay.faces.bridge.context.url;
 
 import java.net.URISyntaxException;
 
-
 import org.junit.Test;
 
 import com.liferay.faces.bridge.context.url.internal.BridgeURIImpl;

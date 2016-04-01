@@ -15,11 +15,19 @@
  */
 package com.liferay.faces.bridge.context.url.internal;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
-import com.liferay.faces.bridge.context.BridgeContext;
+import javax.portlet.faces.Bridge;
+
+import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.config.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.bridge.context.url.BridgeURLBase;
+import com.liferay.faces.bridge.util.internal.ViewUtil;
+import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -32,8 +40,15 @@ public abstract class BridgeURLInternalBase extends BridgeURLBase {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeURLInternalBase.class);
 
-	public BridgeURLInternalBase(BridgeContext bridgeContext, BridgeURI bridgeURI, String viewId) {
-		super(bridgeContext, bridgeURI, viewId);
+	// Private Data Members
+	private List<ConfiguredServletMapping> configuredFacesServletMappings;
+
+	@SuppressWarnings("unchecked")
+	public BridgeURLInternalBase(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
+		String viewIdRenderParameterName, String viewIdResourceParameterName, BridgeConfig bridgeConfig) {
+		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName);
+		this.configuredFacesServletMappings = (List<ConfiguredServletMapping>) bridgeConfig.getAttributes().get(
+				BridgeConfigAttributeMap.CONFIGURED_FACES_SERVLET_MAPPINGS);
 	}
 
 	@Override
@@ -59,5 +74,23 @@ public abstract class BridgeURLInternalBase extends BridgeURLBase {
 	@Override
 	protected void logError(Throwable t) {
 		logger.error(t);
+	}
+
+	@Override
+	protected boolean isMappedToFacesServlet(String viewPath) {
+
+		// Try to determine the viewId by examining the servlet-mapping entries for the Faces Servlet.
+		// For each servlet-mapping:
+		for (ConfiguredServletMapping configuredFacesServletMapping : configuredFacesServletMappings) {
+
+			// If the current servlet-mapping matches the viewPath, then
+			logger.debug("Attempting to determine the facesViewId from {0}=[{1}]", Bridge.VIEW_PATH, viewPath);
+
+			if (configuredFacesServletMapping.isMatch(viewPath)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

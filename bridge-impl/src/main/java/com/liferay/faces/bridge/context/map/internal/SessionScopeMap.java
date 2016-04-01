@@ -20,9 +20,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.context.ExternalContext;
-import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
@@ -30,9 +28,6 @@ import com.liferay.faces.bridge.bean.internal.BeanManager;
 import com.liferay.faces.bridge.bean.internal.BeanManagerFactory;
 import com.liferay.faces.bridge.bean.internal.PreDestroyInvoker;
 import com.liferay.faces.bridge.bean.internal.PreDestroyInvokerFactory;
-import com.liferay.faces.bridge.config.internal.PortletConfigParam;
-import com.liferay.faces.bridge.context.BridgeContext;
-import com.liferay.faces.bridge.context.ContextMapFactory;
 import com.liferay.faces.util.config.ApplicationConfig;
 import com.liferay.faces.util.map.AbstractPropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
@@ -50,37 +45,20 @@ public class SessionScopeMap extends AbstractPropertyMap<Object> {
 	private boolean preferPreDestroy;
 	private int scope;
 
-	/**
-	 * Constructs a new SessionMap object instance.
-	 *
-	 * @param  bridgeContext  The current bridge context.
-	 * @param  scope          The scope of the session map, which can be PortletSession.PORTLET_SCOPE or
-	 *                        PortletSession.APPLICATION_SCOPE
-	 */
-	public SessionScopeMap(BridgeContext bridgeContext, int scope) {
+	public SessionScopeMap(PortletContext portletContext, PortletSession portletSession, int scope,
+		boolean preferPreDestroy) {
 
 		String appConfigAttrName = ApplicationConfig.class.getName();
-		PortletContext portletContext = bridgeContext.getPortletContext();
 		ApplicationConfig applicationConfig = (ApplicationConfig) portletContext.getAttribute(appConfigAttrName);
 		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(
 				BeanManagerFactory.class);
 		this.beanManager = beanManagerFactory.getBeanManager(applicationConfig.getFacesConfig());
 
-		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
-				ContextMapFactory.class);
-		Map<String, Object> applicationScopeMap = contextMapFactory.getApplicationScopeMap(bridgeContext);
 		PreDestroyInvokerFactory preDestroyInvokerFactory = (PreDestroyInvokerFactory) BridgeFactoryFinder.getFactory(
 				PreDestroyInvokerFactory.class);
-		this.preDestroyInvoker = preDestroyInvokerFactory.getPreDestroyInvoker(applicationScopeMap);
-
-		PortletRequest portletRequest = bridgeContext.getPortletRequest();
-		this.portletSession = portletRequest.getPortletSession();
-
-		// Determines whether or not methods annotated with the @PreDestroy annotation are preferably invoked
-		// over the @BridgePreDestroy annotation.
-		PortletConfig portletConfig = bridgeContext.getPortletConfig();
-		this.preferPreDestroy = PortletConfigParam.PreferPreDestroy.getBooleanValue(portletConfig);
-
+		this.preDestroyInvoker = preDestroyInvokerFactory.getPreDestroyInvoker(portletContext);
+		this.portletSession = portletSession;
+		this.preferPreDestroy = preferPreDestroy;
 		this.scope = scope;
 	}
 

@@ -19,7 +19,6 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.BridgeContext;
 
 
 /**
@@ -39,7 +38,7 @@ public abstract class BridgePhaseCompat_1_2_Impl extends BridgePhaseBaseImpl {
 	}
 
 	@Override
-	protected void setBridgeContextAttribute(PortletRequest portletRequest, BridgeContext bridgeContext) {
+	protected void setBridgeContextAttribute(PortletRequest portletRequest) {
 		// no-op since this is only used to support legacy ICEFaces (which is not compatible with JSF2.2).
 	}
 }
