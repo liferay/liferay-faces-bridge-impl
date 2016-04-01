@@ -20,12 +20,13 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletMode;
 import javax.portlet.WindowState;
 
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 
 
@@ -142,12 +143,13 @@ public class BridgePortalContextImpl implements BridgePortalContext {
 			// implemented this feature. That way, the ResourceHandlerImpl will always deliver stuff like jsf.js back
 			// to the browser. As we support more portlet containers in the future (Pluto, etc.) we can create
 			// implementations that override this.
-			BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-			ableToSetHttpStatusCode = bridgeContext.getInitParameter(PortletConfigParam.ContainerAbleToSetHttpStatusCode
-					.getName());
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			ableToSetHttpStatusCode = externalContext.getInitParameter(
+					PortletConfigParam.ContainerAbleToSetHttpStatusCode.getName());
 
 			if (ableToSetHttpStatusCode == null) {
-				ableToSetHttpStatusCode = bridgeContext.getInitParameter(
+				ableToSetHttpStatusCode = externalContext.getInitParameter(
 						PortletConfigParam.ContainerAbleToSetHttpStatusCode.getAlternateName());
 			}
 		}

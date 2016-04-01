@@ -25,6 +25,8 @@ import javax.el.ELException;
 import javax.el.ELResolver;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.portlet.PortletConfig;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
@@ -33,10 +35,13 @@ import javax.portlet.faces.BridgeUtil;
 import javax.servlet.jsp.JspContext;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
+import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.config.internal.PortletConfigWrapper;
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.ContextMapFactory;
+import com.liferay.faces.bridge.context.internal.LegacyBridgeContext;
 import com.liferay.faces.bridge.preference.internal.MutablePreferenceMap;
+import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
 
 /**
@@ -46,6 +51,7 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 
 	private static final String ACTION_REQUEST = "actionRequest";
 	private static final String ACTION_RESPONSE = "actionResponse";
+	private static final String BRIDGE_CONFIG = "bridgeConfig";
 	private static final String BRIDGE_CONTEXT = "bridgeContext";
 	private static final String EVENT_REQUEST = "eventRequest";
 	private static final String EVENT_RESPONSE = "eventResponse";
@@ -212,8 +218,30 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 					throw new ELException("Unable to get actionResponse during " + portletPhase);
 				}
 			}
-			else if (varName.equals(BRIDGE_CONTEXT)) {
-				value = BridgeContext.getCurrentInstance();
+			else if (varName.equals(BRIDGE_CONFIG) || varName.equals(BRIDGE_CONTEXT) ||
+					varName.equals(PORTLET_CONFIG)) {
+
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+				BridgeConfig bridgeConfig = RequestMapUtil.getBridgeConfig(portletRequest);
+
+				if (varName.equals(BRIDGE_CONFIG)) {
+					value = bridgeConfig;
+				}
+				else if (varName.equals(PORTLET_CONFIG)) {
+
+					value = RequestMapUtil.getPortletConfig(portletRequest);
+
+					// Unwrap the PortletConfigWrapper to conform to the TCK's expectations.
+					while (value instanceof PortletConfigWrapper) {
+						PortletConfigWrapper portletConfigWrapper = (PortletConfigWrapper) value;
+						value = portletConfigWrapper.getWrapped();
+					}
+				}
+				else {
+					value = new LegacyBridgeContext(bridgeConfig);
+				}
 			}
 			else if (varName.equals(EVENT_REQUEST)) {
 				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
@@ -243,12 +271,17 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 			}
 			else if (varName.equals(HTTP_SESSION_SCOPE)) {
 
-				// Determines whether or not methods annotated with the &#064;PreDestroy annotation are preferably
-				// invoked over the &#064;BridgePreDestroy annotation.
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+				PortletSession portletSession = (PortletSession) externalContext.getSession(true);
+				PortletConfig portletConfig = RequestMapUtil.getPortletConfig(portletRequest);
+				PortletContext portletContext = portletConfig.getPortletContext();
+				boolean preferPreDestroy = PortletConfigParam.PreferPreDestroy.getBooleanValue(portletConfig);
 				ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
 						ContextMapFactory.class);
-				BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-				value = contextMapFactory.getSessionScopeMap(bridgeContext, PortletSession.APPLICATION_SCOPE);
+				value = contextMapFactory.getSessionScopeMap(portletContext, portletSession,
+						PortletSession.APPLICATION_SCOPE, preferPreDestroy);
 			}
 			else if (varName.equals(MUTABLE_PORTLET_PREFERENCES_VALUES)) {
 				FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -256,19 +289,6 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 
 				if (portletRequest != null) {
 					value = new MutablePreferenceMap(portletRequest.getPreferences());
-				}
-			}
-			else if (varName.equals(PORTLET_CONFIG)) {
-				BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-
-				if (bridgeContext != null) {
-
-					value = bridgeContext.getPortletConfig();
-
-					while (value instanceof PortletConfigWrapper) {
-						PortletConfigWrapper portletConfigWrapper = (PortletConfigWrapper) value;
-						value = portletConfigWrapper.getWrapped();
-					}
 				}
 			}
 			else if (varName.equals(PORTLET_SESSION)) {

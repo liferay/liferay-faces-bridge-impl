@@ -35,7 +35,7 @@ import javax.faces.context.FacesContext;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.BridgeConfigAttributeMap;
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.HttpHeaders;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
@@ -267,10 +267,9 @@ public class ResourceImpl extends ResourceWrapper implements Serializable {
 			if (wrappedRequestPath.contains(ResourceHandler.RESOURCE_IDENTIFIER)) {
 
 				// If this resource request was initiated from a ResourceURL (not via the FacesServlet), then
-				BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
+				if (facesContext != null) {
 
-				if (bridgeContext != null) {
-					BridgeConfig bridgeConfig = bridgeContext.getBridgeConfig();
+					BridgeConfig bridgeConfig = RequestMapUtil.getBridgeConfig(facesContext);
 
 					List<ConfiguredServletMapping> configuredFacesServletMappings = (List<ConfiguredServletMapping>)
 						bridgeConfig.getAttributes().get(BridgeConfigAttributeMap.CONFIGURED_FACES_SERVLET_MAPPINGS);

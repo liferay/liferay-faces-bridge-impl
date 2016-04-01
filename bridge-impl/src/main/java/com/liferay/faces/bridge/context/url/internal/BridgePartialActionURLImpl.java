@@ -17,10 +17,10 @@ package com.liferay.faces.bridge.context.url.internal;
 
 import java.net.MalformedURLException;
 
+import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -35,22 +35,20 @@ public class BridgePartialActionURLImpl extends BridgeURLInternalBase {
 	private static final Logger logger = LoggerFactory.getLogger(BridgePartialActionURLImpl.class);
 
 	// Private Data Members
-	private String uri;
-	private String viewIdResourceParameterName;
 
-	public BridgePartialActionURLImpl(BridgeContext bridgeContext, BridgeURI bridgeURI, String viewId) {
-
-		super(bridgeContext, bridgeURI, viewId);
-		this.uri = bridgeURI.toString();
-
-		BridgeConfig bridgeConfig = bridgeContext.getBridgeConfig();
-		this.viewIdResourceParameterName = bridgeConfig.getViewIdResourceParameterName();
+	public BridgePartialActionURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
+		String viewIdRenderParameterName, String viewIdResourceParameterName, BridgeConfig bridgeConfig) {
+		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
+			bridgeConfig);
 	}
 
 	// Java 1.6+ @Override
 	public BaseURL toBaseURL() throws MalformedURLException {
 
 		BaseURL baseURL = null;
+
+		BridgeURI bridgeURI = getBridgeURI();
+		String uri = bridgeURI.toString();
 
 		if (uri != null) {
 
@@ -60,7 +58,8 @@ public class BridgePartialActionURLImpl extends BridgeURLInternalBase {
 			}
 			else {
 				String urlWithModifiedParameters = _toString(false);
-				baseURL = createPartialActionURL(urlWithModifiedParameters);
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				baseURL = createPartialActionURL(facesContext, urlWithModifiedParameters);
 			}
 		}
 		else {
@@ -72,6 +71,6 @@ public class BridgePartialActionURLImpl extends BridgeURLInternalBase {
 
 	@Override
 	protected String getViewIdParameterName() {
-		return viewIdResourceParameterName;
+		return getViewIdResourceParameterName();
 	}
 }

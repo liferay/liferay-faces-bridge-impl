@@ -18,10 +18,17 @@ package com.liferay.faces.bridge.context.internal;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.FacesException;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortalContext;
@@ -32,7 +39,11 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.servlet.http.Cookie;
 
+import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgePortalContext;
+import com.liferay.faces.bridge.context.url.BridgeURI;
+import com.liferay.faces.bridge.context.url.BridgeURL;
+import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.bridge.util.internal.FileNameUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -61,6 +72,8 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	// Lazy-Initialized Data Members
 	private Boolean iceFacesLegacyMode;
 	private String portletContextName;
+	private Boolean renderRedirectEnabled;
+	private Writer responseOutputWriter;
 
 	// Protected Data Members
 	protected Bridge.PortletPhase portletPhase;
@@ -104,8 +117,24 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	 * @since  JSF 2.0
 	 */
 	@Override
-	public String encodeBookmarkableURL(String baseUrl, Map<String, List<String>> parameters) {
-		return bridgeContext.encodeBookmarkableURL(baseUrl, parameters).toString();
+	public String encodeBookmarkableURL(String baseURL, Map<String, List<String>> parameters) {
+
+		if (baseURL == null) {
+			throw new NullPointerException();
+		}
+		else {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+
+			try {
+				BridgeURL encodedBookmarkableURL = bridgeURLEncoder.encodeBookmarkableURL(facesContext, baseURL,
+						parameters);
+
+				return encodedBookmarkableURL.toString();
+			}
+			catch (URISyntaxException e) {
+				throw new FacesException(e);
+			}
+		}
 	}
 
 	/**
@@ -114,7 +143,22 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	 */
 	@Override
 	public String encodePartialActionURL(String url) {
-		return bridgeContext.encodePartialActionURL(url).toString();
+
+		if (url == null) {
+			throw new NullPointerException();
+		}
+		else {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+
+			try {
+				BridgeURL encodedPartialActionURL = bridgeURLEncoder.encodePartialActionURL(facesContext, url);
+
+				return encodedPartialActionURL.toString();
+			}
+			catch (URISyntaxException e) {
+				throw new FacesException(e);
+			}
+		}
 	}
 
 	/**
@@ -123,7 +167,22 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	 */
 	@Override
 	public String encodeRedirectURL(String baseUrl, Map<String, List<String>> parameters) {
-		return bridgeContext.encodeRedirectURL(baseUrl, parameters).toString();
+
+		if (baseUrl == null) {
+			throw new NullPointerException();
+		}
+		else {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+
+			try {
+				BridgeURL encodedRedirectURL = bridgeURLEncoder.encodeRedirectURL(facesContext, baseUrl, parameters);
+
+				return encodedRedirectURL.toString();
+			}
+			catch (URISyntaxException e) {
+				throw new FacesException(e);
+			}
+		}
 	}
 
 	/**
@@ -239,6 +298,36 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 		}
 
 		return cookie;
+	}
+
+	protected void partialViewContextRenderAll(FacesContext facesContext) {
+
+		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
+
+		if (!partialViewContext.isRenderAll()) {
+			partialViewContext.setRenderAll(true);
+		}
+	}
+
+	protected void redirectJSF2PartialResponse(FacesContext facesContext, ResourceResponse resourceResponse, String url)
+		throws IOException {
+		resourceResponse.setContentType("text/xml");
+		resourceResponse.setCharacterEncoding("UTF-8");
+
+		PartialResponseWriter partialResponseWriter;
+		ResponseWriter responseWriter = facesContext.getResponseWriter();
+
+		if (responseWriter instanceof PartialResponseWriter) {
+			partialResponseWriter = (PartialResponseWriter) responseWriter;
+		}
+		else {
+			partialResponseWriter = facesContext.getPartialViewContext().getPartialResponseWriter();
+		}
+
+		partialResponseWriter.startDocument();
+		partialResponseWriter.redirect(url);
+		partialResponseWriter.endDocument();
+		facesContext.responseComplete();
 	}
 
 	/**
@@ -530,7 +619,32 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	public Writer getResponseOutputWriter() throws IOException {
 
 		if (portletResponse instanceof MimeResponse) {
-			return bridgeContext.getResponseOutputWriter();
+
+			if (responseOutputWriter == null) {
+
+				MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
+
+					if (renderRedirectEnabled == null) {
+						renderRedirectEnabled = PortletConfigParam.RenderRedirectEnabled.getBooleanValue(portletConfig);
+					}
+
+					if (renderRedirectEnabled) {
+						responseOutputWriter = new RenderRedirectWriterImpl(mimeResponse.getWriter());
+					}
+					else {
+						responseOutputWriter = mimeResponse.getWriter();
+					}
+
+				}
+				else {
+					responseOutputWriter = mimeResponse.getWriter();
+				}
+
+			}
+
+			return responseOutputWriter;
 		}
 		else {
 
@@ -569,5 +683,9 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 				// must not throw an IllegalStateException.
 			}
 		}
+	}
+
+	protected boolean isJSF2PartialRequest(FacesContext facesContext) {
+		return facesContext.getPartialViewContext().isPartialRequest();
 	}
 }

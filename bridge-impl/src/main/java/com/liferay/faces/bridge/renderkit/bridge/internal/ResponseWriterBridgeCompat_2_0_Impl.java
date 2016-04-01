@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.renderkit.bridge.internal;
 
 import java.io.IOException;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
@@ -25,7 +26,6 @@ import javax.faces.render.ResponseStateManager;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletRequest;
 
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -52,10 +52,11 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 	// Protected Data Members
 	protected boolean namespacedParameters;
 
-	public ResponseWriterBridgeCompat_2_0_Impl(ResponseWriter wrappedResponseWriter) {
+	public ResponseWriterBridgeCompat_2_0_Impl() {
 
-		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-		PortletRequest portletRequest = bridgeContext.getPortletRequest();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 		PortalContext portalContext = portletRequest.getPortalContext();
 		String namespacedParametersSupport = portalContext.getProperty(
 				BridgePortalContext.STRICT_NAMESPACED_PARAMETERS_SUPPORT);
@@ -136,8 +137,8 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 		endElement("input");
 	}
 
-	// FACES-2622: Normally the return value from this type of method would be done in a static block, but since that doesn't
-	// work in WildFly, the value must be determined during request processing instead.
+	// FACES-2622: Normally the return value from this type of method would be done in a static block, but since that
+	// doesn't work in WildFly, the value must be determined during request processing instead.
 	protected boolean isNamespacedViewStateSupported() {
 
 		boolean namespacedViewStateSupported = true;

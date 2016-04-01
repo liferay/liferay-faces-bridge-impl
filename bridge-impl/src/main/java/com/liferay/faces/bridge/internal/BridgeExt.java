@@ -15,24 +15,18 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import com.liferay.faces.bridge.context.BridgeContext;
-
-
 /**
  * @author  Neil Griffin
  */
 public interface BridgeExt {
 
-	/**
-	 * The name of the {@link PortletRequest} attribute that contains the {@link BridgeContext} instance. NOTE that
-	 * changing the value of BRIDGE_CONTEXT_ATTRIBUTE will have a negative impact on the ICEfaces {@link
-	 * FileEntryPhaseListener#setPortletRequestWrapper(Object)} method.
-	 *
-	 * @deprecated  The new technique for acquiring the BridgeContext instance is to call {@link
-	 *              BridgeContext#getCurrentInstance()}.
-	 */
+	/** The name of the {@link javax.portlet.PortletRequest} attribute that contains the BridgeContext instance. */
 	@Deprecated
 	public static final String BRIDGE_CONTEXT_ATTRIBUTE = "javax.portlet.faces.bridgeContext";
 
 	public static final String FACES_AJAX_PARAMETER = "_jsfBridgeAjax";
+	public static final String RENDER_REDIRECT = "com.liferay.faces.bridge.renderRedirect";
+	public static final String RENDER_REDIRECT_AFTER_DISPATCH = "com.liferay.faces.bridge.renderRedirectAfterDispatch";
+	public static final String RENDER_REDIRECT_VIEW_ID = "com.liferay.faces.bridge.renderRedirectViewId";
+	public static final String RESPONSE_CHARACTER_ENCODING = "com.liferay.faces.bridge.responseCharacterEncoding";
 }

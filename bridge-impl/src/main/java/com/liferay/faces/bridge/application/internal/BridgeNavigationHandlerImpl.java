@@ -25,17 +25,23 @@ import javax.faces.application.NavigationCase;
 import javax.faces.application.NavigationHandler;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletMode;
-import javax.portlet.PortletModeException;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.StateAwareResponse;
-import javax.portlet.WindowStateException;
 import javax.portlet.faces.Bridge;
 
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.context.url.BridgeURL;
+import com.liferay.faces.bridge.context.url.BridgeURLEncoder;
+import com.liferay.faces.bridge.context.url.BridgeURLEncoderFactory;
+import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.util.internal.RequestMapUtil;
+import com.liferay.faces.bridge.util.internal.ViewUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -109,14 +115,19 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
 
 				if (toViewId != null) {
 
-					BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-					PortletResponse portletResponse = bridgeContext.getPortletResponse();
+					ExternalContext externalContext = facesContext.getExternalContext();
+					PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
 
 					if (portletResponse instanceof StateAwareResponse) {
 
-						BridgeURL bridgeActionURL = bridgeContext.encodeActionURL(toViewId);
+						PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+						BridgeConfig bridgeConfig = (BridgeConfig) portletRequest.getAttribute(BridgeConfig.class
+								.getName());
+						BridgeURLEncoder bridgeURLEncoder = BridgeURLEncoderFactory.getBridgeURLEncoderInstance(
+								bridgeConfig);
 
 						try {
+							BridgeURL bridgeActionURL = bridgeURLEncoder.encodeActionURL(facesContext, toViewId);
 
 							BridgeNavigationCase bridgeNavigationCase = new BridgeNavigationCaseImpl(navigationCase);
 							String portletMode = bridgeNavigationCase.getPortletMode();
@@ -131,14 +142,12 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
 								bridgeActionURL.setParameter(Bridge.PORTLET_WINDOWSTATE_PARAMETER, windowState);
 							}
 
-							BridgeNavigationUtil.navigate(bridgeContext.getPortletRequest(),
-								(StateAwareResponse) portletResponse, bridgeContext.getBridgeRequestScope(),
-								bridgeActionURL);
+							BridgeRequestScope bridgeRequestScope = (BridgeRequestScope) portletRequest.getAttribute(
+									BridgeRequestScope.class.getName());
+							BridgeNavigationUtil.navigate(portletRequest, (StateAwareResponse) portletResponse,
+								bridgeRequestScope, bridgeActionURL);
 						}
-						catch (PortletModeException e) {
-							logger.error(e.getMessage());
-						}
-						catch (WindowStateException e) {
+						catch (Exception e) {
 							logger.error(e.getMessage());
 						}
 					}
@@ -151,11 +160,12 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
 	public void handleNavigation(FacesContext facesContext, PortletMode fromPortletMode, PortletMode toPortletMode) {
 
 		if ((fromPortletMode != null) && !fromPortletMode.equals(toPortletMode)) {
+
 			logger.debug("fromPortletMode=[{0}] toPortletMode=[{1}]", fromPortletMode, toPortletMode);
 
 			String currentViewId = facesContext.getViewRoot().getViewId();
-			BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-			Map<String, String> defaultViewIdMap = bridgeContext.getDefaultViewIdMap();
+			PortletConfig portletConfig = RequestMapUtil.getPortletConfig(facesContext);
+			Map<String, String> defaultViewIdMap = ViewUtil.getDefaultViewIdMap(portletConfig);
 			String portletModeViewId = defaultViewIdMap.get(toPortletMode.toString());
 
 			if ((currentViewId != null) && (portletModeViewId != null)) {

@@ -25,12 +25,12 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.render.Renderer;
+import javax.portlet.PortletRequest;
 
 import org.apache.commons.fileupload.FileItem;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.ContextMapFactory;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.logging.Logger;
@@ -80,8 +80,8 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 				// Get the UploadedFile from the request attribute map.
 				ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
 						ContextMapFactory.class);
-				BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-				Map<String, List<UploadedFile>> uploadedFileMap = contextMapFactory.getUploadedFileMap(bridgeContext);
+				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+				Map<String, List<UploadedFile>> uploadedFileMap = contextMapFactory.getUploadedFileMap(portletRequest);
 
 				List<UploadedFile> uploadedFiles = uploadedFileMap.get(clientId);
 

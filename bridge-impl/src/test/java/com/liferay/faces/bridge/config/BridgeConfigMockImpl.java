@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.portlet.PortletConfig;
+
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.config.ConfiguredSystemEventListener;
 
@@ -32,6 +34,7 @@ public class BridgeConfigMockImpl implements BridgeConfig {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Map<String, Object> getAttributes() {
 		throw new UnsupportedOperationException();
 	}
@@ -52,6 +55,7 @@ public class BridgeConfigMockImpl implements BridgeConfig {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Set<String> getExcludedRequestAttributes() {
 		throw new UnsupportedOperationException();
 	}
@@ -60,22 +64,27 @@ public class BridgeConfigMockImpl implements BridgeConfig {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Map<String, String[]> getPublicParameterMappings() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public String getViewIdRenderParameterName() {
 		return "";
 	}
 
+	@Override
 	public String getViewIdResourceParameterName() {
 		return "";
 	}
 
+	@Override
 	public String getWriteBehindRenderResponseWrapper() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public String getWriteBehindResourceResponseWrapper() {
 		throw new UnsupportedOperationException();
 	}

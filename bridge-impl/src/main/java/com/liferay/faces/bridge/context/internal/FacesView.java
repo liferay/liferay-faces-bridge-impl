@@ -50,12 +50,14 @@ public interface FacesView {
 	String getExtension();
 
 	/**
-	 * Returns the query-string which may contain navigation parameters such as {@link Bridge#PORTLET_MODE_PARAMETER},
-	 * {@link Bridge#NONFACES_TARGET_PATH_PARAMETER}, {@link Bridge#PORTLET_SECURE_PARAMETER}, {@link
+	 * Returns the query-string part of the to-view-id of the last navigation-rule that fired, or the query-string part
+	 * of the {@link Bridge#VIEW_ID} request attribute. Specifically, it returns the query-string which may contain
+	 * navigation parameters such as {@link Bridge#PORTLET_MODE_PARAMETER}, {@link
+	 * Bridge#NONFACES_TARGET_PATH_PARAMETER}, {@link Bridge#PORTLET_SECURE_PARAMETER}, {@link
 	 * Bridge#PORTLET_WINDOWSTATE_PARAMETER}, {@link Bridge#FACES_VIEW_ID_PARAMETER}, or {@link
 	 * Bridge#FACES_VIEW_PATH_PARAMETER}. Note that "navigation" does not refer to JSF navigation-rules, but rather
-	 * changes in {@link PortletMode}, {@link WindowState}, etc. It could also contain user-define name=value parameters
-	 * specified in a {@link Bridge#VIEW_ID} request attribute.
+	 * changes in {@link javax.portlet.PortletMode}, {@link javax.portlet.WindowState}, etc. It could also contain
+	 * user-define name=value parameters specified in a {@link Bridge#VIEW_ID} request attribute.
 	 */
 	String getQueryString();
 

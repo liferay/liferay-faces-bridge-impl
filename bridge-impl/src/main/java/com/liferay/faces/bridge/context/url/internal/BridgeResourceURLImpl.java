@@ -24,11 +24,12 @@ import java.util.Set;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
+import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
 import javax.portlet.ResourceURL;
 import javax.portlet.faces.Bridge;
 
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.context.url.BridgeResourceURL;
 import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.util.helper.BooleanHelper;
@@ -57,19 +58,20 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 	}
 
 	// Private Data Members
-	private BridgeContext bridgeContext;
 	private BridgeURI bridgeURI;
 	private String contextPath;
 	private boolean inProtocol;
 	private boolean viewLink;
 
-	public BridgeResourceURLImpl(BridgeContext bridgeContext, BridgeURI bridgeURI, String viewId) {
-		super(bridgeContext, bridgeURI, viewId);
-		this.bridgeContext = bridgeContext;
+	public BridgeResourceURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
+		String viewIdRenderParameterName, String viewIdResourceParameterName, BridgeConfig bridgeConfig) {
+		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
+			bridgeConfig);
 		this.bridgeURI = bridgeURI;
-		this.contextPath = bridgeContext.getPortletRequest().getContextPath();
+		this.contextPath = contextPath;
 	}
 
+	@Override
 	public void replaceBackLinkParameter(FacesContext facesContext) {
 
 		String backLinkViewId = facesContext.getViewRoot().getViewId();
@@ -115,15 +117,16 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 				String windowState = getParameter(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
 				String urlWithModifiedParameters = _toString(modeChanged);
 				Bridge.PortletPhase urlPortletPhase = bridgeURI.getPortletPhase();
+				FacesContext facesContext = FacesContext.getCurrentInstance();
 
 				if (urlPortletPhase == Bridge.PortletPhase.ACTION_PHASE) {
-					baseURL = createActionURL(urlWithModifiedParameters);
+					baseURL = createActionURL(facesContext, urlWithModifiedParameters);
 				}
 				else if (urlPortletPhase == Bridge.PortletPhase.RENDER_PHASE) {
-					baseURL = createRenderURL(urlWithModifiedParameters);
+					baseURL = createRenderURL(facesContext, urlWithModifiedParameters);
 				}
 				else {
-					baseURL = createResourceURL(urlWithModifiedParameters);
+					baseURL = createResourceURL(facesContext, urlWithModifiedParameters);
 				}
 
 				// If the URL string is self-referencing, meaning, it targets the current Faces view, then copy the
@@ -131,7 +134,7 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 				// copying the bridgeRequestScopeId render parameter, which will preserve the BridgeRequestScope if the
 				// user clicks on the link (invokes the BaseURL).
 				if (isSelfReferencing()) {
-					setRenderParameters(baseURL);
+					setRenderParameters(facesContext, baseURL);
 				}
 
 				// If the portlet container created a PortletURL, then apply the PortletMode and WindowState to the
@@ -139,8 +142,8 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 				if (baseURL instanceof PortletURL) {
 
 					PortletURL portletURL = (PortletURL) baseURL;
-					setPortletModeParameter(portletMode, portletURL);
-					setWindowStateParameter(windowState, portletURL);
+					setPortletModeParameter(facesContext, portletURL, portletMode);
+					setWindowStateParameter(facesContext, portletURL, windowState);
 				}
 
 				// Apply the security.
@@ -167,7 +170,8 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 
 			// Otherwise, return a ResourceURL that can retrieve the JSF2 resource.
 			else {
-				baseURL = createResourceURL(uri);
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				baseURL = createResourceURL(facesContext, uri);
 			}
 		}
 
@@ -175,7 +179,10 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 		else if (bridgeURI.isExternal(contextPath)) {
 
 			// TCK TestPage130: encodeResourceURLForeignExternalURLBackLinkTest
-			baseURL = new BaseURLEncodedExternalStringImpl(uri, getParameterMap(), bridgeContext.getPortletResponse());
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
+			baseURL = new BaseURLEncodedExternalStringImpl(uri, getParameterMap(), portletResponse);
 		}
 
 		// Otherwise, if the URL is relative, in that it starts with "../", then return a BaseURL string representation
@@ -184,7 +191,10 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 
 			// TCK TestPage131: encodeResourceURLRelativeURLTest
 			// TCK TestPage132: encodeResourceURLRelativeURLBackLinkTest
-			baseURL = new BaseURLRelativeStringImpl(uri, getParameterMap(), bridgeContext);
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			String contextPath = externalContext.getRequestContextPath();
+			baseURL = new BaseURLRelativeStringImpl(uri, getParameterMap(), contextPath);
 		}
 
 		// Otherwise, if the URL originally contained the "javax.portlet.faces.ViewLink" which represents navigation
@@ -199,11 +209,12 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 			// If the URL targets a Faces viewId, then return a PortletURL (Action URL) that targets the view with the
 			// appropriate PortletMode, WindowState, and Security settings built into the URL. For more info, see
 			// JavaDoc comments for {@link Bridge#VIEW_LINK}.
-			if (getViewId() != null) {
+			if (getFacesViewTarget() != null) {
 
 				// TCK TestPage135: encodeResourceURLViewLinkTest
 				// TCK TestPage136: encodeResourceURLViewLinkWithBackLinkTest
-				PortletURL actionURL = createActionURL(urlWithModifiedParameters);
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				PortletURL actionURL = createActionURL(facesContext, urlWithModifiedParameters);
 				baseURL = new PortletURLFacesTargetActionImpl(actionURL, portletMode, windowState, secure);
 			}
 
@@ -226,14 +237,15 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 				// TCK TestPage106: encodeActionURLNonJSFViewWithInvalidModeResourceTest
 				// TCK TestPage107: encodeActionURLNonJSFViewWithWindowStateResourceTest
 				// TCK TestPage108: encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest
-				PortletURL renderURL = createRenderURL(urlWithModifiedParameters);
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				PortletURL renderURL = createRenderURL(facesContext, urlWithModifiedParameters);
 				baseURL = new PortletURLNonFacesTargetRenderImpl(renderURL, portletMode, windowState, secure,
 						bridgeURI.getPath());
 			}
 		}
 
 		// Otherwise, if the URL targets a Faces viewId, then return a ResourceURL that targets the view.
-		else if (getViewId() != null) {
+		else if (getFacesViewTarget() != null) {
 
 			// TCK TestPage073: scopeAfterRedisplayResourcePPRTest
 			// TCK TestPage121: encodeActionURLJSFViewResourceTest
@@ -245,7 +257,8 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 			// TCK TestPage127: encodeURLEscapingTest
 			// TCK TestPage137: encodeResourceURLWithModeTest
 			String urlWithModifiedParameters = _toString(false, EXCLUDED_PARAMETER_NAMES);
-			baseURL = createResourceURL(urlWithModifiedParameters);
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			baseURL = createResourceURL(facesContext, urlWithModifiedParameters);
 		}
 
 		// Otherwise, if the bridge must encode the URL to satisfy "in-protocol" resource serving, then return a
@@ -254,8 +267,8 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 
 			// TCK TestPage071: nonFacesResourceTest
 			String urlWithModifiedParameters = _toString(false);
-			ResourceURL resourceURL = createResourceURL(urlWithModifiedParameters);
-			String contextPath = bridgeContext.getPortletRequest().getContextPath();
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ResourceURL resourceURL = createResourceURL(facesContext, urlWithModifiedParameters);
 			resourceURL.setResourceID(bridgeURI.getContextRelativePath(contextPath));
 			baseURL = resourceURL;
 		}
@@ -265,16 +278,21 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 		else {
 
 			// TCK TestPage133: encodeResourceURLTest
-			baseURL = new BaseURLEncodedExternalStringImpl(uri, getParameterMap(), bridgeContext.getPortletResponse());
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
+			baseURL = new BaseURLEncodedExternalStringImpl(uri, getParameterMap(), portletResponse);
 		}
 
 		return baseURL;
 	}
 
+	@Override
 	public void setInProtocol(boolean inProtocol) {
 		this.inProtocol = inProtocol;
 	}
 
+	@Override
 	public void setViewLink(boolean viewLink) {
 		this.viewLink = viewLink;
 	}

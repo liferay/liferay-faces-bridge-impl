@@ -17,8 +17,6 @@ package com.liferay.faces.bridge.renderkit.bridge.internal;
 
 import java.io.IOException;
 
-import javax.faces.context.ResponseWriter;
-
 
 /**
  * @author  Neil Griffin
@@ -28,8 +26,8 @@ public abstract class ResponseWriterBridgeCompat_2_2_Impl extends ResponseWriter
 	// Protected Constants
 	protected static final String CLIENT_WINDOW_PARAM = "javax.faces.ClientWindow";
 
-	public ResponseWriterBridgeCompat_2_2_Impl(ResponseWriter wrappedResponseWriter) {
-		super(wrappedResponseWriter);
+	public ResponseWriterBridgeCompat_2_2_Impl() {
+		super();
 	}
 
 	public void writePreamble(String preamble) throws IOException {

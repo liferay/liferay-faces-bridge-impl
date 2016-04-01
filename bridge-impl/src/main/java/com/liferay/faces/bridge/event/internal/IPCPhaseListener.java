@@ -18,17 +18,20 @@ package com.liferay.faces.bridge.event.internal;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.portlet.PortletConfig;
+import javax.portlet.PortletRequest;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgePublicRenderParameterHandler;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -49,9 +52,9 @@ public class IPCPhaseListener implements PhaseListener {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(IPCPhaseListener.class);
 
+	@Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
-		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
 		FacesContext facesContext = phaseEvent.getFacesContext();
 
 		PhaseId phaseId = phaseEvent.getPhaseId();
@@ -62,7 +65,7 @@ public class IPCPhaseListener implements PhaseListener {
 			// incoming Public Render Parameters. This is to happen for all phases of the Portlet 2.0 lifecycle. The
 			// phase listener is to execute after the RESTORE_VIEW phase of the JSF lifecycle completes, in accordance
 			// with Section 5.3.2.
-			processIncomingPublicRenderParameters(bridgeContext, facesContext);
+			processIncomingPublicRenderParameters(facesContext);
 
 			// Section 5.2.5 and 6.4 of the JSR 329 Spec require that the phase listener short-circuit the JSF lifecycle
 			// after the RESTORE_VIEW phase completes during the EVENT_PHASE of the Portlet 2.0 lifecycle.
@@ -82,11 +85,12 @@ public class IPCPhaseListener implements PhaseListener {
 
 			if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) ||
 					(portletPhase == Bridge.PortletPhase.EVENT_PHASE)) {
-				processOutgoingPublicRenderParameters(bridgeContext, facesContext);
+				processOutgoingPublicRenderParameters(facesContext);
 			}
 		}
 	}
 
+	@Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 		// This method is required by the PhaseListener interface but is not used.
 	}
@@ -94,27 +98,29 @@ public class IPCPhaseListener implements PhaseListener {
 	/**
 	 * This method processes the "incoming" Public Render Parameters in accordance with Section 5.3.2 of the Spec.
 	 */
-	public void processIncomingPublicRenderParameters(BridgeContext bridgeContext, FacesContext facesContext) {
+	public void processIncomingPublicRenderParameters(FacesContext facesContext) {
 
 		try {
 
-			// If the specified bridge context is valid, then proceed with processing incoming public render parameters
+			// If the specified context is valid, then proceed with processing incoming public render parameters
 			// since this phase listener is being executed within the portlet lifecycle.
-			if (bridgeContext != null) {
+			if (facesContext != null) {
 
 				// Section 5.3.2 requires the phase listener to inject the public render parameters into the
 				// Model concern of the MVC design pattern (as in JSF model managed-beans) after RESTORE_VIEW
 				// phase completes. This is accomplished below by evaluating the EL expressions found in the
 				// <model-el>...</model-el> section of the WEB-INF/faces-config.xml file.
-				BridgeConfig bridgeConfig = bridgeContext.getBridgeConfig();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+				BridgeConfig bridgeConfig = RequestMapUtil.getBridgeConfig(portletRequest);
 				Map<String, String[]> publicParameterMappings = bridgeConfig.getPublicParameterMappings();
 
 				if (publicParameterMappings != null) {
 
 					boolean invokeHandler = false;
-					String portletName = bridgeContext.getPortletConfig().getPortletName();
-					Map<String, String[]> publicParameterMap = bridgeContext.getPortletRequest()
-						.getPublicParameterMap();
+					PortletConfig portletConfig = RequestMapUtil.getPortletConfig(portletRequest);
+					String portletName = portletConfig.getPortletName();
+					Map<String, String[]> publicParameterMap = portletRequest.getPublicParameterMap();
 					Set<String> publicRenderParameterNames = publicParameterMappings.keySet();
 
 					// For each of the public render parameters found in the WEB-INF/faces-config.xml file:
@@ -195,7 +201,7 @@ public class IPCPhaseListener implements PhaseListener {
 							bridgePublicRenderParameterHandlerAttributeName);
 
 						BridgePublicRenderParameterHandler bridgePublicRenderParameterHandler =
-							(BridgePublicRenderParameterHandler) bridgeContext.getPortletContext().getAttribute(
+							(BridgePublicRenderParameterHandler) externalContext.getApplicationMap().get(
 								bridgePublicRenderParameterHandlerAttributeName);
 
 						if (bridgePublicRenderParameterHandler != null) {
@@ -219,28 +225,30 @@ public class IPCPhaseListener implements PhaseListener {
 	/**
 	 * This method processes the "outgoing" Public Render Parameters in accordance with Section 5.3.3 of the Spec.
 	 */
-	public void processOutgoingPublicRenderParameters(BridgeContext bridgeContext, FacesContext facesContext) {
+	public void processOutgoingPublicRenderParameters(FacesContext facesContext) {
 
 		try {
 
-			// If the specified bridge context is valid, then proceed with processing incoming public render parameters
+			// If the specified context is valid, then proceed with processing incoming public render parameters
 			// since this phase listener is being executed within the portlet lifecycle.
-			if (bridgeContext != null) {
+			if (facesContext != null) {
 
-				StateAwareResponse stateAwareResponse = (StateAwareResponse) bridgeContext.getPortletResponse();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+				StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
 
 				// Section 5.3.3 requires the phase listener to re-examine the public render parameters. For each one
 				// that has been changed in the model, its new value must be set in the response, so that when the
 				// RENDER_PHASE of the Portlet 2.0 lifecycle executes, this phase listener will be able to inject the
 				// new value into the model of other portlets that are participating in the IPC.
-				BridgeConfig bridgeConfig = bridgeContext.getBridgeConfig();
+				BridgeConfig bridgeConfig = RequestMapUtil.getBridgeConfig(portletRequest);
 				Map<String, String[]> publicParameterMappings = bridgeConfig.getPublicParameterMappings();
 
 				if (publicParameterMappings != null) {
 
-					String portletName = bridgeContext.getPortletConfig().getPortletName();
-					Map<String, String[]> publicParameterMap = bridgeContext.getPortletRequest()
-						.getPublicParameterMap();
+					PortletConfig portletConfig = RequestMapUtil.getPortletConfig(portletRequest);
+					String portletName = portletConfig.getPortletName();
+					Map<String, String[]> publicParameterMap = portletRequest.getPublicParameterMap();
 					Set<String> publicRenderParameterNames = publicParameterMappings.keySet();
 
 					// For each of the public render parameters found in the WEB-INF/faces-config.xml file:
@@ -319,6 +327,7 @@ public class IPCPhaseListener implements PhaseListener {
 		}
 	}
 
+	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.ANY_PHASE;
 	}

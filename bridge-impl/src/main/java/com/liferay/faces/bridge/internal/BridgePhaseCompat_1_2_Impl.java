@@ -19,7 +19,7 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.context.internal.LegacyBridgeContext;
 
 
 /**
@@ -41,7 +41,9 @@ public abstract class BridgePhaseCompat_1_2_Impl extends BridgePhaseBaseImpl {
 
 	@Override
 	@SuppressWarnings("deprecation")
-	protected void setBridgeContextAttribute(PortletRequest portletRequest, BridgeContext bridgeContext) {
-		portletRequest.setAttribute(BridgeExt.BRIDGE_CONTEXT_ATTRIBUTE, bridgeContext);
+	protected void setBridgeContextAttribute(PortletRequest portletRequest) {
+
+		BridgeConfig bridgeConfig = (BridgeConfig) portletRequest.getAttribute(BridgeConfig.class.getName());
+		portletRequest.setAttribute(BridgeExt.BRIDGE_CONTEXT_ATTRIBUTE, new LegacyBridgeContext(bridgeConfig));
 	}
 }

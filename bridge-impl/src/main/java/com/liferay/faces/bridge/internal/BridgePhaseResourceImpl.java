@@ -252,9 +252,10 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 			// UPDATE_MODEL, INVOKE_APPLICATION.
 			else {
 
+				ExternalContext externalContext = facesContext.getExternalContext();
+
 				if (logger.isDebugEnabled()) {
 
-					ExternalContext externalContext = facesContext.getExternalContext();
 					String facesAjaxParameter = externalContext.getRequestParameterMap().get(
 							BridgeExt.FACES_AJAX_PARAMETER);
 
@@ -266,7 +267,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 					}
 				}
 
-				String viewId = bridgeContext.getFacesViewId();
+				String viewId = getFacesViewId(externalContext);
 				logger.debug("Running Faces lifecycle for viewId=[{0}]", viewId);
 
 				// Attach the JSF 2.2 client window to the JSF lifecycle so that Faces Flows can be utilized.
@@ -303,7 +304,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 			throw new BridgeException(t);
 		}
 		finally {
-			cleanup();
+			cleanup(resourceRequest);
 		}
 
 		logger.debug(Logger.SEPARATOR);

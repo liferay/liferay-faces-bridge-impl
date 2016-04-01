@@ -85,7 +85,7 @@ public class ResponseWriterBridgeImpl extends ResponseWriterBridgeCompat_2_2_Imp
 	private ResponseWriter wrappedResponseWriter;
 
 	public ResponseWriterBridgeImpl(ResponseWriter wrappedResponseWriter) {
-		super(wrappedResponseWriter);
+		super();
 		this.wrappedResponseWriter = wrappedResponseWriter;
 	}
 

@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 import javax.portlet.BaseURL;
 
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.context.url.internal.BaseURLNonEncodedStringImpl;
 import com.liferay.faces.bridge.context.url.internal.BridgeURLInternalBase;
 
@@ -30,17 +30,14 @@ import com.liferay.faces.bridge.context.url.internal.BridgeURLInternalBase;
  */
 public class BridgeURLMockImpl extends BridgeURLInternalBase {
 
-	// Private Data Members
-	private BridgeURI bridgeURI;
-
-	public BridgeURLMockImpl(BridgeContext bridgeContext, BridgeURI bridgeURI, String viewId) {
-		super(bridgeContext, bridgeURI, viewId);
-		this.bridgeURI = bridgeURI;
+	public BridgeURLMockImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
+		String viewIdRenderParameterName, String viewIdResourceParameterName, BridgeConfig bridgeConfig) {
+		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
+			bridgeConfig);
 	}
 
 	@Override
 	public BaseURL toBaseURL() throws MalformedURLException {
-		return new BaseURLNonEncodedStringImpl(bridgeURI.toString(), new HashMap<String, String[]>());
+		return new BaseURLNonEncodedStringImpl(getBridgeURI().toString(), new HashMap<String, String[]>());
 	}
-
 }

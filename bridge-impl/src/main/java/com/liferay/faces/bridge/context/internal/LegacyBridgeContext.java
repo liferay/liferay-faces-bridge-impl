@@ -13,19 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.event.internal;
+package com.liferay.faces.bridge.context.internal;
 
-import javax.portlet.PortletConfig;
+import javax.portlet.PortletRequest;
 
-import com.liferay.faces.bridge.config.internal.PortletConfigParam;
+import com.liferay.faces.bridge.config.BridgeConfig;
 
 
 /**
  * @author  Neil Griffin
  */
-public class RenderRequestPhaseListenerCompat {
+public class LegacyBridgeContext {
 
-	protected boolean isViewParametersEnabled(PortletConfig portletConfig) {
-		return PortletConfigParam.ViewParametersEnabled.getBooleanValue(portletConfig);
+	private BridgeConfig bridgeConfig;
+
+	public LegacyBridgeContext(BridgeConfig bridgeConfig) {
+		this.bridgeConfig = bridgeConfig;
+	}
+
+	public BridgeConfig getBridgeConfig() {
+		return bridgeConfig;
+	}
+
+	public void setPortletRequest(PortletRequest portletRequest) {
+		// No-op, but method signature is required for compatibility with ICEfaces 3.3
+		// org.icefaces.ace.component.fileentry.FileEntryResourceHandler
 	}
 }
