@@ -28,10 +28,10 @@ import javax.faces.event.PhaseListener;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeFactoryFinder;
+import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.bean.internal.BeanManager;
 import com.liferay.faces.bridge.bean.internal.BeanManagerFactory;
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.util.config.ApplicationConfig;
 
 
@@ -57,12 +57,15 @@ public class ManagedBeanScopePhaseListener implements PhaseListener {
 	// serialVersionUID
 	private static final long serialVersionUID = 1713704308484763548L;
 
+	@Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		if (phaseEvent.getPhaseId() == PhaseId.RENDER_RESPONSE) {
 
-			BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-			PortletPhase portletRequestPhase = bridgeContext.getPortletRequestPhase();
+			FacesContext facesContext = phaseEvent.getFacesContext();
+
+			// TODO: FACES-2648 PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+			PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
 
 			if ((portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) ||
 					(portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE)) {
@@ -73,30 +76,25 @@ public class ManagedBeanScopePhaseListener implements PhaseListener {
 				// bridge {@link RequestAttributeMap.remove(Object)} method will ensure that any @PreDestroy method(s)
 				// are called. The JavaDocs also state that this should only be the case for objects that are actually
 				// managed-beans.
-				FacesContext facesContext = FacesContext.getCurrentInstance();
 				ExternalContext externalContext = facesContext.getExternalContext();
 				Map<String, Object> requestScope = externalContext.getRequestMap();
 				List<String> managedBeanKeysToRemove = new ArrayList<String>();
 				Set<Map.Entry<String, Object>> mapEntries = requestScope.entrySet();
+				String appConfigAttrName = ApplicationConfig.class.getName();
+				Map<String, Object> applicationMap = externalContext.getApplicationMap();
+				ApplicationConfig applicationConfig = (ApplicationConfig) applicationMap.get(appConfigAttrName);
+				BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(
+						BeanManagerFactory.class);
+				BeanManager beanManager = beanManagerFactory.getBeanManager(applicationConfig.getFacesConfig());
 
-				if (mapEntries != null) {
+				for (Map.Entry<String, Object> mapEntry : mapEntries) {
+					String potentialManagedBeanName = mapEntry.getKey();
+					Object potentialManagedBeanValue = mapEntry.getValue();
 
-					String appConfigAttrName = ApplicationConfig.class.getName();
-					Map<String, Object> applicationMap = externalContext.getApplicationMap();
-					ApplicationConfig applicationConfig = (ApplicationConfig) applicationMap.get(appConfigAttrName);
-					BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(
-							BeanManagerFactory.class);
-					BeanManager beanManager = beanManagerFactory.getBeanManager(applicationConfig.getFacesConfig());
-
-					for (Map.Entry<String, Object> mapEntry : mapEntries) {
-						String potentialManagedBeanName = mapEntry.getKey();
-						Object potentialManagedBeanValue = mapEntry.getValue();
-
-						// Note that the request attribute name will not have a namespace prefix, so it is fine to
-						// simply pass the attribute name.
-						if (beanManager.isManagedBean(potentialManagedBeanName, potentialManagedBeanValue)) {
-							managedBeanKeysToRemove.add(potentialManagedBeanName);
-						}
+					// Note that the request attribute name will not have a namespace prefix, so it is fine to
+					// simply pass the attribute name.
+					if (beanManager.isManagedBean(potentialManagedBeanName, potentialManagedBeanValue)) {
+						managedBeanKeysToRemove.add(potentialManagedBeanName);
 					}
 				}
 
@@ -107,10 +105,12 @@ public class ManagedBeanScopePhaseListener implements PhaseListener {
 		}
 	}
 
+	@Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 		// This method is required by the PhaseListener interface but is not used.
 	}
 
+	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.RENDER_RESPONSE;
 	}

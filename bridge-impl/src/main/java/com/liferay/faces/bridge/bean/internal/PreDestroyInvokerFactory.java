@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.bean.internal;
 
-import java.util.Map;
-
 import javax.faces.FacesWrapper;
+import javax.portlet.PortletContext;
+import javax.servlet.ServletContext;
 
 
 /**
@@ -25,5 +25,7 @@ import javax.faces.FacesWrapper;
  */
 public abstract class PreDestroyInvokerFactory implements FacesWrapper<PreDestroyInvokerFactory> {
 
-	public abstract PreDestroyInvoker getPreDestroyInvoker(Map<String, Object> applicationMap);
+	public abstract PreDestroyInvoker getPreDestroyInvoker(ServletContext servletContext);
+
+	public abstract PreDestroyInvoker getPreDestroyInvoker(PortletContext portletContext);
 }

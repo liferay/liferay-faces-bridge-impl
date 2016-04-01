@@ -30,11 +30,11 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.bridge.component.internal.ComponentUtil;
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.HeadResponseWriter;
 import com.liferay.faces.bridge.context.HeadResponseWriterFactory;
@@ -140,7 +140,6 @@ public class HeadRendererBridgeImpl extends Renderer {
 		List<UIComponent> resourcesForRelocatingToBody = new ArrayList<UIComponent>();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
 
 		// Determine whether or not the portlet container is able to add script resources to the head.
 		PortalContext portalContext = portletRequest.getPortalContext();
@@ -151,7 +150,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 		// Determine whether or not this might be a Liferay runtime portlet (which does not have the ability to add
 		// script resources to the head).
 		Boolean renderPortletResource = (Boolean) portletRequest.getAttribute("RENDER_PORTLET_RESOURCE");
-		boolean liferayRuntimePortlet = (renderPortletResource != null) && renderPortletResource.booleanValue();
+		boolean liferayRuntimePortlet = (renderPortletResource != null) && renderPortletResource;
 
 		// Note: The HeadManagedBean is a ViewScoped manage-bean that keeps a list of resources that have been added to
 		// the <head> section of the portal page. Note that the HeadManagedBean will be null in a JSP context since
@@ -241,8 +240,9 @@ public class HeadRendererBridgeImpl extends Renderer {
 			if (headResponseWriter == null) {
 				HeadResponseWriterFactory headResponseWriterFactory = (HeadResponseWriterFactory) BridgeFactoryFinder
 					.getFactory(HeadResponseWriterFactory.class);
-				headResponseWriter = headResponseWriterFactory.getHeadResponseWriter(bridgeContext,
-						responseWriterBackup);
+				PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
+				headResponseWriter = headResponseWriterFactory.getHeadResponseWriter(responseWriterBackup,
+						portletResponse);
 			}
 
 			portletRequest.setAttribute(HeadResponseWriter.class.getName(), headResponseWriter);

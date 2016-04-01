@@ -19,7 +19,6 @@ import java.io.IOException;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.lifecycle.ClientWindow;
 import javax.faces.render.ResponseStateManager;
 
@@ -32,8 +31,8 @@ public abstract class ResponseWriterBridgeCompat_2_2_Impl extends ResponseWriter
 	// Protected Constants
 	protected static final String CLIENT_WINDOW_PARAM = ResponseStateManager.CLIENT_WINDOW_PARAM;
 
-	public ResponseWriterBridgeCompat_2_2_Impl(ResponseWriter wrappedResponseWriter) {
-		super(wrappedResponseWriter);
+	public ResponseWriterBridgeCompat_2_2_Impl() {
+		super();
 	}
 
 	@Override

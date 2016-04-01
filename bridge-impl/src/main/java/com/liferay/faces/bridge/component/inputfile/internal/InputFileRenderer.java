@@ -21,13 +21,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
+import javax.portlet.PortletRequest;
 import javax.portlet.faces.BridgeFactoryFinder;
 
 import com.liferay.faces.bridge.component.inputfile.InputFile;
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.context.ContextMapFactory;
 import com.liferay.faces.bridge.event.FileUploadEvent;
 import com.liferay.faces.bridge.model.UploadedFile;
@@ -48,7 +49,7 @@ public class InputFileRenderer extends InputFileRendererCompat {
 
 		InputFile inputFile = (InputFile) uiComponent;
 
-		Map<String, List<UploadedFile>> uploadedFileMap = getUploadedFileMap();
+		Map<String, List<UploadedFile>> uploadedFileMap = getUploadedFileMap(facesContext);
 
 		if (uploadedFileMap != null) {
 
@@ -85,12 +86,14 @@ public class InputFileRenderer extends InputFileRendererCompat {
 		super.encodeEnd(facesContext, uiComponent, delegationResponseWriter);
 	}
 
-	protected Map<String, List<UploadedFile>> getUploadedFileMap() {
+	protected Map<String, List<UploadedFile>> getUploadedFileMap(FacesContext facesContext) {
 
 		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
 				ContextMapFactory.class);
-		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
 
-		return contextMapFactory.getUploadedFileMap(bridgeContext);
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+
+		return contextMapFactory.getUploadedFileMap(portletRequest);
 	}
 }

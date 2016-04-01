@@ -15,9 +15,12 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.util.Map;
+
 import javax.el.ELContext;
 import javax.faces.FactoryFinder;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.lifecycle.Lifecycle;
@@ -36,8 +39,6 @@ import javax.portlet.faces.annotation.PortletNamingContainer;
 import com.liferay.faces.bridge.BridgePhase;
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
-import com.liferay.faces.bridge.context.BridgeContext;
-import com.liferay.faces.bridge.context.BridgeContextFactory;
 import com.liferay.faces.bridge.context.IncongruityContext;
 import com.liferay.faces.bridge.context.IncongruityContextFactory;
 import com.liferay.faces.bridge.filter.BridgePortletContextFactory;
@@ -46,6 +47,7 @@ import com.liferay.faces.bridge.scope.BridgeRequestScope;
 import com.liferay.faces.bridge.scope.BridgeRequestScopeCache;
 import com.liferay.faces.bridge.scope.BridgeRequestScopeCacheFactory;
 import com.liferay.faces.bridge.scope.BridgeRequestScopeFactory;
+import com.liferay.faces.bridge.util.internal.ViewUtil;
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -64,7 +66,6 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 	// Protected Data Members
 	protected BridgeConfig bridgeConfig;
-	protected BridgeContext bridgeContext;
 	protected BridgeRequestScope bridgeRequestScope;
 	protected BridgeRequestScopeCache bridgeRequestScopeCache;
 	protected boolean bridgeRequestScopePreserved;
@@ -114,25 +115,21 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 	protected abstract void removeBridgeContextAttribute(PortletRequest portletRequest);
 
-	protected void cleanup() {
+	protected void cleanup(PortletRequest portletRequest) {
 
 		if (facesContext != null) {
 			facesContext.release();
 		}
 
-		if (bridgeContext != null) {
-
-			// Cleanup request attributes.
-			PortletRequest portletRequest = bridgeContext.getPortletRequest();
-
-			if (portletRequest != null) {
-				removeBridgeContextAttribute(portletRequest);
-				portletRequest.removeAttribute(Bridge.PORTLET_LIFECYCLE_PHASE);
-			}
-
-			bridgeContext.release();
+		// Cleanup request attributes.
+		if (portletRequest != null) {
+			removeBridgeContextAttribute(portletRequest);
+			portletRequest.removeAttribute(Bridge.PORTLET_LIFECYCLE_PHASE);
+			portletRequest.removeAttribute(PortletConfig.class.getName());
+			portletRequest.removeAttribute(BridgeConfig.class.getName());
+			portletRequest.removeAttribute(BridgeRequestScope.class.getName());
+			portletRequest.removeAttribute(IncongruityContext.class.getName());
 		}
-
 	}
 
 	protected void indicateNamespacingToConsumers(UIViewRoot uiViewRoot, PortletResponse portletResponse) {
@@ -164,17 +161,23 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		// BridgeRequestAttributeListener.
 		portletRequest.setAttribute(Bridge.PORTLET_LIFECYCLE_PHASE, portletPhase);
 
+		// Save the PortletConfig as a request attribute.
+		portletRequest.setAttribute(PortletConfig.class.getName(), portletConfig);
+
+		// Save the BridgeConfig as a request attribute.
+		portletRequest.setAttribute(BridgeConfig.class.getName(), bridgeConfig);
+
 		// Initialize the bridge request scope.
 		initBridgeRequestScope(portletRequest, portletResponse, portletPhase);
 
-		// Get the bridge context.
-		BridgeContextFactory bridgeContextFactory = (BridgeContextFactory) BridgeFactoryFinder.getFactory(
-				BridgeContextFactory.class);
-		bridgeContext = bridgeContextFactory.getBridgeContext(bridgeConfig, bridgeRequestScope, portletConfig,
-				portletContext, portletRequest, portletResponse, portletPhase, incongruityContext);
+		// Save the BridgeRequestScope as a request attribute.
+		portletRequest.setAttribute(BridgeRequestScope.class.getName(), bridgeRequestScope);
+
+		// Save the IncongruityContext as a request attribute.
+		portletRequest.setAttribute(IncongruityContext.class.getName(), incongruityContext);
 
 		// Save the BridgeContext as a request attribute for legacy versions of ICEfaces.
-		setBridgeContextAttribute(portletRequest, bridgeContext);
+		setBridgeContextAttribute(portletRequest);
 
 		// Get the FacesContext.
 		facesContext = getFacesContext(portletRequest, portletResponse, facesLifecycle);
@@ -186,7 +189,8 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 			PortletSession portletSession = portletRequest.getPortletSession();
 
 			if (portletSession.getAttribute(attributeName) == null) {
-				portletSession.setAttribute(attributeName, bridgeContext.getDefaultViewIdMap().get(portletMode));
+				Map<String, String> defaultViewIdMap = ViewUtil.getDefaultViewIdMap(portletConfig);
+				portletSession.setAttribute(attributeName, defaultViewIdMap.get(portletMode));
 			}
 		}
 	}
@@ -330,7 +334,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		}
 	}
 
-	protected abstract void setBridgeContextAttribute(PortletRequest portletRequest, BridgeContext bridgeContext);
+	protected abstract void setBridgeContextAttribute(PortletRequest portletRequest);
 
 	protected FacesContext getFacesContext(PortletRequest portletRequest, PortletResponse portletResponse,
 		Lifecycle lifecycle) {
@@ -352,5 +356,16 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		}
 
 		return facesContextFactory;
+	}
+
+	protected String getFacesViewId(ExternalContext externalContext) {
+
+		String viewId = externalContext.getRequestPathInfo();
+
+		if (viewId == null) {
+			viewId = externalContext.getRequestServletPath();
+		}
+
+		return viewId;
 	}
 }

@@ -62,6 +62,9 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	 */
 	PreferPreDestroy("com.liferay.faces.bridge.preferPreDestroy", "org.portletfaces.bridge.preferPreDestroy", true),
 
+	/** Flag indicating the value of the "javax.portlet.faces.preserveActionParams" init-param. The default is false. */
+	PreserveActionParams("javax.portlet.faces.preserveActionParams", false),
+
 	/**
 	 * Flag indicating whether or not the render-redirect standard feature is enabled. Default value is false for the
 	 * sake of performance.

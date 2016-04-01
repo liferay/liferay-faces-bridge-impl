@@ -24,7 +24,6 @@ import javax.portlet.ClientDataRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.ResourceRequest;
 
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
@@ -52,9 +51,8 @@ public class RequestHeaderValuesMap extends RequestHeaderValuesMapCompat {
 	private static final String HEADER_CONTENT_TYPE = "Content-Type";
 	private static final String HEADER_FACES_REQUEST = "Faces-Request";
 
-	public RequestHeaderValuesMap(BridgeContext bridgeContext) {
+	public RequestHeaderValuesMap(PortletRequest portletRequest) {
 
-		PortletRequest portletRequest = bridgeContext.getPortletRequest();
 		Enumeration<String> propertyNames = portletRequest.getPropertyNames();
 		boolean foundAccept = false;
 		boolean foundContentType = false;

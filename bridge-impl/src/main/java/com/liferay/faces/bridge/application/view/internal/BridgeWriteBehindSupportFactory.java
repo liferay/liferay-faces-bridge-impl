@@ -20,12 +20,14 @@ import javax.faces.FacesWrapper;
 import javax.portlet.MimeResponse;
 import javax.portlet.faces.BridgeWriteBehindResponse;
 
+import com.liferay.faces.bridge.config.BridgeConfig;
+
 
 /**
  * @author  Neil Griffin
  */
 public abstract class BridgeWriteBehindSupportFactory implements FacesWrapper<BridgeWriteBehindSupportFactory> {
 
-	public abstract BridgeWriteBehindResponse getBridgeWriteBehindResponse(MimeResponse mimeResponse)
-		throws FacesException;
+	public abstract BridgeWriteBehindResponse getBridgeWriteBehindResponse(MimeResponse mimeResponse,
+		BridgeConfig bridgeConfig) throws FacesException;
 }
