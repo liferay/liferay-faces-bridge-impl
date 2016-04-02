@@ -252,7 +252,7 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 
 		// If a render-redirect occurred, then
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Writer writer = externalContext.getResponseOutputWriter();
+		Writer writer = getResponseOutputWriter(externalContext);
 
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 		Boolean renderRedirect = (Boolean) requestMap.remove(BridgeExt.RENDER_REDIRECT);

@@ -16,11 +16,13 @@
 package com.liferay.faces.bridge.internal;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Iterator;
 import java.util.Set;
 
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.ExceptionHandler;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
@@ -101,6 +103,10 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 		}
 
 		return unhandledException;
+	}
+
+	public Writer getResponseOutputWriter(ExternalContext externalContext) throws IOException {
+		return externalContext.getResponseOutputWriter();
 	}
 
 	protected boolean isJSF2AjaxRequest(FacesContext facesContext) {
