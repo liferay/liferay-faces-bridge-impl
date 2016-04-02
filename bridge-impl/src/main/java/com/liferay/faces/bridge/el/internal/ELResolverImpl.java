@@ -39,6 +39,7 @@ import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.config.internal.PortletConfigWrapper;
 import com.liferay.faces.bridge.context.ContextMapFactory;
+import com.liferay.faces.bridge.context.internal.LegacyBridgeContext;
 import com.liferay.faces.bridge.preference.internal.MutablePreferenceMap;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
@@ -456,18 +457,5 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 	@Override
 	public boolean isReadOnly(ELContext elContext, Object base, Object property) {
 		return true;
-	}
-
-	public static class LegacyBridgeContext {
-
-		private BridgeConfig bridgeConfig;
-
-		public LegacyBridgeContext(BridgeConfig bridgeConfig) {
-			this.bridgeConfig = bridgeConfig;
-		}
-
-		public BridgeConfig getBridgeConfig() {
-			return bridgeConfig;
-		}
 	}
 }
