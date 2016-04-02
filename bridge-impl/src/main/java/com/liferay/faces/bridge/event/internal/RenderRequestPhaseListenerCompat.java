@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.event.internal;
 
-import com.liferay.faces.bridge.context.BridgeContext;
+import javax.portlet.PortletConfig;
 
 
 /**
@@ -23,7 +23,7 @@ import com.liferay.faces.bridge.context.BridgeContext;
  */
 public class RenderRequestPhaseListenerCompat {
 
-	protected boolean isViewParametersEnabled(BridgeContext bridgeContext) {
+	protected boolean isViewParametersEnabled(PortletConfig portletConfig) {
 
 		// The "View Parameters" feature was introduced in JSF 2.0, so return false for JSF 1.2.
 		return false;

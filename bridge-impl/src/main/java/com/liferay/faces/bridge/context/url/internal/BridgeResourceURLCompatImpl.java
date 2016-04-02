@@ -15,10 +15,9 @@
  */
 package com.liferay.faces.bridge.context.url.internal;
 
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.context.url.BridgeResourceURL;
 import com.liferay.faces.bridge.context.url.BridgeURI;
-import com.liferay.faces.bridge.context.url.BridgeURLBase;
 
 
 /**
@@ -28,8 +27,10 @@ import com.liferay.faces.bridge.context.url.BridgeURLBase;
  */
 public abstract class BridgeResourceURLCompatImpl extends BridgeURLInternalBase implements BridgeResourceURL {
 
-	public BridgeResourceURLCompatImpl(BridgeContext bridgeContext, BridgeURI bridgeURI, String viewId) {
-		super(bridgeContext, bridgeURI, viewId);
+	public BridgeResourceURLCompatImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
+		String viewIdRenderParameterName, String viewIdResourceParameterName, BridgeConfig bridgeConfig) {
+		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
+			bridgeConfig);
 	}
 
 	public boolean isEncodedFaces2ResourceURL() {

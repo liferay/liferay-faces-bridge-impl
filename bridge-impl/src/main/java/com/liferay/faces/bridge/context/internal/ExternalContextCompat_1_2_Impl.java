@@ -16,14 +16,9 @@
 package com.liferay.faces.bridge.context.internal;
 
 import javax.faces.context.ExternalContext;
-import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
-
-import com.liferay.faces.bridge.config.internal.PortletConfigParam;
-import com.liferay.faces.bridge.context.BridgeContext;
-import com.liferay.faces.bridge.context.IncongruityContext;
 
 
 /**
@@ -32,35 +27,17 @@ import com.liferay.faces.bridge.context.IncongruityContext;
  *
  * @author  Neil Griffin
  */
-public abstract class ExternalContextCompat_1_2_Impl extends ExternalContext {
+public abstract class ExternalContextCompat_1_2_Impl extends ExternalContextBridgeBase {
 
 	// Private Constants
 	private static final String TRINIDAD_DISABLE_DIALOG_OUTCOMES =
 		"org.apache.myfaces.trinidad.DISABLE_DIALOG_OUTCOMES";
 
 	// Protected Data Members
-	protected BridgeContext bridgeContext;
-	protected IncongruityContext incongruityContext;
-	protected boolean manageIncongruities;
-	protected PortletContext portletContext;
-	protected PortletRequest portletRequest;
-	protected PortletResponse portletResponse;
 
 	public ExternalContextCompat_1_2_Impl(PortletContext portletContext, PortletRequest portletRequest,
 		PortletResponse portletResponse) {
-
-		this.portletContext = portletContext;
-		this.portletRequest = portletRequest;
-		this.portletResponse = portletResponse;
-
-		// Get the BridgeContext.
-		this.bridgeContext = BridgeContext.getCurrentInstance();
-
-		this.incongruityContext = bridgeContext.getIncongruityContext();
-
-		// Determine whether or not lifecycle incongruities should be managed.
-		PortletConfig portletConfig = bridgeContext.getPortletConfig();
-		this.manageIncongruities = PortletConfigParam.ManageIncongruities.getBooleanValue(portletConfig);
+		super(portletContext, portletRequest, portletResponse);
 
 		// Disable the Apache Trinidad 1.2.x "dialog:" URL feature as it causes navigation-handler failures during the
 		// EVENT_PHASE of the portlet lifecycle. For more information on the feature, see:
@@ -73,11 +50,11 @@ public abstract class ExternalContextCompat_1_2_Impl extends ExternalContext {
 	 * first introduced with JSF 1.0 and and also because it needs to be overridden by {@link
 	 * ExternalContextCompat_2_2_Impl} since it has special requirements for JSF 2.2.
 	 *
-	 * @see    {@link ExternalContext#encodeActionURL(String, Map)}
+	 * @see    {@link ExternalContext#encodeActionURL(String)}
 	 * @since  JSF 1.0
 	 */
 	@Override
 	public String encodeActionURL(String url) {
-		return bridgeContext.encodeActionURL(url).toString();
+		return super.encodeActionURL(url);
 	}
 }

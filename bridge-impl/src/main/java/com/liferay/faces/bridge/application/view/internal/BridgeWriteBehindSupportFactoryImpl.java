@@ -16,23 +16,16 @@
 package com.liferay.faces.bridge.application.view.internal;
 
 import java.lang.reflect.Constructor;
-import java.util.Locale;
 
 import javax.faces.FacesException;
 import javax.portlet.MimeResponse;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.BridgeWriteBehindResponse;
-import javax.servlet.ServletResponse;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.BridgeContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -53,7 +46,7 @@ public class BridgeWriteBehindSupportFactoryImpl extends BridgeWriteBehindSuppor
 	protected Class<? extends BridgeWriteBehindResponse> loadClass(String className,
 		Class<? extends BridgeWriteBehindResponse> defaultClass) {
 
-		Class<? extends BridgeWriteBehindResponse> bridgeWriteBehindResponseClass = null;
+		Class<? extends BridgeWriteBehindResponse> bridgeWriteBehindResponseClass;
 
 		try {
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -79,14 +72,12 @@ public class BridgeWriteBehindSupportFactoryImpl extends BridgeWriteBehindSuppor
 	}
 
 	@Override
-	public BridgeWriteBehindResponse getBridgeWriteBehindResponse(MimeResponse mimeResponse) throws FacesException {
+	public BridgeWriteBehindResponse getBridgeWriteBehindResponse(MimeResponse mimeResponse, BridgeConfig bridgeConfig)
+		throws FacesException {
 
-		BridgeWriteBehindResponse bridgeWriteBehindResponse = null;
+		BridgeWriteBehindResponse bridgeWriteBehindResponse;
 
 		if ((bridgeWriteBehindRenderResponseClass == null) || (bridgeWriteBehindResourceResponseClass == null)) {
-
-			BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-			BridgeConfig bridgeConfig = bridgeContext.getBridgeConfig();
 
 			if (bridgeWriteBehindRenderResponseClass == null) {
 				String className = bridgeConfig.getWriteBehindRenderResponseWrapper();
@@ -100,7 +91,7 @@ public class BridgeWriteBehindSupportFactoryImpl extends BridgeWriteBehindSuppor
 			}
 		}
 
-		Class<? extends BridgeWriteBehindResponse> bridgeWriteBehindResponseClass = null;
+		Class<? extends BridgeWriteBehindResponse> bridgeWriteBehindResponseClass;
 
 		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
 
@@ -139,6 +130,7 @@ public class BridgeWriteBehindSupportFactoryImpl extends BridgeWriteBehindSuppor
 		return bridgeWriteBehindResponse;
 	}
 
+	// Java 1.6+ @Override
 	public BridgeWriteBehindSupportFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.

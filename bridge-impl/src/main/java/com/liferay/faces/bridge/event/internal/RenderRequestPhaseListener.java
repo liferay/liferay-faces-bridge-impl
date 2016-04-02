@@ -15,12 +15,15 @@
  */
 package com.liferay.faces.bridge.event.internal;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.portlet.PortletConfig;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeUtil;
 
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
 
 /**
@@ -40,32 +43,38 @@ public class RenderRequestPhaseListener extends RenderRequestPhaseListenerCompat
 	// Private Data Members
 	private PhaseId phaseId = PhaseId.RESTORE_VIEW;
 
+	// Java 1.6+ @Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
-		BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
+		FacesContext facesContext = phaseEvent.getFacesContext();
 
 		if (VIEW_PARAMETERS_ENABLED == null) {
 
 			synchronized (phaseId) {
 
 				if (VIEW_PARAMETERS_ENABLED == null) {
-					VIEW_PARAMETERS_ENABLED = isViewParametersEnabled(bridgeContext);
+
+					PortletConfig portletConfig = RequestMapUtil.getPortletConfig(facesContext);
+					VIEW_PARAMETERS_ENABLED = isViewParametersEnabled(portletConfig);
 				}
 			}
 		}
 
 		// If the JSF 2 "View Parameters" feature is not enabled, then ensure that only the RESTORE_VIEW phase executes.
-		if (!VIEW_PARAMETERS_ENABLED && (bridgeContext.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE)) {
-			phaseEvent.getFacesContext().renderResponse();
+		if (!VIEW_PARAMETERS_ENABLED && (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE)) {
+
+			// TODO: FACES-2648 (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RENDER_PHASE)) {
+			facesContext.renderResponse();
 		}
 	}
 
+	// Java 1.6+ @Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 		// This method is required by the PhaseListener interfaces but is not used.
 	}
 
+	// Java 1.6+ @Override
 	public PhaseId getPhaseId() {
 		return phaseId;
 	}
-
 }

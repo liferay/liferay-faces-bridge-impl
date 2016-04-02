@@ -16,11 +16,19 @@
 package com.liferay.faces.bridge.internal;
 
 import java.io.IOException;
+import java.io.Writer;
+import java.util.Map;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletConfig;
+import javax.portlet.PortletResponse;
+import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.config.internal.PortletConfigParam;
+import com.liferay.faces.bridge.context.internal.RenderRedirectWriterImpl;
 
 
 /**
@@ -52,6 +60,40 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 
 		// no-op for JSF 1.x
 		return null;
+	}
+
+	public Writer getResponseOutputWriter(ExternalContext externalContext) throws IOException {
+
+		Writer responseOutputWriter = null;
+
+		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
+
+		if (portletResponse instanceof MimeResponse) {
+
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			Map<String, Object> requestMap = externalContext.getRequestMap();
+
+			Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) requestMap.get(Bridge.PORTLET_LIFECYCLE_PHASE);
+
+			if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
+
+				boolean renderRedirectEnabled = PortletConfigParam.RenderRedirectEnabled.getBooleanValue(portletConfig);
+
+				if (renderRedirectEnabled) {
+					responseOutputWriter = new RenderRedirectWriterImpl(mimeResponse.getWriter());
+				}
+				else {
+					responseOutputWriter = mimeResponse.getWriter();
+				}
+
+			}
+			else {
+				responseOutputWriter = mimeResponse.getWriter();
+			}
+		}
+
+		return responseOutputWriter;
 	}
 
 	public boolean isJSF2AjaxRequest(FacesContext facesContext) {

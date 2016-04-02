@@ -13,21 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.application.view.internal;
+package com.liferay.faces.bridge.context.url.internal;
 
-import javax.faces.FacesException;
-import javax.portlet.MimeResponse;
-import javax.portlet.faces.BridgeWriteBehindResponse;
-
-import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.util.helper.Wrapper;
+import javax.faces.context.FacesContext;
 
 
 /**
  * @author  Neil Griffin
  */
-public abstract class BridgeWriteBehindSupportFactory implements Wrapper<BridgeWriteBehindSupportFactory> {
+public class BridgeURLEncoderCompatImpl {
 
-	public abstract BridgeWriteBehindResponse getBridgeWriteBehindResponse(MimeResponse mimeResponse,
-		BridgeConfig bridgeConfig) throws FacesException;
+	protected boolean isJSF2PartialRequest(FacesContext facesContext) {
+
+		// no-op for JSF 1.2
+		return false;
+	}
 }

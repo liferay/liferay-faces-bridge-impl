@@ -16,7 +16,9 @@
 package com.liferay.faces.bridge.bean.internal;
 
 import java.lang.reflect.Method;
-import java.util.Map;
+
+import javax.portlet.PortletContext;
+import javax.servlet.ServletContext;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -41,17 +43,12 @@ public class PreDestroyInvokerMojarraImpl extends PreDestroyInvokerImpl {
 	private Method invokePreDestroyMethod;
 	private Object mojarraInjectionProvider;
 
-	public PreDestroyInvokerMojarraImpl(Map<String, Object> applicationMap) {
+	public PreDestroyInvokerMojarraImpl(ServletContext servletContext) {
+		init(new ContextAdapter(servletContext));
+	}
 
-		this.mojarraInjectionProvider = getInjectionProvider(applicationMap);
-
-		try {
-			this.invokePreDestroyMethod = mojarraInjectionProvider.getClass().getMethod(INVOKE_PRE_DESTROY,
-					new Class[] { Object.class });
-		}
-		catch (Exception e) {
-			logger.error(e);
-		}
+	public PreDestroyInvokerMojarraImpl(PortletContext portletContext) {
+		init(new ContextAdapter(portletContext));
 	}
 
 	@Override
@@ -85,11 +82,24 @@ public class PreDestroyInvokerMojarraImpl extends PreDestroyInvokerImpl {
 		return mojarraInjectionProvider.toString();
 	}
 
-	protected Object getInjectionProvider(Map<String, Object> applicationMap) {
+	private void init(ContextAdapter contextAdapter) {
+		this.mojarraInjectionProvider = getInjectionProvider(contextAdapter);
+
+		try {
+			this.invokePreDestroyMethod = mojarraInjectionProvider.getClass().getMethod(INVOKE_PRE_DESTROY,
+					new Class[] { Object.class });
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
+
+	}
+
+	protected Object getInjectionProvider(ContextAdapter contextAdapter) {
 
 		try {
 
-			Object applicationAssociate = applicationMap.get("com.sun.faces.ApplicationAssociate");
+			Object applicationAssociate = contextAdapter.getAttribute("com.sun.faces.ApplicationAssociate");
 
 			// If the ApplicationAssociate instance is available, then return the InjectionProvider that it knows about.
 			if (applicationAssociate != null) {
@@ -121,6 +131,33 @@ public class PreDestroyInvokerMojarraImpl extends PreDestroyInvokerImpl {
 			logger.error(e);
 
 			return null;
+		}
+	}
+
+	private static class ContextAdapter {
+
+		private PortletContext portletContext;
+		private ServletContext servletContext;
+
+		public ContextAdapter(PortletContext portletContext) {
+			this.portletContext = portletContext;
+		}
+
+		public ContextAdapter(ServletContext servletContext) {
+			this.servletContext = servletContext;
+		}
+
+		public Object getAttribute(String name) {
+
+			if (portletContext != null) {
+				return portletContext.getAttribute(name);
+			}
+			else if (servletContext != null) {
+				return servletContext.getAttribute(name);
+			}
+			else {
+				return null;
+			}
 		}
 	}
 }

@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.internal;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Map;
 
 import javax.faces.application.NavigationHandler;
 import javax.faces.application.ViewHandler;
@@ -81,7 +82,7 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 				portletConfig, bridgeConfig);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void execute() throws BridgeException {
 
 		logger.debug(Logger.SEPARATOR);
@@ -105,7 +106,7 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 				throw new BridgeException(t);
 			}
 			finally {
-				cleanup();
+				cleanup(renderRequest);
 			}
 
 			logger.debug(Logger.SEPARATOR);
@@ -113,14 +114,14 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 	}
 
 	@Override
-	protected void cleanup() {
+	protected void cleanup(PortletRequest portletRequest) {
 
 		// If required, cause the BridgeRequestScope to go out-of-scope.
-		if ((bridgeContext != null) && !bridgeRequestScopePreserved) {
+		if (!bridgeRequestScopePreserved) {
 			bridgeRequestScopeCache.remove(bridgeRequestScope.getId());
 		}
 
-		super.cleanup();
+		super.cleanup(portletRequest);
 	}
 
 	protected void doFacesHeaders(RenderRequest renderRequest, RenderResponse renderResponse) {
@@ -146,15 +147,12 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 		// If a render-redirect URL was specified, then it is necessary to create a new view from the URL and place it
 		// in the FacesContext.
 		if (renderRedirectViewId != null) {
-			bridgeContext.setRenderRedirectViewId(renderRedirectViewId);
-			bridgeContext.setRenderRedirectAfterDispatch(true);
+			renderRequest.setAttribute(BridgeExt.RENDER_REDIRECT_AFTER_DISPATCH, Boolean.TRUE);
 
 			ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
 			UIViewRoot uiViewRoot = viewHandler.createView(facesContext, renderRedirectViewId);
 			facesContext.setViewRoot(uiViewRoot);
-
-			String viewId = bridgeContext.getFacesViewId();
-			logger.debug("Performed render-redirect to viewId=[{0}]", viewId);
+			logger.debug("Performed render-redirect to viewId=[{0}]", renderRedirectViewId);
 		}
 
 		// NOTE: PROPOSE-FOR-BRIDGE3-API Actually, the proposal would be to REMOVE
@@ -191,7 +189,8 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 		else {
 
 			try {
-				String viewId = bridgeContext.getFacesViewId();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				String viewId = getFacesViewId(externalContext);
 				logger.debug("Executing Faces lifecycle for viewId=[{0}]", viewId);
 			}
 			catch (BridgeException e) {
@@ -204,7 +203,6 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 
 			// Execute the JSF lifecycle.
 			facesLifecycle.execute(facesContext);
-
 		}
 
 		// If there were any "handled" exceptions queued, then throw a BridgeException.
@@ -253,9 +251,13 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 		indicateNamespacingToConsumers(facesContext.getViewRoot(), renderResponse);
 
 		// If a render-redirect occurred, then
-		Writer writer = bridgeContext.getResponseOutputWriter();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Writer writer = getResponseOutputWriter(externalContext);
 
-		if (bridgeContext.isRenderRedirect()) {
+		Map<String, Object> requestMap = externalContext.getRequestMap();
+		Boolean renderRedirect = (Boolean) requestMap.remove(BridgeExt.RENDER_REDIRECT);
+
+		if ((renderRedirect != null) && renderRedirect) {
 
 			// Cleanup the old FacesContext since a new one will be created in the recursive method call below.
 			facesContext.responseComplete();
@@ -272,7 +274,9 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 
 			// Recursively call this method with the render-redirect URL so that the RENDER_RESPONSE phase of the
 			// JSF lifecycle will be re-executed according to the new Faces viewId found in the redirect URL.
-			execute(bridgeContext.getRenderRedirectViewId());
+			renderRedirectViewId = (String) requestMap.remove(BridgeExt.RENDER_REDIRECT_VIEW_ID);
+
+			execute(renderRedirectViewId);
 		}
 
 		// Otherwise,

@@ -20,8 +20,12 @@ import java.io.OutputStream;
 
 import javax.portlet.CacheControl;
 import javax.portlet.MimeResponse;
+import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
 import javax.portlet.ResourceURL;
+import javax.portlet.filter.PortletResponseWrapper;
+import javax.servlet.ServletResponse;
+import javax.servlet.ServletResponseWrapper;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -42,50 +46,94 @@ public class HttpServletResponseMimeAdapter extends HttpServletResponseWrapper i
 
 	// Private Data Members
 	private String namespace;
+	private MimeResponse wrappedMimeResponse;
 
 	public HttpServletResponseMimeAdapter(HttpServletResponse httpServletResponse, String namespace) {
 		super(httpServletResponse);
 		this.namespace = namespace;
+		this.wrappedMimeResponse = (MimeResponse) unwrapPortletResponse(this);
 	}
 
 	@Override
 	public void addProperty(Cookie cookie) {
-		throw new UnsupportedOperationException();
+		wrappedMimeResponse.addProperty(cookie);
 	}
 
 	@Override
 	public void addProperty(String key, String value) {
-		throw new UnsupportedOperationException();
+		wrappedMimeResponse.addProperty(key, value);
 	}
 
 	@Override
 	public void addProperty(String key, Element element) {
-		throw new UnsupportedOperationException();
+		wrappedMimeResponse.addProperty(key, element);
 	}
 
 	@Override
 	public PortletURL createActionURL() {
-		throw new UnsupportedOperationException();
+		return wrappedMimeResponse.createActionURL();
 	}
 
 	@Override
 	public Element createElement(String tagName) throws DOMException {
-		throw new UnsupportedOperationException();
+		return wrappedMimeResponse.createElement(tagName);
 	}
 
 	@Override
 	public PortletURL createRenderURL() {
-		throw new UnsupportedOperationException();
+		return wrappedMimeResponse.createRenderURL();
 	}
 
 	@Override
 	public ResourceURL createResourceURL() {
-		throw new UnsupportedOperationException();
+		return wrappedMimeResponse.createResourceURL();
+	}
+
+	protected PortletResponse unwrapPortletResponse(PortletResponse portletResponse) {
+
+		if (portletResponse instanceof ServletResponse) {
+
+			PortletResponse unwrappedServletResponse = unwrapServletResponse((ServletResponse) portletResponse);
+
+			if (unwrappedServletResponse != null) {
+				return unwrappedServletResponse;
+			}
+			else {
+				return portletResponse;
+			}
+		}
+		else if (portletResponse instanceof PortletResponseWrapper) {
+
+			PortletResponseWrapper portletResponseWrapper = (PortletResponseWrapper) portletResponse;
+			portletResponse = portletResponseWrapper.getResponse();
+
+			return unwrapPortletResponse(portletResponse);
+		}
+		else {
+			return portletResponse;
+		}
+	}
+
+	protected PortletResponse unwrapServletResponse(ServletResponse servletResponse) {
+
+		if (servletResponse instanceof ServletResponseWrapper) {
+
+			ServletResponseWrapper servletResponseWrapper = (ServletResponseWrapper) servletResponse;
+			servletResponse = servletResponseWrapper.getResponse();
+
+			return unwrapServletResponse(servletResponse);
+		}
+		else if (servletResponse instanceof PortletResponse) {
+			return (PortletResponse) servletResponse;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
 	public CacheControl getCacheControl() {
-		throw new UnsupportedOperationException();
+		return wrappedMimeResponse.getCacheControl();
 	}
 
 	@Override
@@ -95,11 +143,11 @@ public class HttpServletResponseMimeAdapter extends HttpServletResponseWrapper i
 
 	@Override
 	public OutputStream getPortletOutputStream() throws IOException {
-		throw new UnsupportedOperationException();
+		return wrappedMimeResponse.getPortletOutputStream();
 	}
 
 	@Override
 	public void setProperty(String key, String value) {
-		throw new UnsupportedOperationException();
+		wrappedMimeResponse.setProperty(key, value);
 	}
 }

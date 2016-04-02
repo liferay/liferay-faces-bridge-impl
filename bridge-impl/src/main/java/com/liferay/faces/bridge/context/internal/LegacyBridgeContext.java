@@ -15,31 +15,28 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import java.io.IOException;
+import javax.portlet.PortletRequest;
 
-import javax.faces.context.FacesContext;
-import javax.portlet.ResourceResponse;
-
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.config.BridgeConfig;
 
 
 /**
- * This class provides a compatibility layer that isolates differences between JSF1 and JSF2.
- *
  * @author  Neil Griffin
  */
-public abstract class BridgeContextCompatImpl extends BridgeContext {
+public class LegacyBridgeContext {
 
-	protected void partialViewContextRenderAll(FacesContext facesContext) {
-		// no-op for JSF 1.2
+	private BridgeConfig bridgeConfig;
+
+	public LegacyBridgeContext(BridgeConfig bridgeConfig) {
+		this.bridgeConfig = bridgeConfig;
 	}
 
-	protected void redirectJSF2PartialResponse(FacesContext facesContext, ResourceResponse resourceResponse, String url)
-		throws IOException {
-		// no-op for JSF 1.2
+	public BridgeConfig getBridgeConfig() {
+		return bridgeConfig;
 	}
 
-	protected boolean isJSF2PartialRequest(FacesContext facesContext) {
-		return false;
+	public void setPortletRequest(PortletRequest portletRequest) {
+		// No-op, but method signature is required for compatibility with ICEfaces 3.3
+		// org.icefaces.ace.component.fileentry.FileEntryResourceHandler
 	}
 }

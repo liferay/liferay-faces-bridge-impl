@@ -15,12 +15,15 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
+import java.io.IOException;
+
+import javax.faces.context.FacesContext;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
-import javax.servlet.ServletResponse;
 
 
 /**
@@ -31,7 +34,6 @@ import javax.servlet.ServletResponse;
 public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextCompat_2_0_FlashImpl {
 
 	// Protected Data Members
-	protected ServletResponse facesImplementationServletResponse;
 	protected Bridge.PortletPhase portletPhase;
 
 	public ExternalContextCompat_2_0_Impl(PortletContext portletContext, PortletRequest portletRequest,
@@ -40,7 +42,24 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 		super(portletContext, portletRequest, portletResponse);
 	}
 
+	protected void partialViewContextRenderAll(FacesContext facesContext) {
+
+		// no-op for JSF 1.2
+	}
+
+	protected void redirectJSF2PartialResponse(FacesContext facesContext, ResourceResponse resourceResponse, String url)
+		throws IOException {
+
+		// no-op for JSF 1.2
+	}
+
 	protected boolean isICEfacesLegacyMode(ClientDataRequest clientDataRequest) {
+
+		// no-op for JSF 1.2
+		return false;
+	}
+
+	protected boolean isJSF2PartialRequest(FacesContext facesContext) {
 
 		// no-op for JSF 1.2
 		return false;

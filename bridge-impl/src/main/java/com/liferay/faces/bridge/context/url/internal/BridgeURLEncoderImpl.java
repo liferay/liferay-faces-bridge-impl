@@ -23,8 +23,8 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeFactoryFinder;
 
+import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.context.internal.FacesView;
@@ -45,7 +45,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeURLEncoderImpl implements BridgeURLEncoder {
+public class BridgeURLEncoderImpl extends BridgeURLEncoderCompatImpl implements BridgeURLEncoder {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeURLEncoderImpl.class);
@@ -66,7 +66,7 @@ public class BridgeURLEncoderImpl implements BridgeURLEncoder {
 				BridgeConfigAttributeMap.CONFIGURED_SUFFIXES);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public BridgeURL encodeActionURL(FacesContext facesContext, String url) throws URISyntaxException {
 
 		logger.debug("encodeActionURL fromURL=[{0}]", url);
@@ -137,7 +137,7 @@ public class BridgeURLEncoderImpl implements BridgeURLEncoder {
 		return bridgeActionURL;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public BridgeURL encodeBookmarkableURL(FacesContext facesContext, String url, Map<String, List<String>> parameters)
 		throws URISyntaxException {
 
@@ -156,7 +156,7 @@ public class BridgeURLEncoderImpl implements BridgeURLEncoder {
 		return bridgeURLFactory.getBridgeBookmarkableURL(facesContext, bridgeURI, parameters, viewId);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public BridgeURL encodePartialActionURL(FacesContext facesContext, String url) throws URISyntaxException {
 
 		logger.debug("encodePartialActionURL fromURL=[{0}]", url);
@@ -171,7 +171,7 @@ public class BridgeURLEncoderImpl implements BridgeURLEncoder {
 		return bridgePartialActionURL;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public BridgeURL encodeRedirectURL(FacesContext facesContext, String url, Map<String, List<String>> parameters)
 		throws URISyntaxException {
 
@@ -190,14 +190,14 @@ public class BridgeURLEncoderImpl implements BridgeURLEncoder {
 		BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, bridgeURI, parameters,
 				redirectViewId);
 
-		if (facesContext.getPartialViewContext().isPartialRequest()) {
+		if (isJSF2PartialRequest(facesContext)) {
 			bridgeRedirectURL.setParameter("_bridgeAjaxRedirect", "true");
 		}
 
 		return bridgeRedirectURL;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public BridgeURL encodeResourceURL(FacesContext facesContext, String url) throws URISyntaxException {
 
 		logger.debug("encodeResourceURL fromURL=[{0}]", url);

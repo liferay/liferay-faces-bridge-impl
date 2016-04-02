@@ -20,11 +20,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
-import javax.portlet.faces.Bridge;
+import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
 
-import com.liferay.faces.bridge.context.BridgeContext;
+import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -38,20 +39,14 @@ public class BridgeBookmarkableURLImpl extends BridgeURLInternalBase {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeBookmarkableURLImpl.class);
 
-	// Private Data Members
-	private String uri;
-	private String viewId;
-	private String viewIdRenderParameterName;
+	public BridgeBookmarkableURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
+		String viewIdRenderParameterName, String viewIdResourceParameterName, Map<String, List<String>> parameters,
+		BridgeConfig bridgeConfig) {
 
-	public BridgeBookmarkableURLImpl(BridgeContext bridgeContext, BridgeURI bridgeURI,
-		Map<String, List<String>> parameters, String viewId) {
+		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
+			bridgeConfig);
 
-		super(bridgeContext, bridgeURI, viewId);
-		this.uri = bridgeURI.toString();
-		this.viewId = viewId;
-		this.viewIdRenderParameterName = bridgeContext.getBridgeConfig().getViewIdRenderParameterName();
-
-		if (uri != null) {
+		if ((bridgeURI != null) && (bridgeURI.toString() != null)) {
 
 			if (parameters != null) {
 
@@ -80,14 +75,17 @@ public class BridgeBookmarkableURLImpl extends BridgeURLInternalBase {
 		BaseURL baseURL = null;
 
 		// If this is executing during the RENDER_PHASE or RESOURCE_PHASE of the portlet lifecycle, then
-		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
+		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
 
-		if ((portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) ||
-				(portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE)) {
+		if ((portletRequestPhase == PortletPhase.RENDER_PHASE) ||
+				(portletRequestPhase == PortletPhase.RESOURCE_PHASE)) {
 
-			baseURL = createRenderURL(uri);
+			BridgeURI bridgeURI = getBridgeURI();
+			String uri = bridgeURI.toString();
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			baseURL = createRenderURL(facesContext, uri);
 			baseURL.setParameters(getParameterMap());
-			baseURL.setParameter(viewIdRenderParameterName, viewId);
+			baseURL.setParameter(getViewIdRenderParameterName(), getViewId());
 		}
 
 		// Otherwise, log an error.

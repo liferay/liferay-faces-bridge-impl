@@ -69,7 +69,7 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(MultiPartFormDataProcessorImpl.class);
 
-	@Override
+	// Java 1.6+ @Override
 	public Map<String, List<UploadedFile>> process(ClientDataRequest clientDataRequest, PortletConfig portletConfig,
 		FacesRequestParameterMap facesRequestParameterMap) {
 
@@ -345,227 +345,227 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 			this.resourceRequest = resourceRequest;
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public void removeAttribute(String name) {
 			resourceRequest.removeAttribute(name);
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Object getAttribute(String name) {
 			return resourceRequest.getAttribute(name);
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public void setAttribute(String name, Object value) {
 			resourceRequest.setAttribute(name, value);
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Enumeration<String> getAttributeNames() {
 			return resourceRequest.getAttributeNames();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getAuthType() {
 			return resourceRequest.getAuthType();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getCharacterEncoding() {
 			return resourceRequest.getCharacterEncoding();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public void setCharacterEncoding(String enc) throws UnsupportedEncodingException {
 			resourceRequest.setCharacterEncoding(enc);
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public int getContentLength() {
 			return resourceRequest.getContentLength();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getContentType() {
 			return resourceRequest.getContentType();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getContextPath() {
 			return resourceRequest.getContextPath();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Cookie[] getCookies() {
 			return resourceRequest.getCookies();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public boolean isPortletModeAllowed(PortletMode mode) {
 			return resourceRequest.isPortletModeAllowed(mode);
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public boolean isRequestedSessionIdValid() {
 			return resourceRequest.isRequestedSessionIdValid();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public boolean isWindowStateAllowed(WindowState state) {
 			return resourceRequest.isWindowStateAllowed(state);
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public boolean isSecure() {
 			return resourceRequest.isSecure();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public boolean isUserInRole(String role) {
 			return resourceRequest.isUserInRole(role);
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Locale getLocale() {
 			return resourceRequest.getLocale();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Enumeration<Locale> getLocales() {
 			return resourceRequest.getLocales();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getMethod() {
 			return resourceRequest.getMethod();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getParameter(String name) {
 			return resourceRequest.getParameter(name);
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Map<String, String[]> getParameterMap() {
 			return resourceRequest.getParameterMap();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Enumeration<String> getParameterNames() {
 			return resourceRequest.getParameterNames();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String[] getParameterValues(String name) {
 			return resourceRequest.getParameterValues(name);
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public PortalContext getPortalContext() {
 			return resourceRequest.getPortalContext();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public InputStream getPortletInputStream() throws IOException {
 			return resourceRequest.getPortletInputStream();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public PortletMode getPortletMode() {
 			return resourceRequest.getPortletMode();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public PortletSession getPortletSession() {
 			return resourceRequest.getPortletSession();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public PortletSession getPortletSession(boolean create) {
 			return resourceRequest.getPortletSession();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public PortletPreferences getPreferences() {
 			return resourceRequest.getPreferences();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Map<String, String[]> getPrivateParameterMap() {
 			return resourceRequest.getPrivateParameterMap();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Enumeration<String> getProperties(String name) {
 			return resourceRequest.getProperties(name);
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getProperty(String name) {
 			return resourceRequest.getProperty(name);
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Enumeration<String> getPropertyNames() {
 			return resourceRequest.getPropertyNames();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Map<String, String[]> getPublicParameterMap() {
 			return resourceRequest.getPublicParameterMap();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public BufferedReader getReader() throws IOException {
 			return resourceRequest.getReader();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getRemoteUser() {
 			return resourceRequest.getRemoteUser();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getRequestedSessionId() {
 			return resourceRequest.getRequestedSessionId();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getResponseContentType() {
 			return resourceRequest.getResponseContentType();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Enumeration<String> getResponseContentTypes() {
 			return resourceRequest.getResponseContentTypes();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getScheme() {
 			return resourceRequest.getScheme();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getServerName() {
 			return resourceRequest.getServerName();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public int getServerPort() {
 			return resourceRequest.getServerPort();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public Principal getUserPrincipal() {
 			return resourceRequest.getUserPrincipal();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public String getWindowID() {
 			return resourceRequest.getWindowID();
 		}
 
-		@Override
+		// Java 1.6+ @Override
 		public WindowState getWindowState() {
 			return resourceRequest.getWindowState();
 		}

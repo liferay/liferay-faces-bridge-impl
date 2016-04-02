@@ -211,10 +211,8 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 
 										PreDestroyInvokerFactory preDestroyInvokerFactory = (PreDestroyInvokerFactory)
 											BridgeFactoryFinder.getFactory(PreDestroyInvokerFactory.class);
-										ExpirationApplicationMap expirationApplicationMap =
-											new ExpirationApplicationMap(servletContext);
 										PreDestroyInvoker preDestroyInvoker =
-											preDestroyInvokerFactory.getPreDestroyInvoker(expirationApplicationMap);
+											preDestroyInvokerFactory.getPreDestroyInvoker(servletContext);
 										preDestroyInvoker.invokeAnnotatedMethods(attributeValue, true);
 									}
 
@@ -281,66 +279,6 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 					logger.warn("Server does not permit cleanup of Mojarra managed-beans during session expiration");
 				}
 			}
-		}
-	}
-
-	private static class ExpirationApplicationMap extends AbstractPropertyMap<Object> {
-
-		// Private Data Members
-		private ServletContext servletContext;
-
-		public ExpirationApplicationMap(ServletContext servletContext) {
-			this.servletContext = servletContext;
-		}
-
-		@Override
-		protected AbstractPropertyMapEntry<Object> createPropertyMapEntry(String name) {
-			return new ExpirationApplicationMapEntry(servletContext, name);
-		}
-
-		@Override
-		protected void removeProperty(String name) {
-			servletContext.removeAttribute(name);
-		}
-
-		@Override
-		protected Object getProperty(String name) {
-			return servletContext.getAttribute(name);
-		}
-
-		@Override
-		protected void setProperty(String name, Object value) {
-			servletContext.setAttribute(name, value);
-		}
-
-		@Override
-		protected Enumeration<String> getPropertyNames() {
-			return servletContext.getAttributeNames();
-		}
-	}
-
-	private static class ExpirationApplicationMapEntry extends AbstractPropertyMapEntry<Object> {
-
-		// Private Data Members
-		private ServletContext servletContext;
-
-		public ExpirationApplicationMapEntry(ServletContext servletContext, String key) {
-			super(key);
-			this.servletContext = servletContext;
-		}
-
-		// Java 1.6+ @Override
-		public Object getValue() {
-			return servletContext.getAttribute(getKey());
-		}
-
-		// Java 1.6+ @Override
-		public Object setValue(Object value) {
-
-			Object oldValue = getValue();
-			servletContext.setAttribute(getKey(), value);
-
-			return oldValue;
 		}
 	}
 }
