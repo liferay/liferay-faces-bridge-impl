@@ -45,7 +45,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeURLEncoderImpl implements BridgeURLEncoder {
+public class BridgeURLEncoderImpl extends BridgeURLEncoderCompatImpl implements BridgeURLEncoder {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeURLEncoderImpl.class);
@@ -190,7 +190,7 @@ public class BridgeURLEncoderImpl implements BridgeURLEncoder {
 		BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, bridgeURI, parameters,
 				redirectViewId);
 
-		if (facesContext.getPartialViewContext().isPartialRequest()) {
+		if (isJSF2PartialRequest(facesContext)) {
 			bridgeRedirectURL.setParameter("_bridgeAjaxRedirect", "true");
 		}
 

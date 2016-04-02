@@ -49,16 +49,13 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
+public class BridgeNavigationHandlerImpl extends BridgeNavigationHandlerCompatImpl {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeNavigationHandlerImpl.class);
 
-	// Private Data Members
-	private NavigationHandler wrappedNavigationHandler;
-
 	public BridgeNavigationHandlerImpl(NavigationHandler navigationHandler) {
-		this.wrappedNavigationHandler = navigationHandler;
+		super(navigationHandler);
 	}
 
 	@Override
@@ -84,7 +81,7 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
 		NavigationCase navigationCase = getNavigationCase(facesContext, fromAction, outcome);
 
 		// Ask the wrapped NavigationHandler to perform the navigation.
-		wrappedNavigationHandler.handleNavigation(facesContext, fromAction, outcome);
+		getWrappedNavigationHandler().handleNavigation(facesContext, fromAction, outcome);
 
 		if (queryString != null) {
 			uiViewRoot.setViewId(viewId.concat(queryString));
@@ -106,8 +103,8 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
 
 			// If the navigation-case is NOT a redirect, then directly encode the {@link PortletMode} and {@link
 			// WindowState} to the response. Don't need to worry about the redirect case here because that's handled in
-			// the BridgeContext#redirect(String) method. It would be nice to handle the redirect case here but it needs
-			// to stay in BridgeContext#redirect(String) since it's possible for developers to call
+			// the ExternalContext#redirect(String) method. It would be nice to handle the redirect case here but it
+			// needs to stay in ExternalContextring) since it's possible for developers to call
 			// ExternalContext.redirect(String) directly from their application.
 			if (!navigationCase.isRedirect()) {
 
@@ -179,51 +176,10 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandler {
 
 					if (viewRoot != null) {
 						facesContext.setViewRoot(viewRoot);
-
-						PartialViewContext partialViewContext = facesContext.getPartialViewContext();
-						partialViewContext.setRenderAll(true);
+						partialViewContextRenderAll(facesContext);
 					}
 				}
 			}
 		}
 	}
-
-	@Override
-	public NavigationCase getNavigationCase(FacesContext facesContext, String fromAction, String outcome) {
-
-		if (wrappedNavigationHandler instanceof ConfigurableNavigationHandler) {
-			ConfigurableNavigationHandler wrappedConfigurableNavigationHandler = (ConfigurableNavigationHandler)
-				wrappedNavigationHandler;
-
-			return wrappedConfigurableNavigationHandler.getNavigationCase(facesContext, fromAction, outcome);
-		}
-		else {
-
-			// So as not to reinvent the wheel, we currently rely on the default NavigationHandler provided by
-			// Mojarra/MyFaces being an instance of ConfigurableNavigationHandler. If that's not the case for some
-			// reason, then throw an exception.
-			throw new UnsupportedOperationException(
-				"JSF runtime does not provide an instance of ConfigurableNavigationHandler");
-		}
-	}
-
-	@Override
-	public Map<String, Set<NavigationCase>> getNavigationCases() {
-
-		if (wrappedNavigationHandler instanceof ConfigurableNavigationHandler) {
-			ConfigurableNavigationHandler wrappedConfigurableNavigationHandler = (ConfigurableNavigationHandler)
-				wrappedNavigationHandler;
-
-			return wrappedConfigurableNavigationHandler.getNavigationCases();
-		}
-		else {
-
-			// So as not to reinvent the wheel, we currently rely on the default NavigationHandler provided by
-			// Mojarra/MyFaces being an instance of ConfigurableNavigationHandler. If that's not the case for some
-			// reason, then throw an exception.
-			throw new UnsupportedOperationException(
-				"JSF runtime does not provide an instance of ConfigurableNavigationHandler");
-		}
-	}
-
 }
