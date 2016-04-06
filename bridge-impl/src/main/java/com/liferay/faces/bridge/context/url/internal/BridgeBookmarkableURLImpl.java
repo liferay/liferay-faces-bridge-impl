@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.bridge.context.url.internal;
 
-import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,17 +33,15 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeBookmarkableURLImpl extends BridgeURLInternalBase {
+public class BridgeBookmarkableURLImpl extends BridgeURLBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeBookmarkableURLImpl.class);
 
 	public BridgeBookmarkableURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
-		String viewIdRenderParameterName, String viewIdResourceParameterName, Map<String, List<String>> parameters,
-		BridgeConfig bridgeConfig) {
+		String viewIdRenderParameterName, Map<String, List<String>> parameters, BridgeConfig bridgeConfig) {
 
-		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
-			bridgeConfig);
+		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, bridgeConfig);
 
 		if ((bridgeURI != null) && (bridgeURI.toString() != null)) {
 
@@ -70,9 +67,9 @@ public class BridgeBookmarkableURLImpl extends BridgeURLInternalBase {
 	}
 
 	@Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public String toString() {
 
-		BaseURL baseURL = null;
+		String stringValue = null;
 
 		// If this is executing during the RENDER_PHASE or RESOURCE_PHASE of the portlet lifecycle, then
 		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
@@ -80,12 +77,17 @@ public class BridgeBookmarkableURLImpl extends BridgeURLInternalBase {
 		if ((portletRequestPhase == PortletPhase.RENDER_PHASE) ||
 				(portletRequestPhase == PortletPhase.RESOURCE_PHASE)) {
 
+			FacesContext facesContext = FacesContext.getCurrentInstance();
 			BridgeURI bridgeURI = getBridgeURI();
 			String uri = bridgeURI.toString();
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			baseURL = createRenderURL(facesContext, uri);
-			baseURL.setParameters(getParameterMap());
-			baseURL.setParameter(getViewIdRenderParameterName(), getViewId());
+			BaseURL baseURL = createRenderURL(facesContext, uri);
+
+			if (baseURL != null) {
+
+				baseURL.setParameters(getParameterMap());
+				baseURL.setParameter(getViewIdParameterName(), getViewId());
+				stringValue = baseURLtoString(baseURL, bridgeURI.isEscaped());
+			}
 		}
 
 		// Otherwise, log an error.
@@ -93,6 +95,6 @@ public class BridgeBookmarkableURLImpl extends BridgeURLInternalBase {
 			logger.error("Unable to encode bookmarkable URL during Bridge.PortletPhase.[{0}].", portletRequestPhase);
 		}
 
-		return baseURL;
+		return stringValue;
 	}
 }

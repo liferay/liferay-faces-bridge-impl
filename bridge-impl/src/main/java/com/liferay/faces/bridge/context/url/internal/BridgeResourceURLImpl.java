@@ -15,22 +15,23 @@
  */
 package com.liferay.faces.bridge.context.url.internal;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
+import javax.portlet.PortletMode;
+import javax.portlet.PortletModeException;
 import javax.portlet.PortletResponse;
+import javax.portlet.PortletSecurityException;
 import javax.portlet.PortletURL;
 import javax.portlet.ResourceURL;
+import javax.portlet.WindowState;
+import javax.portlet.WindowStateException;
 import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.url.BridgeResourceURL;
 import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
@@ -40,16 +41,17 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeResourceURLImpl extends BridgeURLInternalBase implements BridgeResourceURL {
+public class BridgeResourceURLImpl extends BridgeActionResourceURLBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeResourceURLImpl.class);
 
 	// Private Constants
 	private static final String ENCODED_RESOURCE_TOKEN = "javax.faces.resource=";
+	private static final String RELATIVE_PATH_PREFIX = "../";
 
 	// Private Pseudo-Constants
-	private static Set<String> EXCLUDED_PARAMETER_NAMES = new HashSet<String>();
+	private static final Set<String> EXCLUDED_PARAMETER_NAMES = new HashSet<String>();
 
 	static {
 		EXCLUDED_PARAMETER_NAMES.add(Bridge.PORTLET_MODE_PARAMETER);
@@ -58,43 +60,69 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 	}
 
 	// Private Data Members
-	private BridgeURI bridgeURI;
-	private String contextPath;
-	private boolean inProtocol;
 	private boolean viewLink;
 
 	public BridgeResourceURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
-		String viewIdRenderParameterName, String viewIdResourceParameterName, BridgeConfig bridgeConfig) {
-		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
-			bridgeConfig);
-		this.bridgeURI = bridgeURI;
-		this.contextPath = contextPath;
+		String viewIdRenderParameterName, BridgeConfig bridgeConfig) {
+		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, bridgeConfig);
+
+		// Set a flag indicating that this is a view-link type of navigation.
+		viewLink = getParameter(Bridge.VIEW_LINK) != null;
 	}
 
-	@Override
-	public void replaceBackLinkParameter(FacesContext facesContext) {
+	private static String portletURLtoString(PortletURL portletURL, String portletMode, String windowState,
+		boolean secure, boolean escapeXML) {
 
-		String backLinkViewId = facesContext.getViewRoot().getViewId();
-		String backLinkURL = facesContext.getApplication().getViewHandler().getActionURL(facesContext, backLinkViewId);
-		String backLinkEncodedActionURL = "";
+		if (portletMode != null) {
+
+			try {
+				portletURL.setPortletMode(new PortletMode(portletMode));
+			}
+			catch (PortletModeException e) {
+
+				if (portletMode == null) {
+					logger.error(e.getMessage());
+				}
+				else {
+					logger.error(e.getMessage() + " portletMode=[" + portletMode + "]");
+				}
+			}
+		}
+
+		if (windowState != null) {
+
+			try {
+				portletURL.setWindowState(new WindowState(windowState));
+			}
+			catch (WindowStateException e) {
+
+				if (windowState == null) {
+					logger.error(e.getMessage());
+				}
+				else {
+					logger.error(e.getMessage() + " windowState=[" + windowState + "]");
+				}
+			}
+		}
 
 		try {
-			ExternalContext externalContext = facesContext.getExternalContext();
-			backLinkEncodedActionURL = URLEncoder.encode(externalContext.encodeActionURL(backLinkURL), "UTF-8");
+			portletURL.setSecure(secure);
 		}
-		catch (UnsupportedEncodingException e) {
+		catch (PortletSecurityException e) {
 			logger.error(e.getMessage());
 		}
 
-		String newParamName = removeParameter(Bridge.BACK_LINK);
-		setParameter(newParamName, backLinkEncodedActionURL);
+		return baseURLtoString(portletURL, escapeXML);
 	}
 
 	@Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public String toString() {
 
-		BaseURL baseURL;
+		String stringValue = null;
+		BaseURL baseURL = null;
+		BridgeURI bridgeURI = getBridgeURI();
 		String uri = bridgeURI.toString();
+		String contextPath = getContextPath();
 
 		// If the URL is opaque, meaning it starts with something like "portlet:" or "mailto:" and
 		// doesn't have the double-forward-slash like "http://" does, then
@@ -115,46 +143,48 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 				boolean modeChanged = ((portletMode != null) && (portletMode.length() > 0));
 				String security = getParameter(Bridge.PORTLET_SECURE_PARAMETER);
 				String windowState = getParameter(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
-				String urlWithModifiedParameters = _toString(modeChanged);
 				Bridge.PortletPhase urlPortletPhase = bridgeURI.getPortletPhase();
 				FacesContext facesContext = FacesContext.getCurrentInstance();
 
 				if (urlPortletPhase == Bridge.PortletPhase.ACTION_PHASE) {
-					baseURL = createActionURL(facesContext, urlWithModifiedParameters);
+					baseURL = createActionURL(facesContext, modeChanged);
 				}
 				else if (urlPortletPhase == Bridge.PortletPhase.RENDER_PHASE) {
-					baseURL = createRenderURL(facesContext, urlWithModifiedParameters);
+					baseURL = createRenderURL(facesContext, modeChanged);
 				}
 				else {
-					baseURL = createResourceURL(facesContext, urlWithModifiedParameters);
+					baseURL = createResourceURL(facesContext, modeChanged);
 				}
 
-				// If the URL string is self-referencing, meaning, it targets the current Faces view, then copy the
-				// render parameters from the current PortletRequest to the BaseURL. NOTE: This has the added benefit of
-				// copying the bridgeRequestScopeId render parameter, which will preserve the BridgeRequestScope if the
-				// user clicks on the link (invokes the BaseURL).
-				if (isSelfReferencing()) {
-					setRenderParameters(facesContext, baseURL);
+				if (baseURL != null) {
+
+					// If the URL string is self-referencing, meaning, it targets the current Faces view, then copy the
+					// render parameters from the current PortletRequest to the BaseURL. NOTE: This has the added
+					// benefit of copying the bridgeRequestScopeId render parameter, which will preserve the
+					// BridgeRequestScope if the user clicks on the link (invokes the BaseURL).
+					if (isSelfReferencing()) {
+						setRenderParameters(facesContext, getParameterMap(), baseURL);
+					}
+
+					// If the portlet container created a PortletURL, then apply the PortletMode and WindowState to the
+					// PortletURL.
+					if (baseURL instanceof PortletURL) {
+
+						PortletURL portletURL = (PortletURL) baseURL;
+						setPortletModeParameter(facesContext, portletURL, portletMode);
+						setWindowStateParameter(facesContext, portletURL, windowState);
+					}
+
+					// Apply the security.
+					setSecureParameter(security, baseURL);
 				}
-
-				// If the portlet container created a PortletURL, then apply the PortletMode and WindowState to the
-				// PortletURL.
-				if (baseURL instanceof PortletURL) {
-
-					PortletURL portletURL = (PortletURL) baseURL;
-					setPortletModeParameter(facesContext, portletURL, portletMode);
-					setWindowStateParameter(facesContext, portletURL, windowState);
-				}
-
-				// Apply the security.
-				setSecureParameter(security, baseURL);
 			}
 
 			// Otherwise, return the a BaseURL string representation (unmodified value) as required by the Bridge Spec.
 			else {
 
 				// TCK TestPage128: encodeResourceURLOpaqueTest
-				baseURL = new BaseURLNonEncodedStringImpl(uri, getParameterMap());
+				stringValue = toNonEncodedURLString(uri);
 			}
 		}
 
@@ -165,11 +195,12 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 			if (uri.indexOf(ENCODED_RESOURCE_TOKEN) > 0) {
 
 				// FACES-63: Prevent double-encoding of resource URLs
-				baseURL = new BaseURLNonEncodedStringImpl(uri, getParameterMap());
+				stringValue = toNonEncodedURLString(uri);
 			}
 
 			// Otherwise, return a ResourceURL that can retrieve the JSF2 resource.
 			else {
+
 				FacesContext facesContext = FacesContext.getCurrentInstance();
 				baseURL = createResourceURL(facesContext, uri);
 			}
@@ -182,7 +213,7 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
-			baseURL = new BaseURLEncodedExternalStringImpl(uri, getParameterMap(), portletResponse);
+			stringValue = toEncodedURLString(uri, portletResponse);
 		}
 
 		// Otherwise, if the URL is relative, in that it starts with "../", then return a BaseURL string representation
@@ -193,15 +224,14 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 			// TCK TestPage132: encodeResourceURLRelativeURLBackLinkTest
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
-			String contextPath = externalContext.getRequestContextPath();
-			baseURL = new BaseURLRelativeStringImpl(uri, getParameterMap(), contextPath);
+			String requestContextPath = externalContext.getRequestContextPath();
+			stringValue = toRelativeURLString(uri, requestContextPath);
 		}
 
 		// Otherwise, if the URL originally contained the "javax.portlet.faces.ViewLink" which represents navigation
 		// to a different Faces view, then
 		else if (viewLink) {
 
-			String urlWithModifiedParameters = _toString(false, EXCLUDED_PARAMETER_NAMES);
 			String portletMode = getParameter(Bridge.PORTLET_MODE_PARAMETER);
 			String windowState = getParameter(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
 			boolean secure = BooleanHelper.toBoolean(getParameter(Bridge.PORTLET_SECURE_PARAMETER));
@@ -214,8 +244,12 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 				// TCK TestPage135: encodeResourceURLViewLinkTest
 				// TCK TestPage136: encodeResourceURLViewLinkWithBackLinkTest
 				FacesContext facesContext = FacesContext.getCurrentInstance();
-				PortletURL actionURL = createActionURL(facesContext, urlWithModifiedParameters);
-				baseURL = new PortletURLFacesTargetActionImpl(actionURL, portletMode, windowState, secure);
+				PortletURL actionURL = createActionURL(facesContext, false, EXCLUDED_PARAMETER_NAMES);
+
+				if (actionURL != null) {
+					stringValue = portletURLtoString(actionURL, portletMode, windowState, secure,
+							bridgeURI.isEscaped());
+				}
 			}
 
 			// Otherwise, return a PortletURL (Render URL) that contains the "_jsfBridgeNonFacesView" render parameter,
@@ -238,9 +272,14 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 				// TCK TestPage107: encodeActionURLNonJSFViewWithWindowStateResourceTest
 				// TCK TestPage108: encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest
 				FacesContext facesContext = FacesContext.getCurrentInstance();
-				PortletURL renderURL = createRenderURL(facesContext, urlWithModifiedParameters);
-				baseURL = new PortletURLNonFacesTargetRenderImpl(renderURL, portletMode, windowState, secure,
-						bridgeURI.getPath());
+				PortletURL renderURL = createRenderURL(facesContext, false, EXCLUDED_PARAMETER_NAMES);
+
+				if (renderURL != null) {
+
+					renderURL.setParameter(Bridge.NONFACES_TARGET_PATH_PARAMETER, bridgeURI.getPath());
+					stringValue = portletURLtoString(renderURL, portletMode, windowState, secure,
+							bridgeURI.isEscaped());
+				}
 			}
 		}
 
@@ -256,21 +295,23 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 			// TCK TestPage126: encodeActionURLWithInvalidWindowStateResourceTest
 			// TCK TestPage127: encodeURLEscapingTest
 			// TCK TestPage137: encodeResourceURLWithModeTest
-			String urlWithModifiedParameters = _toString(false, EXCLUDED_PARAMETER_NAMES);
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			baseURL = createResourceURL(facesContext, urlWithModifiedParameters);
+			baseURL = createResourceURL(facesContext, false, EXCLUDED_PARAMETER_NAMES);
 		}
 
 		// Otherwise, if the bridge must encode the URL to satisfy "in-protocol" resource serving, then return a
 		// an appropriate ResourceURL.
-		else if (inProtocol) {
+		else if (getParameter(Bridge.IN_PROTOCOL_RESOURCE_LINK) != null) {
 
 			// TCK TestPage071: nonFacesResourceTest
-			String urlWithModifiedParameters = _toString(false);
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ResourceURL resourceURL = createResourceURL(facesContext, urlWithModifiedParameters);
-			resourceURL.setResourceID(bridgeURI.getContextRelativePath(contextPath));
-			baseURL = resourceURL;
+			ResourceURL resourceURL = createResourceURL(facesContext, false);
+
+			if (resourceURL != null) {
+
+				resourceURL.setResourceID(bridgeURI.getContextRelativePath(contextPath));
+				baseURL = resourceURL;
+			}
 		}
 
 		// Otherwise, assume that the URL is for an resource external to the portlet context like
@@ -281,19 +322,39 @@ public class BridgeResourceURLImpl extends BridgeURLInternalBase implements Brid
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
-			baseURL = new BaseURLEncodedExternalStringImpl(uri, getParameterMap(), portletResponse);
+			stringValue = toEncodedURLString(uri, portletResponse);
 		}
 
-		return baseURL;
+		if (baseURL != null) {
+			stringValue = baseURLtoString(baseURL, bridgeURI.isEscaped());
+		}
+
+		return stringValue;
 	}
 
-	@Override
-	public void setInProtocol(boolean inProtocol) {
-		this.inProtocol = inProtocol;
+	private String toEncodedURLString(String url, PortletResponse portletResponse) {
+
+		String stringValue = null;
+
+		try {
+			stringValue = toNonEncodedURLString(url);
+			stringValue = portletResponse.encodeURL(stringValue);
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
+
+		return stringValue;
 	}
 
-	@Override
-	public void setViewLink(boolean viewLink) {
-		this.viewLink = viewLink;
+	private String toRelativeURLString(String url, String contextPath) {
+
+		String stringValue = toNonEncodedURLString(url);
+
+		if (stringValue.startsWith(RELATIVE_PATH_PREFIX)) {
+			stringValue = contextPath.concat("/").concat(stringValue.substring(RELATIVE_PATH_PREFIX.length()));
+		}
+
+		return stringValue;
 	}
 }

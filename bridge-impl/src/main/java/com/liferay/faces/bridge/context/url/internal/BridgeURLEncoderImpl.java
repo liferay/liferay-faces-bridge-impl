@@ -15,7 +15,9 @@
  */
 package com.liferay.faces.bridge.context.url.internal;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +31,6 @@ import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.context.internal.FacesView;
 import com.liferay.faces.bridge.context.internal.FacesViewImpl;
-import com.liferay.faces.bridge.context.url.BridgeResourceURL;
 import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.bridge.context.url.BridgeURIFactory;
 import com.liferay.faces.bridge.context.url.BridgeURL;
@@ -78,26 +79,17 @@ public class BridgeURLEncoderImpl extends BridgeURLEncoderCompatImpl implements 
 		BridgeURL bridgeActionURL = bridgeURLFactory.getBridgeActionURL(facesContext, bridgeURI, currentFacesViewId);
 
 		// If the specified URL starts with "portlet:", then
-		Map<String, String[]> parameterMap = bridgeActionURL.getParameterMap();
-
 		if (bridgeURI.isPortletScheme()) {
 
-			// If the "_jsfBridgeViewId" URL parameter is equal to "_jsfBridgeCurrentView" then the URL is
-			// self-referencing and the "_jsfBridgeViewId" parameter muse be removed from the URL.
-			String facesViewIdParameter = bridgeActionURL.getParameter(Bridge.FACES_VIEW_ID_PARAMETER);
+			ExternalContext externalContext = facesContext.getExternalContext();
+			String namespace = externalContext.encodeNamespace("");
 
-			if (Bridge.FACES_USE_CURRENT_VIEW_PARAMETER.equals(facesViewIdParameter)) {
-				bridgeActionURL.setSelfReferencing(true);
-				parameterMap.remove(Bridge.FACES_VIEW_ID_PARAMETER);
+			if (BridgeURLUtil.isViewIdSelfReferencing(bridgeURI, namespace)) {
+				bridgeActionURL.removeParameter(Bridge.FACES_VIEW_ID_PARAMETER);
 			}
 
-			// If the "_jsfBridgeViewPath" URL parameter is equal to "_jsfBridgeCurrentView" then the URL is
-			// self-referencing and the "_jsfBridgeViewPath" parameter muse be removed from the URL.
-			String facesViewPathParameter = bridgeActionURL.getParameter(Bridge.FACES_VIEW_PATH_PARAMETER);
-
-			if (Bridge.FACES_USE_CURRENT_VIEW_PARAMETER.equals(facesViewPathParameter)) {
-				bridgeActionURL.setSelfReferencing(true);
-				parameterMap.remove(Bridge.FACES_VIEW_PATH_PARAMETER);
+			if (BridgeURLUtil.isViewPathSelfReferencing(bridgeURI, namespace)) {
+				bridgeActionURL.removeParameter(Bridge.FACES_VIEW_PATH_PARAMETER);
 			}
 		}
 
@@ -109,7 +101,7 @@ public class BridgeURLEncoderImpl extends BridgeURLEncoderCompatImpl implements 
 			String directLinkParam = bridgeActionURL.getParameter(Bridge.DIRECT_LINK);
 
 			if (BooleanHelper.isFalseToken(directLinkParam)) {
-				parameterMap.remove(Bridge.DIRECT_LINK);
+				bridgeActionURL.removeParameter(Bridge.DIRECT_LINK);
 			}
 
 			String contextRelativeViewPath = null;
@@ -210,7 +202,7 @@ public class BridgeURLEncoderImpl extends BridgeURLEncoderCompatImpl implements 
 		}
 
 		BridgeURI bridgeURI = bridgeURIFactory.getBridgeURI(url);
-		BridgeResourceURL bridgeResourceURL = bridgeURLFactory.getBridgeResourceURL(facesContext, bridgeURI,
+		BridgeURL bridgeResourceURL = bridgeURLFactory.getBridgeResourceURL(facesContext, bridgeURI,
 				currentFacesViewId);
 
 		// If the "javax.portlet.faces.ViewLink" parameter is found and set to "true", then
@@ -225,13 +217,10 @@ public class BridgeURLEncoderImpl extends BridgeURLEncoderCompatImpl implements 
 			// "javax.portlet.faces.ViewLink" parameter as required by the Bridge Spec.
 			parameterMap.remove(Bridge.VIEW_LINK);
 
-			// Set a flag indicating that this is a view-link type of navigation.
-			bridgeResourceURL.setViewLink(true);
-
 			// If the "javax.portlet.faces.BackLink" parameter is found, then replace it's value with a URL that can
 			// cause navigation back to the current view.
 			if (bridgeResourceURL.getParameter(Bridge.BACK_LINK) != null) {
-				bridgeResourceURL.replaceBackLinkParameter(facesContext);
+				replaceBackLinkParameter(facesContext, bridgeResourceURL);
 			}
 		}
 
@@ -242,22 +231,14 @@ public class BridgeURLEncoderImpl extends BridgeURLEncoderCompatImpl implements 
 			// If the specified URL starts with "portlet:", then
 			if (bridgeURI.isPortletScheme()) {
 
-				// If the "_jsfBridgeViewId" URL parameter is equal to "_jsfBridgeCurrentView" then the URL is
-				// self-referencing and the "_jsfBridgeViewId" parameter muse be removed from the URL.
-				String facesViewIdParameter = bridgeResourceURL.getParameter(Bridge.FACES_VIEW_ID_PARAMETER);
+				String namespace = externalContext.encodeNamespace("");
 
-				if (Bridge.FACES_USE_CURRENT_VIEW_PARAMETER.equals(facesViewIdParameter)) {
-					bridgeResourceURL.setSelfReferencing(true);
-					parameterMap.remove(Bridge.FACES_VIEW_ID_PARAMETER);
+				if (BridgeURLUtil.isViewIdSelfReferencing(bridgeURI, namespace)) {
+					bridgeResourceURL.removeParameter(Bridge.FACES_VIEW_ID_PARAMETER);
 				}
 
-				// If the "_jsfBridgeViewPath" URL parameter is equal to "_jsfBridgeCurrentView" then the URL is
-				// self-referencing and the "_jsfBridgeViewPath" parameter muse be removed from the URL.
-				String facesViewPathParameter = bridgeResourceURL.getParameter(Bridge.FACES_VIEW_PATH_PARAMETER);
-
-				if (Bridge.FACES_USE_CURRENT_VIEW_PARAMETER.equals(facesViewPathParameter)) {
-					bridgeResourceURL.setSelfReferencing(true);
-					parameterMap.remove(Bridge.FACES_VIEW_PATH_PARAMETER);
+				if (BridgeURLUtil.isViewPathSelfReferencing(bridgeURI, namespace)) {
+					bridgeResourceURL.removeParameter(Bridge.FACES_VIEW_PATH_PARAMETER);
 				}
 			}
 		}
@@ -268,7 +249,7 @@ public class BridgeURLEncoderImpl extends BridgeURLEncoderCompatImpl implements 
 			// If the "javax.portlet.faces.BackLink" parameter is found, then replace it's value with a URL that can
 			// cause navigation back to the current view.
 			if (bridgeResourceURL.getParameter(Bridge.BACK_LINK) != null) {
-				bridgeResourceURL.replaceBackLinkParameter(facesContext);
+				replaceBackLinkParameter(facesContext, bridgeResourceURL);
 			}
 		}
 
@@ -278,12 +259,11 @@ public class BridgeURLEncoderImpl extends BridgeURLEncoderCompatImpl implements 
 			// If the "javax.portlet.faces.BackLink" parameter is found, then replace it's value with a URL that can
 			// cause navigation back to the current view.
 			if (bridgeResourceURL.getParameter(Bridge.BACK_LINK) != null) {
-				bridgeResourceURL.replaceBackLinkParameter(facesContext);
+				replaceBackLinkParameter(facesContext, bridgeResourceURL);
 			}
 
 			// If the "javax.portlet.faces.InProtocolResourceLink" parameter is found, then
 			if ((bridgeResourceURL.getParameter(Bridge.IN_PROTOCOL_RESOURCE_LINK) != null)) {
-				bridgeResourceURL.setInProtocol(true);
 
 				// Since an in-protocol-resource URL must be a ResourceURL, the "javax.portlet.faces.PortletMode" and
 				// "javax.portlet.faces.WindowState" parameters must be removed from the URL (if present) because you
@@ -291,14 +271,35 @@ public class BridgeURLEncoderImpl extends BridgeURLEncoderCompatImpl implements 
 				parameterMap.remove(Bridge.PORTLET_MODE_PARAMETER);
 				parameterMap.remove(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
 
-				// The Bridge Spec indicates that the "javax.portlet.faces.Secure" parameter must be removed but must
-				// also be used to set the security of the ResourceURL below.
-				String secureParam = bridgeResourceURL.getParameter(Bridge.PORTLET_SECURE_PARAMETER);
-				bridgeResourceURL.setSecure(BooleanHelper.isTrueToken(secureParam));
+				// The Bridge Spec indicates that the "javax.portlet.faces.Secure" parameter must be removed.
 				parameterMap.remove(Bridge.PORTLET_SECURE_PARAMETER);
 			}
 		}
 
 		return bridgeResourceURL;
+	}
+
+	/**
+	 * Replaces the value of the "javax.portlet.faces.BackLink" parameter with an encoded action URL that represents a
+	 * link to the current Faces viewId.
+	 *
+	 * @param  facesContext  The current {@link FacesContext} instance.
+	 */
+	private void replaceBackLinkParameter(FacesContext facesContext, BridgeURL bridgeResourceURL) {
+
+		String backLinkViewId = facesContext.getViewRoot().getViewId();
+		String backLinkURL = facesContext.getApplication().getViewHandler().getActionURL(facesContext, backLinkViewId);
+		String backLinkEncodedActionURL = "";
+
+		try {
+			ExternalContext externalContext = facesContext.getExternalContext();
+			backLinkEncodedActionURL = URLEncoder.encode(externalContext.encodeActionURL(backLinkURL), "UTF-8");
+		}
+		catch (UnsupportedEncodingException e) {
+			logger.error(e.getMessage());
+		}
+
+		String newParamName = bridgeResourceURL.removeParameter(Bridge.BACK_LINK);
+		bridgeResourceURL.setParameter(newParamName, backLinkEncodedActionURL);
 	}
 }

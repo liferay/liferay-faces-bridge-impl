@@ -15,8 +15,6 @@
  */
 package com.liferay.faces.bridge.context.url.internal;
 
-import java.net.MalformedURLException;
-
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
 
@@ -29,23 +27,20 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgePartialActionURLImpl extends BridgeURLInternalBase {
+public class BridgePartialActionURLImpl extends BridgeURLBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgePartialActionURLImpl.class);
 
-	// Private Data Members
-
 	public BridgePartialActionURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
-		String viewIdRenderParameterName, String viewIdResourceParameterName, BridgeConfig bridgeConfig) {
-		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
-			bridgeConfig);
+		String viewIdResourceParameterName, BridgeConfig bridgeConfig) {
+		super(bridgeURI, contextPath, namespace, viewId, viewIdResourceParameterName, bridgeConfig);
 	}
 
 	@Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public String toString() {
 
-		BaseURL baseURL = null;
+		String stringValue = null;
 
 		BridgeURI bridgeURI = getBridgeURI();
 		String uri = bridgeURI.toString();
@@ -53,24 +48,21 @@ public class BridgePartialActionURLImpl extends BridgeURLInternalBase {
 		if (uri != null) {
 
 			if (uri.startsWith("http")) {
-				baseURL = new BaseURLNonEncodedStringImpl(uri, getParameterMap());
+
+				stringValue = toNonEncodedURLString(uri);
 				logger.debug("URL starts with http so assuming that it has already been encoded: url=[{0}]", uri);
 			}
 			else {
-				String urlWithModifiedParameters = _toString(false);
+
 				FacesContext facesContext = FacesContext.getCurrentInstance();
-				baseURL = createPartialActionURL(facesContext, urlWithModifiedParameters);
+				BaseURL baseURL = createResourceURL(facesContext, false);
+				stringValue = baseURLtoString(baseURL, bridgeURI.isEscaped());
 			}
 		}
 		else {
 			logger.warn("Unable to encode PartialActionURL for url=[null]");
 		}
 
-		return baseURL;
-	}
-
-	@Override
-	protected String getViewIdParameterName() {
-		return getViewIdResourceParameterName();
+		return stringValue;
 	}
 }

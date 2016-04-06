@@ -66,6 +66,7 @@ import com.liferay.faces.bridge.context.map.internal.RequestHeaderMap;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderValuesMap;
 import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.bridge.context.url.BridgeURL;
+import com.liferay.faces.bridge.context.url.internal.BridgeURLUtil;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseRenderAdapter;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseResourceAdapter;
 import com.liferay.faces.bridge.internal.BridgeExt;
@@ -338,10 +339,8 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 						else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
 
 							// If the specified URL is for a JSF viewId, then prepare for a render-redirect.
-							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, bridgeURI,
-									null, null);
-
-							String redirectURLViewId = bridgeRedirectURL.getFacesViewTarget();
+							String redirectURLViewId = BridgeURLUtil.getFacesViewTarget(bridgeURI, contextPath,
+									configuredFacesServletMappings);
 
 							if (redirectURLViewId != null) {
 								portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT, Boolean.TRUE);
@@ -352,9 +351,11 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 							else {
 
 								// If there is a URL parameter specifying a JSF viewId, then prepare for a
-								// render-redirect.
+								// render-redirect.String viewIdRenderParameterValue = null;
+								Map<String, String[]> parameterMap = bridgeURI.getParameterMap();
+								String namespace = externalContext.encodeNamespace("");
 								String viewIdRenderParameterName = bridgeConfig.getViewIdRenderParameterName();
-								String viewIdRenderParameterValue = bridgeRedirectURL.getParameter(
+								String viewIdRenderParameterValue = BridgeURLUtil.getParameter(parameterMap, namespace,
 										viewIdRenderParameterName);
 
 								if (viewIdRenderParameterValue != null) {

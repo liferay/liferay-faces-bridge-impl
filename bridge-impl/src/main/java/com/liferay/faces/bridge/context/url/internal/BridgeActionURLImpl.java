@@ -15,8 +15,6 @@
  */
 package com.liferay.faces.bridge.context.url.internal;
 
-import java.net.MalformedURLException;
-
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
@@ -28,25 +26,23 @@ import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.context.url.BridgeURI;
-import com.liferay.faces.bridge.context.url.BridgeURL;
 import com.liferay.faces.util.helper.BooleanHelper;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgeActionURLImpl extends BridgeURLInternalBase implements BridgeURL {
+public class BridgeActionURLImpl extends BridgeActionResourceURLBase {
 
 	public BridgeActionURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
-		String viewIdRenderParameterName, String viewIdResourceParameterName, BridgeConfig bridgeConfig) {
-		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
-			bridgeConfig);
+		String viewIdRenderParameterName, BridgeConfig bridgeConfig) {
+		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, bridgeConfig);
 	}
 
 	@Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public String toString() {
 
-		BaseURL baseURL;
+		String stringValue = null;
 		BridgeURI bridgeURI = getBridgeURI();
 		String uri = bridgeURI.toString();
 
@@ -59,7 +55,7 @@ public class BridgeActionURLImpl extends BridgeURLInternalBase implements Bridge
 			// ExternalContext.encodeActionURL(ExternalContext.encodeResourceURL(url)). The return value of those calls
 			// will ultimately be passed to the ExternalContext.redirect(String) method. For this reason, need to return
 			// a simple string-based representation of the URL.
-			baseURL = new BaseURLNonEncodedStringImpl(uri);
+			stringValue = uri;
 		}
 
 		// Otherwise,
@@ -70,7 +66,7 @@ public class BridgeActionURLImpl extends BridgeURLInternalBase implements Bridge
 			// If the URL string starts with "http" then assume that it has already been encoded and simply return the
 			// URL string.
 			if (uri.startsWith("http")) {
-				baseURL = new BaseURLNonEncodedStringImpl(uri, getParameterMap());
+				stringValue = toNonEncodedURLString(uri);
 			}
 
 			// Otherwise, if the URL string starts with a "#" character, or it's an absolute URL that is external to
@@ -78,18 +74,21 @@ public class BridgeActionURLImpl extends BridgeURLInternalBase implements Bridge
 			else if (uri.startsWith("#") || (bridgeURI.isAbsolute() && bridgeURI.isExternal(contextPath))) {
 
 				// TCK TestPage084: encodeActionURLPoundCharTest
-				baseURL = new BaseURLNonEncodedStringImpl(uri, getParameterMap());
+				stringValue = toNonEncodedURLString(uri);
 			}
 
 			// Otherwise, if the URL string has a "javax.portlet.faces.DirectLink" parameter with a value of "true",
 			// then return an absolute path (to the path in the URL string) as required by the Bridge Spec.
 			else if (bridgeURI.isExternal(contextPath) || BooleanHelper.isTrueToken(getParameter(Bridge.DIRECT_LINK))) {
+
 				FacesContext facesContext = FacesContext.getCurrentInstance();
 				ExternalContext externalContext = facesContext.getExternalContext();
 				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-				baseURL = new BaseURLDirectStringImpl(uri, getParameterMap(), bridgeURI.getPath(), portletRequest);
+				stringValue = toDirectURLString(uri, bridgeURI, portletRequest);
 			}
 			else {
+
+				BaseURL baseURL = null;
 				String portletMode = removeParameter(Bridge.PORTLET_MODE_PARAMETER);
 				boolean modeChanged = ((portletMode != null) && (portletMode.length() > 0));
 				String secure = removeParameter(Bridge.PORTLET_SECURE_PARAMETER);
@@ -100,56 +99,77 @@ public class BridgeActionURLImpl extends BridgeURLInternalBase implements Bridge
 				// determined by what follows the scheme, such as "portlet:action" "portlet:render" and
 				// "portlet:resource".
 				if (bridgeURI.isPortletScheme()) {
-					String urlWithModifiedParameters = _toString(modeChanged);
 					Bridge.PortletPhase urlPortletPhase = bridgeURI.getPortletPhase();
 
 					if (urlPortletPhase == Bridge.PortletPhase.ACTION_PHASE) {
-						baseURL = createActionURL(facesContext, urlWithModifiedParameters);
+						baseURL = createActionURL(facesContext, modeChanged);
 					}
 					else if (urlPortletPhase == Bridge.PortletPhase.RENDER_PHASE) {
-						baseURL = createRenderURL(facesContext, urlWithModifiedParameters);
+						baseURL = createRenderURL(facesContext, modeChanged);
 					}
 					else {
-						baseURL = createResourceURL(facesContext, urlWithModifiedParameters);
+						baseURL = createResourceURL(facesContext, modeChanged);
 					}
 				}
 				else {
 
 					String bridgeAjaxRedirectValue = removeParameter("_bridgeAjaxRedirect");
 					boolean bridgeAjaxRedirect = BooleanHelper.isTrueToken(bridgeAjaxRedirectValue);
-					String urlWithModifiedParameters = _toString(modeChanged);
 
 					if (portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE) {
-						baseURL = new BaseURLNonEncodedStringImpl(urlWithModifiedParameters);
+						stringValue = toString(modeChanged);
 					}
 					else if ((portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE) && bridgeAjaxRedirect) {
-						baseURL = createRenderURL(facesContext, urlWithModifiedParameters);
+						baseURL = createRenderURL(facesContext, modeChanged);
 					}
 					else {
-						baseURL = createActionURL(facesContext, urlWithModifiedParameters);
+						baseURL = createActionURL(facesContext, modeChanged);
 					}
 				}
 
-				// If the URL string is self-referencing, meaning, it targets the current Faces view, then copy the
-				// render parameters from the current PortletRequest to the BaseURL.
-				if (isSelfReferencing()) {
-					setRenderParameters(facesContext, baseURL);
+				if (baseURL != null) {
+
+					// If the URL string is self-referencing, meaning, it targets the current Faces view, then copy the
+					// render parameters from the current PortletRequest to the BaseURL.
+					if (isSelfReferencing()) {
+						setRenderParameters(facesContext, getParameterMap(), baseURL);
+					}
+
+					// If the portlet container created a PortletURL, then apply the PortletMode and WindowState to the
+					// PortletURL.
+					if (baseURL instanceof PortletURL) {
+
+						PortletURL portletURL = (PortletURL) baseURL;
+						setPortletModeParameter(facesContext, portletURL, portletMode);
+						setWindowStateParameter(facesContext, portletURL, windowState);
+					}
+
+					// Apply the security.
+					setSecureParameter(secure, baseURL);
+					stringValue = baseURLtoString(baseURL, bridgeURI.isEscaped());
 				}
-
-				// If the portlet container created a PortletURL, then apply the PortletMode and WindowState to the
-				// PortletURL.
-				if (baseURL instanceof PortletURL) {
-
-					PortletURL portletURL = (PortletURL) baseURL;
-					setPortletModeParameter(facesContext, portletURL, portletMode);
-					setWindowStateParameter(facesContext, portletURL, windowState);
-				}
-
-				// Apply the security.
-				setSecureParameter(secure, baseURL);
 			}
 		}
 
-		return baseURL;
+		return stringValue;
+	}
+
+	private String toDirectURLString(String url, BridgeURI bridgeURI, PortletRequest portletRequest) {
+
+		StringBuilder buf = new StringBuilder();
+		buf.append(portletRequest.getScheme());
+		buf.append("://");
+		buf.append(portletRequest.getServerName());
+		buf.append(":");
+		buf.append(portletRequest.getServerPort());
+		buf.append(bridgeURI.getPath());
+
+		int queryPos = url.indexOf("?");
+
+		if (queryPos >= 0) {
+			buf.append(url.substring(queryPos, url.length()));
+		}
+
+		return toNonEncodedURLString(buf.toString());
 	}
 }

@@ -23,7 +23,6 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.url.BridgeResourceURL;
 import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.bridge.context.url.BridgeURL;
 import com.liferay.faces.bridge.context.url.BridgeURLFactory;
@@ -41,8 +40,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory {
 		ContextInfo contextInfo = new ContextInfo(facesContext);
 
 		return new BridgeActionURLImpl(bridgeURI, contextInfo.getContextPath(), contextInfo.getNamespace(), viewId,
-				contextInfo.getViewIdRenderParameterName(), contextInfo.getViewIdResourceParameterName(),
-				contextInfo.getBridgeConfig());
+				contextInfo.getViewIdRenderParameterName(), contextInfo.getBridgeConfig());
 	}
 
 	@Override
@@ -52,8 +50,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory {
 		ContextInfo contextInfo = new ContextInfo(facesContext);
 
 		return new BridgeBookmarkableURLImpl(bridgeURI, contextInfo.getContextPath(), contextInfo.getNamespace(),
-				viewId, contextInfo.getViewIdRenderParameterName(), contextInfo.getViewIdResourceParameterName(),
-				parameters, contextInfo.getBridgeConfig());
+				viewId, contextInfo.getViewIdRenderParameterName(), parameters, contextInfo.getBridgeConfig());
 	}
 
 	@Override
@@ -62,8 +59,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory {
 		ContextInfo contextInfo = new ContextInfo(facesContext);
 
 		return new BridgePartialActionURLImpl(bridgeURI, contextInfo.getContextPath(), contextInfo.getNamespace(),
-				viewId, contextInfo.getViewIdRenderParameterName(), contextInfo.getViewIdResourceParameterName(),
-				contextInfo.getBridgeConfig());
+				viewId, contextInfo.getViewIdResourceParameterName(), contextInfo.getBridgeConfig());
 	}
 
 	@Override
@@ -73,18 +69,16 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory {
 		ContextInfo contextInfo = new ContextInfo(facesContext);
 
 		return new BridgeRedirectURLImpl(bridgeURI, contextInfo.getContextPath(), contextInfo.getNamespace(), viewId,
-				contextInfo.getViewIdRenderParameterName(), contextInfo.getViewIdResourceParameterName(), parameters,
-				contextInfo.getBridgeConfig());
+				contextInfo.getViewIdRenderParameterName(), parameters, contextInfo.getBridgeConfig());
 	}
 
 	@Override
-	public BridgeResourceURL getBridgeResourceURL(FacesContext facesContext, BridgeURI bridgeURI, String viewId) {
+	public BridgeURL getBridgeResourceURL(FacesContext facesContext, BridgeURI bridgeURI, String viewId) {
 
 		ContextInfo contextInfo = new ContextInfo(facesContext);
 
 		return new BridgeResourceURLImpl(bridgeURI, contextInfo.getContextPath(), contextInfo.getNamespace(), viewId,
-				contextInfo.getViewIdRenderParameterName(), contextInfo.getViewIdResourceParameterName(),
-				contextInfo.getBridgeConfig());
+				contextInfo.getViewIdRenderParameterName(), contextInfo.getBridgeConfig());
 	}
 
 	@Override
