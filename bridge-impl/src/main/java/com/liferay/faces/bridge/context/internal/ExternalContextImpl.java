@@ -433,7 +433,7 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 		}
 
 		requestAttributeMap = contextMapFactory.getRequestScopeMap(portletContext, portletRequest,
-				removedAttributeNames, preferPreDestroy);
+				portletResponse.getNamespace(), removedAttributeNames, preferPreDestroy);
 
 		// Initialize the session map.
 		sessionMap = contextMapFactory.getSessionScopeMap(portletContext, portletRequest.getPortletSession(true),

@@ -150,7 +150,7 @@ public class ContextMapFactoryImpl extends ContextMapFactory {
 
 	@Override
 	public Map<String, Object> getRequestScopeMap(PortletContext portletContext, PortletRequest portletRequest,
-		Set<String> removedAttributeNames, boolean preferPreDestroy) {
+		String responseNamespace, Set<String> removedAttributeNames, boolean preferPreDestroy) {
 		return new RequestScopeMap(portletContext, portletRequest, removedAttributeNames, preferPreDestroy);
 	}
 
