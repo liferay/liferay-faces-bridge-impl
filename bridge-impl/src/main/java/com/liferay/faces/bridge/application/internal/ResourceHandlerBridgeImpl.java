@@ -49,39 +49,12 @@ public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ResourceHandlerBridgeImpl.class);
 
-	// Private Constants
-	private static final String ENCODED_RESOURCE_TOKEN = "javax.faces.resource=";
-
 	// Private Data Members
 	private Integer bufferSize;
 	private ResourceHandler wrappedResourceHandler;
 
 	public ResourceHandlerBridgeImpl(ResourceHandler wrappedResourceHandler) {
 		this.wrappedResourceHandler = wrappedResourceHandler;
-	}
-
-	/**
-	 * Determines whether or not the specified URL has already been encoded.
-	 *
-	 * @param   url  The URL to check.
-	 *
-	 * @return  True if the specified URL is already encoded.
-	 */
-	public static boolean isEncodedFacesResourceURL(String url) {
-
-		return (url != null) && (url.indexOf(ENCODED_RESOURCE_TOKEN) > 0);
-	}
-
-	/**
-	 * Determines whether or not the specified URL is a Faces URL.
-	 *
-	 * @param   url  The URL to check.
-	 *
-	 * @return  True if the specified URL is a Faces URL.
-	 */
-	public static boolean isFacesResourceURL(String url) {
-
-		return (url != null) && (url.contains("javax.faces.resource"));
 	}
 
 	@Override
