@@ -44,7 +44,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class ResourceHandlerBridgeImpl extends ResourceHandlerWrapper {
+public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCompatImpl {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ResourceHandlerBridgeImpl.class);
