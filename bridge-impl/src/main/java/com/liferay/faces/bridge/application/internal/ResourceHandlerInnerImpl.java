@@ -110,4 +110,9 @@ public class ResourceHandlerInnerImpl extends ResourceHandlerBridgeImpl {
 			super.handleResourceRequest(facesContext);
 		}
 	}
+
+	@Override
+	public boolean isResourceURL(String url) {
+		return (url != null) && url.contains("javax.faces.resource=");
+	}
 }
