@@ -14,9 +14,6 @@
 	</ordering>
 	<application>
 		<application-extension>
-			<bridge:excluded-attributes>
-				<bridge:excluded-attribute>com.liferay.faces.bridge.context.BridgeContext</bridge:excluded-attribute>
-			</bridge:excluded-attributes>
 			<bridge:write-behind-response-wrappers>
 				<bridge:render-response-wrapper-class>com.liferay.faces.bridge.application.view.internal.BridgeWriteBehindResponseRenderImpl</bridge:render-response-wrapper-class>
 				<bridge:resource-response-wrapper-class>com.liferay.faces.bridge.application.view.internal.BridgeWriteBehindResponseResourceImpl</bridge:resource-response-wrapper-class>

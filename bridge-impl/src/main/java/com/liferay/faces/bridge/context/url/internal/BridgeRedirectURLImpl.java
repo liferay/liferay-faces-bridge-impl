@@ -15,13 +15,11 @@
  */
 package com.liferay.faces.bridge.context.url.internal;
 
-import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.portlet.BaseURL;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
@@ -32,19 +30,12 @@ import com.liferay.faces.bridge.context.url.BridgeURI;
 /**
  * @author  Neil Griffin
  */
-public class BridgeRedirectURLImpl extends BridgeURLInternalBase {
-
-	// Private Data Members
-	private BridgeURI bridgeURI;
+public class BridgeRedirectURLImpl extends BridgeURLBase {
 
 	public BridgeRedirectURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
-		String viewIdRenderParameterName, String viewIdResourceParameterName, Map<String, List<String>> parameters,
-		BridgeConfig bridgeConfig) {
+		String viewIdRenderParameterName, Map<String, List<String>> parameters, BridgeConfig bridgeConfig) {
 
-		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
-			bridgeConfig);
-
-		this.bridgeURI = bridgeURI;
+		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, bridgeConfig);
 
 		if (parameters != null) {
 
@@ -67,9 +58,9 @@ public class BridgeRedirectURLImpl extends BridgeURLInternalBase {
 	}
 
 	@Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public String toString() {
 
-		BaseURL baseURL;
+		String stringValue;
 
 		// If this is executing during the ACTION_PHASE of the portlet lifecycle, then
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
@@ -82,7 +73,7 @@ public class BridgeRedirectURLImpl extends BridgeURLInternalBase {
 			// ExternalContext.encodeActionURL(ExternalContext.encodeResourceURL(url)). The return value of those calls
 			// will ultimately be passed to the ExternalContext.redirect(String) method. For this reason, need to return
 			// a simple string-based representation of the URL.
-			baseURL = new BaseURLNonEncodedStringImpl(bridgeURI.toString(), getParameterMap());
+			stringValue = toNonEncodedURLString(getBridgeURI().toString());
 		}
 
 		// Otherwise,
@@ -90,9 +81,9 @@ public class BridgeRedirectURLImpl extends BridgeURLInternalBase {
 
 			// So far, under all circumstances it seems appropriate to return a simple string-based representation of
 			// the URL. This is the same code as above but keep it this way for now for TCK documentation purposes.
-			baseURL = new BaseURLNonEncodedStringImpl(bridgeURI.toString(), getParameterMap());
+			stringValue = toNonEncodedURLString(getBridgeURI().toString());
 		}
 
-		return baseURL;
+		return stringValue;
 	}
 }
