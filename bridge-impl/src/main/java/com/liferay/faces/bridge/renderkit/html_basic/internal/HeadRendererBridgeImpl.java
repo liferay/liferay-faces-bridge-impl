@@ -18,12 +18,13 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -31,10 +32,8 @@ import javax.faces.render.Renderer;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
-import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.bridge.component.internal.ComponentUtil;
-import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.HeadResponseWriter;
 import com.liferay.faces.bridge.context.HeadResponseWriterFactory;
 import com.liferay.faces.util.application.ResourceUtil;
@@ -52,14 +51,9 @@ import com.liferay.faces.util.logging.LoggerFactory;
 public class HeadRendererBridgeImpl extends Renderer {
 
 	// Private Constants
-	private static final String ADDED = UIComponentBase.class.getName() + ".ADDED";
-	private static final String EXTENSION_CSS = "css";
 	private static final String FIRST_FACET = "first";
 	private static final String MIDDLE_FACET = "middle";
 	private static final String LAST_FACET = "last";
-	private static final String RENDERER_TYPE_RICHFACES_RESOURCE_LIBRARY =
-		"org.richfaces.renderkit.ResourceLibraryRenderer";
-	private static final String RICHFACES_RESLIB_SUFFIX = "reslib";
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(HeadRendererBridgeImpl.class);
@@ -73,160 +67,111 @@ public class HeadRendererBridgeImpl extends Renderer {
 	public void encodeChildren(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		// Build up a list of components that are intended for the <head> section of the portal page.
-		PortletNamingContainerUIViewRoot uiViewRoot = (PortletNamingContainerUIViewRoot) facesContext.getViewRoot();
-		List<UIComponent> uiComponentResources = new ArrayList<UIComponent>();
+		UIViewRoot uiViewRoot = facesContext.getViewRoot();
+		List<UIComponent> headResources = new ArrayList<UIComponent>();
 
 		// Add the list of components that are to appear first.
 		List<UIComponent> firstResources = getFirstResources(facesContext, uiComponent);
 
 		if (firstResources != null) {
-			uiComponentResources.addAll(firstResources);
+			headResources.addAll(firstResources);
 		}
 
 		// Sort the components that are in the view root into stylesheets and scripts.
-		List<UIComponent> uiViewRootComponentResources = uiViewRoot.getComponentResources(facesContext, "head");
-		List<UIComponent> uiViewRootStyleSheetResources = null;
-		List<UIComponent> uiViewRootScriptResources = null;
+		List<UIComponent> headComponentResources = uiViewRoot.getComponentResources(facesContext, "head");
+		List<UIComponent> styleSheetResources = new ArrayList<UIComponent>();
+		List<UIComponent> scriptResources = new ArrayList<UIComponent>();
 
-		for (UIComponent curComponent : uiViewRootComponentResources) {
-			String resourceName = (String) curComponent.getAttributes().get("name");
+		for (UIComponent headComponentResource : headComponentResources) {
 
-			if ((resourceName != null) && resourceName.endsWith(EXTENSION_CSS)) {
-
-				if (uiViewRootStyleSheetResources == null) {
-					uiViewRootStyleSheetResources = new ArrayList<UIComponent>();
-				}
-
-				uiViewRootStyleSheetResources.add(curComponent);
+			if (HeadResourceUtil.isStyleSheetResource(headComponentResource) ||
+					HeadResourceUtil.isInlineStyleSheet(headComponentResource)) {
+				styleSheetResources.add(headComponentResource);
 			}
 			else {
+				scriptResources.add(headComponentResource);
+			}
+		}
 
-				if (uiViewRootScriptResources == null) {
-					uiViewRootScriptResources = new ArrayList<UIComponent>();
-				}
+		// Remove all head resources so that they can be reordered and re-added later.
+		for (UIComponent styleSheetHeadComponentResource : styleSheetResources) {
+			uiViewRoot.removeComponentResource(facesContext, styleSheetHeadComponentResource, "head");
+		}
 
-				uiViewRootScriptResources.add(curComponent);
+		for (UIComponent scriptHeadComponentResource : scriptResources) {
+			uiViewRoot.removeComponentResource(facesContext, scriptHeadComponentResource, "head");
+		}
+
+		// Sort children into stylesheets and scripts.
+		List<UIComponent> children = uiComponent.getChildren();
+
+		for (UIComponent child : children) {
+
+			if (HeadResourceUtil.isStyleSheetResource(child) || HeadResourceUtil.isInlineStyleSheet(child)) {
+				styleSheetResources.add(child);
+			}
+			else if (HeadResourceUtil.isScriptResource(child) || HeadResourceUtil.isInlineScript(child)) {
+				scriptResources.add(child);
 			}
 		}
 
 		// Add the list of stylesheet components that are in the view root.
-		if (uiViewRootStyleSheetResources != null) {
-			uiComponentResources.addAll(uiViewRootStyleSheetResources);
+		if (!styleSheetResources.isEmpty()) {
+			headResources.addAll(styleSheetResources);
 		}
 
 		// Add the list of components that are to appear in the middle.
 		List<UIComponent> middleResources = getMiddleResources(facesContext, uiComponent);
 
 		if (middleResources != null) {
-			uiComponentResources.addAll(middleResources);
+			headResources.addAll(middleResources);
 		}
 
 		// Add the list of script components that are in the view root.
-		if (uiViewRootScriptResources != null) {
-			uiComponentResources.addAll(uiViewRootScriptResources);
+		if (!scriptResources.isEmpty()) {
+			headResources.addAll(scriptResources);
 		}
 
 		// Add the list of components that are to appear last.
 		List<UIComponent> lastResources = getLastResources(facesContext, uiComponent);
 
 		if (lastResources != null) {
-			uiComponentResources.addAll(lastResources);
+			headResources.addAll(lastResources);
 		}
 
-		// Initializations
-		boolean ajaxRequest = facesContext.getPartialViewContext().isAjaxRequest();
-		List<UIComponent> resourcesForAddingToHead = new ArrayList<UIComponent>();
-		List<UIComponent> resourcesForRelocatingToBody = new ArrayList<UIComponent>();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-
-		// Determine whether or not the portlet container is able to add script resources to the head.
 		PortalContext portalContext = portletRequest.getPortalContext();
-		String addScriptResourceToHeadSupport = portalContext.getProperty(
-				BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT);
-		boolean portletContainerAbleToAddScriptResourceToHead = (addScriptResourceToHeadSupport != null);
+		Iterator<UIComponent> iterator = headResources.iterator();
 
-		// Determine whether or not this might be a Liferay runtime portlet (which does not have the ability to add
-		// script resources to the head).
-		Boolean renderPortletResource = (Boolean) portletRequest.getAttribute("RENDER_PORTLET_RESOURCE");
-		boolean liferayRuntimePortlet = (renderPortletResource != null) && renderPortletResource;
+		while (iterator.hasNext()) {
 
-		// Note: The HeadManagedBean is a ViewScoped manage-bean that keeps a list of resources that have been added to
-		// the <head> section of the portal page. Note that the HeadManagedBean will be null in a JSP context since
-		// there is no h:head JSP component tag in JSF 2.x.
-		HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
+			UIComponent headResource = iterator.next();
 
-		Set<String> headResourceIdsFromManagedBean;
+			// Add resources back in the correct order so that BodyRendererBridgeImpl and other code can use this list.
+			uiViewRoot.addComponentResource(facesContext, headResource, "head");
 
-		if (headManagedBean == null) {
-			headResourceIdsFromManagedBean = new HashSet<String>();
-		}
-		else {
-			headResourceIdsFromManagedBean = headManagedBean.getHeadResourceIds();
-		}
+			// If the portlet container does not have the ability to add the resource to the <head> section of the
+			// portal page, then remove it from the list. The resource will be rendered by the
+			// BodyRendererBridgeImpl.
+			if (!HeadResourceUtil.canAddResourceToHead(portalContext, headResource)) {
 
-		// For each resource in the ViewRoot: Determine if it should added to the <head> section of the portal page,
-		// or if it should be relocated to the body (which is actually not a <body> element, but a <div> element
-		// rendered by the bridge's BodyRenderer).
-		for (UIComponent uiComponentResource : uiComponentResources) {
+				iterator.remove();
 
-			// If this is taking place during an Ajax request or this is a Liferay runtime portlet, then
-			if (ajaxRequest || liferayRuntimePortlet) {
+				if (logger.isDebugEnabled()) {
 
-				// Determine whether or not the resource is already present in the <head> section of the portal page.
-				// Note that this can happen in one of two ways: 1) If this is NON-Liferay-Runtime portlet (currently
-				// doing Ajax) but has already added the resour ce during initial page HTTP-GET render, or 2) By another
-				// NON-Liferay-Runtime portlet that has already added the same JavaScript resource.
-				boolean alreadyPresentInPortalPageHead = headResourceIdsFromManagedBean.contains(ResourceUtil
-						.getResourceId(uiComponentResource));
-
-				// If the resource is already present in the <head> section of the portal page, then simply output a
-				// logger message to this fact.
-				if (alreadyPresentInPortalPageHead) {
-
-					if (logger.isDebugEnabled()) {
-
-						Map<String, Object> componentResourceAttributes = uiComponentResource.getAttributes();
-
-						logger.debug(
-							"Resource already present in head: name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
-							componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
-							uiComponentResource.getRendererType(), ComponentUtil.getComponentValue(uiComponentResource),
-							uiComponentResource.getClass().getName());
-					}
-				}
-
-				// Otherwise, since it is not possible to add it to the <head> section, the resource must be relocated
-				// to the body.
-				else {
-
-					Map<String, Object> componentResourceAttributes = uiComponentResource.getAttributes();
+					Map<String, Object> componentResourceAttributes = headResource.getAttributes();
 
 					logger.debug(
-						"Relocating resource to body (since it was added via Ajax and is not yet present in head): name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
+						"Relocating resource to body: name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
 						componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
-						uiComponentResource.getRendererType(), ComponentUtil.getComponentValue(uiComponentResource),
-						uiComponentResource.getClass().getName());
-
-					resourcesForRelocatingToBody.add(uiComponentResource);
+						headResource.getRendererType(), ComponentUtil.getComponentValue(headResource),
+						headResource.getClass().getName());
 				}
-			}
-
-			// Otherwise, if the portlet container has the ability to add resources to the <head> section of the
-			// portal page, then add it to the list of resources that are to be added to the <head> section.
-			else if (portletContainerAbleToAddScriptResourceToHead) {
-				resourcesForAddingToHead.add(uiComponentResource);
-			}
-
-			// Otherwise, we have no choice but to add it to the list of resources that are to be relocated to
-			// the body.
-			else {
-				resourcesForRelocatingToBody.add(uiComponentResource);
 			}
 		}
 
-		// If the portlet container has the ability to add resources to the <head> section of the portal page, then
-		if (portletContainerAbleToAddScriptResourceToHead) {
+		if (!headResources.isEmpty()) {
 
 			// Save a temporary reference to the ResponseWriter provided by the FacesContext.
 			ResponseWriter responseWriterBackup = facesContext.getResponseWriter();
@@ -237,6 +182,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 					HeadResponseWriter.class.getName());
 
 			if (headResponseWriter == null) {
+
 				PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
 				headResponseWriter = HeadResponseWriterFactory.getHeadResponseWriterInstance(responseWriterBackup,
 						portletResponse);
@@ -245,68 +191,29 @@ public class HeadRendererBridgeImpl extends Renderer {
 			portletRequest.setAttribute(HeadResponseWriter.class.getName(), headResponseWriter);
 			facesContext.setResponseWriter(headResponseWriter);
 
-			// For each resource:
-			for (UIComponent uiComponentResource : resourcesForAddingToHead) {
+			HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
+			Set<String> headResourceIds;
 
-				// Command the resource to render itself to the HeadResponseWriter
-				uiComponentResource.encodeAll(facesContext);
-
-				String resourceId = ResourceUtil.getResourceId(uiComponentResource);
-
-				// If the resource has not yet been marked as having been added, then mark it now. Note that unless the
-				// resource is a RichFaces Resource Library (see comments below), the resource has probably already been
-				// marked as being in the head by ResourceRendererBridgeImpl#encodeEnd(FacesContext, UIComponent).
-				if (!headResourceIdsFromManagedBean.contains(resourceId)) {
-
-					headResourceIdsFromManagedBean.add(resourceId);
-
-					if (logger.isDebugEnabled()) {
-
-						if (resourceId.endsWith(RICHFACES_RESLIB_SUFFIX) ||
-								RENDERER_TYPE_RICHFACES_RESOURCE_LIBRARY.equals(
-									uiComponentResource.getRendererType())) {
-
-							// RichFaces has resources like "org.richfaces:base-component.reslib",
-							// "org.richfaces:message.reslib", and "org.richfaces:ajax.reslib" that represent a
-							// collection of resources.
-							logger.debug("Marking RichFaces resource library [{0}] as being present in the head",
-								resourceId);
-						}
-						else {
-							logger.debug("Marking non-RichFaces resourceId=[{0}] as being present in the head",
-								resourceId);
-						}
-					}
-				}
-
+			if (headManagedBean == null) {
+				headResourceIds = new HashSet<String>();
+			}
+			else {
+				headResourceIds = headManagedBean.getHeadResourceIds();
 			}
 
-			super.encodeChildren(facesContext, uiComponent);
+			for (UIComponent headResource : headResources) {
+
+				headResource.encodeAll(facesContext);
+
+				if (HeadResourceUtil.isScriptResource(headResource) ||
+						HeadResourceUtil.isStyleSheetResource(headResource)) {
+					headResourceIds.add(ResourceUtil.getResourceId(headResource));
+				}
+			}
 
 			// Restore the temporary ResponseWriter reference.
 			facesContext.setResponseWriter(responseWriterBackup);
 		}
-
-		// Relocate resources to the body if necessary. Note that the "ADDED" attribute has to be set to true
-		// in order to prevent events from firing during the relocation process.
-		for (UIComponent uiComponentResource : resourcesForRelocatingToBody) {
-
-			uiComponentResource.getAttributes().put(RenderKitBridgeImpl.ORIGINAL_TARGET, "head");
-			uiComponentResource.getAttributes().put(ADDED, Boolean.TRUE);
-			uiViewRoot.addComponentResource(facesContext, uiComponentResource, "body");
-
-			if (logger.isDebugEnabled()) {
-
-				Map<String, Object> componentResourceAttributes = uiComponentResource.getAttributes();
-
-				logger.debug(
-					"Relocating resource to body: name=[{0}] library=[{1}] rendererType=[{2}] value=[{3}] className=[{4}]",
-					componentResourceAttributes.get("name"), componentResourceAttributes.get("library"),
-					uiComponentResource.getRendererType(), ComponentUtil.getComponentValue(uiComponentResource),
-					uiComponentResource.getClass().getName());
-			}
-		}
-
 	}
 
 	@Override

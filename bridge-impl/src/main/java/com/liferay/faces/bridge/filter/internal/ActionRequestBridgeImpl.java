@@ -19,8 +19,6 @@ import javax.portlet.ActionRequest;
 import javax.portlet.PortalContext;
 import javax.portlet.filter.ActionRequestWrapper;
 
-import com.liferay.faces.bridge.context.BridgePortalContext;
-
 
 /**
  * @author  Neil Griffin
@@ -28,11 +26,11 @@ import com.liferay.faces.bridge.context.BridgePortalContext;
 public class ActionRequestBridgeImpl extends ActionRequestWrapper {
 
 	// Private Data Members
-	private BridgePortalContext bridgePortalContext;
+	private PortalContext portalContext;
 
-	public ActionRequestBridgeImpl(ActionRequest actionRequest, BridgePortalContext bridgePortalContext) {
+	public ActionRequestBridgeImpl(ActionRequest actionRequest, PortalContext portalContext) {
 		super(actionRequest);
-		this.bridgePortalContext = bridgePortalContext;
+		this.portalContext = portalContext;
 	}
 
 	@Override
@@ -42,6 +40,6 @@ public class ActionRequestBridgeImpl extends ActionRequestWrapper {
 
 	@Override
 	public PortalContext getPortalContext() {
-		return bridgePortalContext;
+		return portalContext;
 	}
 }
