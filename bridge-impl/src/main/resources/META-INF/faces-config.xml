@@ -73,6 +73,7 @@
 			<bridge:request-attribute-inspector-factory>com.liferay.faces.bridge.scope.internal.RequestAttributeInspectorFactoryImpl</bridge:request-attribute-inspector-factory>
 			<bridge:window-state-validator-factory>com.liferay.faces.bridge.internal.WindowStateValidatorFactoryImpl</bridge:window-state-validator-factory>
 			<util:browser-sniffer-factory>com.liferay.faces.bridge.client.internal.BrowserSnifferFactoryBridgeImpl</util:browser-sniffer-factory>
+			<util:resource-verifier-factory>com.liferay.faces.bridge.application.internal.ResourceVerifierFactoryBridgeImpl</util:resource-verifier-factory>
 			<util:resource-validator-factory>com.liferay.faces.bridge.application.internal.ResourceValidatorFactoryBridgeImpl</util:resource-validator-factory>
 		</factory-extension>
 	</factory>
