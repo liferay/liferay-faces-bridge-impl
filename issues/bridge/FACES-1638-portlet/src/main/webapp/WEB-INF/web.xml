@@ -9,6 +9,10 @@
 		<param-value>true</param-value>
 	</context-param>
 	-->
+	<!-- Setting the JSF 2 PROJECT_STAGE to Development will cause the JSF implementation to do the following at runtime: -->
+	<!-- 1. Log more verbose messages. -->
+	<!-- 2. Render tips and/or warnings in the view markup. -->
+	<!-- 3. Cause the default ExceptionHandler to display a developer-friendly error page. -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>${project.stage}</param-value>
