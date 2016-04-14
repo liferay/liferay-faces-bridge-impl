@@ -42,7 +42,6 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
-import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
@@ -112,11 +111,8 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		this.preserveActionParams = PortletConfigParam.PreserveActionParams.getBooleanValue(portletConfig);
 		this.removedAttributeNames = new HashSet<String>();
 
-		BridgeFactoryFinder bridgeFactoryFinder = BridgeFactoryFinder.getInstance();
-		RequestAttributeInspectorFactory requestAttributeInspectorFactory = (RequestAttributeInspectorFactory)
-			bridgeFactoryFinder.getFactoryInstance(RequestAttributeInspectorFactory.class);
-		this.requestAttributeInspector = requestAttributeInspectorFactory.getRequestAttributeInspector(portletRequest,
-				portletConfig, bridgeConfig);
+		this.requestAttributeInspector = RequestAttributeInspectorFactory.getRequestAttributeInspectorInstance(
+				portletRequest, portletConfig, bridgeConfig);
 	}
 
 	// The overrides for {@link #toString()} and {@link #hashCode()} are necessary because the {@link ConcurrentHashMap}
