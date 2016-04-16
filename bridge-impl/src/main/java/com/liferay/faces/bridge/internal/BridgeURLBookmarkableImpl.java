@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,7 +27,6 @@ import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -34,37 +34,32 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeBookmarkableURLImpl extends BridgeURLInternalBase {
+public class BridgeURLBookmarkableImpl extends BridgeURLBase {
 
 	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(BridgeBookmarkableURLImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(BridgeURLBookmarkableImpl.class);
 
-	public BridgeBookmarkableURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
-		String viewIdRenderParameterName, String viewIdResourceParameterName, Map<String, List<String>> parameters,
-		BridgeConfig bridgeConfig) {
+	public BridgeURLBookmarkableImpl(String uri, String contextPath, String namespace, String currentViewId,
+		Map<String, List<String>> bookmarkParameters, BridgeConfig bridgeConfig) throws URISyntaxException {
 
-		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
-			bridgeConfig);
+		super(uri, contextPath, namespace, currentViewId, bridgeConfig);
 
-		if ((bridgeURI != null) && (bridgeURI.toString() != null)) {
+		if ((bridgeURI != null) && (bridgeURI.toString() != null) && (bookmarkParameters != null)) {
 
-			if (parameters != null) {
+			Map<String, String[]> parameterMap = getParameterMap();
+			Set<Map.Entry<String, List<String>>> entrySet = bookmarkParameters.entrySet();
 
-				Map<String, String[]> parameterMap = getParameterMap();
-				Set<Map.Entry<String, List<String>>> entrySet = parameters.entrySet();
+			for (Map.Entry<String, List<String>> mapEntry : entrySet) {
 
-				for (Map.Entry<String, List<String>> mapEntry : entrySet) {
+				String key = mapEntry.getKey();
+				String[] valueArray = null;
+				List<String> valueList = mapEntry.getValue();
 
-					String key = mapEntry.getKey();
-					String[] valueArray = null;
-					List<String> valueList = mapEntry.getValue();
-
-					if (valueList != null) {
-						valueArray = valueList.toArray(new String[valueList.size()]);
-					}
-
-					parameterMap.put(key, valueArray);
+				if (valueList != null) {
+					valueArray = valueList.toArray(new String[valueList.size()]);
 				}
+
+				parameterMap.put(key, valueArray);
 			}
 		}
 	}
@@ -80,12 +75,10 @@ public class BridgeBookmarkableURLImpl extends BridgeURLInternalBase {
 		if ((portletRequestPhase == PortletPhase.RENDER_PHASE) ||
 				(portletRequestPhase == PortletPhase.RESOURCE_PHASE)) {
 
-			BridgeURI bridgeURI = getBridgeURI();
-			String uri = bridgeURI.toString();
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			baseURL = createRenderURL(facesContext, uri);
+			baseURL = createRenderURL(facesContext, bridgeURI.getParameterMap());
 			baseURL.setParameters(getParameterMap());
-			baseURL.setParameter(getViewIdRenderParameterName(), getViewId());
+			baseURL.setParameter(viewIdRenderParameterName, currentViewId);
 		}
 
 		// Otherwise, log an error.

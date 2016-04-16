@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.faces.FacesException;
@@ -25,17 +24,16 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+import javax.portlet.faces.BridgeException;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.IncongruityContext;
-import com.liferay.faces.bridge.context.url.BridgeURIFactory;
-import com.liferay.faces.bridge.context.url.BridgeURL;
-import com.liferay.faces.bridge.context.url.BridgeURLEncoder;
-import com.liferay.faces.bridge.context.url.BridgeURLEncoderFactory;
-import com.liferay.faces.bridge.context.url.BridgeURLFactory;
+import com.liferay.faces.bridge.internal.BridgeURIFactory;
+import com.liferay.faces.bridge.BridgeURL;
+import com.liferay.faces.bridge.BridgeURLFactory;
 import com.liferay.faces.bridge.scope.BridgeRequestScope;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
@@ -50,7 +48,6 @@ public abstract class ExternalContextBridgeBase extends ExternalContext {
 	protected BridgeConfig bridgeConfig;
 	protected BridgeRequestScope bridgeRequestScope;
 	protected BridgeURIFactory bridgeURIFactory;
-	protected BridgeURLEncoder bridgeURLEncoder;
 	protected BridgeURLFactory bridgeURLFactory;
 	protected List<String> configuredSuffixes;
 	protected List<ConfiguredServletMapping> configuredFacesServletMappings;
@@ -72,7 +69,6 @@ public abstract class ExternalContextBridgeBase extends ExternalContext {
 		this.portletConfig = RequestMapUtil.getPortletConfig(portletRequest);
 		this.manageIncongruities = PortletConfigParam.ManageIncongruities.getBooleanValue(portletConfig);
 		this.bridgeRequestScope = (BridgeRequestScope) portletRequest.getAttribute(BridgeRequestScope.class.getName());
-		this.bridgeURLEncoder = BridgeURLEncoderFactory.getBridgeURLEncoderInstance(bridgeConfig);
 		this.bridgeURIFactory = (BridgeURIFactory) BridgeFactoryFinder.getFactory(BridgeURIFactory.class);
 		this.bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(BridgeURLFactory.class);
 		this.configuredFacesServletMappings = (List<ConfiguredServletMapping>) bridgeConfig.getAttributes().get(
@@ -91,11 +87,11 @@ public abstract class ExternalContextBridgeBase extends ExternalContext {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			try {
-				BridgeURL bridgeActionURL = bridgeURLEncoder.encodeActionURL(facesContext, url);
+				BridgeURL bridgeActionURL = bridgeURLFactory.getBridgeActionURL(facesContext, url);
 
 				return bridgeActionURL.toString();
 			}
-			catch (URISyntaxException e) {
+			catch (BridgeException e) {
 				throw new FacesException(e);
 			}
 		}

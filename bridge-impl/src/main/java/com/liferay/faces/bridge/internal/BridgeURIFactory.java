@@ -13,33 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
+
+import com.liferay.faces.util.helper.Wrapper;
 
 import java.net.URISyntaxException;
 
-import com.liferay.faces.bridge.context.url.BridgeURI;
-import com.liferay.faces.bridge.context.url.BridgeURIFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgeURIFactoryImpl extends BridgeURIFactory {
+public abstract class BridgeURIFactory implements Wrapper<BridgeURIFactory> {
 
-	// Private Data Members
-	private BridgeURIFactory wrappedBridgeURIFactory;
-
-	public BridgeURIFactoryImpl(BridgeURIFactory bridgeURIFactory) {
-		this.wrappedBridgeURIFactory = bridgeURIFactory;
-	}
-
-	@Override
-	public BridgeURI getBridgeURI(String uri) throws URISyntaxException {
-		return new BridgeURIImpl(uri);
-	}
-
-	@Override
-	public BridgeURIFactory getWrapped() {
-		return wrappedBridgeURIFactory;
-	}
+	public abstract BridgeURI getBridgeURI(String uri) throws URISyntaxException;
 }

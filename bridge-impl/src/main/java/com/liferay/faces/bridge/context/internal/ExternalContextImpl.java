@@ -50,6 +50,7 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
+import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.BridgeInvalidViewPathException;
 import javax.portlet.faces.BridgeWriteBehindResponse;
 import javax.portlet.faces.GenericFacesPortlet;
@@ -64,8 +65,8 @@ import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.ContextMapFactory;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderMap;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderValuesMap;
-import com.liferay.faces.bridge.context.url.BridgeURI;
-import com.liferay.faces.bridge.context.url.BridgeURL;
+import com.liferay.faces.bridge.internal.BridgeURI;
+import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseRenderAdapter;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseResourceAdapter;
 import com.liferay.faces.bridge.internal.BridgeExt;
@@ -210,11 +211,11 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			try {
-				BridgeURL encodedResourceURL = bridgeURLEncoder.encodeResourceURL(facesContext, url);
+				BridgeURL encodedResourceURL = bridgeURLFactory.getBridgeResourceURL(facesContext, url);
 
 				return encodedResourceURL.toString();
 			}
-			catch (URISyntaxException e) {
+			catch (BridgeException e) {
 				throw new FacesException(e);
 			}
 		}
@@ -324,8 +325,7 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 							// Apply the PortletMode, WindowState, etc. that may be present in the URL to the response.
 							try {
 								StateAwareResponse stateAwareResponse = (StateAwareResponse) portletResponse;
-								BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext,
-										bridgeURI, null, null);
+								BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url, null);
 								BridgeNavigationUtil.navigate(portletRequest, stateAwareResponse, bridgeRequestScope,
 									bridgeRedirectURL);
 							}
@@ -338,12 +338,15 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 						else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
 
 							// If the specified URL is for a JSF viewId, then prepare for a render-redirect.
-							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, bridgeURI,
-									null, null);
+							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url, null);
 
-							String redirectURLViewId = bridgeRedirectURL.getFacesViewTarget();
+							String redirectURLViewId = bridgeRedirectURL.getViewId();
 
 							if (redirectURLViewId != null) {
+
+								// TCK TestPage 049: renderRedirectTest
+								// TCK TestPage 178: redirectRenderTest
+								// TCK TestPage 180: redirectRenderPRP2Test
 								portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT, Boolean.TRUE);
 								portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT_VIEW_ID, redirectURLViewId);
 							}
@@ -389,9 +392,7 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 				if (isJSF2PartialRequest(facesContext)) {
 
 					try {
-						BridgeURI bridgeURI = bridgeURIFactory.getBridgeURI(url);
-						BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, bridgeURI,
-								null, null);
+						BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url, null);
 						redirectJSF2PartialResponse(facesContext, (ResourceResponse) portletResponse,
 							bridgeRedirectURL.toString());
 					}

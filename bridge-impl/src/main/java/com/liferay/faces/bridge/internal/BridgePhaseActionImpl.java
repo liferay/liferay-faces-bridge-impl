@@ -86,7 +86,7 @@ public class BridgePhaseActionImpl extends BridgePhaseCompat_2_2_Impl {
 					actionResponse.setPortletMode(new PortletMode(portletModeParam));
 				}
 				catch (PortletModeException e) {
-					logger.error("Invalid parameter value {0}=[{1}]}", Bridge.PORTLET_MODE_PARAMETER, portletModeParam);
+					logger.error("Invalid parameter value {0}=[{1}]", Bridge.PORTLET_MODE_PARAMETER, portletModeParam);
 				}
 			}
 

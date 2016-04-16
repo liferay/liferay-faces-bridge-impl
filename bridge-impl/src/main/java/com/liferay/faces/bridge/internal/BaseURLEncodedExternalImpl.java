@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
 
 import java.io.Writer;
 import java.util.Map;
@@ -26,12 +26,12 @@ import javax.portlet.PortletResponse;
  * This class represents a simple "encoded" {@link BaseURL}, meaning an implementation that encodes a String based URL
  * that is "external" to the application. Since this class doesn't override any methods in the superclass it is
  * essentially a marker-class for code readability. The only methods that are meant to be called is {@link
- * BaseURLEncodedExternalStringImpl#toString()} and {@link BaseURLEncodedExternalStringImpl#write(Writer, boolean)}. All
- * other methods throw an {@link UnsupportedOperationException}.
+ * BaseURLEncodedExternalImpl#toString()} and {@link BaseURLEncodedExternalImpl#write(Writer, boolean)}. All other
+ * methods throw an {@link UnsupportedOperationException}.
  *
  * @author  Neil Griffin
  */
-public class BaseURLEncodedExternalStringImpl extends BaseURLEncodedStringImpl {
+public class BaseURLEncodedExternalImpl extends BaseURLEncodedImpl {
 
 	/**
 	 * Constructs a new instance of this class.
@@ -40,10 +40,9 @@ public class BaseURLEncodedExternalStringImpl extends BaseURLEncodedStringImpl {
 	 * @param  parameterMap     The current map of URL parameters.
 	 * @param  portletResponse  The current {@link PortletResponse}.
 	 */
-	public BaseURLEncodedExternalStringImpl(String externalURL, Map<String, String[]> parameterMap,
+	public BaseURLEncodedExternalImpl(String externalURL, Map<String, String[]> parameterMap,
 		PortletResponse portletResponse) {
 
 		super(externalURL, parameterMap, portletResponse);
 	}
-
 }

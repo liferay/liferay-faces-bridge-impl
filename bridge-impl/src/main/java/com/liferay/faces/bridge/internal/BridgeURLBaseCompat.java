@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
 
-import java.net.MalformedURLException;
-
-import javax.portlet.PortletURL;
+import javax.faces.context.FacesContext;
 
 
 /**
+ * This class provides a compatibility layer that isolates differences between JSF 1.2 and JSF 2.0.
+ *
  * @author  Neil Griffin
  */
-public class PortletURLNonFacesTargetRenderImpl extends PortletURLNonFacesTarget {
+public class BridgeURLBaseCompat {
 
-	public PortletURLNonFacesTargetRenderImpl(PortletURL portletURL, String portletMode, String windowState,
-		boolean secure, String path) throws MalformedURLException {
-		super(portletURL, portletMode, windowState, secure, path);
+	protected boolean isJSF2PartialRequest(FacesContext facesContext) {
+
+		// no-op for JSF 1.2
+		return false;
 	}
 }

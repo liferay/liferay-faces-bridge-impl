@@ -13,23 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
 
-import java.net.MalformedURLException;
-
-import javax.portlet.PortletURL;
-import javax.portlet.faces.Bridge;
+import java.net.URISyntaxException;
 
 
 /**
  * @author  Neil Griffin
  */
-public abstract class PortletURLNonFacesTarget extends PortletURLFacesTarget {
+public class BridgeURIFactoryImpl extends BridgeURIFactory {
 
-	public PortletURLNonFacesTarget(PortletURL portletURL, String portletMode, String windowState, boolean secure,
-		String path) throws MalformedURLException {
-		super(portletURL, portletMode, windowState, secure);
-		getWrapped().setParameter(Bridge.NONFACES_TARGET_PATH_PARAMETER, path);
+	// Private Data Members
+	private BridgeURIFactory wrappedBridgeURIFactory;
+
+	public BridgeURIFactoryImpl(BridgeURIFactory bridgeURIFactory) {
+		this.wrappedBridgeURIFactory = bridgeURIFactory;
 	}
 
+	@Override
+	public BridgeURI getBridgeURI(String uri) throws URISyntaxException {
+		return new BridgeURIImpl(uri);
+	}
+
+	// Java 1.6+ @Override
+	public BridgeURIFactory getWrapped() {
+		return wrappedBridgeURIFactory;
+	}
 }
