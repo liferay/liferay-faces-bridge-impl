@@ -13,43 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.url.BridgeURI;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgeRedirectURLImpl extends BridgeURLInternalBase {
+public class BridgeURLRedirectImpl extends BridgeURLBase {
 
-	// Private Data Members
-	private BridgeURI bridgeURI;
+	public BridgeURLRedirectImpl(FacesContext facesContext, String uri, String contextPath, String namespace,
+		Map<String, List<String>> redirectParameters, BridgeConfig bridgeConfig) throws URISyntaxException {
 
-	public BridgeRedirectURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
-		String viewIdRenderParameterName, String viewIdResourceParameterName, Map<String, List<String>> parameters,
-		BridgeConfig bridgeConfig) {
+		super(uri, contextPath, namespace, null, bridgeConfig);
 
-		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
-			bridgeConfig);
+		if (isJSF2PartialRequest(facesContext)) {
+			bridgeURI.setParameter("_bridgeAjaxRedirect", "true");
+		}
 
-		this.bridgeURI = bridgeURI;
-
-		if (parameters != null) {
+		if (redirectParameters != null) {
 
 			Map<String, String[]> parameterMap = getParameterMap();
-			Set<Entry<String, List<String>>> entrySet = parameters.entrySet();
+			Set<Entry<String, List<String>>> entrySet = redirectParameters.entrySet();
 
 			for (Entry<String, List<String>> mapEntry : entrySet) {
 
@@ -82,7 +80,7 @@ public class BridgeRedirectURLImpl extends BridgeURLInternalBase {
 			// ExternalContext.encodeActionURL(ExternalContext.encodeResourceURL(url)). The return value of those calls
 			// will ultimately be passed to the ExternalContext.redirect(String) method. For this reason, need to return
 			// a simple string-based representation of the URL.
-			baseURL = new BaseURLNonEncodedStringImpl(bridgeURI.toString(), getParameterMap());
+			baseURL = new BaseURLNonEncodedImpl(bridgeURI.toString(), getParameterMap());
 		}
 
 		// Otherwise,
@@ -90,7 +88,7 @@ public class BridgeRedirectURLImpl extends BridgeURLInternalBase {
 
 			// So far, under all circumstances it seems appropriate to return a simple string-based representation of
 			// the URL. This is the same code as above but keep it this way for now for TCK documentation purposes.
-			baseURL = new BaseURLNonEncodedStringImpl(bridgeURI.toString(), getParameterMap());
+			baseURL = new BaseURLNonEncodedImpl(bridgeURI.toString(), getParameterMap());
 		}
 
 		return baseURL;

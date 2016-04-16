@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
-
-import java.net.MalformedURLException;
+package com.liferay.faces.bridge.filter.internal;
 
 import javax.portlet.PortletURL;
 
@@ -23,10 +21,28 @@ import javax.portlet.PortletURL;
 /**
  * @author  Neil Griffin
  */
-public class PortletURLFacesTargetActionImpl extends PortletURLFacesTarget {
+public class RenderURLBridgePlutoImpl extends PortletURLWrapper {
 
-	public PortletURLFacesTargetActionImpl(PortletURL actionURL, String portletMode, String windowState, boolean secure)
-		throws MalformedURLException {
-		super(actionURL, portletMode, windowState, secure);
+	// Private Data Members
+	private PortletURL wrappedRenderURL;
+
+	public RenderURLBridgePlutoImpl(PortletURL renderURL) {
+		this.wrappedRenderURL = renderURL;
+	}
+
+	@Override
+	public PortletURL getWrapped() {
+		return wrappedRenderURL;
+	}
+
+	@Override
+	public void setParameter(String name, String value) {
+
+		if (value == null) {
+			PlutoBaseURLUtil.removeParameter(wrappedRenderURL, name);
+		}
+		else {
+			super.setParameter(name, value);
+		}
 	}
 }

@@ -50,5 +50,4 @@ public abstract class PortletURLWrapper extends BaseURLWrapper implements Portle
 
 	@Override
 	public abstract PortletURL getWrapped();
-
 }

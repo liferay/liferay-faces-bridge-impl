@@ -25,7 +25,7 @@ import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 import javax.portlet.faces.Bridge;
 
-import com.liferay.faces.bridge.context.url.BridgeURL;
+import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.scope.BridgeRequestScope;
 
 
