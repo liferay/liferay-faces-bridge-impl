@@ -63,7 +63,7 @@ public class BaseURLNonEncodedImpl implements BaseURL {
 	}
 
 	public void setParameter(String name, String value) {
-		throw new UnsupportedOperationException();
+		// no-op: must not throw UnsupportedOperationException since it is called by BridgeURLActionImpl.toBaseURL()
 	}
 
 	public void setParameter(String name, String[] values) {
@@ -79,7 +79,7 @@ public class BaseURLNonEncodedImpl implements BaseURL {
 	}
 
 	public void setSecure(boolean secure) throws PortletSecurityException {
-		throw new UnsupportedOperationException();
+		// no-op: must not throw UnsupportedOperationException since it is called by BridgeURLActionImpl.toBaseURL()
 	}
 
 	public void addProperty(String key, String value) {
