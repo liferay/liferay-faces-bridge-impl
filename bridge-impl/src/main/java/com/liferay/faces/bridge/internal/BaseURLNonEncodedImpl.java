@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -33,15 +33,15 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * This class represents a simple "non-encoded" {@link BaseURL}, meaning an implementation that simply wraps a String
  * based URL without providing any encoding. The only methods that are meant to be called is {@link
- * BaseURLNonEncodedStringImpl#toString()} and {@link BaseURLNonEncodedStringImpl#write(Writer, boolean)}. All other
- * methods throw an {@link UnsupportedOperationException}.
+ * BaseURLNonEncodedImpl#toString()} and {@link BaseURLNonEncodedImpl#write(Writer, boolean)}. All other methods throw
+ * an {@link UnsupportedOperationException}.
  *
  * @author  Neil Griffin
  */
-public class BaseURLNonEncodedStringImpl implements BaseURL {
+public class BaseURLNonEncodedImpl implements BaseURL {
 
 	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(BaseURLNonEncodedStringImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(BaseURLNonEncodedImpl.class);
 
 	// Private Data Members
 	private String url;
@@ -49,13 +49,37 @@ public class BaseURLNonEncodedStringImpl implements BaseURL {
 	private String query;
 	private String toStringValue;
 
-	public BaseURLNonEncodedStringImpl(String urlWithParameters) {
+	public BaseURLNonEncodedImpl(String urlWithParameters) {
 		this.url = urlWithParameters;
 	}
 
-	public BaseURLNonEncodedStringImpl(String url, Map<String, String[]> parameterMap) {
+	public BaseURLNonEncodedImpl(String url, Map<String, String[]> parameterMap) {
 		this.url = url;
 		this.parameterMap = parameterMap;
+	}
+
+	public Map<String, String[]> getParameterMap() {
+		throw new UnsupportedOperationException();
+	}
+
+	public void setParameter(String name, String value) {
+		throw new UnsupportedOperationException();
+	}
+
+	public void setParameter(String name, String[] values) {
+		throw new UnsupportedOperationException();
+	}
+
+	public void setParameters(Map<String, String[]> parameters) {
+		throw new UnsupportedOperationException();
+	}
+
+	public void setProperty(String key, String value) {
+		throw new UnsupportedOperationException();
+	}
+
+	public void setSecure(boolean secure) throws PortletSecurityException {
+		throw new UnsupportedOperationException();
 	}
 
 	public void addProperty(String key, String value) {
@@ -106,26 +130,6 @@ public class BaseURLNonEncodedStringImpl implements BaseURL {
 
 		// Note: Ignore the escapeXML parameter because this class is simply supposed to return the original URL string.
 		out.write(url);
-	}
-
-	public void setParameter(String name, String value) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void setParameter(String name, String[] values) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Map<String, String[]> getParameterMap() {
-		throw new UnsupportedOperationException();
-	}
-
-	public void setParameters(Map<String, String[]> parameters) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void setProperty(String key, String value) {
-		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -263,9 +267,4 @@ public class BaseURLNonEncodedStringImpl implements BaseURL {
 
 		return query;
 	}
-
-	public void setSecure(boolean secure) throws PortletSecurityException {
-		throw new UnsupportedOperationException();
-	}
-
 }

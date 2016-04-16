@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
 
 import java.io.Writer;
 import java.util.Map;
@@ -27,20 +27,20 @@ import com.liferay.faces.util.logging.LoggerFactory;
 
 /**
  * This abstract class represents a simple "encoded" {@link BaseURL}, meaning an implementation that encodes a String
- * based URL. The only methods that are meant to be called is {@link BaseURLEncodedStringImpl#toString()} and {@link
- * BaseURLEncodedStringImpl#write(Writer, boolean)}. All other methods throw an {@link UnsupportedOperationException}.
+ * based URL. The only methods that are meant to be called is {@link BaseURLEncodedImpl#toString()} and {@link
+ * BaseURLEncodedImpl#write(Writer, boolean)}. All other methods throw an {@link UnsupportedOperationException}.
  *
  * @author  Neil Griffin
  */
-public abstract class BaseURLEncodedStringImpl extends BaseURLNonEncodedStringImpl {
+public abstract class BaseURLEncodedImpl extends BaseURLNonEncodedImpl {
 
 	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(BaseURLEncodedStringImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(BaseURLEncodedImpl.class);
 
 	// Private Data Members
 	private PortletResponse portletResponse;
 
-	public BaseURLEncodedStringImpl(String url, Map<String, String[]> parameterMap, PortletResponse portletResponse) {
+	public BaseURLEncodedImpl(String url, Map<String, String[]> parameterMap, PortletResponse portletResponse) {
 		super(url, parameterMap);
 		this.portletResponse = portletResponse;
 	}
@@ -60,5 +60,4 @@ public abstract class BaseURLEncodedStringImpl extends BaseURLNonEncodedStringIm
 
 		return stringValue;
 	}
-
 }

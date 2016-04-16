@@ -13,17 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
 
-import javax.faces.context.FacesContext;
+import java.net.URISyntaxException;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgeURLEncoderCompatImpl {
+public class BridgeURIFactoryImpl extends BridgeURIFactory {
 
-	protected boolean isJSF2PartialRequest(FacesContext facesContext) {
-		return facesContext.getPartialViewContext().isPartialRequest();
+	// Private Data Members
+	private BridgeURIFactory wrappedBridgeURIFactory;
+
+	public BridgeURIFactoryImpl(BridgeURIFactory bridgeURIFactory) {
+		this.wrappedBridgeURIFactory = bridgeURIFactory;
+	}
+
+	@Override
+	public BridgeURI getBridgeURI(String uri) throws URISyntaxException {
+		return new BridgeURIImpl(uri);
+	}
+
+	@Override
+	public BridgeURIFactory getWrapped() {
+		return wrappedBridgeURIFactory;
 	}
 }

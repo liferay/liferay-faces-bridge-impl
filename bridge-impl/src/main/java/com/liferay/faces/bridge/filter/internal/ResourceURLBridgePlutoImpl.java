@@ -77,7 +77,13 @@ public class ResourceURLBridgePlutoImpl extends ResourceURLWrapper {
 
 	@Override
 	public void setParameter(String name, String value) {
-		super.setParameter(name, value);
+
+		if (value == null) {
+			PlutoBaseURLUtil.removeParameter(wrappedResourceURL, name);
+		}
+		else {
+			super.setParameter(name, value);
+		}
 	}
 
 	@Override

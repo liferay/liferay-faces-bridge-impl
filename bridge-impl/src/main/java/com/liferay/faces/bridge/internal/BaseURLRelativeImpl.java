@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
 
 import java.io.Writer;
 import java.util.Map;
@@ -24,12 +24,12 @@ import javax.portlet.BaseURL;
 /**
  * This class represents a relative {@link BaseURL}, meaning an implementation that simply wraps a String based URL that
  * starts with "../" and does not require encoding. The only methods that are meant to be called is {@link
- * BaseURLRelativeStringImpl#toString()} and {@link BaseURLRelativeStringImpl#write(Writer, boolean)}. All other methods
- * throw an {@link UnsupportedOperationException}.
+ * BaseURLRelativeImpl#toString()} and {@link BaseURLRelativeImpl#write(Writer, boolean)}. All other methods throw an
+ * {@link UnsupportedOperationException}.
  *
  * @author  Neil Griffin
  */
-public class BaseURLRelativeStringImpl extends BaseURLNonEncodedStringImpl {
+public class BaseURLRelativeImpl extends BaseURLNonEncodedImpl {
 
 	// Private Constants
 	private static final String RELATIVE_PATH_PREFIX = "../";
@@ -38,7 +38,7 @@ public class BaseURLRelativeStringImpl extends BaseURLNonEncodedStringImpl {
 	private String contextPath;
 	private String toStringValue;
 
-	public BaseURLRelativeStringImpl(String url, Map<String, String[]> parameterMap, String contextPath) {
+	public BaseURLRelativeImpl(String url, Map<String, String[]> parameterMap, String contextPath) {
 		super(url, parameterMap);
 		this.contextPath = contextPath;
 	}
@@ -57,5 +57,4 @@ public class BaseURLRelativeStringImpl extends BaseURLNonEncodedStringImpl {
 
 		return toStringValue;
 	}
-
 }

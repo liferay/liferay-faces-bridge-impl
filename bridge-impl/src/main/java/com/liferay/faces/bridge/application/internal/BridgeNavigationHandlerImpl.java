@@ -15,11 +15,15 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import com.liferay.faces.bridge.BridgeFactoryFinder;
+import com.liferay.faces.bridge.BridgeURL;
+import com.liferay.faces.bridge.BridgeURLFactory;
+import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.util.internal.RequestMapUtil;
+import com.liferay.faces.bridge.util.internal.ViewUtil;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
-import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationCase;
 import javax.faces.application.NavigationHandler;
@@ -27,23 +31,14 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
-
-import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.url.BridgeURL;
-import com.liferay.faces.bridge.context.url.BridgeURLEncoder;
-import com.liferay.faces.bridge.context.url.BridgeURLEncoderFactory;
-import com.liferay.faces.bridge.scope.BridgeRequestScope;
-import com.liferay.faces.bridge.util.internal.RequestMapUtil;
-import com.liferay.faces.bridge.util.internal.ViewUtil;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
+import java.util.Iterator;
+import java.util.Map;
 
 
 /**
@@ -118,13 +113,10 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandlerCompatIm
 					if (portletResponse instanceof StateAwareResponse) {
 
 						PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-						BridgeConfig bridgeConfig = (BridgeConfig) portletRequest.getAttribute(BridgeConfig.class
-								.getName());
-						BridgeURLEncoder bridgeURLEncoder = BridgeURLEncoderFactory.getBridgeURLEncoderInstance(
-								bridgeConfig);
+						BridgeURLFactory bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(BridgeURLFactory.class);
 
 						try {
-							BridgeURL bridgeActionURL = bridgeURLEncoder.encodeActionURL(facesContext, toViewId);
+							BridgeURL bridgeActionURL = bridgeURLFactory.getBridgeActionURL(facesContext, toViewId);
 
 							BridgeNavigationCase bridgeNavigationCase = new BridgeNavigationCaseImpl(navigationCase);
 							String portletMode = bridgeNavigationCase.getPortletMode();

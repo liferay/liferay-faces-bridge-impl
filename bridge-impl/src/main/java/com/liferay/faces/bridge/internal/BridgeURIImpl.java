@@ -13,16 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
 import java.util.Map;
 
 import javax.portlet.faces.Bridge;
 
-import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.bridge.util.internal.URLUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -66,11 +64,6 @@ public class BridgeURIImpl implements BridgeURI {
 	}
 
 	@Override
-	public String toString() {
-		return stringValue;
-	}
-
-	@Override
 	public String getContextRelativePath(String contextPath) {
 
 		String contextRelativePath = null;
@@ -97,6 +90,81 @@ public class BridgeURIImpl implements BridgeURI {
 		}
 
 		return contextRelativePath;
+	}
+
+	@Override
+	public String getParameter(String name) {
+
+		Map<String, String[]> parameterMap = getParameterMap();
+		String[] values = parameterMap.get(name);
+
+		if ((values != null) && (values.length > 0)) {
+			return values[0];
+		}
+		else {
+			return null;
+		}
+	}
+
+	@Override
+	public Map<String, String[]> getParameterMap() {
+
+		if (parameters == null) {
+			parameters = URLUtil.parseParameterMapValuesArray(uri.toString());
+		}
+
+		return parameters;
+	}
+
+	@Override
+	public String getPath() {
+		return uri.getPath();
+	}
+
+	@Override
+	public Bridge.PortletPhase getPortletPhase() {
+
+		if (portletPhase == null) {
+
+			String uriAsString = uri.toString();
+
+			if (uriAsString != null) {
+
+				if (portletScheme) {
+
+					if (uriAsString.startsWith("portlet:action")) {
+						portletPhase = Bridge.PortletPhase.ACTION_PHASE;
+					}
+					else if (uriAsString.startsWith("portlet:render")) {
+						portletPhase = Bridge.PortletPhase.RENDER_PHASE;
+					}
+					else if (uriAsString.startsWith("portlet:resource")) {
+						portletPhase = Bridge.PortletPhase.RESOURCE_PHASE;
+					}
+					else {
+						portletPhase = Bridge.PortletPhase.RESOURCE_PHASE;
+						logger.warn("Invalid keyword after 'portlet:' in URI=[{0}]", uriAsString);
+					}
+				}
+			}
+			else {
+				portletPhase = Bridge.PortletPhase.RESOURCE_PHASE;
+				logger.warn("Unable to determine portlet phase in null URI");
+			}
+		}
+
+		return portletPhase;
+	}
+
+	@Override
+	public String getQuery() {
+
+		if (query == null) {
+			return uri.getQuery();
+		}
+		else {
+			return query;
+		}
 	}
 
 	@Override
@@ -216,63 +284,25 @@ public class BridgeURIImpl implements BridgeURI {
 	}
 
 	@Override
-	public Map<String, String[]> getParameterMap() {
-
-		if (parameters == null) {
-			parameters = Collections.unmodifiableMap(URLUtil.parseParameterMapValuesArray(uri.toString()));
-		}
-
-		return parameters;
+	public void setParameter(String name, String value) {
+		getParameterMap().put(name, new String[] { value });
 	}
 
 	@Override
-	public String getPath() {
-		return uri.getPath();
-	}
+	public String removeParameter(String name) {
 
-	@Override
-	public Bridge.PortletPhase getPortletPhase() {
+		String[] values = getParameterMap().remove(name);
 
-		if (portletPhase == null) {
-
-			String uriAsString = uri.toString();
-
-			if (uriAsString != null) {
-
-				if (portletScheme) {
-
-					if (uriAsString.startsWith("portlet:action")) {
-						portletPhase = Bridge.PortletPhase.ACTION_PHASE;
-					}
-					else if (uriAsString.startsWith("portlet:render")) {
-						portletPhase = Bridge.PortletPhase.RENDER_PHASE;
-					}
-					else if (uriAsString.startsWith("portlet:resource")) {
-						portletPhase = Bridge.PortletPhase.RESOURCE_PHASE;
-					}
-					else {
-						portletPhase = Bridge.PortletPhase.RESOURCE_PHASE;
-						logger.warn("Invalid keyword after 'portlet:' in URI=[{0}]", uriAsString);
-					}
-				}
-			}
-			else {
-				portletPhase = Bridge.PortletPhase.RESOURCE_PHASE;
-				logger.warn("Unable to determine portlet phase in null URI");
-			}
-		}
-
-		return portletPhase;
-	}
-
-	@Override
-	public String getQuery() {
-
-		if (query == null) {
-			return uri.getQuery();
+		if ((values != null) && (values.length > 0)) {
+			return values[0];
 		}
 		else {
-			return query;
+			return null;
 		}
+	}
+
+	@Override
+	public String toString() {
+		return stringValue;
 	}
 }
