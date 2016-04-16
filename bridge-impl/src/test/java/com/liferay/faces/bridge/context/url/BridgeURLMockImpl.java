@@ -16,28 +16,28 @@
 package com.liferay.faces.bridge.context.url;
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import javax.portlet.BaseURL;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.url.internal.BaseURLNonEncodedStringImpl;
-import com.liferay.faces.bridge.context.url.internal.BridgeURLInternalBase;
+import com.liferay.faces.bridge.internal.BaseURLNonEncodedImpl;
+import com.liferay.faces.bridge.internal.BridgeURLBase;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgeURLMockImpl extends BridgeURLInternalBase {
+public class BridgeURLMockImpl extends BridgeURLBase {
 
-	public BridgeURLMockImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
-		String viewIdRenderParameterName, String viewIdResourceParameterName, BridgeConfig bridgeConfig) {
-		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
-			bridgeConfig);
+	public BridgeURLMockImpl(String uri, String contextPath, String namespace, String currentViewId,
+		BridgeConfig bridgeConfig) throws URISyntaxException {
+		super(uri, contextPath, namespace, currentViewId, bridgeConfig);
 	}
 
 	@Override
 	public BaseURL toBaseURL() throws MalformedURLException {
-		return new BaseURLNonEncodedStringImpl(getBridgeURI().toString(), new HashMap<String, String[]>());
+		return new BaseURLNonEncodedImpl(bridgeURI.toString(), new HashMap<String, String[]>());
 	}
 }

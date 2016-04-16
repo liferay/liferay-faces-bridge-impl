@@ -18,12 +18,10 @@ package com.liferay.faces.bridge.context.internal;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.FacesException;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
@@ -37,13 +35,12 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeException;
 import javax.servlet.http.Cookie;
 
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgePortalContext;
-import com.liferay.faces.bridge.context.url.BridgeURI;
-import com.liferay.faces.bridge.context.url.BridgeURL;
-import com.liferay.faces.bridge.internal.BridgeExt;
+import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.util.internal.FileNameUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -126,12 +123,11 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			try {
-				BridgeURL encodedBookmarkableURL = bridgeURLEncoder.encodeBookmarkableURL(facesContext, baseURL,
-						parameters);
+				BridgeURL bridgeBookmarkableURL = bridgeURLFactory.getBridgeBookmarkableURL(facesContext, baseURL, parameters);
 
-				return encodedBookmarkableURL.toString();
+				return bridgeBookmarkableURL.toString();
 			}
-			catch (URISyntaxException e) {
+			catch (BridgeException e) {
 				throw new FacesException(e);
 			}
 		}
@@ -151,11 +147,11 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			try {
-				BridgeURL encodedPartialActionURL = bridgeURLEncoder.encodePartialActionURL(facesContext, url);
+				BridgeURL bridgePartialActionURL = bridgeURLFactory.getBridgePartialActionURL(facesContext, url);
 
-				return encodedPartialActionURL.toString();
+				return bridgePartialActionURL.toString();
 			}
-			catch (URISyntaxException e) {
+			catch (BridgeException e) {
 				throw new FacesException(e);
 			}
 		}
@@ -175,11 +171,11 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			try {
-				BridgeURL encodedRedirectURL = bridgeURLEncoder.encodeRedirectURL(facesContext, baseUrl, parameters);
+				BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, baseUrl, parameters);
 
-				return encodedRedirectURL.toString();
+				return bridgeRedirectURL.toString();
 			}
-			catch (URISyntaxException e) {
+			catch (BridgeException e) {
 				throw new FacesException(e);
 			}
 		}

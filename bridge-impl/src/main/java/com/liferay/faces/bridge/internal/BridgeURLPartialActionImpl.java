@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.internal;
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.url.BridgeURI;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -29,17 +29,17 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgePartialActionURLImpl extends BridgeURLInternalBase {
+public class BridgeURLPartialActionImpl extends BridgeURLBase {
 
 	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(BridgePartialActionURLImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(BridgeURLPartialActionImpl.class);
 
-	// Private Data Members
+	public BridgeURLPartialActionImpl(String uri, String contextPath, String namespace, String currentViewId,
+		BridgeConfig bridgeConfig) throws URISyntaxException {
 
-	public BridgePartialActionURLImpl(BridgeURI bridgeURI, String contextPath, String namespace, String viewId,
-		String viewIdRenderParameterName, String viewIdResourceParameterName, BridgeConfig bridgeConfig) {
-		super(bridgeURI, contextPath, namespace, viewId, viewIdRenderParameterName, viewIdResourceParameterName,
-			bridgeConfig);
+		super(uri, contextPath, namespace, currentViewId, bridgeConfig);
+
+		bridgeURI.setParameter(BridgeExt.FACES_AJAX_PARAMETER, "true");
 	}
 
 	@Override
@@ -47,19 +47,17 @@ public class BridgePartialActionURLImpl extends BridgeURLInternalBase {
 
 		BaseURL baseURL = null;
 
-		BridgeURI bridgeURI = getBridgeURI();
 		String uri = bridgeURI.toString();
 
 		if (uri != null) {
 
 			if (uri.startsWith("http")) {
-				baseURL = new BaseURLNonEncodedStringImpl(uri, getParameterMap());
+				baseURL = new BaseURLNonEncodedImpl(uri, getParameterMap());
 				logger.debug("URL starts with http so assuming that it has already been encoded: url=[{0}]", uri);
 			}
 			else {
-				String urlWithModifiedParameters = _toString(false);
 				FacesContext facesContext = FacesContext.getCurrentInstance();
-				baseURL = createPartialActionURL(facesContext, urlWithModifiedParameters);
+				baseURL = createResourceURL(facesContext, bridgeURI.getParameterMap());
 			}
 		}
 		else {
@@ -71,6 +69,6 @@ public class BridgePartialActionURLImpl extends BridgeURLInternalBase {
 
 	@Override
 	protected String getViewIdParameterName() {
-		return getViewIdResourceParameterName();
+		return viewIdResourceParameterName;
 	}
 }

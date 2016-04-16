@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.renderkit.primefaces.internal;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,18 +23,17 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionListener;
 import javax.faces.render.Renderer;
 import javax.faces.render.RendererWrapper;
+import javax.portlet.faces.BridgeException;
 
+import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
-import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.url.BridgeURL;
-import com.liferay.faces.bridge.context.url.BridgeURLEncoder;
-import com.liferay.faces.bridge.context.url.BridgeURLEncoderFactory;
+import com.liferay.faces.bridge.BridgeURL;
+import com.liferay.faces.bridge.BridgeURLFactory;
 import com.liferay.faces.bridge.internal.BridgeExt;
 
 
@@ -102,13 +100,10 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 			ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
 			String viewId = facesContext.getViewRoot().getViewId();
 			String facesActionURL = viewHandler.getActionURL(facesContext, viewId);
-			ExternalContext externalContext = facesContext.getExternalContext();
-			BridgeConfig bridgeConfig = (BridgeConfig) externalContext.getRequestMap().get(BridgeConfig.class
-					.getName());
-			BridgeURLEncoder bridgeURLEncoder = BridgeURLEncoderFactory.getBridgeURLEncoderInstance(bridgeConfig);
+			BridgeURLFactory bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(BridgeURLFactory.class);
 
 			try {
-				BridgeURL partialActionURL = bridgeURLEncoder.encodePartialActionURL(facesContext, facesActionURL);
+				BridgeURL partialActionURL = bridgeURLFactory.getBridgePartialActionURL(facesContext, facesActionURL);
 				partialActionURL.getParameterMap().remove(BridgeExt.FACES_AJAX_PARAMETER);
 
 				String nonAjaxPartialActionURL = partialActionURL.toString();
@@ -119,7 +114,7 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 				super.encodeBegin(facesContext, uiComponent);
 				facesContext.setResponseWriter(responseWriter);
 			}
-			catch (URISyntaxException e) {
+			catch (BridgeException e) {
 				e.printStackTrace();
 			}
 		}
@@ -212,5 +207,4 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 	public Renderer getWrapped() {
 		return wrappedRenderer;
 	}
-
 }

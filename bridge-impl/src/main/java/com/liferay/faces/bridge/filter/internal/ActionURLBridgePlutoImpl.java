@@ -13,27 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url.internal;
+package com.liferay.faces.bridge.filter.internal;
 
-import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.url.BridgeURLEncoder;
-import com.liferay.faces.bridge.context.url.BridgeURLEncoderFactory;
+import javax.portlet.PortletURL;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgeURLEncoderFactoryImpl extends BridgeURLEncoderFactory {
+public class ActionURLBridgePlutoImpl extends PortletURLWrapper {
 
-	@Override
-	public BridgeURLEncoder getBridgeURLEncoder(BridgeConfig bridgeConfig) {
-		return new BridgeURLEncoderImpl(bridgeConfig);
+	// Private Data Members
+	private PortletURL wrappedActionURL;
+
+	public ActionURLBridgePlutoImpl(PortletURL actionURL) {
+		this.wrappedActionURL = actionURL;
 	}
 
 	@Override
-	public BridgeURLEncoderFactory getWrapped() {
+	public PortletURL getWrapped() {
+		return wrappedActionURL;
+	}
 
-		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
-		return null;
+	@Override
+	public void setParameter(String name, String value) {
+
+		if (value == null) {
+			PlutoBaseURLUtil.removeParameter(wrappedActionURL, name);
+		}
+		else {
+			super.setParameter(name, value);
+		}
 	}
 }
