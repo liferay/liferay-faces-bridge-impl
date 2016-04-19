@@ -116,7 +116,7 @@ public class TesterBase {
 			logger.log(Level.INFO, "assuming legacy emailFieldXpath = " + emailFieldXpath + " for sign in ...");
 			signIn(browser, emailFieldXpath, emailField, passwordField, signInButton, signedInText, signedInTextXpath, "test@liferay.com", "test");
 		} else if ("pluto".equals(portal)) {
-			signIn(browser, emailFieldXpath, userName, password, loginButton, logout, logoutXpath, "pluto", "pluto");
+			signIn(browser, userNameXpath, userName, password, loginButton, logout, logoutXpath, "pluto", "pluto");
 		} else {
 			logger.log(Level.SEVERE, "not a supported portal for this tester base: portal = " + portal + "");
 		}
