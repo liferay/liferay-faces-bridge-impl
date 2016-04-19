@@ -355,7 +355,12 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 	protected ResourceURL createResourceURL(FacesContext facesContext, Map<String, String[]> parameterMap)
 		throws MalformedURLException {
 
-		List<URIParameter> uriParameters = parameterMapToList(parameterMap);
+		List<URIParameter> uriParameters = getToStringParameters(false);
+		Set<Map.Entry<String, String[]>> entrySet = parameterMap.entrySet();
+
+		for (Map.Entry<String, String[]> mapEntry : entrySet) {
+			uriParameters.add(new URIParameter(mapEntry.getKey(), mapEntry.getValue()));
+		}
 
 		return createResourceURL(facesContext, uriParameters);
 	}
