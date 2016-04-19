@@ -77,9 +77,7 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 
 		if ((value != null) && (value instanceof String)) {
 			String encoding = wrappedResponseWriter.getCharacterEncoding();
-			FacesURLEncoderFactory facesURLEncoderFactory = (FacesURLEncoderFactory) BridgeFactoryFinder.getFactory(
-					FacesURLEncoderFactory.class);
-			FacesURLEncoder facesURLEncoder = facesURLEncoderFactory.getFacesURLEncoder();
+			FacesURLEncoder facesURLEncoder = FacesURLEncoderFactory.getFacesURLEncoderInstance();
 			String encodedURI = facesURLEncoder.encode((String) value, encoding);
 
 			if (encodedURI != null) {

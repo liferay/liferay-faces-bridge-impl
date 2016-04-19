@@ -69,9 +69,7 @@ public class ResourceHandlerInnerImpl extends ResourceHandlerBridgeImpl {
 
 		String resourceId = libraryName + "/" + resourceName;
 
-		ResourceValidatorFactory resourceValidatorFactory = (ResourceValidatorFactory) BridgeFactoryFinder.getFactory(
-				ResourceValidatorFactory.class);
-		ResourceValidator resourceValidator = resourceValidatorFactory.getResourceValidator();
+		ResourceValidator resourceValidator = ResourceValidatorFactory.getResourceValidatorInstance();
 
 		// If the resource name or library name contains a banned path like WEB-INF or META-INF, then do not serve
 		// the resource.
