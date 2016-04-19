@@ -134,7 +134,7 @@
 		<project.stage>Production</project.stage>
 		<richfaces3.version>UNSUPPORTED</richfaces3.version>
 		<selenium.version>2.46.0</selenium.version>
-		<spring.version>3.0.7.RELEASE</spring.version>
+		<spring.version>4.2.5.RELEASE</spring.version>
 		<surefire.version>2.12</surefire.version>
 		<tck.trinidad.version>1.2.13</tck.trinidad.version>
 		<war.packaging.excludes>
