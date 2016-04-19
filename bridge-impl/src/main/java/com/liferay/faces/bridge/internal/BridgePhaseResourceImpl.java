@@ -109,9 +109,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 
 				if ((autoResourceDispatch != null) && autoResourceDispatch.equalsIgnoreCase("true")) {
 
-					ResourceValidatorFactory resourceValidatorFactory = (ResourceValidatorFactory) BridgeFactoryFinder
-						.getFactory(ResourceValidatorFactory.class);
-					ResourceValidator resourceValidator = resourceValidatorFactory.getResourceValidator();
+					ResourceValidator resourceValidator = ResourceValidatorFactory.getResourceValidatorInstance();
 
 					// If the resourceId contains a banned path like WEB-INF or META-INF, then do not serve the
 					// resource.
