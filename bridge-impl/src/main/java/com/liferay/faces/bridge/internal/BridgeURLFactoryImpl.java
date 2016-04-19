@@ -120,7 +120,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory {
 		// Private Data Members
 		public BridgeConfig bridgeConfig;
 		public String contextPath;
-		public String currentFacesViewId;
+		public String currentFacesViewId = null;
 		public String namespace;
 
 		public ContextInfo(FacesContext facesContext) {
@@ -131,7 +131,11 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory {
 			this.contextPath = externalContext.getRequestContextPath();
 
 			UIViewRoot viewRoot = facesContext.getViewRoot();
-			this.currentFacesViewId = viewRoot.getViewId();
+
+			if (viewRoot != null) {
+				this.currentFacesViewId = viewRoot.getViewId();
+			}
+
 			this.namespace = externalContext.encodeNamespace("");
 		}
 	}
