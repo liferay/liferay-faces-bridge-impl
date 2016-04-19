@@ -37,13 +37,13 @@ public class ActionURLDemoPortlet extends GenericFacesPortlet {
 	public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException,
 		IOException {
 
-		String contentType = actionRequest.getContentType();
-		boolean fileUpload = ((contentType != null) && contentType.toLowerCase().startsWith("multipart/"));
-
 		String viewState = actionRequest.getParameter(ResponseStateManager.VIEW_STATE_PARAM);
 
-		if ((viewState == null) && (!fileUpload)) {
-			actionResponse.setRenderParameter("Non-Faces-Postback", Boolean.TRUE.toString());
+		String nonFacesPostback = actionRequest.getParameter("Non-Faces-Postback");
+
+		if ((viewState == null) && ("true".equalsIgnoreCase(nonFacesPostback))) {
+
+			actionResponse.setRenderParameter("Non-Faces-Postback", nonFacesPostback);
 
 			String foo = actionRequest.getParameter("foo");
 
