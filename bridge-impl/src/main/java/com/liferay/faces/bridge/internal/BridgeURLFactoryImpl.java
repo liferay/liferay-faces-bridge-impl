@@ -120,7 +120,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory {
 		// Private Data Members
 		public BridgeConfig bridgeConfig;
 		public String contextPath;
-		public String currentFacesViewId = null;
+		public String currentFacesViewId;
 		public String namespace;
 
 		public ContextInfo(FacesContext facesContext) {
