@@ -24,6 +24,15 @@
 			</dependencies>
 		</profile>
 		<profile>
+			<id>pluto</id>
+			<dependencies>
+				<dependency>
+					<groupId>com.liferay.faces.alloy</groupId>
+					<artifactId>liferay-faces-alloy-reslib</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
 			<id>weblogic</id>
 			<dependencies>
 				<dependency>
