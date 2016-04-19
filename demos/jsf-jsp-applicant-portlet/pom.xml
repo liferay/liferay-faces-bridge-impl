@@ -23,15 +23,6 @@
 				</dependency>
 			</dependencies>
 		</profile>
-		<profile>
-			<id>pluto</id>
-			<dependencies>
-				<dependency>
-					<groupId>com.liferay.faces.alloy</groupId>
-					<artifactId>liferay-faces-alloy-reslib</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
 	</profiles>
 
 	<dependencies>
@@ -39,10 +30,6 @@
 			<groupId>com.liferay.faces.bridge</groupId>
 			<artifactId>liferay-faces-bridge-impl</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.liferay.faces.alloy</groupId>
-			<artifactId>liferay-faces-alloy</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
