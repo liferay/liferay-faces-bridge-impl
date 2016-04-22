@@ -20,7 +20,6 @@ import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,7 +33,6 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.ResourceURL;
 import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.BridgeURL;

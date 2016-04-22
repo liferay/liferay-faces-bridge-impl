@@ -298,17 +298,12 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 							// TestPage039-requestNoScopeOnRedirectTest and TestPage176-redirectActionTest.
 							String newViewId = bridgeURI.getContextRelativePath(contextPath);
 
-							// If redirecting to a different view, then create the target view and place it into the
-							// FacesContext.
-							UIViewRoot viewRoot = facesContext.getViewRoot();
-							String currentFacesViewId = viewRoot.getViewId();
-
-							if (!currentFacesViewId.equals(newViewId)) {
-
-								ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
-								UIViewRoot newViewRoot = viewHandler.createView(facesContext, newViewId);
-								facesContext.setViewRoot(newViewRoot);
-							}
+							// Set the "_facesViewIdRender" parameter on the URL to the new viewId so that the call
+							// to BridgeNavigationUtil.navigate(...) below will cause a render parameter to be set
+							// which will inform containers that implement POST-REDIRECT-GET (like Pluto) that the
+							// 302 redirect URL needs to specify the new viewId in order for redirection to work in
+							// the subsequent RENDER_PHASE.
+							bridgeURI.setParameter(bridgeConfig.getViewIdRenderParameterName(), newViewId);
 
 							// Update the PartialViewContext.
 							partialViewContextRenderAll(facesContext);
@@ -325,9 +320,8 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 							// Apply the PortletMode, WindowState, etc. that may be present in the URL to the response.
 							try {
 								StateAwareResponse stateAwareResponse = (StateAwareResponse) portletResponse;
-								BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url, null);
 								BridgeNavigationUtil.navigate(portletRequest, stateAwareResponse, bridgeRequestScope,
-									bridgeRedirectURL.getParameterMap());
+									bridgeURI.getParameterMap());
 							}
 							catch (PortletException e) {
 								logger.error(e.getMessage());
@@ -338,7 +332,8 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 						else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
 
 							// If the specified URL is for a JSF viewId, then prepare for a render-redirect.
-							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url, null);
+							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url,
+								null);
 
 							String redirectURLViewId = bridgeRedirectURL.getViewId();
 

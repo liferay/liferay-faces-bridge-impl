@@ -119,8 +119,8 @@ public class BridgePhaseActionImpl extends BridgePhaseCompat_2_2_Impl {
 			bridgeRequestScope.saveState(facesContext);
 
 			// In accordance with Section 5.1.2 of the Spec, the bridge request scope must only be maintained if a
-			// redirect or portlet mode change has not occurred.
-			if (!bridgeRequestScope.isRedirectOccurred() || !bridgeRequestScope.isPortletModeChanged()) {
+			// redirect and portlet mode change has not occurred.
+			if (!bridgeRequestScope.isRedirectOccurred() && !bridgeRequestScope.isPortletModeChanged()) {
 				maintainBridgeRequestScope(actionRequest, actionResponse,
 					BridgeRequestScope.Transport.RENDER_PARAMETER);
 			}
