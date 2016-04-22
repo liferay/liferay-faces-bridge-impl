@@ -15,11 +15,16 @@
  */
 package com.liferay.faces.bridge.context.url;
 
+import java.io.StringWriter;
+import java.io.Writer;
 import java.net.URISyntaxException;
 
-import com.liferay.faces.bridge.internal.BridgeURI;
+import javax.portlet.BaseURL;
+
 import org.junit.Test;
 
+import com.liferay.faces.bridge.internal.BaseURLNonEncodedImpl;
+import com.liferay.faces.bridge.internal.BridgeURI;
 import com.liferay.faces.bridge.internal.BridgeURIImpl;
 
 import junit.framework.Assert;
@@ -111,6 +116,24 @@ public class BridgeURLTest {
 				.equals("/views/foo.xhtml"));
 		}
 		catch (URISyntaxException e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Test
+	public void testXmlEscaping() {
+
+		try {
+			BridgeURI bridgeURI = newBridgeURI("http://www.liferay.com/hello.world?a=1&b=2");
+			BaseURL nonEncodedURL = new BaseURLNonEncodedImpl(bridgeURI);
+			Writer stringWriter = new StringWriter();
+			nonEncodedURL.write(stringWriter, false);
+			Assert.assertTrue("http://www.liferay.com/hello.world?a=1&b=2".equals(stringWriter.toString()));
+			stringWriter = new StringWriter();
+			nonEncodedURL.write(stringWriter, true);
+			Assert.assertTrue("http://www.liferay.com/hello.world?a=1&amp;b=2".equals(stringWriter.toString()));
+		}
+		catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
 	}

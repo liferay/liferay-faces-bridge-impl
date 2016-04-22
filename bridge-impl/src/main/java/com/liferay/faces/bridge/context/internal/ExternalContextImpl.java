@@ -327,7 +327,7 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 								StateAwareResponse stateAwareResponse = (StateAwareResponse) portletResponse;
 								BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url, null);
 								BridgeNavigationUtil.navigate(portletRequest, stateAwareResponse, bridgeRequestScope,
-									bridgeRedirectURL);
+									bridgeRedirectURL.getParameterMap());
 							}
 							catch (PortletException e) {
 								logger.error(e.getMessage());

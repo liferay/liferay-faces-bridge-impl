@@ -15,13 +15,8 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import com.liferay.faces.bridge.BridgeURL;
-import com.liferay.faces.bridge.BridgeURLFactory;
-import com.liferay.faces.bridge.scope.BridgeRequestScope;
-import com.liferay.faces.bridge.util.internal.RequestMapUtil;
-import com.liferay.faces.bridge.util.internal.ViewUtil;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationCase;
@@ -37,8 +32,14 @@ import javax.portlet.PortletResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeFactoryFinder;
-import java.util.Iterator;
-import java.util.Map;
+
+import com.liferay.faces.bridge.BridgeURL;
+import com.liferay.faces.bridge.BridgeURLFactory;
+import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.util.internal.RequestMapUtil;
+import com.liferay.faces.bridge.util.internal.ViewUtil;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -99,7 +100,7 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandlerCompatIm
 			// If the navigation-case is NOT a redirect, then directly encode the {@link PortletMode} and {@link
 			// WindowState} to the response. Don't need to worry about the redirect case here because that's handled in
 			// the ExternalContext#redirect(String) method. It would be nice to handle the redirect case here but it
-			// needs to stay in ExternalContextring) since it's possible for developers to call
+			// needs to stay in ExternalContext since it's possible for developers to call
 			// ExternalContext.redirect(String) directly from their application.
 			if (!navigationCase.isRedirect()) {
 
@@ -113,7 +114,8 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandlerCompatIm
 					if (portletResponse instanceof StateAwareResponse) {
 
 						PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-						BridgeURLFactory bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(BridgeURLFactory.class);
+						BridgeURLFactory bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(
+								BridgeURLFactory.class);
 
 						try {
 							BridgeURL bridgeActionURL = bridgeURLFactory.getBridgeActionURL(facesContext, toViewId);
@@ -134,7 +136,7 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandlerCompatIm
 							BridgeRequestScope bridgeRequestScope = (BridgeRequestScope) portletRequest.getAttribute(
 									BridgeRequestScope.class.getName());
 							BridgeNavigationUtil.navigate(portletRequest, (StateAwareResponse) portletResponse,
-								bridgeRequestScope, bridgeActionURL);
+								bridgeRequestScope, bridgeActionURL.getParameterMap());
 						}
 						catch (Exception e) {
 							logger.error(e.getMessage());

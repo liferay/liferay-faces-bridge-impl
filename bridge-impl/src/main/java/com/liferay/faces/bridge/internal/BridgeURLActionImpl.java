@@ -36,6 +36,11 @@ import com.liferay.faces.util.helper.BooleanHelper;
  */
 public class BridgeURLActionImpl extends BridgeURLBase {
 
+	// Private Data Members
+	private boolean directLink;
+	private boolean bookmarkable;
+	private boolean redirect;
+
 	public BridgeURLActionImpl(String uri, String contextPath, String namespace, String currentViewId,
 		BridgeConfig bridgeConfig) throws URISyntaxException {
 
@@ -70,8 +75,32 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 			// parameter must be removed from the URI's query-string.
 			String directLinkParam = bridgeURI.getParameter(Bridge.DIRECT_LINK);
 
-			if (BooleanHelper.isFalseToken(directLinkParam)) {
-				bridgeURI.removeParameter(Bridge.DIRECT_LINK);
+			if (directLinkParam != null) {
+
+				if (BooleanHelper.isTrueToken(directLinkParam)) {
+					directLink = true;
+				}
+				else {
+					bridgeURI.removeParameter(Bridge.DIRECT_LINK);
+				}
+			}
+
+			// If the URI has a "_jsfBridgeBookmark" parameter with a value of "true", then set a flag indicating that
+			// the resulting URL is to be used as a bookmark and remove the parameter from the URI's query-string.
+			String bookmarkableParam = bridgeURI.getParameter(BridgeExt.BOOKMARKABLE_PARAMETER);
+
+			if (BooleanHelper.isTrueToken(bookmarkableParam)) {
+				bookmarkable = true;
+				bridgeURI.removeParameter(BridgeExt.BOOKMARKABLE_PARAMETER);
+			}
+
+			// If the URI has a "_jsfBridgeRedirect" parameter with a value of "true", then set a flag indicating that
+			// the resulting URL is to be used for redirection and remove the parameter from the URI's query-string.
+			String redirectParam = bridgeURI.getParameter(BridgeExt.REDIRECT_PARAMETER);
+
+			if (BooleanHelper.isTrueToken(redirectParam)) {
+				redirect = true;
+				bridgeURI.removeParameter(BridgeExt.REDIRECT_PARAMETER);
 			}
 		}
 	}
@@ -87,31 +116,29 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 
 		if (portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) {
 
-			// The Mojarra MultiViewHandler.getResourceURL(String) method is implemented in such a way that it calls
-			// ExternalContext.encodeActionURL(ExternalContext.encodeResourceURL(url)). The return value of those calls
-			// will ultimately be passed to the ExternalContext.redirect(String) method. For this reason, need to return
-			// a simple string-based representation of the URL.
-			baseURL = new BaseURLNonEncodedImpl(uri);
+			// Since ActionResponse is not a MimeResponse, there is no way to create a RenderURL in a standard way.
+			baseURL = new BaseURLNonEncodedImpl(bridgeURI);
 		}
 
 		// Otherwise,
 		else {
 
-			// Otherwise, if the URL string starts with a "#" character, or it's an absolute URL that is external to
-			// this portlet, then simply return the URL string as required by the Bridge Spec.
+			// Otherwise, if the URI starts with a "#" character, or it's an absolute URL that is external to
+			// this portlet, then simply return the URI as required by the Bridge Spec.
 			if (uri.startsWith("#") || (bridgeURI.isAbsolute() && bridgeURI.isExternal(contextPath))) {
 
 				// TCK TestPage084: encodeActionURLPoundCharTest
-				baseURL = new BaseURLNonEncodedImpl(uri, getParameterMap());
+				baseURL = new BaseURLNonEncodedImpl(bridgeURI);
 			}
 
-			// Otherwise, if the URL string has a "javax.portlet.faces.DirectLink" parameter with a value of "true",
-			// then return an absolute path (to the path in the URL string) as required by the Bridge Spec.
-			else if (bridgeURI.isExternal(contextPath) || BooleanHelper.isTrueToken(getParameter(Bridge.DIRECT_LINK))) {
+			// Otherwise, if the URI has a "javax.portlet.faces.DirectLink" parameter with a value of "true",
+			// then return an absolute path (to the path in the URI) as required by the Bridge Spec.
+			else if (directLink || bridgeURI.isExternal(contextPath)) {
 				FacesContext facesContext = FacesContext.getCurrentInstance();
 				ExternalContext externalContext = facesContext.getExternalContext();
 				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-				baseURL = new BaseURLDirectImpl(uri, getParameterMap(), bridgeURI.getPath(), portletRequest);
+				baseURL = new BaseURLNonEncodedDirectImpl(bridgeURI, portletRequest.getScheme(),
+						portletRequest.getServerName(), portletRequest.getServerPort());
 			}
 
 			// Otherwise,
@@ -126,8 +153,8 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 					modeChanged = true;
 				}
 
-				// Note: If the URL string starts with "portlet:", then the type of URL the portlet container creates is
-				// determined by what follows the scheme, such as "portlet:action" "portlet:render" and
+				// Note: If the URI starts with "portlet:", then the type of URL the portlet container
+				// creates is determined by what follows the scheme, such as "portlet:action" "portlet:render" and
 				// "portlet:resource".
 				FacesContext facesContext = FacesContext.getCurrentInstance();
 
@@ -146,13 +173,10 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 				}
 				else {
 
-					String bridgeAjaxRedirectValue = removeParameter("_bridgeAjaxRedirect");
-					boolean bridgeAjaxRedirect = BooleanHelper.isTrueToken(bridgeAjaxRedirectValue);
-
 					if (portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE) {
-						baseURL = new BaseURLNonEncodedImpl(uri);
+						baseURL = new BaseURLNonEncodedImpl(bridgeURI);
 					}
-					else if ((portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE) && bridgeAjaxRedirect) {
+					else if (bookmarkable || (redirect && (portletRequestPhase == PortletPhase.RESOURCE_PHASE))) {
 						baseURL = createRenderURL(facesContext, modeChanged);
 					}
 					else {
@@ -160,7 +184,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 					}
 				}
 
-				// If the URL string is self-referencing, meaning, it targets the current Faces view, then copy the
+				// If the URI is self-referencing, meaning, it targets the current Faces view, then copy the
 				// render parameters from the current PortletRequest to the BaseURL.
 				if (selfReferencing) {
 					ExternalContext externalContext = facesContext.getExternalContext();

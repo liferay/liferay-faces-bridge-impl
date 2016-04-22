@@ -18,6 +18,7 @@ package com.liferay.faces.bridge.internal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
+import java.util.Set;
 
 import javax.portlet.faces.Bridge;
 
@@ -38,27 +39,55 @@ public class BridgeURIImpl implements BridgeURI {
 	private static final String RELATIVE_PATH_PREFIX = "../";
 
 	// Private Data Members
+	private boolean absolute;
 	private Boolean escaped;
 	private Boolean external;
+	private String fragment;
 	private Boolean hierarchical;
+	private String host;
+	private boolean opaque;
 	private Map<String, String[]> parameters;
+	private String path;
 	private Boolean pathRelative;
 	private Bridge.PortletPhase portletPhase;
+	private int port;
 	private Boolean portletScheme;
+	private String portletSchemeType;
 	private String query;
+	private String scheme;
+	private String schemeSpecificPart;
 	private String stringValue;
-	private URI uri;
+	private String userInfo;
 
 	public BridgeURIImpl(String uri) throws URISyntaxException {
-		this.stringValue = uri;
-		this.uri = new URI(uri);
-		portletScheme = "portlet".equals(this.uri.getScheme());
 
-		if (portletScheme) {
+		URI tempURI = new URI(uri);
+
+		this.absolute = tempURI.isAbsolute();
+		this.fragment = tempURI.getFragment();
+		this.host = tempURI.getHost();
+		this.opaque = tempURI.isOpaque();
+		this.port = tempURI.getPort();
+		this.path = tempURI.getPath();
+		this.query = tempURI.getQuery();
+		this.stringValue = uri;
+		this.scheme = tempURI.getScheme();
+		this.schemeSpecificPart = tempURI.getSchemeSpecificPart();
+		this.userInfo = tempURI.getUserInfo();
+
+		this.portletScheme = "portlet".equals(scheme);
+
+		if (this.portletScheme) {
+
+			int portletPos = uri.indexOf("portlet:");
 			int queryPos = uri.indexOf('?');
 
 			if (queryPos > 0) {
-				query = uri.substring(queryPos + 1);
+				this.query = uri.substring(queryPos + 1);
+				this.portletSchemeType = uri.substring(portletPos + 8, queryPos);
+			}
+			else {
+				this.portletSchemeType = uri.substring(portletPos + 8);
 			}
 		}
 	}
@@ -71,8 +100,6 @@ public class BridgeURIImpl implements BridgeURI {
 		// If the URI is not external, then determine the relative path of the URI based on the specified context
 		// path.
 		if (!isExternal(contextPath)) {
-
-			String path = uri.getPath();
 
 			if ((path != null) && (path.length() > 0)) {
 
@@ -110,7 +137,7 @@ public class BridgeURIImpl implements BridgeURI {
 	public Map<String, String[]> getParameterMap() {
 
 		if (parameters == null) {
-			parameters = URLUtil.parseParameterMapValuesArray(uri.toString());
+			parameters = URLUtil.parseParameterMapValuesArray(stringValue);
 		}
 
 		return parameters;
@@ -118,7 +145,7 @@ public class BridgeURIImpl implements BridgeURI {
 
 	@Override
 	public String getPath() {
-		return uri.getPath();
+		return path;
 	}
 
 	@Override
@@ -126,7 +153,7 @@ public class BridgeURIImpl implements BridgeURI {
 
 		if (portletPhase == null) {
 
-			String uriAsString = uri.toString();
+			String uriAsString = toString();
 
 			if (uriAsString != null) {
 
@@ -160,11 +187,47 @@ public class BridgeURIImpl implements BridgeURI {
 	public String getQuery() {
 
 		if (query == null) {
-			return uri.getQuery();
+
+			StringBuilder queryBuilder = new StringBuilder();
+			Map<String, String[]> parameterMap = getParameterMap();
+			Set<Map.Entry<String, String[]>> mapEntries = parameterMap.entrySet();
+			boolean firstParam = true;
+
+			for (Map.Entry<String, String[]> mapEntry : mapEntries) {
+
+				if (firstParam) {
+					firstParam = false;
+				}
+				else {
+					queryBuilder.append("&");
+				}
+
+				String[] values = mapEntry.getValue();
+
+				if (values != null) {
+
+					boolean firstValue = true;
+
+					for (String value : values) {
+
+						if (firstValue) {
+							firstValue = false;
+						}
+						else {
+							queryBuilder.append("&");
+						}
+
+						queryBuilder.append(mapEntry.getKey());
+						queryBuilder.append("=");
+						queryBuilder.append(value);
+					}
+				}
+			}
+
+			query = queryBuilder.toString();
 		}
-		else {
-			return query;
-		}
+
+		return query;
 	}
 
 	@Override
@@ -173,8 +236,6 @@ public class BridgeURIImpl implements BridgeURI {
 		if (escaped == null) {
 
 			escaped = Boolean.FALSE;
-
-			String query = getQuery();
 
 			if (query != null) {
 
@@ -202,12 +263,12 @@ public class BridgeURIImpl implements BridgeURI {
 
 	@Override
 	public boolean isAbsolute() {
-		return uri.isAbsolute();
+		return absolute;
 	}
 
 	@Override
 	public boolean isOpaque() {
-		return portletScheme || uri.isOpaque();
+		return portletScheme || opaque;
 	}
 
 	@Override
@@ -246,6 +307,8 @@ public class BridgeURIImpl implements BridgeURI {
 
 			external = Boolean.TRUE;
 
+			String uriAsString = toString();
+
 			if (portletScheme) {
 				external = Boolean.FALSE;
 			}
@@ -253,14 +316,14 @@ public class BridgeURIImpl implements BridgeURI {
 
 				if (!isAbsolute()) {
 
-					if (((contextPath != null) && stringValue.startsWith(contextPath)) ||
-							stringValue.startsWith(RELATIVE_PATH_PREFIX)) {
+					if (((contextPath != null) && uriAsString.startsWith(contextPath)) ||
+							uriAsString.startsWith(RELATIVE_PATH_PREFIX)) {
 						external = Boolean.FALSE;
 					}
 				}
 			}
 
-			if (stringValue.startsWith("wsrp_rewrite")) {
+			if (uriAsString.startsWith("wsrp_rewrite")) {
 				external = Boolean.FALSE;
 			}
 		}
@@ -275,7 +338,7 @@ public class BridgeURIImpl implements BridgeURI {
 
 			hierarchical = Boolean.FALSE;
 
-			if ((isAbsolute() && uri.getSchemeSpecificPart().startsWith("/")) || isRelative()) {
+			if ((isAbsolute() && schemeSpecificPart.startsWith("/")) || isRelative()) {
 				hierarchical = Boolean.TRUE;
 			}
 		}
@@ -284,14 +347,25 @@ public class BridgeURIImpl implements BridgeURI {
 	}
 
 	@Override
+	public void setParameter(String name, String[] values) {
+
+		getParameterMap().put(name, values);
+		invalidateToString();
+	}
+
+	@Override
 	public void setParameter(String name, String value) {
+
 		getParameterMap().put(name, new String[] { value });
+		invalidateToString();
 	}
 
 	@Override
 	public String removeParameter(String name) {
 
 		String[] values = getParameterMap().remove(name);
+
+		invalidateToString();
 
 		if ((values != null) && (values.length > 0)) {
 			return values[0];
@@ -303,6 +377,62 @@ public class BridgeURIImpl implements BridgeURI {
 
 	@Override
 	public String toString() {
+
+		if (stringValue == null) {
+
+			StringBuilder uriBuilder = new StringBuilder();
+
+			if (scheme != null) {
+				uriBuilder.append(scheme);
+				uriBuilder.append(':');
+
+				if (portletScheme) {
+					uriBuilder.append(portletSchemeType);
+				}
+			}
+
+			if ((userInfo != null) || (host != null) || (port != -1)) {
+				uriBuilder.append("//");
+
+				if (userInfo != null) {
+					uriBuilder.append(userInfo);
+					uriBuilder.append('@');
+				}
+
+				if (host != null) {
+					uriBuilder.append(host);
+				}
+
+				if (port != -1) {
+					uriBuilder.append(':');
+					uriBuilder.append(port);
+				}
+			}
+
+			if (path != null) {
+				uriBuilder.append(path);
+			}
+
+			String queryString = getQuery();
+
+			if ((queryString != null) && (queryString.length() > 0)) {
+				uriBuilder.append('?');
+				uriBuilder.append(queryString);
+			}
+
+			if (fragment != null) {
+				uriBuilder.append('#');
+				uriBuilder.append(fragment);
+			}
+
+			stringValue = uriBuilder.toString();
+		}
+
 		return stringValue;
+	}
+
+	private void invalidateToString() {
+		query = null;
+		stringValue = null;
 	}
 }

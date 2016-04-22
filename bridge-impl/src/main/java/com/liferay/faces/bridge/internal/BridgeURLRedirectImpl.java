@@ -24,73 +24,58 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
+import javax.portlet.PortletURL;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
 
 
 /**
+ * The JavaDoc for {@link javax.faces.application.ViewHandler#getRedirectURL(FacesContext, String, Map, boolean)}
+ * requires that the {@link javax.faces.application.NavigationHandler} must be able to call
+ * ExternalContext.redirect(ViewHandler.getRedirectURL(...)) in order to support the ability to redirect in a
+ * navigation-rule. Both com.sun.faces.application.view.MultiViewHandler and
+ * org.apache.myfaces.application.ViewHandlerImpl call
+ * ExternalContext.encodeActionURL(ExternalContext.encodeRedirectURL(ViewHandler.getActionURL(viewId))) in order to
+ * satisfy this requirement. As a result, the Bridge's implementation of {@link
+ * javax.faces.context.ExternalContext#encodeRedirectURL(String url, Map parameters)} must not attempt to return the
+ * result of {@link PortletURL#toString()}. Instead, it must simply return a non-encoded String that appends the
+ * specified map of redirect parameters to the query-string of the specified URL. However, since the Bridge's version of
+ * {@link javax.faces.context.ExternalContext#encodeActionURL(String url)} needs to detect whether or not the specified
+ * URL is for a redirect, {@link BridgeExt#REDIRECT_PARAMETER} must also be present in the query-string with a value of
+ * "true".
+ *
  * @author  Neil Griffin
  */
 public class BridgeURLRedirectImpl extends BridgeURLBase {
 
-	public BridgeURLRedirectImpl(FacesContext facesContext, String uri, String contextPath, String namespace,
+	public BridgeURLRedirectImpl(String uri, String contextPath, String namespace,
 		Map<String, List<String>> redirectParameters, BridgeConfig bridgeConfig) throws URISyntaxException {
 
 		super(uri, contextPath, namespace, null, bridgeConfig);
 
-		if (isJSF2PartialRequest(facesContext)) {
-			bridgeURI.setParameter("_bridgeAjaxRedirect", "true");
-		}
+		// Since the Bridge's version of ExternalContext.encodeActionURL(String url) needs to detect whether or not the
+		// specified URL is for a redirect, ensure that "_jsfBridgeRedirect=true" appears in the query-string.
+		bridgeURI.setParameter(BridgeExt.REDIRECT_PARAMETER, "true");
 
+		// Append the specified redirect parameters to the query-string.
 		if (redirectParameters != null) {
 
-			Map<String, String[]> parameterMap = getParameterMap();
 			Set<Entry<String, List<String>>> entrySet = redirectParameters.entrySet();
 
 			for (Entry<String, List<String>> mapEntry : entrySet) {
 
-				String key = mapEntry.getKey();
-				String[] valueArray = null;
 				List<String> valueList = mapEntry.getValue();
-
-				if (valueList != null) {
-					valueArray = valueList.toArray(new String[valueList.size()]);
-				}
-
-				parameterMap.put(key, valueArray);
+				String[] values = valueList.toArray(new String[valueList.size()]);
+				bridgeURI.setParameter(mapEntry.getKey(), values);
 			}
 		}
 	}
 
+	// Java 1.6+ @Override
 	@Override
 	public BaseURL toBaseURL() throws MalformedURLException {
 
-		BaseURL baseURL;
-
-		// If this is executing during the ACTION_PHASE of the portlet lifecycle, then
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-
-			// TCK NOTE: The only use-case in which the TCK will invoke this method is
-			// TestPage039-requestNoScopeOnRedirectTest. During the test, this method will be called when a <redirect/>
-			// is encountered in a navigation-rule during the ACTION_PHASE of the portlet lifecycle. When this happens,
-			// the navigation-handler will attempt to call ViewHandler#getResourceURL(String). The Mojarra
-			// MultiViewHandler.getResourceURL(String) method is implemented in such a way that it calls
-			// ExternalContext.encodeActionURL(ExternalContext.encodeResourceURL(url)). The return value of those calls
-			// will ultimately be passed to the ExternalContext.redirect(String) method. For this reason, need to return
-			// a simple string-based representation of the URL.
-			baseURL = new BaseURLNonEncodedImpl(bridgeURI.toString(), getParameterMap());
-		}
-
-		// Otherwise,
-		else {
-
-			// So far, under all circumstances it seems appropriate to return a simple string-based representation of
-			// the URL. This is the same code as above but keep it this way for now for TCK documentation purposes.
-			baseURL = new BaseURLNonEncodedImpl(bridgeURI.toString(), getParameterMap());
-		}
-
-		return baseURL;
+		// TCK TestPage039 (requestNoScopeOnRedirectTest)
+		return new BaseURLNonEncodedImpl(bridgeURI);
 	}
 }
