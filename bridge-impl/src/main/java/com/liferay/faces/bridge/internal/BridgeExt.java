@@ -20,7 +20,9 @@ package com.liferay.faces.bridge.internal;
  */
 public interface BridgeExt {
 
+	public static final String BOOKMARKABLE_PARAMETER = "_jsfBridgeBookmarkable";
 	public static final String FACES_AJAX_PARAMETER = "_jsfBridgeAjax";
+	public static final String REDIRECT_PARAMETER = "_jsfBridgeRedirect";
 	public static final String RENDER_REDIRECT = "com.liferay.faces.bridge.renderRedirect";
 	public static final String RENDER_REDIRECT_AFTER_DISPATCH = "com.liferay.faces.bridge.renderRedirectAfterDispatch";
 	public static final String RENDER_REDIRECT_VIEW_ID = "com.liferay.faces.bridge.renderRedirectViewId";

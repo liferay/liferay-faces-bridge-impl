@@ -17,254 +17,100 @@ package com.liferay.faces.bridge.internal;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.portlet.BaseURL;
 import javax.portlet.PortletSecurityException;
-import javax.portlet.faces.Bridge;
-
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
- * This class represents a simple "non-encoded" {@link BaseURL}, meaning an implementation that simply wraps a String
- * based URL without providing any encoding. The only methods that are meant to be called is {@link
- * BaseURLNonEncodedImpl#toString()} and {@link BaseURLNonEncodedImpl#write(Writer, boolean)}. All other methods throw
- * an {@link UnsupportedOperationException}.
+ * This class represents a non-encoded {@link BaseURL}, meaning an implementation that simply decorates a URI without
+ * providing any encoding.
  *
  * @author  Neil Griffin
  */
 public class BaseURLNonEncodedImpl implements BaseURL {
 
-	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(BaseURLNonEncodedImpl.class);
-
 	// Private Data Members
-	private String url;
-	private Map<String, String[]> parameterMap;
-	private String query;
-	private String toStringValue;
+	private BridgeURI bridgeURI;
 
-	public BaseURLNonEncodedImpl(String urlWithParameters) {
-		this.url = urlWithParameters;
+	public BaseURLNonEncodedImpl(BridgeURI bridgeURI) {
+		this.bridgeURI = bridgeURI;
 	}
 
-	public BaseURLNonEncodedImpl(String url, Map<String, String[]> parameterMap) {
-		this.url = url;
-		this.parameterMap = parameterMap;
-	}
-
+	@Override
 	public Map<String, String[]> getParameterMap() {
-		throw new UnsupportedOperationException();
+		return bridgeURI.getParameterMap();
 	}
 
+	@Override
 	public void setParameter(String name, String value) {
-		// no-op: must not throw UnsupportedOperationException since it is called by BridgeURLActionImpl.toBaseURL()
+		bridgeURI.setParameter(name, value);
 	}
 
+	@Override
 	public void setParameter(String name, String[] values) {
-		throw new UnsupportedOperationException();
+		bridgeURI.setParameter(name, values);
 	}
 
+	@Override
 	public void setParameters(Map<String, String[]> parameters) {
-		throw new UnsupportedOperationException();
+
+		Map<String, String[]> parameterMap = bridgeURI.getParameterMap();
+		parameterMap.clear();
+
+		Set<Map.Entry<String, String[]>> entrySet = parameters.entrySet();
+
+		for (Map.Entry<String, String[]> mapEntry : entrySet) {
+			parameterMap.put(mapEntry.getKey(), mapEntry.getValue());
+		}
 	}
 
+	@Override
 	public void setProperty(String key, String value) {
-		throw new UnsupportedOperationException();
+		// no-op
 	}
 
+	@Override
 	public void setSecure(boolean secure) throws PortletSecurityException {
-		// no-op: must not throw UnsupportedOperationException since it is called by BridgeURLActionImpl.toBaseURL()
+		// no-op
 	}
 
+	@Override
 	public void addProperty(String key, String value) {
-		throw new UnsupportedOperationException();
+		// no-op
 	}
 
 	@Override
 	public String toString() {
-
-		if (toStringValue == null) {
-
-			StringBuilder buf = new StringBuilder();
-
-			if ((parameterMap != null) && !parameterMap.isEmpty()) {
-
-				String urlWithoutParams = url;
-				int queryPos = url.indexOf("?");
-
-				if (queryPos >= 0) {
-					urlWithoutParams = url.substring(0, queryPos);
-				}
-
-				buf.append(urlWithoutParams);
-
-				String queryString = getQuery();
-
-				if (queryString.length() > 0) {
-
-					buf.append("?");
-					buf.append(queryString);
-				}
-			}
-			else {
-				buf.append(url);
-			}
-
-			toStringValue = buf.toString();
-		}
-
-		return toStringValue;
+		return bridgeURI.toString();
 	}
 
+	@Override
 	public void write(Writer out) throws IOException {
-		throw new UnsupportedOperationException();
+		write(out, true);
 	}
 
+	@Override
 	public void write(Writer out, boolean escapeXML) throws IOException {
 
-		// Note: Ignore the escapeXML parameter because this class is simply supposed to return the original URL string.
-		out.write(url);
-	}
+		String uri = bridgeURI.toString();
 
-	/**
-	 * Returns the query-string part of the URL (without a leading question mark).
-	 */
-	protected String getQuery() {
+		if (escapeXML) {
 
-		if (query == null) {
+			char[] tokens = new char[] { '<', '>', '&', '"', '\'', '\u00bb', '\u2013', '\u2014' };
+			String[] replacements = new String[] {
+					"&lt;", "&gt;", "&amp;", "&#034;", "&#039;", "&#187;", "&#x2013;", "&#x2014;"
+				};
 
-			StringBuilder buf = new StringBuilder();
-
-			// Get the original query-string from the URL.
-			String originalQuery = "";
-			boolean firstParam = true;
-			int pos = url.indexOf("?");
-
-			if (pos >= 0) {
-				originalQuery = url.substring(pos + 1);
+			for (int i = 0; i < tokens.length; i++) {
+				String token = new String(new char[] { tokens[i] });
+				String replacement = replacements[i];
+				uri = uri.replace(token, replacement);
 			}
-
-			pos = originalQuery.indexOf("#");
-
-			String fragmentId = null;
-
-			if (pos > 0) {
-				fragmentId = originalQuery.substring(pos);
-				originalQuery = originalQuery.substring(0, pos);
-			}
-
-			// Keep track of all the parameters that are appended to the return value.
-			Map<String, Integer> parameterOccurrenceMap = new HashMap<String, Integer>(parameterMap.size());
-
-			// The TCK expects query parameters to appear in exactly the same order as they do in the query-string of
-			// the original URL. For this reason, need to iterate over the parameters found in the original
-			// query-string.
-			String[] queryParameters = originalQuery.split("[&]");
-
-			// For each parameter found in the original query-string:
-			for (String queryParameter : queryParameters) {
-
-				if ((queryParameter != null) && (queryParameter.length() > 0)) {
-
-					// Parse the name and value from the name=value pair.
-					String[] nameValueArray = queryParameter.split("[=]");
-
-					String name = null;
-					String[] values = null;
-
-					if (nameValueArray.length == 1) {
-
-						name = nameValueArray[0].trim();
-						values = new String[] { "" };
-					}
-					else if (nameValueArray.length == 2) {
-
-						name = nameValueArray[0].trim();
-
-						// If the parameter name is present in the parameter map, then that means it should be appended
-						// to the return value. Otherwise, it should not be appended, because absence from the parameter
-						// map means that it was deliberately removed.
-						values = parameterMap.get(name);
-					}
-
-					if ((name == null) || (name.length() == 0)) {
-						logger.error("Invalid name=value pair=[{0}] in URL=[{1}]: name cannot be empty", queryParameter,
-							url);
-					}
-					else if ((values == null) || (values.length == 0)) {
-
-						// Note that "javax.portlet.faces.BackLink" is sometimes deliberately removed and therefore is
-						// not an error.
-						if (!Bridge.BACK_LINK.equals(name)) {
-							logger.error("Invalid name=value pair=[{0}] in URL=[{1}]", queryParameter, url);
-						}
-					}
-					else {
-
-						if (firstParam) {
-							firstParam = false;
-						}
-						else {
-							buf.append("&");
-						}
-
-						buf.append(name);
-						buf.append("=");
-
-						Integer parameterOccurrences = parameterOccurrenceMap.get(name);
-
-						if (parameterOccurrences == null) {
-							parameterOccurrences = new Integer(0);
-						}
-
-						String value = values[parameterOccurrences.intValue()];
-						buf.append(value);
-						parameterOccurrences = new Integer(parameterOccurrences.intValue() + 1);
-						parameterOccurrenceMap.put(name, parameterOccurrences);
-					}
-				}
-			}
-
-			// Now iterate through the entire parameter map to see and append any additional parameters to the return
-			// value.
-			Set<Entry<String, String[]>> mapEntries = parameterMap.entrySet();
-
-			for (Map.Entry<String, String[]> mapEntry : mapEntries) {
-
-				String name = mapEntry.getKey();
-
-				if (parameterOccurrenceMap.get(name) == null) {
-					String[] values = mapEntry.getValue();
-
-					if ((values != null) && (values.length > 0)) {
-
-						if (firstParam) {
-							firstParam = false;
-						}
-						else {
-							buf.append("&");
-						}
-
-						buf.append(name);
-						buf.append("=");
-						buf.append(values[0]);
-					}
-				}
-			}
-
-			if (fragmentId != null) {
-				buf.append(fragmentId);
-			}
-
-			query = buf.toString();
 		}
 
-		return query;
+		out.write(uri);
 	}
 }
