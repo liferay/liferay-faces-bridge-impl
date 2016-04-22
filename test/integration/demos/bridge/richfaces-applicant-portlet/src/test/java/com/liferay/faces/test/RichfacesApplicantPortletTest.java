@@ -356,7 +356,7 @@ public class RichfacesApplicantPortletTest extends TesterBase {
 		firstNameField.click();
 		logger.log(Level.INFO,
 			"clearing the firstNameField using the BACKSPACE key, and then tabbing out of the firstNameField ...");
-		firstNameField.sendKeys(Keys.BACK_SPACE);
+		firstNameField.sendKeys(Keys.ARROW_RIGHT, Keys.BACK_SPACE);
 
 		logger.log(Level.INFO, "Waiting for the firstNameField to contain 'asd' ...");
 		try {
@@ -496,7 +496,7 @@ public class RichfacesApplicantPortletTest extends TesterBase {
 		emailAddressField.sendKeys(Keys.TAB);
 		phoneNumberField.click();
 
-		logger.log(Level.INFO, "Waiting for the emailAddressFieldError to contain 'test@liferay.com' ...");
+		logger.log(Level.INFO, "Waiting for the emailAddressField to contain 'test@liferay.com' ...");
 		try {
 			WebDriverWait wait = new WebDriverWait(browser, 10);
 			wait.until(ExpectedConditions.textToBePresentInElementValue(By.xpath(emailAddressFieldXpath), "test@liferay.com"));
@@ -513,7 +513,7 @@ public class RichfacesApplicantPortletTest extends TesterBase {
 		logger.log(Level.INFO, "Waiting for the emailAddressFieldError to disappear ...");
 		try {
 			WebDriverWait wait = new WebDriverWait(browser, 10);
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(emailAddressFieldErrorXpath)));
+			wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(emailAddressFieldErrorXpath))));
 			logger.log(Level.INFO, "emailAddressField.getAttribute('value') = " + emailAddressField.getAttribute("value"));
 		}
 		catch (Exception e) {
@@ -1067,7 +1067,7 @@ public class RichfacesApplicantPortletTest extends TesterBase {
 		logger.log(Level.INFO, "Waiting for the dateOfBirthFieldError to disappear ...");
 		try {
 			WebDriverWait wait = new WebDriverWait(browser, 10);
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(dateOfBirthFieldErrorXpath)));
+			wait.until(ExpectedConditions.not(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(dateOfBirthFieldErrorXpath))));
 		}
 		catch (Exception e) {
 			logger.log(Level.INFO, "Exception e.getMessage() = " + e.getMessage());
@@ -1143,6 +1143,17 @@ public class RichfacesApplicantPortletTest extends TesterBase {
 		logger.log(Level.INFO, "fileUploadChooser.getCssValue(transform) = " + fileUploadChooser.getCssValue("transform"));
 
 		try {
+
+			// Workaround https://github.com/ariya/phantomjs/issues/10993
+			// By removing the multiple attribute from <input type="file" />
+			if (BROWSER_NAME.equals("phantomjs")) {
+
+				((JavascriptExecutor) browser).executeScript(
+					"var multipleFileUploadElements = document.querySelectorAll('input[type=\"file\"][multiple]');" +
+					"for (var i = 0; i < multipleFileUploadElements.length; i++) {" +
+					"multipleFileUploadElements[i].removeAttribute('multiple');" +
+					"}");
+			}
 
 			fileUploadChooser.sendKeys(getPathToJerseyFile());
 
@@ -1297,6 +1308,22 @@ public class RichfacesApplicantPortletTest extends TesterBase {
 		logger.log(Level.INFO, "emailAddressField.getAttribute('value') = " + emailAddressField.getAttribute("value"));
 		assertTrue("emailAddressField is empty after clearing and clicking into another field",
 			"".equals(emailAddressField.getAttribute("value")));
+
+		try {
+			WebDriverWait wait = new WebDriverWait(browser, 10);
+			wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(firstNameFieldXpath)));
+			logger.log(Level.INFO, "isThere(browser, firstNameFieldXpath) = " + isThere(browser, firstNameFieldXpath));
+		}
+		catch (Exception e) {
+			logger.log(Level.INFO, "Exception e.getMessage() = " + e.getMessage());
+			boolean firstNameFieldIsThere = isThere(browser, firstNameFieldXpath);
+			logger.log(Level.INFO, "firstNameFieldIsThere = " + firstNameFieldIsThere);
+			if (firstNameFieldIsThere) {
+				foo = firstNameField.getAttribute("value");
+			}
+			assertTrue("firstNameField should be correct after entering 'David'," +
+			" but " + firstNameFieldXpath + " contains '" + foo + "'.", false);
+		}
 
 		logger.log(Level.INFO, "entering data ...");
 		firstNameField.sendKeys("David");
