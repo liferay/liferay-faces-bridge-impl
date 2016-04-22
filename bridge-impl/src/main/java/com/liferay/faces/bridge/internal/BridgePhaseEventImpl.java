@@ -39,7 +39,6 @@ import com.liferay.faces.bridge.event.internal.IPCPhaseListener;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
 import com.liferay.faces.bridge.scope.BridgeRequestScope;
-import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -61,15 +60,11 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 
 		super(portletConfig, bridgeConfig);
 
-		BridgePortletRequestFactory bridgePortletRequestFactory = (BridgePortletRequestFactory) FactoryExtensionFinder
-			.getFactory(BridgePortletRequestFactory.class);
-		this.eventRequest = bridgePortletRequestFactory.getEventRequest(eventRequest, eventResponse, portletConfig,
-				bridgeConfig);
+		this.eventRequest = BridgePortletRequestFactory.getEventRequestInstance(eventRequest, eventResponse,
+				portletConfig, bridgeConfig);
 
-		BridgePortletResponseFactory bridgePortletResponseFactory = (BridgePortletResponseFactory) BridgeFactoryFinder
-			.getFactory(BridgePortletResponseFactory.class);
-		this.eventResponse = bridgePortletResponseFactory.getEventResponse(eventRequest, eventResponse, portletConfig,
-				bridgeConfig);
+		this.eventResponse = BridgePortletResponseFactory.getEventResponseInstance(eventRequest, eventResponse,
+				portletConfig, bridgeConfig);
 	}
 
 	@Override
