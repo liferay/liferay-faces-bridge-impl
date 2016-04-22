@@ -75,8 +75,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 	public BridgeURLBase(String uri, String contextPath, String namespace, String currentViewId,
 		BridgeConfig bridgeConfig) throws URISyntaxException {
 
-		BridgeURIFactory bridgeURIFactory = (BridgeURIFactory) BridgeFactoryFinder.getFactory(BridgeURIFactory.class);
-		this.bridgeURI = bridgeURIFactory.getBridgeURI(uri);
+		this.bridgeURI = BridgeURIFactory.getBridgeURIInstance(uri);
 		this.configuredFacesServletMappings = (List<ConfiguredServletMapping>) bridgeConfig.getAttributes().get(
 				BridgeConfigAttributeMap.CONFIGURED_FACES_SERVLET_MAPPINGS);
 		this.contextPath = contextPath;
@@ -409,9 +408,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 				// Only add the "javax.portlet.faces.PortletMode" parameter if it has a valid value.
 				if (firstParameterValue != null) {
 
-					PortletModeValidatorFactory portletModeValidatorFactory = (PortletModeValidatorFactory)
-						BridgeFactoryFinder.getFactory(PortletModeValidatorFactory.class);
-					PortletModeValidator portletModeValidator = portletModeValidatorFactory.getPortletModeValidator();
+					PortletModeValidator portletModeValidator = PortletModeValidatorFactory.getPortletModeValidatorInstance();
 					addParameter = portletModeValidator.isValid(firstParameterValue);
 				}
 			}
@@ -422,9 +419,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 			}
 			else if (Bridge.PORTLET_WINDOWSTATE_PARAMETER.equals(parameterName)) {
 
-				WindowStateValidatorFactory windowStateValidatorFactory = (WindowStateValidatorFactory)
-					BridgeFactoryFinder.getFactory(WindowStateValidatorFactory.class);
-				WindowStateValidator windowStateValidator = windowStateValidatorFactory.getWindowStateValidator();
+				WindowStateValidator windowStateValidator = WindowStateValidatorFactory.getWindowStateValidatorInstance();
 				addParameter = windowStateValidator.isValid(firstParameterValue);
 			}
 			else {

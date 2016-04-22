@@ -46,11 +46,9 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 
 	public void removeBridgeRequestScopesByPortlet(PortletConfig portletConfig) {
 		String portletNameToRemove = portletConfig.getPortletName();
-		BridgeRequestScopeCacheFactory bridgeRequestScopeCacheFactory = (BridgeRequestScopeCacheFactory)
-			BridgeFactoryFinder.getFactory(BridgeRequestScopeCacheFactory.class);
 		PortletContext portletContext = portletConfig.getPortletContext();
-		BridgeRequestScopeCache bridgeRequestScopeCache = bridgeRequestScopeCacheFactory.getBridgeRequestScopeCache(
-				portletContext);
+		BridgeRequestScopeCache bridgeRequestScopeCache = BridgeRequestScopeCacheFactory
+			.getBridgeRequestScopeCacheInstance(portletContext);
 		Set<Map.Entry<String, BridgeRequestScope>> mapEntries = bridgeRequestScopeCache.entrySet();
 
 		if (mapEntries != null) {

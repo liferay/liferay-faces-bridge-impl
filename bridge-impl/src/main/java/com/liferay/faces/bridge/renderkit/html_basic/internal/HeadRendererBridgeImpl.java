@@ -238,10 +238,8 @@ public class HeadRendererBridgeImpl extends Renderer {
 					HeadResponseWriter.class.getName());
 
 			if (headResponseWriter == null) {
-				HeadResponseWriterFactory headResponseWriterFactory = (HeadResponseWriterFactory) BridgeFactoryFinder
-					.getFactory(HeadResponseWriterFactory.class);
 				PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
-				headResponseWriter = headResponseWriterFactory.getHeadResponseWriter(responseWriterBackup,
+				headResponseWriter = HeadResponseWriterFactory.getHeadResponseWriterInstance(responseWriterBackup,
 						portletResponse);
 			}
 

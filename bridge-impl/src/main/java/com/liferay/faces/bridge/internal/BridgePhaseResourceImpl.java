@@ -39,7 +39,6 @@ import com.liferay.faces.util.application.ResourceValidatorFactory;
 import com.liferay.faces.util.config.ApplicationConfig;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.config.FacesConfig;
-import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -69,15 +68,11 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 
 		super(portletConfig, bridgeConfig);
 
-		BridgePortletRequestFactory bridgePortletRequestFactory = (BridgePortletRequestFactory) FactoryExtensionFinder
-			.getFactory(BridgePortletRequestFactory.class);
-		this.resourceRequest = bridgePortletRequestFactory.getResourceRequest(resourceRequest, resourceResponse,
+		this.resourceRequest = BridgePortletRequestFactory.getResourceRequestInstance(resourceRequest, resourceResponse,
 				portletConfig, bridgeConfig);
 
-		BridgePortletResponseFactory bridgePortletResponseFactory = (BridgePortletResponseFactory) BridgeFactoryFinder
-			.getFactory(BridgePortletResponseFactory.class);
-		this.resourceResponse = bridgePortletResponseFactory.getResourceResponse(resourceRequest, resourceResponse,
-				portletConfig, bridgeConfig);
+		this.resourceResponse = BridgePortletResponseFactory.getResourceResponseInstance(resourceRequest,
+				resourceResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
