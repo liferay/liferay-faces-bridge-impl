@@ -61,8 +61,8 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 	}
 
 	// Private Data Members
-	private boolean inProtocol = false;
-	private boolean viewLink = false;
+	private boolean inProtocol;
+	private boolean viewLink;
 
 	public BridgeURLResourceImpl(FacesContext facesContext, String uri, String contextPath, String namespace,
 		String currentViewId, BridgeConfig bridgeConfig) throws URISyntaxException {
@@ -85,7 +85,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			// with an encoded URL that can cause navigation back to the current view.
 			if (bridgeURI.getParameter(Bridge.BACK_LINK) != null) {
 				String newParamName = bridgeURI.removeParameter(Bridge.BACK_LINK);
-				bridgeURI.setParameter(newParamName, getEncodeBackLinkURL(facesContext));
+				bridgeURI.setParameter(newParamName, getEncodedBackLinkURL(facesContext));
 			}
 		}
 
@@ -123,7 +123,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			// that can cause navigation back to the current view.
 			if (bridgeURI.getParameter(Bridge.BACK_LINK) != null) {
 				String newParamName = bridgeURI.removeParameter(Bridge.BACK_LINK);
-				bridgeURI.setParameter(newParamName, getEncodeBackLinkURL(facesContext));
+				bridgeURI.setParameter(newParamName, getEncodedBackLinkURL(facesContext));
 			}
 		}
 
@@ -134,7 +134,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			// that can cause navigation back to the current view.
 			if (bridgeURI.getParameter(Bridge.BACK_LINK) != null) {
 				String newParamName = bridgeURI.removeParameter(Bridge.BACK_LINK);
-				bridgeURI.setParameter(newParamName, getEncodeBackLinkURL(facesContext));
+				bridgeURI.setParameter(newParamName, getEncodedBackLinkURL(facesContext));
 			}
 
 			// If the "javax.portlet.faces.InProtocolResourceLink" parameter is found, then
@@ -185,8 +185,8 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 					baseURL = createResourceURL(facesContext, modeChanged);
 				}
 
-				// If the URL string is self-referencing, meaning, it targets the current Faces view, then copy the
-				// render parameters from the current PortletRequest to the BaseURL. NOTE: This has the added benefit of
+				// If the URI is self-referencing, meaning, it targets the current Faces view, then copy the render
+				// parameters from the current PortletRequest to the BaseURL. NOTE: This has the added benefit of
 				// copying the bridgeRequestScopeId render parameter, which will preserve the BridgeRequestScope if the
 				// user clicks on the link (invokes the BaseURL).
 				if (selfReferencing) {
@@ -222,18 +222,18 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			else {
 
 				// TCK TestPage128: encodeResourceURLOpaqueTest
-				baseURL = new BaseURLNonEncodedImpl(uri, getParameterMap());
+				baseURL = new BaseURLNonEncodedImpl(bridgeURI);
 			}
 		}
 
 		// Otherwise, if the URL is identified by the ResourceHandler as a JSF2 resource URL, then
 		else if ((uri != null) && (uri.contains("javax.faces.resource"))) {
 
-			// If the URL has already been encoded, then return the URL string unmodified.
+			// If the URL has already been encoded, then return the URI unmodified.
 			if (uri.indexOf(ENCODED_RESOURCE_TOKEN) > 0) {
 
 				// FACES-63: Prevent double-encoding of resource URLs
-				baseURL = new BaseURLNonEncodedImpl(uri, getParameterMap());
+				baseURL = new BaseURLNonEncodedImpl(bridgeURI);
 			}
 
 			// Otherwise, return a ResourceURL that can retrieve the JSF2 resource.
@@ -250,7 +250,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
-			baseURL = new BaseURLEncodedExternalImpl(uri, getParameterMap(), portletResponse);
+			baseURL = new BaseURLEncodedImpl(bridgeURI, portletResponse);
 		}
 
 		// Otherwise, if the URL is relative, in that it starts with "../", then return a BaseURL string representation
@@ -262,7 +262,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			String contextPath = externalContext.getRequestContextPath();
-			baseURL = new BaseURLRelativeImpl(uri, getParameterMap(), contextPath);
+			baseURL = new BaseURLNonEncodedRelativeImpl(bridgeURI, contextPath);
 		}
 
 		// Otherwise, if the URL originally contained the "javax.portlet.faces.ViewLink" which represents navigation
@@ -375,22 +375,19 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		else {
 
 			// TCK TestPage133: encodeResourceURLTest
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = facesContext.getExternalContext();
-			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
-			baseURL = new BaseURLEncodedExternalImpl(uri, getParameterMap(), portletResponse);
+			// TCK TestPage134: encodeResourceURLBackLinkTest
+			baseURL = new BaseURLNonEncodedImpl(bridgeURI);
 		}
 
 		return baseURL;
 	}
 
-	private String getEncodeBackLinkURL(FacesContext facesContext) {
+	private String getEncodedBackLinkURL(FacesContext facesContext) {
 
 		String encodedBackLinkURL = "";
-		String backLinkViewId = currentViewId;
 		Application application = facesContext.getApplication();
 		ViewHandler viewHandler = application.getViewHandler();
-		String backLinkURL = viewHandler.getActionURL(facesContext, backLinkViewId);
+		String backLinkURL = viewHandler.getActionURL(facesContext, currentViewId);
 
 		try {
 			ExternalContext externalContext = facesContext.getExternalContext();

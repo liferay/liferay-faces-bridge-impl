@@ -15,49 +15,28 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import java.io.Writer;
-import java.util.Map;
-
 import javax.portlet.BaseURL;
 import javax.portlet.PortletResponse;
 
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
-
 
 /**
- * This abstract class represents a simple "encoded" {@link BaseURL}, meaning an implementation that encodes a String
- * based URL. The only methods that are meant to be called is {@link BaseURLEncodedImpl#toString()} and {@link
- * BaseURLEncodedImpl#write(Writer, boolean)}. All other methods throw an {@link UnsupportedOperationException}.
+ * This abstract class represents an "encoded" {@link BaseURL}, meaning an implementation that simply decorates a URI
+ * and ensures that the return value {@link #toString()} is encoded.
  *
  * @author  Neil Griffin
  */
-public abstract class BaseURLEncodedImpl extends BaseURLNonEncodedImpl {
-
-	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(BaseURLEncodedImpl.class);
+public class BaseURLEncodedImpl extends BaseURLNonEncodedImpl {
 
 	// Private Data Members
 	private PortletResponse portletResponse;
 
-	public BaseURLEncodedImpl(String url, Map<String, String[]> parameterMap, PortletResponse portletResponse) {
-		super(url, parameterMap);
+	public BaseURLEncodedImpl(BridgeURI bridgeURI, PortletResponse portletResponse) {
+		super(bridgeURI);
 		this.portletResponse = portletResponse;
 	}
 
 	@Override
 	public String toString() {
-
-		String stringValue = null;
-
-		try {
-			stringValue = super.toString();
-			stringValue = portletResponse.encodeURL(stringValue);
-		}
-		catch (Exception e) {
-			logger.error(e);
-		}
-
-		return stringValue;
+		return portletResponse.encodeURL(super.toString());
 	}
 }

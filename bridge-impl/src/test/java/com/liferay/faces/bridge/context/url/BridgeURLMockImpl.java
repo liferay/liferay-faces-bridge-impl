@@ -38,6 +38,6 @@ public class BridgeURLMockImpl extends BridgeURLBase {
 
 	@Override
 	public BaseURL toBaseURL() throws MalformedURLException {
-		return new BaseURLNonEncodedImpl(bridgeURI.toString(), new HashMap<String, String[]>());
+		return new BaseURLNonEncodedImpl(bridgeURI);
 	}
 }
