@@ -52,7 +52,7 @@ public class BridgeURLPartialActionImpl extends BridgeURLBase {
 		if (uri != null) {
 
 			if (uri.startsWith("http")) {
-				baseURL = new BaseURLNonEncodedImpl(uri, getParameterMap());
+				baseURL = new BaseURLNonEncodedImpl(bridgeURI);
 				logger.debug("URL starts with http so assuming that it has already been encoded: url=[{0}]", uri);
 			}
 			else {

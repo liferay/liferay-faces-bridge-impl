@@ -130,6 +130,12 @@ public interface BridgeURI {
 	public void setParameter(String name, String value);
 
 	/**
+	 * Sets the <code>values</code> of the underlying {@link BridgeURI#getParameterMap()} according to the specified
+	 * <code>name</code>.
+	 */
+	public void setParameter(String name, String[] values);
+
+	/**
 	 * Removes the entry of the underlying {@link BridgeURI#getParameterMap()} according to the specified <code>
 	 * name</code>.
 	 *

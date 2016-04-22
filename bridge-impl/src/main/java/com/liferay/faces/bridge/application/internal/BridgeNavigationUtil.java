@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
+import java.util.Map;
 import java.util.Set;
 
 import javax.portlet.PortletMode;
@@ -41,19 +42,27 @@ public class BridgeNavigationUtil {
 	 * StateAwareResponse#setWindowState(javax.portlet.WindowState)}, etc.
 	 */
 	public static void navigate(PortletRequest portletRequest, StateAwareResponse stateAwareResponse,
-		BridgeRequestScope bridgeRequestScope, BridgeURL bridgeURL) throws PortletModeException, WindowStateException {
+		BridgeRequestScope bridgeRequestScope, Map<String, String[]> parameterMap) throws PortletModeException,
+		WindowStateException {
 
 		// For each parameter found in the encoded <to-view-id> Action-URL:
-		Set<String> urlParameterNames = bridgeURL.getParameterMap().keySet();
+		Set<Map.Entry<String, String[]>> entrySet = parameterMap.entrySet();
 
-		for (String urlParameterName : urlParameterNames) {
+		for (Map.Entry<String, String[]> mapEntry : entrySet) {
 
-			String parameterValue = bridgeURL.getParameter(urlParameterName);
+			String parameterName = mapEntry.getKey();
+			String[] parameterValues = mapEntry.getValue();
+			String firstParameterValue = null;
+
+			if ((parameterValues != null) && (parameterValues.length > 0)) {
+				firstParameterValue = parameterValues[0];
+			}
 
 			// If the URL contains the "javax.portlet.faces.PortletMode" parameter, then set the
 			// PortletMode on the ActionResponse.
-			if (Bridge.PORTLET_MODE_PARAMETER.equals(urlParameterName)) {
-				PortletMode portletMode = new PortletMode(parameterValue);
+			if (Bridge.PORTLET_MODE_PARAMETER.equals(parameterName)) {
+
+				PortletMode portletMode = new PortletMode(firstParameterValue);
 
 				if (bridgeRequestScope != null) {
 
@@ -67,9 +76,9 @@ public class BridgeNavigationUtil {
 
 			// Otherwise, if the URL contains the "javax.portlet.faces.WindowState" parameter, then
 			// set the WindowState on the ActionResponse.
-			else if (Bridge.PORTLET_WINDOWSTATE_PARAMETER.equals(urlParameterName)) {
+			else if (Bridge.PORTLET_WINDOWSTATE_PARAMETER.equals(parameterName)) {
 
-				WindowState windowState = new WindowState(parameterValue);
+				WindowState windowState = new WindowState(firstParameterValue);
 
 				if (portletRequest.isWindowStateAllowed(windowState)) {
 					stateAwareResponse.setWindowState(windowState);
@@ -79,14 +88,14 @@ public class BridgeNavigationUtil {
 			// Otherwise, if the URL contains the "_jsfBridgeNonFacesView" parameter, then set a
 			// render parameter so that the Non-Faces-View will get picked up by the GenericFacesPortlet for
 			// dispatch.
-			else if (Bridge.NONFACES_TARGET_PATH_PARAMETER.equals(urlParameterName)) {
-				stateAwareResponse.setRenderParameter(Bridge.NONFACES_TARGET_PATH_PARAMETER, parameterValue);
+			else if (Bridge.NONFACES_TARGET_PATH_PARAMETER.equals(parameterName)) {
+				stateAwareResponse.setRenderParameter(Bridge.NONFACES_TARGET_PATH_PARAMETER, firstParameterValue);
 			}
 
 			// Otherwise, it's not a special parameter recognized by the bridge. Regardless, set a render
 			// parameter so that it can be picked up by the RENDER_RESPONSE phase if necessary.
 			else {
-				stateAwareResponse.setRenderParameter(urlParameterName, parameterValue);
+				stateAwareResponse.setRenderParameter(parameterName, parameterValues);
 			}
 		}
 	}

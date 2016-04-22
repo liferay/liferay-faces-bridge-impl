@@ -23,69 +23,54 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
-import javax.portlet.faces.Bridge.PortletPhase;
-import javax.portlet.faces.BridgeUtil;
+import javax.portlet.PortletURL;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
+ * The JavaDoc for {@link javax.faces.application.ViewHandler#getBookmarkableURL(FacesContext, String, Map, boolean)}
+ * requires that the return value be suitable to be used as the target of a link. This means that the renderer for
+ * h:link must be able to use the return value for the href attribute of an anchor element, and that the renderer for
+ * h:button be able to use the return value for the onclick attribute of a button element. Both
+ * com.sun.faces.application.view.MultiViewHandler and org.apache.myfaces.application.ViewHandlerImpl call
+ * ExternalContext.encodeActionURL(ExternalContext.encodeBookmarkableURL(ViewHandler.getActionURL(viewId))) in order to
+ * satisfy this requirement. As a result, the Bridge's implementation of {@link
+ * javax.faces.context.ExternalContext#encodeBookmarkableURL(String, Map)} must not attempt to return the result of
+ * {@link PortletURL#toString()}. Instead, it must simply return a non-encoded String that appends the specified map of
+ * bookmark parameters to the query-string of the specified URL. However, since the Bridge's version of {@link
+ * javax.faces.context.ExternalContext#encodeActionURL(String url)} needs to detect whether or not the specified URL is
+ * bookmarkable, {@link BridgeExt#BOOKMARKABLE_PARAMETER} must also be present in the query-string with a value of
+ * "true".
+ *
  * @author  Neil Griffin
  */
 public class BridgeURLBookmarkableImpl extends BridgeURLBase {
-
-	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(BridgeURLBookmarkableImpl.class);
 
 	public BridgeURLBookmarkableImpl(String uri, String contextPath, String namespace, String currentViewId,
 		Map<String, List<String>> bookmarkParameters, BridgeConfig bridgeConfig) throws URISyntaxException {
 
 		super(uri, contextPath, namespace, currentViewId, bridgeConfig);
 
+		// Since the Bridge's version of ExternalContext.encodeActionURL(String url) needs to detect whether or not the
+		// specified URL is bookmarkable, ensure that "_jsfBridgeBookmarkable=true" appears in the query-string.
+		bridgeURI.setParameter(BridgeExt.BOOKMARKABLE_PARAMETER, "true");
+
 		if ((bridgeURI != null) && (bridgeURI.toString() != null) && (bookmarkParameters != null)) {
 
-			Map<String, String[]> parameterMap = getParameterMap();
 			Set<Map.Entry<String, List<String>>> entrySet = bookmarkParameters.entrySet();
 
 			for (Map.Entry<String, List<String>> mapEntry : entrySet) {
 
-				String key = mapEntry.getKey();
-				String[] valueArray = null;
 				List<String> valueList = mapEntry.getValue();
-
-				if (valueList != null) {
-					valueArray = valueList.toArray(new String[valueList.size()]);
-				}
-
-				parameterMap.put(key, valueArray);
+				String[] values = valueList.toArray(new String[valueList.size()]);
+				bridgeURI.setParameter(mapEntry.getKey(), values);
 			}
 		}
 	}
 
 	// Java 1.6+ @Override
 	public BaseURL toBaseURL() throws MalformedURLException {
-
-		BaseURL baseURL = null;
-
-		// If this is executing during the RENDER_PHASE or RESOURCE_PHASE of the portlet lifecycle, then
-		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
-
-		if ((portletRequestPhase == PortletPhase.RENDER_PHASE) ||
-				(portletRequestPhase == PortletPhase.RESOURCE_PHASE)) {
-
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			baseURL = createRenderURL(facesContext, bridgeURI.getParameterMap());
-			baseURL.setParameters(getParameterMap());
-			baseURL.setParameter(viewIdRenderParameterName, currentViewId);
-		}
-
-		// Otherwise, log an error.
-		else {
-			logger.error("Unable to encode bookmarkable URL during Bridge.PortletPhase.[{0}].", portletRequestPhase);
-		}
-
-		return baseURL;
+		return new BaseURLNonEncodedImpl(bridgeURI);
 	}
 }

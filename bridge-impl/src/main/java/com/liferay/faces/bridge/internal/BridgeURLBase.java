@@ -36,14 +36,13 @@ import javax.portlet.ResourceURL;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
+import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.PortletModeValidator;
 import com.liferay.faces.bridge.PortletModeValidatorFactory;
 import com.liferay.faces.bridge.WindowStateValidator;
 import com.liferay.faces.bridge.WindowStateValidatorFactory;
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.BridgeConfigAttributeMap;
-import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -52,7 +51,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public abstract class BridgeURLBase extends BridgeURLBaseCompat implements BridgeURL {
+public abstract class BridgeURLBase implements BridgeURL {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeURLBase.class);
@@ -88,7 +87,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 	@Override
 	public String getParameter(String name) {
 
-		Map<String, String[]> parameterMap = getParameterMap();
+		Map<String, String[]> parameterMap = bridgeURI.getParameterMap();
 		String[] values = parameterMap.get(name);
 
 		if (values == null) {
@@ -105,12 +104,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 
 	@Override
 	public Map<String, String[]> getParameterMap() {
-
-		if (parameterMap == null) {
-			parameterMap = new LinkedHashMap<String, String[]>(bridgeURI.getParameterMap());
-		}
-
-		return parameterMap;
+		return bridgeURI.getParameterMap();
 	}
 
 	@Override
@@ -219,18 +213,18 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 
 	@Override
 	public void setParameter(String name, String[] value) {
-		getParameterMap().put(name, value);
+		bridgeURI.getParameterMap().put(name, value);
 	}
 
 	@Override
 	public void setParameter(String name, String value) {
-		getParameterMap().put(name, new String[] { value });
+		bridgeURI.getParameterMap().put(name, new String[] { value });
 	}
 
 	@Override
 	public String removeParameter(String name) {
 
-		String[] values = getParameterMap().remove(name);
+		String[] values = bridgeURI.getParameterMap().remove(name);
 
 		if ((values != null) && (values.length > 0)) {
 			return values[0];
@@ -387,7 +381,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 	private List<URIParameter> getToStringParameters(boolean modeChanged, Set<String> excludedParameterNames) {
 
 		List<URIParameter> toStringParameters = new ArrayList<URIParameter>();
-		Map<String, String[]> parameterMap = getParameterMap();
+		Map<String, String[]> parameterMap = bridgeURI.getParameterMap();
 		Set<Map.Entry<String, String[]>> entrySet = parameterMap.entrySet();
 		boolean foundFacesViewIdParam = false;
 		boolean foundFacesViewPathParam = false;
@@ -479,7 +473,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 
 	private void copyParameterMapToBaseURL(Map<String, String[]> parameterMap, BaseURL baseURL) {
 
-		Map<String, String[]> bridgeURLParameterMap = getParameterMap();
+		Map<String, String[]> bridgeURLParameterMap = bridgeURI.getParameterMap();
 		Set<Map.Entry<String, String[]>> parameterMapEntrySet = parameterMap.entrySet();
 
 		for (Map.Entry<String, String[]> mapEntry : parameterMapEntrySet) {

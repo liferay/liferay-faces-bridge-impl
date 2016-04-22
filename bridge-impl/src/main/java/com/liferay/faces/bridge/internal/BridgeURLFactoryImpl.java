@@ -25,9 +25,9 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.faces.BridgeException;
 
-import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.BridgeURLFactory;
+import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
 
@@ -86,8 +86,8 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory {
 		ContextInfo contextInfo = new ContextInfo(facesContext);
 
 		try {
-			return new BridgeURLRedirectImpl(facesContext, uri, contextInfo.contextPath, contextInfo.namespace,
-					parameters, contextInfo.bridgeConfig);
+			return new BridgeURLRedirectImpl(uri, contextInfo.contextPath, contextInfo.namespace, parameters,
+					contextInfo.bridgeConfig);
 		}
 		catch (URISyntaxException e) {
 			throw new BridgeException(e);
