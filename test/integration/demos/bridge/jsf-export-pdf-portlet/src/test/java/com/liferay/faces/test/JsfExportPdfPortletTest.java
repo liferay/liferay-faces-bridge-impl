@@ -83,8 +83,12 @@ public class JsfExportPdfPortletTest extends TesterBase {
 				logger.log(Level.INFO, "window = " + window);
 				logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle());
 				logger.log(Level.INFO, "browser.getCurrentUrl() = " + browser.getCurrentUrl());
+				logger.log(Level.INFO, "browser.getPageSource().contains(Shearer) = " + browser.getPageSource().contains("Shearer"));
 				logger.log(Level.INFO, "browser.getPageSource() = " + browser.getPageSource());
 				logger.log(Level.INFO, " -------------------------------------------------- ");
+				if (browser.getPageSource().contains("Shearer")) {
+					break;
+				}
 			}
 
 			boolean done = false;

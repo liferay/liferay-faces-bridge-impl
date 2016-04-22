@@ -51,13 +51,13 @@ public class PrimefacesApplicant extends TesterBase {
 	private static final String lastNameFieldErrorXpath = "//input[contains(@id,':lastName')]/following-sibling::*[1]";
 
 	private static final String emailAddressFieldXpath = "//input[contains(@id,':emailAddress')]";
-	private static final String emailAddressFieldErrorXpath = "//input[contains(@id,':emailAddress')]/following-sibling::*[1]";
+	private static final String emailAddressFieldErrorXpath = "//input[contains(@id,':emailAddress')]/following-sibling::*[1]/span[@class='ui-message-error-detail']";
 
 	private static final String phoneNumberFieldXpath = "//input[contains(@id,':phoneNumber')]";
 	private static final String phoneNumberFieldErrorXpath = "//input[contains(@id,':phoneNumber')]/following-sibling::*[1]";
 
 	private static final String dateOfBirthFieldXpath = "//input[contains(@id,':dateOfBirth')]";
-	private static final String dateOfBirthFieldErrorXpath = "//input[contains(@id,':dateOfBirth')]/../following-sibling::*[1]";
+	private static final String dateOfBirthFieldErrorXpath = "//input[contains(@id,':dateOfBirth')]/../following-sibling::*[1]/span[@class='ui-message-error-detail']";
 
 	private static final String cityFieldXpath = "//input[contains(@id,':city')]";
 	private static final String cityFieldErrorXpath = "//input[contains(@id,':city')]/following-sibling::*[1]";
@@ -76,7 +76,7 @@ public class PrimefacesApplicant extends TesterBase {
 	private static final String hideCommentsLinkXpath = "//a[contains(text(),'Hide Comments')]";
 	private static final String commentsXpath = "//textarea[contains(@id,':comments')]";
 
-	private static final String fileUploadChooserXpath = "//input[@type='file' and @multiple='multiple']";
+	private static final String fileUploadChooserXpath = "//input[@type='file']";
 	private static final String submitFileXpath = "//span[contains(text(),'Upload')]";
 	private static final String uploadedFileXpath = "//tr[@class='ui-widget-content ui-datatable-even']/td[2]";
 

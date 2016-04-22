@@ -91,6 +91,7 @@ public class TesterBase {
 
 	private static final String JERSEY_FILE = "liferay-jsf-jersey.png";
 
+	public static final String BROWSER_NAME = System.getProperty("integration.browser", "phantomjs");
 	public static final String portal = System.getProperty("integration.portal", "liferay");
 	public static final String baseUrl = System.getProperty("integration.url", "http://localhost:8080");
 	public static final String signInContext = System.getProperty("integration.signin", "/web/guest/home");
@@ -168,6 +169,10 @@ public class TesterBase {
 		pass.sendKeys(p);
 		button.click();
 		logger.log(Level.INFO, "browser.getTitle() = " + browser.getTitle() + " after clicking the sign in button.	Now waiting ...");
+
+		// This works, but it throws the following begnign error with PhantomJS:
+		// [ERROR - 2016-04-25T14:33:42.331Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 146159482238
+		// phantomjs://platform/console++.js:263 in error
 		waitForElement(browser, textXpath);
 		logger.log(Level.INFO, text.getText());
 
