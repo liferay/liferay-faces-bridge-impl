@@ -48,7 +48,6 @@ import com.liferay.faces.bridge.scope.BridgeRequestScopeCache;
 import com.liferay.faces.bridge.scope.BridgeRequestScopeCacheFactory;
 import com.liferay.faces.bridge.scope.BridgeRequestScopeFactory;
 import com.liferay.faces.bridge.util.internal.ViewUtil;
-import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -87,19 +86,14 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		this.bridgeRequestScopePreserved = PortletConfigParam.BridgeRequestScopePreserved.getBooleanValue(
 				portletConfig);
 
-		BridgePortletContextFactory bridgePortletContextFactory = (BridgePortletContextFactory) BridgeFactoryFinder
-			.getFactory(BridgePortletContextFactory.class);
-		this.portletContext = bridgePortletContextFactory.getPortletContext(portletConfig.getPortletContext());
+		this.portletContext = BridgePortletContextFactory.getPortletContextInstance(portletConfig.getPortletContext());
 
 		// Initialize the incongruity context implementation.
-		IncongruityContextFactory incongruityContextFactory = (IncongruityContextFactory) FactoryExtensionFinder
-			.getFactory(IncongruityContextFactory.class);
-		this.incongruityContext = incongruityContextFactory.getIncongruityContext();
+		this.incongruityContext = IncongruityContextFactory.getIncongruityContextInstance();
 
 		// Get the bridge request scope cache from the factory.
-		BridgeRequestScopeCacheFactory bridgeRequestScopeCacheFactory = (BridgeRequestScopeCacheFactory)
-			BridgeFactoryFinder.getFactory(BridgeRequestScopeCacheFactory.class);
-		this.bridgeRequestScopeCache = bridgeRequestScopeCacheFactory.getBridgeRequestScopeCache(portletContext);
+		this.bridgeRequestScopeCache = BridgeRequestScopeCacheFactory.getBridgeRequestScopeCacheInstance(
+				portletContext);
 
 		// Get the default lifecycle instance from the factory.
 		LifecycleFactory lifecycleFactory = (LifecycleFactory) FactoryFinder.getFactory(
@@ -275,10 +269,8 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 			// Otherwise, return a new factory created instance.
 			if (bridgeRequestScope == null) {
-				BridgeRequestScopeFactory bridgeRequestScopeFactory = (BridgeRequestScopeFactory) FactoryExtensionFinder
-					.getFactory(BridgeRequestScopeFactory.class);
-				bridgeRequestScope = bridgeRequestScopeFactory.getBridgeRequestScope(portletRequest, portletConfig,
-						bridgeConfig);
+				bridgeRequestScope = BridgeRequestScopeFactory.getBridgeRequestScopeInstance(portletRequest,
+						portletConfig, bridgeConfig);
 			}
 		}
 	}
