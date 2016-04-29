@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javax.faces.component.UIComponent;
@@ -32,9 +31,6 @@ import com.liferay.faces.util.application.ResourceVerifierWrapper;
  */
 public class ResourceVerifierBridgeImpl extends ResourceVerifierWrapper {
 
-	// Public Constants
-	public static final String HEAD_RESOURCE_IDS = ResourceVerifierBridgeImpl.class.getName() + "HEAD_RESOURCE_IDS";
-
 	// Private Members
 	private ResourceVerifier wrappedResourceVerifier;
 
@@ -43,32 +39,28 @@ public class ResourceVerifierBridgeImpl extends ResourceVerifierWrapper {
 	}
 
 	@Override
-	public boolean isDependencySatisfied(FacesContext facesContext, UIComponent componentResource) {
-
-		boolean dependencySatisfied;
-
-		HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
-		Set<String> headResourceIds = null;
-
-		if (headManagedBean == null) {
-			headResourceIds = Collections.EMPTY_SET;
-		}
-		else {
-			headResourceIds = headManagedBean.getHeadResourceIds();
-		}
-
-		if (headResourceIds.contains(ResourceUtil.getResourceId(componentResource))) {
-			dependencySatisfied = true;
-		}
-		else {
-			dependencySatisfied = super.isDependencySatisfied(facesContext, componentResource);
-		}
-
-		return dependencySatisfied;
+	public ResourceVerifier getWrapped() {
+		return wrappedResourceVerifier;
 	}
 
 	@Override
-	public ResourceVerifier getWrapped() {
-		return wrappedResourceVerifier;
+	public boolean isDependencySatisfied(FacesContext facesContext, UIComponent componentResource) {
+
+		HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
+
+		if (headManagedBean == null) {
+			return super.isDependencySatisfied(facesContext, componentResource);
+		}
+		else {
+			Set<String> headResourceIds = headManagedBean.getHeadResourceIds();
+			String resourceId = ResourceUtil.getResourceId(componentResource);
+
+			if (headResourceIds.contains(resourceId)) {
+				return true;
+			}
+			else {
+				return super.isDependencySatisfied(facesContext, componentResource);
+			}
+		}
 	}
 }

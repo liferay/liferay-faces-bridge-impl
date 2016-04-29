@@ -32,30 +32,6 @@ public final class HeadResourceUtil {
 		throw new AssertionError();
 	}
 
-	/* package-private */ static boolean canAddResourceToHead(PortalContext portalContext, UIComponent componentResource) {
-
-		boolean canAddResourceToHead = false;
-
-		if (isStyleSheetResource(componentResource)) {
-			canAddResourceToHead = portalContext.getProperty(
-					BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT) != null;
-		}
-		else if (isScriptResource(componentResource)) {
-			canAddResourceToHead = portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT) !=
-				null;
-		}
-		else if (isInlineStyleSheet(componentResource)) {
-			canAddResourceToHead = portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT) !=
-				null;
-		}
-		else if (isInlineScript(componentResource)) {
-			canAddResourceToHead = portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT) !=
-				null;
-		}
-
-		return canAddResourceToHead;
-	}
-
 	/* package-private */ static boolean isScriptResource(UIComponent componentResource) {
 
 		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
@@ -88,5 +64,24 @@ public final class HeadResourceUtil {
 		String rendererType = componentResource.getRendererType();
 
 		return (resourceName == null) && RenderKitBridgeImpl.STYLESHEET_RENDERER_TYPE.equals(rendererType);
+	}
+
+	/* package-private */ static boolean canAddResourceToHead(PortalContext portalContext, UIComponent componentResource) {
+
+		if (isStyleSheetResource(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT) != null);
+		}
+		else if (isScriptResource(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT) != null);
+		}
+		else if (isInlineStyleSheet(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT) != null);
+		}
+		else if (isInlineScript(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT) != null);
+		}
+		else {
+			return false;
+		}
 	}
 }

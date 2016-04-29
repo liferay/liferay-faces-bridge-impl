@@ -32,8 +32,6 @@ import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.util.application.ResourceUtil;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.render.RendererWrapper;
 
 
@@ -49,9 +47,6 @@ import com.liferay.faces.util.render.RendererWrapper;
  * @author  Neil Griffin
  */
 public class BodyRendererBridgeImpl extends RendererWrapper {
-
-	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(BodyRendererBridgeImpl.class);
 
 	// Package-Private Constants
 	/* package-private */ static final String STYLE_CLASS_PORTLET_BODY = "liferay-faces-bridge-body";

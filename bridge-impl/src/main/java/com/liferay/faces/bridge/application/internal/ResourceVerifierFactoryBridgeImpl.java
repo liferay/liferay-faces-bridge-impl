@@ -26,6 +26,7 @@ public class ResourceVerifierFactoryBridgeImpl extends ResourceVerifierFactory {
 
 	// Private Members
 	private ResourceVerifierFactory wrappedResourceVerifierFactory;
+	private ResourceVerifier resourceVerifier;
 
 	public ResourceVerifierFactoryBridgeImpl(ResourceVerifierFactory wrappedResourceVerifierFactory) {
 		this.wrappedResourceVerifierFactory = wrappedResourceVerifierFactory;
@@ -33,7 +34,12 @@ public class ResourceVerifierFactoryBridgeImpl extends ResourceVerifierFactory {
 
 	@Override
 	public ResourceVerifier getResourceVerifier() {
-		return new ResourceVerifierBridgeImpl(wrappedResourceVerifierFactory.getResourceVerifier());
+
+		if (resourceVerifier == null) {
+			resourceVerifier = new ResourceVerifierBridgeImpl(wrappedResourceVerifierFactory.getResourceVerifier());
+		}
+
+		return resourceVerifier;
 	}
 
 	@Override
