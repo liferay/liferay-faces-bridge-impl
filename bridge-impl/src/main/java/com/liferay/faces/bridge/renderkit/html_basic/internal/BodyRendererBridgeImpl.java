@@ -16,16 +16,22 @@
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
+import javax.portlet.PortalContext;
+import javax.portlet.PortletRequest;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
+import com.liferay.faces.bridge.context.BridgePortalContext;
+import com.liferay.faces.util.application.ResourceUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.render.RendererWrapper;
@@ -86,19 +92,47 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 
 		facesContext.setResponseWriter(responseWriter);
 
-		// Render all of the stylesheet resources, since they often need to be loaded as close to the top as possible.
-		UIViewRoot uiViewRoot = facesContext.getViewRoot();
-		List<UIComponent> uiComponentResources = uiViewRoot.getComponentResources(facesContext, "body");
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+		PortalContext portalContext = portletRequest.getPortalContext();
 
-		if (uiComponentResources != null) {
+		// If the bridge cannot add a resource to the <head> section, then add it to the top of the portlet body (the
+		// outer <div> of the portlet). If <style> elements or <link rel="stylesheet"> elements are relocated, the
+		// generated html will be invalid because those elements are only valid in the <head> section. See
+		// https://html.spec.whatwg.org/multipage/semantics.html#the-style-element and
+		// https://html.spec.whatwg.org/multipage/semantics.html#the-link-element for more details about valid html
+		// markup. However, the invalid html generated works perfectly in all popular browsers.
+		if (!canAddAllResourceTypesToHead(portalContext)) {
 
-			for (UIComponent uiComponentResource : uiComponentResources) {
+			UIViewRoot uiViewRoot = facesContext.getViewRoot();
+			List<UIComponent> headResources = uiViewRoot.getComponentResources(facesContext, "head");
 
-				String originalTarget = (String) uiComponentResource.getAttributes().get(
-						RenderKitBridgeImpl.ORIGINAL_TARGET);
+			if (!headResources.isEmpty()) {
 
-				if ("head".equals(originalTarget)) {
-					uiComponentResource.encodeAll(facesContext);
+				HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
+				Set<String> headResourceIds;
+
+				if (headManagedBean == null) {
+					headResourceIds = new HashSet<String>();
+				}
+				else {
+					headResourceIds = headManagedBean.getHeadResourceIds();
+				}
+
+				for (UIComponent headResource : headResources) {
+
+					String headResourceId = ResourceUtil.getResourceId(headResource);
+
+					if (!HeadResourceUtil.canAddResourceToHead(portalContext, headResource)) {
+
+						headResource.encodeAll(facesContext);
+
+						// In order to prevent script resources from being loaded multiple times, add script resources
+						// to the list of headResourceIds.
+						if (HeadResourceUtil.isScriptResource(headResource)) {
+							headResourceIds.add(headResourceId);
+						}
+					}
 				}
 			}
 		}
@@ -107,37 +141,26 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 	@Override
 	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-		// Allow the wrapped body renderer to render all of the non-stylesheet resources.
-		UIViewRoot uiViewRoot = facesContext.getViewRoot();
-		List<UIComponent> uiComponentResources = uiViewRoot.getComponentResources(facesContext, "body");
-		List<UIComponent> renderedUIComponentResources = new ArrayList<UIComponent>();
-
-		if (uiComponentResources != null) {
-
-			for (UIComponent uiComponentResource : uiComponentResources) {
-
-				String originalTarget = (String) uiComponentResource.getAttributes().get(
-						RenderKitBridgeImpl.ORIGINAL_TARGET);
-
-				// Resources which were originally target="head" were already rendered in encodeBegin() so avoid
-				// rendering them by removing them from the UIViewRoot before delegating to the wrapped body renderer.
-				if ("head".equals(originalTarget)) {
-
-					uiViewRoot.removeComponentResource(facesContext, uiComponentResource, "body");
-					renderedUIComponentResources.add(uiComponentResource);
-				}
-			}
-		}
-
 		ResponseWriter originalResponseWriter = facesContext.getResponseWriter();
 		ResponseWriter responseWriter = new ResponseWriterBridgeBodyImpl(originalResponseWriter);
 		facesContext.setResponseWriter(responseWriter);
 		super.encodeEnd(facesContext, uiComponent);
 		facesContext.setResponseWriter(originalResponseWriter);
+	}
 
-		for (UIComponent renderedUIComponentResource : renderedUIComponentResources) {
-			uiViewRoot.addComponentResource(facesContext, renderedUIComponentResource, "body");
-		}
+	private boolean canAddAllResourceTypesToHead(PortalContext portalContext) {
+
+		boolean canAddStyleSheetResourcesToHead = portalContext.getProperty(
+				BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT) != null;
+		boolean canAddStyleSheetTextToHead = portalContext.getProperty(
+				BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT) != null;
+		boolean canAddScriptResourcesToHead = portalContext.getProperty(
+				BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT) != null;
+		boolean canAddScriptTextToHead = portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT) !=
+			null;
+
+		return (canAddStyleSheetResourcesToHead && canAddStyleSheetTextToHead && canAddScriptResourcesToHead &&
+				canAddScriptTextToHead);
 	}
 
 	@Override

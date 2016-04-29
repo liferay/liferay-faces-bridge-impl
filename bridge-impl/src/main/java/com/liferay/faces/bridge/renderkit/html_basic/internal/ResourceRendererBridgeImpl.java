@@ -16,8 +16,6 @@
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
@@ -30,8 +28,6 @@ import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.render.Renderer;
 
-import com.liferay.faces.bridge.context.HeadResponseWriter;
-import com.liferay.faces.util.application.ResourceUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.render.RendererWrapper;
@@ -74,58 +70,24 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 	@Override
 	public void encodeEnd(FacesContext facesContext, UIComponent uiComponentResource) throws IOException {
 
-		String resourceId = ResourceUtil.getResourceId(uiComponentResource);
+		boolean ajaxRequest = facesContext.getPartialViewContext().isAjaxRequest();
+		ResponseWriter responseWriter = null;
 
-		// Determine whether or not the specified resource is already present in the <head> section of the portal page.
-		HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
+		// If this is taking place during an Ajax request, then:
+		if (ajaxRequest) {
 
-		Set<String> headResourceIdsFromManagedBean = null;
-
-		if (headManagedBean == null) {
-
-			// Since the HeadManagedBean can't be found, this request is likely executing in a JSP environment.
-			headResourceIdsFromManagedBean = new HashSet<String>();
-		}
-		else {
-			headResourceIdsFromManagedBean = headManagedBean.getHeadResourceIds();
+			// Set a custom response writer that knows how to remove double-encoded ampersands from URLs.
+			responseWriter = facesContext.getResponseWriter();
+			facesContext.setResponseWriter(new ResponseWriterResourceImpl(responseWriter));
 		}
 
-		boolean alreadyPresentInPortalPageHead = headResourceIdsFromManagedBean.contains(resourceId);
+		// Ask the wrapped renderer to encode the script.
+		super.encodeEnd(facesContext, uiComponentResource);
 
-		// If the specified resource is NOT already in the <head> section of the portal page, then
-		if (!alreadyPresentInPortalPageHead) {
+		if (ajaxRequest) {
 
-			boolean ajaxRequest = facesContext.getPartialViewContext().isAjaxRequest();
-
-			// If this is taking place during an Ajax request, then:
-			if (ajaxRequest) {
-
-				// Set a custom response writer that knows how to remove double-encoded ampersands from URLs.
-				ResponseWriter responseWriter = facesContext.getResponseWriter();
-				facesContext.setResponseWriter(new ResponseWriterResourceImpl(responseWriter));
-
-				// Ask the wrapped renderer to encode the script to a custom ResponseWriter
-				super.encodeEnd(facesContext, uiComponentResource);
-
-				// Restore the original response writer.
-				facesContext.setResponseWriter(responseWriter);
-			}
-
-			// Otherwise:
-			else {
-
-				// Ask the wrapped renderer to encode the script to a custom ResponseWriter
-				super.encodeEnd(facesContext, uiComponentResource);
-
-				// If the h:head part of the component tree is being rendered, then
-				if (facesContext.getResponseWriter() instanceof HeadResponseWriter) {
-
-					// Mark the resource as having been added to the head.
-					headResourceIdsFromManagedBean.add(resourceId);
-
-					logger.debug("Marking resource resourceId=[{0}] as being present in the head", resourceId);
-				}
-			}
+			// Restore the original response writer.
+			facesContext.setResponseWriter(responseWriter);
 		}
 	}
 
@@ -143,6 +105,7 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 		// StylesheetRenderer because they extend ScriptStyleBaseRenderer which attempts to add the component
 		// associated with the specified event as a resource on the view root.
 		if (wrappedRenderer instanceof ComponentSystemEventListener) {
+
 			ComponentSystemEventListener wrappedListener = (ComponentSystemEventListener) wrappedRenderer;
 			wrappedListener.processEvent(event);
 		}

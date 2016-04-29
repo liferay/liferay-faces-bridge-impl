@@ -105,16 +105,21 @@ public class HeadPhaseListener implements PhaseListener {
 		Set<String> headResourceIdsFromFlash = (Set<String>) flash.get(HEAD_RESOURCE_IDS);
 
 		if (headResourceIdsFromFlash != null) {
+
 			HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
-			Set<String> managedBeanResourceIds = headManagedBean.getHeadResourceIds();
 
-			for (String resourceIdFromFlash : headResourceIdsFromFlash) {
+			if (headManagedBean != null) {
 
-				if (!managedBeanResourceIds.contains(resourceIdFromFlash)) {
-					managedBeanResourceIds.add(resourceIdFromFlash);
-					logger.debug(
-						"Added resourceId=[{0}] from the Flash scope to the list of resourceIds in the HeadManagedBean for viewId=[{1}]",
-						resourceIdFromFlash, viewId);
+				Set<String> managedBeanResourceIds = headManagedBean.getHeadResourceIds();
+
+				for (String resourceIdFromFlash : headResourceIdsFromFlash) {
+
+					if (!managedBeanResourceIds.contains(resourceIdFromFlash)) {
+						managedBeanResourceIds.add(resourceIdFromFlash);
+						logger.debug(
+							"Added resourceId=[{0}] from the Flash scope to the list of resourceIds in the HeadManagedBean for viewId=[{1}]",
+							resourceIdFromFlash, viewId);
+					}
 				}
 			}
 		}

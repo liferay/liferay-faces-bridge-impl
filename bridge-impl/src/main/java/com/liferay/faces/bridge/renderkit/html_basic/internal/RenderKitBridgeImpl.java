@@ -37,7 +37,7 @@ import com.liferay.faces.util.product.ProductMap;
 
 
 /**
- * This class extends {@link RenderKitWrapper} in order to programatically control the {@link RenderKit} delegation
+ * This class extends {@link RenderKitWrapper} in order to programmatically control the {@link RenderKit} delegation
  * chain and wrapping of renderers.
  *
  * @author  Neil Griffin
@@ -45,7 +45,8 @@ import com.liferay.faces.util.product.ProductMap;
 public class RenderKitBridgeImpl extends RenderKitWrapper {
 
 	// Package-Private Constants
-	/* package-private */ static final String ORIGINAL_TARGET = "originalTarget";
+	/* package-private */ static final String SCRIPT_RENDERER_TYPE = "javax.faces.resource.Script";
+	/* package-private */ static final String STYLESHEET_RENDERER_TYPE = "javax.faces.resource.Stylesheet";
 
 	// Private Constants
 	private static final Product ICEFACES = ProductMap.getInstance().get(ProductConstants.ICEFACES);
@@ -59,8 +60,6 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 	private static final String PRIMEFACES_FAMILY = "org.primefaces.component";
 	private static final String RICHFACES_FILE_UPLOAD_FAMILY = "org.richfaces.FileUpload";
 	private static final String RICHFACES_FILE_UPLOAD_RENDERER_TYPE = "org.richfaces.FileUploadRenderer";
-	private static final String SCRIPT_RENDERER_TYPE = "javax.faces.resource.Script";
-	private static final String STYLESHEET_RENDERER_TYPE = "javax.faces.resource.Stylesheet";
 
 	// Private Data Members
 	private RenderKit wrappedRenderKit;
