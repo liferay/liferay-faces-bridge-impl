@@ -31,6 +31,10 @@ import javax.faces.context.FacesContext;
  */
 public class ResourceComponent extends UIOutput {
 
+	public ResourceComponent() {
+		// Defer initialization of ResourceComponent until restoreState(FacesContext, Object) is called.
+	}
+
 	public ResourceComponent(FacesContext facesContext, String resourceName, String resourceLibrary, String target) {
 		ResourceHandler resourceHandler = facesContext.getApplication().getResourceHandler();
 		setRendererType(resourceHandler.getRendererTypeForResourceName(resourceName));
