@@ -27,8 +27,7 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import com.liferay.faces.bridge.config.BridgeConfig;
-import com.liferay.faces.bridge.context.BridgePortalContext;
-import com.liferay.faces.bridge.context.internal.BridgePortalContextImpl;
+import com.liferay.faces.bridge.context.internal.PortalContextBridgeImpl;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 
 
@@ -41,40 +40,36 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext = actionRequest.getPortalContext();
-		BridgePortalContext bridgePortalContext = new BridgePortalContextImpl(portalContext);
+		PortalContext portalContext = new PortalContextBridgeImpl(actionRequest.getPortalContext());
 
-		return new ActionRequestBridgeImpl(actionRequest, bridgePortalContext);
+		return new ActionRequestBridgeImpl(actionRequest, portalContext);
 	}
 
 	@Override
 	public EventRequest getEventRequest(EventRequest eventRequest, EventResponse eventResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext = eventRequest.getPortalContext();
-		BridgePortalContext bridgePortalContext = new BridgePortalContextImpl(portalContext);
+		PortalContext portalContext = new PortalContextBridgeImpl(eventRequest.getPortalContext());
 
-		return new EventRequestBridgeImpl(eventRequest, bridgePortalContext);
+		return new EventRequestBridgeImpl(eventRequest, portalContext);
 	}
 
 	@Override
 	public RenderRequest getRenderRequest(RenderRequest renderRequest, RenderResponse renderResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext = renderRequest.getPortalContext();
-		BridgePortalContext bridgePortalContext = new BridgePortalContextImpl(portalContext);
+		PortalContext portalContext = new PortalContextBridgeImpl(renderRequest.getPortalContext());
 
-		return new RenderRequestBridgeImpl(renderRequest, bridgePortalContext);
+		return new RenderRequestBridgeImpl(renderRequest, portalContext);
 	}
 
 	@Override
 	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext = resourceRequest.getPortalContext();
-		BridgePortalContext bridgePortalContext = new BridgePortalContextImpl(portalContext);
+		PortalContext portalContext = new PortalContextBridgeImpl(resourceRequest.getPortalContext());
 
-		return new ResourceRequestBridgeImpl(resourceRequest, bridgePortalContext);
+		return new ResourceRequestBridgeImpl(resourceRequest, portalContext);
 	}
 
 	@Override
