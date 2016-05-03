@@ -37,6 +37,7 @@
 	</dependencies>
 
 	<properties>
+		<integration.browser>phantomjs</integration.browser>
 		<integration.portal>liferay</integration.portal>
 		<integration.host>localhost</integration.host>
 		<integration.port>8080</integration.port>
@@ -69,6 +70,9 @@
 						<artifactId>maven-surefire-plugin</artifactId>
 						<configuration>
 							<skipTests>false</skipTests>
+							<systemPropertyVariables>
+								<integration.browser>${integration.browser}</integration.browser>
+							</systemPropertyVariables>
 						</configuration>
 					</plugin>
 				</plugins>

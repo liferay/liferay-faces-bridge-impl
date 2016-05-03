@@ -93,7 +93,7 @@ public class PlutoTest extends TesterBase {
 	private static final String hideCommentsLinkXpath = "//a[contains(text(),'Hide Comments')]";
 	private static final String commentsXpath = "//textarea[contains(@id,':comments')]";
 
-	private static final String fileUploadChooserXpath = "//input[@type='file' and @multiple='multiple']";
+	private static final String fileUploadChooserXpath = "//input[@type='file']";
 	private static final String submitFileXpath =
 		"//form[@method='post' and @enctype='multipart/form-data']/input[@type='submit' and @value='Submit']";
 	private static final String uploadedFileXpath = "//tr[@class='portlet-section-body results-row']/td[2]";
