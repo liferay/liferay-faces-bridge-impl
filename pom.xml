@@ -1010,6 +1010,12 @@
 				<type>pom</type>
 			</dependency>
 			<dependency>
+				<groupId>org.jboss.arquillian.extension</groupId>
+				<artifactId>arquillian-phantom-driver</artifactId>
+				<version>1.2.1.Final</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
 				<groupId>org.jboss.weld.servlet</groupId>
 				<artifactId>weld-servlet</artifactId>
 				<version>${weld.version}</version>
