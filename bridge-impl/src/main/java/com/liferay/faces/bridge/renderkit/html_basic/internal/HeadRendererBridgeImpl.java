@@ -53,7 +53,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 public class HeadRendererBridgeImpl extends Renderer {
 
 	// Package-Private Constants
-	/* package-private */ static final String RESOURCES_TO_RELOCATE_TO_BODY = "resourcesToRelocateToBody";
+	/* package-private */ static final String HEAD_RESOURCES_TO_RENDER_IN_BODY = "headResourcesToRenderInBody";
 
 	// Private Constants
 	private static final String FIRST_FACET = "first";
@@ -142,7 +142,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 			headResources.addAll(lastResources);
 		}
 
-		List<UIComponent> resourcesToRelocateToBody = new ArrayList<UIComponent>();
+		List<UIComponent> headResourcesToRenderInBody = new ArrayList<UIComponent>();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 		PortalContext portalContext = portletRequest.getPortalContext();
@@ -153,13 +153,13 @@ public class HeadRendererBridgeImpl extends Renderer {
 			UIComponent headResource = iterator.next();
 
 			// If the portlet container does not have the ability to add the resource to the <head> section of the
-			// portal page, then remove it from the list. The resource will be rendered by the
-			// BodyRendererBridgeImpl.
+			// portal page, then
 			if (!ableToAddResourceToHead(portalContext, headResource)) {
 
-				// Add resources that the HeadRendererBridgeImpl cannot render to a list so that BodyRendererBridgeImpl
-				// can render those resouces.
-				resourcesToRelocateToBody.add(headResource);
+				// Add it to the list of resources that are to be rendered in the body section by the body renderer.
+				headResourcesToRenderInBody.add(headResource);
+
+				// Remove it from the list of resources that are to be rendered in the head section by this renderer.
 				iterator.remove();
 
 				if (logger.isDebugEnabled()) {
@@ -174,6 +174,10 @@ public class HeadRendererBridgeImpl extends Renderer {
 				}
 			}
 		}
+
+		// Save the list of resources that are to be rendered in the body section so that the body renderer can find it.
+		Map<Object, Object> facesContextAttributes = facesContext.getAttributes();
+		facesContextAttributes.put(HEAD_RESOURCES_TO_RENDER_IN_BODY, headResourcesToRenderInBody);
 
 		if (!headResources.isEmpty()) {
 
@@ -217,9 +221,6 @@ public class HeadRendererBridgeImpl extends Renderer {
 			// Restore the temporary ResponseWriter reference.
 			facesContext.setResponseWriter(responseWriterBackup);
 		}
-
-		Map<Object, Object> facesContextAttributes = facesContext.getAttributes();
-		facesContextAttributes.put(RESOURCES_TO_RELOCATE_TO_BODY, resourcesToRelocateToBody);
 	}
 
 	@Override
