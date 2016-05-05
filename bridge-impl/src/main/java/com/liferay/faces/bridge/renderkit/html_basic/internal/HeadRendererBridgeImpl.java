@@ -35,6 +35,7 @@ import javax.portlet.PortletResponse;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.component.internal.ComponentUtil;
+import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.HeadResponseWriter;
 import com.liferay.faces.bridge.context.HeadResponseWriterFactory;
 import com.liferay.faces.util.application.ResourceUtil;
@@ -51,6 +52,9 @@ import com.liferay.faces.util.logging.LoggerFactory;
  */
 public class HeadRendererBridgeImpl extends Renderer {
 
+	// Package-Private Constants
+	/* package-private */ static final String RESOURCES_TO_RELOCATE_TO_BODY = "resourcesToRelocateToBody";
+
 	// Private Constants
 	private static final String FIRST_FACET = "first";
 	private static final String MIDDLE_FACET = "middle";
@@ -58,6 +62,14 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(HeadRendererBridgeImpl.class);
+
+	/* package-private */ static boolean isScriptResource(UIComponent componentResource) {
+
+		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
+		String resourceName = (String) componentResourceAttributes.get("name");
+
+		return (resourceName != null) && resourceName.endsWith("js");
+	}
 
 	@Override
 	public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
@@ -85,8 +97,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 		for (UIComponent headComponentResource : headComponentResources) {
 
-			if (HeadResourceUtil.isStyleSheetResource(headComponentResource) ||
-					HeadResourceUtil.isInlineStyleSheet(headComponentResource)) {
+			if (isStyleSheetResource(headComponentResource) || isInlineStyleSheet(headComponentResource)) {
 				styleSheetResources.add(headComponentResource);
 			}
 			else {
@@ -94,24 +105,15 @@ public class HeadRendererBridgeImpl extends Renderer {
 			}
 		}
 
-		// Remove all head resources so that they can be reordered and re-added later.
-		for (UIComponent styleSheetHeadComponentResource : styleSheetResources) {
-			uiViewRoot.removeComponentResource(facesContext, styleSheetHeadComponentResource, "head");
-		}
-
-		for (UIComponent scriptHeadComponentResource : scriptResources) {
-			uiViewRoot.removeComponentResource(facesContext, scriptHeadComponentResource, "head");
-		}
-
 		// Sort children into stylesheets and scripts.
 		List<UIComponent> children = uiComponent.getChildren();
 
 		for (UIComponent child : children) {
 
-			if (HeadResourceUtil.isStyleSheetResource(child) || HeadResourceUtil.isInlineStyleSheet(child)) {
+			if (isStyleSheetResource(child) || isInlineStyleSheet(child)) {
 				styleSheetResources.add(child);
 			}
-			else if (HeadResourceUtil.isScriptResource(child) || HeadResourceUtil.isInlineScript(child)) {
+			else if (isScriptResource(child) || isInlineScript(child)) {
 				scriptResources.add(child);
 			}
 		}
@@ -140,6 +142,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 			headResources.addAll(lastResources);
 		}
 
+		List<UIComponent> resourcesToRelocateToBody = new ArrayList<UIComponent>();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 		PortalContext portalContext = portletRequest.getPortalContext();
@@ -149,14 +152,14 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 			UIComponent headResource = iterator.next();
 
-			// Add resources back in the correct order so that BodyRendererBridgeImpl and other code can use this list.
-			uiViewRoot.addComponentResource(facesContext, headResource, "head");
-
 			// If the portlet container does not have the ability to add the resource to the <head> section of the
 			// portal page, then remove it from the list. The resource will be rendered by the
 			// BodyRendererBridgeImpl.
-			if (!HeadResourceUtil.canAddResourceToHead(portalContext, headResource)) {
+			if (!ableToAddResourceToHead(portalContext, headResource)) {
 
+				// Add resources that the HeadRendererBridgeImpl cannot render to a list so that BodyRendererBridgeImpl
+				// can render those resouces.
+				resourcesToRelocateToBody.add(headResource);
 				iterator.remove();
 
 				if (logger.isDebugEnabled()) {
@@ -206,8 +209,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 				headResource.encodeAll(facesContext);
 
-				if (HeadResourceUtil.isScriptResource(headResource) ||
-						HeadResourceUtil.isStyleSheetResource(headResource)) {
+				if (isScriptResource(headResource) || isStyleSheetResource(headResource)) {
 					headResourceIds.add(ResourceUtil.getResourceId(headResource));
 				}
 			}
@@ -215,11 +217,41 @@ public class HeadRendererBridgeImpl extends Renderer {
 			// Restore the temporary ResponseWriter reference.
 			facesContext.setResponseWriter(responseWriterBackup);
 		}
+
+		Map<Object, Object> facesContextAttributes = facesContext.getAttributes();
+		facesContextAttributes.put(RESOURCES_TO_RELOCATE_TO_BODY, resourcesToRelocateToBody);
 	}
 
 	@Override
 	public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
 		// no-op because Portlets are forbidden from rendering the <head>...</head> section.
+	}
+
+	private boolean ableToAddResourceToHead(PortalContext portalContext, UIComponent componentResource) {
+
+		if (isStyleSheetResource(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT) != null);
+		}
+		else if (isScriptResource(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT) != null);
+		}
+		else if (isInlineStyleSheet(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT) != null);
+		}
+		else if (isInlineScript(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT) != null);
+		}
+		else {
+			return false;
+		}
+	}
+
+	private boolean isStyleSheetResource(UIComponent componentResource) {
+
+		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
+		String resourceName = (String) componentResourceAttributes.get("name");
+
+		return (resourceName != null) && resourceName.endsWith("css");
 	}
 
 	protected List<UIComponent> getFirstResources(FacesContext facesContext, UIComponent uiComponent) {
@@ -267,5 +299,23 @@ public class HeadRendererBridgeImpl extends Renderer {
 	@Override
 	public boolean getRendersChildren() {
 		return true;
+	}
+
+	private boolean isInlineScript(UIComponent componentResource) {
+
+		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
+		String resourceName = (String) componentResourceAttributes.get("name");
+		String rendererType = componentResource.getRendererType();
+
+		return (resourceName == null) && RenderKitBridgeImpl.SCRIPT_RENDERER_TYPE.equals(rendererType);
+	}
+
+	private boolean isInlineStyleSheet(UIComponent componentResource) {
+
+		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
+		String resourceName = (String) componentResourceAttributes.get("name");
+		String rendererType = componentResource.getRendererType();
+
+		return (resourceName == null) && RenderKitBridgeImpl.STYLESHEET_RENDERER_TYPE.equals(rendererType);
 	}
 }

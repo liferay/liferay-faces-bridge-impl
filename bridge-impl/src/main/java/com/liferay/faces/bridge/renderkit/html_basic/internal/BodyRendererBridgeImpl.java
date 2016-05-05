@@ -18,19 +18,15 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
-import javax.portlet.PortalContext;
-import javax.portlet.PortletRequest;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
-import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.util.application.ResourceUtil;
 import com.liferay.faces.util.render.RendererWrapper;
 
@@ -87,48 +83,43 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 
 		facesContext.setResponseWriter(responseWriter);
 
-		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-		PortalContext portalContext = portletRequest.getPortalContext();
+		// The portlet container may not support adding resources to the <head> section. For example, Pluto does not
+		// support adding resources to the <head> section at all, and Liferay runtime and wsrp portlets cannot add
+		// resources to the <head> section either. See PortalContextBridgeImpl and PortalContextBridgeLiferayImpl (in
+		// bridge-ext) for more information. If the portlet container does not support adding a resource to the <head>
+		// section, then add the resource to the top of the portlet body (the outer <div> of the portlet).
+		Map<Object, Object> facesContextAttributes = facesContext.getAttributes();
+		List<UIComponent> resourcesToRelocateToBody = (List<UIComponent>) facesContextAttributes.get(
+				HeadRendererBridgeImpl.RESOURCES_TO_RELOCATE_TO_BODY);
 
-		// If the bridge cannot add a resource to the <head> section, then add it to the top of the portlet body (the
-		// outer <div> of the portlet). If <style> elements or <link rel="stylesheet"> elements are relocated, the
-		// generated html will be invalid because those elements are only valid in the <head> section. See
+		HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
+		Set<String> headResourceIds;
+
+		if (headManagedBean == null) {
+			headResourceIds = new HashSet<String>();
+		}
+		else {
+			headResourceIds = headManagedBean.getHeadResourceIds();
+		}
+
+		// Note: If <style> elements or <link rel="stylesheet"> elements are not able to be rendered in the head, they
+		// will be relocated to the <body>. However, because those elements are only valid in the <head> section, the
+		// generated html will be invalid. Despite the invalidness of the generated html, all popular browsers will
+		// correctly load and render the CSS. See
 		// https://html.spec.whatwg.org/multipage/semantics.html#the-style-element and
 		// https://html.spec.whatwg.org/multipage/semantics.html#the-link-element for more details about valid html
-		// markup. However, the invalid html generated works perfectly in all popular browsers.
-		if (!canAddAllResourceTypesToHead(portalContext)) {
+		// markup.
+		for (UIComponent relocatedResource : resourcesToRelocateToBody) {
 
-			UIViewRoot uiViewRoot = facesContext.getViewRoot();
-			List<UIComponent> headResources = uiViewRoot.getComponentResources(facesContext, "head");
+			relocatedResource.encodeAll(facesContext);
 
-			if (!headResources.isEmpty()) {
-
-				HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
-				Set<String> headResourceIds;
-
-				if (headManagedBean == null) {
-					headResourceIds = new HashSet<String>();
-				}
-				else {
-					headResourceIds = headManagedBean.getHeadResourceIds();
-				}
-
-				for (UIComponent headResource : headResources) {
-
-					String headResourceId = ResourceUtil.getResourceId(headResource);
-
-					if (!HeadResourceUtil.canAddResourceToHead(portalContext, headResource)) {
-
-						headResource.encodeAll(facesContext);
-
-						// In order to prevent script resources from being loaded multiple times, add script resources
-						// to the list of headResourceIds.
-						if (HeadResourceUtil.isScriptResource(headResource)) {
-							headResourceIds.add(headResourceId);
-						}
-					}
-				}
+			// If the portlet's body (<div>) section is reloaded during an Ajax request, stylesheet resources included
+			// in the <div> will be removed and unloaded. Since the stylesheet resources will be unloaded (and reloaded
+			// if necessary), we do not need to track them when they are rendered to the body section. However, scripts
+			// cannot be unloaded, so relocated scripts rendered in the body section must be tracked as if they were
+			// rendered in the <head> section so that they are not loaded multiple times.
+			if (HeadRendererBridgeImpl.isScriptResource(relocatedResource)) {
+				headResourceIds.add(ResourceUtil.getResourceId(relocatedResource));
 			}
 		}
 	}
@@ -141,21 +132,6 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 		facesContext.setResponseWriter(responseWriter);
 		super.encodeEnd(facesContext, uiComponent);
 		facesContext.setResponseWriter(originalResponseWriter);
-	}
-
-	private boolean canAddAllResourceTypesToHead(PortalContext portalContext) {
-
-		boolean canAddStyleSheetResourcesToHead = portalContext.getProperty(
-				BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT) != null;
-		boolean canAddStyleSheetTextToHead = portalContext.getProperty(
-				BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT) != null;
-		boolean canAddScriptResourcesToHead = portalContext.getProperty(
-				BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT) != null;
-		boolean canAddScriptTextToHead = portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT) !=
-			null;
-
-		return (canAddStyleSheetResourcesToHead && canAddStyleSheetTextToHead && canAddScriptResourcesToHead &&
-				canAddScriptTextToHead);
 	}
 
 	@Override
