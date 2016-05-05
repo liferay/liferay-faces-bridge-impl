@@ -61,6 +61,7 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 	 * @see  Renderer#encodeBegin(FacesContext, UIComponent)
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
@@ -83,14 +84,14 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 
 		facesContext.setResponseWriter(responseWriter);
 
-		// The portlet container may not support adding resources to the <head> section. For example, Pluto does not
-		// support adding resources to the <head> section at all, and Liferay runtime and wsrp portlets cannot add
-		// resources to the <head> section either. See PortalContextBridgeImpl and PortalContextBridgeLiferayImpl (in
-		// bridge-ext) for more information. If the portlet container does not support adding a resource to the <head>
-		// section, then add the resource to the top of the portlet body (the outer <div> of the portlet).
+		// Render each of the head resources that were not renderable in the head section into the top of the portlet
+		// body (the outer <div> of the portlet markup). This happens when the portlet container may not support adding
+		// resources to the <head> section. For example, Pluto does not support the feature of adding resources to the
+		// <head> section. Liferay supports it with the exception of "runtime" and WSRP portlets. See
+		// PortalContextBridgeImpl and PortalContextBridgeLiferayImpl (in bridge-ext) for more information.
 		Map<Object, Object> facesContextAttributes = facesContext.getAttributes();
-		List<UIComponent> resourcesToRelocateToBody = (List<UIComponent>) facesContextAttributes.get(
-				HeadRendererBridgeImpl.RESOURCES_TO_RELOCATE_TO_BODY);
+		List<UIComponent> headResourcesToRenderInBody = (List<UIComponent>) facesContextAttributes.get(
+				HeadRendererBridgeImpl.HEAD_RESOURCES_TO_RENDER_IN_BODY);
 
 		HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
 		Set<String> headResourceIds;
@@ -104,22 +105,21 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 
 		// Note: If <style> elements or <link rel="stylesheet"> elements are not able to be rendered in the head, they
 		// will be relocated to the <body>. However, because those elements are only valid in the <head> section, the
-		// generated html will be invalid. Despite the invalidness of the generated html, all popular browsers will
-		// correctly load and render the CSS. See
-		// https://html.spec.whatwg.org/multipage/semantics.html#the-style-element and
-		// https://html.spec.whatwg.org/multipage/semantics.html#the-link-element for more details about valid html
-		// markup.
-		for (UIComponent relocatedResource : resourcesToRelocateToBody) {
+		// generated HTML will be invalid. Despite the invalidness of the generated HTML, all popular browsers will
+		// correctly load and render the CSS. For more details about valid HTML markup, see:
+		// https://html.spec.whatwg.org/multipage/semantics.html#the-style-element
+		// https://html.spec.whatwg.org/multipage/semantics.html#the-link-element
+		for (UIComponent headResource : headResourcesToRenderInBody) {
 
-			relocatedResource.encodeAll(facesContext);
+			headResource.encodeAll(facesContext);
 
 			// If the portlet's body (<div>) section is reloaded during an Ajax request, stylesheet resources included
 			// in the <div> will be removed and unloaded. Since the stylesheet resources will be unloaded (and reloaded
 			// if necessary), we do not need to track them when they are rendered to the body section. However, scripts
 			// cannot be unloaded, so relocated scripts rendered in the body section must be tracked as if they were
 			// rendered in the <head> section so that they are not loaded multiple times.
-			if (HeadRendererBridgeImpl.isScriptResource(relocatedResource)) {
-				headResourceIds.add(ResourceUtil.getResourceId(relocatedResource));
+			if (HeadRendererBridgeImpl.isScriptResource(headResource)) {
+				headResourceIds.add(ResourceUtil.getResourceId(headResource));
 			}
 		}
 	}
