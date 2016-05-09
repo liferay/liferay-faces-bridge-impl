@@ -29,7 +29,7 @@ import javax.faces.context.ExternalContext;
 import javax.servlet.ServletContext;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
-import com.liferay.faces.bridge.context.ContextMapFactory;
+import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 
 
 /**
