@@ -38,7 +38,7 @@ import javax.servlet.jsp.JspContext;
 import com.liferay.faces.bridge.config.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.config.internal.PortletConfigWrapper;
-import com.liferay.faces.bridge.context.ContextMapFactory;
+import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.context.internal.LegacyBridgeContext;
 import com.liferay.faces.bridge.preference.internal.MutablePreferenceMap;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
