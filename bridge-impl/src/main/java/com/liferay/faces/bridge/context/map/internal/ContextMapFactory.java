@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.FacesWrapper;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
@@ -28,6 +27,7 @@ import javax.servlet.ServletContext;
 
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.util.helper.Wrapper;
 
 
 /**
@@ -40,7 +40,7 @@ import com.liferay.faces.bridge.scope.BridgeRequestScope;
  *
  * @author  Neil Griffin
  */
-public abstract class ContextMapFactory implements FacesWrapper<ContextMapFactory> {
+public abstract class ContextMapFactory implements Wrapper<ContextMapFactory> {
 
 	/**
 	 * Returns a {@link Map} of application-scoped attributes stored in the underlying {@link
