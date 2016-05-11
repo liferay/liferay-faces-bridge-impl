@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.liferay.faces.bridge.issues</groupId>
-		<artifactId>liferay-faces-bridge-portlet-issues</artifactId>
+		<artifactId>liferay-faces-bridge-issues</artifactId>
 		<version>4.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>FACES-1470-portlet</artifactId>
+	<artifactId>FACES-224-portlet</artifactId>
 	<packaging>war</packaging>
-	<name>FACES-1470</name>
+	<name>FACES-224</name>
 
 	<profiles>
 		<profile>
@@ -25,12 +25,7 @@
 		</profile>
 	</profiles>
 
-
 	<dependencies>
-		<!--<dependency>-->
-			<!--<groupId>com.liferay.portal</groupId>-->
-			<!--<artifactId>portal-service</artifactId>-->
-		<!--</dependency>-->
 		<dependency>
 			<groupId>javax.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
