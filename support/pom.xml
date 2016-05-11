@@ -13,6 +13,11 @@
 	<packaging>pom</packaging>
 	<name>Liferay Faces Bridge Support</name>
 
+	<modules>
+		<module>cdi/cdi-compat</module>
+		<module>cdi/cdi-weld</module>
+	</modules>
+
 	<profiles>
 
 		<!-- The release profile ensures that the version elements in the child pom.xml descriptors -->
@@ -20,6 +25,8 @@
 		<profile>
 			<id>release</id>
 			<modules>
+				<module>cdi/cdi-compat</module>
+				<module>cdi/cdi-weld</module>
 				<module>weblogic</module>
 			</modules>
 		</profile>
