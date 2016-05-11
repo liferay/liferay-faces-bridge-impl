@@ -42,7 +42,7 @@
 				<dependency>
 					<groupId>com.liferay.faces.bridge</groupId>
 					<artifactId>liferay-faces-cdi-compat</artifactId>
-					<version>${project.version}</version>
+					<version>3.2.5-ga6</version>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -112,7 +112,7 @@
 		<dependency>
 			<groupId>com.liferay.faces.bridge</groupId>
 			<artifactId>liferay-faces-cdi-weld</artifactId>
-			<version>${project.version}</version>
+			<version>3.2.5-ga6</version>
 		</dependency>
 	</dependencies>
 
