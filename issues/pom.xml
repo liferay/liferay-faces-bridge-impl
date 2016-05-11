@@ -14,7 +14,7 @@
 	<name>Liferay Faces Bridge Issues</name>
 
 	<modules>
-		<module>bridge</module>
+		<module>FACES-1478-portlet</module>
 	</modules>
 
 	<profiles>
@@ -24,6 +24,15 @@
 				<module>lsv</module>
 			</modules>
 		</profile>
+		<profile>
+			<id>pluto</id>
+			<dependencies>
+				<dependency>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
 	</profiles>
 
 	<build>
@@ -31,6 +40,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-install-plugin</artifactId>
 				<configuration>
 					<skip>true</skip>
 				</configuration>
