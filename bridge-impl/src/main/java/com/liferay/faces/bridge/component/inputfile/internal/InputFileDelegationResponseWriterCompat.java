@@ -16,8 +16,7 @@
 package com.liferay.faces.bridge.component.inputfile.internal;
 
 import javax.faces.context.ResponseWriter;
-
-import com.liferay.faces.util.render.internal.DelegationResponseWriterBase;
+import javax.faces.context.ResponseWriterWrapper;
 
 
 /**
@@ -25,9 +24,17 @@ import com.liferay.faces.util.render.internal.DelegationResponseWriterBase;
  *
  * @author  Neil Griffin
  */
-public abstract class InputFileDelegationResponseWriterCompat extends DelegationResponseWriterBase {
+public abstract class InputFileDelegationResponseWriterCompat extends ResponseWriterWrapper {
+
+	// Private Members
+	private ResponseWriter wrappedResponseWriter;
 
 	public InputFileDelegationResponseWriterCompat(ResponseWriter responseWriter) {
-		super(responseWriter);
+		this.wrappedResponseWriter = responseWriter;
+	}
+
+	@Override
+	public ResponseWriter getWrapped() {
+		return wrappedResponseWriter;
 	}
 }
