@@ -8,8 +8,8 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.liferay.faces.bridge</groupId>
-	<artifactId>liferay-faces-bridge-impl-parent</artifactId>
+	<groupId>com.liferay.faces</groupId>
+	<artifactId>com.liferay.faces.bridge.impl.parent</artifactId>
 	<version>3.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Liferay Faces Bridge Impl Parent</name>
@@ -157,8 +157,8 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>com.liferay.faces.maven</groupId>
-					<artifactId>liferay-faces-maven-plugin</artifactId>
+					<groupId>com.liferay.faces</groupId>
+					<artifactId>com.liferay.faces.maven.plugin</artifactId>
 					<version>1.0.0-SNAPSHOT</version>
 					<configuration>
 						<!-- liferay.auto.deploy.dir is the location where WARs are copied for deployment -->
@@ -774,32 +774,32 @@
 				<version>6.2.0.2</version>
 			</dependency>
 			<dependency>
-				<groupId>com.liferay.faces.alloy</groupId>
-				<artifactId>liferay-faces-alloy</artifactId>
+				<groupId>com.liferay.faces</groupId>
+				<artifactId>com.liferay.faces.alloy</artifactId>
 				<version>${liferay.faces.alloy.version}</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.liferay.faces.alloy</groupId>
-				<artifactId>liferay-faces-alloy-reslib</artifactId>
+				<groupId>com.liferay.faces</groupId>
+				<artifactId>com.liferay.faces.alloy.reslib</artifactId>
 				<version>${liferay.faces.alloy.version}</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.liferay.faces.bridge</groupId>
-				<artifactId>liferay-faces-bridge-api</artifactId>
+				<groupId>com.liferay.faces</groupId>
+				<artifactId>com.liferay.faces.bridge.api</artifactId>
 				<version>${project.version}</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.liferay.faces.bridge</groupId>
-				<artifactId>liferay-faces-bridge-impl</artifactId>
+				<groupId>com.liferay.faces</groupId>
+				<artifactId>com.liferay.faces.bridge.impl</artifactId>
 				<version>${project.version}</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.liferay.faces.util</groupId>
-				<artifactId>liferay-faces-util</artifactId>
+				<groupId>com.liferay.faces</groupId>
+				<artifactId>com.liferay.faces.util</artifactId>
 				<version>2.0.0-SNAPSHOT</version>
 				<scope>compile</scope>
 			</dependency>

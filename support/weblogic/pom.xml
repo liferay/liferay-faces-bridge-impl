@@ -3,8 +3,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.liferay.faces.bridge.support</groupId>
-		<artifactId>liferay-faces-bridge-support</artifactId>
+		<groupId>com.liferay.faces.support</groupId>
+		<artifactId>com.liferay.faces.support.bridge.parent</artifactId>
 		<version>3.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>

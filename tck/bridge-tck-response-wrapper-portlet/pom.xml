@@ -2,31 +2,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<parent>
-		<groupId>com.liferay.faces.bridge.tck</groupId>
-		<artifactId>liferay-faces-bridge-tck</artifactId>
+		<groupId>com.liferay.faces.test</groupId>
+		<artifactId>com.liferay.faces.test.bridge.tck.parent</artifactId>
 		<version>3.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>bridge-tck-response-wrapper-portlet</artifactId>
+	<artifactId>com.liferay.faces.test.bridge.tck.response.wrapper.portlet</artifactId>
 	<name>Bridge TCK Response Wrapper Portlet</name>
 	<packaging>war</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>bridge-tck-common</artifactId>
+			<artifactId>com.liferay.faces.test.bridge.tck.common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>bridge-tck-compat</artifactId>
+			<artifactId>com.liferay.faces.test.bridge.tck.compat</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces.bridge</groupId>
-			<artifactId>liferay-faces-bridge-impl</artifactId>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.bridge.impl</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -61,8 +61,8 @@
 			<id>liferay</id>
 			<dependencies>
 				<dependency>
-					<groupId>com.liferay.faces.bridge</groupId>
-					<artifactId>liferay-faces-bridge-ext</artifactId>
+					<groupId>com.liferay.faces</groupId>
+					<artifactId>com.liferay.faces.bridge.ext</artifactId>
 					<version>${liferay.faces.bridge.ext.version}</version>
 				</dependency>
 			</dependencies>
