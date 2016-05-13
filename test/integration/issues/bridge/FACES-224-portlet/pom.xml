@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.liferay.faces.bridge.test</groupId>
-		<artifactId>liferay-faces-bridge-test-integration-portlet-issues</artifactId>
+		<groupId>com.liferay.faces.test</groupId>
+		<artifactId>com.liferay.faces.test.bridge.issue.portlet.integration.parent</artifactId>
 		<version>5.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>test-FACES-244-portlet</artifactId>
+	<artifactId>com.liferay.faces.test.issue.244.portlet</artifactId>
 	<packaging>jar</packaging>
 	<name>FACES-244-portlet integration tests</name>
 

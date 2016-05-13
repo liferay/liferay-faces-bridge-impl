@@ -3,13 +3,13 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.liferay.faces.bridge.test</groupId>
-		<artifactId>liferay-faces-bridge-test-integration-issues</artifactId>
+		<groupId>com.liferay.faces.test</groupId>
+		<artifactId>com.liferay.faces.test.bridge.issue.integration.parent</artifactId>
 		<version>5.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>liferay-faces-bridge-test-integration-portlet-issues</artifactId>
+	<artifactId>com.liferay.faces.test.bridge.issue.portlet.integration.parent</artifactId>
 	<name>Liferay Faces Bridge Test Portlet Issues</name>
 	<packaging>pom</packaging>
 

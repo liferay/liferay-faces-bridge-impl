@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.liferay.faces.bridge.test</groupId>
-		<artifactId>liferay-faces-bridge-test</artifactId>
+		<groupId>com.liferay.faces.test</groupId>
+		<artifactId>com.liferay.faces.test.bridge.parent</artifactId>
 		<version>5.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>liferay-faces-bridge-test-integration</artifactId>
+	<artifactId>com.liferay.faces.test.bridge.integration.parent</artifactId>
 	<packaging>pom</packaging>
 	<name>Liferay Faces Bridge Test Integration</name>
 

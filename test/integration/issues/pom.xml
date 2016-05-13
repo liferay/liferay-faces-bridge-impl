@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.liferay.faces.bridge.test</groupId>
-		<artifactId>liferay-faces-bridge-test-integration</artifactId>
+		<groupId>com.liferay.faces.test</groupId>
+		<artifactId>com.liferay.faces.test.bridge.integration.parent</artifactId>
 		<version>5.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>liferay-faces-bridge-test-integration-issues</artifactId>
+	<artifactId>com.liferay.faces.test.bridge.issue.integration.parent</artifactId>
 	<packaging>pom</packaging>
 	<name>Liferay Faces Test Issues</name>
 
@@ -20,8 +20,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.liferay.faces.bridge.test</groupId>
-			<artifactId>liferay-faces-bridge-test-integration-util</artifactId>
+			<groupId>com.liferay.faces.test</groupId>
+			<artifactId>com.liferay.faces.test.bridge.integration.util</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

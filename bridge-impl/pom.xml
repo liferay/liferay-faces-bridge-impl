@@ -3,12 +3,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.liferay.faces.bridge</groupId>
-		<artifactId>liferay-faces-bridge-impl-parent</artifactId>
+		<groupId>com.liferay.faces</groupId>
+		<artifactId>com.liferay.faces.bridge.impl.parent</artifactId>
 		<version>5.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>liferay-faces-bridge-impl</artifactId>
+	<artifactId>com.liferay.faces.bridge.impl</artifactId>
 	<name>Liferay Faces Bridge Implementation</name>
 	<description>Implementation of the API for Liferay Faces Bridge</description>
 
@@ -26,12 +26,12 @@
 		</dependency>
 		<!-- END: Only required for bridge:inputFile -->
 		<dependency>
-			<groupId>com.liferay.faces.bridge</groupId>
-			<artifactId>liferay-faces-bridge-api</artifactId>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.bridge.api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces.util</groupId>
-			<artifactId>liferay-faces-util</artifactId>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.util</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.el</groupId>
@@ -122,16 +122,16 @@
 										<argument>${project.build.directory}/${short.namespace}-tags.xml</argument>
 									</arguments>
 									<executableDependency>
-										<groupId>com.liferay.faces.generator</groupId>
-										<artifactId>liferay-faces-generator</artifactId>
+										<groupId>com.liferay.faces</groupId>
+										<artifactId>com.liferay.faces.generator</artifactId>
 									</executableDependency>
 								</configuration>
 							</execution>
 						</executions>
 						<dependencies>
 							<dependency>
-								<groupId>com.liferay.faces.generator</groupId>
-								<artifactId>liferay-faces-generator</artifactId>
+								<groupId>com.liferay.faces</groupId>
+								<artifactId>com.liferay.faces.generator</artifactId>
 								<version>1.0-SNAPSHOT</version>
 							</dependency>
 						</dependencies>
