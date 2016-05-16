@@ -144,7 +144,7 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 		boolean namespacedViewStateSupported = true;
 		Product jsf = ProductMap.getInstance().get(ProductConstants.JSF);
 
-		if (jsf.getTitle().equals(ProductConstants.MOJARRA)) {
+		if (ProductConstants.MOJARRA.equals(jsf.getTitle())) {
 
 			if (jsf.getMajorVersion() == 2) {
 
