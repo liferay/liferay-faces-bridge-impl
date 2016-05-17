@@ -601,11 +601,8 @@
 								</goals>
 								<configuration>
 									<target>
-										<copy todir="${pluto.deploy.dir}">
-											<fileset dir="target">
-												<include name="${project.artifactId}*.war" />
-											</fileset>
-										</copy>
+										<copy file="${project.build.directory}/${project.build.finalName}.war"
+												tofile="${pluto.deploy.dir}/${project.artifactId}.war" />
 									</target>
 								</configuration>
 							</execution>
