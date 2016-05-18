@@ -78,7 +78,7 @@
 		<module>bridge-impl</module>
 		<module>support</module>
 		<module>demo</module>
-		<module>issues</module>
+		<module>issue</module>
 		<module>tck</module>
 		<module>test</module>
 	</modules>
