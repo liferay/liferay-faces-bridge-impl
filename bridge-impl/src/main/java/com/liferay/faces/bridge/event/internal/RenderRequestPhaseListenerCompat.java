@@ -17,7 +17,7 @@ package com.liferay.faces.bridge.event.internal;
 
 import javax.portlet.PortletConfig;
 
-import com.liferay.faces.bridge.config.internal.PortletConfigParam;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 
 
 /**
