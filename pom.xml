@@ -77,7 +77,7 @@
 	<modules>
 		<module>bridge-ice</module>
 		<module>bridge-impl</module>
-		<module>demos</module>
+		<module>demo</module>
 		<module>issues</module>
 		<module>tck</module>
 		<module>test</module>
