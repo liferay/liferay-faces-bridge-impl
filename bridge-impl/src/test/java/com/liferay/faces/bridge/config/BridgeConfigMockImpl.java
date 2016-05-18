@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.portlet.PortletConfig;
-
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.config.ConfiguredSystemEventListener;
 

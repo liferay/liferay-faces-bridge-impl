@@ -40,7 +40,7 @@ import com.liferay.faces.bridge.PortletModeValidator;
 import com.liferay.faces.bridge.PortletModeValidatorFactory;
 import com.liferay.faces.bridge.WindowStateValidator;
 import com.liferay.faces.bridge.WindowStateValidatorFactory;
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;

@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
 
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 

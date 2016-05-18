@@ -34,7 +34,7 @@ import javax.portlet.ResourceURL;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
