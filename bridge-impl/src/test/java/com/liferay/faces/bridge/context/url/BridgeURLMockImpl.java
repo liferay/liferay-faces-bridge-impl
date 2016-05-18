@@ -17,11 +17,10 @@ package com.liferay.faces.bridge.context.url;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 
 import javax.portlet.BaseURL;
 
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.internal.BaseURLNonEncodedImpl;
 import com.liferay.faces.bridge.internal.BridgeURLBase;
 

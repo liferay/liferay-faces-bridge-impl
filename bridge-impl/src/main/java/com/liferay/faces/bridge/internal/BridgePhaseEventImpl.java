@@ -32,7 +32,7 @@ import javax.portlet.faces.BridgeEventHandler;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.event.EventNavigationResult;
 
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.event.EventPayloadWrapper;
 import com.liferay.faces.bridge.event.internal.IPCPhaseListener;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
