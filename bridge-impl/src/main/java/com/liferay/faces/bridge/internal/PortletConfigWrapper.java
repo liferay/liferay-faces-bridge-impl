@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.config.internal;
+package com.liferay.faces.bridge.internal;
 
 import java.util.Enumeration;
 import java.util.Locale;
