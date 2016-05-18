@@ -53,7 +53,7 @@ import org.apache.commons.fileupload.util.Streams;
 import org.apache.commons.io.FileUtils;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
-import com.liferay.faces.bridge.config.internal.PortletConfigParam;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

@@ -27,7 +27,6 @@ import javax.portlet.PortletResponse;
 import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.config.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.internal.RenderRedirectWriterImpl;
 
 
