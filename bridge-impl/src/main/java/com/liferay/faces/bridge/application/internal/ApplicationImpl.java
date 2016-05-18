@@ -28,7 +28,7 @@ import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.bridge.component.internal.UIViewRootBridgeImpl;
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.config.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.config.ConfiguredSystemEventListener;

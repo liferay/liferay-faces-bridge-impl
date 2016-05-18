@@ -27,7 +27,7 @@ import javax.portlet.ResourceResponse;
 
 import com.liferay.faces.bridge.BridgePhase;
 import com.liferay.faces.bridge.BridgePhaseFactory;
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 
 
 /**

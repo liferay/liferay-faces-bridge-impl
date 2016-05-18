@@ -20,7 +20,7 @@ import javax.faces.FacesWrapper;
 import javax.portlet.MimeResponse;
 import javax.portlet.faces.BridgeWriteBehindResponse;
 
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 
 
 /**
