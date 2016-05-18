@@ -38,7 +38,7 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeException;
 import javax.servlet.http.Cookie;
 
-import com.liferay.faces.bridge.config.internal.PortletConfigParam;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.util.internal.FileNameUtil;
