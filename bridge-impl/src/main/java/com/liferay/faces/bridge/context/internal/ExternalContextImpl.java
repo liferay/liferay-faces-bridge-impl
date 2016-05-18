@@ -275,12 +275,13 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 								BridgePortalContext.CREATE_RENDER_URL_DURING_ACTION_PHASE_SUPPORT);
 
 						if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) &&
-								(createRenderUrlDuringActionPhaseSupport != null) && bridgeURI.isAbsolute()) {
+							(createRenderUrlDuringActionPhaseSupport != null)) {
 
 							// Redirect to the targeted view.
-							// bridgeRedirectURL.setParameter(Bridge.FACES_VIEW_ID_PARAMETER, newViewId);
+							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext,
+								bridgeURI.toString(), null);
 							ActionResponse actionResponse = (ActionResponse) portletResponse;
-							actionResponse.sendRedirect(bridgeURI.toString());
+							actionResponse.sendRedirect(bridgeRedirectURL.toString());
 						}
 
 						// Otherwise, if running in the ACTION_PHASE or EVENT_PHASE of the portlet lifecycle, then
