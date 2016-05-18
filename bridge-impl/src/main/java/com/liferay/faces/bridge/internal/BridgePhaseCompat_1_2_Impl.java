@@ -22,7 +22,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.faces.Bridge.PortletPhase;
 
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.context.internal.LegacyBridgeContext;
 
 

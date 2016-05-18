@@ -27,7 +27,7 @@ import javax.portlet.faces.BridgeException;
 
 import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.BridgeURLFactory;
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
 

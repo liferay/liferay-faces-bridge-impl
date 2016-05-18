@@ -19,7 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.lifecycle.Lifecycle;
 import javax.portlet.PortletConfig;
 
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 
 
 /**

@@ -19,7 +19,7 @@ import javax.faces.FacesException;
 import javax.portlet.MimeResponse;
 import javax.portlet.faces.BridgeWriteBehindResponse;
 
-import com.liferay.faces.bridge.config.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.helper.Wrapper;
 
 
