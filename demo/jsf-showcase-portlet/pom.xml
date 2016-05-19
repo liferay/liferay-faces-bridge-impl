@@ -70,6 +70,22 @@
 			<version>${liferay.faces.showcase.version}</version>
 			<type>war</type>
 		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jstl-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
 	</dependencies>
 
 	<!-- Note that this pom.xml provides similar functionality as the maven-assembly-plugin -->
@@ -85,7 +101,7 @@
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<dependentWarExcludes>**/*jsf-*.jar,**/showcase-common*.jar,**/*faces-util*.jar</dependentWarExcludes>
+					<dependentWarExcludes>WEB-INF/lib/*</dependentWarExcludes>
 				</configuration>
 			</plugin>
 		</plugins>
