@@ -444,7 +444,9 @@ public abstract class BridgeURLBase implements BridgeURL {
 				if (!modeChanged) {
 
 					String contextRelativePath = bridgeURI.getContextRelativePath(contextPath);
-					toStringParameters.add(new URIParameter(getViewIdParameterName(), contextRelativePath));
+					if (contextRelativePath != null) {
+						toStringParameters.add(new URIParameter(getViewIdParameterName(), contextRelativePath));
+					}
 				}
 			}
 		}
