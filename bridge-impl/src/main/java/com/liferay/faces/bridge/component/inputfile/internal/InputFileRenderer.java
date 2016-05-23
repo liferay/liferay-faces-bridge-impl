@@ -32,7 +32,6 @@ import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.event.FileUploadEvent;
 import com.liferay.faces.bridge.model.UploadedFile;
-import com.liferay.faces.util.render.internal.DelegationResponseWriter;
 
 
 /**
@@ -82,7 +81,7 @@ public class InputFileRenderer extends InputFileRendererCompat {
 	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
-		DelegationResponseWriter delegationResponseWriter = new InputFileDelegationResponseWriter(responseWriter);
+		ResponseWriter delegationResponseWriter = new InputFileDelegationResponseWriter(responseWriter);
 		super.encodeEnd(facesContext, uiComponent, delegationResponseWriter);
 	}
 
