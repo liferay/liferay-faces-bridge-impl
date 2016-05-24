@@ -35,6 +35,9 @@ import com.liferay.faces.util.logging.LoggerFactory;
 @FlowScoped("survey")
 public class SurveyFlowModelBean implements Serializable {
 
+	// serialVersionUID
+	private static final long serialVersionUID = 1400852859531077077L;
+
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(SurveyFlowModelBean.class);
 

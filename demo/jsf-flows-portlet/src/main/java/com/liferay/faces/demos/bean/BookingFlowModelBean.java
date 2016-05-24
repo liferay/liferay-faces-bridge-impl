@@ -42,6 +42,9 @@ import com.liferay.faces.util.logging.LoggerFactory;
 @FlowScoped("booking")
 public class BookingFlowModelBean implements Serializable {
 
+	// serialVersionUID
+	private static final long serialVersionUID = 8604734954883987583L;
+
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BookingFlowModelBean.class);
 
