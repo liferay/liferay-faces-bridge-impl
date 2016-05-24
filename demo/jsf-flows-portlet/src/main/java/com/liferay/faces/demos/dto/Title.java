@@ -39,12 +39,12 @@ public class Title implements Serializable {
 		return abbreviation;
 	}
 
-	public void setAbbreviation(String abbreviation) {
-		this.abbreviation = abbreviation;
-	}
-
 	public long getTitleId() {
 		return titleId;
+	}
+
+	public void setAbbreviation(String abbreviation) {
+		this.abbreviation = abbreviation;
 	}
 
 	public void setTitleId(long titleId) {

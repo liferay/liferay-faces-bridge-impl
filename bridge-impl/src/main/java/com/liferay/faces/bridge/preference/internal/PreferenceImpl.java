@@ -36,24 +36,12 @@ public class PreferenceImpl implements Preference {
 		this.name = name;
 	}
 
-	public void reset() throws ReadOnlyException {
-		portletPreferences.reset(name);
-	}
-
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getValue() {
 		return portletPreferences.getValue(name, null);
-	}
-
-	public void setValue(String value) throws ReadOnlyException {
-		portletPreferences.setValue(name, value);
 	}
 
 	public List<String> getValues() {
@@ -65,11 +53,23 @@ public class PreferenceImpl implements Preference {
 		return preferenceValuesList;
 	}
 
-	public void setValues(String[] values) throws ReadOnlyException {
-		portletPreferences.setValues(name, values);
-	}
-
 	public boolean isReadOnly() {
 		return portletPreferences.isReadOnly(name);
+	}
+
+	public void reset() throws ReadOnlyException {
+		portletPreferences.reset(name);
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setValue(String value) throws ReadOnlyException {
+		portletPreferences.setValue(name, value);
+	}
+
+	public void setValues(String[] values) throws ReadOnlyException {
+		portletPreferences.setValues(name, values);
 	}
 }

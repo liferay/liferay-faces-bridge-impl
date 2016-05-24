@@ -227,31 +227,9 @@ public class HeadRendererBridgeImpl extends Renderer {
 		// no-op because Portlets are forbidden from rendering the <head>...</head> section.
 	}
 
-	private boolean ableToAddResourceToHead(PortalContext portalContext, UIComponent componentResource) {
-
-		if (isStyleSheetResource(componentResource)) {
-			return (portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT) != null);
-		}
-		else if (isScriptResource(componentResource)) {
-			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT) != null);
-		}
-		else if (isInlineStyleSheet(componentResource)) {
-			return (portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT) != null);
-		}
-		else if (isInlineScript(componentResource)) {
-			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT) != null);
-		}
-		else {
-			return false;
-		}
-	}
-
-	private boolean isStyleSheetResource(UIComponent componentResource) {
-
-		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
-		String resourceName = (String) componentResourceAttributes.get("name");
-
-		return (resourceName != null) && resourceName.endsWith("css");
+	@Override
+	public boolean getRendersChildren() {
+		return true;
 	}
 
 	protected List<UIComponent> getFirstResources(FacesContext facesContext, UIComponent uiComponent) {
@@ -296,9 +274,23 @@ public class HeadRendererBridgeImpl extends Renderer {
 		return resources;
 	}
 
-	@Override
-	public boolean getRendersChildren() {
-		return true;
+	private boolean ableToAddResourceToHead(PortalContext portalContext, UIComponent componentResource) {
+
+		if (isStyleSheetResource(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT) != null);
+		}
+		else if (isScriptResource(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT) != null);
+		}
+		else if (isInlineStyleSheet(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT) != null);
+		}
+		else if (isInlineScript(componentResource)) {
+			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT) != null);
+		}
+		else {
+			return false;
+		}
 	}
 
 	private boolean isInlineScript(UIComponent componentResource) {
@@ -317,5 +309,13 @@ public class HeadRendererBridgeImpl extends Renderer {
 		String rendererType = componentResource.getRendererType();
 
 		return (resourceName == null) && RenderKitBridgeImpl.STYLESHEET_RENDERER_TYPE.equals(rendererType);
+	}
+
+	private boolean isStyleSheetResource(UIComponent componentResource) {
+
+		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
+		String resourceName = (String) componentResourceAttributes.get("name");
+
+		return (resourceName != null) && resourceName.endsWith("css");
 	}
 }

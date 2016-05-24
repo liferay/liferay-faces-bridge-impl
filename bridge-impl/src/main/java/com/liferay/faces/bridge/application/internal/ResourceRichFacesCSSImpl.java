@@ -76,6 +76,11 @@ public class ResourceRichFacesCSSImpl extends FilteredResourceBase {
 	}
 
 	@Override
+	public Resource getWrapped() {
+		return wrappedResource;
+	}
+
+	@Override
 	protected String filter(String cssText) {
 
 		// Since the same image URL often appears more then once, maintain a cache of URLs for fast lookup.
@@ -150,10 +155,5 @@ public class ResourceRichFacesCSSImpl extends FilteredResourceBase {
 		}
 
 		return cssText;
-	}
-
-	@Override
-	public Resource getWrapped() {
-		return wrappedResource;
 	}
 }

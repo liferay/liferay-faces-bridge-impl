@@ -129,6 +129,72 @@ public class TCKResourceResponseWrapper extends ResourceResponseWrapper implemen
 		}
 	}
 
+	public int getBufferSize() {
+
+		if (isBytes()) {
+			return mByteStream.size();
+		}
+		else if (isChars()) {
+			return mCharWriter.size();
+		}
+		else {
+			return 0;
+		}
+	}
+
+	public byte[] getBytes() {
+
+		if (isBytes()) {
+			return mByteStream.toByteArray();
+		}
+		else {
+			return null;
+		}
+	}
+
+	public char[] getChars() {
+
+		if (isChars()) {
+			mCharWriter.flush();
+
+			return mCharWriter.toCharArray();
+		}
+		else {
+			return null;
+		}
+	}
+
+	public OutputStream getPortletOutputStream() throws IOException {
+
+		if (mPrintWriter != null) {
+			throw new IllegalStateException();
+		}
+
+		if (mByteStream == null) {
+			mByteStream = new DirectByteArrayServletOutputStream();
+		}
+
+		return mByteStream;
+	}
+
+	public int getStatus() {
+		return mStatus;
+	}
+
+	public PrintWriter getWriter() throws IOException {
+
+		if (mByteStream != null) {
+			throw new IllegalStateException();
+		}
+
+		if (mPrintWriter == null) {
+			mCharWriter = new CharArrayWriter(4096);
+			mPrintWriter = new PrintWriter(mCharWriter);
+		}
+
+		return mPrintWriter;
+	}
+
 	/**
 	 * Called by the bridge to detect whether this response actively participated in the Faces writeBehind support and
 	 * hence has data that should be written after the View is rendered. Typically, this method will return <code>
@@ -139,6 +205,14 @@ public class TCKResourceResponseWrapper extends ResourceResponseWrapper implemen
 	 */
 	public boolean hasFacesWriteBehindMarkup() {
 		return mHasWriteBehindMarkup;
+	}
+
+	public boolean isBytes() {
+		return (mByteStream != null);
+	}
+
+	public boolean isChars() {
+		return (mCharWriter != null);
 	}
 
 	public void reset() {
@@ -194,80 +268,6 @@ public class TCKResourceResponseWrapper extends ResourceResponseWrapper implemen
 		else {
 			return null;
 		}
-	}
-
-	public int getBufferSize() {
-
-		if (isBytes()) {
-			return mByteStream.size();
-		}
-		else if (isChars()) {
-			return mCharWriter.size();
-		}
-		else {
-			return 0;
-		}
-	}
-
-	public byte[] getBytes() {
-
-		if (isBytes()) {
-			return mByteStream.toByteArray();
-		}
-		else {
-			return null;
-		}
-	}
-
-	public char[] getChars() {
-
-		if (isChars()) {
-			mCharWriter.flush();
-
-			return mCharWriter.toCharArray();
-		}
-		else {
-			return null;
-		}
-	}
-
-	public OutputStream getPortletOutputStream() throws IOException {
-
-		if (mPrintWriter != null) {
-			throw new IllegalStateException();
-		}
-
-		if (mByteStream == null) {
-			mByteStream = new DirectByteArrayServletOutputStream();
-		}
-
-		return mByteStream;
-	}
-
-	public boolean isBytes() {
-		return (mByteStream != null);
-	}
-
-	public boolean isChars() {
-		return (mCharWriter != null);
-	}
-
-	public int getStatus() {
-		return mStatus;
-	}
-
-	public PrintWriter getWriter() throws IOException {
-
-		if (mByteStream != null) {
-			throw new IllegalStateException();
-		}
-
-		if (mPrintWriter == null) {
-			mCharWriter = new CharArrayWriter(4096);
-			mPrintWriter = new PrintWriter(mCharWriter);
-		}
-
-		return mPrintWriter;
 	}
 
 	private class DirectByteArrayOutputStream extends ByteArrayOutputStream {

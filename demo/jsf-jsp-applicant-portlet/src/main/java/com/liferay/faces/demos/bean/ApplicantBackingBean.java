@@ -93,6 +93,18 @@ public class ApplicantBackingBean implements Serializable {
 		}
 	}
 
+	public InputFile getAttachment1() {
+		return attachment1;
+	}
+
+	public InputFile getAttachment2() {
+		return attachment2;
+	}
+
+	public InputFile getAttachment3() {
+		return attachment3;
+	}
+
 	public void postalCodeListener(ValueChangeEvent valueChangeEvent) {
 
 		try {
@@ -108,6 +120,36 @@ public class ApplicantBackingBean implements Serializable {
 			logger.error(e.getMessage(), e);
 			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
+	}
+
+	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
+
+		// Injected via @ManagedProperty annotation
+		this.applicantModelBean = applicantModelBean;
+	}
+
+	public void setApplicantViewBean(ApplicantViewBean applicantViewBean) {
+
+		// Injected via @ManagedProperty annotation
+		this.applicantViewBean = applicantViewBean;
+	}
+
+	public void setAttachment1(InputFile attachment1) {
+		this.attachment1 = attachment1;
+	}
+
+	public void setAttachment2(InputFile attachment2) {
+		this.attachment2 = attachment2;
+	}
+
+	public void setAttachment3(InputFile attachment3) {
+		this.attachment3 = attachment3;
+	}
+
+	public void setListModelBean(ListModelBean listModelBean) {
+
+		// Injected via @ManagedProperty annotation
+		this.listModelBean = listModelBean;
 	}
 
 	public String submit() {
@@ -182,47 +224,5 @@ public class ApplicantBackingBean implements Serializable {
 		}
 
 		applicantViewBean.setFileUploaderRendered(false);
-	}
-
-	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
-
-		// Injected via @ManagedProperty annotation
-		this.applicantModelBean = applicantModelBean;
-	}
-
-	public void setApplicantViewBean(ApplicantViewBean applicantViewBean) {
-
-		// Injected via @ManagedProperty annotation
-		this.applicantViewBean = applicantViewBean;
-	}
-
-	public InputFile getAttachment1() {
-		return attachment1;
-	}
-
-	public void setAttachment1(InputFile attachment1) {
-		this.attachment1 = attachment1;
-	}
-
-	public InputFile getAttachment2() {
-		return attachment2;
-	}
-
-	public void setAttachment2(InputFile attachment2) {
-		this.attachment2 = attachment2;
-	}
-
-	public InputFile getAttachment3() {
-		return attachment3;
-	}
-
-	public void setAttachment3(InputFile attachment3) {
-		this.attachment3 = attachment3;
-	}
-
-	public void setListModelBean(ListModelBean listModelBean) {
-
-		// Injected via @ManagedProperty annotation
-		this.listModelBean = listModelBean;
 	}
 }

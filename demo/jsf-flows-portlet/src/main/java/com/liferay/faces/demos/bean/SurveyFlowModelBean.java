@@ -46,6 +46,18 @@ public class SurveyFlowModelBean implements Serializable {
 	private String answer2;
 	private Customer customer;
 
+	public String getAnswer1() {
+		return answer1;
+	}
+
+	public String getAnswer2() {
+		return answer2;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 		logger.debug("SurveyFlowModelBean initialized!");
@@ -58,24 +70,12 @@ public class SurveyFlowModelBean implements Serializable {
 		scopeTrackingBean.setSurveyFlowModelBeanInScope(false);
 	}
 
-	public String getAnswer1() {
-		return answer1;
-	}
-
 	public void setAnswer1(String answer1) {
 		this.answer1 = answer1;
 	}
 
-	public String getAnswer2() {
-		return answer2;
-	}
-
 	public void setAnswer2(String answer2) {
 		this.answer2 = answer2;
-	}
-
-	public Customer getCustomer() {
-		return customer;
 	}
 
 	public void setCustomer(Customer customer) {

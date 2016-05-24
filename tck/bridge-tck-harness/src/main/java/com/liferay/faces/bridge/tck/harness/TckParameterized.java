@@ -117,6 +117,11 @@ public class TckParameterized extends Suite {
 		}
 
 		@Override
+		protected String getName() {
+			return String.format("[%s]", fParameterSetNumber);
+		}
+
+		@Override
 		protected String testName(final FrameworkMethod method) {
 
 			// return String.format("%s[%s]", method.getName(), fParameterSetNumber);
@@ -137,11 +142,6 @@ public class TckParameterized extends Suite {
 				throw new Exception(String.format("%s.%s() must return a Collection of arrays.",
 						getTestClass().getName(), getParametersMethod(getTestClass()).getName()));
 			}
-		}
-
-		@Override
-		protected String getName() {
-			return String.format("[%s]", fParameterSetNumber);
 		}
 	}
 }

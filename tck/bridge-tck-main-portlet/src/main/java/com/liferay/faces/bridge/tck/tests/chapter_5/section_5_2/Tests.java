@@ -594,6 +594,10 @@ public class Tests extends Object implements PhaseListener {
 		}
 	}
 
+	public PhaseId getPhaseId() {
+		return PhaseId.ANY_PHASE;
+	}
+
 	// Test is MultiRequest -- Render/Action
 	// Test #5.19
 	@BridgeTest(test = "ignoreCurrentViewIdModeChangeTest")
@@ -627,6 +631,37 @@ public class Tests extends Object implements PhaseListener {
 			else {
 				testRunner.setTestResult(false,
 					"Second render incorrectly rerendered existing view though there was a view change.");
+
+				return Constants.TEST_FAILED;
+			}
+		}
+	}
+
+	// Test is MultiRequest -- Render/Action
+	// Test #5.31
+	@BridgeTest(test = "isPostbackTest")
+	public String isPostbackTest(TestRunnerBean testRunner) {
+
+		// In the action portion create/attach things to request scope that should either be preserved or
+		// are explicitly excluded -- test for presence/absence in render
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+			return "isPostbackTest"; // action Navigation result
+		}
+		else {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			ExternalContext extCtx = ctx.getExternalContext();
+
+			testRunner.setTestComplete(true);
+
+			if (ctx.getRenderKit().getResponseStateManager().isPostback(ctx)) {
+				testRunner.setTestResult(true,
+					"Render after action properly encoded so ResponseStateManager.isPostback is true.");
+
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				testRunner.setTestResult(false,
+					"Render after action isn't properly encoded in that ResponseStateManager.isPostback is false.");
 
 				return Constants.TEST_FAILED;
 			}
@@ -1149,41 +1184,6 @@ public class Tests extends Object implements PhaseListener {
 		}
 
 		return Constants.TEST_FAILED;
-	}
-
-	public PhaseId getPhaseId() {
-		return PhaseId.ANY_PHASE;
-	}
-
-	// Test is MultiRequest -- Render/Action
-	// Test #5.31
-	@BridgeTest(test = "isPostbackTest")
-	public String isPostbackTest(TestRunnerBean testRunner) {
-
-		// In the action portion create/attach things to request scope that should either be preserved or
-		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			return "isPostbackTest"; // action Navigation result
-		}
-		else {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			ExternalContext extCtx = ctx.getExternalContext();
-
-			testRunner.setTestComplete(true);
-
-			if (ctx.getRenderKit().getResponseStateManager().isPostback(ctx)) {
-				testRunner.setTestResult(true,
-					"Render after action properly encoded so ResponseStateManager.isPostback is true.");
-
-				return Constants.TEST_SUCCESS;
-			}
-			else {
-				testRunner.setTestResult(false,
-					"Render after action isn't properly encoded in that ResponseStateManager.isPostback is false.");
-
-				return Constants.TEST_FAILED;
-			}
-		}
 	}
 
 }

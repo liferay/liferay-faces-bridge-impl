@@ -82,20 +82,8 @@ public class PrimeFacesFileItem implements FileItem {
 	}
 
 	@Override
-	public void write(File file) throws Exception {
-
-		// Will never be called by the PrimeFaces UploadedFile interface.
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public String getContentType() {
 		return uploadedFile.getContentType();
-	}
-
-	@Override
-	public boolean isFormField() {
-		return false;
 	}
 
 	@Override
@@ -104,25 +92,8 @@ public class PrimeFacesFileItem implements FileItem {
 	}
 
 	@Override
-	public void setFieldName(String name) {
-		clientId = name;
-	}
-
-	@Override
-	public void setFormField(boolean state) {
-
-		// Will never be called by the PrimeFaces UploadedFile interface.
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public FileItemHeaders getHeaders() {
 		return fileItemHeaders;
-	}
-
-	@Override
-	public void setHeaders(FileItemHeaders fileItemHeaders) {
-		this.fileItemHeaders = fileItemHeaders;
 	}
 
 	@Override
@@ -171,7 +142,36 @@ public class PrimeFacesFileItem implements FileItem {
 	}
 
 	@Override
+	public boolean isFormField() {
+		return false;
+	}
+
+	@Override
 	public boolean isInMemory() {
 		return false;
+	}
+
+	@Override
+	public void setFieldName(String name) {
+		clientId = name;
+	}
+
+	@Override
+	public void setFormField(boolean state) {
+
+		// Will never be called by the PrimeFaces UploadedFile interface.
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setHeaders(FileItemHeaders fileItemHeaders) {
+		this.fileItemHeaders = fileItemHeaders;
+	}
+
+	@Override
+	public void write(File file) throws Exception {
+
+		// Will never be called by the PrimeFaces UploadedFile interface.
+		throw new UnsupportedOperationException();
 	}
 }

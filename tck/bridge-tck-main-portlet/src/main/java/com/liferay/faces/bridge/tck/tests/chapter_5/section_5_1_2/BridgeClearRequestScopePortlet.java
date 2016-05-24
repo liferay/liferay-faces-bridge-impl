@@ -63,6 +63,11 @@ public class BridgeClearRequestScopePortlet extends GenericFacesTestSuitePortlet
 		super.doDispatch(renderRequest, renderResponse);
 	}
 
+	// PhaseListener methods
+	public PhaseId getPhaseId() {
+		return PhaseId.INVOKE_APPLICATION;
+	}
+
 	public void init(PortletConfig config) throws PortletException {
 		super.init(config);
 
@@ -126,10 +131,5 @@ public class BridgeClearRequestScopePortlet extends GenericFacesTestSuitePortlet
 		for (Iterator<String> lIds = factory.getLifecycleIds(); lIds.hasNext();) {
 			factory.getLifecycle(lIds.next()).removePhaseListener(this);
 		}
-	}
-
-	// PhaseListener methods
-	public PhaseId getPhaseId() {
-		return PhaseId.INVOKE_APPLICATION;
 	}
 }

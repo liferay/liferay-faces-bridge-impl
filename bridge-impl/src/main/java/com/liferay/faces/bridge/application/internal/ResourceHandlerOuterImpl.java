@@ -76,6 +76,11 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 		return resource;
 	}
 
+	@Override
+	public ResourceHandler getWrapped() {
+		return wrappedResourceHandler;
+	}
+
 	private Resource createResource(String resourceName, Resource resource) {
 
 		if ((resource != null) && RICHFACES_DETECTED) {
@@ -96,10 +101,5 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 		}
 
 		return resource;
-	}
-
-	@Override
-	public ResourceHandler getWrapped() {
-		return wrappedResourceHandler;
 	}
 }

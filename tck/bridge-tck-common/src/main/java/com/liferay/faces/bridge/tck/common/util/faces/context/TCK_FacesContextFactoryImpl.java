@@ -40,6 +40,51 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 		mHandler = handler;
 	}
 
+	@Override
+	public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle)
+		throws FacesException {
+		FacesContext ctx = mHandler.getFacesContext(context, request, response, lifecycle);
+
+		// Only wrap the FacesContext if running in a portlet request
+		// Purpose of this wrapping is to test the various FacesContext requirements
+		// including that the bridge doesn't depend on its impl class being the instance
+		if (isPortletRequest(request)) {
+
+			// Verify we were passed the right objects
+			verifyPortletObjects(context, request, response);
+
+			// verify portlet phase
+			verifyPortletPhase((PortletRequest) request);
+
+			// Verify we are using the right lifecycle
+			verifyLifecycle((PortletContext) context, (PortletRequest) request, lifecycle);
+
+			return new TCK_FacesContextImpl(ctx);
+		}
+		else {
+			return ctx;
+		}
+	}
+
+	private boolean isPortletRequest(Object request) {
+
+		// could be either a servlet or portlet request object (or both)
+		// Check servlet side first in case we are packaged in an application
+		// that is running as a servlet in an environment that doesn't contain
+		// a portlet container.
+		if (request instanceof ServletRequest) {
+			ServletRequest sr = (ServletRequest) request;
+			Bridge.PortletPhase phase = (Bridge.PortletPhase) sr.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE);
+
+			return (phase != null);
+		}
+		else if (request instanceof PortletRequest) {
+			return true;
+		}
+
+		return false;
+	}
+
 	private void verifyLifecycle(PortletContext context, PortletRequest request, Lifecycle lifecycle) {
 		String id = context.getInitParameter("javax.faces.LIFECYCLE_ID");
 		LifecycleFactory lifecycleFactory = (LifecycleFactory) FactoryFinder.getFactory(
@@ -109,50 +154,5 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 					"Phase attribute either not set or has incorrect value during render.");
 			}
 		}
-	}
-
-	@Override
-	public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle)
-		throws FacesException {
-		FacesContext ctx = mHandler.getFacesContext(context, request, response, lifecycle);
-
-		// Only wrap the FacesContext if running in a portlet request
-		// Purpose of this wrapping is to test the various FacesContext requirements
-		// including that the bridge doesn't depend on its impl class being the instance
-		if (isPortletRequest(request)) {
-
-			// Verify we were passed the right objects
-			verifyPortletObjects(context, request, response);
-
-			// verify portlet phase
-			verifyPortletPhase((PortletRequest) request);
-
-			// Verify we are using the right lifecycle
-			verifyLifecycle((PortletContext) context, (PortletRequest) request, lifecycle);
-
-			return new TCK_FacesContextImpl(ctx);
-		}
-		else {
-			return ctx;
-		}
-	}
-
-	private boolean isPortletRequest(Object request) {
-
-		// could be either a servlet or portlet request object (or both)
-		// Check servlet side first in case we are packaged in an application
-		// that is running as a servlet in an environment that doesn't contain
-		// a portlet container.
-		if (request instanceof ServletRequest) {
-			ServletRequest sr = (ServletRequest) request;
-			Bridge.PortletPhase phase = (Bridge.PortletPhase) sr.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE);
-
-			return (phase != null);
-		}
-		else if (request instanceof PortletRequest) {
-			return true;
-		}
-
-		return false;
 	}
 }

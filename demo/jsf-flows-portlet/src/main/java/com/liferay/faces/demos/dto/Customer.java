@@ -53,124 +53,124 @@ public class Customer implements Serializable {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
-	}
-
 	public String getAddressLine1() {
 		return addressLine1;
-	}
-
-	public void setAddressLine1(String addressLine1) {
-		this.addressLine1 = addressLine1;
 	}
 
 	public String getAddressLine2() {
 		return addressLine2;
 	}
 
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
-	}
-
 	public String getCity() {
 		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
 	}
 
 	public Long getCountryId() {
 		return countryId;
 	}
 
-	public void setCountryId(Long countryId) {
-		this.countryId = countryId;
-	}
-
 	public Long getCustomerId() {
 		return customerId;
-	}
-
-	public void setCustomerId(Long customerId) {
-		this.customerId = customerId;
 	}
 
 	public String getCvv() {
 		return cvv;
 	}
 
-	public void setCvv(String cvv) {
-		this.cvv = cvv;
-	}
-
 	public String getEmailAddress() {
 		return emailAddress;
-	}
-
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
 	}
 
 	public Date getExpirationMonth() {
 		return expirationMonth;
 	}
 
-	public void setExpirationMonth(Date expirationMonth) {
-		this.expirationMonth = expirationMonth;
-	}
-
 	public String getFirstName() {
 		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
 	}
 
 	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 	public Long getPaymentTypeId() {
 		return paymentTypeId;
-	}
-
-	public void setPaymentTypeId(Long paymentTypeId) {
-		this.paymentTypeId = paymentTypeId;
 	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
 	public String getPostalCode() {
 		return postalCode;
-	}
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
 	}
 
 	public Long getProvinceId() {
 		return provinceId;
 	}
 
-	public void setProvinceId(Long provinceId) {
-		this.provinceId = provinceId;
-	}
-
 	public Long getTitleId() {
 		return titleId;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
+
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setCountryId(Long countryId) {
+		this.countryId = countryId;
+	}
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
+
+	public void setCvv(String cvv) {
+		this.cvv = cvv;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public void setExpirationMonth(Date expirationMonth) {
+		this.expirationMonth = expirationMonth;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setPaymentTypeId(Long paymentTypeId) {
+		this.paymentTypeId = paymentTypeId;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public void setProvinceId(Long provinceId) {
+		this.provinceId = provinceId;
 	}
 
 	public void setTitleId(Long titleId) {

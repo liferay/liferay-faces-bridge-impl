@@ -79,6 +79,43 @@ public class BookingFlowModelBean implements Serializable {
 		flights = null;
 	}
 
+	public long getBookingArrivalId() {
+		return bookingArrivalId;
+	}
+
+	public Date getBookingDepartureDate() {
+		return bookingDepartureDate;
+	}
+
+	public long getBookingDepartureId() {
+		return bookingDepartureId;
+	}
+
+	public long getBookingTypeId() {
+		return bookingTypeId;
+	}
+
+	public String getBookingTypeName() {
+		return bookingTypeName;
+	}
+
+	public List<Booking> getCartBookings() {
+		return cartBookings;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public List<Booking> getFlights() {
+
+		if (flights == null) {
+			flights = flightService.searchDirect(bookingDepartureId, bookingDepartureDate, bookingArrivalId);
+		}
+
+		return flights;
+	}
+
 	@PostConstruct
 	public void postContruct() {
 		Country unitedStates = countryService.findByAbbreviation("US");
@@ -93,68 +130,31 @@ public class BookingFlowModelBean implements Serializable {
 		scopeTrackingBean.setBookingFlowModelBeanInScope(false);
 	}
 
-	public long getBookingArrivalId() {
-		return bookingArrivalId;
-	}
-
 	public void setBookingArrivalId(long bookingArrivalId) {
 		this.bookingArrivalId = bookingArrivalId;
-	}
-
-	public Date getBookingDepartureDate() {
-		return bookingDepartureDate;
 	}
 
 	public void setBookingDepartureDate(Date bookingDepartureDate) {
 		this.bookingDepartureDate = bookingDepartureDate;
 	}
 
-	public long getBookingDepartureId() {
-		return bookingDepartureId;
-	}
-
 	public void setBookingDepartureId(long bookingDepartureId) {
 		this.bookingDepartureId = bookingDepartureId;
-	}
-
-	public long getBookingTypeId() {
-		return bookingTypeId;
 	}
 
 	public void setBookingTypeId(long bookingTypeId) {
 		this.bookingTypeId = bookingTypeId;
 	}
 
-	public String getBookingTypeName() {
-		return bookingTypeName;
-	}
-
 	public void setBookingTypeName(String bookingTypeName) {
 		this.bookingTypeName = bookingTypeName;
-	}
-
-	public List<Booking> getCartBookings() {
-		return cartBookings;
 	}
 
 	public void setCartBookings(List<Booking> cartBookings) {
 		this.cartBookings = cartBookings;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
-	}
-
-	public List<Booking> getFlights() {
-
-		if (flights == null) {
-			flights = flightService.searchDirect(bookingDepartureId, bookingDepartureDate, bookingArrivalId);
-		}
-
-		return flights;
 	}
 }

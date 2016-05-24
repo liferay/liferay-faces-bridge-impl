@@ -35,15 +35,6 @@ public abstract class ExternalContextCompat_2_1_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#isSecure()}
-	 * @since  JSF 2.1
-	 */
-	@Override
-	public boolean isSecure() {
-		return portletRequest.isSecure();
-	}
-
-	/**
 	 * @see    {@link ExternalContext#getSessionMaxInactiveInterval()}
 	 * @since  JSF 2.1
 	 */
@@ -53,6 +44,15 @@ public abstract class ExternalContextCompat_2_1_Impl extends ExternalContextComp
 		PortletSession portletSession = (PortletSession) getSession(true);
 
 		return portletSession.getMaxInactiveInterval();
+	}
+
+	/**
+	 * @see    {@link ExternalContext#isSecure()}
+	 * @since  JSF 2.1
+	 */
+	@Override
+	public boolean isSecure() {
+		return portletRequest.isSecure();
 	}
 
 	/**

@@ -39,27 +39,6 @@ public class GetExcludedRequestAttributesMethodTestPortlet extends GenericFacesT
 	private static String TEST_PASS_PREFIX = "test.pass.";
 	private static String EXCLUDED_REQUEST_ATTRIBUTES_INIT_PARAM = "javax.portlet.faces.excludedRequestAttributes";
 
-	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
-		response.setContentType("text/html");
-
-		PrintWriter out = response.getWriter();
-
-		boolean pass = getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()) == null;
-
-		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
-
-		if (pass) {
-			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
-			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()));
-		}
-		else {
-			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
-			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
-		}
-
-		out.println(resultWriter.toString());
-	}
-
 	public List<String> getExcludedRequestAttributes() {
 		List<String> returnList = super.getExcludedRequestAttributes();
 		getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(), Boolean.TRUE);
@@ -152,5 +131,26 @@ public class GetExcludedRequestAttributesMethodTestPortlet extends GenericFacesT
 		}
 
 		return returnList;
+	}
+
+	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
+		response.setContentType("text/html");
+
+		PrintWriter out = response.getWriter();
+
+		boolean pass = getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()) == null;
+
+		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
+
+		if (pass) {
+			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
+			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()));
+		}
+		else {
+			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
+			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
+		}
+
+		out.println(resultWriter.toString());
 	}
 }

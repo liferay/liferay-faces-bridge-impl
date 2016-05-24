@@ -44,6 +44,27 @@ public class CustomerServiceMockImpl implements CustomerService, Serializable {
 	// Private Data Members
 	private ArrayList<Customer> allCustomers;
 
+	public List<Customer> getAllCustomers() {
+		return allCustomers;
+	}
+
+	public Customer getCustomer(long customerId) {
+
+		Customer customer = null;
+		List<Customer> customers = getAllCustomers();
+
+		for (Customer curCustomer : customers) {
+
+			if (curCustomer.getCustomerId() == customerId) {
+				customer = curCustomer;
+
+				break;
+			}
+		}
+
+		return customer;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 		allCustomers = new ArrayList<Customer>();
@@ -64,26 +85,5 @@ public class CustomerServiceMockImpl implements CustomerService, Serializable {
 				allCustomers.set(i, customer);
 			}
 		}
-	}
-
-	public List<Customer> getAllCustomers() {
-		return allCustomers;
-	}
-
-	public Customer getCustomer(long customerId) {
-
-		Customer customer = null;
-		List<Customer> customers = getAllCustomers();
-
-		for (Customer curCustomer : customers) {
-
-			if (curCustomer.getCustomerId() == customerId) {
-				customer = curCustomer;
-
-				break;
-			}
-		}
-
-		return customer;
 	}
 }

@@ -29,12 +29,87 @@ public class BrowserSnifferPortalImpl implements BrowserSniffer {
 	}
 
 	@Override
+	public String getBrowserId() {
+		return "";
+	}
+
+	@Override
+	public float getMajorVersion() {
+		return 0;
+	}
+
+	@Override
+	public String getRevision() {
+		return "";
+	}
+
+	@Override
+	public String getVersion() {
+		return "";
+	}
+
+	@Override
+	public boolean isAir() {
+		return false;
+	}
+
+	@Override
+	public boolean isAndroid() {
+		return false;
+	}
+
+	@Override
+	public boolean isChrome() {
+		return false;
+	}
+
+	@Override
+	public boolean isFirefox() {
+		return false;
+	}
+
+	@Override
+	public boolean isGecko() {
+		return false;
+	}
+
+	@Override
+	public boolean isIe() {
+		return false;
+	}
+
+	@Override
 	public boolean isIeOnWin32() {
 		return false;
 	}
 
 	@Override
 	public boolean isIeOnWin64() {
+		return false;
+	}
+
+	@Override
+	public boolean isIpad() {
+		return false;
+	}
+
+	@Override
+	public boolean isIphone() {
+		return false;
+	}
+
+	@Override
+	public boolean isLinux() {
+		return false;
+	}
+
+	@Override
+	public boolean isMac() {
+		return false;
+	}
+
+	@Override
+	public boolean isMobile() {
 		return false;
 	}
 
@@ -49,46 +124,6 @@ public class BrowserSnifferPortalImpl implements BrowserSniffer {
 	}
 
 	@Override
-	public String getBrowserId() {
-		return "";
-	}
-
-	@Override
-	public boolean isMac() {
-		return false;
-	}
-
-	@Override
-	public boolean isAndroid() {
-		return false;
-	}
-
-	@Override
-	public boolean isIpad() {
-		return false;
-	}
-
-	@Override
-	public boolean isChrome() {
-		return false;
-	}
-
-	@Override
-	public boolean isIe() {
-		return false;
-	}
-
-	@Override
-	public boolean isIphone() {
-		return false;
-	}
-
-	@Override
-	public boolean isMobile() {
-		return false;
-	}
-
-	@Override
 	public boolean isRtf() {
 		return false;
 	}
@@ -99,27 +134,7 @@ public class BrowserSnifferPortalImpl implements BrowserSniffer {
 	}
 
 	@Override
-	public boolean isWapXhtml() {
-		return false;
-	}
-
-	@Override
-	public boolean isWml() {
-		return false;
-	}
-
-	@Override
-	public float getMajorVersion() {
-		return 0;
-	}
-
-	@Override
 	public boolean isSun() {
-		return false;
-	}
-
-	@Override
-	public boolean isGecko() {
 		return false;
 	}
 
@@ -129,17 +144,7 @@ public class BrowserSnifferPortalImpl implements BrowserSniffer {
 	}
 
 	@Override
-	public boolean isAir() {
-		return false;
-	}
-
-	@Override
-	public String getRevision() {
-		return "";
-	}
-
-	@Override
-	public boolean isWindows() {
+	public boolean isWapXhtml() {
 		return false;
 	}
 
@@ -149,17 +154,12 @@ public class BrowserSnifferPortalImpl implements BrowserSniffer {
 	}
 
 	@Override
-	public String getVersion() {
-		return "";
-	}
-
-	@Override
-	public boolean isFirefox() {
+	public boolean isWindows() {
 		return false;
 	}
 
 	@Override
-	public boolean isLinux() {
+	public boolean isWml() {
 		return false;
 	}
 }

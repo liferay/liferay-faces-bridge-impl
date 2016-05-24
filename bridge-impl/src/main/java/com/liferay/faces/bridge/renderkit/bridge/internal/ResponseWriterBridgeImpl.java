@@ -153,6 +153,11 @@ public class ResponseWriterBridgeImpl extends ResponseWriterBridgeCompat_2_2_Imp
 	}
 
 	@Override
+	public ResponseWriter getWrapped() {
+		return wrappedResponseWriter;
+	}
+
+	@Override
 	public void startCDATA() throws IOException {
 
 		// Set a flag indicating that we're in the CDATA section.
@@ -239,10 +244,5 @@ public class ResponseWriterBridgeImpl extends ResponseWriterBridgeCompat_2_2_Imp
 		// Ask the superclass method to write the attribute, which basically delegates to the Faces implementation
 		// writer (or the ICEfaces DOMResponseWriter) in the chain-of-responsibility.
 		super.writeAttribute(attributeName, attributeValue, property);
-	}
-
-	@Override
-	public ResponseWriter getWrapped() {
-		return wrappedResponseWriter;
 	}
 }

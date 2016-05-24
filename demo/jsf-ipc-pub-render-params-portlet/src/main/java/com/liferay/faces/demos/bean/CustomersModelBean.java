@@ -51,6 +51,14 @@ public class CustomersModelBean implements Serializable {
 	private List<Customer> allCustomers;
 	private String selectedCustomerId;
 
+	public List<Customer> getAllCustomers() {
+		return allCustomers;
+	}
+
+	public String getSelectedCustomerId() {
+		return selectedCustomerId;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 		logger.trace("@PostConstruct annotation worked");
@@ -62,18 +70,10 @@ public class CustomersModelBean implements Serializable {
 		logger.trace("@PreDestroy annotation worked");
 	}
 
-	public List<Customer> getAllCustomers() {
-		return allCustomers;
-	}
-
 	public void setCustomerService(CustomerService customerService) {
 
 		// Injected via ManagedProperty annotation
 		this.customerService = customerService;
-	}
-
-	public String getSelectedCustomerId() {
-		return selectedCustomerId;
 	}
 
 	public void setSelectedCustomerId(String selectedCustomerId) {

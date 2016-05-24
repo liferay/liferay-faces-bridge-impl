@@ -82,19 +82,6 @@ public class PreDestroyInvokerMojarraImpl extends PreDestroyInvokerImpl {
 		return mojarraInjectionProvider.toString();
 	}
 
-	private void init(ContextAdapter contextAdapter) {
-		this.mojarraInjectionProvider = getInjectionProvider(contextAdapter);
-
-		try {
-			this.invokePreDestroyMethod = mojarraInjectionProvider.getClass().getMethod(INVOKE_PRE_DESTROY,
-					new Class[] { Object.class });
-		}
-		catch (Exception e) {
-			logger.error(e);
-		}
-
-	}
-
 	protected Object getInjectionProvider(ContextAdapter contextAdapter) {
 
 		try {
@@ -132,6 +119,19 @@ public class PreDestroyInvokerMojarraImpl extends PreDestroyInvokerImpl {
 
 			return null;
 		}
+	}
+
+	private void init(ContextAdapter contextAdapter) {
+		this.mojarraInjectionProvider = getInjectionProvider(contextAdapter);
+
+		try {
+			this.invokePreDestroyMethod = mojarraInjectionProvider.getClass().getMethod(INVOKE_PRE_DESTROY,
+					new Class[] { Object.class });
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
+
 	}
 
 	private static class ContextAdapter {

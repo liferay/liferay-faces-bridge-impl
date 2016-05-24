@@ -24,7 +24,7 @@ import com.liferay.faces.demos.dto.Customer;
  * @author  Neil Griffin
  */
 public interface CustomerService {
-	public void save(Customer customer);
-
 	public List<Customer> getAllCustomers();
+
+	public void save(Customer customer);
 }

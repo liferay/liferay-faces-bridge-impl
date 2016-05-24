@@ -79,26 +79,6 @@ public abstract class ApplicationCompatImpl extends ApplicationWrapper {
 		return uiComponent;
 	}
 
-	protected void subscribeToJSF2SystemEvent(ConfiguredSystemEventListener configuredSystemEventListener) {
-
-		try {
-			@SuppressWarnings("unchecked")
-			Class<? extends SystemEvent> systemEventClass = (Class<? extends SystemEvent>) Class.forName(
-					configuredSystemEventListener.getSystemEventClass());
-			@SuppressWarnings("unchecked")
-			Class<? extends SystemEventListener> systemEventListenerClass = (Class<? extends SystemEventListener>) Class
-				.forName(configuredSystemEventListener.getSystemEventListenerClass());
-			SystemEventListener systemEventListener = systemEventListenerClass.newInstance();
-
-			logger.debug("Subscribing UIViewRootBridgeImpl for systemEventClass=[{0}] systemEventListener=[{1}]",
-				systemEventClass, systemEventListener);
-			subscribeToEvent(systemEventClass, UIViewRootBridgeImpl.class, systemEventListener);
-		}
-		catch (Exception e) {
-			logger.error(e);
-		}
-	}
-
 	/**
 	 * @see    {@link Application#getResourceHandler()}
 	 * @since  JSF 2.0
@@ -121,5 +101,25 @@ public abstract class ApplicationCompatImpl extends ApplicationWrapper {
 	@Override
 	public Application getWrapped() {
 		return wrappedApplication;
+	}
+
+	protected void subscribeToJSF2SystemEvent(ConfiguredSystemEventListener configuredSystemEventListener) {
+
+		try {
+			@SuppressWarnings("unchecked")
+			Class<? extends SystemEvent> systemEventClass = (Class<? extends SystemEvent>) Class.forName(
+					configuredSystemEventListener.getSystemEventClass());
+			@SuppressWarnings("unchecked")
+			Class<? extends SystemEventListener> systemEventListenerClass = (Class<? extends SystemEventListener>) Class
+				.forName(configuredSystemEventListener.getSystemEventListenerClass());
+			SystemEventListener systemEventListener = systemEventListenerClass.newInstance();
+
+			logger.debug("Subscribing UIViewRootBridgeImpl for systemEventClass=[{0}] systemEventListener=[{1}]",
+				systemEventClass, systemEventListener);
+			subscribeToEvent(systemEventClass, UIViewRootBridgeImpl.class, systemEventListener);
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
 	}
 }

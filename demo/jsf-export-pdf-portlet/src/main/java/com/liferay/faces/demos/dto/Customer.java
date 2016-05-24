@@ -44,20 +44,20 @@ public class Customer implements Serializable {
 		return customerId;
 	}
 
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
 	public String getLastName() {
 		return lastName;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public void setLastName(String lastName) {

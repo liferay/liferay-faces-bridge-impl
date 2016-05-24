@@ -41,6 +41,30 @@ public class GetDefaultViewIdMapMethodTestPortlet extends GenericFacesTestSuiteP
 	private static String TEST_PASS_PREFIX = "test.pass.";
 	private static String DEFAULT_VIEW_ID_INIT_PARAM = "javax.portlet.faces.defaultViewId.";
 
+	public Map getDefaultViewIdMap() {
+		Map returnMap = super.getDefaultViewIdMap();
+		getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(), Boolean.TRUE);
+
+		Enumeration<String> names = getPortletConfig().getInitParameterNames();
+
+		while (names.hasMoreElements()) {
+
+			String name = names.nextElement();
+
+			if (name.startsWith(DEFAULT_VIEW_ID_INIT_PARAM)) {
+				String mode = name.substring(DEFAULT_VIEW_ID_INIT_PARAM.length());
+				String viewId = (String) returnMap.get(mode);
+
+				if (!getPortletConfig().getInitParameter(name).equals(viewId)) {
+					getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName() + "." + mode, Boolean.TRUE);
+					getPortletContext().removeAttribute(TEST_PASS_PREFIX + getPortletName());
+				}
+			}
+		}
+
+		return returnMap;
+	}
+
 	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 		response.setContentType("text/html");
 
@@ -80,29 +104,5 @@ public class GetDefaultViewIdMapMethodTestPortlet extends GenericFacesTestSuiteP
 		}
 
 		out.println(resultWriter.toString());
-	}
-
-	public Map getDefaultViewIdMap() {
-		Map returnMap = super.getDefaultViewIdMap();
-		getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(), Boolean.TRUE);
-
-		Enumeration<String> names = getPortletConfig().getInitParameterNames();
-
-		while (names.hasMoreElements()) {
-
-			String name = names.nextElement();
-
-			if (name.startsWith(DEFAULT_VIEW_ID_INIT_PARAM)) {
-				String mode = name.substring(DEFAULT_VIEW_ID_INIT_PARAM.length());
-				String viewId = (String) returnMap.get(mode);
-
-				if (!getPortletConfig().getInitParameter(name).equals(viewId)) {
-					getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName() + "." + mode, Boolean.TRUE);
-					getPortletContext().removeAttribute(TEST_PASS_PREFIX + getPortletName());
-				}
-			}
-		}
-
-		return returnMap;
 	}
 }

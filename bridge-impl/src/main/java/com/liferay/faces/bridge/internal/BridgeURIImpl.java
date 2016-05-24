@@ -231,6 +231,11 @@ public class BridgeURIImpl implements BridgeURI {
 	}
 
 	@Override
+	public boolean isAbsolute() {
+		return absolute;
+	}
+
+	@Override
 	public boolean isEscaped() {
 
 		if (escaped == null) {
@@ -259,45 +264,6 @@ public class BridgeURIImpl implements BridgeURI {
 		}
 
 		return escaped;
-	}
-
-	@Override
-	public boolean isAbsolute() {
-		return absolute;
-	}
-
-	@Override
-	public boolean isOpaque() {
-		return portletScheme || opaque;
-	}
-
-	@Override
-	public boolean isPathRelative() {
-
-		if (pathRelative == null) {
-
-			pathRelative = Boolean.FALSE;
-
-			String path = getPath();
-
-			if ((path != null) && (path.length() > 0) &&
-					(!path.startsWith("/") || path.startsWith(RELATIVE_PATH_PREFIX))) {
-				pathRelative = Boolean.TRUE;
-			}
-
-		}
-
-		return pathRelative;
-	}
-
-	@Override
-	public boolean isPortletScheme() {
-		return portletScheme;
-	}
-
-	@Override
-	public boolean isRelative() {
-		return !isAbsolute();
 	}
 
 	@Override
@@ -347,17 +313,37 @@ public class BridgeURIImpl implements BridgeURI {
 	}
 
 	@Override
-	public void setParameter(String name, String[] values) {
-
-		getParameterMap().put(name, values);
-		invalidateToString();
+	public boolean isOpaque() {
+		return portletScheme || opaque;
 	}
 
 	@Override
-	public void setParameter(String name, String value) {
+	public boolean isPathRelative() {
 
-		getParameterMap().put(name, new String[] { value });
-		invalidateToString();
+		if (pathRelative == null) {
+
+			pathRelative = Boolean.FALSE;
+
+			String path = getPath();
+
+			if ((path != null) && (path.length() > 0) &&
+					(!path.startsWith("/") || path.startsWith(RELATIVE_PATH_PREFIX))) {
+				pathRelative = Boolean.TRUE;
+			}
+
+		}
+
+		return pathRelative;
+	}
+
+	@Override
+	public boolean isPortletScheme() {
+		return portletScheme;
+	}
+
+	@Override
+	public boolean isRelative() {
+		return !isAbsolute();
 	}
 
 	@Override
@@ -373,6 +359,20 @@ public class BridgeURIImpl implements BridgeURI {
 		else {
 			return null;
 		}
+	}
+
+	@Override
+	public void setParameter(String name, String[] values) {
+
+		getParameterMap().put(name, values);
+		invalidateToString();
+	}
+
+	@Override
+	public void setParameter(String name, String value) {
+
+		getParameterMap().put(name, new String[] { value });
+		invalidateToString();
 	}
 
 	@Override

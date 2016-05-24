@@ -64,33 +64,6 @@ public class CustomerExportResource extends Resource {
 	}
 
 	@Override
-	public boolean userAgentNeedsUpdate(FacesContext context) {
-
-		// Since this is a list that can potentially change dynamically, always return true.
-		return true;
-	}
-
-	protected Customer getCustomer() {
-
-		if (customer == null) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			String customerId = facesContext.getExternalContext().getRequestParameterMap().get(PARAM_NAME_CUSTOMER_ID);
-			String elExpression = "customerService";
-			CustomerService customerService = (CustomerService) facesContext.getApplication().getELResolver().getValue(
-					facesContext.getELContext(), null, elExpression);
-
-			try {
-				customer = customerService.getCustomer(Long.parseLong(customerId));
-			}
-			catch (NumberFormatException e) {
-				logger.error(e);
-			}
-		}
-
-		return customer;
-	}
-
-	@Override
 	public InputStream getInputStream() throws IOException {
 
 		byte[] byteArray = new byte[] {};
@@ -169,5 +142,32 @@ public class CustomerExportResource extends Resource {
 	@Override
 	public URL getURL() {
 		return null;
+	}
+
+	@Override
+	public boolean userAgentNeedsUpdate(FacesContext context) {
+
+		// Since this is a list that can potentially change dynamically, always return true.
+		return true;
+	}
+
+	protected Customer getCustomer() {
+
+		if (customer == null) {
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			String customerId = facesContext.getExternalContext().getRequestParameterMap().get(PARAM_NAME_CUSTOMER_ID);
+			String elExpression = "customerService";
+			CustomerService customerService = (CustomerService) facesContext.getApplication().getELResolver().getValue(
+					facesContext.getELContext(), null, elExpression);
+
+			try {
+				customer = customerService.getCustomer(Long.parseLong(customerId));
+			}
+			catch (NumberFormatException e) {
+				logger.error(e);
+			}
+		}
+
+		return customer;
 	}
 }

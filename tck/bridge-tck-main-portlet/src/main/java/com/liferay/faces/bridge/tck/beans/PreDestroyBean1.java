@@ -46,6 +46,16 @@ public class PreDestroyBean1 {
 		mInBridgeRequestScope = false;
 	}
 
+	public Boolean getInBridgeRequestScope() {
+
+		if (mInBridgeRequestScope) {
+			return Boolean.TRUE;
+		}
+		else {
+			return Boolean.FALSE;
+		}
+	}
+
 	@PreDestroy
 	public void servletPredestroy() {
 
@@ -58,15 +68,5 @@ public class PreDestroyBean1 {
 																					   // destroy
 		}
 
-	}
-
-	public Boolean getInBridgeRequestScope() {
-
-		if (mInBridgeRequestScope) {
-			return Boolean.TRUE;
-		}
-		else {
-			return Boolean.FALSE;
-		}
 	}
 }

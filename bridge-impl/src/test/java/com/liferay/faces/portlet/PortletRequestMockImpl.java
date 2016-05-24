@@ -41,15 +41,7 @@ public class PortletRequestMockImpl implements PortletRequest {
 		this.contextPath = contextPath;
 	}
 
-	public void removeAttribute(String name) {
-		throw new UnsupportedOperationException();
-	}
-
 	public Object getAttribute(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void setAttribute(String name, Object o) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -66,26 +58,6 @@ public class PortletRequestMockImpl implements PortletRequest {
 	}
 
 	public Cookie[] getCookies() {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean isPortletModeAllowed(PortletMode mode) {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean isRequestedSessionIdValid() {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean isWindowStateAllowed(WindowState state) {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean isSecure() {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean isUserInRole(String role) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -190,6 +162,34 @@ public class PortletRequestMockImpl implements PortletRequest {
 	}
 
 	public WindowState getWindowState() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isPortletModeAllowed(PortletMode mode) {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isRequestedSessionIdValid() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isSecure() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isUserInRole(String role) {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isWindowStateAllowed(WindowState state) {
+		throw new UnsupportedOperationException();
+	}
+
+	public void removeAttribute(String name) {
+		throw new UnsupportedOperationException();
+	}
+
+	public void setAttribute(String name, Object o) {
 		throw new UnsupportedOperationException();
 	}
 }

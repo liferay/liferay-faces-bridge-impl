@@ -41,6 +41,11 @@ public class ResourceRichFacesPackedJSImpl extends FilteredResourceBase {
 	}
 
 	@Override
+	public Resource getWrapped() {
+		return wrappedResource;
+	}
+
+	@Override
 	protected String filter(String javaScriptText) {
 
 		// Replace the URL used by rich:fileUpload for forum submission.
@@ -103,10 +108,5 @@ public class ResourceRichFacesPackedJSImpl extends FilteredResourceBase {
 		}
 
 		return javaScriptText;
-	}
-
-	@Override
-	public Resource getWrapped() {
-		return wrappedResource;
 	}
 }

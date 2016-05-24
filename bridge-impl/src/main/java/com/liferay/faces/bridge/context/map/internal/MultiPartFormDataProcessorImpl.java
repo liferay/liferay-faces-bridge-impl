@@ -346,18 +346,8 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		}
 
 		@Override
-		public void removeAttribute(String name) {
-			resourceRequest.removeAttribute(name);
-		}
-
-		@Override
 		public Object getAttribute(String name) {
 			return resourceRequest.getAttribute(name);
-		}
-
-		@Override
-		public void setAttribute(String name, Object value) {
-			resourceRequest.setAttribute(name, value);
 		}
 
 		@Override
@@ -373,11 +363,6 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		@Override
 		public String getCharacterEncoding() {
 			return resourceRequest.getCharacterEncoding();
-		}
-
-		@Override
-		public void setCharacterEncoding(String enc) throws UnsupportedEncodingException {
-			resourceRequest.setCharacterEncoding(enc);
 		}
 
 		@Override
@@ -398,31 +383,6 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		@Override
 		public Cookie[] getCookies() {
 			return resourceRequest.getCookies();
-		}
-
-		@Override
-		public boolean isPortletModeAllowed(PortletMode mode) {
-			return resourceRequest.isPortletModeAllowed(mode);
-		}
-
-		@Override
-		public boolean isRequestedSessionIdValid() {
-			return resourceRequest.isRequestedSessionIdValid();
-		}
-
-		@Override
-		public boolean isWindowStateAllowed(WindowState state) {
-			return resourceRequest.isWindowStateAllowed(state);
-		}
-
-		@Override
-		public boolean isSecure() {
-			return resourceRequest.isSecure();
-		}
-
-		@Override
-		public boolean isUserInRole(String role) {
-			return resourceRequest.isUserInRole(role);
 		}
 
 		@Override
@@ -568,6 +528,46 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		@Override
 		public WindowState getWindowState() {
 			return resourceRequest.getWindowState();
+		}
+
+		@Override
+		public boolean isPortletModeAllowed(PortletMode mode) {
+			return resourceRequest.isPortletModeAllowed(mode);
+		}
+
+		@Override
+		public boolean isRequestedSessionIdValid() {
+			return resourceRequest.isRequestedSessionIdValid();
+		}
+
+		@Override
+		public boolean isSecure() {
+			return resourceRequest.isSecure();
+		}
+
+		@Override
+		public boolean isUserInRole(String role) {
+			return resourceRequest.isUserInRole(role);
+		}
+
+		@Override
+		public boolean isWindowStateAllowed(WindowState state) {
+			return resourceRequest.isWindowStateAllowed(state);
+		}
+
+		@Override
+		public void removeAttribute(String name) {
+			resourceRequest.removeAttribute(name);
+		}
+
+		@Override
+		public void setAttribute(String name, Object value) {
+			resourceRequest.setAttribute(name, value);
+		}
+
+		@Override
+		public void setCharacterEncoding(String enc) throws UnsupportedEncodingException {
+			resourceRequest.setCharacterEncoding(enc);
 		}
 	}
 }

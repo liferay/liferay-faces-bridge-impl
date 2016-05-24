@@ -42,17 +42,8 @@ public class CustomerWrapper extends Customer implements FacesWrapper<Customer> 
 		return getWrapped().getCustomerId();
 	}
 
-	@Override
-	public void setCustomerId(long customerId) {
-		getWrapped().setCustomerId(customerId);
-	}
-
 	public String getExportResourceURL() {
 		return exportResourceURL;
-	}
-
-	public void setExportResourceURL(String exportResourceURL) {
-		this.exportResourceURL = exportResourceURL;
 	}
 
 	@Override
@@ -61,22 +52,31 @@ public class CustomerWrapper extends Customer implements FacesWrapper<Customer> 
 	}
 
 	@Override
+	public String getLastName() {
+		return getWrapped().getLastName();
+	}
+
+	public Customer getWrapped() {
+		return wrappedCustomer;
+	}
+
+	@Override
+	public void setCustomerId(long customerId) {
+		getWrapped().setCustomerId(customerId);
+	}
+
+	public void setExportResourceURL(String exportResourceURL) {
+		this.exportResourceURL = exportResourceURL;
+	}
+
+	@Override
 	public void setFirstName(String firstName) {
 		getWrapped().setFirstName(firstName);
 	}
 
 	@Override
-	public String getLastName() {
-		return getWrapped().getLastName();
-	}
-
-	@Override
 	public void setLastName(String lastName) {
 		getWrapped().setLastName(lastName);
-	}
-
-	public Customer getWrapped() {
-		return wrappedCustomer;
 	}
 
 }

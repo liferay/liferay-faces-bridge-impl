@@ -75,21 +75,6 @@ public class ExternalContextExpirationImpl extends ExternalContext {
 	}
 
 	@Override
-	public void log(String message) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void log(String message, Throwable exception) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void redirect(String url) throws IOException {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public Map<String, Object> getApplicationMap() {
 		return applicationMap;
 	}
@@ -102,11 +87,6 @@ public class ExternalContextExpirationImpl extends ExternalContext {
 	@Override
 	public Object getContext() {
 		return servletContext;
-	}
-
-	@Override
-	public boolean isUserInRole(String role) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -221,6 +201,26 @@ public class ExternalContextExpirationImpl extends ExternalContext {
 
 	@Override
 	public Principal getUserPrincipal() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean isUserInRole(String role) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void log(String message) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void log(String message, Throwable exception) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void redirect(String url) throws IOException {
 		throw new UnsupportedOperationException();
 	}
 }

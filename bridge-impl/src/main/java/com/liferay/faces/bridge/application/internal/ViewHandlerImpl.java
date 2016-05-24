@@ -83,6 +83,52 @@ public class ViewHandlerImpl extends ViewHandlerCompatImpl {
 		return uiViewRoot;
 	}
 
+	/**
+	 * The purpose of this method is to provide a workaround for an incompatibility with the Mojarra implementation of
+	 * JSF. Specifically, the Mojarra {@link com.sun.faces.application.view.MultiViewHandler#getActionURL(FacesContext,
+	 * String)} method does not properly handle viewId values that contain dot characters as part of the query-string.
+	 * For example, if the specified viewId is "/view.xhtml?javax.portlet.faces.PortletMode=edit" then Mojarra will
+	 * think the filename extension is ".PortletMode" instead of ".xhtml". This method works around the problem by
+	 * temporarily substituting all dot characters in the viewId query-string with a token before delegating to the
+	 * Mojarra method. After delegation, the dot characters are replaced.
+	 */
+	@Override
+	public String getActionURL(FacesContext facesContext, String viewId) {
+
+		String actionURL = null;
+
+		if (viewId != null) {
+			boolean replacedDotChars = false;
+			int questionMarkPos = viewId.indexOf("?");
+
+			if (questionMarkPos > 0) {
+
+				int dotPos = viewId.indexOf(".", questionMarkPos);
+
+				if (dotPos > 0) {
+					String queryString = viewId.substring(questionMarkPos);
+					queryString = queryString.replaceAll("[.]", "_DOT_");
+					viewId = viewId.substring(0, questionMarkPos) + queryString;
+					replacedDotChars = true;
+				}
+
+			}
+
+			actionURL = super.getActionURL(facesContext, viewId);
+
+			if (replacedDotChars) {
+				actionURL = actionURL.replaceAll("_DOT_", ".");
+			}
+		}
+
+		return actionURL;
+	}
+
+	@Override
+	public ViewHandler getWrapped() {
+		return wrappedViewHandler;
+	}
+
 	@Override
 	public void renderView(FacesContext facesContext, UIViewRoot uiViewRoot) throws IOException, FacesException {
 
@@ -185,51 +231,5 @@ public class ViewHandlerImpl extends ViewHandlerCompatImpl {
 				logger.error("Invalid type for {0}={1}", Bridge.AFTER_VIEW_CONTENT, afterViewContent.getClass());
 			}
 		}
-	}
-
-	/**
-	 * The purpose of this method is to provide a workaround for an incompatibility with the Mojarra implementation of
-	 * JSF. Specifically, the Mojarra {@link com.sun.faces.application.view.MultiViewHandler#getActionURL(FacesContext,
-	 * String)} method does not properly handle viewId values that contain dot characters as part of the query-string.
-	 * For example, if the specified viewId is "/view.xhtml?javax.portlet.faces.PortletMode=edit" then Mojarra will
-	 * think the filename extension is ".PortletMode" instead of ".xhtml". This method works around the problem by
-	 * temporarily substituting all dot characters in the viewId query-string with a token before delegating to the
-	 * Mojarra method. After delegation, the dot characters are replaced.
-	 */
-	@Override
-	public String getActionURL(FacesContext facesContext, String viewId) {
-
-		String actionURL = null;
-
-		if (viewId != null) {
-			boolean replacedDotChars = false;
-			int questionMarkPos = viewId.indexOf("?");
-
-			if (questionMarkPos > 0) {
-
-				int dotPos = viewId.indexOf(".", questionMarkPos);
-
-				if (dotPos > 0) {
-					String queryString = viewId.substring(questionMarkPos);
-					queryString = queryString.replaceAll("[.]", "_DOT_");
-					viewId = viewId.substring(0, questionMarkPos) + queryString;
-					replacedDotChars = true;
-				}
-
-			}
-
-			actionURL = super.getActionURL(facesContext, viewId);
-
-			if (replacedDotChars) {
-				actionURL = actionURL.replaceAll("_DOT_", ".");
-			}
-		}
-
-		return actionURL;
-	}
-
-	@Override
-	public ViewHandler getWrapped() {
-		return wrappedViewHandler;
 	}
 }

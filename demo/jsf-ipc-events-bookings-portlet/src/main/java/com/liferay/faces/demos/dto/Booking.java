@@ -60,28 +60,28 @@ public class Booking implements Serializable {
 		return bookingTypeId;
 	}
 
-	public void setBookingTypeId(long bookingTypeId) {
-		this.bookingTypeId = bookingTypeId;
-	}
-
 	public long getCustomerId() {
 		return customerId;
-	}
-
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
 	}
 
 	public Date getFinishDate() {
 		return finishDate;
 	}
 
-	public void setFinishDate(Date finishDate) {
-		this.finishDate = finishDate;
-	}
-
 	public Date getStartDate() {
 		return startDate;
+	}
+
+	public void setBookingTypeId(long bookingTypeId) {
+		this.bookingTypeId = bookingTypeId;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
+
+	public void setFinishDate(Date finishDate) {
+		this.finishDate = finishDate;
 	}
 
 	public void setStartDate(Date startDate) {

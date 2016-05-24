@@ -97,10 +97,6 @@ public class PortletConfigParamUtil {
 		return configuredValue;
 	}
 
-	public static boolean isSpecified(PortletConfig portletConfig, String name, String alternateName) {
-		return (getConfiguredValue(portletConfig, name, alternateName) != null);
-	}
-
 	public static int getIntegerValue(PortletConfig portletConfig, String name, String alternateName,
 		int defaultIntegerValue) {
 
@@ -210,5 +206,9 @@ public class PortletConfigParamUtil {
 		}
 
 		return stringValue;
+	}
+
+	public static boolean isSpecified(PortletConfig portletConfig, String name, String alternateName) {
+		return (getConfiguredValue(portletConfig, name, alternateName) != null);
 	}
 }

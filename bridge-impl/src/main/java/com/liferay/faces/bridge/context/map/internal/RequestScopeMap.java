@@ -95,27 +95,8 @@ public class RequestScopeMap extends AbstractPropertyMap<Object> {
 	}
 
 	@Override
-	protected void removeProperty(String name) {
-		removedAttributeNames.add(name);
-		portletRequest.removeAttribute(name);
-	}
-
-	@Override
 	protected Object getProperty(String name) {
 		return portletRequest.getAttribute(name);
-	}
-
-	@Override
-	protected void setProperty(String name, Object value) {
-
-		// If the specified attribute name is regarded as previously removed, then no longer regard it as removed since
-		// it is being added back now.
-		if (removedAttributeNames.contains(name)) {
-			removedAttributeNames.remove(name);
-		}
-
-		// Set the attribute value on the underlying request.
-		portletRequest.setAttribute(name, value);
 	}
 
 	@Override
@@ -137,5 +118,24 @@ public class RequestScopeMap extends AbstractPropertyMap<Object> {
 		}
 
 		return Collections.enumeration(attributeNames);
+	}
+
+	@Override
+	protected void removeProperty(String name) {
+		removedAttributeNames.add(name);
+		portletRequest.removeAttribute(name);
+	}
+
+	@Override
+	protected void setProperty(String name, Object value) {
+
+		// If the specified attribute name is regarded as previously removed, then no longer regard it as removed since
+		// it is being added back now.
+		if (removedAttributeNames.contains(name)) {
+			removedAttributeNames.remove(name);
+		}
+
+		// Set the attribute value on the underlying request.
+		portletRequest.setAttribute(name, value);
 	}
 }

@@ -39,11 +39,6 @@ public abstract class BridgeNavigationHandlerCompatImpl extends BridgeNavigation
 		this.wrappedNavigationHandler = navigationHandler;
 	}
 
-	protected void partialViewContextRenderAll(FacesContext facesContext) {
-		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
-		partialViewContext.setRenderAll(true);
-	}
-
 	@Override
 	public NavigationCase getNavigationCase(FacesContext facesContext, String fromAction, String outcome) {
 
@@ -84,5 +79,10 @@ public abstract class BridgeNavigationHandlerCompatImpl extends BridgeNavigation
 
 	protected NavigationHandler getWrappedNavigationHandler() {
 		return wrappedNavigationHandler;
+	}
+
+	protected void partialViewContextRenderAll(FacesContext facesContext) {
+		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
+		partialViewContext.setRenderAll(true);
 	}
 }

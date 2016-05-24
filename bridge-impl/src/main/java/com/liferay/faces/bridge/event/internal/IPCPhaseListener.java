@@ -95,6 +95,11 @@ public class IPCPhaseListener implements PhaseListener {
 		// This method is required by the PhaseListener interface but is not used.
 	}
 
+	@Override
+	public PhaseId getPhaseId() {
+		return PhaseId.ANY_PHASE;
+	}
+
 	/**
 	 * This method processes the "incoming" Public Render Parameters in accordance with Section 5.3.2 of the Spec.
 	 */
@@ -325,10 +330,5 @@ public class IPCPhaseListener implements PhaseListener {
 			// runtime will swallow it. So the best we can do is log the exception.
 			logger.error(e);
 		}
-	}
-
-	@Override
-	public PhaseId getPhaseId() {
-		return PhaseId.ANY_PHASE;
 	}
 }

@@ -49,6 +49,14 @@ public class CustomerServiceMockImpl implements CustomerService, Serializable {
 	@ManagedProperty(name = "bookingService", value = "#{bookingService}")
 	private BookingService bookingService;
 
+	public List<Customer> getAllCustomers() {
+		return allCustomers;
+	}
+
+	public BookingService getBookingService() {
+		return bookingService;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 		allCustomers = new ArrayList<Customer>();
@@ -73,14 +81,6 @@ public class CustomerServiceMockImpl implements CustomerService, Serializable {
 				allCustomers.set(i, customer);
 			}
 		}
-	}
-
-	public List<Customer> getAllCustomers() {
-		return allCustomers;
-	}
-
-	public BookingService getBookingService() {
-		return bookingService;
 	}
 
 	public void setBookingService(BookingService bookingService) {

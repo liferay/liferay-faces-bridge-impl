@@ -32,12 +32,12 @@ public class NameValuePair<N, V> {
 		return name;
 	}
 
-	public void setName(N name) {
-		this.name = name;
-	}
-
 	public V getValue() {
 		return value;
+	}
+
+	public void setName(N name) {
+		this.name = name;
 	}
 
 	public void setValue(V value) {

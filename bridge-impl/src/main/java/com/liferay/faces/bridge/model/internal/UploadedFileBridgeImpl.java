@@ -45,11 +45,6 @@ public class UploadedFileBridgeImpl implements Serializable, UploadedFile {
 	}
 
 	@Override
-	public void write(String fileName) throws IOException {
-		wrappedUploadedFile.write(fileName);
-	}
-
-	@Override
 	public String getAbsolutePath() {
 		return wrappedUploadedFile.getAbsolutePath();
 	}
@@ -120,5 +115,10 @@ public class UploadedFileBridgeImpl implements Serializable, UploadedFile {
 		com.liferay.faces.util.model.UploadedFile.Status wrappedStatus = wrappedUploadedFile.getStatus();
 
 		return UploadedFile.Status.valueOf(wrappedStatus.name());
+	}
+
+	@Override
+	public void write(String fileName) throws IOException {
+		wrappedUploadedFile.write(fileName);
 	}
 }

@@ -64,13 +64,6 @@ public class TCKSpanTag {
 		mTagContent.append((content == null) ? "null" : content);
 	}
 
-	/**
-	 * Returns a String that can be written out to the HTTP response.
-	 */
-	public String toString() {
-		return mSpanOpen + mTagContent + mSpanClose;
-	}
-
 	public String getEndTag() {
 		return mSpanClose;
 	}
@@ -87,6 +80,13 @@ public class TCKSpanTag {
 	 */
 	public void setTagContent(String content) {
 		mTagContent = new StringBuffer((content == null) ? "null" : content);
+	}
+
+	/**
+	 * Returns a String that can be written out to the HTTP response.
+	 */
+	public String toString() {
+		return mSpanOpen + mTagContent + mSpanClose;
 	}
 
 }

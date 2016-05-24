@@ -46,28 +46,28 @@ public class City implements Serializable {
 		return cityId;
 	}
 
-	public void setCityId(long cityId) {
-		this.cityId = cityId;
-	}
-
 	public String getCityName() {
 		return cityName;
-	}
-
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
 	}
 
 	public String getPostalCode() {
 		return postalCode;
 	}
 
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
-
 	public long getProvinceId() {
 		return provinceId;
+	}
+
+	public void setCityId(long cityId) {
+		this.cityId = cityId;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	public void setProvinceId(long provinceId) {

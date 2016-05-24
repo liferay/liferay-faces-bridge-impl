@@ -42,35 +42,6 @@ public class BridgeWriteBehindSupportFactoryImpl extends BridgeWriteBehindSuppor
 	private Class<? extends BridgeWriteBehindResponse> bridgeWriteBehindRenderResponseClass;
 	private Class<? extends BridgeWriteBehindResponse> bridgeWriteBehindResourceResponseClass;
 
-	@SuppressWarnings("unchecked")
-	protected Class<? extends BridgeWriteBehindResponse> loadClass(String className,
-		Class<? extends BridgeWriteBehindResponse> defaultClass) {
-
-		Class<? extends BridgeWriteBehindResponse> bridgeWriteBehindResponseClass;
-
-		try {
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			Class<?> clazz = classLoader.loadClass(className);
-
-			if ((BridgeWriteBehindResponse.class.isAssignableFrom(clazz))) {
-				bridgeWriteBehindResponseClass = (Class<? extends BridgeWriteBehindResponse>) clazz;
-				logger.debug("Loaded bridgeWriteBehindResponseClass=[{0}]", bridgeWriteBehindResponseClass);
-			}
-			else {
-				logger.error(
-					"Class=[{0}] does not implement the BridgeWriteBehindResponse interface; using default=[{1}]",
-					className, defaultClass);
-				bridgeWriteBehindResponseClass = defaultClass;
-			}
-		}
-		catch (ClassNotFoundException e) {
-			logger.error(e);
-			bridgeWriteBehindResponseClass = defaultClass;
-		}
-
-		return bridgeWriteBehindResponseClass;
-	}
-
 	@Override
 	public BridgeWriteBehindResponse getBridgeWriteBehindResponse(MimeResponse mimeResponse, BridgeConfig bridgeConfig)
 		throws FacesException {
@@ -135,5 +106,34 @@ public class BridgeWriteBehindSupportFactoryImpl extends BridgeWriteBehindSuppor
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Class<? extends BridgeWriteBehindResponse> loadClass(String className,
+		Class<? extends BridgeWriteBehindResponse> defaultClass) {
+
+		Class<? extends BridgeWriteBehindResponse> bridgeWriteBehindResponseClass;
+
+		try {
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			Class<?> clazz = classLoader.loadClass(className);
+
+			if ((BridgeWriteBehindResponse.class.isAssignableFrom(clazz))) {
+				bridgeWriteBehindResponseClass = (Class<? extends BridgeWriteBehindResponse>) clazz;
+				logger.debug("Loaded bridgeWriteBehindResponseClass=[{0}]", bridgeWriteBehindResponseClass);
+			}
+			else {
+				logger.error(
+					"Class=[{0}] does not implement the BridgeWriteBehindResponse interface; using default=[{1}]",
+					className, defaultClass);
+				bridgeWriteBehindResponseClass = defaultClass;
+			}
+		}
+		catch (ClassNotFoundException e) {
+			logger.error(e);
+			bridgeWriteBehindResponseClass = defaultClass;
+		}
+
+		return bridgeWriteBehindResponseClass;
 	}
 }

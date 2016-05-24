@@ -40,6 +40,32 @@ public class ResourceURLBridgePlutoImpl extends ResourceURLWrapper {
 		this.wrappedResourceURL = resourceURL;
 	}
 
+	@Override
+	public ResourceURL getWrapped() {
+		return wrappedResourceURL;
+	}
+
+	@Override
+	public void setParameter(String name, String[] values) {
+		super.setParameter(name, values);
+	}
+
+	@Override
+	public void setParameter(String name, String value) {
+
+		if (value == null) {
+			PlutoBaseURLUtil.removeParameter(wrappedResourceURL, name);
+		}
+		else {
+			super.setParameter(name, value);
+		}
+	}
+
+	@Override
+	public void setParameters(Map<String, String[]> parameters) {
+		super.setParameters(parameters);
+	}
+
 	/**
 	 * Pluto has the habit of adding cache tokens to URLs during the RESOURCE_PHASE of the portlet lifecycle that are
 	 * not present during the RENDER_PHASE. Although it would be nice to take advantage of cache-ability of resources,
@@ -68,32 +94,6 @@ public class ResourceURLBridgePlutoImpl extends ResourceURLWrapper {
 
 		// Return the normalized URL.
 		return toStringValue;
-	}
-
-	@Override
-	public void setParameter(String name, String[] values) {
-		super.setParameter(name, values);
-	}
-
-	@Override
-	public void setParameter(String name, String value) {
-
-		if (value == null) {
-			PlutoBaseURLUtil.removeParameter(wrappedResourceURL, name);
-		}
-		else {
-			super.setParameter(name, value);
-		}
-	}
-
-	@Override
-	public void setParameters(Map<String, String[]> parameters) {
-		super.setParameters(parameters);
-	}
-
-	@Override
-	public ResourceURL getWrapped() {
-		return wrappedResourceURL;
 	}
 
 }

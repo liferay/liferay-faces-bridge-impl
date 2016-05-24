@@ -169,20 +169,6 @@ public class FacesViewImpl implements FacesView {
 	}
 
 	@Override
-	public boolean isExtensionMapped() {
-		return extensionMapped;
-	}
-
-	@Override
-	public boolean isPathMapped() {
-		return pathMapped;
-	}
-
-	public boolean isServletMapped() {
-		return (extensionMapped || pathMapped);
-	}
-
-	@Override
 	public String getExtension() {
 		return extension;
 	}
@@ -200,5 +186,19 @@ public class FacesViewImpl implements FacesView {
 	@Override
 	public String getViewId() {
 		return viewId;
+	}
+
+	@Override
+	public boolean isExtensionMapped() {
+		return extensionMapped;
+	}
+
+	@Override
+	public boolean isPathMapped() {
+		return pathMapped;
+	}
+
+	public boolean isServletMapped() {
+		return (extensionMapped || pathMapped);
 	}
 }

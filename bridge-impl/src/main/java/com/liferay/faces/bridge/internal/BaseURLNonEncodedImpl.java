@@ -40,6 +40,11 @@ public class BaseURLNonEncodedImpl implements BaseURL {
 	}
 
 	@Override
+	public void addProperty(String key, String value) {
+		// no-op
+	}
+
+	@Override
 	public Map<String, String[]> getParameterMap() {
 		return bridgeURI.getParameterMap();
 	}
@@ -74,11 +79,6 @@ public class BaseURLNonEncodedImpl implements BaseURL {
 
 	@Override
 	public void setSecure(boolean secure) throws PortletSecurityException {
-		// no-op
-	}
-
-	@Override
-	public void addProperty(String key, String value) {
 		// no-op
 	}
 

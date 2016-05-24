@@ -188,11 +188,6 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		return PortletConfigParamUtil.getConfiguredValue(portletConfig, name, alternateName);
 	}
 
-	@Override
-	public boolean isConfigured(PortletConfig portletConfig) {
-		return PortletConfigParamUtil.isSpecified(portletConfig, name, alternateName);
-	}
-
 	public boolean getDefaultBooleanValue() {
 		return defaultBooleanValue;
 	}
@@ -227,5 +222,10 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	@Override
 	public String getStringValue(PortletConfig portletConfig) {
 		return PortletConfigParamUtil.getStringValue(portletConfig, name, alternateName, defaultStringValue);
+	}
+
+	@Override
+	public boolean isConfigured(PortletConfig portletConfig) {
+		return PortletConfigParamUtil.isSpecified(portletConfig, name, alternateName);
 	}
 }

@@ -28,21 +28,14 @@ import javax.portlet.PortletSecurityException;
  */
 public abstract class BaseURLWrapper implements BaseURL {
 
+	public abstract BaseURL getWrapped();
+
 	public void addProperty(String key, String value) {
 		getWrapped().addProperty(key, value);
 	}
 
-	@Override
-	public String toString() {
-		return getWrapped().toString();
-	}
-
-	public void write(Writer out) throws IOException {
-		getWrapped().write(out);
-	}
-
-	public void write(Writer out, boolean escapeXML) throws IOException {
-		getWrapped().write(out, escapeXML);
+	public Map<String, String[]> getParameterMap() {
+		return getWrapped().getParameterMap();
 	}
 
 	public void setParameter(String name, String value) {
@@ -51,10 +44,6 @@ public abstract class BaseURLWrapper implements BaseURL {
 
 	public void setParameter(String name, String[] values) {
 		getWrapped().setParameter(name, values);
-	}
-
-	public Map<String, String[]> getParameterMap() {
-		return getWrapped().getParameterMap();
 	}
 
 	public void setParameters(Map<String, String[]> parameters) {
@@ -69,5 +58,16 @@ public abstract class BaseURLWrapper implements BaseURL {
 		getWrapped().setSecure(secure);
 	}
 
-	public abstract BaseURL getWrapped();
+	@Override
+	public String toString() {
+		return getWrapped().toString();
+	}
+
+	public void write(Writer out) throws IOException {
+		getWrapped().write(out);
+	}
+
+	public void write(Writer out, boolean escapeXML) throws IOException {
+		getWrapped().write(out, escapeXML);
+	}
 }

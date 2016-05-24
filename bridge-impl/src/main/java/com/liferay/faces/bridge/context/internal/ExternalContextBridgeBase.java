@@ -28,12 +28,12 @@ import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.BridgeFactoryFinder;
 
 import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
-import com.liferay.faces.bridge.internal.PortletConfigParam;
-import com.liferay.faces.bridge.context.IncongruityContext;
-import com.liferay.faces.bridge.internal.BridgeURIFactory;
 import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.BridgeURLFactory;
+import com.liferay.faces.bridge.context.IncongruityContext;
+import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
+import com.liferay.faces.bridge.internal.BridgeURIFactory;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.scope.BridgeRequestScope;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.config.ConfiguredServletMapping;

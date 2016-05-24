@@ -55,19 +55,19 @@ import javax.portlet.faces.BridgeWriteBehindResponse;
 import javax.portlet.faces.GenericFacesPortlet;
 import javax.servlet.http.HttpServletResponse;
 
+import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationUtil;
 import com.liferay.faces.bridge.application.view.internal.BridgeWriteBehindSupportFactory;
-import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderMap;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderValuesMap;
-import com.liferay.faces.bridge.internal.BridgeURI;
-import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseRenderAdapter;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseResourceAdapter;
 import com.liferay.faces.bridge.internal.BridgeExt;
+import com.liferay.faces.bridge.internal.BridgeURI;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.LocaleIterator;
 import com.liferay.faces.bridge.util.internal.ViewUtil;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
@@ -220,6 +220,445 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 	}
 
 	@Override
+	public Map<String, Object> getApplicationMap() {
+		return applicationMap;
+	}
+
+	@Override
+	public String getAuthType() {
+
+		if (authType == null) {
+			authType = portletRequest.getAuthType();
+		}
+
+		return authType;
+	}
+
+	@Override
+	public Object getContext() {
+		return portletContext;
+	}
+
+	/**
+	 * NOTE: PROPOSE-FOR-BRIDGE3-API Returns the value of the specified initialization parameter. If found, return the
+	 * value of the {@link javax.portlet.PortletConfig#getInitParameter(String)} method. Otherwise, return the value of
+	 * the {@link PortletContext#getInitParameter(String)} method. This provides a way for init-param values found in
+	 * the WEB-INF/portlet.xml descriptor to override context-param values found in the WEB-INF/web.xml descriptor.
+	 */
+	@Override
+	public String getInitParameter(String name) {
+
+		String initParameter = portletConfig.getInitParameter(name);
+
+		if (initParameter == null) {
+			initParameter = portletContext.getInitParameter(name);
+		}
+
+		return initParameter;
+	}
+
+	@Override
+	public Map<String, String> getInitParameterMap() {
+		return initParameterMap;
+	}
+
+	@Override
+	public String getRemoteUser() {
+
+		if (remoteUser == null) {
+			remoteUser = portletRequest.getRemoteUser();
+		}
+
+		return remoteUser;
+	}
+
+	@Override
+	public Object getRequest() {
+		return portletRequest;
+	}
+
+	@Override
+	public String getRequestCharacterEncoding() {
+
+		if (portletRequest instanceof ClientDataRequest) {
+			ClientDataRequest clientDataRequest = (ClientDataRequest) portletRequest;
+			String requestCharacterEncoding = clientDataRequest.getCharacterEncoding();
+
+			if (manageIncongruities) {
+
+				try {
+					incongruityContext.setRequestCharacterEncoding(requestCharacterEncoding);
+				}
+				catch (Exception e) {
+					logger.error(e);
+				}
+			}
+
+			return requestCharacterEncoding;
+		}
+		else {
+
+			if (manageIncongruities) {
+				return incongruityContext.getRequestCharacterEncoding();
+			}
+			else {
+
+				// The Mojarra 2.x {@link MultiViewHandler#initView(FacesContext)} method expects a null value to be
+				// returned, so throwing an IllegalStateException is not an option.
+				return null;
+			}
+		}
+	}
+
+	@Override
+	public String getRequestContentType() {
+
+		if (portletRequest instanceof ClientDataRequest) {
+			ClientDataRequest clientDataRequest = (ClientDataRequest) portletRequest;
+
+			// If using ICEfaces 3.0.x/2.0.x then need to return the legacy value.
+			// http://issues.liferay.com/browse/FACES-1228
+			String requestContentType;
+
+			if (isICEfacesLegacyMode(clientDataRequest)) {
+				requestContentType = clientDataRequest.getResponseContentType();
+			}
+			else {
+				requestContentType = clientDataRequest.getContentType();
+			}
+
+			if (manageIncongruities) {
+				incongruityContext.setRequestContentType(requestContentType);
+			}
+
+			return requestContentType;
+		}
+		else {
+
+			if (manageIncongruities) {
+				return incongruityContext.getRequestContentType();
+			}
+			else {
+
+				// TestPage166: getRequestContentTypeEventTest expects this condition to return null so throwing an
+				// IllegalStateException is not an option.
+				return null;
+			}
+		}
+	}
+
+	@Override
+	public String getRequestContextPath() {
+		return requestContextPath;
+	}
+
+	@Override
+	public Map<String, Object> getRequestCookieMap() {
+
+		if (requestCookieMap == null) {
+			requestCookieMap = contextMapFactory.getRequestCookieMap(portletRequest);
+		}
+
+		return requestCookieMap;
+	}
+
+	@Override
+	public Map<String, String> getRequestHeaderMap() {
+
+		if (requestHeaderMap == null) {
+			requestHeaderMap = Collections.unmodifiableMap(new RequestHeaderMap(getRequestHeaderValuesMap()));
+		}
+
+		return requestHeaderMap;
+	}
+
+	@Override
+	public Map<String, String[]> getRequestHeaderValuesMap() {
+
+		if (requestHeaderValuesMap == null) {
+			requestHeaderValuesMap = Collections.unmodifiableMap(new RequestHeaderValuesMap(portletRequest));
+		}
+
+		return requestHeaderValuesMap;
+	}
+
+	@Override
+	public Locale getRequestLocale() {
+
+		if (requestLocale == null) {
+			requestLocale = portletRequest.getLocale();
+		}
+
+		return requestLocale;
+	}
+
+	@Override
+	public Iterator<Locale> getRequestLocales() {
+		return new LocaleIterator(portletRequest.getLocales());
+	}
+
+	@Override
+	public Map<String, Object> getRequestMap() {
+		return requestAttributeMap;
+	}
+
+	@Override
+	public Map<String, String> getRequestParameterMap() {
+
+		if (requestParameterMap == null) {
+			PortletRequest portletRequest = (PortletRequest) getRequest();
+			PortletResponse portletResponse = (PortletResponse) getResponse();
+			String responseNamespace = portletResponse.getNamespace();
+			String facesViewQueryString = getFacesView().getQueryString();
+
+			requestParameterMap = contextMapFactory.getRequestParameterMap(portletRequest, responseNamespace,
+					portletConfig, bridgeRequestScope, defaultRenderKitId, facesViewQueryString);
+		}
+
+		return requestParameterMap;
+	}
+
+	@Override
+	public Iterator<String> getRequestParameterNames() {
+		return getRequestParameterMap().keySet().iterator();
+	}
+
+	@Override
+	public Map<String, String[]> getRequestParameterValuesMap() {
+
+		if (requestParameterValuesMap == null) {
+			PortletRequest portletRequest = (PortletRequest) getRequest();
+			PortletResponse portletResponse = (PortletResponse) getResponse();
+			String responseNamespace = portletResponse.getNamespace();
+			String facesViewQueryString = getFacesView().getQueryString();
+
+			requestParameterValuesMap = contextMapFactory.getRequestParameterValuesMap(portletRequest,
+					responseNamespace, portletConfig, bridgeRequestScope, defaultRenderKitId, facesViewQueryString);
+		}
+
+		return requestParameterValuesMap;
+	}
+
+	/**
+	 * This method returns the relative path to the viewId that is to be rendered.
+	 *
+	 * @see  javax.faces.context.ExternalContext#getRequestPathInfo()
+	 */
+	@Override
+	public String getRequestPathInfo() {
+
+		String returnValue = null;
+
+		if (requestPathInfo == null) {
+
+			FacesView facesView = getFacesView();
+			String viewId = facesView.getViewId();
+
+			// If the facesView is extension-mapped (like *.faces), then return a null value as required by Section
+			// 6.1.3.1 of the spec.
+			if (facesView.isExtensionMapped()) {
+				logger.debug("requestPathInfo=[null] EXTENSION=[{1}] viewId=[{2}]", facesView.getExtension(), viewId);
+			}
+
+			// Otherwise, if the facesViewId (like /faces/foo/bar/test.jspx) is path-mapped (like /faces/*), then return
+			// the /foo/bar/test.jspx part as the reqestPathInfo. This is the way the path-mapped feature works -- it
+			// treats the /faces/* part as a "virtual" path used to match the url-pattern of the servlet-mapping. But it
+			// has to be removed from the requestPathInfo in order to provide a context-relative path to a file resource
+			// that can be found by a RequestDispatcher (or in the case of portlets, a PortletRequestDispatcher).
+			else if (facesView.isPathMapped()) {
+
+				returnValue = viewId.substring(facesView.getServletPath().length());
+				logger.debug("requestPathInfo=[{0}] PATH=[{1}] viewId=[{2}]", returnValue, facesView.getServletPath(),
+					viewId);
+			}
+
+			// Otherwise, since it is neither extension-mapped nor path-mapped, simply return the viewId. This typically
+			// occurs in a Facelets environment.
+			else {
+				returnValue = facesView.getViewId();
+				logger.debug("requestPathInfo=[{0}] servletMapping=[NONE] viewId=[{1}]", returnValue, viewId);
+			}
+
+			// The StringWrapper is used to support the lazy-initialization of technique of this method but still
+			// have the ability to return a null value.
+			requestPathInfo = new StringWrapper(returnValue);
+		}
+		else {
+			returnValue = requestPathInfo.getValue();
+		}
+
+		return returnValue;
+	}
+
+	/**
+	 * Section 6.1.3.1 of the JSR 329 spec describes the logic for this method.
+	 */
+	@Override
+	public String getRequestServletPath() {
+
+		if (requestServletPath == null) {
+
+			FacesView facesView = getFacesView();
+			String viewId = facesView.getViewId();
+
+			// If the facesView is extension-mapped (like *.faces), then simply return the viewId as required by Section
+			// 6.1.3.1 of the spec. This also conforms to the behavior of the HttpServletRequest#getServletPath()
+			// method.
+			if (facesView.isExtensionMapped()) {
+				requestServletPath = facesView.getViewId();
+				logger.debug("requestServletPath=[{0}] extensionMapped=[{1}] viewId=[{2}]", requestServletPath,
+					facesView.getExtension(), viewId);
+			}
+
+			// If the facesView is path-mapped (like /faces/*) then return everything up until the last forward-slash as
+			// required by Section 6.1.3.1 of the spec. This also conforms to the behavior of the
+			// HttpServletRequest#getServletPath() method.
+			else if (facesView.isPathMapped()) {
+				requestServletPath = facesView.getViewId();
+
+				int pos = requestServletPath.lastIndexOf("/*");
+
+				if (pos >= 0) {
+					requestServletPath = requestServletPath.substring(0, pos);
+				}
+
+				logger.debug("requestServletPath=[{0}] pathMapped=[{1}] viewId=[{2}]", requestServletPath,
+					facesView.getServletPath(), viewId);
+			}
+
+			// Otherwise, since there is no servlet-mapping, return an empty string. This is not required by the spec
+			// but seems to work in a Facelets environment where there is no servlet-mapping.
+			else {
+				requestServletPath = "";
+				logger.debug("requestServletPath=[{0}] servletMapping=[NONE] viewId=[{1}]", requestServletPath, viewId);
+			}
+
+		}
+
+		return requestServletPath;
+	}
+
+	@Override
+	public URL getResource(String path) throws MalformedURLException {
+		return portletContext.getResource(path);
+	}
+
+	@Override
+	public InputStream getResourceAsStream(String path) {
+		return portletContext.getResourceAsStream(path);
+	}
+
+	@Override
+	public Set<String> getResourcePaths(String path) {
+		return portletContext.getResourcePaths(path);
+	}
+
+	@Override
+	public Object getResponse() {
+		return portletResponse;
+	}
+
+	@Override
+	public String getResponseCharacterEncoding() {
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+			String characterEncoding = mimeResponse.getCharacterEncoding();
+
+			if (manageIncongruities) {
+				incongruityContext.setResponseCharacterEncoding(characterEncoding);
+			}
+
+			return characterEncoding;
+		}
+		else {
+
+			if (manageIncongruities) {
+				return incongruityContext.getResponseCharacterEncoding();
+			}
+			else {
+
+				if (portletResponse instanceof StateAwareResponse) {
+
+					FacesContext facesContext = FacesContext.getCurrentInstance();
+					ExternalContext externalContext = facesContext.getExternalContext();
+					String characterEncoding = (String) externalContext.getRequestMap().get(
+							BridgeExt.RESPONSE_CHARACTER_ENCODING);
+
+					if (characterEncoding != null) {
+
+						// Workaround for patch applied to Mojarra in JAVASERVERFACES-3023
+						return characterEncoding;
+					}
+					else {
+
+						// TCK TestPage169: getResponseCharacterEncodingActionTest
+						// TCK TestPage180: getResponseCharacterEncodingEventTest
+						throw new IllegalStateException();
+					}
+				}
+				else {
+					return null;
+				}
+			}
+		}
+	}
+
+	/**
+	 * @see  {@link ExternalContext#getResponseContentType()}
+	 */
+	@Override
+	public String getResponseContentType() {
+
+		if (portletResponse instanceof MimeResponse) {
+
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			String responseContentType = mimeResponse.getContentType();
+
+			if (responseContentType == null) {
+				responseContentType = portletRequest.getResponseContentType();
+			}
+
+			return responseContentType;
+		}
+		else {
+
+			// TCK TestPage173: getResponseContentTypeActionTest
+			// TCK TestPage174: getResponseContentTypeEventTest
+			throw new IllegalStateException();
+		}
+	}
+
+	/**
+	 * @see  {@link ExternalContext#getSession(boolean)}
+	 */
+	@Override
+	public Object getSession(boolean create) {
+		return portletRequest.getPortletSession(create);
+	}
+
+	@Override
+	public Map<String, Object> getSessionMap() {
+		return sessionMap;
+	}
+
+	@Override
+	public Principal getUserPrincipal() {
+
+		if (userPrincipal == null) {
+			userPrincipal = portletRequest.getUserPrincipal();
+		}
+
+		return userPrincipal;
+	}
+
+	@Override
+	public boolean isUserInRole(String role) {
+		return portletRequest.isUserInRole(role);
+	}
+
+	@Override
 	public void log(String message) {
 		portletContext.log(message);
 	}
@@ -275,11 +714,11 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 								BridgePortalContext.CREATE_RENDER_URL_DURING_ACTION_PHASE_SUPPORT);
 
 						if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) &&
-							(createRenderUrlDuringActionPhaseSupport != null)) {
+								(createRenderUrlDuringActionPhaseSupport != null)) {
 
 							// Redirect to the targeted view.
 							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext,
-								bridgeURI.toString(), null);
+									bridgeURI.toString(), null);
 							ActionResponse actionResponse = (ActionResponse) portletResponse;
 							actionResponse.sendRedirect(bridgeRedirectURL.toString());
 						}
@@ -332,7 +771,7 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 
 							// If the specified URL is for a JSF viewId, then prepare for a render-redirect.
 							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url,
-								null);
+									null);
 
 							String redirectURLViewId = bridgeRedirectURL.getViewId();
 
@@ -406,67 +845,144 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 		}
 	}
 
+	@Override
+	public void setRequest(Object request) {
+
+		if ((request != null) && (request instanceof PortletRequest)) {
+
+			this.portletRequest = (PortletRequest) request;
+			this.requestParameterMap = null;
+			this.requestParameterValuesMap = null;
+			this.requestHeaderMap = null;
+			this.requestHeaderValuesMap = null;
+			preInitializeObjects();
+		}
+		else {
+			throw new IllegalArgumentException("Must be an instance of javax.portlet.PortletRequest");
+		}
+	}
+
+	@Override
+	public void setRequestCharacterEncoding(String encoding) throws UnsupportedEncodingException,
+		IllegalStateException {
+
+		// Although the JSF API's ViewHandler.initView(FacesContext) method will call this method during the portlet
+		// RENDER_PHASE, the RenderRequest does not implement the ClientDataRequest interface, which means it does not
+		// have a setCharacterEncoding(String) method, therefore this should only be done in the case of a
+		// ClientDataRequest.
+		if (portletRequest instanceof ClientDataRequest) {
+			ClientDataRequest clientDataRequest = (ClientDataRequest) portletRequest;
+
+			try {
+				clientDataRequest.setCharacterEncoding(encoding);
+			}
+			catch (IllegalStateException e) {
+				// TestPage141: setRequestCharacterEncodingActionTest -- exception is to be ignored
+			}
+		}
+		else {
+
+			if (manageIncongruities) {
+				incongruityContext.setRequestCharacterEncoding(encoding);
+			}
+			else {
+				// TestPage140: setRequestCharacterEncodingRenderTest expects this to be a no-op so throwing an
+				// IllegalStateException is not an option.
+			}
+		}
+	}
+
+	@Override
+	public void setResponse(Object response) {
+
+		if (response != null) {
+
+			// If the specified response is a PortletResponse, then simply remember the value.
+			if (response instanceof PortletResponse) {
+
+				portletResponse = (PortletResponse) response;
+				preInitializeObjects();
+			}
+
+			// Otherwise, if it is an HttpServletResponse, then assume that the Faces runtime is attempting to decorate
+			// the response. This typically happens when a JSP view (rather than a Facelets view) is to be rendered and
+			// the Faces runtime is attempting to capture the plain HTML markup that may appear after the closing
+			// </f:view> component tag (a.k.a. "after view markup"). For example, the Mojarra
+			// com.sun.faces.application.view.JspViewHandlingStrategoy will attempt to decorate the response with an
+			// isntance of com.sun.faces.application.ViewHandlerResponseWrapper. Similarly, the MyFaces
+			// org.apache.myfaces.view.jsp.JspViewDeclarationLanguage class will attempt to decorate the response with
+			// an instance of org.apache.myfaces.application.jsp.ServletViewResponseWrapper.
+			else if (response instanceof HttpServletResponse) {
+
+				// If executing the RENDER_PHASE of the portlet lifecycle, then decorate the specified
+				// HttpServletResponse with an adapter that implements RenderRequest.
+				HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+
+				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
+					portletResponse = new HttpServletResponseRenderAdapter(httpServletResponse,
+							portletResponse.getNamespace());
+				}
+
+				// Otherwise, if executing the RESOURCE_PHASE of the portlet lifecycle, then decorate the specified
+				// HttpServletResponse with an adapter that implements ResourceResponse.
+				else if (portletPhase == Bridge.PortletPhase.RESOURCE_PHASE) {
+					portletResponse = new HttpServletResponseResourceAdapter(httpServletResponse,
+							portletResponse.getNamespace());
+				}
+
+				// Otherwise, throw an exception since HttpServletResponse is not supported in other phases of the
+				// portlet lifecycle.
+				else {
+					throw new IllegalArgumentException("Unable to decorate httpServletResponse=[" + response +
+						"] in phase=[" + portletPhase + "]");
+				}
+
+				// Section 7.2.1 of the Spec requires that the response be an instance of BridgeWriteBehindResponse.
+				BridgeWriteBehindSupportFactory bridgeWriteBehindSupportFactory = (BridgeWriteBehindSupportFactory)
+					BridgeFactoryFinder.getFactory(BridgeWriteBehindSupportFactory.class);
+				BridgeWriteBehindResponse bridgeWriteBehindResponse =
+					bridgeWriteBehindSupportFactory.getBridgeWriteBehindResponse((MimeResponse) portletResponse,
+						bridgeConfig);
+				portletResponse = (PortletResponse) bridgeWriteBehindResponse;
+				preInitializeObjects();
+			}
+			else {
+				throw new IllegalArgumentException("response=[" + response +
+					"] is not an instance of javax.portlet.PortletResponse");
+			}
+		}
+		else {
+			throw new IllegalArgumentException("response cannot be null");
+		}
+	}
+
 	/**
-	 * In order to increase runtime performance, this method caches values of objects that are typically called more
-	 * than once during the JSF lifecycle. Other values will be cached lazily, or might not be cached since their getter
-	 * methods may never get called.
+	 * @see  ExternalContext#setResponseCharacterEncoding(String)
 	 */
-	protected void preInitializeObjects() {
-
-		// Retrieve the portlet lifecycle phase.
-		portletPhase = (Bridge.PortletPhase) portletRequest.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE);
-
-		// Initialize the application map.
-		boolean preferPreDestroy = PortletConfigParam.PreferPreDestroy.getBooleanValue(portletConfig);
-		applicationMap = contextMapFactory.getApplicationScopeMap(portletContext, preferPreDestroy);
-
-		// Initialize the request attribute map.
-		Set<String> removedAttributeNames = null;
-
-		if (bridgeRequestScope != null) {
-			removedAttributeNames = bridgeRequestScope.getRemovedAttributeNames();
-		}
-
-		requestAttributeMap = contextMapFactory.getRequestScopeMap(portletContext, portletRequest,
-				portletResponse.getNamespace(), removedAttributeNames, preferPreDestroy);
-
-		// Initialize the session map.
-		sessionMap = contextMapFactory.getSessionScopeMap(portletContext, portletRequest.getPortletSession(true),
-				PortletSession.PORTLET_SCOPE, preferPreDestroy);
-
-		// Initialize the init parameter map.
-		initParameterMap = contextMapFactory.getInitParameterMap(portletContext);
-
-		// Initialize the request context path.
-		requestContextPath = portletRequest.getContextPath();
-
-		String attributeName = Bridge.BRIDGE_PACKAGE_PREFIX + portletConfig.getPortletName() + "." +
-			Bridge.DEFAULT_RENDERKIT_ID;
-		defaultRenderKitId = (String) portletContext.getAttribute(attributeName);
-	}
-
 	@Override
-	public Map<String, Object> getApplicationMap() {
-		return applicationMap;
-	}
+	public void setResponseCharacterEncoding(String encoding) {
 
-	@Override
-	public String getAuthType() {
+		if (encoding != null) {
 
-		if (authType == null) {
-			authType = portletRequest.getAuthType();
+			if (portletResponse instanceof ResourceResponse) {
+				ResourceResponse resourceResponse = (ResourceResponse) portletResponse;
+				resourceResponse.setCharacterEncoding(encoding);
+			}
+			else {
+
+				if (manageIncongruities) {
+					incongruityContext.setResponseCharacterEncoding(encoding);
+				}
+				else {
+					// TestPage196: setResponseCharacterEncodingTest expects this to be a no-op so throwing
+					// IllegalStateException is not an option.
+				}
+			}
 		}
-
-		return authType;
 	}
 
 	protected BridgeConfig getBridgeConfig() {
 		return (BridgeConfig) getRequestMap().get(BridgeConfig.class.getName());
-	}
-
-	@Override
-	public Object getContext() {
-		return portletContext;
 	}
 
 	protected Map<String, String> getDefaultViewIdMap(PortletConfig portletConfig) {
@@ -476,11 +992,6 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 		}
 
 		return defaultViewIdMap;
-	}
-
-	@Override
-	public boolean isUserInRole(String role) {
-		return portletRequest.isUserInRole(role);
 	}
 
 	/**
@@ -739,304 +1250,6 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 		return value;
 	}
 
-	/**
-	 * NOTE: PROPOSE-FOR-BRIDGE3-API Returns the value of the specified initialization parameter. If found, return the
-	 * value of the {@link javax.portlet.PortletConfig#getInitParameter(String)} method. Otherwise, return the value of
-	 * the {@link PortletContext#getInitParameter(String)} method. This provides a way for init-param values found in
-	 * the WEB-INF/portlet.xml descriptor to override context-param values found in the WEB-INF/web.xml descriptor.
-	 */
-	@Override
-	public String getInitParameter(String name) {
-
-		String initParameter = portletConfig.getInitParameter(name);
-
-		if (initParameter == null) {
-			initParameter = portletContext.getInitParameter(name);
-		}
-
-		return initParameter;
-	}
-
-	@Override
-	public Map<String, String> getInitParameterMap() {
-		return initParameterMap;
-	}
-
-	@Override
-	public String getRemoteUser() {
-
-		if (remoteUser == null) {
-			remoteUser = portletRequest.getRemoteUser();
-		}
-
-		return remoteUser;
-	}
-
-	@Override
-	public Object getRequest() {
-		return portletRequest;
-	}
-
-	@Override
-	public void setRequest(Object request) {
-
-		if ((request != null) && (request instanceof PortletRequest)) {
-
-			this.portletRequest = (PortletRequest) request;
-			this.requestParameterMap = null;
-			this.requestParameterValuesMap = null;
-			this.requestHeaderMap = null;
-			this.requestHeaderValuesMap = null;
-			preInitializeObjects();
-		}
-		else {
-			throw new IllegalArgumentException("Must be an instance of javax.portlet.PortletRequest");
-		}
-	}
-
-	@Override
-	public String getRequestCharacterEncoding() {
-
-		if (portletRequest instanceof ClientDataRequest) {
-			ClientDataRequest clientDataRequest = (ClientDataRequest) portletRequest;
-			String requestCharacterEncoding = clientDataRequest.getCharacterEncoding();
-
-			if (manageIncongruities) {
-
-				try {
-					incongruityContext.setRequestCharacterEncoding(requestCharacterEncoding);
-				}
-				catch (Exception e) {
-					logger.error(e);
-				}
-			}
-
-			return requestCharacterEncoding;
-		}
-		else {
-
-			if (manageIncongruities) {
-				return incongruityContext.getRequestCharacterEncoding();
-			}
-			else {
-
-				// The Mojarra 2.x {@link MultiViewHandler#initView(FacesContext)} method expects a null value to be
-				// returned, so throwing an IllegalStateException is not an option.
-				return null;
-			}
-		}
-	}
-
-	@Override
-	public void setRequestCharacterEncoding(String encoding) throws UnsupportedEncodingException,
-		IllegalStateException {
-
-		// Although the JSF API's ViewHandler.initView(FacesContext) method will call this method during the portlet
-		// RENDER_PHASE, the RenderRequest does not implement the ClientDataRequest interface, which means it does not
-		// have a setCharacterEncoding(String) method, therefore this should only be done in the case of a
-		// ClientDataRequest.
-		if (portletRequest instanceof ClientDataRequest) {
-			ClientDataRequest clientDataRequest = (ClientDataRequest) portletRequest;
-
-			try {
-				clientDataRequest.setCharacterEncoding(encoding);
-			}
-			catch (IllegalStateException e) {
-				// TestPage141: setRequestCharacterEncodingActionTest -- exception is to be ignored
-			}
-		}
-		else {
-
-			if (manageIncongruities) {
-				incongruityContext.setRequestCharacterEncoding(encoding);
-			}
-			else {
-				// TestPage140: setRequestCharacterEncodingRenderTest expects this to be a no-op so throwing an
-				// IllegalStateException is not an option.
-			}
-		}
-	}
-
-	@Override
-	public String getRequestContentType() {
-
-		if (portletRequest instanceof ClientDataRequest) {
-			ClientDataRequest clientDataRequest = (ClientDataRequest) portletRequest;
-
-			// If using ICEfaces 3.0.x/2.0.x then need to return the legacy value.
-			// http://issues.liferay.com/browse/FACES-1228
-			String requestContentType;
-
-			if (isICEfacesLegacyMode(clientDataRequest)) {
-				requestContentType = clientDataRequest.getResponseContentType();
-			}
-			else {
-				requestContentType = clientDataRequest.getContentType();
-			}
-
-			if (manageIncongruities) {
-				incongruityContext.setRequestContentType(requestContentType);
-			}
-
-			return requestContentType;
-		}
-		else {
-
-			if (manageIncongruities) {
-				return incongruityContext.getRequestContentType();
-			}
-			else {
-
-				// TestPage166: getRequestContentTypeEventTest expects this condition to return null so throwing an
-				// IllegalStateException is not an option.
-				return null;
-			}
-		}
-	}
-
-	@Override
-	public String getRequestContextPath() {
-		return requestContextPath;
-	}
-
-	@Override
-	public Map<String, Object> getRequestCookieMap() {
-
-		if (requestCookieMap == null) {
-			requestCookieMap = contextMapFactory.getRequestCookieMap(portletRequest);
-		}
-
-		return requestCookieMap;
-	}
-
-	@Override
-	public Map<String, String> getRequestHeaderMap() {
-
-		if (requestHeaderMap == null) {
-			requestHeaderMap = Collections.unmodifiableMap(new RequestHeaderMap(getRequestHeaderValuesMap()));
-		}
-
-		return requestHeaderMap;
-	}
-
-	@Override
-	public Map<String, String[]> getRequestHeaderValuesMap() {
-
-		if (requestHeaderValuesMap == null) {
-			requestHeaderValuesMap = Collections.unmodifiableMap(new RequestHeaderValuesMap(portletRequest));
-		}
-
-		return requestHeaderValuesMap;
-	}
-
-	@Override
-	public Locale getRequestLocale() {
-
-		if (requestLocale == null) {
-			requestLocale = portletRequest.getLocale();
-		}
-
-		return requestLocale;
-	}
-
-	@Override
-	public Iterator<Locale> getRequestLocales() {
-		return new LocaleIterator(portletRequest.getLocales());
-	}
-
-	@Override
-	public Map<String, Object> getRequestMap() {
-		return requestAttributeMap;
-	}
-
-	@Override
-	public Map<String, String> getRequestParameterMap() {
-
-		if (requestParameterMap == null) {
-			PortletRequest portletRequest = (PortletRequest) getRequest();
-			PortletResponse portletResponse = (PortletResponse) getResponse();
-			String responseNamespace = portletResponse.getNamespace();
-			String facesViewQueryString = getFacesView().getQueryString();
-
-			requestParameterMap = contextMapFactory.getRequestParameterMap(portletRequest, responseNamespace,
-					portletConfig, bridgeRequestScope, defaultRenderKitId, facesViewQueryString);
-		}
-
-		return requestParameterMap;
-	}
-
-	@Override
-	public Iterator<String> getRequestParameterNames() {
-		return getRequestParameterMap().keySet().iterator();
-	}
-
-	@Override
-	public Map<String, String[]> getRequestParameterValuesMap() {
-
-		if (requestParameterValuesMap == null) {
-			PortletRequest portletRequest = (PortletRequest) getRequest();
-			PortletResponse portletResponse = (PortletResponse) getResponse();
-			String responseNamespace = portletResponse.getNamespace();
-			String facesViewQueryString = getFacesView().getQueryString();
-
-			requestParameterValuesMap = contextMapFactory.getRequestParameterValuesMap(portletRequest,
-					responseNamespace, portletConfig, bridgeRequestScope, defaultRenderKitId, facesViewQueryString);
-		}
-
-		return requestParameterValuesMap;
-	}
-
-	/**
-	 * This method returns the relative path to the viewId that is to be rendered.
-	 *
-	 * @see  javax.faces.context.ExternalContext#getRequestPathInfo()
-	 */
-	@Override
-	public String getRequestPathInfo() {
-
-		String returnValue = null;
-
-		if (requestPathInfo == null) {
-
-			FacesView facesView = getFacesView();
-			String viewId = facesView.getViewId();
-
-			// If the facesView is extension-mapped (like *.faces), then return a null value as required by Section
-			// 6.1.3.1 of the spec.
-			if (facesView.isExtensionMapped()) {
-				logger.debug("requestPathInfo=[null] EXTENSION=[{1}] viewId=[{2}]", facesView.getExtension(), viewId);
-			}
-
-			// Otherwise, if the facesViewId (like /faces/foo/bar/test.jspx) is path-mapped (like /faces/*), then return
-			// the /foo/bar/test.jspx part as the reqestPathInfo. This is the way the path-mapped feature works -- it
-			// treats the /faces/* part as a "virtual" path used to match the url-pattern of the servlet-mapping. But it
-			// has to be removed from the requestPathInfo in order to provide a context-relative path to a file resource
-			// that can be found by a RequestDispatcher (or in the case of portlets, a PortletRequestDispatcher).
-			else if (facesView.isPathMapped()) {
-
-				returnValue = viewId.substring(facesView.getServletPath().length());
-				logger.debug("requestPathInfo=[{0}] PATH=[{1}] viewId=[{2}]", returnValue, facesView.getServletPath(),
-					viewId);
-			}
-
-			// Otherwise, since it is neither extension-mapped nor path-mapped, simply return the viewId. This typically
-			// occurs in a Facelets environment.
-			else {
-				returnValue = facesView.getViewId();
-				logger.debug("requestPathInfo=[{0}] servletMapping=[NONE] viewId=[{1}]", returnValue, viewId);
-			}
-
-			// The StringWrapper is used to support the lazy-initialization of technique of this method but still
-			// have the ability to return a null value.
-			requestPathInfo = new StringWrapper(returnValue);
-		}
-		else {
-			returnValue = requestPathInfo.getValue();
-		}
-
-		return returnValue;
-	}
-
 	protected String getRequestQueryString(PortletRequest portletRequest) {
 
 		// Servlet-API request attribute that indicates the query part of the URL requested by the user-agent
@@ -1059,54 +1272,6 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 		return requestQueryString;
 	}
 
-	/**
-	 * Section 6.1.3.1 of the JSR 329 spec describes the logic for this method.
-	 */
-	@Override
-	public String getRequestServletPath() {
-
-		if (requestServletPath == null) {
-
-			FacesView facesView = getFacesView();
-			String viewId = facesView.getViewId();
-
-			// If the facesView is extension-mapped (like *.faces), then simply return the viewId as required by Section
-			// 6.1.3.1 of the spec. This also conforms to the behavior of the HttpServletRequest#getServletPath()
-			// method.
-			if (facesView.isExtensionMapped()) {
-				requestServletPath = facesView.getViewId();
-				logger.debug("requestServletPath=[{0}] extensionMapped=[{1}] viewId=[{2}]", requestServletPath,
-					facesView.getExtension(), viewId);
-			}
-
-			// If the facesView is path-mapped (like /faces/*) then return everything up until the last forward-slash as
-			// required by Section 6.1.3.1 of the spec. This also conforms to the behavior of the
-			// HttpServletRequest#getServletPath() method.
-			else if (facesView.isPathMapped()) {
-				requestServletPath = facesView.getViewId();
-
-				int pos = requestServletPath.lastIndexOf("/*");
-
-				if (pos >= 0) {
-					requestServletPath = requestServletPath.substring(0, pos);
-				}
-
-				logger.debug("requestServletPath=[{0}] pathMapped=[{1}] viewId=[{2}]", requestServletPath,
-					facesView.getServletPath(), viewId);
-			}
-
-			// Otherwise, since there is no servlet-mapping, return an empty string. This is not required by the spec
-			// but seems to work in a Facelets environment where there is no servlet-mapping.
-			else {
-				requestServletPath = "";
-				logger.debug("requestServletPath=[{0}] servletMapping=[NONE] viewId=[{1}]", requestServletPath, viewId);
-			}
-
-		}
-
-		return requestServletPath;
-	}
-
 	protected String getRequestURL() {
 
 		// Note that this is an approximation (best guess) of the original URL.
@@ -1115,208 +1280,43 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 			getRequestQueryString(portletRequest);
 	}
 
-	@Override
-	public URL getResource(String path) throws MalformedURLException {
-		return portletContext.getResource(path);
-	}
-
-	@Override
-	public InputStream getResourceAsStream(String path) {
-		return portletContext.getResourceAsStream(path);
-	}
-
-	@Override
-	public Set<String> getResourcePaths(String path) {
-		return portletContext.getResourcePaths(path);
-	}
-
-	@Override
-	public Object getResponse() {
-		return portletResponse;
-	}
-
-	@Override
-	public void setResponse(Object response) {
-
-		if (response != null) {
-
-			// If the specified response is a PortletResponse, then simply remember the value.
-			if (response instanceof PortletResponse) {
-
-				portletResponse = (PortletResponse) response;
-				preInitializeObjects();
-			}
-
-			// Otherwise, if it is an HttpServletResponse, then assume that the Faces runtime is attempting to decorate
-			// the response. This typically happens when a JSP view (rather than a Facelets view) is to be rendered and
-			// the Faces runtime is attempting to capture the plain HTML markup that may appear after the closing
-			// </f:view> component tag (a.k.a. "after view markup"). For example, the Mojarra
-			// com.sun.faces.application.view.JspViewHandlingStrategoy will attempt to decorate the response with an
-			// isntance of com.sun.faces.application.ViewHandlerResponseWrapper. Similarly, the MyFaces
-			// org.apache.myfaces.view.jsp.JspViewDeclarationLanguage class will attempt to decorate the response with
-			// an instance of org.apache.myfaces.application.jsp.ServletViewResponseWrapper.
-			else if (response instanceof HttpServletResponse) {
-
-				// If executing the RENDER_PHASE of the portlet lifecycle, then decorate the specified
-				// HttpServletResponse with an adapter that implements RenderRequest.
-				HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-
-				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
-					portletResponse = new HttpServletResponseRenderAdapter(httpServletResponse,
-							portletResponse.getNamespace());
-				}
-
-				// Otherwise, if executing the RESOURCE_PHASE of the portlet lifecycle, then decorate the specified
-				// HttpServletResponse with an adapter that implements ResourceResponse.
-				else if (portletPhase == Bridge.PortletPhase.RESOURCE_PHASE) {
-					portletResponse = new HttpServletResponseResourceAdapter(httpServletResponse,
-							portletResponse.getNamespace());
-				}
-
-				// Otherwise, throw an exception since HttpServletResponse is not supported in other phases of the
-				// portlet lifecycle.
-				else {
-					throw new IllegalArgumentException("Unable to decorate httpServletResponse=[" + response +
-						"] in phase=[" + portletPhase + "]");
-				}
-
-				// Section 7.2.1 of the Spec requires that the response be an instance of BridgeWriteBehindResponse.
-				BridgeWriteBehindSupportFactory bridgeWriteBehindSupportFactory = (BridgeWriteBehindSupportFactory)
-					BridgeFactoryFinder.getFactory(BridgeWriteBehindSupportFactory.class);
-				BridgeWriteBehindResponse bridgeWriteBehindResponse =
-					bridgeWriteBehindSupportFactory.getBridgeWriteBehindResponse((MimeResponse) portletResponse,
-						bridgeConfig);
-				portletResponse = (PortletResponse) bridgeWriteBehindResponse;
-				preInitializeObjects();
-			}
-			else {
-				throw new IllegalArgumentException("response=[" + response +
-					"] is not an instance of javax.portlet.PortletResponse");
-			}
-		}
-		else {
-			throw new IllegalArgumentException("response cannot be null");
-		}
-	}
-
-	@Override
-	public String getResponseCharacterEncoding() {
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-			String characterEncoding = mimeResponse.getCharacterEncoding();
-
-			if (manageIncongruities) {
-				incongruityContext.setResponseCharacterEncoding(characterEncoding);
-			}
-
-			return characterEncoding;
-		}
-		else {
-
-			if (manageIncongruities) {
-				return incongruityContext.getResponseCharacterEncoding();
-			}
-			else {
-
-				if (portletResponse instanceof StateAwareResponse) {
-
-					FacesContext facesContext = FacesContext.getCurrentInstance();
-					ExternalContext externalContext = facesContext.getExternalContext();
-					String characterEncoding = (String) externalContext.getRequestMap().get(
-							BridgeExt.RESPONSE_CHARACTER_ENCODING);
-
-					if (characterEncoding != null) {
-
-						// Workaround for patch applied to Mojarra in JAVASERVERFACES-3023
-						return characterEncoding;
-					}
-					else {
-
-						// TCK TestPage169: getResponseCharacterEncodingActionTest
-						// TCK TestPage180: getResponseCharacterEncodingEventTest
-						throw new IllegalStateException();
-					}
-				}
-				else {
-					return null;
-				}
-			}
-		}
-	}
-
 	/**
-	 * @see  ExternalContext#setResponseCharacterEncoding(String)
+	 * In order to increase runtime performance, this method caches values of objects that are typically called more
+	 * than once during the JSF lifecycle. Other values will be cached lazily, or might not be cached since their getter
+	 * methods may never get called.
 	 */
-	@Override
-	public void setResponseCharacterEncoding(String encoding) {
+	protected void preInitializeObjects() {
 
-		if (encoding != null) {
+		// Retrieve the portlet lifecycle phase.
+		portletPhase = (Bridge.PortletPhase) portletRequest.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE);
 
-			if (portletResponse instanceof ResourceResponse) {
-				ResourceResponse resourceResponse = (ResourceResponse) portletResponse;
-				resourceResponse.setCharacterEncoding(encoding);
-			}
-			else {
+		// Initialize the application map.
+		boolean preferPreDestroy = PortletConfigParam.PreferPreDestroy.getBooleanValue(portletConfig);
+		applicationMap = contextMapFactory.getApplicationScopeMap(portletContext, preferPreDestroy);
 
-				if (manageIncongruities) {
-					incongruityContext.setResponseCharacterEncoding(encoding);
-				}
-				else {
-					// TestPage196: setResponseCharacterEncodingTest expects this to be a no-op so throwing
-					// IllegalStateException is not an option.
-				}
-			}
-		}
-	}
+		// Initialize the request attribute map.
+		Set<String> removedAttributeNames = null;
 
-	/**
-	 * @see  {@link ExternalContext#getResponseContentType()}
-	 */
-	@Override
-	public String getResponseContentType() {
-
-		if (portletResponse instanceof MimeResponse) {
-
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			String responseContentType = mimeResponse.getContentType();
-
-			if (responseContentType == null) {
-				responseContentType = portletRequest.getResponseContentType();
-			}
-
-			return responseContentType;
-		}
-		else {
-
-			// TCK TestPage173: getResponseContentTypeActionTest
-			// TCK TestPage174: getResponseContentTypeEventTest
-			throw new IllegalStateException();
-		}
-	}
-
-	/**
-	 * @see  {@link ExternalContext#getSession(boolean)}
-	 */
-	@Override
-	public Object getSession(boolean create) {
-		return portletRequest.getPortletSession(create);
-	}
-
-	@Override
-	public Map<String, Object> getSessionMap() {
-		return sessionMap;
-	}
-
-	@Override
-	public Principal getUserPrincipal() {
-
-		if (userPrincipal == null) {
-			userPrincipal = portletRequest.getUserPrincipal();
+		if (bridgeRequestScope != null) {
+			removedAttributeNames = bridgeRequestScope.getRemovedAttributeNames();
 		}
 
-		return userPrincipal;
+		requestAttributeMap = contextMapFactory.getRequestScopeMap(portletContext, portletRequest,
+				portletResponse.getNamespace(), removedAttributeNames, preferPreDestroy);
+
+		// Initialize the session map.
+		sessionMap = contextMapFactory.getSessionScopeMap(portletContext, portletRequest.getPortletSession(true),
+				PortletSession.PORTLET_SCOPE, preferPreDestroy);
+
+		// Initialize the init parameter map.
+		initParameterMap = contextMapFactory.getInitParameterMap(portletContext);
+
+		// Initialize the request context path.
+		requestContextPath = portletRequest.getContextPath();
+
+		String attributeName = Bridge.BRIDGE_PACKAGE_PREFIX + portletConfig.getPortletName() + "." +
+			Bridge.DEFAULT_RENDERKIT_ID;
+		defaultRenderKitId = (String) portletContext.getAttribute(attributeName);
 	}
 
 	private static class StringWrapper {

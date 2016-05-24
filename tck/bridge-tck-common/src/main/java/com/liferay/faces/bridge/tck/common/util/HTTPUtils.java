@@ -425,6 +425,53 @@ public class HTTPUtils {
 	}
 
 	/**
+	 * Extracts a cookie value from a list of cookies based on the name.
+	 *
+	 * @param   cookieName  Name of the cookie to search for.
+	 * @param   cookies     List of cookies of the form "name1=value1; name2=value2; ...; nameN=valueN".
+	 *
+	 * @return  The cookie value stored as a String object. null if cookie not found.
+	 */
+	public static String getCookie(String cookieName, String cookies) {
+		return getParameterValue(cookieName, cookies);
+	}
+
+	/**
+	 * Returns the date format used for expiry times in type zero (Netscape) cookies. Also used as the date format for
+	 * portlet session expiries. Creates a new instance, so thread safe.
+	 *
+	 * @return  the date format used for expiry times in type zero (Netscape) cookies
+	 */
+	public static DateFormat getCookieDateFormat() {
+		DateFormat format = new SimpleDateFormat("EEE, dd-MMM-yyyy HH:mm:ss z", Locale.US);
+
+		// Cookies use GMT Time zone by convention (Rule Britania!)
+		format.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+		return format;
+	}
+
+	/**
+	 * Determines whether the given HTTP status code denotes a client or server error. According to the HTTP 1.1 spec,
+	 * the codes have the following categories:
+	 *
+	 * <ul>
+	 *   <li>1xx - Informational (new in HTTP/1.1)</li>
+	 *   <li>2xx - Success</li>
+	 *   <li>3xx - Redirection</li>
+	 *   <li>4xx - Client Error</li>
+	 *   <li>5xx - Server Error</li>
+	 * </ul>
+	 *
+	 * @param   statusCode  an HTTP response status code
+	 *
+	 * @return  true if the given status code denotes a client or server error
+	 */
+	public static boolean isErrorStatusCode(int statusCode) {
+		return (statusCode >= 400) && (statusCode < 600);
+	}
+
+	/**
 	 * Determine if a value needs to be decoded using HTTPUtils.decode() This method assumes that a value is encoded. As
 	 * such, the existence of '%' (leading character of an encoded sequence) or '+' (sometimes used to replace <space>
 	 * characters indicates that decoding IS required.
@@ -436,41 +483,6 @@ public class HTTPUtils {
 		}
 
 		return (token.indexOf('+') != -1) || (token.indexOf('%') != -1);
-	}
-
-	/**
-	 * Converts a Java Locale to a String in the format specified for the Accept-Language and xml:lang attribute, i.e.
-	 * <a href="http://www.ietf.org/rfc/rfc1766.txt">RFC 1766</a>.
-	 */
-	public static String toHTTPLocale(Locale locale) {
-		String language = locale.getLanguage();
-		String country = locale.getCountry();
-		String variant = locale.getVariant();
-
-		if ((country.length() > 0) || (variant.length() > 0)) {
-			StringBuilder buff = new StringBuilder(20).append(language).append('-').append(country);
-
-			if (variant.length() > 0) {
-				buff.append('-').append(variant);
-			}
-
-			return buff.toString();
-		}
-		else {
-			return language;
-		}
-	}
-
-	/**
-	 * Extracts a cookie value from a list of cookies based on the name.
-	 *
-	 * @param   cookieName  Name of the cookie to search for.
-	 * @param   cookies     List of cookies of the form "name1=value1; name2=value2; ...; nameN=valueN".
-	 *
-	 * @return  The cookie value stored as a String object. null if cookie not found.
-	 */
-	public static String getCookie(String cookieName, String cookies) {
-		return getParameterValue(cookieName, cookies);
 	}
 
 	/**
@@ -583,38 +595,26 @@ public class HTTPUtils {
 	}
 
 	/**
-	 * Returns the date format used for expiry times in type zero (Netscape) cookies. Also used as the date format for
-	 * portlet session expiries. Creates a new instance, so thread safe.
-	 *
-	 * @return  the date format used for expiry times in type zero (Netscape) cookies
+	 * Converts a Java Locale to a String in the format specified for the Accept-Language and xml:lang attribute, i.e.
+	 * <a href="http://www.ietf.org/rfc/rfc1766.txt">RFC 1766</a>.
 	 */
-	public static DateFormat getCookieDateFormat() {
-		DateFormat format = new SimpleDateFormat("EEE, dd-MMM-yyyy HH:mm:ss z", Locale.US);
+	public static String toHTTPLocale(Locale locale) {
+		String language = locale.getLanguage();
+		String country = locale.getCountry();
+		String variant = locale.getVariant();
 
-		// Cookies use GMT Time zone by convention (Rule Britania!)
-		format.setTimeZone(TimeZone.getTimeZone("GMT"));
+		if ((country.length() > 0) || (variant.length() > 0)) {
+			StringBuilder buff = new StringBuilder(20).append(language).append('-').append(country);
 
-		return format;
-	}
+			if (variant.length() > 0) {
+				buff.append('-').append(variant);
+			}
 
-	/**
-	 * Determines whether the given HTTP status code denotes a client or server error. According to the HTTP 1.1 spec,
-	 * the codes have the following categories:
-	 *
-	 * <ul>
-	 *   <li>1xx - Informational (new in HTTP/1.1)</li>
-	 *   <li>2xx - Success</li>
-	 *   <li>3xx - Redirection</li>
-	 *   <li>4xx - Client Error</li>
-	 *   <li>5xx - Server Error</li>
-	 * </ul>
-	 *
-	 * @param   statusCode  an HTTP response status code
-	 *
-	 * @return  true if the given status code denotes a client or server error
-	 */
-	public static boolean isErrorStatusCode(int statusCode) {
-		return (statusCode >= 400) && (statusCode < 600);
+			return buff.toString();
+		}
+		else {
+			return language;
+		}
 	}
 
 	/**
