@@ -86,30 +86,6 @@ public class LogImpl implements Log {
 		logger.info(msg.toString(), t);
 	}
 
-	public void trace(Object msg) {
-		logger.trace(msg.toString());
-	}
-
-	public void trace(Throwable t) {
-		logger.trace(t.getMessage());
-	}
-
-	public void trace(Object msg, Throwable t) {
-		logger.trace(msg.toString());
-	}
-
-	public void warn(Object msg) {
-		logger.warn(msg.toString());
-	}
-
-	public void warn(Throwable t) {
-		logger.warn(t.getMessage());
-	}
-
-	public void warn(Object msg, Throwable t) {
-		logger.warn(msg.toString());
-	}
-
 	public boolean isDebugEnabled() {
 		return logger.isDebugEnabled();
 	}
@@ -132,6 +108,30 @@ public class LogImpl implements Log {
 
 	public boolean isWarnEnabled() {
 		return logger.isWarnEnabled();
+	}
+
+	public void trace(Object msg) {
+		logger.trace(msg.toString());
+	}
+
+	public void trace(Throwable t) {
+		logger.trace(t.getMessage());
+	}
+
+	public void trace(Object msg, Throwable t) {
+		logger.trace(msg.toString());
+	}
+
+	public void warn(Object msg) {
+		logger.warn(msg.toString());
+	}
+
+	public void warn(Throwable t) {
+		logger.warn(t.getMessage());
+	}
+
+	public void warn(Object msg, Throwable t) {
+		logger.warn(msg.toString());
 	}
 
 }
