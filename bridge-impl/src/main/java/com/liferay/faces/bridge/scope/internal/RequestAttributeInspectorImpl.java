@@ -109,17 +109,15 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 	}
 
 	// Java 1.6+ @Override
-	public boolean isExcludedByType(String name, Object value) {
+	public boolean isExcludedByAnnotation(String name, Object value) {
 
-		// EXCLUDED attributes listed in Section 5.1.2 of the JSR 329 Spec
-		return ((value != null) &&
-				((value instanceof ExternalContext) || (value instanceof FacesContext) ||
-					(value instanceof HttpSession) || (value instanceof PortalContext) ||
-					(value instanceof PortletConfig) || (value instanceof PortletContext) ||
-					(value instanceof PortletPreferences) || (value instanceof PortletRequest) ||
-					(value instanceof PortletResponse) || (value instanceof PortletSession) ||
-					(value instanceof ServletConfig) || (value instanceof ServletContext) ||
-					(value instanceof ServletRequest) || (value instanceof ServletResponse)));
+		boolean excluded = false;
+
+		if ((value != null) && (value.getClass().getAnnotation(ExcludeFromManagedRequestScope.class) != null)) {
+			excluded = true;
+		}
+
+		return excluded;
 	}
 
 	// Java 1.6+ @Override
@@ -162,34 +160,18 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 		return preExistingAttributeNames.contains(name);
 	}
 
-	protected boolean isNamespaceMatch(String attributeName, String namespace) {
-
-		boolean match = false;
-
-		String attributeNamespace = attributeName;
-		int dotPos = attributeNamespace.lastIndexOf(".");
-
-		if (dotPos > 0) {
-			attributeNamespace = attributeNamespace.substring(0, dotPos);
-		}
-
-		if (namespace.equals(attributeNamespace)) {
-			match = true;
-		}
-
-		return match;
-	}
-
 	// Java 1.6+ @Override
-	public boolean isExcludedByAnnotation(String name, Object value) {
+	public boolean isExcludedByType(String name, Object value) {
 
-		boolean excluded = false;
-
-		if ((value != null) && (value.getClass().getAnnotation(ExcludeFromManagedRequestScope.class) != null)) {
-			excluded = true;
-		}
-
-		return excluded;
+		// EXCLUDED attributes listed in Section 5.1.2 of the JSR 329 Spec
+		return ((value != null) &&
+				((value instanceof ExternalContext) || (value instanceof FacesContext) ||
+					(value instanceof HttpSession) || (value instanceof PortalContext) ||
+					(value instanceof PortletConfig) || (value instanceof PortletContext) ||
+					(value instanceof PortletPreferences) || (value instanceof PortletRequest) ||
+					(value instanceof PortletResponse) || (value instanceof PortletSession) ||
+					(value instanceof ServletConfig) || (value instanceof ServletContext) ||
+					(value instanceof ServletRequest) || (value instanceof ServletResponse)));
 	}
 
 	/**
@@ -212,5 +194,23 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 		}
 
 		return attributeNames;
+	}
+
+	protected boolean isNamespaceMatch(String attributeName, String namespace) {
+
+		boolean match = false;
+
+		String attributeNamespace = attributeName;
+		int dotPos = attributeNamespace.lastIndexOf(".");
+
+		if (dotPos > 0) {
+			attributeNamespace = attributeNamespace.substring(0, dotPos);
+		}
+
+		if (namespace.equals(attributeNamespace)) {
+			match = true;
+		}
+
+		return match;
 	}
 }

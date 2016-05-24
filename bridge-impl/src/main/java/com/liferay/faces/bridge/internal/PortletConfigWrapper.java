@@ -32,6 +32,8 @@ import com.liferay.faces.util.helper.Wrapper;
  */
 public abstract class PortletConfigWrapper implements PortletConfig, Wrapper<PortletConfig> {
 
+	public abstract PortletConfig getWrapped();
+
 	public Map<String, String[]> getContainerRuntimeOptions() {
 		return getWrapped().getContainerRuntimeOptions();
 	}
@@ -75,6 +77,4 @@ public abstract class PortletConfigWrapper implements PortletConfig, Wrapper<Por
 	public Enumeration<Locale> getSupportedLocales() {
 		return getWrapped().getSupportedLocales();
 	}
-
-	public abstract PortletConfig getWrapped();
 }

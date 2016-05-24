@@ -44,6 +44,10 @@ public class CustomersModelBean implements Serializable {
 	// Private Bean Properties
 	private List<Customer> allCustomers;
 
+	public List<Customer> getAllCustomers() {
+		return allCustomers;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 		logger.trace("@PostConstruct annotation worked");
@@ -53,10 +57,6 @@ public class CustomersModelBean implements Serializable {
 	@PreDestroy
 	public void preDestroy() {
 		logger.trace("@PreDestroy annotation worked");
-	}
-
-	public List<Customer> getAllCustomers() {
-		return allCustomers;
 	}
 
 	public void setCustomerService(CustomerService customerService) {

@@ -346,18 +346,8 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		}
 
 		// Java 1.6+ @Override
-		public void removeAttribute(String name) {
-			resourceRequest.removeAttribute(name);
-		}
-
-		// Java 1.6+ @Override
 		public Object getAttribute(String name) {
 			return resourceRequest.getAttribute(name);
-		}
-
-		// Java 1.6+ @Override
-		public void setAttribute(String name, Object value) {
-			resourceRequest.setAttribute(name, value);
 		}
 
 		// Java 1.6+ @Override
@@ -373,11 +363,6 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		// Java 1.6+ @Override
 		public String getCharacterEncoding() {
 			return resourceRequest.getCharacterEncoding();
-		}
-
-		// Java 1.6+ @Override
-		public void setCharacterEncoding(String enc) throws UnsupportedEncodingException {
-			resourceRequest.setCharacterEncoding(enc);
 		}
 
 		// Java 1.6+ @Override
@@ -398,31 +383,6 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		// Java 1.6+ @Override
 		public Cookie[] getCookies() {
 			return resourceRequest.getCookies();
-		}
-
-		// Java 1.6+ @Override
-		public boolean isPortletModeAllowed(PortletMode mode) {
-			return resourceRequest.isPortletModeAllowed(mode);
-		}
-
-		// Java 1.6+ @Override
-		public boolean isRequestedSessionIdValid() {
-			return resourceRequest.isRequestedSessionIdValid();
-		}
-
-		// Java 1.6+ @Override
-		public boolean isWindowStateAllowed(WindowState state) {
-			return resourceRequest.isWindowStateAllowed(state);
-		}
-
-		// Java 1.6+ @Override
-		public boolean isSecure() {
-			return resourceRequest.isSecure();
-		}
-
-		// Java 1.6+ @Override
-		public boolean isUserInRole(String role) {
-			return resourceRequest.isUserInRole(role);
 		}
 
 		// Java 1.6+ @Override
@@ -568,6 +528,46 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		// Java 1.6+ @Override
 		public WindowState getWindowState() {
 			return resourceRequest.getWindowState();
+		}
+
+		// Java 1.6+ @Override
+		public boolean isPortletModeAllowed(PortletMode mode) {
+			return resourceRequest.isPortletModeAllowed(mode);
+		}
+
+		// Java 1.6+ @Override
+		public boolean isRequestedSessionIdValid() {
+			return resourceRequest.isRequestedSessionIdValid();
+		}
+
+		// Java 1.6+ @Override
+		public boolean isSecure() {
+			return resourceRequest.isSecure();
+		}
+
+		// Java 1.6+ @Override
+		public boolean isUserInRole(String role) {
+			return resourceRequest.isUserInRole(role);
+		}
+
+		// Java 1.6+ @Override
+		public boolean isWindowStateAllowed(WindowState state) {
+			return resourceRequest.isWindowStateAllowed(state);
+		}
+
+		// Java 1.6+ @Override
+		public void removeAttribute(String name) {
+			resourceRequest.removeAttribute(name);
+		}
+
+		// Java 1.6+ @Override
+		public void setAttribute(String name, Object value) {
+			resourceRequest.setAttribute(name, value);
+		}
+
+		// Java 1.6+ @Override
+		public void setCharacterEncoding(String enc) throws UnsupportedEncodingException {
+			resourceRequest.setCharacterEncoding(enc);
 		}
 	}
 }

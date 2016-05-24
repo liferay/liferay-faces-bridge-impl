@@ -41,28 +41,8 @@ public class ServletContextAdapterImpl implements ServletContext {
 		this.requestContextPath = requestContextPath;
 	}
 
-	public void log(String msg) {
-		portletContext.log(msg);
-	}
-
-	public void log(Exception exception, String message) {
-		portletContext.log(message, exception);
-	}
-
-	public void log(String message, Throwable throwable) {
-		portletContext.log(message, throwable);
-	}
-
-	public void removeAttribute(String name) {
-		portletContext.removeAttribute(name);
-	}
-
 	public Object getAttribute(String name) {
 		return portletContext.getAttribute(name);
-	}
-
-	public void setAttribute(String name, Object object) {
-		portletContext.setAttribute(name, object);
 	}
 
 	public Enumeration<?> getAttributeNames() {
@@ -139,5 +119,25 @@ public class ServletContextAdapterImpl implements ServletContext {
 
 	public Enumeration<?> getServlets() {
 		throw new UnsupportedOperationException();
+	}
+
+	public void log(String msg) {
+		portletContext.log(msg);
+	}
+
+	public void log(Exception exception, String message) {
+		portletContext.log(message, exception);
+	}
+
+	public void log(String message, Throwable throwable) {
+		portletContext.log(message, throwable);
+	}
+
+	public void removeAttribute(String name) {
+		portletContext.removeAttribute(name);
+	}
+
+	public void setAttribute(String name, Object object) {
+		portletContext.setAttribute(name, object);
 	}
 }

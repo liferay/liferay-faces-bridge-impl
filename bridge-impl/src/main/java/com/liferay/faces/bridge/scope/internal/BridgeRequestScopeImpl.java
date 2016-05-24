@@ -45,8 +45,8 @@ import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.IncongruityContext;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.scope.RequestAttributeInspector;
 import com.liferay.faces.bridge.scope.RequestAttributeInspectorFactory;
 import com.liferay.faces.bridge.util.internal.FacesMessageWrapper;
@@ -115,11 +115,67 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 				portletRequest, portletConfig, bridgeConfig);
 	}
 
+	@Override
+	public Bridge.PortletPhase getBeganInPhase() {
+		return beganInPhase;
+	}
+
+	@Override
+	public long getDateCreated() {
+		return dateCreated;
+	}
+
+	@Override
+	public String getId() {
+		return idPrefix + idSuffix;
+	}
+
+	@Override
+	public PortletMode getPortletMode() {
+		return portletMode;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public Map<String, String> getPreservedActionParameterMap() {
+		return (Map<String, String>) getAttribute(BRIDGE_REQ_SCOPE_ATTR_ACTION_PARAMS);
+	}
+
+	@Override
+	public String getPreservedViewStateParam() {
+		return (String) getAttribute(ResponseStateManager.VIEW_STATE_PARAM);
+	}
+
+	@Override
+	public Set<String> getRemovedAttributeNames() {
+		return removedAttributeNames;
+	}
+
 	// The overrides for {@link #toString()} and {@link #hashCode()} are necessary because the {@link ConcurrentHashMap}
 	// parent class overrides them and causes debug logs to be difficult to interpret.
 	@Override
 	public int hashCode() {
 		return System.identityHashCode(this);
+	}
+
+	@Override
+	public boolean isFacesLifecycleExecuted() {
+		return facesLifecycleExecuted;
+	}
+
+	@Override
+	public boolean isNavigationOccurred() {
+		return navigationOccurred;
+	}
+
+	@Override
+	public boolean isPortletModeChanged() {
+		return portletModeChanged;
+	}
+
+	@Override
+	public boolean isRedirectOccurred() {
+		return redirect;
 	}
 
 	/**
@@ -518,51 +574,9 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		}
 	}
 
-	// The overrides for {@link #toString()} and {@link #hashCode()} are necessary because the {@link ConcurrentHashMap}
-	// parent class overrides them and causes debug logs to be difficult to interpret.
-	@Override
-	public String toString() {
-		return getClass().getName().concat("@").concat(Integer.toHexString(hashCode()));
-	}
-
-	@Override
-	public Bridge.PortletPhase getBeganInPhase() {
-		return beganInPhase;
-	}
-
-	@Override
-	public boolean isFacesLifecycleExecuted() {
-		return facesLifecycleExecuted;
-	}
-
-	@Override
-	public boolean isNavigationOccurred() {
-		return navigationOccurred;
-	}
-
-	@Override
-	public boolean isPortletModeChanged() {
-		return portletModeChanged;
-	}
-
-	@Override
-	public boolean isRedirectOccurred() {
-		return redirect;
-	}
-
-	@Override
-	public long getDateCreated() {
-		return dateCreated;
-	}
-
 	@Override
 	public void setFacesLifecycleExecuted(boolean facesLifecycleExecuted) {
 		this.facesLifecycleExecuted = facesLifecycleExecuted;
-	}
-
-	@Override
-	public String getId() {
-		return idPrefix + idSuffix;
 	}
 
 	@Override
@@ -576,11 +590,6 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	}
 
 	@Override
-	public PortletMode getPortletMode() {
-		return portletMode;
-	}
-
-	@Override
 	public void setPortletMode(PortletMode portletMode) {
 		this.portletMode = portletMode;
 	}
@@ -591,23 +600,14 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public Map<String, String> getPreservedActionParameterMap() {
-		return (Map<String, String>) getAttribute(BRIDGE_REQ_SCOPE_ATTR_ACTION_PARAMS);
-	}
-
-	@Override
-	public String getPreservedViewStateParam() {
-		return (String) getAttribute(ResponseStateManager.VIEW_STATE_PARAM);
-	}
-
-	@Override
 	public void setRedirectOccurred(boolean redirect) {
 		this.redirect = redirect;
 	}
 
+	// The overrides for {@link #toString()} and {@link #hashCode()} are necessary because the {@link ConcurrentHashMap}
+	// parent class overrides them and causes debug logs to be difficult to interpret.
 	@Override
-	public Set<String> getRemovedAttributeNames() {
-		return removedAttributeNames;
+	public String toString() {
+		return getClass().getName().concat("@").concat(Integer.toHexString(hashCode()));
 	}
 }

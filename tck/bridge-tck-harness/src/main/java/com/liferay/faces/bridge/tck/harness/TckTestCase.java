@@ -238,6 +238,25 @@ public class TckTestCase {
 		}
 	}
 
+	@BeforeClass
+	public static void setUpSession() throws Exception {
+		log("setUpSession");
+
+		try {
+			log("SeleniumHost: " + sSeleniumHost);
+			log("SeleniumPort: " + sSeleniumPort);
+			log("SeleniumBrowser: " + sSeleniumBrowser);
+			log("ClientBaseUrl: " + sClientBaseUrl);
+			sSelenium = new DefaultSelenium(sSeleniumHost, sSeleniumPort, sSeleniumBrowser, sClientBaseUrl);
+			sSelenium.start();
+			sSelenium.setTimeout(MAX_WAIT);
+		}
+		catch (Exception exception) {
+			exception.printStackTrace();
+			throw exception;
+		}
+	}
+
 	@Parameters
 	public static Collection testData() {
 		log("testData()");
@@ -334,23 +353,8 @@ public class TckTestCase {
 		return defaultValue;
 	}
 
-	@BeforeClass
-	public static void setUpSession() throws Exception {
-		log("setUpSession");
-
-		try {
-			log("SeleniumHost: " + sSeleniumHost);
-			log("SeleniumPort: " + sSeleniumPort);
-			log("SeleniumBrowser: " + sSeleniumBrowser);
-			log("ClientBaseUrl: " + sClientBaseUrl);
-			sSelenium = new DefaultSelenium(sSeleniumHost, sSeleniumPort, sSeleniumBrowser, sClientBaseUrl);
-			sSelenium.start();
-			sSelenium.setTimeout(MAX_WAIT);
-		}
-		catch (Exception exception) {
-			exception.printStackTrace();
-			throw exception;
-		}
+	public String getName() {
+		return mTestName;
 	}
 
 	public void login() {
@@ -410,6 +414,34 @@ public class TckTestCase {
 		}
 	}
 
+	private boolean isFPRActionPage() {
+
+		for (String path : ACTION_FPR_XPATHS) {
+
+			if (sSelenium.isElementPresent(path)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean isPPRActionPage() {
+
+		for (String path : ACTION_PPR_XPATHS) {
+
+			if (sSelenium.isElementPresent(path)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean isResultPage() {
+		return (sSelenium.isElementPresent("//p[contains (.,\"Status\")]"));
+	}
+
 	private void loadTckIFrame() {
 
 		// Will load the iframe if present or throw an exception if the iframe
@@ -464,7 +496,7 @@ outer:
 
 			StringBuilder sb = new StringBuilder().append(i).append(
 					" full page request action(s) have been performed on this portlet without any final result or test components to exercise.\n")
-				.append(sSelenium.getBodyText());
+					.append(sSelenium.getBodyText());
 			throw new SeleniumException(sb.toString());
 		}
 
@@ -597,37 +629,5 @@ outer:
 		StringBuilder sb = new StringBuilder().append("No valid response to PPR action.\n").append(
 				sSelenium.getBodyText());
 		throw new SeleniumException(sb.toString());
-	}
-
-	private boolean isFPRActionPage() {
-
-		for (String path : ACTION_FPR_XPATHS) {
-
-			if (sSelenium.isElementPresent(path)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	private boolean isPPRActionPage() {
-
-		for (String path : ACTION_PPR_XPATHS) {
-
-			if (sSelenium.isElementPresent(path)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	private boolean isResultPage() {
-		return (sSelenium.isElementPresent("//p[contains (.,\"Status\")]"));
-	}
-
-	public String getName() {
-		return mTestName;
 	}
 }

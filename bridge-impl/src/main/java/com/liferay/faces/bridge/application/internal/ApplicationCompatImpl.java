@@ -34,14 +34,14 @@ public abstract class ApplicationCompatImpl extends ApplicationWrapper {
 		this.wrappedApplication = application;
 	}
 
-	protected void subscribeToJSF2SystemEvent(ConfiguredSystemEventListener configuredSystemEventListener) {
-		// This is a no-op for JSF 1.2
-	}
-
 	/**
 	 * @see  ApplicationWrapper#getWrapped()
 	 */
 	public Application getWrapped() {
 		return wrappedApplication;
+	}
+
+	protected void subscribeToJSF2SystemEvent(ConfiguredSystemEventListener configuredSystemEventListener) {
+		// This is a no-op for JSF 1.2
 	}
 }

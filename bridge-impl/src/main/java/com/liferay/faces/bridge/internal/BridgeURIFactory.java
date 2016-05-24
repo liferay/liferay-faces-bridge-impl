@@ -15,11 +15,10 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
-import com.liferay.faces.util.helper.Wrapper;
-
 import java.net.URISyntaxException;
 
+import com.liferay.faces.bridge.BridgeFactoryFinder;
+import com.liferay.faces.util.helper.Wrapper;
 
 
 /**

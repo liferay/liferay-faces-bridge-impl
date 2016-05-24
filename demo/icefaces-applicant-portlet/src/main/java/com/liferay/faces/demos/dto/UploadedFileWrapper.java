@@ -75,12 +75,6 @@ public class UploadedFileWrapper implements Serializable, UploadedFile, Wrapper<
 		wrappedFileInfo.getFile().delete();
 	}
 
-	public void write(String fileName) throws IOException {
-		OutputStream outputStream = new FileOutputStream(fileName);
-		outputStream.write(getBytes());
-		outputStream.close();
-	}
-
 	public String getAbsolutePath() {
 		return wrappedFileInfo.getFile().getAbsolutePath();
 	}
@@ -155,5 +149,11 @@ public class UploadedFileWrapper implements Serializable, UploadedFile, Wrapper<
 
 	public FileInfo getWrapped() {
 		return wrappedFileInfo;
+	}
+
+	public void write(String fileName) throws IOException {
+		OutputStream outputStream = new FileOutputStream(fileName);
+		outputStream.write(getBytes());
+		outputStream.close();
 	}
 }

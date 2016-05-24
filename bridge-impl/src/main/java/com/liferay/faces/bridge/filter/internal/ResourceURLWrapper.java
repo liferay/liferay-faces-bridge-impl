@@ -25,6 +25,9 @@ import com.liferay.faces.util.helper.Wrapper;
  */
 public abstract class ResourceURLWrapper extends BaseURLWrapper implements ResourceURL, Wrapper<ResourceURL> {
 
+	@Override
+	public abstract ResourceURL getWrapped();
+
 	public String getCacheability() {
 		return getWrapped().getCacheability();
 	}
@@ -36,8 +39,5 @@ public abstract class ResourceURLWrapper extends BaseURLWrapper implements Resou
 	public void setResourceID(String resourceID) {
 		getWrapped().setResourceID(resourceID);
 	}
-
-	@Override
-	public abstract ResourceURL getWrapped();
 
 }

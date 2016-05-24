@@ -46,11 +46,6 @@ public class RequestParameterValuesMap extends AbstractPropertyMap<String[]> imp
 		return new RequestParameterValuesMapEntry(name, this);
 	}
 
-	@Override
-	protected void removeProperty(String name) {
-		throw new UnsupportedOperationException();
-	}
-
 	/**
 	 * This method returns the value of the specified parameter name according to the current portlet request.
 	 */
@@ -60,12 +55,17 @@ public class RequestParameterValuesMap extends AbstractPropertyMap<String[]> imp
 	}
 
 	@Override
-	protected void setProperty(String name, String[] value) {
+	protected Enumeration<String> getPropertyNames() {
+		return Collections.enumeration(facesRequestParameterMap.keySet());
+	}
+
+	@Override
+	protected void removeProperty(String name) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	protected Enumeration<String> getPropertyNames() {
-		return Collections.enumeration(facesRequestParameterMap.keySet());
+	protected void setProperty(String name, String[] value) {
+		throw new UnsupportedOperationException();
 	}
 }

@@ -48,32 +48,32 @@ public class Customer implements Serializable {
 		return bookings;
 	}
 
-	public void setBookings(List<Booking> bookings) {
-		this.bookings = bookings;
-	}
-
 	public long getCustomerId() {
 		return customerId;
-	}
-
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
-	}
-
-	public boolean isSelected() {
-		return selected;
 	}
 
 	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
 	public String getLastName() {
 		return lastName;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public void setLastName(String lastName) {

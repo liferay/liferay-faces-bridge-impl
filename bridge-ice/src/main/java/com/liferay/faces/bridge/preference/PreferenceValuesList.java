@@ -166,6 +166,12 @@ public class PreferenceValuesList implements List<String> {
 		return index;
 	}
 
+	public boolean isEmpty() {
+		String[] values = portletPreferences.getValues(name, null);
+
+		return ((values == null) || (values.length == 0));
+	}
+
 	public Iterator<String> iterator() {
 		return new PreferenceValueIterator(portletPreferences.getNames());
 	}
@@ -223,11 +229,5 @@ public class PreferenceValuesList implements List<String> {
 
 	public <T> T[] toArray(T[] arg0) {
 		throw new UnsupportedOperationException();
-	}
-
-	public boolean isEmpty() {
-		String[] values = portletPreferences.getValues(name, null);
-
-		return ((values == null) || (values.length == 0));
 	}
 }

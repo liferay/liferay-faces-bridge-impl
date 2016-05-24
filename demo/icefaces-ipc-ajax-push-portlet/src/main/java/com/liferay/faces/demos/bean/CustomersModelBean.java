@@ -42,15 +42,6 @@ public class CustomersModelBean {
 		SessionRenderer.addCurrentSession(CUSTOMER_RENDER_GROUP);
 	}
 
-	@PreDestroy
-	public void preDestroy() {
-		SessionRenderer.removeCurrentSession(CUSTOMER_RENDER_GROUP);
-	}
-
-	public void valueChangeListener(ValueChangeEvent valueChangeEvent) {
-		SessionRenderer.render(CUSTOMER_RENDER_GROUP);
-	}
-
 	@SuppressWarnings("unchecked")
 	public List<Customer> getAllCustomers() {
 		List<Customer> allCustomers = (List<Customer>) PortletSessionUtil.getSharedSessionAttribute(
@@ -68,18 +59,27 @@ public class CustomersModelBean {
 		return customerService;
 	}
 
+	public Customer getSelected() {
+		return (Customer) PortletSessionUtil.getSharedSessionAttribute(PortletSessionUtil.SELECTED_CUSTOMER);
+	}
+
+	@PreDestroy
+	public void preDestroy() {
+		SessionRenderer.removeCurrentSession(CUSTOMER_RENDER_GROUP);
+	}
+
 	public void setCustomerService(CustomerService customerService) {
 
 		// Injected via ManagedProperty annotation
 		this.customerService = customerService;
 	}
 
-	public Customer getSelected() {
-		return (Customer) PortletSessionUtil.getSharedSessionAttribute(PortletSessionUtil.SELECTED_CUSTOMER);
-	}
-
 	public void setSelected(Customer customer) {
 		PortletSessionUtil.setSharedSessionAttribute(PortletSessionUtil.SELECTED_CUSTOMER, customer);
+		SessionRenderer.render(CUSTOMER_RENDER_GROUP);
+	}
+
+	public void valueChangeListener(ValueChangeEvent valueChangeEvent) {
 		SessionRenderer.render(CUSTOMER_RENDER_GROUP);
 	}
 }

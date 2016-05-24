@@ -23,9 +23,9 @@ import com.liferay.faces.util.helper.Wrapper;
  */
 public abstract class BeanManagerWrapper implements BeanManager, Wrapper<BeanManager> {
 
+	public abstract BeanManager getWrapped();
+
 	public boolean isManagedBean(String name, Object value) {
 		return getWrapped().isManagedBean(name, value);
 	}
-
-	public abstract BeanManager getWrapped();
 }

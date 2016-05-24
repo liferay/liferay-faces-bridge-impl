@@ -53,6 +53,10 @@ public class BookingsModelBean implements Serializable {
 	// Private Bean Properties
 	Customer customer;
 
+	public Customer getCustomer() {
+		return customer;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 		logger.trace("@PostConstruct annotation worked");
@@ -63,10 +67,6 @@ public class BookingsModelBean implements Serializable {
 	@PreDestroy
 	public void preDestroy() {
 		logger.trace("@PreDestroy annotation worked");
-	}
-
-	public Customer getCustomer() {
-		return customer;
 	}
 
 	public void setCustomer(Customer customer) {

@@ -104,8 +104,8 @@ public abstract class ContextMapFactory implements Wrapper<ContextMapFactory> {
 	 * @param  preferPreDestroy       Determines whether or not methods annotated with the @PreDestroy annotation are
 	 *                                preferably invoked over the @BridgePreDestroy annotation.
 	 */
-	public abstract Map<String, Object> getRequestScopeMap(PortletContext portletContext, PortletRequest portletRequest, String responseNamespace,
-		Set<String> removedAttributeNames, boolean preferPreDestroy);
+	public abstract Map<String, Object> getRequestScopeMap(PortletContext portletContext, PortletRequest portletRequest,
+		String responseNamespace, Set<String> removedAttributeNames, boolean preferPreDestroy);
 
 	/**
 	 * Returns a {@link Map} of attributes stored in the underlying {@link javax.servlet.ServletContext}.

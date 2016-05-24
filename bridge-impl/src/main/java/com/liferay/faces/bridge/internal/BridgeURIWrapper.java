@@ -15,11 +15,11 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import com.liferay.faces.util.helper.Wrapper;
-
 import java.util.Map;
 
 import javax.portlet.faces.Bridge;
+
+import com.liferay.faces.util.helper.Wrapper;
 
 
 /**
@@ -61,13 +61,23 @@ public abstract class BridgeURIWrapper implements BridgeURI, Wrapper<BridgeURI> 
 	}
 
 	@Override
+	public boolean isAbsolute() {
+		return getWrapped().isAbsolute();
+	}
+
+	@Override
 	public boolean isEscaped() {
 		return getWrapped().isEscaped();
 	}
 
 	@Override
-	public boolean isAbsolute() {
-		return getWrapped().isAbsolute();
+	public boolean isExternal(String contextPath) {
+		return getWrapped().isExternal(contextPath);
+	}
+
+	@Override
+	public boolean isHierarchical() {
+		return getWrapped().isHierarchical();
 	}
 
 	@Override
@@ -91,22 +101,12 @@ public abstract class BridgeURIWrapper implements BridgeURI, Wrapper<BridgeURI> 
 	}
 
 	@Override
-	public boolean isExternal(String contextPath) {
-		return getWrapped().isExternal(contextPath);
-	}
-
-	@Override
-	public boolean isHierarchical() {
-		return getWrapped().isHierarchical();
+	public String removeParameter(String name) {
+		return getWrapped().removeParameter(name);
 	}
 
 	@Override
 	public void setParameter(String name, String value) {
 		getWrapped().setParameter(name, value);
-	}
-
-	@Override
-	public String removeParameter(String name) {
-		return getWrapped().removeParameter(name);
 	}
 }

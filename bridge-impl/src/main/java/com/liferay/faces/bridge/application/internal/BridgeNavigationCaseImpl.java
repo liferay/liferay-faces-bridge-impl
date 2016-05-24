@@ -36,23 +36,6 @@ public class BridgeNavigationCaseImpl implements BridgeNavigationCase {
 		this.toViewId = toViewId;
 	}
 
-	protected String getParameter(String parameterName) {
-
-		String parameter = null;
-
-		Map<String, List<String>> parameterMap = getParameters();
-
-		if (parameterMap != null) {
-			List<String> values = parameterMap.get(parameterName);
-
-			if ((values != null) && (values.size() > 0)) {
-				parameter = values.get(0);
-			}
-		}
-
-		return parameter;
-	}
-
 	public Map<String, List<String>> getParameters() {
 
 		if (parameters == null) {
@@ -68,5 +51,22 @@ public class BridgeNavigationCaseImpl implements BridgeNavigationCase {
 
 	public String getWindowState() {
 		return getParameter(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
+	}
+
+	protected String getParameter(String parameterName) {
+
+		String parameter = null;
+
+		Map<String, List<String>> parameterMap = getParameters();
+
+		if (parameterMap != null) {
+			List<String> values = parameterMap.get(parameterName);
+
+			if ((values != null) && (values.size() > 0)) {
+				parameter = values.get(0);
+			}
+		}
+
+		return parameter;
 	}
 }

@@ -41,14 +41,6 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 		super(portletConfig, bridgeConfig);
 	}
 
-	public void handleJSF2ResourceRequest(FacesContext facesContext) throws IOException {
-		// no-op for JSF 1.x
-	}
-
-	protected void clearHeadManagedBeanResources(FacesContext facesContext) {
-		// no-op for JSF 1.x
-	}
-
 	public Throwable getJSF2HandledException(FacesContext facesContext) {
 
 		// no-op for JSF 1.x
@@ -95,6 +87,10 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 		return responseOutputWriter;
 	}
 
+	public void handleJSF2ResourceRequest(FacesContext facesContext) throws IOException {
+		// no-op for JSF 1.x
+	}
+
 	public boolean isJSF2AjaxRequest(FacesContext facesContext) {
 
 		// no-op for JSF 1.x
@@ -105,5 +101,9 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 
 		// no-op for JSF 1.x
 		return false;
+	}
+
+	protected void clearHeadManagedBeanResources(FacesContext facesContext) {
+		// no-op for JSF 1.x
 	}
 }

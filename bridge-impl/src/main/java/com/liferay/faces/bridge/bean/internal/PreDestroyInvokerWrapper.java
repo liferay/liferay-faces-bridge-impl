@@ -23,10 +23,10 @@ import com.liferay.faces.util.helper.Wrapper;
  */
 public abstract class PreDestroyInvokerWrapper implements PreDestroyInvoker, Wrapper<PreDestroyInvoker> {
 
+	public abstract PreDestroyInvoker getWrapped();
+
 	// Java 1.6+ @Override
 	public void invokeAnnotatedMethods(Object managedBean, boolean preferPreDestroy) {
 		getWrapped().invokeAnnotatedMethods(managedBean, preferPreDestroy);
 	}
-
-	public abstract PreDestroyInvoker getWrapped();
 }

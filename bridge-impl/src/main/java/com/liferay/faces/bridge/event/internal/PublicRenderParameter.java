@@ -23,13 +23,13 @@ import javax.faces.context.FacesContext;
  */
 public interface PublicRenderParameter {
 
-	public boolean injectIntoModel(FacesContext facesContext);
-
-	public boolean isModelValueChanged(FacesContext facesContext);
-
 	public String getModelValue(FacesContext facesContext);
 
 	public String getModifiedModelEL();
 
+	public boolean injectIntoModel(FacesContext facesContext);
+
 	public boolean isForThisPortlet();
+
+	public boolean isModelValueChanged(FacesContext facesContext);
 }

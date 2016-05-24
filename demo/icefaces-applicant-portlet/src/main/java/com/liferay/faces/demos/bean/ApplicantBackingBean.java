@@ -120,6 +120,10 @@ public class ApplicantBackingBean implements Serializable {
 		}
 	}
 
+	public String getFileUploadAbsolutePath() {
+		return System.getProperty("java.io.tmpdir");
+	}
+
 	public void postalCodeListener(ValueChangeEvent valueChangeEvent) {
 
 		try {
@@ -135,6 +139,24 @@ public class ApplicantBackingBean implements Serializable {
 			logger.error(e.getMessage(), e);
 			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
+	}
+
+	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
+
+		// Injected via WEB-INF/faces-config.xml managed-property
+		this.applicantModelBean = applicantModelBean;
+	}
+
+	public void setApplicantViewBean(ApplicantViewBean applicantViewBean) {
+
+		// Injected via WEB-INF/faces-config.xml managed-property
+		this.applicantViewBean = applicantViewBean;
+	}
+
+	public void setListModelBean(ListModelBean listModelBean) {
+
+		// Injected via WEB-INF/faces-config.xml managed-property
+		this.listModelBean = listModelBean;
 	}
 
 	public String submit() {
@@ -178,27 +200,5 @@ public class ApplicantBackingBean implements Serializable {
 
 			return "failure";
 		}
-	}
-
-	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
-
-		// Injected via WEB-INF/faces-config.xml managed-property
-		this.applicantModelBean = applicantModelBean;
-	}
-
-	public void setApplicantViewBean(ApplicantViewBean applicantViewBean) {
-
-		// Injected via WEB-INF/faces-config.xml managed-property
-		this.applicantViewBean = applicantViewBean;
-	}
-
-	public String getFileUploadAbsolutePath() {
-		return System.getProperty("java.io.tmpdir");
-	}
-
-	public void setListModelBean(ListModelBean listModelBean) {
-
-		// Injected via WEB-INF/faces-config.xml managed-property
-		this.listModelBean = listModelBean;
 	}
 }

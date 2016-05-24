@@ -23,12 +23,12 @@ public class ApplicantViewBean {
 	// JavaBeans Properties for UI
 	private boolean commentsRendered;
 
-	public void setCommentsRendered(boolean commentsRendered) {
-		this.commentsRendered = commentsRendered;
-	}
-
 	public boolean isCommentsRendered() {
 		return commentsRendered;
+	}
+
+	public void setCommentsRendered(boolean commentsRendered) {
+		this.commentsRendered = commentsRendered;
 	}
 
 }

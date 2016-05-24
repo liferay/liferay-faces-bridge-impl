@@ -43,11 +43,6 @@ public class MutablePreferenceMap extends AbstractPropertyMap<Preference> {
 	}
 
 	@Override
-	protected void removeProperty(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	protected Preference getProperty(String name) {
 		Preference preference = new PreferenceImpl(portletPreferences, name);
 
@@ -55,12 +50,17 @@ public class MutablePreferenceMap extends AbstractPropertyMap<Preference> {
 	}
 
 	@Override
-	protected void setProperty(String name, Preference value) {
+	protected Enumeration<String> getPropertyNames() {
+		return portletPreferences.getNames();
+	}
+
+	@Override
+	protected void removeProperty(String name) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	protected Enumeration<String> getPropertyNames() {
-		return portletPreferences.getNames();
+	protected void setProperty(String name, Preference value) {
+		throw new UnsupportedOperationException();
 	}
 }

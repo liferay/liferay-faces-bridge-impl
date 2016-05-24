@@ -42,17 +42,6 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 		super(portletContext, portletRequest, portletResponse);
 	}
 
-	protected void partialViewContextRenderAll(FacesContext facesContext) {
-
-		// no-op for JSF 1.2
-	}
-
-	protected void redirectJSF2PartialResponse(FacesContext facesContext, ResourceResponse resourceResponse, String url)
-		throws IOException {
-
-		// no-op for JSF 1.2
-	}
-
 	protected boolean isICEfacesLegacyMode(ClientDataRequest clientDataRequest) {
 
 		// no-op for JSF 1.2
@@ -63,5 +52,16 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 
 		// no-op for JSF 1.2
 		return false;
+	}
+
+	protected void partialViewContextRenderAll(FacesContext facesContext) {
+
+		// no-op for JSF 1.2
+	}
+
+	protected void redirectJSF2PartialResponse(FacesContext facesContext, ResourceResponse resourceResponse, String url)
+		throws IOException {
+
+		// no-op for JSF 1.2
 	}
 }

@@ -47,6 +47,10 @@ public abstract class AttributesWrapper implements Map<String, Object>, Wrapper<
 		return getWrapped().get(key);
 	}
 
+	public boolean isEmpty() {
+		return getWrapped().isEmpty();
+	}
+
 	public Set<String> keySet() {
 		return getWrapped().keySet();
 	}
@@ -69,10 +73,6 @@ public abstract class AttributesWrapper implements Map<String, Object>, Wrapper<
 
 	public Collection<Object> values() {
 		return getWrapped().values();
-	}
-
-	public boolean isEmpty() {
-		return getWrapped().isEmpty();
 	}
 
 }

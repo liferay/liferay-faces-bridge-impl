@@ -38,25 +38,6 @@ public class GetBridgeEventHandlerTestPortlet extends GenericFacesTestSuitePortl
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";
 
-	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
-		response.setContentType("text/html");
-
-		PrintWriter out = response.getWriter();
-
-		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
-
-		if (getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()) == null) {
-			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
-			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()));
-		}
-		else {
-			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
-			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
-		}
-
-		out.println(resultWriter.toString());
-	}
-
 	public BridgeEventHandler getBridgeEventHandler() throws PortletException {
 
 		BridgeEventHandler eventHandler = super.getBridgeEventHandler();
@@ -103,5 +84,24 @@ public class GetBridgeEventHandlerTestPortlet extends GenericFacesTestSuitePortl
 		}
 
 		return eventHandler;
+	}
+
+	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
+		response.setContentType("text/html");
+
+		PrintWriter out = response.getWriter();
+
+		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
+
+		if (getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()) == null) {
+			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
+			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()));
+		}
+		else {
+			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
+			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
+		}
+
+		out.println(resultWriter.toString());
 	}
 }

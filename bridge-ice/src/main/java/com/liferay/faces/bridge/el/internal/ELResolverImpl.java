@@ -125,6 +125,109 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		FEATURE_DESCRIPTORS.add(featureDescriptor);
 	}
 
+	@Override
+	public Class<?> getCommonPropertyType(ELContext elContext, Object base) {
+		Class<?> commonPropertyType = null;
+
+		return commonPropertyType;
+	}
+
+	@Override
+	public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext elContext, Object base) {
+		return FEATURE_DESCRIPTORS.iterator();
+	}
+
+	@Override
+	public Class<?> getType(ELContext elContext, Object base, Object property) {
+
+		if (elContext == null) {
+
+			// Throw an exception as directed by the JavaDoc for ELContext.
+			throw new NullPointerException("elContext may not be null");
+		}
+
+		return String.class;
+	}
+
+	@Override
+	public Object getValue(ELContext elContext, Object base, Object property) {
+
+		if (elContext == null) {
+
+			// Throw an exception as directed by the JavaDoc for ELContext.
+			throw new NullPointerException();
+		}
+		else {
+
+			Object value = null;
+
+			// If running inside a JSP context, meaning evaluation of a JSP-syntax (dollar-sign prefixed) EL expression
+			// like ${portletConfig} then
+			if (elContext.getContext(JspContext.class) != null) {
+
+				// Resolve according to the JSP expression requirements of Section 6.5.2.2 of the JSR 329 Spec.
+				value = resolveJspContext(elContext, base, property);
+			}
+
+			// Otherwise, must be running inside a Faces context, meaning evaluation of a JSF-syntax (hash/pound
+			// prefixed) EL expression like #{portletConfig}
+			else {
+
+				// Resolve according to the JSF expression requirements of Section 6.5.2.2 of the JSR 329 Spec.
+				value = resolveFacesContext(elContext, base, property);
+			}
+
+			return value;
+		}
+	}
+
+	@Override
+	public boolean isReadOnly(ELContext elContext, Object base, Object property) {
+		return true;
+	}
+
+	@Override
+	public void setValue(ELContext elContext, Object base, Object property, Object value) {
+
+		if (elContext == null) {
+
+			// Throw an exception as directed by the JavaDoc for ELContext.
+			throw new NullPointerException("elContext may not be null");
+		}
+	}
+
+	protected PortletRequest getPortletRequest(FacesContext facesContext) {
+
+		PortletRequest portletRequest = null;
+		Object request = facesContext.getExternalContext().getRequest();
+
+		if (request instanceof PortletRequest) {
+			portletRequest = (PortletRequest) request;
+		}
+		else if (request instanceof HttpServletRequestAdapter) {
+			HttpServletRequestAdapter httpServletRequestAdapter = (HttpServletRequestAdapter) request;
+			portletRequest = httpServletRequestAdapter.getWrapped();
+		}
+
+		return portletRequest;
+	}
+
+	protected PortletResponse getPortletResponse(FacesContext facesContext) {
+
+		PortletResponse portletResponse = null;
+		Object response = facesContext.getExternalContext().getResponse();
+
+		if (response instanceof PortletResponse) {
+			portletResponse = (PortletResponse) response;
+		}
+		else if (response instanceof HttpServletResponseAdapter) {
+			HttpServletResponseAdapter httpServletResponseAdapter = (HttpServletResponseAdapter) response;
+			portletResponse = httpServletResponseAdapter.getWrapped();
+		}
+
+		return portletResponse;
+	}
+
 	protected Object resolveFacesContext(ELContext elContext, Object base, Object property) {
 
 		Object value = null;
@@ -349,108 +452,5 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		}
 
 		return value;
-	}
-
-	@Override
-	public Class<?> getCommonPropertyType(ELContext elContext, Object base) {
-		Class<?> commonPropertyType = null;
-
-		return commonPropertyType;
-	}
-
-	@Override
-	public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext elContext, Object base) {
-		return FEATURE_DESCRIPTORS.iterator();
-	}
-
-	protected PortletRequest getPortletRequest(FacesContext facesContext) {
-
-		PortletRequest portletRequest = null;
-		Object request = facesContext.getExternalContext().getRequest();
-
-		if (request instanceof PortletRequest) {
-			portletRequest = (PortletRequest) request;
-		}
-		else if (request instanceof HttpServletRequestAdapter) {
-			HttpServletRequestAdapter httpServletRequestAdapter = (HttpServletRequestAdapter) request;
-			portletRequest = httpServletRequestAdapter.getWrapped();
-		}
-
-		return portletRequest;
-	}
-
-	protected PortletResponse getPortletResponse(FacesContext facesContext) {
-
-		PortletResponse portletResponse = null;
-		Object response = facesContext.getExternalContext().getResponse();
-
-		if (response instanceof PortletResponse) {
-			portletResponse = (PortletResponse) response;
-		}
-		else if (response instanceof HttpServletResponseAdapter) {
-			HttpServletResponseAdapter httpServletResponseAdapter = (HttpServletResponseAdapter) response;
-			portletResponse = httpServletResponseAdapter.getWrapped();
-		}
-
-		return portletResponse;
-	}
-
-	@Override
-	public Class<?> getType(ELContext elContext, Object base, Object property) {
-
-		if (elContext == null) {
-
-			// Throw an exception as directed by the JavaDoc for ELContext.
-			throw new NullPointerException("elContext may not be null");
-		}
-
-		return String.class;
-	}
-
-	@Override
-	public Object getValue(ELContext elContext, Object base, Object property) {
-
-		if (elContext == null) {
-
-			// Throw an exception as directed by the JavaDoc for ELContext.
-			throw new NullPointerException();
-		}
-		else {
-
-			Object value = null;
-
-			// If running inside a JSP context, meaning evaluation of a JSP-syntax (dollar-sign prefixed) EL expression
-			// like ${portletConfig} then
-			if (elContext.getContext(JspContext.class) != null) {
-
-				// Resolve according to the JSP expression requirements of Section 6.5.2.2 of the JSR 329 Spec.
-				value = resolveJspContext(elContext, base, property);
-			}
-
-			// Otherwise, must be running inside a Faces context, meaning evaluation of a JSF-syntax (hash/pound
-			// prefixed) EL expression like #{portletConfig}
-			else {
-
-				// Resolve according to the JSF expression requirements of Section 6.5.2.2 of the JSR 329 Spec.
-				value = resolveFacesContext(elContext, base, property);
-			}
-
-			return value;
-		}
-	}
-
-	@Override
-	public void setValue(ELContext elContext, Object base, Object property, Object value) {
-
-		if (elContext == null) {
-
-			// Throw an exception as directed by the JavaDoc for ELContext.
-			throw new NullPointerException("elContext may not be null");
-		}
-	}
-
-	@Override
-	public boolean isReadOnly(ELContext elContext, Object base, Object property) {
-		return true;
 	}
 }

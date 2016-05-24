@@ -89,6 +89,26 @@ public class HttpServletResponseMimeAdapter extends HttpServletResponseWrapper i
 		return wrappedMimeResponse.createResourceURL();
 	}
 
+	@Override
+	public CacheControl getCacheControl() {
+		return wrappedMimeResponse.getCacheControl();
+	}
+
+	@Override
+	public String getNamespace() {
+		return namespace;
+	}
+
+	@Override
+	public OutputStream getPortletOutputStream() throws IOException {
+		return wrappedMimeResponse.getPortletOutputStream();
+	}
+
+	@Override
+	public void setProperty(String key, String value) {
+		wrappedMimeResponse.setProperty(key, value);
+	}
+
 	protected PortletResponse unwrapPortletResponse(PortletResponse portletResponse) {
 
 		if (portletResponse instanceof ServletResponse) {
@@ -129,25 +149,5 @@ public class HttpServletResponseMimeAdapter extends HttpServletResponseWrapper i
 		else {
 			return null;
 		}
-	}
-
-	@Override
-	public CacheControl getCacheControl() {
-		return wrappedMimeResponse.getCacheControl();
-	}
-
-	@Override
-	public String getNamespace() {
-		return namespace;
-	}
-
-	@Override
-	public OutputStream getPortletOutputStream() throws IOException {
-		return wrappedMimeResponse.getPortletOutputStream();
-	}
-
-	@Override
-	public void setProperty(String key, String value) {
-		wrappedMimeResponse.setProperty(key, value);
 	}
 }

@@ -50,6 +50,8 @@ import com.liferay.faces.util.helper.Wrapper;
 @SuppressWarnings("deprecation")
 public abstract class ApplicationWrapper extends Application implements Wrapper<Application> {
 
+	public abstract Application getWrapped();
+
 	@Override
 	public void addComponent(String componentType, String componentClass) {
 		getWrapped().addComponent(componentType, componentClass);
@@ -133,18 +135,8 @@ public abstract class ApplicationWrapper extends Application implements Wrapper<
 	}
 
 	@Override
-	public void removeELContextListener(ELContextListener listener) {
-		getWrapped().removeELContextListener(listener);
-	}
-
-	@Override
 	public ActionListener getActionListener() {
 		return getWrapped().getActionListener();
-	}
-
-	@Override
-	public void setActionListener(ActionListener listener) {
-		getWrapped().setActionListener(listener);
 	}
 
 	@Override
@@ -169,18 +161,8 @@ public abstract class ApplicationWrapper extends Application implements Wrapper<
 	}
 
 	@Override
-	public void setDefaultLocale(Locale locale) {
-		getWrapped().setDefaultLocale(locale);
-	}
-
-	@Override
 	public String getDefaultRenderKitId() {
 		return getWrapped().getDefaultRenderKitId();
-	}
-
-	@Override
-	public void setDefaultRenderKitId(String renderKitId) {
-		getWrapped().setDefaultRenderKitId(renderKitId);
 	}
 
 	@Override
@@ -204,28 +186,13 @@ public abstract class ApplicationWrapper extends Application implements Wrapper<
 	}
 
 	@Override
-	public void setMessageBundle(String bundle) {
-		getWrapped().setMessageBundle(bundle);
-	}
-
-	@Override
 	public NavigationHandler getNavigationHandler() {
 		return getWrapped().getNavigationHandler();
 	}
 
 	@Override
-	public void setNavigationHandler(NavigationHandler handler) {
-		getWrapped().setNavigationHandler(handler);
-	}
-
-	@Override
 	public PropertyResolver getPropertyResolver() {
 		return getWrapped().getPropertyResolver();
-	}
-
-	@Override
-	public void setPropertyResolver(PropertyResolver resolver) {
-		getWrapped().setPropertyResolver(resolver);
 	}
 
 	@Override
@@ -239,18 +206,8 @@ public abstract class ApplicationWrapper extends Application implements Wrapper<
 	}
 
 	@Override
-	public void setStateManager(StateManager manager) {
-		getWrapped().setStateManager(manager);
-	}
-
-	@Override
 	public Iterator<Locale> getSupportedLocales() {
 		return getWrapped().getSupportedLocales();
-	}
-
-	@Override
-	public void setSupportedLocales(Collection<Locale> locales) {
-		getWrapped().setSupportedLocales(locales);
 	}
 
 	@Override
@@ -264,20 +221,63 @@ public abstract class ApplicationWrapper extends Application implements Wrapper<
 	}
 
 	@Override
-	public void setVariableResolver(VariableResolver resolver) {
-		getWrapped().setVariableResolver(resolver);
+	public ViewHandler getViewHandler() {
+		return getWrapped().getViewHandler();
 	}
 
 	@Override
-	public ViewHandler getViewHandler() {
-		return getWrapped().getViewHandler();
+	public void removeELContextListener(ELContextListener listener) {
+		getWrapped().removeELContextListener(listener);
+	}
+
+	@Override
+	public void setActionListener(ActionListener listener) {
+		getWrapped().setActionListener(listener);
+	}
+
+	@Override
+	public void setDefaultLocale(Locale locale) {
+		getWrapped().setDefaultLocale(locale);
+	}
+
+	@Override
+	public void setDefaultRenderKitId(String renderKitId) {
+		getWrapped().setDefaultRenderKitId(renderKitId);
+	}
+
+	@Override
+	public void setMessageBundle(String bundle) {
+		getWrapped().setMessageBundle(bundle);
+	}
+
+	@Override
+	public void setNavigationHandler(NavigationHandler handler) {
+		getWrapped().setNavigationHandler(handler);
+	}
+
+	@Override
+	public void setPropertyResolver(PropertyResolver resolver) {
+		getWrapped().setPropertyResolver(resolver);
+	}
+
+	@Override
+	public void setStateManager(StateManager manager) {
+		getWrapped().setStateManager(manager);
+	}
+
+	@Override
+	public void setSupportedLocales(Collection<Locale> locales) {
+		getWrapped().setSupportedLocales(locales);
+	}
+
+	@Override
+	public void setVariableResolver(VariableResolver resolver) {
+		getWrapped().setVariableResolver(resolver);
 	}
 
 	@Override
 	public void setViewHandler(ViewHandler handler) {
 		getWrapped().setViewHandler(handler);
 	}
-
-	public abstract Application getWrapped();
 
 }

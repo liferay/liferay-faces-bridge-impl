@@ -71,14 +71,6 @@ public class ApplicantModelBean implements Serializable {
 		provinceId = null;
 	}
 
-	public void setAutoFillCity(String autoFillCity) {
-		this.autoFillCity = autoFillCity;
-	}
-
-	public void setAutoFillProvinceId(Long autoFillProvinceId) {
-		this.autoFillProvinceId = autoFillProvinceId;
-	}
-
 	public String getCity() {
 
 		if (autoFillCity == null) {
@@ -87,6 +79,56 @@ public class ApplicantModelBean implements Serializable {
 		else {
 			return autoFillCity;
 		}
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public Long getProvinceId() {
+
+		if (autoFillProvinceId == null) {
+			return provinceId;
+		}
+		else {
+			return autoFillProvinceId;
+		}
+	}
+
+	public List<UploadedFile> getUploadedFiles() {
+		return uploadedFiles;
+	}
+
+	public void setAutoFillCity(String autoFillCity) {
+		this.autoFillCity = autoFillCity;
+	}
+
+	public void setAutoFillProvinceId(Long autoFillProvinceId) {
+		this.autoFillProvinceId = autoFillProvinceId;
 	}
 
 	public void setCity(String city) {
@@ -100,70 +142,32 @@ public class ApplicantModelBean implements Serializable {
 		}
 	}
 
-	public String getComments() {
-		return comments;
-	}
-
 	public void setComments(String comments) {
 		this.comments = comments;
-	}
-
-	public Date getDateOfBirth() {
-		return dateOfBirth;
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getEmailAddress() {
-		return emailAddress;
-	}
-
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
-	}
-
-	public String getFirstName() {
-		return firstName;
 	}
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	public String getLastName() {
-		return lastName;
-	}
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getPostalCode() {
-		return postalCode;
-	}
-
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
-	}
-
-	public Long getProvinceId() {
-
-		if (autoFillProvinceId == null) {
-			return provinceId;
-		}
-		else {
-			return autoFillProvinceId;
-		}
 	}
 
 	public void setProvinceId(Long provinceId) {
@@ -175,10 +179,6 @@ public class ApplicantModelBean implements Serializable {
 			this.provinceId = autoFillProvinceId;
 			autoFillProvinceId = null;
 		}
-	}
-
-	public List<UploadedFile> getUploadedFiles() {
-		return uploadedFiles;
 	}
 
 }

@@ -141,6 +141,13 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 		}
 	}
 
+	@Override
+	public boolean getRendersChildren() {
+		return true;
+	}
+
+	protected abstract BaseURL getBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException;
+
 	/**
 	 * Escapes the text so that it is safe to use in an HTML context.
 	 *
@@ -249,12 +256,5 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 		}
 
 		return sb.toString();
-	}
-
-	protected abstract BaseURL getBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException;
-
-	@Override
-	public boolean getRendersChildren() {
-		return true;
 	}
 }

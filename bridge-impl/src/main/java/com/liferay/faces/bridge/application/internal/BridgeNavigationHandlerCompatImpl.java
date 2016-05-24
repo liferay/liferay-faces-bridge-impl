@@ -40,10 +40,6 @@ public abstract class BridgeNavigationHandlerCompatImpl extends BridgeNavigation
 		this.wrappedNavigationHandler = navigationHandler;
 	}
 
-	protected void partialViewContextRenderAll(FacesContext facesContext) {
-		// No-op for JSF 1.2
-	}
-
 	public NavigationCase getNavigationCase(FacesContext facesContext, String fromAction, String outcome) {
 
 		BridgeRequestScope bridgeRequestScope = RequestMapUtil.getBridgeRequestScope(facesContext);
@@ -55,6 +51,10 @@ public abstract class BridgeNavigationHandlerCompatImpl extends BridgeNavigation
 		return wrappedNavigationHandler;
 	}
 
+	protected void partialViewContextRenderAll(FacesContext facesContext) {
+		// No-op for JSF 1.2
+	}
+
 	protected static class NavigationCase {
 
 		private boolean redirect;
@@ -63,15 +63,15 @@ public abstract class BridgeNavigationHandlerCompatImpl extends BridgeNavigation
 			this.redirect = redirect;
 		}
 
-		public boolean isRedirect() {
-			return redirect;
-		}
-
 		public String getToViewId(FacesContext facesContext) {
 
 			UIViewRoot viewRoot = facesContext.getViewRoot();
 
 			return viewRoot.getViewId();
+		}
+
+		public boolean isRedirect() {
+			return redirect;
 		}
 	}
 }

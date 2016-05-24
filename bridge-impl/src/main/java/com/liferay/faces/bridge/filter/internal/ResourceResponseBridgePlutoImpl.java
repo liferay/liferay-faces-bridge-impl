@@ -31,11 +31,6 @@ public class ResourceResponseBridgePlutoImpl extends ResourceResponseWrapper {
 	}
 
 	@Override
-	public ResourceURL createResourceURL() throws IllegalStateException {
-		return new ResourceURLBridgePlutoImpl(super.createResourceURL());
-	}
-
-	@Override
 	public PortletURL createActionURL() {
 		return new ActionURLBridgePlutoImpl(super.createActionURL());
 	}
@@ -43,6 +38,11 @@ public class ResourceResponseBridgePlutoImpl extends ResourceResponseWrapper {
 	@Override
 	public PortletURL createRenderURL() {
 		return new RenderURLBridgePlutoImpl(super.createRenderURL());
+	}
+
+	@Override
+	public ResourceURL createResourceURL() throws IllegalStateException {
+		return new ResourceURLBridgePlutoImpl(super.createResourceURL());
 	}
 
 	@Override

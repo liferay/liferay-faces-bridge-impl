@@ -95,6 +95,13 @@ public class MimeResponseHttpServletAdapter extends MimeResponseWrapper implemen
 	}
 
 	/**
+	 * See {@link HttpServletResponse#getOutputStream()}
+	 */
+	public ServletOutputStream getOutputStream() throws IOException {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
 	 * See {@link HttpServletResponse#sendError(int)}
 	 */
 	public void sendError(int sc) throws IOException {
@@ -155,13 +162,6 @@ public class MimeResponseHttpServletAdapter extends MimeResponseWrapper implemen
 	 */
 	public void setLocale(Locale loc) {
 		// no-op: called by org.apache.myfaces.view.jsp.JspViewDeclarationLanguage.buildView(FacesContext,UIViewRoot)
-	}
-
-	/**
-	 * See {@link HttpServletResponse#getOutputStream()}
-	 */
-	public ServletOutputStream getOutputStream() throws IOException {
-		throw new UnsupportedOperationException();
 	}
 
 	/**

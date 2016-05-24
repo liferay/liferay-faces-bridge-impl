@@ -84,6 +84,82 @@ public class HttpServletResponseAdapterImpl implements HttpServletResponse {
 		}
 	}
 
+	public int getBufferSize() {
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getBufferSize();
+		}
+		else {
+			return 0;
+		}
+	}
+
+	public String getCharacterEncoding() {
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getCharacterEncoding();
+		}
+		else {
+			return null;
+		}
+	}
+
+	public String getContentType() {
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getContentType();
+		}
+		else {
+			return null;
+		}
+	}
+
+	public Locale getLocale() {
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getLocale();
+		}
+		else {
+			return null;
+		}
+	}
+
+	public ServletOutputStream getOutputStream() throws IOException {
+		throw new UnsupportedOperationException();
+	}
+
+	public PrintWriter getWriter() throws IOException {
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getWriter();
+		}
+		else {
+			return null;
+		}
+	}
+
+	public boolean isCommitted() {
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.isCommitted();
+		}
+		else {
+			return false;
+		}
+	}
+
 	public void reset() {
 
 		if (portletResponse instanceof MimeResponse) {
@@ -112,35 +188,11 @@ public class HttpServletResponseAdapterImpl implements HttpServletResponse {
 		throw new UnsupportedOperationException();
 	}
 
-	public int getBufferSize() {
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getBufferSize();
-		}
-		else {
-			return 0;
-		}
-	}
-
 	public void setBufferSize(int size) {
 
 		if (portletResponse instanceof MimeResponse) {
 			MimeResponse mimeResponse = (MimeResponse) portletResponse;
 			mimeResponse.setBufferSize(size);
-		}
-	}
-
-	public String getCharacterEncoding() {
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getCharacterEncoding();
-		}
-		else {
-			return null;
 		}
 	}
 
@@ -156,35 +208,11 @@ public class HttpServletResponseAdapterImpl implements HttpServletResponse {
 		}
 	}
 
-	public String getContentType() {
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getContentType();
-		}
-		else {
-			return null;
-		}
-	}
-
 	public void setContentType(String contentType) {
 
 		if (portletResponse instanceof MimeResponse) {
 			MimeResponse mimeResponse = (MimeResponse) portletResponse;
 			mimeResponse.setContentType(contentType);
-		}
-	}
-
-	public boolean isCommitted() {
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.isCommitted();
-		}
-		else {
-			return false;
 		}
 	}
 
@@ -200,18 +228,6 @@ public class HttpServletResponseAdapterImpl implements HttpServletResponse {
 		throw new UnsupportedOperationException();
 	}
 
-	public Locale getLocale() {
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getLocale();
-		}
-		else {
-			return null;
-		}
-	}
-
 	public void setLocale(Locale locale) {
 
 		if (portletResponse instanceof ResourceResponse) {
@@ -220,28 +236,12 @@ public class HttpServletResponseAdapterImpl implements HttpServletResponse {
 		}
 	}
 
-	public ServletOutputStream getOutputStream() throws IOException {
-		throw new UnsupportedOperationException();
-	}
-
 	public void setStatus(int sc) {
 		throw new UnsupportedOperationException();
 	}
 
 	public void setStatus(int sc, String sm) {
 		throw new UnsupportedOperationException();
-	}
-
-	public PrintWriter getWriter() throws IOException {
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getWriter();
-		}
-		else {
-			return null;
-		}
 	}
 
 }

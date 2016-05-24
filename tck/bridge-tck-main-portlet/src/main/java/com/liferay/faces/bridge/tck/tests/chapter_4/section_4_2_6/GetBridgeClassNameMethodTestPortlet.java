@@ -44,27 +44,6 @@ public class GetBridgeClassNameMethodTestPortlet extends GenericFacesTestSuitePo
 	private static String TEST_PASS = "testPassMsg";
 	private static String TEST_BRIDGE_SERVICE_CLASSPATH = "META-INF/services/javax.portlet.faces.Bridge";
 
-	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
-		String passMsg = (String) getPortletConfig().getPortletContext().getAttribute(TEST_ATTR_PREFIX + TEST_PASS);
-
-		response.setContentType("text/html");
-
-		PrintWriter out = response.getWriter();
-		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(TEST_NAME);
-
-		if (passMsg != null) {
-			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
-			resultWriter.setDetail(passMsg);
-		}
-		else {
-			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
-			resultWriter.setDetail((String) getPortletConfig().getPortletContext().getAttribute(
-					TEST_ATTR_PREFIX + TEST_FAIL));
-		}
-
-		out.println(resultWriter.toString());
-	}
-
 	public String getBridgeClassName() {
 		String bridgeClassName = super.getBridgeClassName();
 
@@ -104,6 +83,27 @@ public class GetBridgeClassNameMethodTestPortlet extends GenericFacesTestSuitePo
 		}
 
 		return bridgeClassName;
+	}
+
+	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
+		String passMsg = (String) getPortletConfig().getPortletContext().getAttribute(TEST_ATTR_PREFIX + TEST_PASS);
+
+		response.setContentType("text/html");
+
+		PrintWriter out = response.getWriter();
+		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(TEST_NAME);
+
+		if (passMsg != null) {
+			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
+			resultWriter.setDetail(passMsg);
+		}
+		else {
+			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
+			resultWriter.setDetail((String) getPortletConfig().getPortletContext().getAttribute(
+					TEST_ATTR_PREFIX + TEST_FAIL));
+		}
+
+		out.println(resultWriter.toString());
 	}
 
 	private String getFromServicesPath(PortletContext context, String resourceName) {

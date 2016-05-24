@@ -93,6 +93,11 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 		return resourceRequest;
 	}
 
+	@Override
+	public BridgePortletRequestFactory getWrapped() {
+		return wrappedBridgePortletRequestFactory;
+	}
+
 	/**
 	 * Determines whether or not the specified {@link javax.portlet.PortletRequest} is one created by Liferay Portal. If
 	 * the specified {@link javax.portlet.PortletRequest} is an instance of {@link
@@ -117,10 +122,5 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 		else {
 			return false;
 		}
-	}
-
-	@Override
-	public BridgePortletRequestFactory getWrapped() {
-		return wrappedBridgePortletRequestFactory;
 	}
 }

@@ -37,12 +37,12 @@ public class BookingType implements Serializable {
 		return bookingTypeId;
 	}
 
-	public void setBookingTypeId(long bookingTypeId) {
-		this.bookingTypeId = bookingTypeId;
-	}
-
 	public String getBookingTypeName() {
 		return bookingTypeName;
+	}
+
+	public void setBookingTypeId(long bookingTypeId) {
+		this.bookingTypeId = bookingTypeId;
 	}
 
 	public void setBookingTypeName(String bookingTypeName) {

@@ -35,8 +35,6 @@ public interface UploadedFile {
 
 	public void delete() throws IOException;
 
-	public void write(String fileName) throws IOException;
-
 	public String getAbsolutePath();
 
 	public Map<String, Object> getAttributes();
@@ -64,4 +62,6 @@ public interface UploadedFile {
 	public long getSize();
 
 	public Status getStatus();
+
+	public void write(String fileName) throws IOException;
 }

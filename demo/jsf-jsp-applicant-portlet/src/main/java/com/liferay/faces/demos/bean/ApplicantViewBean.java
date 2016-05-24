@@ -24,16 +24,16 @@ public class ApplicantViewBean {
 	private boolean commentsRendered;
 	private boolean fileUploaderRendered;
 
-	public void setCommentsRendered(boolean commentsRendered) {
-		this.commentsRendered = commentsRendered;
-	}
-
 	public boolean isCommentsRendered() {
 		return commentsRendered;
 	}
 
 	public boolean isFileUploaderRendered() {
 		return fileUploaderRendered;
+	}
+
+	public void setCommentsRendered(boolean commentsRendered) {
+		this.commentsRendered = commentsRendered;
 	}
 
 	public void setFileUploaderRendered(boolean fileUploaderRendered) {

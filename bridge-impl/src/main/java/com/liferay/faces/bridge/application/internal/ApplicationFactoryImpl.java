@@ -37,12 +37,12 @@ public class ApplicationFactoryImpl extends ApplicationFactory implements Wrappe
 		return new ApplicationImpl(wrappedFactory.getApplication());
 	}
 
+	public ApplicationFactory getWrapped() {
+		return wrappedFactory;
+	}
+
 	@Override
 	public void setApplication(Application application) {
 		wrappedFactory.setApplication(application);
-	}
-
-	public ApplicationFactory getWrapped() {
-		return wrappedFactory;
 	}
 }

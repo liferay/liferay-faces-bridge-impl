@@ -2581,752 +2581,6 @@ public class Tests extends Object {
 
 	}
 
-	// Test #6.66
-	@BridgeTest(test = "illegalRedirectRenderTest")
-	public String illegalRedirectRenderTest(TestRunnerBean testRunner) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-
-		testRunner.setTestComplete(true);
-
-		String viewId = ctx.getViewRoot().getViewId();
-
-		if (viewId.equals("/tests/SingleRequestTest.jsp")) {
-
-			try {
-				extCtx.redirect(ctx.getApplication().getViewHandler().getResourceURL(ctx, "/tests/NonJSFView.portlet"));
-			}
-			catch (IllegalStateException i) {
-				testRunner.setTestResult(true,
-					"extCtx.redirect() during render correctly threw the IllegalStateException when redirecting to a nonFaces view.");
-
-				return Constants.TEST_SUCCESS;
-			}
-			catch (Exception e) {
-				testRunner.setTestResult(false,
-					"Calling extCtx.redirect() threw an unexpected exception: " + e.getMessage());
-
-				return Constants.TEST_FAILED;
-			}
-
-			testRunner.setTestResult(false,
-				"extCtx.redirect() during render failed: it didn't throw an illegalStateException when redirecting to a nonfaces view.");
-
-			return Constants.TEST_FAILED;
-		}
-		else {
-			testRunner.setTestResult(false,
-				"extCtx.redirect() during render failed: we started out in an unexpected view: " + viewId);
-
-			return Constants.TEST_FAILED;
-		}
-	}
-
-	// Test #6.64
-	@BridgeTest(test = "redirectActionTest")
-	public String redirectActionTest(TestRunnerBean testRunner) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-
-			/* Test works as follows:
-			 *    redirect to a new view   set attribute on request scope   call redirect to the renderview   when
-			 * called during render -- check we are at the new view and attribute is gone   i.e. request scope isn't
-			 * preserved in case of redirect.
-			 */
-			extCtx.getRequestMap().put("myRedirectRequestObject", Boolean.TRUE);
-
-			String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
-					"/tests/RedirectTestResultRenderCheck.jsp");
-
-			try {
-				extCtx.redirect(target);
-			}
-			catch (Exception e) {
-				testRunner.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
-
-				return "redirectActionTest";
-			}
-
-			return
-				""; // return something that won't be mapped in faces-config.xml to confirm  redirect is what is causing
-					// the page transition
-		}
-		else {
-			testRunner.setTestComplete(true);
-
-			String viewId = ctx.getViewRoot().getViewId();
-
-			if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
-				// the redirect worked
-
-				// now verify that the scope wasn't saved.
-				if (extCtx.getRequestMap().get("myRedirectRequestObject") == null) {
-					testRunner.setTestResult(true,
-						"extCtx.redirect() during action worked correctly as we were redirected to the new view without retaining request scoped beans.");
-				}
-				else {
-					testRunner.setTestResult(false,
-						"extCtx.redirect() during action failed as though we were redirected to the new view the request scope was retained.");
-				}
-			}
-			else {
-				testRunner.setTestResult(false,
-					"extCtx.redirect() during action failed as we weren't redirected to the new view. The viewId should be /tests/RedirectTestResultRenderCheck.jsp but is: " +
-					viewId);
-			}
-
-			if (testRunner.getTestStatus()) {
-				return Constants.TEST_SUCCESS;
-			}
-			else {
-				return Constants.TEST_FAILED;
-
-			}
-		}
-	}
-
-	// Test #6.131
-	@BridgeTest(test = "redirectEventTest")
-	public String redirectEventTest(TestRunnerBean testRunner) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-
-			/* Test works as follows:
-			 *    set attribute on request scope   raise event which will invoke redirect   when called during render --
-			 * check we are at the new view and attribute is gone   i.e. request scope isn't preserved in case of
-			 * redirect.
-			 */
-			extCtx.getRequestMap().put("myRedirectRequestObject", Boolean.TRUE);
-
-			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testRunner.getTestName());
-
-			return Constants.TEST_SUCCESS; // action Navigation result
-		}
-		else {
-			testRunner.setTestComplete(true);
-
-			String viewId = ctx.getViewRoot().getViewId();
-
-			if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
-				// the redirect worked
-
-				// now verify that the scope wasn't saved.
-				if (extCtx.getRequestMap().get("myRedirectRequestObject") == null) {
-					testRunner.setTestResult(true,
-						"extCtx.redirect() during event worked correctly as we were redirected to the new view without retaining request scoped beans.");
-				}
-				else {
-					testRunner.setTestResult(false,
-						"extCtx.redirect() during event failed as though we were redirected to the new view the request scope was retained.");
-				}
-			}
-			else {
-				testRunner.setTestResult(false,
-					"extCtx.redirect() during event failed as we weren't redirected to the new view. The viewId should be /tests/RedirectTestResultRenderCheck.jsp but is: " +
-					viewId);
-			}
-
-			if (testRunner.getTestStatus()) {
-				return Constants.TEST_SUCCESS;
-			}
-			else {
-				return Constants.TEST_FAILED;
-
-			}
-		}
-	}
-
-	// Test #6.65
-	@BridgeTest(test = "redirectRenderPRP1Test")
-	public String redirectRenderPRP1Test(TestRunnerBean testRunner) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-
-			/* Test works as follows:
-			 *    set a new value for the PRP by updating the model -- this will cause the PRP to come in the render in
-			 * the subsequent render:  set an attribute indicating we are redirecting; redirect; check to see if the PRP
-			 * is in the request.
-			 *
-			 * Key difference between PRP1Test and PRP2Test is that PRP1 already calls encodeActionURL on url prior to
-			 * redirect while   PRP2 does not.
-			 */
-			extCtx.getRequestMap().put("modelPRP", testRunner.getTestName());
-
-			return "redirectRenderPRP1Test";
-		}
-		else {
-			String viewId = ctx.getViewRoot().getViewId();
-
-			if (viewId.equals("/tests/MultiRequestTestResultRenderCheck.jsp")) {
-				String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
-						"/tests/RedirectTestResultRenderCheck.jsp");
-
-				try {
-					extCtx.redirect(extCtx.encodeActionURL(target));
-				}
-				catch (Exception e) {
-					testRunner.setTestComplete(true);
-					testRunner.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
-
-					return Constants.TEST_FAILED;
-				}
-
-				return "";
-			}
-			else if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
-				testRunner.setTestComplete(true);
-
-				// ensure that both the public render paramter and the model are there and have the same value
-				RenderRequest request = (RenderRequest) extCtx.getRequest();
-				String[] prpArray = request.getPublicParameterMap().get("testPRP");
-				String modelPRP = (String) extCtx.getRequestMap().get("modelPRP");
-
-				if (prpArray == null) {
-					testRunner.setTestResult(false,
-						"redirected request didn't carry forward the public render parameter.");
-
-					return Constants.TEST_FAILED;
-				}
-				else if (modelPRP == null) {
-					testRunner.setTestResult(false,
-						"redirected request didn't update the model from the passed public render parameter.");
-
-					return Constants.TEST_FAILED;
-				}
-				else if (!modelPRP.equals(prpArray[0])) {
-					testRunner.setTestResult(false,
-						"redirected request:  passed public render parameter value doesn't match underlying one.");
-
-					return Constants.TEST_FAILED;
-				}
-				else if (!modelPRP.equals(testRunner.getTestName())) {
-					testRunner.setTestResult(false,
-						"redirected request:  public render parameter didn't contain expected value.  PRP value: " +
-						modelPRP + " but expected: " + testRunner.getTestName());
-
-					return Constants.TEST_FAILED;
-				}
-				else {
-					testRunner.setTestResult(true,
-						"extCtx.redirect() during render worked correctly as we were redirected to the new view.");
-
-					return Constants.TEST_SUCCESS;
-				}
-			}
-			else {
-				testRunner.setTestResult(false,
-					"extCtx.redirect() during render failed as we ended up in an unexpected view: " + viewId);
-
-				return Constants.TEST_FAILED;
-			}
-		}
-	}
-
-	// Test #6.65
-	@BridgeTest(test = "redirectRenderPRP2Test")
-	public String redirectRenderPRP2Test(TestRunnerBean testRunner) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-
-			/* Test works as follows:
-			 *    set a new value for the PRP by updating the model -- this will cause the PRP to come in the render in
-			 * the subsequent render:  set an attribute indicating we are redirecting; redirect; check to see if the PRP
-			 * is in the request.
-			 *
-			 * Key difference between PRP1Test and PRP2Test is that PRP1 already calls encodeActionURL on url prior to
-			 * redirect while   PRP2 does not.
-			 */
-			extCtx.getRequestMap().put("modelPRP", testRunner.getTestName());
-
-			return "redirectRenderPRP2Test";
-		}
-		else {
-			String viewId = ctx.getViewRoot().getViewId();
-
-			if (viewId.equals("/tests/MultiRequestTestResultRenderCheck.jsp")) {
-				String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
-						"/tests/RedirectTestResultRenderCheck.jsp");
-
-				try {
-					extCtx.redirect(target);
-				}
-				catch (Exception e) {
-					testRunner.setTestComplete(true);
-					testRunner.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
-
-					return Constants.TEST_FAILED;
-				}
-
-				return "";
-			}
-			else if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
-				testRunner.setTestComplete(true);
-
-				// ensure that both the public render paramter and the model are there and have the same value
-				RenderRequest request = (RenderRequest) extCtx.getRequest();
-				String[] prpArray = request.getPublicParameterMap().get("testPRP");
-				String modelPRP = (String) extCtx.getRequestMap().get("modelPRP");
-
-				if (prpArray == null) {
-					testRunner.setTestResult(false,
-						"redirected request didn't carry forward the public render parameter.");
-
-					return Constants.TEST_FAILED;
-				}
-				else if (modelPRP == null) {
-					testRunner.setTestResult(false,
-						"redirected request didn't update the model from the passed public render parameter.");
-
-					return Constants.TEST_FAILED;
-				}
-				else if (!modelPRP.equals(prpArray[0])) {
-					testRunner.setTestResult(false,
-						"redirected request:  passed public render parameter value doesn't match underlying one.");
-
-					return Constants.TEST_FAILED;
-				}
-				else if (!modelPRP.equals(testRunner.getTestName())) {
-					testRunner.setTestResult(false,
-						"redirected request:  public render parameter didn't contain expected value.  PRP value: " +
-						modelPRP + " but expected: " + testRunner.getTestName());
-
-					return Constants.TEST_FAILED;
-				}
-				else {
-					testRunner.setTestResult(true,
-						"extCtx.redirect() during render worked correctly as we were redirected to the new view.");
-
-					return Constants.TEST_SUCCESS;
-				}
-			}
-			else {
-				testRunner.setTestResult(false,
-					"extCtx.redirect() during render failed as we ended up in an unexpected view: " + viewId);
-
-				return Constants.TEST_FAILED;
-			}
-		}
-	}
-
-	// Test #6.65
-	@BridgeTest(test = "redirectRenderTest")
-	public String redirectRenderTest(TestRunnerBean testRunner) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-
-		String viewId = ctx.getViewRoot().getViewId();
-
-		if (viewId.equals("/tests/SingleRequestTest.jsp")) {
-			String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
-					"/tests/RedirectTestResultRenderCheck.jsp");
-
-			try {
-				extCtx.redirect(target);
-			}
-			catch (Exception e) {
-				testRunner.setTestComplete(true);
-				testRunner.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
-
-				return Constants.TEST_FAILED;
-			}
-
-			return "";
-		}
-		else if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
-			testRunner.setTestComplete(true);
-			testRunner.setTestResult(true,
-				"extCtx.redirect() during render worked correctly as we were redirected to the new view.");
-
-			return Constants.TEST_SUCCESS;
-		}
-		else {
-			testRunner.setTestResult(false,
-				"extCtx.redirect() during render failed as we ended up in an unexpected view: " + viewId);
-
-			return Constants.TEST_FAILED;
-		}
-	}
-
-	// Test is SingleRequest -- Render only
-	// Test #6.42
-	/**
-	 * getRequestMap Tests
-	 */
-	@BridgeTest(test = "requestMapCoreTest")
-	public String requestMapCoreTest(TestRunnerBean testRunner) {
-		testRunner.setTestComplete(true);
-
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-
-		// Test the following:
-		// 1. Map is mutable
-		// 2. Map contains attributes in the underlying request
-		// a) set on portlet request -- get via map
-		// b) set on map -- get via portlet request
-		// 3. Remove in request -- gone from Map
-		// 4. Remove from Map -- gone in request
-
-		PortletRequest request = (PortletRequest) extCtx.getRequest();
-		Map<String, Object> extCtxRequestMap = extCtx.getRequestMap();
-
-		// ensure they start out identical
-		if (!containsIdenticalEntries(extCtxRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
-			testRunner.setTestResult(false,
-				"Failed: Portlet request attributes and the externalContext requestMap entries aren't identical.");
-
-			return Constants.TEST_FAILED;
-		}
-
-		// Test for mutability
-		try {
-			extCtxRequestMap.put("Test0Key", "Test0Value");
-			request.setAttribute("Test1Key", "Test1Value");
-		}
-		catch (Exception e) {
-			testRunner.setTestResult(false,
-				"Failed: Putting an attribute on the ExternalContext's requestmap threw and exception: " +
-				e.toString());
-
-			return Constants.TEST_FAILED;
-		}
-
-		// test that we can read an attribute set on the portlet request via this Map
-		// and vice-versa -- as we have just written an attribute on the extCtx and
-		// the test portlet wrote one on the portlet request -- the act of verifying
-		// the Maps contain the same keys/values should do the trick.
-		if (!containsIdenticalEntries(extCtxRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
-			testRunner.setTestResult(false,
-				"Failed: After setting an attribute on the portlet request and the externalContext requestMap they no longer contain identical entries.");
-
-			return Constants.TEST_FAILED;
-		}
-
-		// Now remove the attribute we put in the  -- do the remove on the opposite object
-		extCtxRequestMap.remove("Test1Key");
-		request.removeAttribute("Test0Key");
-
-		if (!containsIdenticalEntries(extCtxRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
-			testRunner.setTestResult(false,
-				"Failed: After removing an attribute on the portlet request and the externalContext requestMap they no longer contain identical entries.");
-
-			return Constants.TEST_FAILED;
-		}
-
-		// Otherwise all out tests passed:
-
-		testRunner.setTestResult(true, "The Map returned from getRequestMap is mutable.");
-		testRunner.appendTestDetail(
-			"The getRequestMap Map correctly expresses attributes in the underlying request that have been added there.");
-		testRunner.appendTestDetail(
-			"The getRequestMap Map correctly reflects attrbiutes into the underlying request that have been added to it.");
-		testRunner.appendTestDetail(
-			"The getRequestMap Map correctly doesn't express attrbiutes that have been removed from the underlying request");
-		testRunner.appendTestDetail(
-			"The getRequestMap Map correctly cause the underlying request to remove any attributes removed from it");
-
-		return Constants.TEST_SUCCESS;
-
-	}
-
-	// Test #6.44
-	@BridgeTest(test = "requestMapPreDestroyRemoveWithinActionTest")
-	public String requestMapPreDestroyRemoveWithinActionTest(TestRunnerBean testRunner) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Application app = ctx.getApplication();
-
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-
-			// ensure the managed beans come into existence
-			Boolean isIn = (Boolean) app.evaluateExpressionGet(ctx, "#{predestroyBean1.inBridgeRequestScope}",
-					Object.class);
-			Map<String, Object> m = extCtx.getRequestMap();
-			m.remove("predestroyBean1");
-
-			// Now verify that things worked correctly We expect that the beans were not added to the bridge scope (yet)
-			// and hence only the Predestroy was called
-			Boolean notifiedAddedToBridgeScope = (Boolean) m.get("PreDestroyBean1.attributeAdded");
-			Boolean notifiedPreDestroy = (Boolean) m.get("PreDestroyBean1.servletPreDestroy");
-			Boolean notifiedBridgePreDestroy = (Boolean) m.get("PreDestroyBean1.bridgePreDestroy");
-
-			if ((notifiedAddedToBridgeScope == null) && (notifiedBridgePreDestroy == null) &&
-					(notifiedPreDestroy != null) && notifiedPreDestroy.equals(Boolean.TRUE)) {
-
-				// Only the regular PreDestroy was called and so it would have cleaned itself up
-				testRunner.setTestResult(true,
-					"The bridge request scope behaved correctly in handling preDestroy of a removed attribute prior to it being added to the bridge's scope in that:");
-				testRunner.appendTestDetail(
-					"     a) the bean wasn't notified it had been added to the bridge request scope.");
-				testRunner.appendTestDetail("     b) the bean didn't have its BridgePreDestroy called.");
-				testRunner.appendTestDetail("     c) the bean did have its Predestroy called.");
-			}
-			else {
-				testRunner.setTestResult(false,
-					"The bridge request scope didn't behaved correctly in handling preDestroy of a removed attribute prior to it being added to the bridge's scope in that:");
-
-				if (notifiedAddedToBridgeScope != null)
-					testRunner.appendTestDetail("::::: it notified the bean it was added to the bridge request scope.");
-
-				if (notifiedBridgePreDestroy != null)
-					testRunner.appendTestDetail(
-						"::::: it notified the bean it was removed from the bridge request scope.");
-
-				if (notifiedPreDestroy == null)
-					testRunner.appendTestDetail("::::: it didn't notify the bean's PreDestroy.");
-
-				if ((notifiedPreDestroy != null) && notifiedPreDestroy.equals(Boolean.FALSE))
-					testRunner.appendTestDetail(
-						"::::: the bean's Predestroy was called but it thought it had been added to the bridge request scope.");
-			}
-
-			// Now remove them manually to see if they are cleaned up correctly
-
-			return "requestMapPreDestroyRemoveWithinActionTest";
-		}
-		else {
-			testRunner.setTestComplete(true);
-
-			if (testRunner.getTestStatus()) {
-				return Constants.TEST_SUCCESS;
-			}
-			else {
-				return Constants.TEST_FAILED;
-			}
-		}
-	}
-
-	// Test is MultiRequest --
-	// Test #6.43
-	@BridgeTest(test = "requestMapRequestScopeTest")
-	public String requestMapRequestScopeTest(TestRunnerBean testRunner) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> m = extCtx.getRequestMap();
-
-		// Test a bunch of things:
-		// a) attrs added in action are there in render request
-		// b) attrs added in action that are supposed to be excluded aren't there in render request
-		// -- attrs added before bridge called (in TestPortlet)
-		// -- attrs with one of the excluded values
-		// -- attrs with excluded key prefixes
-		// -- attrs defined excluded by this portlet (in its portlet.xml)
-		// -- test single attr
-		// -- test attr prefix
-		// -- test attr prefix isn't recursive
-
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			m.put("myRequestObject", extCtx.getRequest()); // should be excluded because of value type
-			m.put("myFacesContext", ctx); // should be excluded because of value type
-			m.put("javax.faces.myKey1", Boolean.TRUE); // should be excluded because its in exlcuded namespace
-			m.put("javax.faces.myNamespace.myKey1", Boolean.TRUE); // should be retained because excluded namespaces
-																   // don't recurse
-			m.put("myKey1", Boolean.TRUE); // should be retained
-			m.put("myExcludedNamespace.myKey1", Boolean.TRUE); // should be excluded as defined in portlet.xml
-			m.put("myExcludedKey", Boolean.TRUE); // defined as excluded in the portlet.xml
-			m.put("myExcludedNamespace.myIncludedNamespace.myKey1", Boolean.TRUE); // should be retained as excluded
-																				   // namespaces don't recurse
-			m.put("myFacesConfigExcludedNamespace.myKey1", Boolean.TRUE); // should be excluded as defined in
-																		  // faces-config.xml
-			m.put("myFacesConfigExcludedKey", Boolean.TRUE); // defined as excluded in the faces-config.xml
-			m.put("myFacesConfigExcludedNamespace.myIncludedNamespace.myKey1", Boolean.TRUE); // should be retained as
-																							  // excluded namespaces
-																							  // don't recurse
-
-			return "requestMapRequestScopeTest";
-		}
-		else {
-			testRunner.setTestComplete(true);
-
-			// make sure that the attrbiute added before ExternalContext acquired is missing (set in the TestPortlet's
-			// action handler)
-			if (m.get("verifyPreBridgeExclusion") != null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly preserved an attribute that existed prior to FacesContext being acquired.");
-
-				return Constants.TEST_FAILED;
-			}
-
-			if (m.get("myRequestObject") != null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly preserved an attribute whose value is the PortletRequest object.");
-
-				return Constants.TEST_FAILED;
-			}
-
-			if (m.get("myFacesContext") != null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly preserved an attribute whose value is the FacesContext object.");
-
-				return Constants.TEST_FAILED;
-			}
-
-			if (m.get("javax.faces.myKey1") != null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly preserved an attribute in the predefined exlcuded namespace javax.faces.");
-
-				return Constants.TEST_FAILED;
-			}
-
-			if (m.get("javax.faces.myNamespace.myKey1") == null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of the javax.faces namespace.  Exclusion rules aren't recursive.");
-
-				return Constants.TEST_FAILED;
-			}
-
-			if (m.get("myKey1") == null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly excluded an attribute that wasn't defined as excluded.");
-
-				return Constants.TEST_FAILED;
-			}
-
-			if (m.get("myExcludedNamespace.myKey1") != null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly preserved an attribute whose key is in a portlet defined excluded namespace.");
-
-				return Constants.TEST_FAILED;
-			}
-
-			if (m.get("myExcludedKey") != null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly preserved an attribute whose key matches a portlet defined excluded attribute");
-
-				return Constants.TEST_FAILED;
-			}
-
-			if (m.get("myExcludedNamespace.myIncludedNamespace.myKey1") == null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of a portlet excluded namespace.  Exclusion rules aren't recursive.");
-
-				return Constants.TEST_FAILED;
-			}
-
-			if (m.get("myFacesConfigExcludedNamespace.myKey1") != null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly preserved an attribute whose key is in a faces-config.xml defined excluded namespace.");
-
-				return Constants.TEST_FAILED;
-			}
-
-			if (m.get("myFacesConfigExcludedKey") != null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly preserved an attribute whose key matches a faces-config.xml defined excluded attribute");
-
-				return Constants.TEST_FAILED;
-			}
-
-			if (m.get("myFacesConfigExcludedNamespace.myIncludedNamespace.myKey1") == null) {
-				testRunner.setTestResult(false,
-					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of a faces-config.xml excluded namespace.  Exclusion rules aren't recursive.");
-
-				return Constants.TEST_FAILED;
-			}
-
-			testRunner.setTestResult(true,
-				"The bridge request scope behaved correctly for each of the following tests:");
-			testRunner.appendTestDetail(
-				"     a) it excluded attributes whose values were of the type PortletRequest and FacesContext.");
-			testRunner.appendTestDetail(
-				"     b) it excluded attributes from both a predefined namespace and one the portlet defined.");
-			testRunner.appendTestDetail(
-				"     c) it included attributes from both a predefined namespace and one the portlet defined when the attribute name contained a further namespace qualification.");
-			testRunner.appendTestDetail(
-				"     d) it excluded attributes that were added before the bridge was invoked (FacesContext acquired).");
-			testRunner.appendTestDetail(
-				"     b) it excluded attributes from each of a predefined namespace, a portlet defined namespace, and a faces-config.xml defiend namespace.");
-			testRunner.appendTestDetail("     b) it included attributes it was supposed to.");
-
-			return Constants.TEST_SUCCESS;
-		}
-	}
-
-	private boolean containsIdenticalEntries(Map<String, Object> m, Enumeration<String> eNames, PortletRequest r) {
-
-		// For each entry in m ensure there is an idenitcal one in the request
-		for (Iterator<Map.Entry<String, Object>> entries = m.entrySet().iterator(); entries.hasNext();) {
-			Map.Entry<String, Object> e = entries.next();
-			Object requestObj = r.getAttribute(e.getKey());
-			Object mapObj = e.getValue();
-
-			if ((mapObj == null) && (requestObj == null))
-				continue; // technically shouldn't have this but some container do
-
-			if ((mapObj == null) || (requestObj == null) || !mapObj.equals(requestObj)) {
-				return false;
-			}
-		}
-
-		// For each entry in the request -- ensure there is an identical one in the map
-		while (eNames.hasMoreElements()) {
-			String key = eNames.nextElement();
-			Object requestObj = r.getAttribute(key);
-			Object mapObj = m.get(key);
-
-			if ((mapObj == null) && (requestObj == null))
-				continue; // technically shouldn't have this but some container do
-
-			if ((mapObj == null) || (requestObj == null) || !mapObj.equals(requestObj)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	private String[] trim(String[] toTrim) {
-
-		for (int i = 0; i < toTrim.length; i++) {
-			toTrim[i] = toTrim[i].trim();
-		}
-
-		return toTrim;
-	}
-
-	private boolean isStrictXhtmlEncoded(String url) {
-
-		// check for use of &amp; in query string
-		int currentPos = url.indexOf('?');
-
-		if (currentPos == -1)
-			return false;
-
-		boolean isStrict = false;
-
-		while (true) {
-			int ampPos = url.indexOf('&', currentPos);
-			int xhtmlAmpPos = url.indexOf("&amp;", currentPos);
-
-			// no more & to process -- so return current value of isStrict
-			if (ampPos == -1) {
-				return isStrict;
-			}
-
-			// if the amp we found doesn't start an &amp; then its not strict
-			if (ampPos != xhtmlAmpPos) {
-				return false;
-			}
-
-			isStrict = true;
-			currentPos = ampPos + 1;
-		}
-	}
-
 	// Test #6.57
 	@BridgeTest(test = "getRequestCharacterEncodingActionTest")
 	public String getRequestCharacterEncodingActionTest(TestRunnerBean testRunner) {
@@ -3360,82 +2614,6 @@ public class Tests extends Object {
 			else {
 				return Constants.TEST_FAILED;
 
-			}
-		}
-	}
-
-	// Test is MultiRequest -- tests both setting request in action and render
-	// Note:  this tests that you can't get an encoding after reading the parameter.
-	// we can't test for the positive -- that the setEncoding actually works
-	// as portlet containers are supposed to process the form parameters before
-	// the portlet reads them  -- some containers (WebSphere) chooses to do this
-	// before calling the portlet.
-	// Test #6.37
-	@BridgeTest(test = "setRequestCharacterEncodingActionTest")
-	public String setRequestCharacterEncodingActionTest(TestRunnerBean testRunner) {
-		final String utf8 = "UTF-8";
-		final String utf16 = "UTF-16";
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			String s = extCtx.getRequestCharacterEncoding();
-			String testEncoding = null;
-
-			// A number of container have trouble with this test --
-			// All one should have to do is get the parameters to cause the test state to be set
-			// but some containers require the reader be called -- issue is -- the spec also
-			// says you can't get a reader if its a form postback.
-			// Anyway -- first try to get a reader -- then to read the parameters to
-			// be most accomodative
-			try {
-				BufferedReader b = ((ClientDataRequest) extCtx.getRequest()).getReader();
-				int i = 0;
-			}
-			catch (Exception e) {
-
-				// container likely did the right thing -- but make sure by reading the parameters
-				Map m = ((PortletRequest) extCtx.getRequest()).getParameterMap();
-			}
-
-			if ((s == null) || ((s != null) && !s.equalsIgnoreCase(utf8))) {
-				testEncoding = utf8;
-			}
-			else {
-				testEncoding = utf16;
-			}
-
-			try {
-				extCtx.setRequestCharacterEncoding(testEncoding);
-
-				String v = extCtx.getRequestCharacterEncoding();
-
-				if (((v == null) && (s == null)) || ((v != null) && (s != null) && v.equalsIgnoreCase(s))) {
-					testRunner.setTestResult(true,
-						"setRequestCharacterEncoding was correctly ignored after reading a parameter in an action request.");
-				}
-				else {
-					testRunner.setTestResult(false,
-						"setRequestCharacterEncoding incorrectly set a new encoding after reading a parameter in an action request.");
-				}
-			}
-			catch (Exception e) {
-				testRunner.setTestResult(false,
-					"setRequestCharacterEncoding was correctly ignored after reading a parameter in an action request.");
-			}
-
-			return "setRequestCharacterEncodingActionTest";
-		}
-		else {
-			testRunner.setTestComplete(true);
-
-			if (testRunner.getTestStatus()) {
-				return Constants.TEST_SUCCESS;
-			}
-			else {
-				return Constants.TEST_FAILED;
 			}
 		}
 	}
@@ -3509,36 +2687,6 @@ public class Tests extends Object {
 			testRunner.setTestResult(false,
 				"extCtx.getRequestCharacterEncoding() incorrectly returned non-null value when called during the render phase: " +
 				charEncoding);
-
-			return Constants.TEST_FAILED;
-		}
-	}
-
-	// Test is SingleRequest -- Render only
-	// Test #6.36
-	/**
-	 * setRequestCharacterEncoding Tests
-	 */
-	@BridgeTest(test = "setRequestCharacterEncodingRenderTest")
-	public String setRequestCharacterEncodingRenderTest(TestRunnerBean testRunner) {
-		testRunner.setTestComplete(true);
-
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-
-		// Call setRequestCharacterEncoding -- fail if an exception is thrown
-		try {
-			extCtx.setRequestCharacterEncoding("UTF-8");
-
-			// In portlet 1.0 there is no supprt for this -- so spec says ignore
-			testRunner.setTestResult(true,
-				"setRequestCharacterEncoding correctly didn't throw an exception when called during the render Phase.");
-
-			return Constants.TEST_SUCCESS;
-		}
-		catch (Exception e) {
-			testRunner.setTestResult(false,
-				"setRequestCharacterEncoding correctly didn't throw an exception when called during the render Phase.");
 
 			return Constants.TEST_FAILED;
 		}
@@ -5979,5 +5127,857 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 		}
+	}
+
+	// Test #6.66
+	@BridgeTest(test = "illegalRedirectRenderTest")
+	public String illegalRedirectRenderTest(TestRunnerBean testRunner) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+
+		testRunner.setTestComplete(true);
+
+		String viewId = ctx.getViewRoot().getViewId();
+
+		if (viewId.equals("/tests/SingleRequestTest.jsp")) {
+
+			try {
+				extCtx.redirect(ctx.getApplication().getViewHandler().getResourceURL(ctx, "/tests/NonJSFView.portlet"));
+			}
+			catch (IllegalStateException i) {
+				testRunner.setTestResult(true,
+					"extCtx.redirect() during render correctly threw the IllegalStateException when redirecting to a nonFaces view.");
+
+				return Constants.TEST_SUCCESS;
+			}
+			catch (Exception e) {
+				testRunner.setTestResult(false,
+					"Calling extCtx.redirect() threw an unexpected exception: " + e.getMessage());
+
+				return Constants.TEST_FAILED;
+			}
+
+			testRunner.setTestResult(false,
+				"extCtx.redirect() during render failed: it didn't throw an illegalStateException when redirecting to a nonfaces view.");
+
+			return Constants.TEST_FAILED;
+		}
+		else {
+			testRunner.setTestResult(false,
+				"extCtx.redirect() during render failed: we started out in an unexpected view: " + viewId);
+
+			return Constants.TEST_FAILED;
+		}
+	}
+
+	// Test #6.64
+	@BridgeTest(test = "redirectActionTest")
+	public String redirectActionTest(TestRunnerBean testRunner) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+
+			/* Test works as follows:
+			 *    redirect to a new view   set attribute on request scope   call redirect to the renderview   when
+			 * called during render -- check we are at the new view and attribute is gone   i.e. request scope isn't
+			 * preserved in case of redirect.
+			 */
+			extCtx.getRequestMap().put("myRedirectRequestObject", Boolean.TRUE);
+
+			String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
+					"/tests/RedirectTestResultRenderCheck.jsp");
+
+			try {
+				extCtx.redirect(target);
+			}
+			catch (Exception e) {
+				testRunner.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
+
+				return "redirectActionTest";
+			}
+
+			return
+				""; // return something that won't be mapped in faces-config.xml to confirm  redirect is what is causing
+					// the page transition
+		}
+		else {
+			testRunner.setTestComplete(true);
+
+			String viewId = ctx.getViewRoot().getViewId();
+
+			if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
+				// the redirect worked
+
+				// now verify that the scope wasn't saved.
+				if (extCtx.getRequestMap().get("myRedirectRequestObject") == null) {
+					testRunner.setTestResult(true,
+						"extCtx.redirect() during action worked correctly as we were redirected to the new view without retaining request scoped beans.");
+				}
+				else {
+					testRunner.setTestResult(false,
+						"extCtx.redirect() during action failed as though we were redirected to the new view the request scope was retained.");
+				}
+			}
+			else {
+				testRunner.setTestResult(false,
+					"extCtx.redirect() during action failed as we weren't redirected to the new view. The viewId should be /tests/RedirectTestResultRenderCheck.jsp but is: " +
+					viewId);
+			}
+
+			if (testRunner.getTestStatus()) {
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				return Constants.TEST_FAILED;
+
+			}
+		}
+	}
+
+	// Test #6.131
+	@BridgeTest(test = "redirectEventTest")
+	public String redirectEventTest(TestRunnerBean testRunner) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+
+			/* Test works as follows:
+			 *    set attribute on request scope   raise event which will invoke redirect   when called during render --
+			 * check we are at the new view and attribute is gone   i.e. request scope isn't preserved in case of
+			 * redirect.
+			 */
+			extCtx.getRequestMap().put("myRedirectRequestObject", Boolean.TRUE);
+
+			// Create and raise the event
+			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testRunner.getTestName());
+
+			return Constants.TEST_SUCCESS; // action Navigation result
+		}
+		else {
+			testRunner.setTestComplete(true);
+
+			String viewId = ctx.getViewRoot().getViewId();
+
+			if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
+				// the redirect worked
+
+				// now verify that the scope wasn't saved.
+				if (extCtx.getRequestMap().get("myRedirectRequestObject") == null) {
+					testRunner.setTestResult(true,
+						"extCtx.redirect() during event worked correctly as we were redirected to the new view without retaining request scoped beans.");
+				}
+				else {
+					testRunner.setTestResult(false,
+						"extCtx.redirect() during event failed as though we were redirected to the new view the request scope was retained.");
+				}
+			}
+			else {
+				testRunner.setTestResult(false,
+					"extCtx.redirect() during event failed as we weren't redirected to the new view. The viewId should be /tests/RedirectTestResultRenderCheck.jsp but is: " +
+					viewId);
+			}
+
+			if (testRunner.getTestStatus()) {
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				return Constants.TEST_FAILED;
+
+			}
+		}
+	}
+
+	// Test #6.65
+	@BridgeTest(test = "redirectRenderPRP1Test")
+	public String redirectRenderPRP1Test(TestRunnerBean testRunner) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+
+			/* Test works as follows:
+			 *    set a new value for the PRP by updating the model -- this will cause the PRP to come in the render in
+			 * the subsequent render:  set an attribute indicating we are redirecting; redirect; check to see if the PRP
+			 * is in the request.
+			 *
+			 * Key difference between PRP1Test and PRP2Test is that PRP1 already calls encodeActionURL on url prior to
+			 * redirect while   PRP2 does not.
+			 */
+			extCtx.getRequestMap().put("modelPRP", testRunner.getTestName());
+
+			return "redirectRenderPRP1Test";
+		}
+		else {
+			String viewId = ctx.getViewRoot().getViewId();
+
+			if (viewId.equals("/tests/MultiRequestTestResultRenderCheck.jsp")) {
+				String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
+						"/tests/RedirectTestResultRenderCheck.jsp");
+
+				try {
+					extCtx.redirect(extCtx.encodeActionURL(target));
+				}
+				catch (Exception e) {
+					testRunner.setTestComplete(true);
+					testRunner.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
+
+					return Constants.TEST_FAILED;
+				}
+
+				return "";
+			}
+			else if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
+				testRunner.setTestComplete(true);
+
+				// ensure that both the public render paramter and the model are there and have the same value
+				RenderRequest request = (RenderRequest) extCtx.getRequest();
+				String[] prpArray = request.getPublicParameterMap().get("testPRP");
+				String modelPRP = (String) extCtx.getRequestMap().get("modelPRP");
+
+				if (prpArray == null) {
+					testRunner.setTestResult(false,
+						"redirected request didn't carry forward the public render parameter.");
+
+					return Constants.TEST_FAILED;
+				}
+				else if (modelPRP == null) {
+					testRunner.setTestResult(false,
+						"redirected request didn't update the model from the passed public render parameter.");
+
+					return Constants.TEST_FAILED;
+				}
+				else if (!modelPRP.equals(prpArray[0])) {
+					testRunner.setTestResult(false,
+						"redirected request:  passed public render parameter value doesn't match underlying one.");
+
+					return Constants.TEST_FAILED;
+				}
+				else if (!modelPRP.equals(testRunner.getTestName())) {
+					testRunner.setTestResult(false,
+						"redirected request:  public render parameter didn't contain expected value.  PRP value: " +
+						modelPRP + " but expected: " + testRunner.getTestName());
+
+					return Constants.TEST_FAILED;
+				}
+				else {
+					testRunner.setTestResult(true,
+						"extCtx.redirect() during render worked correctly as we were redirected to the new view.");
+
+					return Constants.TEST_SUCCESS;
+				}
+			}
+			else {
+				testRunner.setTestResult(false,
+					"extCtx.redirect() during render failed as we ended up in an unexpected view: " + viewId);
+
+				return Constants.TEST_FAILED;
+			}
+		}
+	}
+
+	// Test #6.65
+	@BridgeTest(test = "redirectRenderPRP2Test")
+	public String redirectRenderPRP2Test(TestRunnerBean testRunner) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+
+			/* Test works as follows:
+			 *    set a new value for the PRP by updating the model -- this will cause the PRP to come in the render in
+			 * the subsequent render:  set an attribute indicating we are redirecting; redirect; check to see if the PRP
+			 * is in the request.
+			 *
+			 * Key difference between PRP1Test and PRP2Test is that PRP1 already calls encodeActionURL on url prior to
+			 * redirect while   PRP2 does not.
+			 */
+			extCtx.getRequestMap().put("modelPRP", testRunner.getTestName());
+
+			return "redirectRenderPRP2Test";
+		}
+		else {
+			String viewId = ctx.getViewRoot().getViewId();
+
+			if (viewId.equals("/tests/MultiRequestTestResultRenderCheck.jsp")) {
+				String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
+						"/tests/RedirectTestResultRenderCheck.jsp");
+
+				try {
+					extCtx.redirect(target);
+				}
+				catch (Exception e) {
+					testRunner.setTestComplete(true);
+					testRunner.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
+
+					return Constants.TEST_FAILED;
+				}
+
+				return "";
+			}
+			else if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
+				testRunner.setTestComplete(true);
+
+				// ensure that both the public render paramter and the model are there and have the same value
+				RenderRequest request = (RenderRequest) extCtx.getRequest();
+				String[] prpArray = request.getPublicParameterMap().get("testPRP");
+				String modelPRP = (String) extCtx.getRequestMap().get("modelPRP");
+
+				if (prpArray == null) {
+					testRunner.setTestResult(false,
+						"redirected request didn't carry forward the public render parameter.");
+
+					return Constants.TEST_FAILED;
+				}
+				else if (modelPRP == null) {
+					testRunner.setTestResult(false,
+						"redirected request didn't update the model from the passed public render parameter.");
+
+					return Constants.TEST_FAILED;
+				}
+				else if (!modelPRP.equals(prpArray[0])) {
+					testRunner.setTestResult(false,
+						"redirected request:  passed public render parameter value doesn't match underlying one.");
+
+					return Constants.TEST_FAILED;
+				}
+				else if (!modelPRP.equals(testRunner.getTestName())) {
+					testRunner.setTestResult(false,
+						"redirected request:  public render parameter didn't contain expected value.  PRP value: " +
+						modelPRP + " but expected: " + testRunner.getTestName());
+
+					return Constants.TEST_FAILED;
+				}
+				else {
+					testRunner.setTestResult(true,
+						"extCtx.redirect() during render worked correctly as we were redirected to the new view.");
+
+					return Constants.TEST_SUCCESS;
+				}
+			}
+			else {
+				testRunner.setTestResult(false,
+					"extCtx.redirect() during render failed as we ended up in an unexpected view: " + viewId);
+
+				return Constants.TEST_FAILED;
+			}
+		}
+	}
+
+	// Test #6.65
+	@BridgeTest(test = "redirectRenderTest")
+	public String redirectRenderTest(TestRunnerBean testRunner) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+
+		String viewId = ctx.getViewRoot().getViewId();
+
+		if (viewId.equals("/tests/SingleRequestTest.jsp")) {
+			String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
+					"/tests/RedirectTestResultRenderCheck.jsp");
+
+			try {
+				extCtx.redirect(target);
+			}
+			catch (Exception e) {
+				testRunner.setTestComplete(true);
+				testRunner.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
+
+				return Constants.TEST_FAILED;
+			}
+
+			return "";
+		}
+		else if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
+			testRunner.setTestComplete(true);
+			testRunner.setTestResult(true,
+				"extCtx.redirect() during render worked correctly as we were redirected to the new view.");
+
+			return Constants.TEST_SUCCESS;
+		}
+		else {
+			testRunner.setTestResult(false,
+				"extCtx.redirect() during render failed as we ended up in an unexpected view: " + viewId);
+
+			return Constants.TEST_FAILED;
+		}
+	}
+
+	// Test is SingleRequest -- Render only
+	// Test #6.42
+	/**
+	 * getRequestMap Tests
+	 */
+	@BridgeTest(test = "requestMapCoreTest")
+	public String requestMapCoreTest(TestRunnerBean testRunner) {
+		testRunner.setTestComplete(true);
+
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+
+		// Test the following:
+		// 1. Map is mutable
+		// 2. Map contains attributes in the underlying request
+		// a) set on portlet request -- get via map
+		// b) set on map -- get via portlet request
+		// 3. Remove in request -- gone from Map
+		// 4. Remove from Map -- gone in request
+
+		PortletRequest request = (PortletRequest) extCtx.getRequest();
+		Map<String, Object> extCtxRequestMap = extCtx.getRequestMap();
+
+		// ensure they start out identical
+		if (!containsIdenticalEntries(extCtxRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
+			testRunner.setTestResult(false,
+				"Failed: Portlet request attributes and the externalContext requestMap entries aren't identical.");
+
+			return Constants.TEST_FAILED;
+		}
+
+		// Test for mutability
+		try {
+			extCtxRequestMap.put("Test0Key", "Test0Value");
+			request.setAttribute("Test1Key", "Test1Value");
+		}
+		catch (Exception e) {
+			testRunner.setTestResult(false,
+				"Failed: Putting an attribute on the ExternalContext's requestmap threw and exception: " +
+				e.toString());
+
+			return Constants.TEST_FAILED;
+		}
+
+		// test that we can read an attribute set on the portlet request via this Map
+		// and vice-versa -- as we have just written an attribute on the extCtx and
+		// the test portlet wrote one on the portlet request -- the act of verifying
+		// the Maps contain the same keys/values should do the trick.
+		if (!containsIdenticalEntries(extCtxRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
+			testRunner.setTestResult(false,
+				"Failed: After setting an attribute on the portlet request and the externalContext requestMap they no longer contain identical entries.");
+
+			return Constants.TEST_FAILED;
+		}
+
+		// Now remove the attribute we put in the  -- do the remove on the opposite object
+		extCtxRequestMap.remove("Test1Key");
+		request.removeAttribute("Test0Key");
+
+		if (!containsIdenticalEntries(extCtxRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
+			testRunner.setTestResult(false,
+				"Failed: After removing an attribute on the portlet request and the externalContext requestMap they no longer contain identical entries.");
+
+			return Constants.TEST_FAILED;
+		}
+
+		// Otherwise all out tests passed:
+
+		testRunner.setTestResult(true, "The Map returned from getRequestMap is mutable.");
+		testRunner.appendTestDetail(
+			"The getRequestMap Map correctly expresses attributes in the underlying request that have been added there.");
+		testRunner.appendTestDetail(
+			"The getRequestMap Map correctly reflects attrbiutes into the underlying request that have been added to it.");
+		testRunner.appendTestDetail(
+			"The getRequestMap Map correctly doesn't express attrbiutes that have been removed from the underlying request");
+		testRunner.appendTestDetail(
+			"The getRequestMap Map correctly cause the underlying request to remove any attributes removed from it");
+
+		return Constants.TEST_SUCCESS;
+
+	}
+
+	// Test #6.44
+	@BridgeTest(test = "requestMapPreDestroyRemoveWithinActionTest")
+	public String requestMapPreDestroyRemoveWithinActionTest(TestRunnerBean testRunner) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+		Application app = ctx.getApplication();
+
+		// This tests that we can encode a new mode in an actionURL
+		// done by navigation rule.
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+
+			// ensure the managed beans come into existence
+			Boolean isIn = (Boolean) app.evaluateExpressionGet(ctx, "#{predestroyBean1.inBridgeRequestScope}",
+					Object.class);
+			Map<String, Object> m = extCtx.getRequestMap();
+			m.remove("predestroyBean1");
+
+			// Now verify that things worked correctly We expect that the beans were not added to the bridge scope (yet)
+			// and hence only the Predestroy was called
+			Boolean notifiedAddedToBridgeScope = (Boolean) m.get("PreDestroyBean1.attributeAdded");
+			Boolean notifiedPreDestroy = (Boolean) m.get("PreDestroyBean1.servletPreDestroy");
+			Boolean notifiedBridgePreDestroy = (Boolean) m.get("PreDestroyBean1.bridgePreDestroy");
+
+			if ((notifiedAddedToBridgeScope == null) && (notifiedBridgePreDestroy == null) &&
+					(notifiedPreDestroy != null) && notifiedPreDestroy.equals(Boolean.TRUE)) {
+
+				// Only the regular PreDestroy was called and so it would have cleaned itself up
+				testRunner.setTestResult(true,
+					"The bridge request scope behaved correctly in handling preDestroy of a removed attribute prior to it being added to the bridge's scope in that:");
+				testRunner.appendTestDetail(
+					"     a) the bean wasn't notified it had been added to the bridge request scope.");
+				testRunner.appendTestDetail("     b) the bean didn't have its BridgePreDestroy called.");
+				testRunner.appendTestDetail("     c) the bean did have its Predestroy called.");
+			}
+			else {
+				testRunner.setTestResult(false,
+					"The bridge request scope didn't behaved correctly in handling preDestroy of a removed attribute prior to it being added to the bridge's scope in that:");
+
+				if (notifiedAddedToBridgeScope != null)
+					testRunner.appendTestDetail("::::: it notified the bean it was added to the bridge request scope.");
+
+				if (notifiedBridgePreDestroy != null)
+					testRunner.appendTestDetail(
+						"::::: it notified the bean it was removed from the bridge request scope.");
+
+				if (notifiedPreDestroy == null)
+					testRunner.appendTestDetail("::::: it didn't notify the bean's PreDestroy.");
+
+				if ((notifiedPreDestroy != null) && notifiedPreDestroy.equals(Boolean.FALSE))
+					testRunner.appendTestDetail(
+						"::::: the bean's Predestroy was called but it thought it had been added to the bridge request scope.");
+			}
+
+			// Now remove them manually to see if they are cleaned up correctly
+
+			return "requestMapPreDestroyRemoveWithinActionTest";
+		}
+		else {
+			testRunner.setTestComplete(true);
+
+			if (testRunner.getTestStatus()) {
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				return Constants.TEST_FAILED;
+			}
+		}
+	}
+
+	// Test is MultiRequest --
+	// Test #6.43
+	@BridgeTest(test = "requestMapRequestScopeTest")
+	public String requestMapRequestScopeTest(TestRunnerBean testRunner) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+		Map<String, Object> m = extCtx.getRequestMap();
+
+		// Test a bunch of things:
+		// a) attrs added in action are there in render request
+		// b) attrs added in action that are supposed to be excluded aren't there in render request
+		// -- attrs added before bridge called (in TestPortlet)
+		// -- attrs with one of the excluded values
+		// -- attrs with excluded key prefixes
+		// -- attrs defined excluded by this portlet (in its portlet.xml)
+		// -- test single attr
+		// -- test attr prefix
+		// -- test attr prefix isn't recursive
+
+		// This tests that we can encode a new mode in an actionURL
+		// done by navigation rule.
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+			m.put("myRequestObject", extCtx.getRequest()); // should be excluded because of value type
+			m.put("myFacesContext", ctx); // should be excluded because of value type
+			m.put("javax.faces.myKey1", Boolean.TRUE); // should be excluded because its in exlcuded namespace
+			m.put("javax.faces.myNamespace.myKey1", Boolean.TRUE); // should be retained because excluded namespaces
+																   // don't recurse
+			m.put("myKey1", Boolean.TRUE); // should be retained
+			m.put("myExcludedNamespace.myKey1", Boolean.TRUE); // should be excluded as defined in portlet.xml
+			m.put("myExcludedKey", Boolean.TRUE); // defined as excluded in the portlet.xml
+			m.put("myExcludedNamespace.myIncludedNamespace.myKey1", Boolean.TRUE); // should be retained as excluded
+																				   // namespaces don't recurse
+			m.put("myFacesConfigExcludedNamespace.myKey1", Boolean.TRUE); // should be excluded as defined in
+																		  // faces-config.xml
+			m.put("myFacesConfigExcludedKey", Boolean.TRUE); // defined as excluded in the faces-config.xml
+			m.put("myFacesConfigExcludedNamespace.myIncludedNamespace.myKey1", Boolean.TRUE); // should be retained as
+																							  // excluded namespaces
+																							  // don't recurse
+
+			return "requestMapRequestScopeTest";
+		}
+		else {
+			testRunner.setTestComplete(true);
+
+			// make sure that the attrbiute added before ExternalContext acquired is missing (set in the TestPortlet's
+			// action handler)
+			if (m.get("verifyPreBridgeExclusion") != null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly preserved an attribute that existed prior to FacesContext being acquired.");
+
+				return Constants.TEST_FAILED;
+			}
+
+			if (m.get("myRequestObject") != null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly preserved an attribute whose value is the PortletRequest object.");
+
+				return Constants.TEST_FAILED;
+			}
+
+			if (m.get("myFacesContext") != null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly preserved an attribute whose value is the FacesContext object.");
+
+				return Constants.TEST_FAILED;
+			}
+
+			if (m.get("javax.faces.myKey1") != null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly preserved an attribute in the predefined exlcuded namespace javax.faces.");
+
+				return Constants.TEST_FAILED;
+			}
+
+			if (m.get("javax.faces.myNamespace.myKey1") == null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of the javax.faces namespace.  Exclusion rules aren't recursive.");
+
+				return Constants.TEST_FAILED;
+			}
+
+			if (m.get("myKey1") == null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly excluded an attribute that wasn't defined as excluded.");
+
+				return Constants.TEST_FAILED;
+			}
+
+			if (m.get("myExcludedNamespace.myKey1") != null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly preserved an attribute whose key is in a portlet defined excluded namespace.");
+
+				return Constants.TEST_FAILED;
+			}
+
+			if (m.get("myExcludedKey") != null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly preserved an attribute whose key matches a portlet defined excluded attribute");
+
+				return Constants.TEST_FAILED;
+			}
+
+			if (m.get("myExcludedNamespace.myIncludedNamespace.myKey1") == null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of a portlet excluded namespace.  Exclusion rules aren't recursive.");
+
+				return Constants.TEST_FAILED;
+			}
+
+			if (m.get("myFacesConfigExcludedNamespace.myKey1") != null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly preserved an attribute whose key is in a faces-config.xml defined excluded namespace.");
+
+				return Constants.TEST_FAILED;
+			}
+
+			if (m.get("myFacesConfigExcludedKey") != null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly preserved an attribute whose key matches a faces-config.xml defined excluded attribute");
+
+				return Constants.TEST_FAILED;
+			}
+
+			if (m.get("myFacesConfigExcludedNamespace.myIncludedNamespace.myKey1") == null) {
+				testRunner.setTestResult(false,
+					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of a faces-config.xml excluded namespace.  Exclusion rules aren't recursive.");
+
+				return Constants.TEST_FAILED;
+			}
+
+			testRunner.setTestResult(true,
+				"The bridge request scope behaved correctly for each of the following tests:");
+			testRunner.appendTestDetail(
+				"     a) it excluded attributes whose values were of the type PortletRequest and FacesContext.");
+			testRunner.appendTestDetail(
+				"     b) it excluded attributes from both a predefined namespace and one the portlet defined.");
+			testRunner.appendTestDetail(
+				"     c) it included attributes from both a predefined namespace and one the portlet defined when the attribute name contained a further namespace qualification.");
+			testRunner.appendTestDetail(
+				"     d) it excluded attributes that were added before the bridge was invoked (FacesContext acquired).");
+			testRunner.appendTestDetail(
+				"     b) it excluded attributes from each of a predefined namespace, a portlet defined namespace, and a faces-config.xml defiend namespace.");
+			testRunner.appendTestDetail("     b) it included attributes it was supposed to.");
+
+			return Constants.TEST_SUCCESS;
+		}
+	}
+
+	// Test is MultiRequest -- tests both setting request in action and render
+	// Note:  this tests that you can't get an encoding after reading the parameter.
+	// we can't test for the positive -- that the setEncoding actually works
+	// as portlet containers are supposed to process the form parameters before
+	// the portlet reads them  -- some containers (WebSphere) chooses to do this
+	// before calling the portlet.
+	// Test #6.37
+	@BridgeTest(test = "setRequestCharacterEncodingActionTest")
+	public String setRequestCharacterEncodingActionTest(TestRunnerBean testRunner) {
+		final String utf8 = "UTF-8";
+		final String utf16 = "UTF-16";
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+
+		// This tests that we can encode a new mode in an actionURL
+		// done by navigation rule.
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+			String s = extCtx.getRequestCharacterEncoding();
+			String testEncoding = null;
+
+			// A number of container have trouble with this test --
+			// All one should have to do is get the parameters to cause the test state to be set
+			// but some containers require the reader be called -- issue is -- the spec also
+			// says you can't get a reader if its a form postback.
+			// Anyway -- first try to get a reader -- then to read the parameters to
+			// be most accomodative
+			try {
+				BufferedReader b = ((ClientDataRequest) extCtx.getRequest()).getReader();
+				int i = 0;
+			}
+			catch (Exception e) {
+
+				// container likely did the right thing -- but make sure by reading the parameters
+				Map m = ((PortletRequest) extCtx.getRequest()).getParameterMap();
+			}
+
+			if ((s == null) || ((s != null) && !s.equalsIgnoreCase(utf8))) {
+				testEncoding = utf8;
+			}
+			else {
+				testEncoding = utf16;
+			}
+
+			try {
+				extCtx.setRequestCharacterEncoding(testEncoding);
+
+				String v = extCtx.getRequestCharacterEncoding();
+
+				if (((v == null) && (s == null)) || ((v != null) && (s != null) && v.equalsIgnoreCase(s))) {
+					testRunner.setTestResult(true,
+						"setRequestCharacterEncoding was correctly ignored after reading a parameter in an action request.");
+				}
+				else {
+					testRunner.setTestResult(false,
+						"setRequestCharacterEncoding incorrectly set a new encoding after reading a parameter in an action request.");
+				}
+			}
+			catch (Exception e) {
+				testRunner.setTestResult(false,
+					"setRequestCharacterEncoding was correctly ignored after reading a parameter in an action request.");
+			}
+
+			return "setRequestCharacterEncodingActionTest";
+		}
+		else {
+			testRunner.setTestComplete(true);
+
+			if (testRunner.getTestStatus()) {
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				return Constants.TEST_FAILED;
+			}
+		}
+	}
+
+	// Test is SingleRequest -- Render only
+	// Test #6.36
+	/**
+	 * setRequestCharacterEncoding Tests
+	 */
+	@BridgeTest(test = "setRequestCharacterEncodingRenderTest")
+	public String setRequestCharacterEncodingRenderTest(TestRunnerBean testRunner) {
+		testRunner.setTestComplete(true);
+
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+
+		// Call setRequestCharacterEncoding -- fail if an exception is thrown
+		try {
+			extCtx.setRequestCharacterEncoding("UTF-8");
+
+			// In portlet 1.0 there is no supprt for this -- so spec says ignore
+			testRunner.setTestResult(true,
+				"setRequestCharacterEncoding correctly didn't throw an exception when called during the render Phase.");
+
+			return Constants.TEST_SUCCESS;
+		}
+		catch (Exception e) {
+			testRunner.setTestResult(false,
+				"setRequestCharacterEncoding correctly didn't throw an exception when called during the render Phase.");
+
+			return Constants.TEST_FAILED;
+		}
+	}
+
+	private boolean containsIdenticalEntries(Map<String, Object> m, Enumeration<String> eNames, PortletRequest r) {
+
+		// For each entry in m ensure there is an idenitcal one in the request
+		for (Iterator<Map.Entry<String, Object>> entries = m.entrySet().iterator(); entries.hasNext();) {
+			Map.Entry<String, Object> e = entries.next();
+			Object requestObj = r.getAttribute(e.getKey());
+			Object mapObj = e.getValue();
+
+			if ((mapObj == null) && (requestObj == null))
+				continue; // technically shouldn't have this but some container do
+
+			if ((mapObj == null) || (requestObj == null) || !mapObj.equals(requestObj)) {
+				return false;
+			}
+		}
+
+		// For each entry in the request -- ensure there is an identical one in the map
+		while (eNames.hasMoreElements()) {
+			String key = eNames.nextElement();
+			Object requestObj = r.getAttribute(key);
+			Object mapObj = m.get(key);
+
+			if ((mapObj == null) && (requestObj == null))
+				continue; // technically shouldn't have this but some container do
+
+			if ((mapObj == null) || (requestObj == null) || !mapObj.equals(requestObj)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private boolean isStrictXhtmlEncoded(String url) {
+
+		// check for use of &amp; in query string
+		int currentPos = url.indexOf('?');
+
+		if (currentPos == -1)
+			return false;
+
+		boolean isStrict = false;
+
+		while (true) {
+			int ampPos = url.indexOf('&', currentPos);
+			int xhtmlAmpPos = url.indexOf("&amp;", currentPos);
+
+			// no more & to process -- so return current value of isStrict
+			if (ampPos == -1) {
+				return isStrict;
+			}
+
+			// if the amp we found doesn't start an &amp; then its not strict
+			if (ampPos != xhtmlAmpPos) {
+				return false;
+			}
+
+			isStrict = true;
+			currentPos = ampPos + 1;
+		}
+	}
+
+	private String[] trim(String[] toTrim) {
+
+		for (int i = 0; i < toTrim.length; i++) {
+			toTrim[i] = toTrim[i].trim();
+		}
+
+		return toTrim;
 	}
 }

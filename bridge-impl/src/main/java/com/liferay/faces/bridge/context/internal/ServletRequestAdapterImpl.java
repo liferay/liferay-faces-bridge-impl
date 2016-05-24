@@ -41,16 +41,8 @@ public class ServletRequestAdapterImpl implements ServletRequest {
 		this.portletRequest = portletRequest;
 	}
 
-	public void removeAttribute(String name) {
-		portletRequest.removeAttribute(name);
-	}
-
 	public Object getAttribute(String name) {
 		return portletRequest.getAttribute(name);
-	}
-
-	public void setAttribute(String name, Object value) {
-		portletRequest.setAttribute(name, value);
 	}
 
 	public Enumeration<?> getAttributeNames() {
@@ -67,10 +59,6 @@ public class ServletRequestAdapterImpl implements ServletRequest {
 		else {
 			return null;
 		}
-	}
-
-	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
-		throw new UnsupportedOperationException();
 	}
 
 	public int getContentLength() {
@@ -95,10 +83,6 @@ public class ServletRequestAdapterImpl implements ServletRequest {
 		else {
 			return null;
 		}
-	}
-
-	public boolean isSecure() {
-		return portletRequest.isSecure();
 	}
 
 	public ServletInputStream getInputStream() throws IOException {
@@ -211,5 +195,21 @@ public class ServletRequestAdapterImpl implements ServletRequest {
 		else {
 			return 0;
 		}
+	}
+
+	public boolean isSecure() {
+		return portletRequest.isSecure();
+	}
+
+	public void removeAttribute(String name) {
+		portletRequest.removeAttribute(name);
+	}
+
+	public void setAttribute(String name, Object value) {
+		portletRequest.setAttribute(name, value);
+	}
+
+	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
+		throw new UnsupportedOperationException();
 	}
 }

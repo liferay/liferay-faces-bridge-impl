@@ -26,8 +26,8 @@ import javax.portlet.PortalContext;
 import javax.portlet.PortletMode;
 import javax.portlet.WindowState;
 
-import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgePortalContext;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 
 
 /**
@@ -76,7 +76,7 @@ public class PortalContextBridgeImpl implements PortalContext {
 				BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT.equals(name) ||
 				BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT.equals(name)) {
 
-				return wrappedPortalContext.getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT);
+			return wrappedPortalContext.getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT);
 		}
 		else if (BridgePortalContext.CREATE_RENDER_URL_DURING_ACTION_PHASE_SUPPORT.equals(name)) {
 
@@ -106,6 +106,16 @@ public class PortalContextBridgeImpl implements PortalContext {
 		return Collections.enumeration(propertyNameList);
 	}
 
+	// Java 1.6+ @Override
+	public Enumeration<PortletMode> getSupportedPortletModes() {
+		return wrappedPortalContext.getSupportedPortletModes();
+	}
+
+	// Java 1.6+ @Override
+	public Enumeration<WindowState> getSupportedWindowStates() {
+		return wrappedPortalContext.getSupportedWindowStates();
+	}
+
 	private String getSetHttpStatusCode() {
 
 		if (ableToSetHttpStatusCode == null) {
@@ -126,15 +136,5 @@ public class PortalContextBridgeImpl implements PortalContext {
 		}
 
 		return ableToSetHttpStatusCode;
-	}
-
-	// Java 1.6+ @Override
-	public Enumeration<PortletMode> getSupportedPortletModes() {
-		return wrappedPortalContext.getSupportedPortletModes();
-	}
-
-	// Java 1.6+ @Override
-	public Enumeration<WindowState> getSupportedWindowStates() {
-		return wrappedPortalContext.getSupportedWindowStates();
 	}
 }

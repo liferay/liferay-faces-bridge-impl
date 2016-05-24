@@ -29,26 +29,26 @@ import com.liferay.faces.util.helper.Wrapper;
  */
 public abstract class PortletURLWrapper extends BaseURLWrapper implements PortletURL, Wrapper<PortletURL> {
 
-	public void removePublicRenderParameter(String name) {
-		getWrapped().removePublicRenderParameter(name);
-	}
+	@Override
+	public abstract PortletURL getWrapped();
 
 	public PortletMode getPortletMode() {
 		return getWrapped().getPortletMode();
-	}
-
-	public void setPortletMode(PortletMode portletMode) throws PortletModeException {
-		getWrapped().setPortletMode(portletMode);
 	}
 
 	public WindowState getWindowState() {
 		return getWrapped().getWindowState();
 	}
 
+	public void removePublicRenderParameter(String name) {
+		getWrapped().removePublicRenderParameter(name);
+	}
+
+	public void setPortletMode(PortletMode portletMode) throws PortletModeException {
+		getWrapped().setPortletMode(portletMode);
+	}
+
 	public void setWindowState(WindowState windowState) throws WindowStateException {
 		getWrapped().setWindowState(windowState);
 	}
-
-	@Override
-	public abstract PortletURL getWrapped();
 }

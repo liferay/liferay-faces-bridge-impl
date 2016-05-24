@@ -90,119 +90,6 @@ public class TestRunnerBean extends Object {
 		}
 	}
 
-	public void runActionListener(ActionEvent action) {
-
-		// run the test and return the result.
-		if (mTestActionListener != null) {
-
-			try {
-				mTestActionListener.invoke(mTest, new Object[] { this, action });
-			}
-			catch (Exception e) {
-
-				// do nothing
-				return;
-			}
-		}
-	}
-
-	public String runActionTest() {
-
-		// Called either because the action is submitted
-		return runTest();
-	}
-
-	public void runActionTest(ActionEvent action) {
-
-		// In resource case we use an action listener
-		runActionListener(action);
-	}
-
-	private String runTest() {
-
-		// Only run the test once
-		if (mTestComplete) {
-			return (mStatus) ? Constants.TEST_SUCCESS : Constants.TEST_FAILED;
-		}
-
-		// run the test and return the result.
-		if (mTestMethod != null) {
-
-			try {
-				return (String) mTestMethod.invoke(mTest, this);
-			}
-			catch (Exception e) {
-				setTestResult(false, "Test failed: " + e.toString() + " thrown during invocation");
-
-				return Constants.TEST_FAILED;
-			}
-		}
-		else {
-			setTestResult(false,
-				"Test failed: unable to determine test method to call.  Is the portletName properly encoded?  Syntax: testBean-testMethodName-portlet");
-
-			return Constants.TEST_FAILED;
-		}
-	}
-
-	private Method getAnnotatedTestActionListener(String testName, Object testObj) {
-
-		// search methods for one annotated by the BridgeTest annotation suffixed by 'ActionListener' and
-		// with a test (parameter) value = portletNameTest
-		String listenerName = testName.concat("ActionListener");
-
-		for (Method method : testObj.getClass().getMethods()) {
-			Annotation[] annotations = method.getAnnotations();
-
-			if (annotations != null) {
-
-				for (Annotation annotation : annotations) {
-					Class<? extends Annotation> annotationType = annotation.annotationType();
-
-					if (BridgeTest.class.equals(annotationType)) {
-						String annotatedTestName = ((BridgeTest) annotation).test();
-
-						if ((annotatedTestName != null) && (annotatedTestName.length() > 0) &&
-								annotatedTestName.equalsIgnoreCase(listenerName))
-							return method;
-					}
-				}
-			}
-		}
-
-		return null;
-	}
-
-	private Method getAnnotatedTestMethod(String testName, Object testObj) {
-
-		// search methods for one annotated by the BridgeTest annotation and
-		// with a test (parameter) value = portletNameTest
-		for (Method method : testObj.getClass().getMethods()) {
-			Annotation[] annotations = method.getAnnotations();
-
-			if (annotations != null) {
-
-				for (Annotation annotation : annotations) {
-					Class<? extends Annotation> annotationType = annotation.annotationType();
-
-					if (BridgeTest.class.equals(annotationType)) {
-						String annotatedTestName = ((BridgeTest) annotation).test();
-
-						if ((annotatedTestName != null) && (annotatedTestName.length() > 0) &&
-								annotatedTestName.equalsIgnoreCase(testName))
-							return method;
-					}
-				}
-			}
-		}
-
-		return null;
-	}
-
-	public boolean isTestComplete() {
-		return mTestComplete;
-	}
-
 	public String getRedisplayCommandName() {
 		// For use with resource redisplay tests -- to kick off the PPR -- The button starts with Run Test which causes
 		// the PPR -- it then changes its name to "" so the GoLink can be invoked
@@ -259,10 +146,6 @@ public class TestRunnerBean extends Object {
 		return getTestResultAsAfterContent(runTest());
 	}
 
-	public void setTestComplete(boolean complete) {
-		mTestComplete = complete;
-	}
-
 	public String getTestName() {
 		return mTestName;
 	}
@@ -311,14 +194,6 @@ public class TestRunnerBean extends Object {
 		return mResultWriter.toString();
 	}
 
-	public void setTestResult(boolean passed, String detail) {
-		mResultWriter = new BridgeTCKResultWriter(mTestName);
-		mResultWriter.setStatus(passed);
-		mResultWriter.addDetail(detail);
-
-		mStatus = passed;
-	}
-
 	public String getTestResultAsAfterContent(String s) {
 		String result = getTestResult(s);
 		char[] resultChars = result.toCharArray();
@@ -331,5 +206,130 @@ public class TestRunnerBean extends Object {
 
 	public boolean getTestStatus() {
 		return mStatus;
+	}
+
+	public boolean isTestComplete() {
+		return mTestComplete;
+	}
+
+	public void runActionListener(ActionEvent action) {
+
+		// run the test and return the result.
+		if (mTestActionListener != null) {
+
+			try {
+				mTestActionListener.invoke(mTest, new Object[] { this, action });
+			}
+			catch (Exception e) {
+
+				// do nothing
+				return;
+			}
+		}
+	}
+
+	public String runActionTest() {
+
+		// Called either because the action is submitted
+		return runTest();
+	}
+
+	public void runActionTest(ActionEvent action) {
+
+		// In resource case we use an action listener
+		runActionListener(action);
+	}
+
+	public void setTestComplete(boolean complete) {
+		mTestComplete = complete;
+	}
+
+	public void setTestResult(boolean passed, String detail) {
+		mResultWriter = new BridgeTCKResultWriter(mTestName);
+		mResultWriter.setStatus(passed);
+		mResultWriter.addDetail(detail);
+
+		mStatus = passed;
+	}
+
+	private Method getAnnotatedTestActionListener(String testName, Object testObj) {
+
+		// search methods for one annotated by the BridgeTest annotation suffixed by 'ActionListener' and
+		// with a test (parameter) value = portletNameTest
+		String listenerName = testName.concat("ActionListener");
+
+		for (Method method : testObj.getClass().getMethods()) {
+			Annotation[] annotations = method.getAnnotations();
+
+			if (annotations != null) {
+
+				for (Annotation annotation : annotations) {
+					Class<? extends Annotation> annotationType = annotation.annotationType();
+
+					if (BridgeTest.class.equals(annotationType)) {
+						String annotatedTestName = ((BridgeTest) annotation).test();
+
+						if ((annotatedTestName != null) && (annotatedTestName.length() > 0) &&
+								annotatedTestName.equalsIgnoreCase(listenerName))
+							return method;
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
+	private Method getAnnotatedTestMethod(String testName, Object testObj) {
+
+		// search methods for one annotated by the BridgeTest annotation and
+		// with a test (parameter) value = portletNameTest
+		for (Method method : testObj.getClass().getMethods()) {
+			Annotation[] annotations = method.getAnnotations();
+
+			if (annotations != null) {
+
+				for (Annotation annotation : annotations) {
+					Class<? extends Annotation> annotationType = annotation.annotationType();
+
+					if (BridgeTest.class.equals(annotationType)) {
+						String annotatedTestName = ((BridgeTest) annotation).test();
+
+						if ((annotatedTestName != null) && (annotatedTestName.length() > 0) &&
+								annotatedTestName.equalsIgnoreCase(testName))
+							return method;
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
+	private String runTest() {
+
+		// Only run the test once
+		if (mTestComplete) {
+			return (mStatus) ? Constants.TEST_SUCCESS : Constants.TEST_FAILED;
+		}
+
+		// run the test and return the result.
+		if (mTestMethod != null) {
+
+			try {
+				return (String) mTestMethod.invoke(mTest, this);
+			}
+			catch (Exception e) {
+				setTestResult(false, "Test failed: " + e.toString() + " thrown during invocation");
+
+				return Constants.TEST_FAILED;
+			}
+		}
+		else {
+			setTestResult(false,
+				"Test failed: unable to determine test method to call.  Is the portletName properly encoded?  Syntax: testBean-testMethodName-portlet");
+
+			return Constants.TEST_FAILED;
+		}
 	}
 }

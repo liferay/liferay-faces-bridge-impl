@@ -53,53 +53,6 @@ public class ContextMapFactoryImpl extends ContextMapFactory {
 		return new ApplicationScopeMap(portletContext, preferPredestroy);
 	}
 
-	protected FacesRequestParameterMap getFacesRequestParameterMap(PortletRequest portletRequest,
-		String responseNamespace, PortletConfig portletConfig, BridgeRequestScope bridgeRequestScope,
-		String defaultRenderKitId, String facesViewQueryString) {
-
-		FacesRequestParameterMap facesRequestParameterMap = null;
-		Map<String, String> facesViewParameterMap = getFacesViewParameterMap(facesViewQueryString);
-
-		if (portletRequest instanceof ClientDataRequest) {
-
-			ClientDataRequest clientDataRequest = (ClientDataRequest) portletRequest;
-			String contentType = clientDataRequest.getContentType();
-
-			// Note: ICEfaces ace:fileEntry relies on its own mechanism for handling file upload.
-			if (!ICEFACES_DETECTED && (contentType != null) && contentType.toLowerCase().startsWith("multipart/")) {
-
-				MultiPartFormData multiPartFormData = (MultiPartFormData) portletRequest.getAttribute(
-						MULTIPART_FORM_DATA_FQCN);
-
-				if (multiPartFormData == null) {
-					facesRequestParameterMap = new FacesRequestParameterMapImpl(responseNamespace, bridgeRequestScope,
-							facesViewParameterMap, defaultRenderKitId);
-
-					MultiPartFormDataProcessor multiPartFormDataProcessor = new MultiPartFormDataProcessorImpl();
-					Map<String, List<com.liferay.faces.util.model.UploadedFile>> uploadedFileMap =
-						multiPartFormDataProcessor.process(clientDataRequest, portletConfig, facesRequestParameterMap);
-
-					multiPartFormData = new MultiPartFormDataImpl(facesRequestParameterMap, uploadedFileMap);
-
-					// Save the multipart/form-data in a request attribute so that it can be referenced later-on in the
-					// JSF lifecycle by file upload component renderers.
-					portletRequest.setAttribute(MULTIPART_FORM_DATA_FQCN, multiPartFormData);
-				}
-				else {
-					facesRequestParameterMap = multiPartFormData.getFacesRequestParameterMap();
-				}
-			}
-		}
-
-		if (facesRequestParameterMap == null) {
-			Map<String, String[]> parameterMap = portletRequest.getParameterMap();
-			facesRequestParameterMap = new FacesRequestParameterMapImpl(parameterMap, responseNamespace,
-					bridgeRequestScope, facesViewParameterMap, defaultRenderKitId);
-		}
-
-		return facesRequestParameterMap;
-	}
-
 	@Override
 	public Map<String, String> getFacesViewParameterMap(String facesViewQueryString) {
 		return new FacesViewParameterMap(facesViewQueryString);
@@ -206,5 +159,52 @@ public class ContextMapFactoryImpl extends ContextMapFactory {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
 		return null;
+	}
+
+	protected FacesRequestParameterMap getFacesRequestParameterMap(PortletRequest portletRequest,
+		String responseNamespace, PortletConfig portletConfig, BridgeRequestScope bridgeRequestScope,
+		String defaultRenderKitId, String facesViewQueryString) {
+
+		FacesRequestParameterMap facesRequestParameterMap = null;
+		Map<String, String> facesViewParameterMap = getFacesViewParameterMap(facesViewQueryString);
+
+		if (portletRequest instanceof ClientDataRequest) {
+
+			ClientDataRequest clientDataRequest = (ClientDataRequest) portletRequest;
+			String contentType = clientDataRequest.getContentType();
+
+			// Note: ICEfaces ace:fileEntry relies on its own mechanism for handling file upload.
+			if (!ICEFACES_DETECTED && (contentType != null) && contentType.toLowerCase().startsWith("multipart/")) {
+
+				MultiPartFormData multiPartFormData = (MultiPartFormData) portletRequest.getAttribute(
+						MULTIPART_FORM_DATA_FQCN);
+
+				if (multiPartFormData == null) {
+					facesRequestParameterMap = new FacesRequestParameterMapImpl(responseNamespace, bridgeRequestScope,
+							facesViewParameterMap, defaultRenderKitId);
+
+					MultiPartFormDataProcessor multiPartFormDataProcessor = new MultiPartFormDataProcessorImpl();
+					Map<String, List<com.liferay.faces.util.model.UploadedFile>> uploadedFileMap =
+						multiPartFormDataProcessor.process(clientDataRequest, portletConfig, facesRequestParameterMap);
+
+					multiPartFormData = new MultiPartFormDataImpl(facesRequestParameterMap, uploadedFileMap);
+
+					// Save the multipart/form-data in a request attribute so that it can be referenced later-on in the
+					// JSF lifecycle by file upload component renderers.
+					portletRequest.setAttribute(MULTIPART_FORM_DATA_FQCN, multiPartFormData);
+				}
+				else {
+					facesRequestParameterMap = multiPartFormData.getFacesRequestParameterMap();
+				}
+			}
+		}
+
+		if (facesRequestParameterMap == null) {
+			Map<String, String[]> parameterMap = portletRequest.getParameterMap();
+			facesRequestParameterMap = new FacesRequestParameterMapImpl(parameterMap, responseNamespace,
+					bridgeRequestScope, facesViewParameterMap, defaultRenderKitId);
+		}
+
+		return facesRequestParameterMap;
 	}
 }

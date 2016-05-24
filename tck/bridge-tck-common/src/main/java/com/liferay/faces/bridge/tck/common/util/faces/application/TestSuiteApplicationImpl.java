@@ -162,16 +162,8 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.evaluateExpressionGet(context, expression, expectedType);
 	}
 
-	public void removeELContextListener(ELContextListener listener) {
-		mWrapped.removeELContextListener(listener);
-	}
-
 	public javax.faces.event.ActionListener getActionListener() {
 		return mWrapped.getActionListener();
-	}
-
-	public void setActionListener(javax.faces.event.ActionListener listener) {
-		mWrapped.setActionListener(listener);
 	}
 
 	public Iterator<String> getComponentTypes() {
@@ -190,16 +182,8 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.getDefaultLocale();
 	}
 
-	public void setDefaultLocale(Locale locale) {
-		mWrapped.setDefaultLocale(locale);
-	}
-
 	public String getDefaultRenderKitId() {
 		return mWrapped.getDefaultRenderKitId();
-	}
-
-	public void setDefaultRenderKitId(String renderKitId) {
-		mWrapped.setDefaultRenderKitId(renderKitId);
 	}
 
 	public ELContextListener[] getELContextListeners() {
@@ -218,20 +202,12 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.getMessageBundle();
 	}
 
-	public void setMessageBundle(String bundle) {
-		mWrapped.setMessageBundle(bundle);
-	}
-
 	/**
 	 * Return the NavigationHandler object which is responsible for mapping from a logical (viewid, fromAction, outcome)
 	 * to the URL of a view to be rendered.
 	 */
 	public javax.faces.application.NavigationHandler getNavigationHandler() {
 		return mWrapped.getNavigationHandler();
-	}
-
-	public void setNavigationHandler(javax.faces.application.NavigationHandler handler) {
-		mWrapped.setNavigationHandler(handler);
 	}
 
 	/**
@@ -245,13 +221,6 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.getPropertyResolver();
 	}
 
-	/**
-	 * @deprecated
-	 */
-	public void setPropertyResolver(javax.faces.el.PropertyResolver resolver) {
-		mWrapped.setPropertyResolver(resolver);
-	}
-
 	public ResourceBundle getResourceBundle(FacesContext ctx, String name) throws FacesException, NullPointerException {
 		return mWrapped.getResourceBundle(ctx, name);
 	}
@@ -260,16 +229,8 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.getStateManager();
 	}
 
-	public void setStateManager(javax.faces.application.StateManager manager) {
-		mWrapped.setStateManager(manager);
-	}
-
 	public Iterator<Locale> getSupportedLocales() {
 		return mWrapped.getSupportedLocales();
-	}
-
-	public void setSupportedLocales(Collection<Locale> locales) {
-		mWrapped.setSupportedLocales(locales);
 	}
 
 	public Iterator<String> getValidatorIds() {
@@ -285,15 +246,54 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.getVariableResolver();
 	}
 
+	public javax.faces.application.ViewHandler getViewHandler() {
+		return mWrapped.getViewHandler();
+	}
+
+	public void removeELContextListener(ELContextListener listener) {
+		mWrapped.removeELContextListener(listener);
+	}
+
+	public void setActionListener(javax.faces.event.ActionListener listener) {
+		mWrapped.setActionListener(listener);
+	}
+
+	public void setDefaultLocale(Locale locale) {
+		mWrapped.setDefaultLocale(locale);
+	}
+
+	public void setDefaultRenderKitId(String renderKitId) {
+		mWrapped.setDefaultRenderKitId(renderKitId);
+	}
+
+	public void setMessageBundle(String bundle) {
+		mWrapped.setMessageBundle(bundle);
+	}
+
+	public void setNavigationHandler(javax.faces.application.NavigationHandler handler) {
+		mWrapped.setNavigationHandler(handler);
+	}
+
+	/**
+	 * @deprecated
+	 */
+	public void setPropertyResolver(javax.faces.el.PropertyResolver resolver) {
+		mWrapped.setPropertyResolver(resolver);
+	}
+
+	public void setStateManager(javax.faces.application.StateManager manager) {
+		mWrapped.setStateManager(manager);
+	}
+
+	public void setSupportedLocales(Collection<Locale> locales) {
+		mWrapped.setSupportedLocales(locales);
+	}
+
 	/**
 	 * @deprecated
 	 */
 	public void setVariableResolver(javax.faces.el.VariableResolver resolver) {
 		mWrapped.setVariableResolver(resolver);
-	}
-
-	public javax.faces.application.ViewHandler getViewHandler() {
-		return mWrapped.getViewHandler();
 	}
 
 	public void setViewHandler(javax.faces.application.ViewHandler viewHandler) {
@@ -303,9 +303,11 @@ public class TestSuiteApplicationImpl extends Application {
 			// Create a new chain-of-delegation with the TCK's ViewHandler decorating the ViewHandler from the Faces
 			// implementation (which does not extend ViewHandlerWrapper).
 			Stack<ViewHandler> viewHandlerStack = new Stack<ViewHandler>();
+
 			while (viewHandler instanceof ViewHandlerWrapper) {
 
 				viewHandlerStack.push(viewHandler);
+
 				ViewHandlerWrapper viewHandlerWrapper = (ViewHandlerWrapper) viewHandler;
 				viewHandler = getWrappedViewHandler(viewHandlerWrapper);
 			}
@@ -318,16 +320,17 @@ public class TestSuiteApplicationImpl extends Application {
 
 				if (!(poppedViewHandler instanceof TestSuiteViewHandlerImpl)) {
 					Class<ViewHandler> poppedViewHandlerClass = (Class<ViewHandler>) poppedViewHandler.getClass();
+
 					try {
 						Constructor<ViewHandler> constructor = poppedViewHandlerClass.getConstructor(ViewHandler.class);
 						viewHandler = constructor.newInstance(viewHandler);
-					} catch (Exception e) {
+					}
+					catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 			}
 		}
-
 		else {
 			ViewHandler wrappedViewHandler = viewHandler;
 

@@ -124,6 +124,11 @@ public class DataPaginatorBridgeImpl extends DataPaginatorWrapper implements Ser
 	}
 
 	@Override
+	public Object getWrapped() {
+		return wrappedDataPaginator;
+	}
+
+	@Override
 	public void processDecodes(FacesContext facesContext) {
 
 		try {
@@ -165,10 +170,5 @@ public class DataPaginatorBridgeImpl extends DataPaginatorWrapper implements Ser
 		}
 
 		return uiComponent;
-	}
-
-	@Override
-	public Object getWrapped() {
-		return wrappedDataPaginator;
 	}
 }

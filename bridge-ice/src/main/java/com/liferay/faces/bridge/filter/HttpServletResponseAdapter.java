@@ -98,6 +98,88 @@ public class HttpServletResponseAdapter implements HttpServletResponse, Wrapper<
 		}
 	}
 
+	public int getBufferSize() {
+
+		PortletResponse portletResponse = getWrapped();
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getBufferSize();
+		}
+		else {
+			return 0;
+		}
+	}
+
+	public String getCharacterEncoding() {
+
+		PortletResponse portletResponse = getWrapped();
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getCharacterEncoding();
+		}
+		else {
+			return null;
+		}
+	}
+
+	public String getContentType() {
+
+		PortletResponse portletResponse = getWrapped();
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getContentType();
+		}
+		else {
+			return null;
+		}
+	}
+
+	public Locale getLocale() {
+		return requestLocale;
+	}
+
+	public ServletOutputStream getOutputStream() throws IOException {
+		return new ServletOutputStreamAdapter(getWrapped());
+	}
+
+	public PortletResponse getWrapped() {
+		return wrappedPortletResponse;
+	}
+
+	public PrintWriter getWriter() throws IOException {
+
+		PortletResponse portletResponse = getWrapped();
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getWriter();
+		}
+		else {
+			throw new UnsupportedOperationException();
+		}
+	}
+
+	public boolean isCommitted() {
+
+		PortletResponse portletResponse = getWrapped();
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.isCommitted();
+		}
+		else {
+			return true;
+		}
+	}
+
 	public void reset() {
 		PortletResponse portletResponse = getWrapped();
 
@@ -135,36 +217,8 @@ public class HttpServletResponseAdapter implements HttpServletResponse, Wrapper<
 		throw new UnsupportedOperationException();
 	}
 
-	public int getBufferSize() {
-
-		PortletResponse portletResponse = getWrapped();
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getBufferSize();
-		}
-		else {
-			return 0;
-		}
-	}
-
 	public void setBufferSize(int size) {
 		throw new UnsupportedOperationException();
-	}
-
-	public String getCharacterEncoding() {
-
-		PortletResponse portletResponse = getWrapped();
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getCharacterEncoding();
-		}
-		else {
-			return null;
-		}
 	}
 
 	public void setCharacterEncoding(String charset) {
@@ -173,20 +227,6 @@ public class HttpServletResponseAdapter implements HttpServletResponse, Wrapper<
 
 	public void setContentLength(int len) {
 		throw new UnsupportedOperationException();
-	}
-
-	public String getContentType() {
-
-		PortletResponse portletResponse = getWrapped();
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getContentType();
-		}
-		else {
-			return null;
-		}
 	}
 
 	public void setContentType(String type) {
@@ -203,20 +243,6 @@ public class HttpServletResponseAdapter implements HttpServletResponse, Wrapper<
 		}
 	}
 
-	public boolean isCommitted() {
-
-		PortletResponse portletResponse = getWrapped();
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.isCommitted();
-		}
-		else {
-			return true;
-		}
-	}
-
 	public void setDateHeader(String name, long date) {
 		throw new UnsupportedOperationException();
 	}
@@ -227,10 +253,6 @@ public class HttpServletResponseAdapter implements HttpServletResponse, Wrapper<
 
 	public void setIntHeader(String name, int value) {
 		throw new UnsupportedOperationException();
-	}
-
-	public Locale getLocale() {
-		return requestLocale;
 	}
 
 	public void setLocale(Locale loc) {
@@ -247,34 +269,12 @@ public class HttpServletResponseAdapter implements HttpServletResponse, Wrapper<
 		}
 	}
 
-	public ServletOutputStream getOutputStream() throws IOException {
-		return new ServletOutputStreamAdapter(getWrapped());
-	}
-
 	public void setStatus(int sc) {
 		logger.warn("No equivalent for HttpServletResponse.setStatus(int=[{0}]) for PortletResponse", sc);
 	}
 
 	public void setStatus(int sc, String sm) {
 		throw new UnsupportedOperationException();
-	}
-
-	public PortletResponse getWrapped() {
-		return wrappedPortletResponse;
-	}
-
-	public PrintWriter getWriter() throws IOException {
-
-		PortletResponse portletResponse = getWrapped();
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getWriter();
-		}
-		else {
-			throw new UnsupportedOperationException();
-		}
 	}
 
 }

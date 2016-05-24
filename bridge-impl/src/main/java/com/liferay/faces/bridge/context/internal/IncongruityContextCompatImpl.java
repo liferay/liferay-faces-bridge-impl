@@ -25,10 +25,11 @@ import javax.faces.context.ExternalContext;
  */
 public abstract class IncongruityContextCompatImpl extends IncongruityContextBaseImpl {
 
-	protected void makeCongruousJSF2(ExternalContext externalContext, IncongruousAction incongruousAction)
-		throws IOException {
+	@Override
+	public int getResponseContentLength() {
 
 		// no-op for JSF 1.2
+		return 0;
 	}
 
 	@Override
@@ -43,11 +44,10 @@ public abstract class IncongruityContextCompatImpl extends IncongruityContextBas
 		// no-op for JSF 1.2
 	}
 
-	@Override
-	public int getResponseContentLength() {
+	protected void makeCongruousJSF2(ExternalContext externalContext, IncongruousAction incongruousAction)
+		throws IOException {
 
 		// no-op for JSF 1.2
-		return 0;
 	}
 
 }

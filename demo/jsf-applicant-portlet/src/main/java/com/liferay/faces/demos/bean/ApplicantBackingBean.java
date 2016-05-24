@@ -105,6 +105,24 @@ public class ApplicantBackingBean implements Serializable {
 		}
 	}
 
+	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
+
+		// Injected via WEB-INF/faces-config.xml managed-property
+		this.applicantModelBean = applicantModelBean;
+	}
+
+	public void setApplicantViewBean(ApplicantViewBean applicantViewBean) {
+
+		// Injected via WEB-INF/faces-config.xml managed-property
+		this.applicantViewBean = applicantViewBean;
+	}
+
+	public void setListModelBean(ListModelBean listModelBean) {
+
+		// Injected via WEB-INF/faces-config.xml managed-property
+		this.listModelBean = listModelBean;
+	}
+
 	public String submit() {
 
 		if (logger.isDebugEnabled()) {
@@ -150,23 +168,5 @@ public class ApplicantBackingBean implements Serializable {
 
 	public void toggleComments(ActionEvent actionEvent) {
 		applicantViewBean.setCommentsRendered(!applicantViewBean.isCommentsRendered());
-	}
-
-	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
-
-		// Injected via WEB-INF/faces-config.xml managed-property
-		this.applicantModelBean = applicantModelBean;
-	}
-
-	public void setApplicantViewBean(ApplicantViewBean applicantViewBean) {
-
-		// Injected via WEB-INF/faces-config.xml managed-property
-		this.applicantViewBean = applicantViewBean;
-	}
-
-	public void setListModelBean(ListModelBean listModelBean) {
-
-		// Injected via WEB-INF/faces-config.xml managed-property
-		this.listModelBean = listModelBean;
 	}
 }

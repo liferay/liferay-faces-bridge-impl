@@ -50,11 +50,6 @@ public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServlet
 	}
 
 	@Override
-	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
-		((ResourceRequest) getRequest()).setCharacterEncoding(env);
-	}
-
-	@Override
 	public int getContentLength() {
 		return ((ResourceRequest) getRequest()).getContentLength();
 	}
@@ -98,5 +93,10 @@ public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServlet
 	// Java 1.6+ @Override
 	public String getResourceID() {
 		return ((ResourceRequest) getRequest()).getResourceID();
+	}
+
+	@Override
+	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
+		((ResourceRequest) getRequest()).setCharacterEncoding(env);
 	}
 }

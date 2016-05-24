@@ -43,6 +43,29 @@ public class CustomerServiceMockImpl implements CustomerService, Serializable {
 	// Injections
 	private BookingService bookingService;
 
+	public List<Customer> getAllCustomers() {
+		return allCustomers;
+	}
+
+	public BookingService getBookingService() {
+		return bookingService;
+	}
+
+	public Customer getCustomer(long customerId) {
+		Customer customer = null;
+
+		for (Customer curCustomer : allCustomers) {
+
+			if (curCustomer.getCustomerId() == customerId) {
+				customer = curCustomer;
+
+				break;
+			}
+		}
+
+		return customer;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 		allCustomers = new ArrayList<Customer>();
@@ -69,32 +92,9 @@ public class CustomerServiceMockImpl implements CustomerService, Serializable {
 		}
 	}
 
-	public List<Customer> getAllCustomers() {
-		return allCustomers;
-	}
-
-	public BookingService getBookingService() {
-		return bookingService;
-	}
-
 	public void setBookingService(BookingService bookingService) {
 
 		// Injected via WEB-INF/faces-config.xml managed-property
 		this.bookingService = bookingService;
-	}
-
-	public Customer getCustomer(long customerId) {
-		Customer customer = null;
-
-		for (Customer curCustomer : allCustomers) {
-
-			if (curCustomer.getCustomerId() == customerId) {
-				customer = curCustomer;
-
-				break;
-			}
-		}
-
-		return customer;
 	}
 }

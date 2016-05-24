@@ -44,6 +44,11 @@ public class ViewHandlerTCKImpl extends ViewHandlerWrapper {
 		this.wrappedViewHandler = viewHandler;
 	}
 
+	@Override
+	public ViewHandler getWrapped() {
+		return wrappedViewHandler;
+	}
+
 	/**
 	 */
 	@Override
@@ -94,11 +99,6 @@ public class ViewHandlerTCKImpl extends ViewHandlerWrapper {
 			e.printStackTrace();
 		}
 
-		return wrappedViewHandler;
-	}
-
-	@Override
-	public ViewHandler getWrapped() {
 		return wrappedViewHandler;
 	}
 }

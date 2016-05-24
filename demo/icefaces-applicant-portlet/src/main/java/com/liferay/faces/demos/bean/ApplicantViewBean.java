@@ -38,16 +38,12 @@ public class ApplicantViewBean {
 		percentComplete = inputFile.getFileInfo().getPercent();
 	}
 
-	public void toggleComments(ActionEvent actionEvent) {
-		commentsRendered = !commentsRendered;
+	public int getPercentComplete() {
+		return percentComplete;
 	}
 
-	public void togglePopup(ActionEvent actionEvent) {
-		popupRendered = !popupRendered;
-	}
-
-	public void setCommentsRendered(boolean commentsRendered) {
-		this.commentsRendered = commentsRendered;
+	public String getUploadedFileId() {
+		return uploadedFileId;
 	}
 
 	public boolean isCommentsRendered() {
@@ -58,8 +54,8 @@ public class ApplicantViewBean {
 		return popupRendered;
 	}
 
-	public int getPercentComplete() {
-		return percentComplete;
+	public void setCommentsRendered(boolean commentsRendered) {
+		this.commentsRendered = commentsRendered;
 	}
 
 	public void setPercentComplete(int percentComplete) {
@@ -70,12 +66,16 @@ public class ApplicantViewBean {
 		this.popupRendered = popupRendered;
 	}
 
-	public String getUploadedFileId() {
-		return uploadedFileId;
-	}
-
 	public void setUploadedFileId(String uploadedFileId) {
 		this.uploadedFileId = uploadedFileId;
+	}
+
+	public void toggleComments(ActionEvent actionEvent) {
+		commentsRendered = !commentsRendered;
+	}
+
+	public void togglePopup(ActionEvent actionEvent) {
+		popupRendered = !popupRendered;
 	}
 
 }
