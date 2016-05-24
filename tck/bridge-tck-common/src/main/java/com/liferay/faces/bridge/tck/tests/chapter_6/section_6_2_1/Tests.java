@@ -91,6 +91,27 @@ public class Tests extends Object {
 	}
 
 	// Test is SingleRequest -- Render
+	// Test #6.86
+	@BridgeTest(test = "isPortletNamingContainerTest")
+	public String isPortletNamingContainerTest(TestRunnerBean testRunner) {
+		UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+		testRunner.setTestComplete(true);
+
+		if (viewRoot.getClass().getAnnotation(PortletNamingContainer.class) != null) {
+			testRunner.setTestResult(true,
+				"UIViewRoot is correctly annotated with javax.portlet.faces.annotation.PortletNamingContainer.");
+
+			return Constants.TEST_SUCCESS;
+		}
+		else {
+			testRunner.setTestResult(false,
+				"UIViewRoot is not annotated with javax.portlet.faces.annotation.PortletNamingContainer.");
+
+			return Constants.TEST_FAILED;
+		}
+	}
+
+	// Test is SingleRequest -- Render
 	// Test #6.89
 	@BridgeTest(test = "renderContentAfterViewTest")
 	public String renderContentAfterViewTest(TestRunnerBean testRunner) {
@@ -156,27 +177,6 @@ public class Tests extends Object {
 		}
 		else {
 			testRunner.setTestResult(false, (String) m.get("com.liferay.faces.bridge.TCK.detail"));
-
-			return Constants.TEST_FAILED;
-		}
-	}
-
-	// Test is SingleRequest -- Render
-	// Test #6.86
-	@BridgeTest(test = "isPortletNamingContainerTest")
-	public String isPortletNamingContainerTest(TestRunnerBean testRunner) {
-		UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-		testRunner.setTestComplete(true);
-
-		if (viewRoot.getClass().getAnnotation(PortletNamingContainer.class) != null) {
-			testRunner.setTestResult(true,
-				"UIViewRoot is correctly annotated with javax.portlet.faces.annotation.PortletNamingContainer.");
-
-			return Constants.TEST_SUCCESS;
-		}
-		else {
-			testRunner.setTestResult(false,
-				"UIViewRoot is not annotated with javax.portlet.faces.annotation.PortletNamingContainer.");
 
 			return Constants.TEST_FAILED;
 		}

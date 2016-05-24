@@ -42,6 +42,11 @@ public class TestSuiteLifecycleImpl extends Lifecycle {
 	}
 
 	@Override
+	public PhaseListener[] getPhaseListeners() {
+		return getWrapped().getPhaseListeners();
+	}
+
+	@Override
 	public void removePhaseListener(PhaseListener listener) {
 		getWrapped().removePhaseListener(listener);
 	}
@@ -49,11 +54,6 @@ public class TestSuiteLifecycleImpl extends Lifecycle {
 	@Override
 	public void render(FacesContext context) throws FacesException {
 		getWrapped().render(context);
-	}
-
-	@Override
-	public PhaseListener[] getPhaseListeners() {
-		return getWrapped().getPhaseListeners();
 	}
 
 	Lifecycle getWrapped() {

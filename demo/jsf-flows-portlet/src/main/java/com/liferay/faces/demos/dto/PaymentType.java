@@ -39,12 +39,12 @@ public class PaymentType implements Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public long getPaymentTypeId() {
 		return paymentTypeId;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setPaymentTypeId(long paymentTypeId) {

@@ -51,17 +51,17 @@ public class BridgeWriteBehindResponseRenderImpl extends RenderResponseWrapper i
 	}
 
 	@Override
-	public boolean hasFacesWriteBehindMarkup() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public byte[] getBytes() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public char[] getChars() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean hasFacesWriteBehindMarkup() {
 		throw new UnsupportedOperationException();
 	}
 

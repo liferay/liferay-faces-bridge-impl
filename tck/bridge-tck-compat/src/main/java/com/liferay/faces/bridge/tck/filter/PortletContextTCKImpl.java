@@ -38,28 +38,8 @@ public class PortletContextTCKImpl implements PortletContext {
 	}
 
 	@Override
-	public void log(String msg) {
-		wrappedPortletContext.log(msg);
-	}
-
-	@Override
-	public void log(String message, Throwable throwable) {
-		wrappedPortletContext.log(message, throwable);
-	}
-
-	@Override
-	public void removeAttribute(String name) {
-		wrappedPortletContext.removeAttribute(name);
-	}
-
-	@Override
 	public Object getAttribute(String name) {
 		return wrappedPortletContext.getAttribute(name);
-	}
-
-	@Override
-	public void setAttribute(String name, Object object) {
-		wrappedPortletContext.setAttribute(name, object);
 	}
 
 	@Override
@@ -135,5 +115,25 @@ public class PortletContextTCKImpl implements PortletContext {
 	@Override
 	public String getServerInfo() {
 		return wrappedPortletContext.getServerInfo();
+	}
+
+	@Override
+	public void log(String msg) {
+		wrappedPortletContext.log(msg);
+	}
+
+	@Override
+	public void log(String message, Throwable throwable) {
+		wrappedPortletContext.log(message, throwable);
+	}
+
+	@Override
+	public void removeAttribute(String name) {
+		wrappedPortletContext.removeAttribute(name);
+	}
+
+	@Override
+	public void setAttribute(String name, Object object) {
+		wrappedPortletContext.setAttribute(name, object);
 	}
 }

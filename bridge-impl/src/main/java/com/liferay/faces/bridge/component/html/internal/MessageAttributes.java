@@ -53,6 +53,10 @@ public class MessageAttributes extends AttributesWrapper {
 		return value;
 	}
 
+	public Map<String, Object> getWrapped() {
+		return wrappedAttributes;
+	}
+
 	protected String getClassAttributeValue(Object value, String defaultValue, String styleClass) {
 
 		String classAttributeValue = null;
@@ -79,9 +83,5 @@ public class MessageAttributes extends AttributesWrapper {
 		}
 
 		return classAttributeValue;
-	}
-
-	public Map<String, Object> getWrapped() {
-		return wrappedAttributes;
 	}
 }

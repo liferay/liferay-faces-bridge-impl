@@ -54,6 +54,14 @@ public class BookingsModelBean {
 	private Customer customer;
 	private String selectedCustomerId;
 
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public String getSelectedCustomerId() {
+		return selectedCustomerId;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 		logger.trace("@PostConstruct annotation worked");
@@ -67,10 +75,6 @@ public class BookingsModelBean {
 		logger.trace("@PreDestroy annotation worked");
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
@@ -79,10 +83,6 @@ public class BookingsModelBean {
 
 		// Injected via ManagedProperty annotation
 		this.customerService = customerService;
-	}
-
-	public String getSelectedCustomerId() {
-		return selectedCustomerId;
 	}
 
 	/**

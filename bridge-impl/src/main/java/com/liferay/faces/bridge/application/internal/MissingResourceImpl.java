@@ -71,25 +71,8 @@ public class MissingResourceImpl extends Resource {
 	}
 
 	@Override
-	public String toString() {
-		return RES_NOT_FOUND;
-	}
-
-	@Override
-	public boolean userAgentNeedsUpdate(FacesContext context) {
-		logger.error(ERROR_MSG, failedResourceHandler, resourceName, libraryName, contentType);
-
-		return false;
-	}
-
-	@Override
 	public String getContentType() {
 		return contentType;
-	}
-
-	@Override
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
 	}
 
 	@Override
@@ -105,11 +88,6 @@ public class MissingResourceImpl extends Resource {
 	}
 
 	@Override
-	public void setLibraryName(String libraryName) {
-		this.libraryName = libraryName;
-	}
-
-	@Override
 	public String getRequestPath() {
 		logger.error(ERROR_MSG, failedResourceHandler, resourceName, libraryName, contentType);
 
@@ -119,11 +97,6 @@ public class MissingResourceImpl extends Resource {
 	@Override
 	public String getResourceName() {
 		return resourceName;
-	}
-
-	@Override
-	public void setResourceName(String resourceName) {
-		this.resourceName = resourceName;
 	}
 
 	@Override
@@ -138,6 +111,33 @@ public class MissingResourceImpl extends Resource {
 		logger.error(ERROR_MSG, failedResourceHandler, resourceName, libraryName, contentType);
 
 		return null;
+	}
+
+	@Override
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	@Override
+	public void setLibraryName(String libraryName) {
+		this.libraryName = libraryName;
+	}
+
+	@Override
+	public void setResourceName(String resourceName) {
+		this.resourceName = resourceName;
+	}
+
+	@Override
+	public String toString() {
+		return RES_NOT_FOUND;
+	}
+
+	@Override
+	public boolean userAgentNeedsUpdate(FacesContext context) {
+		logger.error(ERROR_MSG, failedResourceHandler, resourceName, libraryName, contentType);
+
+		return false;
 	}
 
 }

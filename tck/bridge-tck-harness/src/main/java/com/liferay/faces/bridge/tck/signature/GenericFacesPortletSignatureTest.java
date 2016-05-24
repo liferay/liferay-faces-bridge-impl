@@ -28,28 +28,6 @@ import static junit.framework.Assert.fail;
  */
 public class GenericFacesPortletSignatureTest {
 
-	private void testSignature(String methodName, Class expectedReturnType, Class<?>... parameters) {
-		Class actualReturnType = null;
-
-		try {
-			Class facesClass = Class.forName("javax.portlet.faces.GenericFacesPortlet");
-			Method method = facesClass.getMethod(methodName, parameters);
-
-			actualReturnType = method.getReturnType();
-
-			if (actualReturnType.equals(expectedReturnType)) {
-				assertTrue(true);
-			}
-			else {
-				fail("public void " + expectedReturnType + " " + methodName + " not found in GenericFacesPortlet.");
-			}
-
-		}
-		catch (Exception e) {
-			fail("public void " + expectedReturnType + " " + methodName + " not found in GenericFacesPortlet.");
-		}
-	}
-
 	@Test
 	public void getBridgeClassName() {
 
@@ -116,5 +94,27 @@ public class GenericFacesPortletSignatureTest {
 	@Test
 	public void isPreserveActionParameters() {
 		testSignature("isPreserveActionParameters", Boolean.TYPE);
+	}
+
+	private void testSignature(String methodName, Class expectedReturnType, Class<?>... parameters) {
+		Class actualReturnType = null;
+
+		try {
+			Class facesClass = Class.forName("javax.portlet.faces.GenericFacesPortlet");
+			Method method = facesClass.getMethod(methodName, parameters);
+
+			actualReturnType = method.getReturnType();
+
+			if (actualReturnType.equals(expectedReturnType)) {
+				assertTrue(true);
+			}
+			else {
+				fail("public void " + expectedReturnType + " " + methodName + " not found in GenericFacesPortlet.");
+			}
+
+		}
+		catch (Exception e) {
+			fail("public void " + expectedReturnType + " " + methodName + " not found in GenericFacesPortlet.");
+		}
 	}
 }

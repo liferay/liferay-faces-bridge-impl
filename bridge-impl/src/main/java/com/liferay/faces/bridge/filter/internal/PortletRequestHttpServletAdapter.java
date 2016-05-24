@@ -61,27 +61,6 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 	}
 
 	@Override
-	public void login(String username, String password) throws ServletException {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void logout() throws ServletException {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public AsyncContext startAsync() throws IllegalStateException {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse)
-		throws IllegalStateException {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public AsyncContext getAsyncContext() {
 		throw new UnsupportedOperationException();
 	}
@@ -89,11 +68,6 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 	@Override
 	public String getCharacterEncoding() {
 		return characterEncoding;
-	}
-
-	@Override
-	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -107,27 +81,12 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 	}
 
 	@Override
-	public boolean isAsyncStarted() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean isAsyncSupported() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public long getDateHeader(String name) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public DispatcherType getDispatcherType() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean isRequestedSessionIdFromCookie() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -153,16 +112,6 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 
 	@Override
 	public int getIntHeader(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean isRequestedSessionIdFromURL() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean isRequestedSessionIdFromUrl() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -274,5 +223,56 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 	@Override
 	public HttpSession getSession(boolean create) {
 		return new PortletSessionHttpAdapter(super.getPortletSession(create));
+	}
+
+	@Override
+	public boolean isAsyncStarted() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean isAsyncSupported() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean isRequestedSessionIdFromCookie() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean isRequestedSessionIdFromURL() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean isRequestedSessionIdFromUrl() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void login(String username, String password) throws ServletException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void logout() throws ServletException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public AsyncContext startAsync() throws IllegalStateException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse)
+		throws IllegalStateException {
+		throw new UnsupportedOperationException();
 	}
 }

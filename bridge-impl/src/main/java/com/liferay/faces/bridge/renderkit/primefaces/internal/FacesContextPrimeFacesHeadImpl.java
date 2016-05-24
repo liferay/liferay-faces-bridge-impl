@@ -45,15 +45,15 @@ public class FacesContextPrimeFacesHeadImpl extends FacesContextWrapper {
 	}
 
 	@Override
+	public FacesContext getWrapped() {
+		return wrappedFacesContext;
+	}
+
+	@Override
 	public void setViewRoot(UIViewRoot viewRoot) {
 
 		// Override the setViewRoot method in order to prevent the JSF implementation from clearing all the view
 		// scoped managed beans.
 		this.viewRoot = viewRoot;
-	}
-
-	@Override
-	public FacesContext getWrapped() {
-		return wrappedFacesContext;
 	}
 }

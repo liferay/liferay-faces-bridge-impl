@@ -104,6 +104,46 @@ public class MimeResponseHttpServletAdapter extends MimeResponseWrapper implemen
 	}
 
 	/**
+	 * See {@link HttpServletResponse#getHeader(String)}
+	 */
+	@Override
+	public String getHeader(String name) {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * See {@link HttpServletResponse#getHeaderNames()}
+	 */
+	@Override
+	public Collection<String> getHeaderNames() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * See {@link HttpServletResponse#getHeaders(String)}
+	 */
+	@Override
+	public Collection<String> getHeaders(String name) {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * See {@link HttpServletResponse#getOutputStream()}
+	 */
+	@Override
+	public ServletOutputStream getOutputStream() throws IOException {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * See {@link HttpServletResponse#getStatus()}
+	 */
+	@Override
+	public int getStatus() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
 	 * See {@link HttpServletResponse#sendError(int)}
 	 */
 	@Override
@@ -152,34 +192,10 @@ public class MimeResponseHttpServletAdapter extends MimeResponseWrapper implemen
 	}
 
 	/**
-	 * See {@link HttpServletResponse#getHeader(String)}
-	 */
-	@Override
-	public String getHeader(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
 	 * See {@link HttpServletResponse#setHeader(String, String)}
 	 */
 	@Override
 	public void setHeader(String name, String value) {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * See {@link HttpServletResponse#getHeaderNames()}
-	 */
-	@Override
-	public Collection<String> getHeaderNames() {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * See {@link HttpServletResponse#getHeaders(String)}
-	 */
-	@Override
-	public Collection<String> getHeaders(String name) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -197,22 +213,6 @@ public class MimeResponseHttpServletAdapter extends MimeResponseWrapper implemen
 	@Override
 	public void setLocale(Locale loc) {
 		// no-op: called by org.apache.myfaces.view.jsp.JspViewDeclarationLanguage.buildView(FacesContext,UIViewRoot)
-	}
-
-	/**
-	 * See {@link HttpServletResponse#getOutputStream()}
-	 */
-	@Override
-	public ServletOutputStream getOutputStream() throws IOException {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * See {@link HttpServletResponse#getStatus()}
-	 */
-	@Override
-	public int getStatus() {
-		throw new UnsupportedOperationException();
 	}
 
 	/**

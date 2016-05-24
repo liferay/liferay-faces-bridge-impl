@@ -56,6 +56,14 @@ public class FlightServiceMockImpl implements FlightService {
 		arrivalCalendar.add(Calendar.HOUR, 5);
 	}
 
+	// TODO
+	public int getTimeZoneOffset(double latitude, double longitude) {
+
+		String url = "http://www.earthtools.org/timezone/" + latitude + "/" + longitude;
+
+		return 10;
+	}
+
 	@Override
 	public List<Booking> searchDirect(long departureAirportId, Date departureDate, long arrivalAirportId) {
 
@@ -124,13 +132,5 @@ public class FlightServiceMockImpl implements FlightService {
 		}
 
 		return searchResults;
-	}
-
-	// TODO
-	public int getTimeZoneOffset(double latitude, double longitude) {
-
-		String url = "http://www.earthtools.org/timezone/" + latitude + "/" + longitude;
-
-		return 10;
 	}
 }

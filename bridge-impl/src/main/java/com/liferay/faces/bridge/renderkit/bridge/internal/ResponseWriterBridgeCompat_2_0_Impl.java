@@ -111,32 +111,6 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 		}
 	}
 
-	protected void writeViewStateHiddenField() throws IOException {
-
-		startElement("input", null);
-		writeAttribute("type", "hidden", null);
-
-		String viewStateName = PartialResponseWriter.VIEW_STATE_MARKER;
-
-		if (namespacedParameters) {
-
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			String namingContainerId = facesContext.getViewRoot().getContainerClientId(facesContext);
-			viewStateName = namingContainerId + viewStateName;
-		}
-
-		writeAttribute("name", viewStateName, null);
-
-		// TODO: The following line is a workaround and needs to be fixed in FACES-1797.
-		writeAttribute("id", viewStateName, null);
-
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		String viewState = facesContext.getApplication().getStateManager().getViewState(facesContext);
-		writeAttribute("value", viewState, null);
-		writeAttribute(ATTRIBUTE_AUTOCOMPLETE, VALUE_OFF, null);
-		endElement("input");
-	}
-
 	// FACES-2622: Normally the return value from this type of method would be done in a static block, but since that
 	// doesn't work in WildFly, the value must be determined during request processing instead.
 	protected boolean isNamespacedViewStateSupported() {
@@ -162,5 +136,31 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 			ResponseStateManager.VIEW_STATE_PARAM, namespacedViewStateSupported);
 
 		return namespacedViewStateSupported;
+	}
+
+	protected void writeViewStateHiddenField() throws IOException {
+
+		startElement("input", null);
+		writeAttribute("type", "hidden", null);
+
+		String viewStateName = PartialResponseWriter.VIEW_STATE_MARKER;
+
+		if (namespacedParameters) {
+
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			String namingContainerId = facesContext.getViewRoot().getContainerClientId(facesContext);
+			viewStateName = namingContainerId + viewStateName;
+		}
+
+		writeAttribute("name", viewStateName, null);
+
+		// TODO: The following line is a workaround and needs to be fixed in FACES-1797.
+		writeAttribute("id", viewStateName, null);
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		String viewState = facesContext.getApplication().getStateManager().getViewState(facesContext);
+		writeAttribute("value", viewState, null);
+		writeAttribute(ATTRIBUTE_AUTOCOMPLETE, VALUE_OFF, null);
+		endElement("input");
 	}
 }

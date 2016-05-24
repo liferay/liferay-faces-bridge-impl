@@ -41,24 +41,24 @@ public class ApplicantViewBean implements Serializable {
 	private UploadedFile fileToDelete;
 	private String uploadedFileId;
 
-	public void toggleComments(ActionEvent actionEvent) {
-		commentsRendered = !commentsRendered;
-	}
-
-	public void setCommentsRendered(boolean commentsRendered) {
-		this.commentsRendered = commentsRendered;
+	public String getUploadedFileId() {
+		return uploadedFileId;
 	}
 
 	public boolean isCommentsRendered() {
 		return commentsRendered;
 	}
 
-	public String getUploadedFileId() {
-		return uploadedFileId;
+	public void setCommentsRendered(boolean commentsRendered) {
+		this.commentsRendered = commentsRendered;
 	}
 
 	public void setUploadedFileId(String uploadedFileId) {
 		this.uploadedFileId = uploadedFileId;
+	}
+
+	public void toggleComments(ActionEvent actionEvent) {
+		commentsRendered = !commentsRendered;
 	}
 
 }

@@ -38,9 +38,9 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeException;
 import javax.servlet.http.Cookie;
 
-import com.liferay.faces.bridge.internal.PortletConfigParam;
-import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.BridgeURL;
+import com.liferay.faces.bridge.context.BridgePortalContext;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.FileNameUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -123,7 +123,8 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			try {
-				BridgeURL bridgeBookmarkableURL = bridgeURLFactory.getBridgeBookmarkableURL(facesContext, baseURL, parameters);
+				BridgeURL bridgeBookmarkableURL = bridgeURLFactory.getBridgeBookmarkableURL(facesContext, baseURL,
+						parameters);
 
 				return bridgeBookmarkableURL.toString();
 			}
@@ -182,151 +183,6 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#invalidateSession()}
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void invalidateSession() {
-		portletRequest.getPortletSession().invalidate();
-	}
-
-	/**
-	 * @see    {@link ExternalContext#responseFlushBuffer()}
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void responseFlushBuffer() throws IOException {
-
-		if (portletResponse instanceof MimeResponse) {
-
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-			mimeResponse.flushBuffer();
-		}
-		else {
-
-			if (manageIncongruities) {
-				incongruityContext.responseFlushBuffer();
-			}
-			else {
-				throw new IllegalStateException();
-			}
-		}
-	}
-
-	/**
-	 * @see    {@link ExternalContext#responseReset()}
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void responseReset() {
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-			mimeResponse.reset();
-		}
-		else {
-
-			if (manageIncongruities) {
-				incongruityContext.responseReset();
-			}
-			else {
-				throw new IllegalStateException();
-			}
-		}
-	}
-
-	/**
-	 * The Portlet API does not have an equivalent to {@link javax.servlet.http.HttpServletResponse#sendError(int,
-	 * String)}. Since the Mojarra JSF implementation basically only calls this when a Facelet is not found, better in a
-	 * portlet environment to simply log an error and throw an IOException up the call stack so that the portlet will
-	 * give the portlet container a chance to render an error message.
-	 *
-	 * @see    {@link ExternalContext#responseSendError(int, String)}
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void responseSendError(int statusCode, String message) throws IOException {
-		String errorMessage = "Status code " + statusCode + ": " + message;
-		logger.error(errorMessage);
-		throw new IOException(errorMessage);
-	}
-
-	protected Cookie createCookie(String name, String value, Map<String, Object> properties) {
-
-		Cookie cookie = new Cookie(name, value);
-
-		if ((properties != null) && !properties.isEmpty()) {
-
-			try {
-				String comment = (String) properties.get(COOKIE_PROPERTY_COMMENT);
-
-				if (comment != null) {
-					cookie.setComment(comment);
-				}
-
-				String domain = (String) properties.get(COOKIE_PROPERTY_DOMAIN);
-
-				if (domain != null) {
-					cookie.setDomain(domain);
-				}
-
-				Integer maxAge = (Integer) properties.get(COOKIE_PROPERTY_MAX_AGE);
-
-				if (maxAge != null) {
-					cookie.setMaxAge(maxAge);
-				}
-
-				String path = (String) properties.get(COOKIE_PROPERTY_PATH);
-
-				if (path != null) {
-					cookie.setPath(path);
-				}
-
-				Boolean secure = (Boolean) properties.get(COOKIE_PROPERTY_SECURE);
-
-				if (secure != null) {
-					cookie.setSecure(secure);
-				}
-			}
-			catch (ClassCastException e) {
-				logger.error(e.getMessage(), e);
-			}
-		}
-
-		return cookie;
-	}
-
-	protected void partialViewContextRenderAll(FacesContext facesContext) {
-
-		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
-
-		if (!partialViewContext.isRenderAll()) {
-			partialViewContext.setRenderAll(true);
-		}
-	}
-
-	protected void redirectJSF2PartialResponse(FacesContext facesContext, ResourceResponse resourceResponse, String url)
-		throws IOException {
-		resourceResponse.setContentType("text/xml");
-		resourceResponse.setCharacterEncoding("UTF-8");
-
-		PartialResponseWriter partialResponseWriter;
-		ResponseWriter responseWriter = facesContext.getResponseWriter();
-
-		if (responseWriter instanceof PartialResponseWriter) {
-			partialResponseWriter = (PartialResponseWriter) responseWriter;
-		}
-		else {
-			partialResponseWriter = facesContext.getPartialViewContext().getPartialResponseWriter();
-		}
-
-		partialResponseWriter.startDocument();
-		partialResponseWriter.redirect(url);
-		partialResponseWriter.endDocument();
-		facesContext.responseComplete();
-	}
-
-	/**
 	 * @see    {@link ExternalContext#getContextName()}
 	 * @since  JSF 2.0
 	 */
@@ -338,58 +194,6 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 		}
 
 		return portletContextName;
-	}
-
-	/**
-	 * @see    {@link ExternalContext#isResponseCommitted()}
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public boolean isResponseCommitted() {
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-			boolean responseCommitted = mimeResponse.isCommitted();
-
-			if (manageIncongruities) {
-				incongruityContext.setResponseCommitted(responseCommitted);
-			}
-
-			return responseCommitted;
-		}
-		else {
-
-			if (manageIncongruities) {
-				return incongruityContext.isResponseCommitted();
-			}
-			else {
-				throw new IllegalStateException();
-			}
-		}
-	}
-
-	protected boolean isICEfacesLegacyMode(ClientDataRequest clientDataRequest) {
-
-		if (iceFacesLegacyMode == null) {
-
-			iceFacesLegacyMode = Boolean.FALSE;
-
-			String requestContentType = clientDataRequest.getContentType();
-
-			if ((requestContentType != null) && requestContentType.toLowerCase().startsWith("multipart/")) {
-
-				Product iceFaces = ProductMap.getInstance().get(ProductConstants.ICEFACES);
-
-				if (iceFaces.isDetected() &&
-						((iceFaces.getMajorVersion() == 2) ||
-							((iceFaces.getMajorVersion() == 3) && (iceFaces.getMinorVersion() == 0)))) {
-
-					iceFacesLegacyMode = Boolean.TRUE;
-				}
-			}
-		}
-
-		return iceFacesLegacyMode;
 	}
 
 	/**
@@ -502,6 +306,174 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
+	 * @see    {@link ExternalContext#getResponseOutputStream()}
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public OutputStream getResponseOutputStream() throws IOException {
+
+		if (portletResponse instanceof MimeResponse) {
+
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getPortletOutputStream();
+		}
+		else {
+
+			if (manageIncongruities) {
+				return incongruityContext.getResponseOutputStream();
+			}
+			else {
+				throw new IllegalStateException();
+			}
+		}
+	}
+
+	/**
+	 * @see    {@link ExternalContext#getResponseOutputWriter()}
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public Writer getResponseOutputWriter() throws IOException {
+
+		if (portletResponse instanceof MimeResponse) {
+
+			if (responseOutputWriter == null) {
+
+				MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
+
+					if (renderRedirectEnabled == null) {
+						renderRedirectEnabled = PortletConfigParam.RenderRedirectEnabled.getBooleanValue(portletConfig);
+					}
+
+					if (renderRedirectEnabled) {
+						responseOutputWriter = new RenderRedirectWriterImpl(mimeResponse.getWriter());
+					}
+					else {
+						responseOutputWriter = mimeResponse.getWriter();
+					}
+
+				}
+				else {
+					responseOutputWriter = mimeResponse.getWriter();
+				}
+
+			}
+
+			return responseOutputWriter;
+		}
+		else {
+
+			if (manageIncongruities) {
+				return incongruityContext.getResponseOutputWriter();
+			}
+			else {
+				throw new IllegalStateException();
+			}
+		}
+	}
+
+	/**
+	 * @see    {@link ExternalContext#invalidateSession()}
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void invalidateSession() {
+		portletRequest.getPortletSession().invalidate();
+	}
+
+	/**
+	 * @see    {@link ExternalContext#isResponseCommitted()}
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public boolean isResponseCommitted() {
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+			boolean responseCommitted = mimeResponse.isCommitted();
+
+			if (manageIncongruities) {
+				incongruityContext.setResponseCommitted(responseCommitted);
+			}
+
+			return responseCommitted;
+		}
+		else {
+
+			if (manageIncongruities) {
+				return incongruityContext.isResponseCommitted();
+			}
+			else {
+				throw new IllegalStateException();
+			}
+		}
+	}
+
+	/**
+	 * @see    {@link ExternalContext#responseFlushBuffer()}
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void responseFlushBuffer() throws IOException {
+
+		if (portletResponse instanceof MimeResponse) {
+
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+			mimeResponse.flushBuffer();
+		}
+		else {
+
+			if (manageIncongruities) {
+				incongruityContext.responseFlushBuffer();
+			}
+			else {
+				throw new IllegalStateException();
+			}
+		}
+	}
+
+	/**
+	 * @see    {@link ExternalContext#responseReset()}
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void responseReset() {
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+			mimeResponse.reset();
+		}
+		else {
+
+			if (manageIncongruities) {
+				incongruityContext.responseReset();
+			}
+			else {
+				throw new IllegalStateException();
+			}
+		}
+	}
+
+	/**
+	 * The Portlet API does not have an equivalent to {@link javax.servlet.http.HttpServletResponse#sendError(int,
+	 * String)}. Since the Mojarra JSF implementation basically only calls this when a Facelet is not found, better in a
+	 * portlet environment to simply log an error and throw an IOException up the call stack so that the portlet will
+	 * give the portlet container a chance to render an error message.
+	 *
+	 * @see    {@link ExternalContext#responseSendError(int, String)}
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void responseSendError(int statusCode, String message) throws IOException {
+		String errorMessage = "Status code " + statusCode + ": " + message;
+		logger.error(errorMessage);
+		throw new IOException(errorMessage);
+	}
+
+	/**
 	 * @see    {@link ExternalContext#setResponseBufferSize(int)}
 	 * @since  JSF 2.0
 	 */
@@ -584,76 +556,6 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getResponseOutputStream()}
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public OutputStream getResponseOutputStream() throws IOException {
-
-		if (portletResponse instanceof MimeResponse) {
-
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getPortletOutputStream();
-		}
-		else {
-
-			if (manageIncongruities) {
-				return incongruityContext.getResponseOutputStream();
-			}
-			else {
-				throw new IllegalStateException();
-			}
-		}
-	}
-
-	/**
-	 * @see    {@link ExternalContext#getResponseOutputWriter()}
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public Writer getResponseOutputWriter() throws IOException {
-
-		if (portletResponse instanceof MimeResponse) {
-
-			if (responseOutputWriter == null) {
-
-				MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
-
-					if (renderRedirectEnabled == null) {
-						renderRedirectEnabled = PortletConfigParam.RenderRedirectEnabled.getBooleanValue(portletConfig);
-					}
-
-					if (renderRedirectEnabled) {
-						responseOutputWriter = new RenderRedirectWriterImpl(mimeResponse.getWriter());
-					}
-					else {
-						responseOutputWriter = mimeResponse.getWriter();
-					}
-
-				}
-				else {
-					responseOutputWriter = mimeResponse.getWriter();
-				}
-
-			}
-
-			return responseOutputWriter;
-		}
-		else {
-
-			if (manageIncongruities) {
-				return incongruityContext.getResponseOutputWriter();
-			}
-			else {
-				throw new IllegalStateException();
-			}
-		}
-	}
-
-	/**
 	 * Sets the status of the portlet response to the specified status code. Note that this is only possible for a
 	 * portlet request of type PortletResponse because that is the only type of portlet response that is delivered
 	 * directly back to the client (without additional markup added by the portlet container).
@@ -681,7 +583,106 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 		}
 	}
 
+	protected Cookie createCookie(String name, String value, Map<String, Object> properties) {
+
+		Cookie cookie = new Cookie(name, value);
+
+		if ((properties != null) && !properties.isEmpty()) {
+
+			try {
+				String comment = (String) properties.get(COOKIE_PROPERTY_COMMENT);
+
+				if (comment != null) {
+					cookie.setComment(comment);
+				}
+
+				String domain = (String) properties.get(COOKIE_PROPERTY_DOMAIN);
+
+				if (domain != null) {
+					cookie.setDomain(domain);
+				}
+
+				Integer maxAge = (Integer) properties.get(COOKIE_PROPERTY_MAX_AGE);
+
+				if (maxAge != null) {
+					cookie.setMaxAge(maxAge);
+				}
+
+				String path = (String) properties.get(COOKIE_PROPERTY_PATH);
+
+				if (path != null) {
+					cookie.setPath(path);
+				}
+
+				Boolean secure = (Boolean) properties.get(COOKIE_PROPERTY_SECURE);
+
+				if (secure != null) {
+					cookie.setSecure(secure);
+				}
+			}
+			catch (ClassCastException e) {
+				logger.error(e.getMessage(), e);
+			}
+		}
+
+		return cookie;
+	}
+
+	protected boolean isICEfacesLegacyMode(ClientDataRequest clientDataRequest) {
+
+		if (iceFacesLegacyMode == null) {
+
+			iceFacesLegacyMode = Boolean.FALSE;
+
+			String requestContentType = clientDataRequest.getContentType();
+
+			if ((requestContentType != null) && requestContentType.toLowerCase().startsWith("multipart/")) {
+
+				Product iceFaces = ProductMap.getInstance().get(ProductConstants.ICEFACES);
+
+				if (iceFaces.isDetected() &&
+						((iceFaces.getMajorVersion() == 2) ||
+							((iceFaces.getMajorVersion() == 3) && (iceFaces.getMinorVersion() == 0)))) {
+
+					iceFacesLegacyMode = Boolean.TRUE;
+				}
+			}
+		}
+
+		return iceFacesLegacyMode;
+	}
+
 	protected boolean isJSF2PartialRequest(FacesContext facesContext) {
 		return facesContext.getPartialViewContext().isPartialRequest();
+	}
+
+	protected void partialViewContextRenderAll(FacesContext facesContext) {
+
+		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
+
+		if (!partialViewContext.isRenderAll()) {
+			partialViewContext.setRenderAll(true);
+		}
+	}
+
+	protected void redirectJSF2PartialResponse(FacesContext facesContext, ResourceResponse resourceResponse, String url)
+		throws IOException {
+		resourceResponse.setContentType("text/xml");
+		resourceResponse.setCharacterEncoding("UTF-8");
+
+		PartialResponseWriter partialResponseWriter;
+		ResponseWriter responseWriter = facesContext.getResponseWriter();
+
+		if (responseWriter instanceof PartialResponseWriter) {
+			partialResponseWriter = (PartialResponseWriter) responseWriter;
+		}
+		else {
+			partialResponseWriter = facesContext.getPartialViewContext().getPartialResponseWriter();
+		}
+
+		partialResponseWriter.startDocument();
+		partialResponseWriter.redirect(url);
+		partialResponseWriter.endDocument();
+		facesContext.responseComplete();
 	}
 }

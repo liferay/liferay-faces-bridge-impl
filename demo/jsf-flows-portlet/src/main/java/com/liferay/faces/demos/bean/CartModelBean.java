@@ -47,16 +47,6 @@ public class CartModelBean implements Serializable {
 	// Private Data Members
 	private BigDecimal totalPrice;
 
-	@PostConstruct
-	public void postConstruct() {
-		scopeTrackingBean.setCartModelBeanInScope(true);
-	}
-
-	@PreDestroy
-	public void preDestroy() {
-		scopeTrackingBean.setCartModelBeanInScope(false);
-	}
-
 	public BigDecimal getTotalPrice() {
 
 		if (totalPrice == null) {
@@ -72,5 +62,15 @@ public class CartModelBean implements Serializable {
 		}
 
 		return totalPrice;
+	}
+
+	@PostConstruct
+	public void postConstruct() {
+		scopeTrackingBean.setCartModelBeanInScope(true);
+	}
+
+	@PreDestroy
+	public void preDestroy() {
+		scopeTrackingBean.setCartModelBeanInScope(false);
 	}
 }

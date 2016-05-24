@@ -119,6 +119,24 @@ public class ApplicantBackingBean implements Serializable {
 		}
 	}
 
+	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
+
+		// Injected via @ManagedProperty annotation
+		this.applicantModelBean = applicantModelBean;
+	}
+
+	public void setApplicantViewBean(ApplicantViewBean applicantViewBean) {
+
+		// Injected via @ManagedProperty annotation
+		this.applicantViewBean = applicantViewBean;
+	}
+
+	public void setListModelBean(ListModelBean listModelBean) {
+
+		// Injected via @ManagedProperty annotation
+		this.listModelBean = listModelBean;
+	}
+
 	public String submit() {
 
 		if (logger.isDebugEnabled()) {
@@ -164,23 +182,5 @@ public class ApplicantBackingBean implements Serializable {
 
 			return "failure";
 		}
-	}
-
-	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
-
-		// Injected via @ManagedProperty annotation
-		this.applicantModelBean = applicantModelBean;
-	}
-
-	public void setApplicantViewBean(ApplicantViewBean applicantViewBean) {
-
-		// Injected via @ManagedProperty annotation
-		this.applicantViewBean = applicantViewBean;
-	}
-
-	public void setListModelBean(ListModelBean listModelBean) {
-
-		// Injected via @ManagedProperty annotation
-		this.listModelBean = listModelBean;
 	}
 }

@@ -32,13 +32,13 @@ public class RequestScopeMapEntry extends AbstractPropertyMapEntry<Object> {
 		this.portletRequest = portletRequest;
 	}
 
+	public Object getValue() {
+		return portletRequest.getAttribute(getKey());
+	}
+
 	@Override
 	public void remove() {
 		portletRequest.removeAttribute(getKey());
-	}
-
-	public Object getValue() {
-		return portletRequest.getAttribute(getKey());
 	}
 
 	public Object setValue(Object value) {

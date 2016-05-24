@@ -72,12 +72,6 @@ public class UploadedFileWrapper implements Serializable, UploadedFile, FacesWra
 		}
 	}
 
-	public void write(String fileName) throws IOException {
-		OutputStream outputStream = new FileOutputStream(fileName);
-		outputStream.write(getBytes());
-		outputStream.close();
-	}
-
 	public String getAbsolutePath() {
 		String absolutePath = null;
 
@@ -112,36 +106,6 @@ public class UploadedFileWrapper implements Serializable, UploadedFile, FacesWra
 
 	public String getContentType() {
 		return wrappedUploadedFile.getContentType();
-	}
-
-	protected File getFile(String uniqueFolderName) {
-
-		File file = null;
-
-		try {
-			File tempFolder = new File(System.getProperty("java.io.tmpdir"));
-			File uniqueFolder = new File(tempFolder, uniqueFolderName);
-
-			if (!uniqueFolder.exists()) {
-				uniqueFolder.mkdirs();
-			}
-
-			String fileNamePrefix = "uploadedFile" + getId();
-			String fileNameSuffix = ".dat";
-			file = File.createTempFile(fileNamePrefix, fileNameSuffix, uniqueFolder);
-
-			OutputStream outputStream = new FileOutputStream(file);
-			outputStream.write(wrappedUploadedFile.getData());
-			outputStream.close();
-
-			// Delete the file maintained by RichFaces now that a copy of it has been made.
-			wrappedUploadedFile.delete();
-		}
-		catch (Exception e) {
-			logger.error(e);
-		}
-
-		return file;
 	}
 
 	public String getHeader(String name) {
@@ -182,6 +146,42 @@ public class UploadedFileWrapper implements Serializable, UploadedFile, FacesWra
 
 	public org.richfaces.model.UploadedFile getWrapped() {
 		return wrappedUploadedFile;
+	}
+
+	public void write(String fileName) throws IOException {
+		OutputStream outputStream = new FileOutputStream(fileName);
+		outputStream.write(getBytes());
+		outputStream.close();
+	}
+
+	protected File getFile(String uniqueFolderName) {
+
+		File file = null;
+
+		try {
+			File tempFolder = new File(System.getProperty("java.io.tmpdir"));
+			File uniqueFolder = new File(tempFolder, uniqueFolderName);
+
+			if (!uniqueFolder.exists()) {
+				uniqueFolder.mkdirs();
+			}
+
+			String fileNamePrefix = "uploadedFile" + getId();
+			String fileNameSuffix = ".dat";
+			file = File.createTempFile(fileNamePrefix, fileNameSuffix, uniqueFolder);
+
+			OutputStream outputStream = new FileOutputStream(file);
+			outputStream.write(wrappedUploadedFile.getData());
+			outputStream.close();
+
+			// Delete the file maintained by RichFaces now that a copy of it has been made.
+			wrappedUploadedFile.delete();
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
+
+		return file;
 	}
 
 }

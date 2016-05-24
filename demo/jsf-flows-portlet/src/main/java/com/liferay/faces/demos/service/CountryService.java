@@ -25,7 +25,7 @@ import com.liferay.faces.demos.dto.Country;
  */
 public interface CountryService {
 
-	public Country findByAbbreviation(String countryAbbreviation);
-
 	public abstract List<Country> getCountries();
+
+	public Country findByAbbreviation(String countryAbbreviation);
 }

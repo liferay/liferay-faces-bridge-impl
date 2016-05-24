@@ -92,8 +92,141 @@ public abstract class IncongruityContextCompatImpl extends IncongruityContextBas
 	 * @since  JSF 2.0
 	 */
 	@Override
+	public String getContextName() {
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public Flash getFlash() {
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public String getMimeType(String file) {
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public String getRealPath(String path) {
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public int getRequestContentLength() {
+		return (Integer) attributeMap.get(REQUEST_CONTENT_LENGTH);
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public String getRequestScheme() {
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public String getRequestServerName() {
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public int getRequestServerPort() {
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public int getResponseBufferSize() {
+		return (Integer) attributeMap.get(RESPONSE_BUFFER_SIZE);
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public int getResponseContentLength() {
+		return (Integer) attributeMap.get(RESPONSE_CONTENT_LENGTH);
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public String getResponseContentType() {
+		return (String) attributeMap.get(RESPONSE_CONTENT_TYPE);
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public OutputStream getResponseOutputStream() throws IOException {
+		OutputStream responseOutputstream = (DelayedResponseOutputStream) attributeMap.get(RESPONSE_OUTPUT_STREAM);
+
+		if (responseOutputstream == null) {
+			responseOutputstream = new DelayedResponseOutputStream();
+			attributeMap.put(RESPONSE_OUTPUT_STREAM, responseOutputstream);
+		}
+
+		return responseOutputstream;
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public Writer getResponseOutputWriter() throws IOException {
+		Writer responseOutputWriter = (DelayedResponseOutputWriter) attributeMap.get(RESPONSE_OUTPUT_WRITER);
+
+		if (responseOutputWriter == null) {
+			responseOutputWriter = new DelayedResponseOutputWriter();
+			attributeMap.put(RESPONSE_OUTPUT_WRITER, responseOutputWriter);
+		}
+
+		return responseOutputWriter;
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
 	public void invalidateSession() {
 		throw new IllegalStateException();
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public boolean isResponseCommitted() {
+		Boolean responseCommitted = (Boolean) attributeMap.get(RESPONSE_COMMITTED);
+
+		if (responseCommitted == null) {
+			return Boolean.FALSE;
+		}
+		else {
+			return responseCommitted;
+		}
 	}
 
 	/**
@@ -118,6 +251,66 @@ public abstract class IncongruityContextCompatImpl extends IncongruityContextBas
 	@Override
 	public void responseSendError(int statusCode, String message) throws IOException {
 		throw new IllegalStateException();
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void setRequestContentLength(int length) {
+		attributeMap.put(REQUEST_CONTENT_LENGTH, length);
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void setResponseBufferSize(int size) {
+		attributeMap.put(RESPONSE_BUFFER_SIZE, size);
+		getIncongruousActions().add(IncongruousAction.SET_RESPONSE_BUFFER_SIZE);
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void setResponseCommitted(boolean committed) {
+		attributeMap.put(RESPONSE_COMMITTED, committed);
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void setResponseContentLength(int length) {
+		attributeMap.put(RESPONSE_CONTENT_LENGTH, length);
+		getIncongruousActions().add(IncongruousAction.SET_RESPONSE_CONTENT_LENGTH);
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void setResponseContentType(String contentType) {
+		attributeMap.put(RESPONSE_CONTENT_TYPE, contentType);
+		getIncongruousActions().add(IncongruousAction.SET_RESPONSE_CONTENT_TYPE);
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void setResponseHeader(String name, String value) {
+		throw new IllegalStateException();
+	}
+
+	/**
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void setResponseStatus(int statusCode) {
+		attributeMap.put(RESPONSE_STATUS, statusCode);
+		getIncongruousActions().add(IncongruousAction.SET_RESPONSE_STATUS);
 	}
 
 	protected void makeCongruousJSF2(ExternalContext externalContext, IncongruousAction incongruousAction)
@@ -175,198 +368,5 @@ public abstract class IncongruityContextCompatImpl extends IncongruityContextBas
 			}
 		}
 
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public String getContextName() {
-		throw new IllegalStateException();
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public boolean isResponseCommitted() {
-		Boolean responseCommitted = (Boolean) attributeMap.get(RESPONSE_COMMITTED);
-
-		if (responseCommitted == null) {
-			return Boolean.FALSE;
-		}
-		else {
-			return responseCommitted;
-		}
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public Flash getFlash() {
-		throw new IllegalStateException();
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public String getMimeType(String file) {
-		throw new IllegalStateException();
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public String getRealPath(String path) {
-		throw new IllegalStateException();
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public int getRequestContentLength() {
-		return (Integer) attributeMap.get(REQUEST_CONTENT_LENGTH);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void setRequestContentLength(int length) {
-		attributeMap.put(REQUEST_CONTENT_LENGTH, length);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public String getRequestScheme() {
-		throw new IllegalStateException();
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public String getRequestServerName() {
-		throw new IllegalStateException();
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public int getRequestServerPort() {
-		throw new IllegalStateException();
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public int getResponseBufferSize() {
-		return (Integer) attributeMap.get(RESPONSE_BUFFER_SIZE);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void setResponseBufferSize(int size) {
-		attributeMap.put(RESPONSE_BUFFER_SIZE, size);
-		getIncongruousActions().add(IncongruousAction.SET_RESPONSE_BUFFER_SIZE);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void setResponseCommitted(boolean committed) {
-		attributeMap.put(RESPONSE_COMMITTED, committed);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public int getResponseContentLength() {
-		return (Integer) attributeMap.get(RESPONSE_CONTENT_LENGTH);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void setResponseContentLength(int length) {
-		attributeMap.put(RESPONSE_CONTENT_LENGTH, length);
-		getIncongruousActions().add(IncongruousAction.SET_RESPONSE_CONTENT_LENGTH);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public String getResponseContentType() {
-		return (String) attributeMap.get(RESPONSE_CONTENT_TYPE);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void setResponseContentType(String contentType) {
-		attributeMap.put(RESPONSE_CONTENT_TYPE, contentType);
-		getIncongruousActions().add(IncongruousAction.SET_RESPONSE_CONTENT_TYPE);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void setResponseHeader(String name, String value) {
-		throw new IllegalStateException();
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public OutputStream getResponseOutputStream() throws IOException {
-		OutputStream responseOutputstream = (DelayedResponseOutputStream) attributeMap.get(RESPONSE_OUTPUT_STREAM);
-
-		if (responseOutputstream == null) {
-			responseOutputstream = new DelayedResponseOutputStream();
-			attributeMap.put(RESPONSE_OUTPUT_STREAM, responseOutputstream);
-		}
-
-		return responseOutputstream;
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public Writer getResponseOutputWriter() throws IOException {
-		Writer responseOutputWriter = (DelayedResponseOutputWriter) attributeMap.get(RESPONSE_OUTPUT_WRITER);
-
-		if (responseOutputWriter == null) {
-			responseOutputWriter = new DelayedResponseOutputWriter();
-			attributeMap.put(RESPONSE_OUTPUT_WRITER, responseOutputWriter);
-		}
-
-		return responseOutputWriter;
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void setResponseStatus(int statusCode) {
-		attributeMap.put(RESPONSE_STATUS, statusCode);
-		getIncongruousActions().add(IncongruousAction.SET_RESPONSE_STATUS);
 	}
 }

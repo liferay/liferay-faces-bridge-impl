@@ -38,6 +38,11 @@ public class ResponseWriterPrimeFacesBodyImpl extends ResponseWriterWrapper {
 	}
 
 	@Override
+	public ResponseWriter getWrapped() {
+		return wrappedResponseWriter;
+	}
+
+	@Override
 	public void startElement(String name, UIComponent component) throws IOException {
 		super.startElement(name, component);
 
@@ -57,10 +62,5 @@ public class ResponseWriterPrimeFacesBodyImpl extends ResponseWriterWrapper {
 		}
 
 		super.writeAttribute(name, value, property);
-	}
-
-	@Override
-	public ResponseWriter getWrapped() {
-		return wrappedResponseWriter;
 	}
 }

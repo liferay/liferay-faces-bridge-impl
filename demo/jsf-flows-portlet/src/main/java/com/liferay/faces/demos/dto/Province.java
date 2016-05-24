@@ -50,28 +50,28 @@ public class Province implements Serializable {
 		return countryId;
 	}
 
-	public void setCountryId(long countryId) {
-		this.countryId = countryId;
-	}
-
 	public String getProvinceAbbreviation() {
 		return provinceAbbreviation;
-	}
-
-	public void setProvinceAbbreviation(String provinceAbbreviation) {
-		this.provinceAbbreviation = provinceAbbreviation;
 	}
 
 	public long getProvinceId() {
 		return provinceId;
 	}
 
-	public void setProvinceId(long provinceId) {
-		this.provinceId = provinceId;
-	}
-
 	public String getProvinceName() {
 		return provinceName;
+	}
+
+	public void setCountryId(long countryId) {
+		this.countryId = countryId;
+	}
+
+	public void setProvinceAbbreviation(String provinceAbbreviation) {
+		this.provinceAbbreviation = provinceAbbreviation;
+	}
+
+	public void setProvinceId(long provinceId) {
+		this.provinceId = provinceId;
 	}
 
 	public void setProvinceName(String provinceName) {

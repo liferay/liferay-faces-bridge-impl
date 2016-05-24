@@ -77,18 +77,6 @@ public class ApplicantModelBean implements Serializable {
 		provinceId = null;
 	}
 
-	public void setAutoFillCity(String autoFillCity) {
-		this.autoFillCity = autoFillCity;
-	}
-
-	public void setAutoFillPostalCode(String autoFillPostalCode) {
-		this.autoFillPostalCode = autoFillPostalCode;
-	}
-
-	public void setAutoFillProvinceId(Long autoFillProvinceId) {
-		this.autoFillProvinceId = autoFillProvinceId;
-	}
-
 	public String getCity() {
 
 		if (autoFillCity == null) {
@@ -99,63 +87,28 @@ public class ApplicantModelBean implements Serializable {
 		}
 	}
 
-	public void setCity(String city) {
-
-		if (autoFillCity == null) {
-			this.city = city;
-		}
-		else {
-			this.city = autoFillCity;
-			autoFillCity = null;
-		}
-	}
-
 	public String getComments() {
 		return comments;
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
 	}
 
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
 	public String getEmailAddress() {
 		return emailAddress;
-	}
-
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
 	}
 
 	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
 	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
 	}
 
 	public String getPostalCode() {
@@ -165,17 +118,6 @@ public class ApplicantModelBean implements Serializable {
 		}
 		else {
 			return autoFillPostalCode;
-		}
-	}
-
-	public void setPostalCode(String postalCode) {
-
-		if (autoFillPostalCode == null) {
-			this.postalCode = postalCode;
-		}
-		else {
-			this.postalCode = autoFillPostalCode;
-			autoFillPostalCode = null;
 		}
 	}
 
@@ -189,6 +131,68 @@ public class ApplicantModelBean implements Serializable {
 		}
 	}
 
+	public List<UploadedFile> getUploadedFiles() {
+		return uploadedFiles;
+	}
+
+	public void setAutoFillCity(String autoFillCity) {
+		this.autoFillCity = autoFillCity;
+	}
+
+	public void setAutoFillPostalCode(String autoFillPostalCode) {
+		this.autoFillPostalCode = autoFillPostalCode;
+	}
+
+	public void setAutoFillProvinceId(Long autoFillProvinceId) {
+		this.autoFillProvinceId = autoFillProvinceId;
+	}
+
+	public void setCity(String city) {
+
+		if (autoFillCity == null) {
+			this.city = city;
+		}
+		else {
+			this.city = autoFillCity;
+			autoFillCity = null;
+		}
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public void setPostalCode(String postalCode) {
+
+		if (autoFillPostalCode == null) {
+			this.postalCode = postalCode;
+		}
+		else {
+			this.postalCode = autoFillPostalCode;
+			autoFillPostalCode = null;
+		}
+	}
+
 	public void setProvinceId(Long provinceId) {
 
 		if (autoFillProvinceId == null) {
@@ -198,9 +202,5 @@ public class ApplicantModelBean implements Serializable {
 			this.provinceId = autoFillProvinceId;
 			autoFillProvinceId = null;
 		}
-	}
-
-	public List<UploadedFile> getUploadedFiles() {
-		return uploadedFiles;
 	}
 }

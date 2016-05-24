@@ -37,14 +37,6 @@ public class ScopeTrackingBean implements Serializable {
 	private boolean flightSearchModelBeanInScope = false;
 	private boolean surveyFlowModelBeanInScope = false;
 
-	public void setBookingFlowModelBeanInScope(boolean bookingFlowModelBeanInScope) {
-		this.bookingFlowModelBeanInScope = bookingFlowModelBeanInScope;
-	}
-
-	public void setCartModelBeanInScope(boolean cartModelBeanInScope) {
-		this.cartModelBeanInScope = cartModelBeanInScope;
-	}
-
 	public boolean isBookingFlowModelBeanInScope() {
 		return bookingFlowModelBeanInScope;
 	}
@@ -59,6 +51,14 @@ public class ScopeTrackingBean implements Serializable {
 
 	public boolean isSurveyFlowModelBeanInScope() {
 		return surveyFlowModelBeanInScope;
+	}
+
+	public void setBookingFlowModelBeanInScope(boolean bookingFlowModelBeanInScope) {
+		this.bookingFlowModelBeanInScope = bookingFlowModelBeanInScope;
+	}
+
+	public void setCartModelBeanInScope(boolean cartModelBeanInScope) {
+		this.cartModelBeanInScope = cartModelBeanInScope;
 	}
 
 	public void setFlightSearchModelBeanInScope(boolean flightSearchModelBeanInScope) {

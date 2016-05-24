@@ -52,6 +52,22 @@ public class FlightSearchModelBean implements Serializable {
 	private String departureAirportName;
 	private String departureCity;
 
+	public String getArrivalAirportName() {
+		return arrivalAirportName;
+	}
+
+	public String getArrivalCity() {
+		return arrivalCity;
+	}
+
+	public String getDepartureAirportName() {
+		return departureAirportName;
+	}
+
+	public String getDepartureCity() {
+		return departureCity;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 
@@ -73,27 +89,11 @@ public class FlightSearchModelBean implements Serializable {
 		scopeTrackingBean.setFlightSearchModelBeanInScope(false);
 	}
 
-	public String getArrivalAirportName() {
-		return arrivalAirportName;
-	}
-
 	public void setArrivalAirportName(String arrivalAirportName) {
 		this.arrivalAirportName = arrivalAirportName;
 	}
 
-	public String getArrivalCity() {
-		return arrivalCity;
-	}
-
 	public void setArrivalCity(String arrivalCity) {
 		this.arrivalCity = arrivalCity;
-	}
-
-	public String getDepartureAirportName() {
-		return departureAirportName;
-	}
-
-	public String getDepartureCity() {
-		return departureCity;
 	}
 }

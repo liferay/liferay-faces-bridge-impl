@@ -46,6 +46,16 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 		super.doDispatch(renderRequest, renderResponse);
 	}
 
+	public Bridge getFacesBridge(PortletRequest request, PortletResponse response) throws PortletException {
+		initTestRequest(request);
+
+		return super.getFacesBridge(request, response);
+	}
+
+	public String getTestName() {
+		return mTestName;
+	}
+
 	public void init(PortletConfig config) throws PortletException {
 		String portletConfigWrapperFQCN = config.getPortletContext().getInitParameter("portletConfigWrapperClass");
 
@@ -106,15 +116,5 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 		else if (portletRequest.getParameter(Bridge.VIEW_PATH) != null) {
 			portletRequest.setAttribute(Bridge.VIEW_PATH, portletRequest.getParameter(Bridge.VIEW_PATH));
 		}
-	}
-
-	public Bridge getFacesBridge(PortletRequest request, PortletResponse response) throws PortletException {
-		initTestRequest(request);
-
-		return super.getFacesBridge(request, response);
-	}
-
-	public String getTestName() {
-		return mTestName;
 	}
 }

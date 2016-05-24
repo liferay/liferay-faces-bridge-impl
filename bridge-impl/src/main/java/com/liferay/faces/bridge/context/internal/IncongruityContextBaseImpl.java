@@ -80,21 +80,6 @@ public abstract class IncongruityContextBaseImpl extends IncongruityContext {
 	}
 
 	@Override
-	public void log(String message) {
-		throw new IllegalStateException();
-	}
-
-	@Override
-	public void log(String message, Throwable exception) {
-		throw new IllegalStateException();
-	}
-
-	@Override
-	public void redirect(String url) throws IOException {
-		throw new IllegalStateException();
-	}
-
-	@Override
 	public Map<String, Object> getApplicationMap() {
 		throw new IllegalStateException();
 	}
@@ -112,16 +97,6 @@ public abstract class IncongruityContextBaseImpl extends IncongruityContext {
 	@Override
 	public Object getContext() {
 		throw new IllegalStateException();
-	}
-
-	@Override
-	public boolean isUserInRole(String role) {
-		throw new IllegalStateException();
-	}
-
-	@SuppressWarnings("unchecked")
-	protected Set<IncongruousAction> getIncongruousActions() {
-		return (Set<IncongruousAction>) attributeMap.get(INCONGRUOUS_ACTIONS);
 	}
 
 	@Override
@@ -145,28 +120,13 @@ public abstract class IncongruityContextBaseImpl extends IncongruityContext {
 	}
 
 	@Override
-	public void setRequest(Object request) {
-	}
-
-	@Override
 	public String getRequestCharacterEncoding() {
 		return (String) attributeMap.get(REQUEST_CHARACTER_ENCODING);
 	}
 
 	@Override
-	public void setRequestCharacterEncoding(String encoding) throws UnsupportedEncodingException {
-		attributeMap.put(REQUEST_CHARACTER_ENCODING, encoding);
-		getIncongruousActions().add(IncongruousAction.SET_REQUEST_CHARACTER_ENCODING);
-	}
-
-	@Override
 	public String getRequestContentType() {
 		return (String) attributeMap.get(REQUEST_CONTENT_TYPE);
-	}
-
-	@Override
-	public void setRequestContentType(String contentType) {
-		attributeMap.put(REQUEST_CONTENT_TYPE, contentType);
 	}
 
 	@Override
@@ -250,19 +210,8 @@ public abstract class IncongruityContextBaseImpl extends IncongruityContext {
 	}
 
 	@Override
-	public void setResponse(Object response) {
-		throw new IllegalStateException();
-	}
-
-	@Override
 	public String getResponseCharacterEncoding() {
 		return (String) attributeMap.get(RESPONSE_CHARACTER_ENCODING);
-	}
-
-	@Override
-	public void setResponseCharacterEncoding(String encoding) {
-		attributeMap.put(RESPONSE_CHARACTER_ENCODING, encoding);
-		getIncongruousActions().add(IncongruousAction.SET_RESPONSE_CHARACTER_ENCODING);
 	}
 
 	@Override
@@ -278,5 +227,56 @@ public abstract class IncongruityContextBaseImpl extends IncongruityContext {
 	@Override
 	public Principal getUserPrincipal() {
 		throw new IllegalStateException();
+	}
+
+	@Override
+	public boolean isUserInRole(String role) {
+		throw new IllegalStateException();
+	}
+
+	@Override
+	public void log(String message) {
+		throw new IllegalStateException();
+	}
+
+	@Override
+	public void log(String message, Throwable exception) {
+		throw new IllegalStateException();
+	}
+
+	@Override
+	public void redirect(String url) throws IOException {
+		throw new IllegalStateException();
+	}
+
+	@Override
+	public void setRequest(Object request) {
+	}
+
+	@Override
+	public void setRequestCharacterEncoding(String encoding) throws UnsupportedEncodingException {
+		attributeMap.put(REQUEST_CHARACTER_ENCODING, encoding);
+		getIncongruousActions().add(IncongruousAction.SET_REQUEST_CHARACTER_ENCODING);
+	}
+
+	@Override
+	public void setRequestContentType(String contentType) {
+		attributeMap.put(REQUEST_CONTENT_TYPE, contentType);
+	}
+
+	@Override
+	public void setResponse(Object response) {
+		throw new IllegalStateException();
+	}
+
+	@Override
+	public void setResponseCharacterEncoding(String encoding) {
+		attributeMap.put(RESPONSE_CHARACTER_ENCODING, encoding);
+		getIncongruousActions().add(IncongruousAction.SET_RESPONSE_CHARACTER_ENCODING);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Set<IncongruousAction> getIncongruousActions() {
+		return (Set<IncongruousAction>) attributeMap.get(INCONGRUOUS_ACTIONS);
 	}
 }

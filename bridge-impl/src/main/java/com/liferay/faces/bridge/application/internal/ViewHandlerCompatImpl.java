@@ -39,35 +39,6 @@ import com.liferay.faces.util.product.ProductMap;
  */
 public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 
-	/**
-	 * Mojarra 1.x does not have the ability to process faces-config navigation-rule entries with to-view-id containing
-	 * EL-expressions. This method compensates for that shortcoming by evaluating the EL-expression that may be present
-	 * in the specified viewId.
-	 *
-	 * @param   facesContext  The current FacesContext.
-	 * @param   viewId        The viewId that may contain an EL expression.
-	 *
-	 * @return  If an EL-expression was present in the specified viewId, then returns the evaluated expression.
-	 *          Otherwise, returns the specified viewId unchanged.
-	 */
-	protected String evaluateExpressionJSF1(FacesContext facesContext, String viewId) {
-
-		// This method has overridden behavior for JSF 1 but simply returns the specified viewId for JSF 2
-		return viewId;
-	}
-
-	protected ViewHandler getFacesRuntimeViewHandler() {
-
-		ViewHandler viewHandler = getWrapped();
-
-		while (viewHandler instanceof ViewHandlerWrapper) {
-			ViewHandlerWrapper viewHandlerWrapper = (ViewHandlerWrapper) viewHandler;
-			viewHandler = viewHandlerWrapper.getWrapped();
-		}
-
-		return viewHandler;
-	}
-
 	@Override
 	public String getRedirectURL(FacesContext facesContext, String viewId, Map<String, List<String>> parameters,
 		boolean includeViewParams) {
@@ -113,5 +84,34 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 		}
 
 		return super.getViewDeclarationLanguage(context, viewId);
+	}
+
+	/**
+	 * Mojarra 1.x does not have the ability to process faces-config navigation-rule entries with to-view-id containing
+	 * EL-expressions. This method compensates for that shortcoming by evaluating the EL-expression that may be present
+	 * in the specified viewId.
+	 *
+	 * @param   facesContext  The current FacesContext.
+	 * @param   viewId        The viewId that may contain an EL expression.
+	 *
+	 * @return  If an EL-expression was present in the specified viewId, then returns the evaluated expression.
+	 *          Otherwise, returns the specified viewId unchanged.
+	 */
+	protected String evaluateExpressionJSF1(FacesContext facesContext, String viewId) {
+
+		// This method has overridden behavior for JSF 1 but simply returns the specified viewId for JSF 2
+		return viewId;
+	}
+
+	protected ViewHandler getFacesRuntimeViewHandler() {
+
+		ViewHandler viewHandler = getWrapped();
+
+		while (viewHandler instanceof ViewHandlerWrapper) {
+			ViewHandlerWrapper viewHandlerWrapper = (ViewHandlerWrapper) viewHandler;
+			viewHandler = viewHandlerWrapper.getWrapped();
+		}
+
+		return viewHandler;
 	}
 }

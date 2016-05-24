@@ -23,10 +23,10 @@ import javax.faces.FacesWrapper;
  */
 public abstract class PreDestroyInvokerWrapper implements PreDestroyInvoker, FacesWrapper<PreDestroyInvoker> {
 
+	public abstract PreDestroyInvoker getWrapped();
+
 	@Override
 	public void invokeAnnotatedMethods(Object managedBean, boolean preferPreDestroy) {
 		getWrapped().invokeAnnotatedMethods(managedBean, preferPreDestroy);
 	}
-
-	public abstract PreDestroyInvoker getWrapped();
 }

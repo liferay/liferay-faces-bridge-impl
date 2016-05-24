@@ -48,6 +48,31 @@ public class ProvinceServiceMockImpl implements ProvinceService {
 		this.provinces = new ArrayList<Province>();
 	}
 
+	@Override
+	public List<Province> getProvinces(long countryId) {
+
+		List<Province> countryProvinces = countryProvinceMap.get(countryId);
+
+		if (countryProvinces == null) {
+
+			synchronized (countryProvinceMap) {
+
+				countryProvinces = new ArrayList<Province>();
+
+				for (Province province : provinces) {
+
+					if (province.getCountryId() == countryId) {
+						countryProvinces.add(province);
+					}
+				}
+
+				countryProvinceMap.put(countryId, countryProvinces);
+			}
+		}
+
+		return countryProvinces;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 
@@ -120,30 +145,5 @@ public class ProvinceServiceMockImpl implements ProvinceService {
 		provinces.add(new Province(62, countryId, "Quebec", "QC"));
 		provinces.add(new Province(63, countryId, "Saskatchewan", "SK"));
 		provinces.add(new Province(64, countryId, "Yukon", "YT"));
-	}
-
-	@Override
-	public List<Province> getProvinces(long countryId) {
-
-		List<Province> countryProvinces = countryProvinceMap.get(countryId);
-
-		if (countryProvinces == null) {
-
-			synchronized (countryProvinceMap) {
-
-				countryProvinces = new ArrayList<Province>();
-
-				for (Province province : provinces) {
-
-					if (province.getCountryId() == countryId) {
-						countryProvinces.add(province);
-					}
-				}
-
-				countryProvinceMap.put(countryId, countryProvinces);
-			}
-		}
-
-		return countryProvinces;
 	}
 }

@@ -146,6 +146,11 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		return Constants.TEST_SUCCESS;
 	}
 
+	// PhaseListener tests
+	public PhaseId getPhaseId() {
+		return PhaseId.ANY_PHASE;
+	}
+
 	// Test is MultiRequest -- Render/Action
 	// Test #5.46
 	@BridgeTest(test = "navigateToLastViewTest")
@@ -404,11 +409,6 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 				return "Test is still being run.";
 			}
 		}
-	}
-
-	// PhaseListener tests
-	public PhaseId getPhaseId() {
-		return PhaseId.ANY_PHASE;
 	}
 
 }

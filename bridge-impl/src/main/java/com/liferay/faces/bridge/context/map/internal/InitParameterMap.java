@@ -40,22 +40,22 @@ public class InitParameterMap extends AbstractPropertyMap<String> {
 	}
 
 	@Override
-	protected void removeProperty(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	protected String getProperty(String name) {
 		return portletContext.getInitParameter(name);
 	}
 
 	@Override
-	protected void setProperty(String name, String value) {
+	protected Enumeration<String> getPropertyNames() {
+		return portletContext.getInitParameterNames();
+	}
+
+	@Override
+	protected void removeProperty(String name) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	protected Enumeration<String> getPropertyNames() {
-		return portletContext.getInitParameterNames();
+	protected void setProperty(String name, String value) {
+		throw new UnsupportedOperationException();
 	}
 }

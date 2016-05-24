@@ -45,20 +45,20 @@ public class Country implements Serializable {
 		return countryAbbreviation;
 	}
 
-	public void setCountryAbbreviation(String countryAbbreviation) {
-		this.countryAbbreviation = countryAbbreviation;
-	}
-
 	public long getCountryId() {
 		return countryId;
 	}
 
-	public void setCountryId(long countryId) {
-		this.countryId = countryId;
-	}
-
 	public String getCountryName() {
 		return countryName;
+	}
+
+	public void setCountryAbbreviation(String countryAbbreviation) {
+		this.countryAbbreviation = countryAbbreviation;
+	}
+
+	public void setCountryId(long countryId) {
+		this.countryId = countryId;
 	}
 
 	public void setCountryName(String countryName) {

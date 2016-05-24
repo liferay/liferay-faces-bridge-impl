@@ -49,11 +49,6 @@ public class HtmlInputFilePartImpl implements Part, FacesWrapper<UploadedFile>, 
 	}
 
 	@Override
-	public void write(String fileName) throws IOException {
-		getWrapped().write(fileName);
-	}
-
-	@Override
 	public String getContentType() {
 		return getWrapped().getContentType();
 	}
@@ -91,5 +86,10 @@ public class HtmlInputFilePartImpl implements Part, FacesWrapper<UploadedFile>, 
 	@Override
 	public UploadedFile getWrapped() {
 		return wrappedUploadedFile;
+	}
+
+	@Override
+	public void write(String fileName) throws IOException {
+		getWrapped().write(fileName);
 	}
 }

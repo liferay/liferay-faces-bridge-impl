@@ -43,52 +43,52 @@ public class Airport implements Serializable {
 		return airportId;
 	}
 
-	public void setAirportId(long airportId) {
-		this.airportId = airportId;
-	}
-
 	public String getCity() {
 		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
 	}
 
 	public String getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
-	}
-
 	public String getCountry() {
 		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
 	}
 
 	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
 	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
 	public String getName() {
 		return name;
+	}
+
+	public void setAirportId(long airportId) {
+		this.airportId = airportId;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 
 	public void setName(String name) {

@@ -104,6 +104,62 @@ public abstract class ExternalContextCompat_2_2_Impl extends ExternalContextComp
 		return super.encodeRedirectURL(baseUrl, parameters);
 	}
 
+	/**
+	 * @see    {@link ExternalContext#getApplicationContextPath()}
+	 * @since  JSF 2.2
+	 */
+	@Override
+	public String getApplicationContextPath() {
+
+		if (applicationContextPath == null) {
+			String appConfigAttrName = ApplicationConfig.class.getName();
+			ApplicationConfig applicationConfig = (ApplicationConfig) getApplicationMap().get(appConfigAttrName);
+			applicationContextPath = applicationConfig.getContextPath();
+		}
+
+		return applicationContextPath;
+	}
+
+	/**
+	 * @see    {@link ExternalContext#getClientWindow()}
+	 * @since  JSF 2.2
+	 */
+	@Override
+	public ClientWindow getClientWindow() {
+		return clientWindow;
+	}
+
+	/**
+	 * @since  JSF 2.2
+	 */
+	@Override
+	public String getSessionId(boolean create) {
+
+		String sessionId = null;
+
+		PortletSession portletSession = (PortletSession) getSession(create);
+
+		if ((portletSession == null) && (!create)) {
+
+			// JSF 2.2 requires the empty string to be returned in this case.
+			sessionId = "";
+		}
+		else {
+			sessionId = portletSession.getId();
+		}
+
+		return sessionId;
+	}
+
+	/**
+	 * @see    {@link ExternalContext#setClientWindow(ClientWindow)}
+	 * @since  JSF 2.2
+	 */
+	@Override
+	public void setClientWindow(ClientWindow clientWindow) {
+		this.clientWindow = clientWindow;
+	}
+
 	@Override
 	protected Cookie createCookie(String name, String value, Map<String, Object> properties) {
 
@@ -168,61 +224,5 @@ public abstract class ExternalContextCompat_2_2_Impl extends ExternalContextComp
 		}
 
 		return url;
-	}
-
-	/**
-	 * @see    {@link ExternalContext#getApplicationContextPath()}
-	 * @since  JSF 2.2
-	 */
-	@Override
-	public String getApplicationContextPath() {
-
-		if (applicationContextPath == null) {
-			String appConfigAttrName = ApplicationConfig.class.getName();
-			ApplicationConfig applicationConfig = (ApplicationConfig) getApplicationMap().get(appConfigAttrName);
-			applicationContextPath = applicationConfig.getContextPath();
-		}
-
-		return applicationContextPath;
-	}
-
-	/**
-	 * @see    {@link ExternalContext#getClientWindow()}
-	 * @since  JSF 2.2
-	 */
-	@Override
-	public ClientWindow getClientWindow() {
-		return clientWindow;
-	}
-
-	/**
-	 * @see    {@link ExternalContext#setClientWindow(ClientWindow)}
-	 * @since  JSF 2.2
-	 */
-	@Override
-	public void setClientWindow(ClientWindow clientWindow) {
-		this.clientWindow = clientWindow;
-	}
-
-	/**
-	 * @since  JSF 2.2
-	 */
-	@Override
-	public String getSessionId(boolean create) {
-
-		String sessionId = null;
-
-		PortletSession portletSession = (PortletSession) getSession(create);
-
-		if ((portletSession == null) && (!create)) {
-
-			// JSF 2.2 requires the empty string to be returned in this case.
-			sessionId = "";
-		}
-		else {
-			sessionId = portletSession.getId();
-		}
-
-		return sessionId;
 	}
 }

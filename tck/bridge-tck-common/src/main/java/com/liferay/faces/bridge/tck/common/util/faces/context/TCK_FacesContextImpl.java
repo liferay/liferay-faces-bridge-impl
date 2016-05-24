@@ -44,19 +44,6 @@ public class TCK_FacesContextImpl extends FacesContext {
 		mWrapped.addMessage(clientId, message);
 	}
 
-	public void release() {
-		getExternalContext().getSessionMap().put("org.apache.portlet.faces.tck.facesContextReleased", Boolean.TRUE);
-		mWrapped.release();
-	}
-
-	public void renderResponse() {
-		mWrapped.renderResponse();
-	}
-
-	public void responseComplete() {
-		mWrapped.responseComplete();
-	}
-
 	public Application getApplication() {
 		return mWrapped.getApplication();
 	}
@@ -104,20 +91,33 @@ public class TCK_FacesContextImpl extends FacesContext {
 		return mWrapped.getResponseStream();
 	}
 
-	public void setResponseStream(ResponseStream responseStream) {
-		mWrapped.setResponseStream(responseStream);
-	}
-
 	public ResponseWriter getResponseWriter() {
 		return mWrapped.getResponseWriter();
 	}
 
-	public void setResponseWriter(ResponseWriter responseWriter) {
-		mWrapped.setResponseWriter(responseWriter);
-	}
-
 	public UIViewRoot getViewRoot() {
 		return mWrapped.getViewRoot();
+	}
+
+	public void release() {
+		getExternalContext().getSessionMap().put("org.apache.portlet.faces.tck.facesContextReleased", Boolean.TRUE);
+		mWrapped.release();
+	}
+
+	public void renderResponse() {
+		mWrapped.renderResponse();
+	}
+
+	public void responseComplete() {
+		mWrapped.responseComplete();
+	}
+
+	public void setResponseStream(ResponseStream responseStream) {
+		mWrapped.setResponseStream(responseStream);
+	}
+
+	public void setResponseWriter(ResponseWriter responseWriter) {
+		mWrapped.setResponseWriter(responseWriter);
 	}
 
 	public void setViewRoot(UIViewRoot viewRoot) {

@@ -70,6 +70,48 @@ public class InitMethodTestPortlet extends GenericFacesTestSuitePortlet {
 
 	private StringBuilder mMsg = new StringBuilder();
 
+	public String getBridgeClassName() {
+		bGetBridgeClassNameCalled = true;
+
+		return super.getBridgeClassName();
+	}
+
+	public BridgeEventHandler getBridgeEventHandler() throws PortletException {
+		bGetBridgeEventHandlerCalled = true;
+		mEventHandler = super.getBridgeEventHandler();
+
+		return mEventHandler;
+	}
+
+	public BridgePublicRenderParameterHandler getBridgePublicRenderParameterHandler() throws PortletException {
+		bGetBridgePRPHandlerCalled = true;
+		mPRPhandler = super.getBridgePublicRenderParameterHandler();
+
+		return mPRPhandler;
+	}
+
+	public String getDefaultRenderKitId() {
+		bGetDefaultRenderKitIdCalled = true;
+		mDefaultRenderKitId = super.getDefaultRenderKitId();
+
+		return mDefaultRenderKitId;
+	}
+
+	public Map getDefaultViewIdMap() {
+		bGetDefaultViewIdMapCalled = true;
+		mDefaultViewIdMap = super.getDefaultViewIdMap();
+
+		return mDefaultViewIdMap;
+	}
+
+	public List<String> getExcludedRequestAttributes() {
+		bGetExcludedRequestAttributesCalled = true;
+
+		List<String> mExcludedRequestAttrs = super.getExcludedRequestAttributes();
+
+		return mExcludedRequestAttrs;
+	}
+
 	public void init(PortletConfig portletConfig) throws PortletException {
 		super.init(portletConfig);
 
@@ -237,6 +279,13 @@ public class InitMethodTestPortlet extends GenericFacesTestSuitePortlet {
 		}
 	}
 
+	public boolean isPreserveActionParameters() {
+		bIsPreserveActionParametersCalled = true;
+		bIsPreserveActionParametersResult = super.isPreserveActionParameters();
+
+		return bIsPreserveActionParametersResult;
+	}
+
 	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 		response.setContentType("text/html");
 
@@ -253,54 +302,5 @@ public class InitMethodTestPortlet extends GenericFacesTestSuitePortlet {
 		}
 
 		out.println(resultWriter.toString());
-	}
-
-	public String getBridgeClassName() {
-		bGetBridgeClassNameCalled = true;
-
-		return super.getBridgeClassName();
-	}
-
-	public BridgeEventHandler getBridgeEventHandler() throws PortletException {
-		bGetBridgeEventHandlerCalled = true;
-		mEventHandler = super.getBridgeEventHandler();
-
-		return mEventHandler;
-	}
-
-	public BridgePublicRenderParameterHandler getBridgePublicRenderParameterHandler() throws PortletException {
-		bGetBridgePRPHandlerCalled = true;
-		mPRPhandler = super.getBridgePublicRenderParameterHandler();
-
-		return mPRPhandler;
-	}
-
-	public String getDefaultRenderKitId() {
-		bGetDefaultRenderKitIdCalled = true;
-		mDefaultRenderKitId = super.getDefaultRenderKitId();
-
-		return mDefaultRenderKitId;
-	}
-
-	public Map getDefaultViewIdMap() {
-		bGetDefaultViewIdMapCalled = true;
-		mDefaultViewIdMap = super.getDefaultViewIdMap();
-
-		return mDefaultViewIdMap;
-	}
-
-	public List<String> getExcludedRequestAttributes() {
-		bGetExcludedRequestAttributesCalled = true;
-
-		List<String> mExcludedRequestAttrs = super.getExcludedRequestAttributes();
-
-		return mExcludedRequestAttrs;
-	}
-
-	public boolean isPreserveActionParameters() {
-		bIsPreserveActionParametersCalled = true;
-		bIsPreserveActionParametersResult = super.isPreserveActionParameters();
-
-		return bIsPreserveActionParametersResult;
 	}
 }

@@ -27,8 +27,8 @@ import javax.portlet.PortalContext;
 import javax.portlet.PortletMode;
 import javax.portlet.WindowState;
 
-import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgePortalContext;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 
 
 /**
@@ -115,6 +115,16 @@ public class PortalContextBridgeImpl implements PortalContext {
 		return Collections.enumeration(propertyNameList);
 	}
 
+	@Override
+	public Enumeration<PortletMode> getSupportedPortletModes() {
+		return wrappedPortalContext.getSupportedPortletModes();
+	}
+
+	@Override
+	public Enumeration<WindowState> getSupportedWindowStates() {
+		return wrappedPortalContext.getSupportedWindowStates();
+	}
+
 	private String getSetHttpStatusCode() {
 
 		if (ableToSetHttpStatusCode == null) {
@@ -135,15 +145,5 @@ public class PortalContextBridgeImpl implements PortalContext {
 		}
 
 		return ableToSetHttpStatusCode;
-	}
-
-	@Override
-	public Enumeration<PortletMode> getSupportedPortletModes() {
-		return wrappedPortalContext.getSupportedPortletModes();
-	}
-
-	@Override
-	public Enumeration<WindowState> getSupportedWindowStates() {
-		return wrappedPortalContext.getSupportedWindowStates();
 	}
 }

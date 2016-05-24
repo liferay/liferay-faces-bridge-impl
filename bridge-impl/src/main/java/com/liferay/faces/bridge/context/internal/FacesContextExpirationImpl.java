@@ -49,22 +49,6 @@ public class FacesContextExpirationImpl extends FacesContext {
 	}
 
 	@Override
-	public void release() {
-		externalContext = null;
-		setCurrentInstance(null);
-	}
-
-	@Override
-	public void renderResponse() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void responseComplete() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public Application getApplication() {
 		throw new UnsupportedOperationException();
 	}
@@ -115,22 +99,38 @@ public class FacesContextExpirationImpl extends FacesContext {
 	}
 
 	@Override
-	public void setResponseStream(ResponseStream responseStream) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public ResponseWriter getResponseWriter() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public void setResponseWriter(ResponseWriter responseWriter) {
+	public UIViewRoot getViewRoot() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public UIViewRoot getViewRoot() {
+	public void release() {
+		externalContext = null;
+		setCurrentInstance(null);
+	}
+
+	@Override
+	public void renderResponse() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void responseComplete() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setResponseStream(ResponseStream responseStream) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setResponseWriter(ResponseWriter responseWriter) {
 		throw new UnsupportedOperationException();
 	}
 

@@ -35,8 +35,8 @@ import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.annotation.PortletNamingContainer;
 
-import com.liferay.faces.bridge.BridgePhase;
 import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.bridge.BridgePhase;
 import com.liferay.faces.bridge.context.IncongruityContext;
 import com.liferay.faces.bridge.context.IncongruityContextFactory;
 import com.liferay.faces.bridge.filter.BridgePortletContextFactory;
@@ -107,6 +107,8 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 	protected abstract void removeBridgeContextAttribute(PortletRequest portletRequest);
 
+	protected abstract void setBridgeContextAttribute(PortletRequest portletRequest);
+
 	protected void cleanup(PortletRequest portletRequest) {
 
 		if (facesContext != null) {
@@ -122,6 +124,39 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 			portletRequest.removeAttribute(BridgeRequestScope.class.getName());
 			portletRequest.removeAttribute(IncongruityContext.class.getName());
 		}
+	}
+
+	protected FacesContext getFacesContext(PortletRequest portletRequest, PortletResponse portletResponse,
+		Lifecycle lifecycle) {
+
+		FacesContext newFacesContext = getFacesContextFactory().getFacesContext(portletContext, portletRequest,
+				portletResponse, lifecycle);
+
+		// TCK TestPage203 (JSF_ELTest) ensure that the #{facesContext} implicit object is set to the current instance.
+		ELContext elContext = newFacesContext.getELContext();
+		elContext.putContext(FacesContext.class, newFacesContext);
+
+		return newFacesContext;
+	}
+
+	protected FacesContextFactory getFacesContextFactory() {
+
+		if (facesContextFactory == null) {
+			facesContextFactory = (FacesContextFactory) FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+		}
+
+		return facesContextFactory;
+	}
+
+	protected String getFacesViewId(ExternalContext externalContext) {
+
+		String viewId = externalContext.getRequestPathInfo();
+
+		if (viewId == null) {
+			viewId = externalContext.getRequestServletPath();
+		}
+
+		return viewId;
 	}
 
 	protected void indicateNamespacingToConsumers(UIViewRoot uiViewRoot, PortletResponse portletResponse) {
@@ -322,40 +357,5 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 				}
 			}
 		}
-	}
-
-	protected abstract void setBridgeContextAttribute(PortletRequest portletRequest);
-
-	protected FacesContext getFacesContext(PortletRequest portletRequest, PortletResponse portletResponse,
-		Lifecycle lifecycle) {
-
-		FacesContext newFacesContext = getFacesContextFactory().getFacesContext(portletContext, portletRequest,
-				portletResponse, lifecycle);
-
-		// TCK TestPage203 (JSF_ELTest) ensure that the #{facesContext} implicit object is set to the current instance.
-		ELContext elContext = newFacesContext.getELContext();
-		elContext.putContext(FacesContext.class, newFacesContext);
-
-		return newFacesContext;
-	}
-
-	protected FacesContextFactory getFacesContextFactory() {
-
-		if (facesContextFactory == null) {
-			facesContextFactory = (FacesContextFactory) FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
-		}
-
-		return facesContextFactory;
-	}
-
-	protected String getFacesViewId(ExternalContext externalContext) {
-
-		String viewId = externalContext.getRequestPathInfo();
-
-		if (viewId == null) {
-			viewId = externalContext.getRequestServletPath();
-		}
-
-		return viewId;
 	}
 }

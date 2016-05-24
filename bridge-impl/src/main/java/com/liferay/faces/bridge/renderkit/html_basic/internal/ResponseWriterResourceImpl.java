@@ -53,6 +53,11 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 	}
 
 	@Override
+	public ResponseWriter getWrapped() {
+		return wrappedResponseWriter;
+	}
+
+	@Override
 	public void startElement(String name, UIComponent component) throws IOException {
 		write("<");
 		write(name);
@@ -91,10 +96,5 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 		else {
 			writeAttribute(name, value, property);
 		}
-	}
-
-	@Override
-	public ResponseWriter getWrapped() {
-		return wrappedResponseWriter;
 	}
 }

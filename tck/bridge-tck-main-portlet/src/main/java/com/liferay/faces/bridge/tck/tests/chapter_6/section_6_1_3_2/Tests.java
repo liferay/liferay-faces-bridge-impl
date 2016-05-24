@@ -82,152 +82,6 @@ public class Tests extends Object {
 		}
 	}
 
-	// Test #6.84
-	@BridgeTest(test = "sessionMapPreDestroyRemoveTest")
-	public String sessionMapPreDestroyRemoveTest(TestRunnerBean testRunner) {
-		testRunner.setTestComplete(true);
-
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Application app = ctx.getApplication();
-
-		// ensure the managed beans come into existence
-		Boolean isIn = (Boolean) app.evaluateExpressionGet(ctx, "#{predestroySessionBean.inBridgeRequestScope}",
-				Object.class);
-		Map<String, Object> m = extCtx.getRequestMap();
-		m.remove("predestroySessionBean");
-
-		// Now verify that things worked correctly
-		// We expect that the beans were not added to the bridge scope (yet) and hence only the Predestroy was called
-		Boolean notifiedAddedToBridgeScope = (Boolean) m.get("PreDestroyBean1.attributeAdded");
-		Boolean notifiedPreDestroy = (Boolean) m.get("PreDestroyBean1.servletPreDestroy");
-		Boolean notifiedBridgePreDestroy = (Boolean) m.get("PreDestroyBean1.bridgePreDestroy");
-
-		if ((notifiedAddedToBridgeScope == null) && (notifiedBridgePreDestroy == null) &&
-				(notifiedPreDestroy != null) && notifiedPreDestroy.equals(Boolean.TRUE)) {
-
-			// Only the regular PreDestroy was called and so it would have cleaned itself up
-			testRunner.setTestResult(true,
-				"The bridge session scope behaved correctly in handling preDestroy of a removed attribute prior to it being added to the bridge's scope in that:");
-			testRunner.appendTestDetail("     a) the bean wasn't notified it had been added to the session scope.");
-			testRunner.appendTestDetail("     b) the bean didn't have its BridgePreDestroy called.");
-			testRunner.appendTestDetail("     c) the bean did have its Predestroy called.");
-		}
-		else {
-			testRunner.setTestResult(false,
-				"The bridge session scope didn't behave correctly in handling preDestroy of a removed attribute:");
-
-			if (notifiedAddedToBridgeScope != null)
-				testRunner.appendTestDetail("::::: it notified the bean it was added to the bridge session scope.");
-
-			if (notifiedBridgePreDestroy != null)
-				testRunner.appendTestDetail("::::: it notified the bean it was removed from the bridge request scope.");
-
-			if (notifiedPreDestroy == null)
-				testRunner.appendTestDetail("::::: it didn't notify the bean's PreDestroy.");
-
-			if ((notifiedPreDestroy != null) && notifiedPreDestroy.equals(Boolean.FALSE))
-				testRunner.appendTestDetail(
-					"::::: the bean's Predestroy was called but it thought it had been added to the bridge request scope.");
-		}
-
-		if (testRunner.getTestStatus()) {
-			return Constants.TEST_SUCCESS;
-		}
-		else {
-			return Constants.TEST_FAILED;
-		}
-
-	}
-
-	private boolean containsIdenticalAttributeEntries(Map<String, Object> m, Enumeration<String> eNames,
-		PortletContext ctx) {
-
-		// For each entry in m ensure there is an identical one in the context
-		for (Iterator<Map.Entry<String, Object>> entries = m.entrySet().iterator(); entries.hasNext();) {
-			Map.Entry<String, Object> e = entries.next();
-			Object attrValue = ctx.getAttribute(e.getKey());
-			Object mapObj = e.getValue();
-
-			if ((mapObj == null) && (attrValue == null))
-				continue; // technically shouldn't have this but some container do
-
-			if ((mapObj == null) || (attrValue == null) || !mapObj.equals(attrValue)) {
-				return false;
-			}
-		}
-
-		// For each entry in the context -- ensure there is an identical one in the map
-		while (eNames.hasMoreElements()) {
-			String key = eNames.nextElement();
-			Object attrValue = ctx.getAttribute(key);
-			Object mapObj = m.get(key);
-
-			if ((mapObj == null) && (attrValue == null))
-				continue; // technically shouldn't have this but some container do
-
-			if ((mapObj == null) || (attrValue == null) || !mapObj.equals(attrValue)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	private boolean containsIdenticalInitParamEntries(Map<String, String> m, Enumeration<String> eNames,
-		PortletContext ctx) {
-
-		// For each entry in m ensure there is an identical one in the context
-		for (Iterator<Map.Entry<String, String>> entries = m.entrySet().iterator(); entries.hasNext();) {
-			Map.Entry<String, String> e = entries.next();
-			String value = ctx.getInitParameter(e.getKey());
-			String mapObj = e.getValue();
-
-			if ((mapObj == null) && (value == null))
-				continue; // technically shouldn't have this but some container do
-
-			if ((mapObj == null) || (value == null) || !mapObj.equals(value)) {
-				return false;
-			}
-		}
-
-		// For each entry in the context -- ensure there is an identical one in the map
-		while (eNames.hasMoreElements()) {
-			String key = eNames.nextElement();
-			Object value = ctx.getInitParameter(key);
-			Object mapObj = m.get(key);
-
-			if ((mapObj == null) && (value == null))
-				continue; // technically shouldn't have this but some container do
-
-			if ((mapObj == null) || (value == null) || !mapObj.equals(value)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	private boolean containsIdenticalSessionEntries(Map<String, Object> m, Enumeration<String> eNames,
-		PortletSession r) {
-
-		// For each entry in m ensure there is an idenitcal one in the request
-		for (Iterator<Map.Entry<String, Object>> entries = m.entrySet().iterator(); entries.hasNext();) {
-			Map.Entry<String, Object> e = entries.next();
-			Object requestObj = r.getAttribute(e.getKey());
-			Object mapObj = e.getValue();
-
-			if ((mapObj == null) && (requestObj == null))
-				continue; // technically shouldn't have this but some container do
-
-			if ((mapObj == null) || (requestObj == null) || !mapObj.equals(requestObj)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	/**
 	 * getApplicationMap Tests
 	 */
@@ -791,38 +645,6 @@ public class Tests extends Object {
 
 	}
 
-	// Test #6.81
-	@BridgeTest(test = "setResponseCharacterEncodingTest")
-	public String setResponseCharacterEncodingTest(TestRunnerBean testRunner) {
-		testRunner.setTestComplete(true);
-
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-
-		PortletResponse response = (PortletResponse) extCtx.getResponse();
-
-		String curEncoding = extCtx.getResponseCharacterEncoding();
-
-		if (curEncoding.equalsIgnoreCase("utf-8")) {
-			extCtx.setResponseCharacterEncoding("ISO-8859-1");
-		}
-		else {
-			extCtx.setResponseCharacterEncoding("UTF-8");
-		}
-
-		if (curEncoding.equalsIgnoreCase(extCtx.getResponseCharacterEncoding())) {
-			testRunner.setTestResult(true, "extCtx.setResponseCharacterEncoding() correctly had no effect.");
-
-			return Constants.TEST_SUCCESS;
-		}
-		else {
-			testRunner.setTestResult(false,
-				"extCtx.setResponseCharacterEncoding() unexpectedly changed the response character encoding.");
-
-			return Constants.TEST_FAILED;
-		}
-	}
-
 	// Test #6.83
 	@BridgeTest(test = "getSessionMapTest")
 	public String getSessionMapTest(TestRunnerBean testRunner) {
@@ -913,6 +735,184 @@ public class Tests extends Object {
 
 			return Constants.TEST_FAILED;
 		}
+	}
+
+	// Test #6.84
+	@BridgeTest(test = "sessionMapPreDestroyRemoveTest")
+	public String sessionMapPreDestroyRemoveTest(TestRunnerBean testRunner) {
+		testRunner.setTestComplete(true);
+
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+		Application app = ctx.getApplication();
+
+		// ensure the managed beans come into existence
+		Boolean isIn = (Boolean) app.evaluateExpressionGet(ctx, "#{predestroySessionBean.inBridgeRequestScope}",
+				Object.class);
+		Map<String, Object> m = extCtx.getRequestMap();
+		m.remove("predestroySessionBean");
+
+		// Now verify that things worked correctly
+		// We expect that the beans were not added to the bridge scope (yet) and hence only the Predestroy was called
+		Boolean notifiedAddedToBridgeScope = (Boolean) m.get("PreDestroyBean1.attributeAdded");
+		Boolean notifiedPreDestroy = (Boolean) m.get("PreDestroyBean1.servletPreDestroy");
+		Boolean notifiedBridgePreDestroy = (Boolean) m.get("PreDestroyBean1.bridgePreDestroy");
+
+		if ((notifiedAddedToBridgeScope == null) && (notifiedBridgePreDestroy == null) &&
+				(notifiedPreDestroy != null) && notifiedPreDestroy.equals(Boolean.TRUE)) {
+
+			// Only the regular PreDestroy was called and so it would have cleaned itself up
+			testRunner.setTestResult(true,
+				"The bridge session scope behaved correctly in handling preDestroy of a removed attribute prior to it being added to the bridge's scope in that:");
+			testRunner.appendTestDetail("     a) the bean wasn't notified it had been added to the session scope.");
+			testRunner.appendTestDetail("     b) the bean didn't have its BridgePreDestroy called.");
+			testRunner.appendTestDetail("     c) the bean did have its Predestroy called.");
+		}
+		else {
+			testRunner.setTestResult(false,
+				"The bridge session scope didn't behave correctly in handling preDestroy of a removed attribute:");
+
+			if (notifiedAddedToBridgeScope != null)
+				testRunner.appendTestDetail("::::: it notified the bean it was added to the bridge session scope.");
+
+			if (notifiedBridgePreDestroy != null)
+				testRunner.appendTestDetail("::::: it notified the bean it was removed from the bridge request scope.");
+
+			if (notifiedPreDestroy == null)
+				testRunner.appendTestDetail("::::: it didn't notify the bean's PreDestroy.");
+
+			if ((notifiedPreDestroy != null) && notifiedPreDestroy.equals(Boolean.FALSE))
+				testRunner.appendTestDetail(
+					"::::: the bean's Predestroy was called but it thought it had been added to the bridge request scope.");
+		}
+
+		if (testRunner.getTestStatus()) {
+			return Constants.TEST_SUCCESS;
+		}
+		else {
+			return Constants.TEST_FAILED;
+		}
+
+	}
+
+	// Test #6.81
+	@BridgeTest(test = "setResponseCharacterEncodingTest")
+	public String setResponseCharacterEncodingTest(TestRunnerBean testRunner) {
+		testRunner.setTestComplete(true);
+
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+
+		PortletResponse response = (PortletResponse) extCtx.getResponse();
+
+		String curEncoding = extCtx.getResponseCharacterEncoding();
+
+		if (curEncoding.equalsIgnoreCase("utf-8")) {
+			extCtx.setResponseCharacterEncoding("ISO-8859-1");
+		}
+		else {
+			extCtx.setResponseCharacterEncoding("UTF-8");
+		}
+
+		if (curEncoding.equalsIgnoreCase(extCtx.getResponseCharacterEncoding())) {
+			testRunner.setTestResult(true, "extCtx.setResponseCharacterEncoding() correctly had no effect.");
+
+			return Constants.TEST_SUCCESS;
+		}
+		else {
+			testRunner.setTestResult(false,
+				"extCtx.setResponseCharacterEncoding() unexpectedly changed the response character encoding.");
+
+			return Constants.TEST_FAILED;
+		}
+	}
+
+	private boolean containsIdenticalAttributeEntries(Map<String, Object> m, Enumeration<String> eNames,
+		PortletContext ctx) {
+
+		// For each entry in m ensure there is an identical one in the context
+		for (Iterator<Map.Entry<String, Object>> entries = m.entrySet().iterator(); entries.hasNext();) {
+			Map.Entry<String, Object> e = entries.next();
+			Object attrValue = ctx.getAttribute(e.getKey());
+			Object mapObj = e.getValue();
+
+			if ((mapObj == null) && (attrValue == null))
+				continue; // technically shouldn't have this but some container do
+
+			if ((mapObj == null) || (attrValue == null) || !mapObj.equals(attrValue)) {
+				return false;
+			}
+		}
+
+		// For each entry in the context -- ensure there is an identical one in the map
+		while (eNames.hasMoreElements()) {
+			String key = eNames.nextElement();
+			Object attrValue = ctx.getAttribute(key);
+			Object mapObj = m.get(key);
+
+			if ((mapObj == null) && (attrValue == null))
+				continue; // technically shouldn't have this but some container do
+
+			if ((mapObj == null) || (attrValue == null) || !mapObj.equals(attrValue)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private boolean containsIdenticalInitParamEntries(Map<String, String> m, Enumeration<String> eNames,
+		PortletContext ctx) {
+
+		// For each entry in m ensure there is an identical one in the context
+		for (Iterator<Map.Entry<String, String>> entries = m.entrySet().iterator(); entries.hasNext();) {
+			Map.Entry<String, String> e = entries.next();
+			String value = ctx.getInitParameter(e.getKey());
+			String mapObj = e.getValue();
+
+			if ((mapObj == null) && (value == null))
+				continue; // technically shouldn't have this but some container do
+
+			if ((mapObj == null) || (value == null) || !mapObj.equals(value)) {
+				return false;
+			}
+		}
+
+		// For each entry in the context -- ensure there is an identical one in the map
+		while (eNames.hasMoreElements()) {
+			String key = eNames.nextElement();
+			Object value = ctx.getInitParameter(key);
+			Object mapObj = m.get(key);
+
+			if ((mapObj == null) && (value == null))
+				continue; // technically shouldn't have this but some container do
+
+			if ((mapObj == null) || (value == null) || !mapObj.equals(value)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private boolean containsIdenticalSessionEntries(Map<String, Object> m, Enumeration<String> eNames,
+		PortletSession r) {
+
+		// For each entry in m ensure there is an idenitcal one in the request
+		for (Iterator<Map.Entry<String, Object>> entries = m.entrySet().iterator(); entries.hasNext();) {
+			Map.Entry<String, Object> e = entries.next();
+			Object requestObj = r.getAttribute(e.getKey());
+			Object mapObj = e.getValue();
+
+			if ((mapObj == null) && (requestObj == null))
+				continue; // technically shouldn't have this but some container do
+
+			if ((mapObj == null) || (requestObj == null) || !mapObj.equals(requestObj)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 //   @BridgeTest(test = "isUserInRoleTest") -- Not testable

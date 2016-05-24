@@ -50,92 +50,92 @@ public class Booking implements Serializable {
 		return arrivalDate;
 	}
 
-	public void setArrivalDate(Date arrivalDate) {
-		this.arrivalDate = arrivalDate;
-	}
-
 	public long getArrivalId() {
 		return arrivalId;
-	}
-
-	public void setArrivalId(long arrivalId) {
-		this.arrivalId = arrivalId;
 	}
 
 	public long getBookingId() {
 		return bookingId;
 	}
 
-	public void setBookingId(long bookingId) {
-		this.bookingId = bookingId;
-	}
-
 	public long getBookingTypeId() {
 		return bookingTypeId;
-	}
-
-	public void setBookingTypeId(long bookingTypeId) {
-		this.bookingTypeId = bookingTypeId;
 	}
 
 	public long getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
-	}
-
 	public Date getDepartureDate() {
 		return departureDate;
-	}
-
-	public void setDepartureDate(Date departureDate) {
-		this.departureDate = departureDate;
 	}
 
 	public long getDepartureId() {
 		return departureId;
 	}
 
-	public void setDepartureId(long departureId) {
-		this.departureId = departureId;
-	}
-
 	public String getDescription() {
 		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public double getDistance() {
 		return distance;
 	}
 
-	public void setDistance(double distance) {
-		this.distance = distance;
-	}
-
 	public double getDuration() {
 		return duration;
-	}
-
-	public void setDuration(double duration) {
-		this.duration = duration;
 	}
 
 	public String getLabel() {
 		return label;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
 	public BigDecimal getPrice() {
 		return price;
+	}
+
+	public void setArrivalDate(Date arrivalDate) {
+		this.arrivalDate = arrivalDate;
+	}
+
+	public void setArrivalId(long arrivalId) {
+		this.arrivalId = arrivalId;
+	}
+
+	public void setBookingId(long bookingId) {
+		this.bookingId = bookingId;
+	}
+
+	public void setBookingTypeId(long bookingTypeId) {
+		this.bookingTypeId = bookingTypeId;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
+
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
+	}
+
+	public void setDepartureId(long departureId) {
+		this.departureId = departureId;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+
+	public void setDuration(double duration) {
+		this.duration = duration;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	public void setPrice(BigDecimal price) {

@@ -47,22 +47,22 @@ public class RequestParameterMap extends AbstractPropertyMap<String> implements 
 	}
 
 	@Override
-	protected void removeProperty(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	protected String getProperty(String name) {
 		return facesRequestParameterMap.getFirst(name);
 	}
 
 	@Override
-	protected void setProperty(String name, String value) {
+	protected Enumeration<String> getPropertyNames() {
+		return Collections.enumeration(facesRequestParameterMap.keySet());
+	}
+
+	@Override
+	protected void removeProperty(String name) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	protected Enumeration<String> getPropertyNames() {
-		return Collections.enumeration(facesRequestParameterMap.keySet());
+	protected void setProperty(String name, String value) {
+		throw new UnsupportedOperationException();
 	}
 }

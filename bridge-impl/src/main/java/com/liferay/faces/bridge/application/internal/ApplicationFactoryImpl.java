@@ -36,12 +36,12 @@ public class ApplicationFactoryImpl extends ApplicationFactory {
 	}
 
 	@Override
-	public void setApplication(Application application) {
-		wrappedFactory.setApplication(application);
+	public ApplicationFactory getWrapped() {
+		return wrappedFactory;
 	}
 
 	@Override
-	public ApplicationFactory getWrapped() {
-		return wrappedFactory;
+	public void setApplication(Application application) {
+		wrappedFactory.setApplication(application);
 	}
 }

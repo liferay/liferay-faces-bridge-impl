@@ -27,22 +27,6 @@ import javax.portlet.faces.Bridge;
 public interface FacesView {
 
 	/**
-	 * Flag indicating whether or not the view is mapped to the {@link javax.faces.webapp.FacesServlet} via
-	 * extension-mapping (such as *.faces) or some other extension.
-	 *
-	 * @return  <code>true</code> if extension-mapped, otherwise <code>false</code>.
-	 */
-	boolean isExtensionMapped();
-
-	/**
-	 * Flag indicating whether or not the view is mapped to the {@link javax.faces.webapp.FacesServlet} via path-mapping
-	 * (such as /faces/views/*) or some other extension.
-	 *
-	 * @return  <code>true</code> if extension-mapped, otherwise <code>false</code>.
-	 */
-	boolean isPathMapped();
-
-	/**
 	 * Determines the extension (such as *.faces) used by the extension-mapped servlet-mapping.
 	 *
 	 * @return  If the view is extension-mapped, returns the extension. Otherwise, returns <code>null</code>.
@@ -72,5 +56,21 @@ public interface FacesView {
 	 * Returns the viewId associated with this view.
 	 */
 	String getViewId();
+
+	/**
+	 * Flag indicating whether or not the view is mapped to the {@link javax.faces.webapp.FacesServlet} via
+	 * extension-mapping (such as *.faces) or some other extension.
+	 *
+	 * @return  <code>true</code> if extension-mapped, otherwise <code>false</code>.
+	 */
+	boolean isExtensionMapped();
+
+	/**
+	 * Flag indicating whether or not the view is mapped to the {@link javax.faces.webapp.FacesServlet} via path-mapping
+	 * (such as /faces/views/*) or some other extension.
+	 *
+	 * @return  <code>true</code> if extension-mapped, otherwise <code>false</code>.
+	 */
+	boolean isPathMapped();
 
 }

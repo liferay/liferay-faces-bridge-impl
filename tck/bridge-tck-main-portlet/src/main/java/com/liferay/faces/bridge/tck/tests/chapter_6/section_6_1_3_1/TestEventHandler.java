@@ -76,32 +76,6 @@ public class TestEventHandler implements BridgeEventHandler {
 		return new EventNavigationResult(null, testName);
 	}
 
-	private void redirectEventTest() {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> requestMap = extCtx.getRequestMap();
-
-		String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
-				"/tests/redirectTestResultRenderCheck.xhtml");
-
-		try {
-			extCtx.redirect(target);
-			requestMap.put(EVENT_TEST_RESULT, Constants.TEST_SUCCESS);
-		}
-		catch (Exception e) {
-			requestMap.put(EVENT_TEST_RESULT, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
-		}
-	}
-
-	private String[] trim(String[] toTrim) {
-
-		for (int i = 0; i < toTrim.length; i++) {
-			toTrim[i] = toTrim[i].trim();
-		}
-
-		return toTrim;
-	}
-
 	private void getRequestCharacterEncodingEventTest() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -424,5 +398,31 @@ public class TestEventHandler implements BridgeEventHandler {
 			requestMap.put(EVENT_TEST_RESULT, Constants.TEST_SUCCESS);
 		}
 
+	}
+
+	private void redirectEventTest() {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+		Map<String, Object> requestMap = extCtx.getRequestMap();
+
+		String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
+				"/tests/redirectTestResultRenderCheck.xhtml");
+
+		try {
+			extCtx.redirect(target);
+			requestMap.put(EVENT_TEST_RESULT, Constants.TEST_SUCCESS);
+		}
+		catch (Exception e) {
+			requestMap.put(EVENT_TEST_RESULT, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
+		}
+	}
+
+	private String[] trim(String[] toTrim) {
+
+		for (int i = 0; i < toTrim.length; i++) {
+			toTrim[i] = toTrim[i].trim();
+		}
+
+		return toTrim;
 	}
 }

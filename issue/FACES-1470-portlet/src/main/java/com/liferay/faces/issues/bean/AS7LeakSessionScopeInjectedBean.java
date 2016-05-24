@@ -38,12 +38,12 @@ public class AS7LeakSessionScopeInjectedBean implements Serializable {
 	// Private Data Members
 	private String foo = this.toString();
 
-	public void setApplicationScopeBean(ApplicationScopeBean applicationScopeBean) {
-		this.applicationScopeBean = applicationScopeBean;
-	}
-
 	public String getFoo() {
 		return foo;
+	}
+
+	public void setApplicationScopeBean(ApplicationScopeBean applicationScopeBean) {
+		this.applicationScopeBean = applicationScopeBean;
 	}
 
 	public void setFoo(String foo) {

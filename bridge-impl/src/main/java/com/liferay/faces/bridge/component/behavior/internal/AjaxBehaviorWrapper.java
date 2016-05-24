@@ -36,6 +36,9 @@ import javax.faces.event.BehaviorEvent;
 public abstract class AjaxBehaviorWrapper extends AjaxBehavior implements FacesWrapper<AjaxBehavior> {
 
 	@Override
+	public abstract AjaxBehavior getWrapped();
+
+	@Override
 	public void addAjaxBehaviorListener(AjaxBehaviorListener listener) {
 		getWrapped().addAjaxBehaviorListener(listener);
 	}
@@ -56,8 +59,68 @@ public abstract class AjaxBehaviorWrapper extends AjaxBehavior implements FacesW
 	}
 
 	@Override
+	public Collection<String> getExecute() {
+		return getWrapped().getExecute();
+	}
+
+	@Override
+	public Set<ClientBehaviorHint> getHints() {
+		return getWrapped().getHints();
+	}
+
+	@Override
+	public String getOnerror() {
+		return getWrapped().getOnerror();
+	}
+
+	@Override
+	public String getOnevent() {
+		return getWrapped().getOnevent();
+	}
+
+	@Override
+	public Collection<String> getRender() {
+		return getWrapped().getRender();
+	}
+
+	@Override
+	public String getRendererType() {
+		return getWrapped().getRendererType();
+	}
+
+	@Override
+	public String getScript(ClientBehaviorContext behaviorContext) {
+		return getWrapped().getScript(behaviorContext);
+	}
+
+	@Override
+	public ValueExpression getValueExpression(String name) {
+		return getWrapped().getValueExpression(name);
+	}
+
+	@Override
 	public boolean initialStateMarked() {
 		return getWrapped().initialStateMarked();
+	}
+
+	@Override
+	public boolean isDisabled() {
+		return getWrapped().isDisabled();
+	}
+
+	@Override
+	public boolean isImmediate() {
+		return getWrapped().isImmediate();
+	}
+
+	@Override
+	public boolean isImmediateSet() {
+		return getWrapped().isImmediateSet();
+	}
+
+	@Override
+	public boolean isTransient() {
+		return getWrapped().isTransient();
 	}
 
 	@Override
@@ -81,23 +144,8 @@ public abstract class AjaxBehaviorWrapper extends AjaxBehavior implements FacesW
 	}
 
 	@Override
-	public boolean isDisabled() {
-		return getWrapped().isDisabled();
-	}
-
-	@Override
 	public void setDisabled(boolean disabled) {
 		getWrapped().setDisabled(disabled);
-	}
-
-	@Override
-	public boolean isImmediate() {
-		return getWrapped().isImmediate();
-	}
-
-	@Override
-	public Collection<String> getExecute() {
-		return getWrapped().getExecute();
 	}
 
 	@Override
@@ -106,18 +154,8 @@ public abstract class AjaxBehaviorWrapper extends AjaxBehavior implements FacesW
 	}
 
 	@Override
-	public Set<ClientBehaviorHint> getHints() {
-		return getWrapped().getHints();
-	}
-
-	@Override
 	public void setImmediate(boolean immediate) {
 		getWrapped().setImmediate(immediate);
-	}
-
-	@Override
-	public String getOnerror() {
-		return getWrapped().getOnerror();
 	}
 
 	@Override
@@ -126,18 +164,8 @@ public abstract class AjaxBehaviorWrapper extends AjaxBehavior implements FacesW
 	}
 
 	@Override
-	public String getOnevent() {
-		return getWrapped().getOnevent();
-	}
-
-	@Override
 	public void setOnevent(String onevent) {
 		getWrapped().setOnevent(onevent);
-	}
-
-	@Override
-	public Collection<String> getRender() {
-		return getWrapped().getRender();
 	}
 
 	@Override
@@ -146,40 +174,12 @@ public abstract class AjaxBehaviorWrapper extends AjaxBehavior implements FacesW
 	}
 
 	@Override
-	public String getRendererType() {
-		return getWrapped().getRendererType();
-	}
-
-	@Override
-	public String getScript(ClientBehaviorContext behaviorContext) {
-		return getWrapped().getScript(behaviorContext);
-	}
-
-	@Override
-	public boolean isImmediateSet() {
-		return getWrapped().isImmediateSet();
-	}
-
-	@Override
-	public boolean isTransient() {
-		return getWrapped().isTransient();
-	}
-
-	@Override
 	public void setTransient(boolean transientFlag) {
 		getWrapped().setTransient(transientFlag);
-	}
-
-	@Override
-	public ValueExpression getValueExpression(String name) {
-		return getWrapped().getValueExpression(name);
 	}
 
 	@Override
 	public void setValueExpression(String name, ValueExpression binding) {
 		getWrapped().setValueExpression(name, binding);
 	}
-
-	@Override
-	public abstract AjaxBehavior getWrapped();
 }

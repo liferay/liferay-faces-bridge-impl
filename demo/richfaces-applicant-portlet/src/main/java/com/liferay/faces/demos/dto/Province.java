@@ -42,12 +42,12 @@ public class Province implements Serializable {
 		return provinceId;
 	}
 
-	public void setProvinceId(long provinceId) {
-		this.provinceId = provinceId;
-	}
-
 	public String getProvinceName() {
 		return provinceName;
+	}
+
+	public void setProvinceId(long provinceId) {
+		this.provinceId = provinceId;
 	}
 
 	public void setProvinceName(String provinceName) {
