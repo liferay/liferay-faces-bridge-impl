@@ -24,6 +24,9 @@ import javax.portlet.ResourceURL;
  */
 public abstract class ResourceURLWrapper extends BaseURLWrapper implements ResourceURL, FacesWrapper<ResourceURL> {
 
+	@Override
+	public abstract ResourceURL getWrapped();
+
 	public String getCacheability() {
 		return getWrapped().getCacheability();
 	}
@@ -35,8 +38,5 @@ public abstract class ResourceURLWrapper extends BaseURLWrapper implements Resou
 	public void setResourceID(String resourceID) {
 		getWrapped().setResourceID(resourceID);
 	}
-
-	@Override
-	public abstract ResourceURL getWrapped();
 
 }

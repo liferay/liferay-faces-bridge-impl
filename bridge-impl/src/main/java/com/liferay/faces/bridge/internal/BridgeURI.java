@@ -59,6 +59,14 @@ public interface BridgeURI {
 	public String getQuery();
 
 	/**
+	 * Determines whether or not the URI is absolute, meaning it contains a scheme component. Note that according to the
+	 * class-level documentation of {@link java.net.URI} an absolute URI is non-relative.
+	 *
+	 * @return  Returns true if the URI is absolute, otherwise returns false.
+	 */
+	public boolean isAbsolute();
+
+	/**
 	 * Determines whether or not the URI is escaped.
 	 *
 	 * @return  <code>true</code> if all occurrences of the ampersand character appear as &amp; otherwise, returns
@@ -67,12 +75,22 @@ public interface BridgeURI {
 	public boolean isEscaped();
 
 	/**
-	 * Determines whether or not the URI is absolute, meaning it contains a scheme component. Note that according to the
-	 * class-level documentation of {@link java.net.URI} an absolute URI is non-relative.
+	 * Determines whether or not the URI is external with respect to a context path, meaning it is not absolute and does
+	 * not start with the context path.
 	 *
-	 * @return  Returns true if the URI is absolute, otherwise returns false.
+	 * @param   contextPath  The context path for determining whether or not the URI is external.
+	 *
+	 * @return  <code>true</code> if external, otherwise <code>false</code>.
 	 */
-	public boolean isAbsolute();
+	public boolean isExternal(String contextPath);
+
+	/**
+	 * Determines whether or not the URI is hierarchical, meaning it is either 1) absolute and the scheme-specific part
+	 * begins with a forward-slash character, or 2) is relative.
+	 *
+	 * @return  <code>true</code> if the URI is hierarchical, otherwise <code>false</code>.
+	 */
+	public boolean isHierarchical();
 
 	/**
 	 * Determines whether or not the URI is opaque, meaning it is absolute and its scheme component does not begin with
@@ -106,22 +124,13 @@ public interface BridgeURI {
 	public boolean isRelative();
 
 	/**
-	 * Determines whether or not the URI is external with respect to a context path, meaning it is not absolute and does
-	 * not start with the context path.
+	 * Removes the entry of the underlying {@link BridgeURI#getParameterMap()} according to the specified <code>
+	 * name</code>.
 	 *
-	 * @param   contextPath  The context path for determining whether or not the URI is external.
-	 *
-	 * @return  <code>true</code> if external, otherwise <code>false</code>.
+	 * @return  the first value of the underlying {@link BridgeURI#getParameterMap()} with the specified <code>
+	 *          name</code>.
 	 */
-	public boolean isExternal(String contextPath);
-
-	/**
-	 * Determines whether or not the URI is hierarchical, meaning it is either 1) absolute and the scheme-specific part
-	 * begins with a forward-slash character, or 2) is relative.
-	 *
-	 * @return  <code>true</code> if the URI is hierarchical, otherwise <code>false</code>.
-	 */
-	public boolean isHierarchical();
+	public String removeParameter(String name);
 
 	/**
 	 * Sets the <code>value</code> of the underlying {@link BridgeURI#getParameterMap()} according to the specified
@@ -134,15 +143,6 @@ public interface BridgeURI {
 	 * <code>name</code>.
 	 */
 	public void setParameter(String name, String[] values);
-
-	/**
-	 * Removes the entry of the underlying {@link BridgeURI#getParameterMap()} according to the specified <code>
-	 * name</code>.
-	 *
-	 * @return  the first value of the underlying {@link BridgeURI#getParameterMap()} with the specified <code>
-	 *          name</code>.
-	 */
-	public String removeParameter(String name);
 
 	/**
 	 * Returns a string-based representation of the URI.

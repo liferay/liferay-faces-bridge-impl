@@ -48,18 +48,6 @@ public interface Log {
 
 	public void info(Object msg, Throwable t);
 
-	public void trace(Object msg);
-
-	public void trace(Throwable t);
-
-	public void trace(Object msg, Throwable t);
-
-	public void warn(Object msg);
-
-	public void warn(Throwable t);
-
-	public void warn(Object msg, Throwable t);
-
 	public boolean isDebugEnabled();
 
 	public boolean isErrorEnabled();
@@ -71,5 +59,17 @@ public interface Log {
 	public boolean isTraceEnabled();
 
 	public boolean isWarnEnabled();
+
+	public void trace(Object msg);
+
+	public void trace(Throwable t);
+
+	public void trace(Object msg, Throwable t);
+
+	public void warn(Object msg);
+
+	public void warn(Throwable t);
+
+	public void warn(Object msg, Throwable t);
 
 }

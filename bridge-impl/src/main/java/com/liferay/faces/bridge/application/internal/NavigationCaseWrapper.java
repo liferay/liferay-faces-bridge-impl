@@ -35,24 +35,11 @@ public abstract class NavigationCaseWrapper extends NavigationCase implements Fa
 			(Map<String, List<String>>) null, false, false);
 	}
 
+	public abstract NavigationCase getWrapped();
+
 	@Override
 	public boolean equals(Object o) {
 		return getWrapped().equals(o);
-	}
-
-	@Override
-	public boolean hasCondition() {
-		return getWrapped().hasCondition();
-	}
-
-	@Override
-	public int hashCode() {
-		return getWrapped().hashCode();
-	}
-
-	@Override
-	public String toString() {
-		return getWrapped().toString();
 	}
 
 	@Override
@@ -101,6 +88,21 @@ public abstract class NavigationCaseWrapper extends NavigationCase implements Fa
 	}
 
 	@Override
+	public String getToViewId(FacesContext context) {
+		return getWrapped().getToViewId(context);
+	}
+
+	@Override
+	public boolean hasCondition() {
+		return getWrapped().hasCondition();
+	}
+
+	@Override
+	public int hashCode() {
+		return getWrapped().hashCode();
+	}
+
+	@Override
 	public boolean isIncludeViewParams() {
 		return getWrapped().isIncludeViewParams();
 	}
@@ -111,10 +113,8 @@ public abstract class NavigationCaseWrapper extends NavigationCase implements Fa
 	}
 
 	@Override
-	public String getToViewId(FacesContext context) {
-		return getWrapped().getToViewId(context);
+	public String toString() {
+		return getWrapped().toString();
 	}
-
-	public abstract NavigationCase getWrapped();
 
 }

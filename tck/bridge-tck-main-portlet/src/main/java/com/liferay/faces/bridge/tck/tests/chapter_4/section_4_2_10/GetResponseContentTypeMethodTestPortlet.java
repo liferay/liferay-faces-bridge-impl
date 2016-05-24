@@ -39,6 +39,24 @@ public class GetResponseContentTypeMethodTestPortlet extends GenericFacesTestSui
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";
 
+	public String getResponseContentType(PortletRequest request) {
+		String returnType = super.getResponseContentType(request);
+
+		String expectedContentType = request.getResponseContentType();
+
+		if (expectedContentType.toUpperCase().startsWith(returnType.toUpperCase())) {
+			getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(),
+				"getResponseContentType correctly returns a value equivalent to the preferred content type for this response.");
+		}
+		else {
+			getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName(),
+				"getResponseContentType incorrectly returned a different value than the preferred content type for this response. It returned: " +
+				returnType + "but the preferred CT is: " + expectedContentType);
+		}
+
+		return returnType;
+	}
+
 	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 
 		// Call the method thereby running the test
@@ -64,23 +82,5 @@ public class GetResponseContentTypeMethodTestPortlet extends GenericFacesTestSui
 		}
 
 		out.println(resultWriter.toString());
-	}
-
-	public String getResponseContentType(PortletRequest request) {
-		String returnType = super.getResponseContentType(request);
-
-		String expectedContentType = request.getResponseContentType();
-
-		if (expectedContentType.toUpperCase().startsWith(returnType.toUpperCase())) {
-			getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(),
-				"getResponseContentType correctly returns a value equivalent to the preferred content type for this response.");
-		}
-		else {
-			getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName(),
-				"getResponseContentType incorrectly returned a different value than the preferred content type for this response. It returned: " +
-				returnType + "but the preferred CT is: " + expectedContentType);
-		}
-
-		return returnType;
 	}
 }

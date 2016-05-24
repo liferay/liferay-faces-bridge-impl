@@ -30,12 +30,12 @@ public class BridgeFlashMyFacesImpl extends BridgeFlashBase {
 	}
 
 	@Override
-	public boolean isServletResponseRequired() {
-		return false;
+	public Flash getWrapped() {
+		return wrappedFlash;
 	}
 
 	@Override
-	public Flash getWrapped() {
-		return wrappedFlash;
+	public boolean isServletResponseRequired() {
+		return false;
 	}
 }

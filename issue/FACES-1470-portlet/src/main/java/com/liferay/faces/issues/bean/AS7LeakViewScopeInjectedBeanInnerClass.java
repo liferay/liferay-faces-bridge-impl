@@ -53,12 +53,12 @@ public class AS7LeakViewScopeInjectedBeanInnerClass implements Serializable {
 		attributeMap.put(AS7LEAK_ATTRIBUTE_MAP, savedAttributes);
 	}
 
-	public void setApplicationScopeBean(ApplicationScopeBean applicationScopeBean) {
-		this.applicationScopeBean = applicationScopeBean;
-	}
-
 	public String getFoo() {
 		return foo;
+	}
+
+	public void setApplicationScopeBean(ApplicationScopeBean applicationScopeBean) {
+		this.applicationScopeBean = applicationScopeBean;
 	}
 
 	public void setFoo(String foo) {

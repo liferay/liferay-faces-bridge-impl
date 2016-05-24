@@ -37,16 +37,16 @@ public class ApplicantViewBean implements Serializable {
 	// JavaBean Properties for UI
 	private boolean commentsRendered;
 
-	public void toggleComments(ActionEvent actionEvent) {
-		commentsRendered = !commentsRendered;
+	public boolean isCommentsRendered() {
+		return commentsRendered;
 	}
 
 	public void setCommentsRendered(boolean commentsRendered) {
 		this.commentsRendered = commentsRendered;
 	}
 
-	public boolean isCommentsRendered() {
-		return commentsRendered;
+	public void toggleComments(ActionEvent actionEvent) {
+		commentsRendered = !commentsRendered;
 	}
 
 }

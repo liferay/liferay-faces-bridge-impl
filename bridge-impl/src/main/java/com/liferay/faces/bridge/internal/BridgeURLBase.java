@@ -35,12 +35,12 @@ import javax.portlet.ResourceURL;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.PortletModeValidator;
 import com.liferay.faces.bridge.PortletModeValidatorFactory;
 import com.liferay.faces.bridge.WindowStateValidator;
 import com.liferay.faces.bridge.WindowStateValidatorFactory;
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -210,16 +210,6 @@ public abstract class BridgeURLBase implements BridgeURL {
 	}
 
 	@Override
-	public void setParameter(String name, String[] value) {
-		bridgeURI.getParameterMap().put(name, value);
-	}
-
-	@Override
-	public void setParameter(String name, String value) {
-		bridgeURI.getParameterMap().put(name, new String[] { value });
-	}
-
-	@Override
 	public String removeParameter(String name) {
 
 		String[] values = bridgeURI.getParameterMap().remove(name);
@@ -230,6 +220,16 @@ public abstract class BridgeURLBase implements BridgeURL {
 		else {
 			return null;
 		}
+	}
+
+	@Override
+	public void setParameter(String name, String[] value) {
+		bridgeURI.getParameterMap().put(name, value);
+	}
+
+	@Override
+	public void setParameter(String name, String value) {
+		bridgeURI.getParameterMap().put(name, new String[] { value });
 	}
 
 	@Override
@@ -273,16 +273,6 @@ public abstract class BridgeURLBase implements BridgeURL {
 	}
 
 	protected abstract BaseURL toBaseURL() throws MalformedURLException;
-
-	protected String getViewIdParameterName() {
-
-		if (bridgeURI.isPortletScheme() && (bridgeURI.getPortletPhase() == Bridge.PortletPhase.RESOURCE_PHASE)) {
-			return viewIdResourceParameterName;
-		}
-		else {
-			return viewIdRenderParameterName;
-		}
-	}
 
 	protected void copyRenderParameters(PortletRequest portletRequest, BaseURL baseURL) {
 
@@ -372,103 +362,14 @@ public abstract class BridgeURLBase implements BridgeURL {
 		return createResourceURL(facesContext, toStringParameters);
 	}
 
-	private List<URIParameter> getToStringParameters(boolean modeChanged) {
-		return getToStringParameters(modeChanged, null);
-	}
+	protected String getViewIdParameterName() {
 
-	private List<URIParameter> getToStringParameters(boolean modeChanged, Set<String> excludedParameterNames) {
-
-		List<URIParameter> toStringParameters = new ArrayList<URIParameter>();
-		Map<String, String[]> parameterMap = bridgeURI.getParameterMap();
-		Set<Map.Entry<String, String[]>> entrySet = parameterMap.entrySet();
-		boolean foundFacesViewIdParam = false;
-		boolean foundFacesViewPathParam = false;
-
-		for (Map.Entry<String, String[]> mapEntry : entrySet) {
-
-			boolean addParameter = false;
-			String parameterName = mapEntry.getKey();
-			String[] parameterValues = mapEntry.getValue();
-			String firstParameterValue = null;
-
-			if ((parameterValues != null) && (parameterValues.length > 0)) {
-				firstParameterValue = parameterValues[0];
-			}
-
-			if (Bridge.PORTLET_MODE_PARAMETER.equals(parameterName)) {
-
-				// Only add the "javax.portlet.faces.PortletMode" parameter if it has a valid value.
-				if (firstParameterValue != null) {
-
-					PortletModeValidator portletModeValidator = PortletModeValidatorFactory.getPortletModeValidatorInstance();
-					addParameter = portletModeValidator.isValid(firstParameterValue);
-				}
-			}
-			else if (Bridge.PORTLET_SECURE_PARAMETER.equals(parameterName)) {
-				addParameter = ((firstParameterValue != null) &&
-						("true".equalsIgnoreCase(firstParameterValue) ||
-							"false".equalsIgnoreCase(firstParameterValue)));
-			}
-			else if (Bridge.PORTLET_WINDOWSTATE_PARAMETER.equals(parameterName)) {
-
-				WindowStateValidator windowStateValidator = WindowStateValidatorFactory.getWindowStateValidatorInstance();
-				addParameter = windowStateValidator.isValid(firstParameterValue);
-			}
-			else {
-
-				if (!foundFacesViewIdParam) {
-					foundFacesViewIdParam = Bridge.FACES_VIEW_ID_PARAMETER.equals(parameterName);
-				}
-
-				if (!foundFacesViewPathParam) {
-					foundFacesViewPathParam = Bridge.FACES_VIEW_PATH_PARAMETER.equals(parameterName);
-				}
-
-				addParameter = true;
-			}
-
-			if ((addParameter) &&
-					((excludedParameterNames == null) || !excludedParameterNames.contains(parameterName))) {
-				toStringParameters.add(new URIParameter(parameterName, parameterValues));
-			}
+		if (bridgeURI.isPortletScheme() && (bridgeURI.getPortletPhase() == Bridge.PortletPhase.RESOURCE_PHASE)) {
+			return viewIdResourceParameterName;
 		}
-
-		// If the "_jsfBridgeViewId" and "_jsfBridgeViewPath" parameters are not present in the URL, then add a
-		// parameter that indicates the target Faces viewId.
-		if (!foundFacesViewIdParam && !foundFacesViewPathParam && (getViewId() != null)) {
-
-			if (!bridgeURI.isPortletScheme()) {
-
-				// Note that if the "javax.portlet.faces.PortletMode" parameter is specified, then a mode change is
-				// being requested and the target Faces viewId parameter must NOT be added.
-				if (!modeChanged) {
-
-					String contextRelativePath = bridgeURI.getContextRelativePath(contextPath);
-					if (contextRelativePath != null) {
-						toStringParameters.add(new URIParameter(getViewIdParameterName(), contextRelativePath));
-					}
-				}
-			}
+		else {
+			return viewIdRenderParameterName;
 		}
-
-		return toStringParameters;
-	}
-
-	private boolean isViewPathMappedToFacesServlet(String viewPath) {
-
-		// Try to determine the viewId by examining the servlet-mapping entries for the Faces Servlet.
-		// For each servlet-mapping:
-		for (ConfiguredServletMapping configuredFacesServletMapping : configuredFacesServletMappings) {
-
-			// If the current servlet-mapping matches the viewPath, then
-			logger.debug("Attempting to determine the facesViewId from {0}=[{1}]", Bridge.VIEW_PATH, viewPath);
-
-			if (configuredFacesServletMapping.isMatch(viewPath)) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	private void copyParameterMapToBaseURL(Map<String, String[]> parameterMap, BaseURL baseURL) {
@@ -607,6 +508,108 @@ public abstract class BridgeURLBase implements BridgeURL {
 		catch (ClassCastException e) {
 			throw new MalformedURLException(e.getMessage());
 		}
+	}
+
+	private List<URIParameter> getToStringParameters(boolean modeChanged) {
+		return getToStringParameters(modeChanged, null);
+	}
+
+	private List<URIParameter> getToStringParameters(boolean modeChanged, Set<String> excludedParameterNames) {
+
+		List<URIParameter> toStringParameters = new ArrayList<URIParameter>();
+		Map<String, String[]> parameterMap = bridgeURI.getParameterMap();
+		Set<Map.Entry<String, String[]>> entrySet = parameterMap.entrySet();
+		boolean foundFacesViewIdParam = false;
+		boolean foundFacesViewPathParam = false;
+
+		for (Map.Entry<String, String[]> mapEntry : entrySet) {
+
+			boolean addParameter = false;
+			String parameterName = mapEntry.getKey();
+			String[] parameterValues = mapEntry.getValue();
+			String firstParameterValue = null;
+
+			if ((parameterValues != null) && (parameterValues.length > 0)) {
+				firstParameterValue = parameterValues[0];
+			}
+
+			if (Bridge.PORTLET_MODE_PARAMETER.equals(parameterName)) {
+
+				// Only add the "javax.portlet.faces.PortletMode" parameter if it has a valid value.
+				if (firstParameterValue != null) {
+
+					PortletModeValidator portletModeValidator = PortletModeValidatorFactory
+						.getPortletModeValidatorInstance();
+					addParameter = portletModeValidator.isValid(firstParameterValue);
+				}
+			}
+			else if (Bridge.PORTLET_SECURE_PARAMETER.equals(parameterName)) {
+				addParameter = ((firstParameterValue != null) &&
+						("true".equalsIgnoreCase(firstParameterValue) ||
+							"false".equalsIgnoreCase(firstParameterValue)));
+			}
+			else if (Bridge.PORTLET_WINDOWSTATE_PARAMETER.equals(parameterName)) {
+
+				WindowStateValidator windowStateValidator = WindowStateValidatorFactory
+					.getWindowStateValidatorInstance();
+				addParameter = windowStateValidator.isValid(firstParameterValue);
+			}
+			else {
+
+				if (!foundFacesViewIdParam) {
+					foundFacesViewIdParam = Bridge.FACES_VIEW_ID_PARAMETER.equals(parameterName);
+				}
+
+				if (!foundFacesViewPathParam) {
+					foundFacesViewPathParam = Bridge.FACES_VIEW_PATH_PARAMETER.equals(parameterName);
+				}
+
+				addParameter = true;
+			}
+
+			if ((addParameter) &&
+					((excludedParameterNames == null) || !excludedParameterNames.contains(parameterName))) {
+				toStringParameters.add(new URIParameter(parameterName, parameterValues));
+			}
+		}
+
+		// If the "_jsfBridgeViewId" and "_jsfBridgeViewPath" parameters are not present in the URL, then add a
+		// parameter that indicates the target Faces viewId.
+		if (!foundFacesViewIdParam && !foundFacesViewPathParam && (getViewId() != null)) {
+
+			if (!bridgeURI.isPortletScheme()) {
+
+				// Note that if the "javax.portlet.faces.PortletMode" parameter is specified, then a mode change is
+				// being requested and the target Faces viewId parameter must NOT be added.
+				if (!modeChanged) {
+
+					String contextRelativePath = bridgeURI.getContextRelativePath(contextPath);
+
+					if (contextRelativePath != null) {
+						toStringParameters.add(new URIParameter(getViewIdParameterName(), contextRelativePath));
+					}
+				}
+			}
+		}
+
+		return toStringParameters;
+	}
+
+	private boolean isViewPathMappedToFacesServlet(String viewPath) {
+
+		// Try to determine the viewId by examining the servlet-mapping entries for the Faces Servlet.
+		// For each servlet-mapping:
+		for (ConfiguredServletMapping configuredFacesServletMapping : configuredFacesServletMappings) {
+
+			// If the current servlet-mapping matches the viewPath, then
+			logger.debug("Attempting to determine the facesViewId from {0}=[{1}]", Bridge.VIEW_PATH, viewPath);
+
+			if (configuredFacesServletMapping.isMatch(viewPath)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

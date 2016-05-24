@@ -46,6 +46,10 @@ public class BridgeInputFileModelBean implements Serializable {
 	// Private Data Members
 	private List<UploadedFile> uploadedFiles;
 
+	public List<UploadedFile> getUploadedFiles() {
+		return uploadedFiles;
+	}
+
 	@PostConstruct
 	public void postConstruct() {
 		this.uploadedFiles = new ArrayList<UploadedFile>();
@@ -65,9 +69,5 @@ public class BridgeInputFileModelBean implements Serializable {
 		}
 
 		uploadedFiles = null;
-	}
-
-	public List<UploadedFile> getUploadedFiles() {
-		return uploadedFiles;
 	}
 }

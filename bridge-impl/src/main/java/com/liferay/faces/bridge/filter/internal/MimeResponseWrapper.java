@@ -57,20 +57,8 @@ public class MimeResponseWrapper extends PortletResponseWrapper implements MimeR
 		getResponse().flushBuffer();
 	}
 
-	public void reset() {
-		getResponse().reset();
-	}
-
-	public void resetBuffer() {
-		getResponse().resetBuffer();
-	}
-
 	public int getBufferSize() {
 		return getResponse().getBufferSize();
-	}
-
-	public void setBufferSize(int size) {
-		getResponse().setBufferSize(size);
 	}
 
 	public CacheControl getCacheControl() {
@@ -83,14 +71,6 @@ public class MimeResponseWrapper extends PortletResponseWrapper implements MimeR
 
 	public String getContentType() {
 		return getResponse().getContentType();
-	}
-
-	public void setContentType(String type) {
-		getResponse().setContentType(type);
-	}
-
-	public boolean isCommitted() {
-		return getResponse().isCommitted();
 	}
 
 	public Locale getLocale() {
@@ -108,6 +88,26 @@ public class MimeResponseWrapper extends PortletResponseWrapper implements MimeR
 
 	public PrintWriter getWriter() throws IOException {
 		return getResponse().getWriter();
+	}
+
+	public boolean isCommitted() {
+		return getResponse().isCommitted();
+	}
+
+	public void reset() {
+		getResponse().reset();
+	}
+
+	public void resetBuffer() {
+		getResponse().resetBuffer();
+	}
+
+	public void setBufferSize(int size) {
+		getResponse().setBufferSize(size);
+	}
+
+	public void setContentType(String type) {
+		getResponse().setContentType(type);
 	}
 
 }

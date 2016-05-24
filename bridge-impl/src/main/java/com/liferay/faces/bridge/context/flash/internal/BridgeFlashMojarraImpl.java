@@ -42,14 +42,8 @@ public class BridgeFlashMojarraImpl extends BridgeFlashBase {
 	}
 
 	@Override
-	public Object put(String key, Object value) {
-
-		mojarraServletDependencyActive = true;
-
-		Object putValue = getWrapped().put(key, value);
-		mojarraServletDependencyActive = false;
-
-		return putValue;
+	public Flash getWrapped() {
+		return wrappedFlash;
 	}
 
 	@Override
@@ -58,7 +52,13 @@ public class BridgeFlashMojarraImpl extends BridgeFlashBase {
 	}
 
 	@Override
-	public Flash getWrapped() {
-		return wrappedFlash;
+	public Object put(String key, Object value) {
+
+		mojarraServletDependencyActive = true;
+
+		Object putValue = getWrapped().put(key, value);
+		mojarraServletDependencyActive = false;
+
+		return putValue;
 	}
 }

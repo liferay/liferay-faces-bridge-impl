@@ -37,24 +37,24 @@ public class ApplicantViewBean implements Serializable {
 	private boolean commentsRendered;
 	private String uploadedFileId;
 
-	public void toggleComments() {
-		commentsRendered = !commentsRendered;
-	}
-
-	public void setCommentsRendered(boolean commentsRendered) {
-		this.commentsRendered = commentsRendered;
+	public String getUploadedFileId() {
+		return uploadedFileId;
 	}
 
 	public boolean isCommentsRendered() {
 		return commentsRendered;
 	}
 
-	public String getUploadedFileId() {
-		return uploadedFileId;
+	public void setCommentsRendered(boolean commentsRendered) {
+		this.commentsRendered = commentsRendered;
 	}
 
 	public void setUploadedFileId(String uploadedFileId) {
 		this.uploadedFileId = uploadedFileId;
+	}
+
+	public void toggleComments() {
+		commentsRendered = !commentsRendered;
 	}
 
 }

@@ -55,6 +55,10 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 		outputOperationList.add(new FlushOperation(wrappedWriter));
 	}
 
+	public Writer getWrapped() {
+		return wrappedWriter;
+	}
+
 	@Override
 	public void render() throws IOException {
 
@@ -98,10 +102,6 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 		if (str != null) {
 			outputOperationList.add(new StrOffLenWriteOperation(wrappedWriter, str, off, len));
 		}
-	}
-
-	public Writer getWrapped() {
-		return wrappedWriter;
 	}
 
 	protected interface OutputOperation {

@@ -48,6 +48,11 @@ public class ExceptionHandlerAjaxImpl extends ExceptionHandlerWrapper {
 	}
 
 	@Override
+	public ExceptionHandler getWrapped() {
+		return wrappedExceptionHandler;
+	}
+
+	@Override
 	public void handle() {
 
 		// Before delegating, log all exceptions to the console.
@@ -84,11 +89,6 @@ public class ExceptionHandlerAjaxImpl extends ExceptionHandlerWrapper {
 
 		// Delegate to the wrapped JSF implementation's ExceptionHandler.
 		super.handle();
-	}
-
-	@Override
-	public ExceptionHandler getWrapped() {
-		return wrappedExceptionHandler;
 	}
 
 }

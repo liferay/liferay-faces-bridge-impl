@@ -122,6 +122,18 @@ public class ApplicantBackingBean implements Serializable {
 		}
 	}
 
+	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
+
+		// Injected via @Inject annotation
+		this.applicantModelBean = applicantModelBean;
+	}
+
+	public void setListModelBean(ListModelBean listModelBean) {
+
+		// Injected via @Inject annotation
+		this.listModelBean = listModelBean;
+	}
+
 	public String submit() {
 
 		if (logger.isDebugEnabled()) {
@@ -167,17 +179,5 @@ public class ApplicantBackingBean implements Serializable {
 
 			return "failure";
 		}
-	}
-
-	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
-
-		// Injected via @Inject annotation
-		this.applicantModelBean = applicantModelBean;
-	}
-
-	public void setListModelBean(ListModelBean listModelBean) {
-
-		// Injected via @Inject annotation
-		this.listModelBean = listModelBean;
 	}
 }

@@ -43,6 +43,10 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 		super(portletConfig, bridgeConfig);
 	}
 
+	public Writer getResponseOutputWriter(ExternalContext externalContext) throws IOException {
+		return externalContext.getResponseOutputWriter();
+	}
+
 	protected void clearHeadManagedBeanResources(FacesContext facesContext) {
 		HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
 
@@ -53,11 +57,6 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 				headResourceIds.clear();
 			}
 		}
-	}
-
-	protected void handleJSF2ResourceRequest(FacesContext facesContext) throws IOException {
-		ResourceHandler resourceHandler = facesContext.getApplication().getResourceHandler();
-		resourceHandler.handleResourceRequest(facesContext);
 	}
 
 	protected Throwable getJSF2HandledException(FacesContext facesContext) {
@@ -105,8 +104,9 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 		return unhandledException;
 	}
 
-	public Writer getResponseOutputWriter(ExternalContext externalContext) throws IOException {
-		return externalContext.getResponseOutputWriter();
+	protected void handleJSF2ResourceRequest(FacesContext facesContext) throws IOException {
+		ResourceHandler resourceHandler = facesContext.getApplication().getResourceHandler();
+		resourceHandler.handleResourceRequest(facesContext);
 	}
 
 	protected boolean isJSF2AjaxRequest(FacesContext facesContext) {

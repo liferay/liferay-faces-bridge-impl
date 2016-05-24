@@ -83,6 +83,12 @@ public class BookingsBackingBean implements Serializable {
 		}
 	}
 
+	public void setBookingsModelBean(BookingsModelBean bookingsModelBean) {
+
+		// Injected via ManagedProperty annotation
+		this.bookingsModelBean = bookingsModelBean;
+	}
+
 	public void submit() {
 		logger.debug("Submitting booking changes.");
 
@@ -90,11 +96,5 @@ public class BookingsBackingBean implements Serializable {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		ActionResponse actionResponse = (ActionResponse) externalContext.getResponse();
 		actionResponse.setEvent(qName, bookingsModelBean.getCustomer());
-	}
-
-	public void setBookingsModelBean(BookingsModelBean bookingsModelBean) {
-
-		// Injected via ManagedProperty annotation
-		this.bookingsModelBean = bookingsModelBean;
 	}
 }

@@ -147,6 +147,35 @@ public class WeldHelperPhaseListener implements PhaseListener {
 		return PhaseId.ANY_PHASE;
 	}
 
+	private static class WeldHelperLifecycle extends Lifecycle {
+
+		@Override
+		public void addPhaseListener(PhaseListener listener) {
+			// no-op
+		}
+
+		@Override
+		public void execute(FacesContext context) throws FacesException {
+			// no-op
+		}
+
+		@Override
+		public PhaseListener[] getPhaseListeners() {
+			return null;
+		}
+
+		@Override
+		public void removePhaseListener(PhaseListener listener) {
+			// no-op
+		}
+
+		@Override
+		public void render(FacesContext context) throws FacesException {
+			// no-op
+		}
+
+	}
+
 	private static class WeldHelperRenderRequest extends CDIRenderRequestImpl {
 
 		public WeldHelperRenderRequest(RenderRequest renderRequest,
@@ -164,34 +193,5 @@ public class WeldHelperPhaseListener implements PhaseListener {
 				return super.getAttribute(name);
 			}
 		}
-	}
-
-	private static class WeldHelperLifecycle extends Lifecycle {
-
-		@Override
-		public void addPhaseListener(PhaseListener listener) {
-			// no-op
-		}
-
-		@Override
-		public void execute(FacesContext context) throws FacesException {
-			// no-op
-		}
-
-		@Override
-		public void removePhaseListener(PhaseListener listener) {
-			// no-op
-		}
-
-		@Override
-		public void render(FacesContext context) throws FacesException {
-			// no-op
-		}
-
-		@Override
-		public PhaseListener[] getPhaseListeners() {
-			return null;
-		}
-
 	}
 }

@@ -225,6 +225,43 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 	}
 
 	@Override
+	public String getFirst(Object key) {
+
+		String firstValue = null;
+
+		if (key != null) {
+
+			String[] values = get(key);
+
+			if (values == null) {
+				values = get(namespace + key);
+			}
+
+			if ((values != null) && (values.length > 0)) {
+				firstValue = values[0];
+			}
+
+			if (firstValue == null) {
+				firstValue = getSpecialParameterValue(key.toString());
+			}
+		}
+
+		logger.trace("{0}=[{1}]", key, firstValue);
+
+		return firstValue;
+	}
+
+	@Override
+	public String getNamespace() {
+		return namespace;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return wrappedParameterMap.isEmpty();
+	}
+
+	@Override
 	public Set<String> keySet() {
 
 		// Note: This can't be cached because the caller basically wants a new enumeration to iterate over each time.
@@ -305,38 +342,6 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 		return wrappedParameterMap.values();
 	}
 
-	@Override
-	public String getFirst(Object key) {
-
-		String firstValue = null;
-
-		if (key != null) {
-
-			String[] values = get(key);
-
-			if (values == null) {
-				values = get(namespace + key);
-			}
-
-			if ((values != null) && (values.length > 0)) {
-				firstValue = values[0];
-			}
-
-			if (firstValue == null) {
-				firstValue = getSpecialParameterValue(key.toString());
-			}
-		}
-
-		logger.trace("{0}=[{1}]", key, firstValue);
-
-		return firstValue;
-	}
-
-	@Override
-	public String getNamespace() {
-		return namespace;
-	}
-
 	protected String getSpecialParameterValue(String parameterName) {
 
 		String specialParameterValue = null;
@@ -377,10 +382,5 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 		}
 
 		return specialParameterValue;
-	}
-
-	@Override
-	public boolean isEmpty() {
-		return wrappedParameterMap.isEmpty();
 	}
 }

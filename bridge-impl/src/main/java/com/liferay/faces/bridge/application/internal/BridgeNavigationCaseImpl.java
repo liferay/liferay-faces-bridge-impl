@@ -38,23 +38,6 @@ public class BridgeNavigationCaseImpl extends NavigationCaseWrapper implements B
 		this.wrappedNavigationCase = navigationCase;
 	}
 
-	protected String getParameter(String parameterName) {
-
-		String parameter = null;
-
-		Map<String, List<String>> parameterMap = getParameters();
-
-		if (parameterMap != null) {
-			List<String> values = parameterMap.get(parameterName);
-
-			if ((values != null) && (values.size() > 0)) {
-				parameter = values.get(0);
-			}
-		}
-
-		return parameter;
-	}
-
 	@Override
 	public Map<String, List<String>> getParameters() {
 
@@ -81,6 +64,23 @@ public class BridgeNavigationCaseImpl extends NavigationCaseWrapper implements B
 	@Override
 	public NavigationCase getWrapped() {
 		return wrappedNavigationCase;
+	}
+
+	protected String getParameter(String parameterName) {
+
+		String parameter = null;
+
+		Map<String, List<String>> parameterMap = getParameters();
+
+		if (parameterMap != null) {
+			List<String> values = parameterMap.get(parameterName);
+
+			if ((values != null) && (values.size() > 0)) {
+				parameter = values.get(0);
+			}
+		}
+
+		return parameter;
 	}
 
 }

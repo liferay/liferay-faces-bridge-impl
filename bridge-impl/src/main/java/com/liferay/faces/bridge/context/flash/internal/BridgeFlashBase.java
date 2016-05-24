@@ -33,6 +33,8 @@ import javax.faces.context.Flash;
  */
 public abstract class BridgeFlashBase extends BridgeFlash {
 
+	public abstract Flash getWrapped();
+
 	public void clear() {
 		getWrapped().clear();
 	}
@@ -63,6 +65,20 @@ public abstract class BridgeFlashBase extends BridgeFlash {
 		return getWrapped().get(key);
 	}
 
+	public boolean isEmpty() {
+		return getWrapped().isEmpty();
+	}
+
+	@Override
+	public boolean isKeepMessages() {
+		return getWrapped().isKeepMessages();
+	}
+
+	@Override
+	public boolean isRedirect() {
+		return getWrapped().isRedirect();
+	}
+
 	@Override
 	public void keep(String key) {
 		getWrapped().keep(key);
@@ -89,14 +105,6 @@ public abstract class BridgeFlashBase extends BridgeFlash {
 		return getWrapped().remove(key);
 	}
 
-	public int size() {
-		return getWrapped().size();
-	}
-
-	public Collection<Object> values() {
-		return getWrapped().values();
-	}
-
 	@Override
 	public void setKeepMessages(boolean newValue) {
 		getWrapped().setKeepMessages(newValue);
@@ -107,19 +115,11 @@ public abstract class BridgeFlashBase extends BridgeFlash {
 		getWrapped().setRedirect(newValue);
 	}
 
-	@Override
-	public boolean isKeepMessages() {
-		return getWrapped().isKeepMessages();
+	public int size() {
+		return getWrapped().size();
 	}
 
-	@Override
-	public boolean isRedirect() {
-		return getWrapped().isRedirect();
-	}
-
-	public abstract Flash getWrapped();
-
-	public boolean isEmpty() {
-		return getWrapped().isEmpty();
+	public Collection<Object> values() {
+		return getWrapped().values();
 	}
 }

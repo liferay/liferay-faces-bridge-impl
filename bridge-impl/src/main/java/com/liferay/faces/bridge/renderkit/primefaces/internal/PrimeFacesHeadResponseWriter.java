@@ -85,6 +85,20 @@ public class PrimeFacesHeadResponseWriter extends ResponseWriter {
 	}
 
 	@Override
+	public String getCharacterEncoding() {
+		return null;
+	}
+
+	@Override
+	public String getContentType() {
+		return null;
+	}
+
+	public List<String> getExternalResourceURLs() {
+		return externalResourceURLs;
+	}
+
+	@Override
 	public void startDocument() throws IOException {
 	}
 
@@ -178,19 +192,5 @@ public class PrimeFacesHeadResponseWriter extends ResponseWriter {
 	@Override
 	public void writeURIAttribute(String name, Object value, String property) throws IOException {
 		writeAttribute(name, value, property);
-	}
-
-	@Override
-	public String getCharacterEncoding() {
-		return null;
-	}
-
-	@Override
-	public String getContentType() {
-		return null;
-	}
-
-	public List<String> getExternalResourceURLs() {
-		return externalResourceURLs;
 	}
 }

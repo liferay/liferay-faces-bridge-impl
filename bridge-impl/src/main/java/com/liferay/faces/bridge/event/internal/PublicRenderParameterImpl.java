@@ -42,29 +42,6 @@ public class PublicRenderParameterImpl extends PublicRenderParameterCompatImpl {
 		super(prefix, originalRequestValue, originalModelEL, portletName);
 	}
 
-	public boolean isModelValueChanged(FacesContext facesContext) {
-
-		if (modelValueChanged == null) {
-
-			String retrievedModelValue = getModelValue(facesContext);
-
-			if ((retrievedModelValue != null) && (originalRequestValue != null)) {
-				modelValueChanged = !retrievedModelValue.equals(originalRequestValue);
-			}
-			else if (retrievedModelValue == null) {
-				modelValueChanged = (originalRequestValue != null);
-			}
-			else if (originalRequestValue == null) {
-				modelValueChanged = (retrievedModelValue != null);
-			}
-			else {
-				modelValueChanged = Boolean.FALSE;
-			}
-		}
-
-		return modelValueChanged;
-	}
-
 	public String getModelValue(FacesContext facesContext) {
 
 		if (!modelValueRetrieved) {
@@ -99,5 +76,28 @@ public class PublicRenderParameterImpl extends PublicRenderParameterCompatImpl {
 
 	public boolean isForThisPortlet() {
 		return forThisPortlet;
+	}
+
+	public boolean isModelValueChanged(FacesContext facesContext) {
+
+		if (modelValueChanged == null) {
+
+			String retrievedModelValue = getModelValue(facesContext);
+
+			if ((retrievedModelValue != null) && (originalRequestValue != null)) {
+				modelValueChanged = !retrievedModelValue.equals(originalRequestValue);
+			}
+			else if (retrievedModelValue == null) {
+				modelValueChanged = (originalRequestValue != null);
+			}
+			else if (originalRequestValue == null) {
+				modelValueChanged = (retrievedModelValue != null);
+			}
+			else {
+				modelValueChanged = Boolean.FALSE;
+			}
+		}
+
+		return modelValueChanged;
 	}
 }

@@ -39,10 +39,10 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeException;
 
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandler;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandlerImpl;
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.internal.RenderRedirectWriter;
 import com.liferay.faces.bridge.event.internal.IPCPhaseListener;
@@ -284,6 +284,20 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 		}
 	}
 
+	protected BridgeNavigationHandler getBridgeNavigationHandler(FacesContext facesContext) {
+		BridgeNavigationHandler bridgeNavigationHandler;
+		NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
+
+		if (navigationHandler instanceof BridgeNavigationHandler) {
+			bridgeNavigationHandler = (BridgeNavigationHandler) navigationHandler;
+		}
+		else {
+			bridgeNavigationHandler = new BridgeNavigationHandlerImpl(navigationHandler);
+		}
+
+		return bridgeNavigationHandler;
+	}
+
 	@Override
 	protected void initBridgeRequestScope(PortletRequest portletRequest, PortletResponse portletResponse,
 		PortletPhase portletPhase) {
@@ -306,20 +320,6 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 				(bridgeRequestScope.getBeganInPhase() == Bridge.PortletPhase.ACTION_PHASE)) {
 			bridgeRequestScope.removeExcludedAttributes(renderRequest);
 		}
-	}
-
-	protected BridgeNavigationHandler getBridgeNavigationHandler(FacesContext facesContext) {
-		BridgeNavigationHandler bridgeNavigationHandler;
-		NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-
-		if (navigationHandler instanceof BridgeNavigationHandler) {
-			bridgeNavigationHandler = (BridgeNavigationHandler) navigationHandler;
-		}
-		else {
-			bridgeNavigationHandler = new BridgeNavigationHandlerImpl(navigationHandler);
-		}
-
-		return bridgeNavigationHandler;
 	}
 
 	/**

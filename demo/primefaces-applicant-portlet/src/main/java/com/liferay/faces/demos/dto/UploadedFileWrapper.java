@@ -69,12 +69,6 @@ public class UploadedFileWrapper implements Serializable, UploadedFile,
 		}
 	}
 
-	public void write(String fileName) throws IOException {
-		OutputStream outputStream = new FileOutputStream(fileName);
-		outputStream.write(getBytes());
-		outputStream.close();
-	}
-
 	public String getAbsolutePath() {
 		String absolutePath = null;
 
@@ -109,42 +103,6 @@ public class UploadedFileWrapper implements Serializable, UploadedFile,
 
 	public String getContentType() {
 		return wrappedUploadedFile.getContentType();
-	}
-
-	/**
-	 * Since the PrimeFaces UploadedFile interface does not provide a method for deleting the file, Liferay Faces Bridge
-	 * automatically deletes it when the wrappedUploadedFile.getContents() method is called. For more information, see
-	 * {@link com.liferay.faces.bridge.renderkit.primefaces.FileUploadRendererPrimeFacesImpl.PrimeFacesFileItem#get()}
-	 * and {@link
-	 * com.liferay.faces.bridge.renderkit.primefaces.FileUploadRendererPrimeFacesImpl.UploadedFileInputStream#close()}.
-	 */
-	protected File getFile(String uniqueFolderName) {
-
-		File file = null;
-
-		try {
-			File tempFolder = new File(System.getProperty("java.io.tmpdir"));
-			File uniqueFolder = new File(tempFolder, uniqueFolderName);
-
-			if (!uniqueFolder.exists()) {
-				uniqueFolder.mkdirs();
-			}
-
-			String fileNamePrefix = "uploadedFile" + getId();
-			String fileNameSuffix = ".dat";
-			file = File.createTempFile(fileNamePrefix, fileNameSuffix, uniqueFolder);
-
-			OutputStream outputStream = new FileOutputStream(file);
-			outputStream.write(wrappedUploadedFile.getContents());
-			outputStream.close();
-
-			// Temporary file maintained by PrimeFaces is automatically deleted. See JavaDoc comments above.
-		}
-		catch (Exception e) {
-			logger.error(e);
-		}
-
-		return file;
 	}
 
 	public String getHeader(String name) {
@@ -185,5 +143,47 @@ public class UploadedFileWrapper implements Serializable, UploadedFile,
 
 	public org.primefaces.model.UploadedFile getWrapped() {
 		return wrappedUploadedFile;
+	}
+
+	public void write(String fileName) throws IOException {
+		OutputStream outputStream = new FileOutputStream(fileName);
+		outputStream.write(getBytes());
+		outputStream.close();
+	}
+
+	/**
+	 * Since the PrimeFaces UploadedFile interface does not provide a method for deleting the file, Liferay Faces Bridge
+	 * automatically deletes it when the wrappedUploadedFile.getContents() method is called. For more information, see
+	 * {@link com.liferay.faces.bridge.renderkit.primefaces.FileUploadRendererPrimeFacesImpl.PrimeFacesFileItem#get()}
+	 * and {@link
+	 * com.liferay.faces.bridge.renderkit.primefaces.FileUploadRendererPrimeFacesImpl.UploadedFileInputStream#close()}.
+	 */
+	protected File getFile(String uniqueFolderName) {
+
+		File file = null;
+
+		try {
+			File tempFolder = new File(System.getProperty("java.io.tmpdir"));
+			File uniqueFolder = new File(tempFolder, uniqueFolderName);
+
+			if (!uniqueFolder.exists()) {
+				uniqueFolder.mkdirs();
+			}
+
+			String fileNamePrefix = "uploadedFile" + getId();
+			String fileNameSuffix = ".dat";
+			file = File.createTempFile(fileNamePrefix, fileNameSuffix, uniqueFolder);
+
+			OutputStream outputStream = new FileOutputStream(file);
+			outputStream.write(wrappedUploadedFile.getContents());
+			outputStream.close();
+
+			// Temporary file maintained by PrimeFaces is automatically deleted. See JavaDoc comments above.
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
+
+		return file;
 	}
 }

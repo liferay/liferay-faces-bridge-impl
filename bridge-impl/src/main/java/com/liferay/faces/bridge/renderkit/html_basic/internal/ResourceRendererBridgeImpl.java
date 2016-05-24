@@ -91,6 +91,16 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 		}
 	}
 
+	@Override
+	public Renderer getWrapped() {
+		return wrappedRenderer;
+	}
+
+	@Override
+	public boolean isTransient() {
+		return transientFlag;
+	}
+
 	/**
 	 * Since the Mojarra {@link com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer} class implements {@link
 	 * ComponentSystemEventListener}, this class must implement that interface too, since this is a wrapper type of
@@ -136,17 +146,7 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 	}
 
 	@Override
-	public boolean isTransient() {
-		return transientFlag;
-	}
-
-	@Override
 	public void setTransient(boolean newTransientValue) {
 		this.transientFlag = newTransientValue;
-	}
-
-	@Override
-	public Renderer getWrapped() {
-		return wrappedRenderer;
 	}
 }

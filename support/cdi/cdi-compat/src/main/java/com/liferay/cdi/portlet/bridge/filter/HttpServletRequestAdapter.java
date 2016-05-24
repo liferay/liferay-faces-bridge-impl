@@ -53,18 +53,8 @@ public class HttpServletRequestAdapter extends PortletRequestWrapper implements 
 	}
 
 	@Override
-	public void removeAttribute(String name) {
-		getWrapped().removeAttribute(name);
-	}
-
-	@Override
 	public Object getAttribute(String name) {
 		return getWrapped().getAttribute(name);
-	}
-
-	@Override
-	public void setAttribute(String name, Object value) {
-		getWrapped().setAttribute(name, value);
 	}
 
 	@Override
@@ -92,19 +82,6 @@ public class HttpServletRequestAdapter extends PortletRequestWrapper implements 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			return facesContext.getExternalContext().getRequestCharacterEncoding();
-		}
-	}
-
-	public void setCharacterEncoding(String enc) throws UnsupportedEncodingException {
-		PortletRequest portletRequest = getWrapped();
-
-		if (portletRequest instanceof ClientDataRequest) {
-			ClientDataRequest clientDataRequest = (ClientDataRequest) portletRequest;
-
-			clientDataRequest.setCharacterEncoding(enc);
-		}
-		else {
-			throw new UnsupportedOperationException();
 		}
 	}
 
@@ -146,27 +123,8 @@ public class HttpServletRequestAdapter extends PortletRequestWrapper implements 
 		return getWrapped().getCookies();
 	}
 
-	@Override
-	public boolean isRequestedSessionIdValid() {
-		return getWrapped().isRequestedSessionIdValid();
-	}
-
 	public long getDateHeader(String name) {
 		throw new UnsupportedOperationException();
-	}
-
-	public boolean isRequestedSessionIdFromCookie() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean isSecure() {
-		return getWrapped().isSecure();
-	}
-
-	@Override
-	public boolean isUserInRole(String role) {
-		return getWrapped().isUserInRole(role);
 	}
 
 	public String getHeader(String name) {
@@ -186,14 +144,6 @@ public class HttpServletRequestAdapter extends PortletRequestWrapper implements 
 	}
 
 	public int getIntHeader(String arg0) {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean isRequestedSessionIdFromURL() {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean isRequestedSessionIdFromUrl() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -355,5 +305,55 @@ public class HttpServletRequestAdapter extends PortletRequestWrapper implements 
 
 	public PortletRequest getWrapped() {
 		return wrappedPortletRequest;
+	}
+
+	public boolean isRequestedSessionIdFromCookie() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isRequestedSessionIdFromURL() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isRequestedSessionIdFromUrl() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean isRequestedSessionIdValid() {
+		return getWrapped().isRequestedSessionIdValid();
+	}
+
+	@Override
+	public boolean isSecure() {
+		return getWrapped().isSecure();
+	}
+
+	@Override
+	public boolean isUserInRole(String role) {
+		return getWrapped().isUserInRole(role);
+	}
+
+	@Override
+	public void removeAttribute(String name) {
+		getWrapped().removeAttribute(name);
+	}
+
+	@Override
+	public void setAttribute(String name, Object value) {
+		getWrapped().setAttribute(name, value);
+	}
+
+	public void setCharacterEncoding(String enc) throws UnsupportedEncodingException {
+		PortletRequest portletRequest = getWrapped();
+
+		if (portletRequest instanceof ClientDataRequest) {
+			ClientDataRequest clientDataRequest = (ClientDataRequest) portletRequest;
+
+			clientDataRequest.setCharacterEncoding(enc);
+		}
+		else {
+			throw new UnsupportedOperationException();
+		}
 	}
 }

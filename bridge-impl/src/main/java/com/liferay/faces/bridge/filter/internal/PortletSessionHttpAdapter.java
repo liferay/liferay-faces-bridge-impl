@@ -41,31 +41,6 @@ public class PortletSessionHttpAdapter implements PortletSession, HttpSession {
 	}
 
 	@Override
-	public void invalidate() {
-		wrappedPortletSession.invalidate();
-	}
-
-	@Override
-	public void putValue(String name, Object value) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void removeAttribute(String name) {
-		wrappedPortletSession.removeAttribute(name);
-	}
-
-	@Override
-	public void removeAttribute(String name, int scope) {
-		wrappedPortletSession.removeAttribute(name, scope);
-	}
-
-	@Override
-	public void removeValue(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public Object getAttribute(String name) {
 		return wrappedPortletSession.getAttribute(name);
 	}
@@ -73,16 +48,6 @@ public class PortletSessionHttpAdapter implements PortletSession, HttpSession {
 	@Override
 	public Object getAttribute(String name, int scope) {
 		return wrappedPortletSession.getAttribute(name, scope);
-	}
-
-	@Override
-	public void setAttribute(String name, Object value) {
-		wrappedPortletSession.setAttribute(name, value);
-	}
-
-	@Override
-	public void setAttribute(String name, Object value, int scope) {
-		wrappedPortletSession.setAttribute(name, value, scope);
 	}
 
 	@Override
@@ -126,11 +91,6 @@ public class PortletSessionHttpAdapter implements PortletSession, HttpSession {
 	}
 
 	@Override
-	public void setMaxInactiveInterval(int interval) {
-		wrappedPortletSession.setMaxInactiveInterval(interval);
-	}
-
-	@Override
 	public PortletContext getPortletContext() {
 		return wrappedPortletSession.getPortletContext();
 	}
@@ -156,7 +116,47 @@ public class PortletSessionHttpAdapter implements PortletSession, HttpSession {
 	}
 
 	@Override
+	public void invalidate() {
+		wrappedPortletSession.invalidate();
+	}
+
+	@Override
 	public boolean isNew() {
 		return wrappedPortletSession.isNew();
+	}
+
+	@Override
+	public void putValue(String name, Object value) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void removeAttribute(String name) {
+		wrappedPortletSession.removeAttribute(name);
+	}
+
+	@Override
+	public void removeAttribute(String name, int scope) {
+		wrappedPortletSession.removeAttribute(name, scope);
+	}
+
+	@Override
+	public void removeValue(String name) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setAttribute(String name, Object value) {
+		wrappedPortletSession.setAttribute(name, value);
+	}
+
+	@Override
+	public void setAttribute(String name, Object value, int scope) {
+		wrappedPortletSession.setAttribute(name, value, scope);
+	}
+
+	@Override
+	public void setMaxInactiveInterval(int interval) {
+		wrappedPortletSession.setMaxInactiveInterval(interval);
 	}
 }

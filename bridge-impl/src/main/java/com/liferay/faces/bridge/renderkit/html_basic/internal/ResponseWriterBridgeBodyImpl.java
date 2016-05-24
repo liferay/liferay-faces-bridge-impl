@@ -55,6 +55,11 @@ public class ResponseWriterBridgeBodyImpl extends ResponseWriterWrapper {
 	}
 
 	@Override
+	public ResponseWriter getWrapped() {
+		return wrapppedResponseWriter;
+	}
+
+	@Override
 	public void startElement(String name, UIComponent component) throws IOException {
 
 		// It is forbidden for a portlet to render the <body> element, so instead, render a <div> element.
@@ -87,10 +92,5 @@ public class ResponseWriterBridgeBodyImpl extends ResponseWriterWrapper {
 		else {
 			super.writeAttribute(name, value, property);
 		}
-	}
-
-	@Override
-	public ResponseWriter getWrapped() {
-		return wrapppedResponseWriter;
 	}
 }

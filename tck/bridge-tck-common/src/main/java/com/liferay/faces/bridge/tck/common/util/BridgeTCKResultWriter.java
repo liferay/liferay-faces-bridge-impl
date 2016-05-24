@@ -82,17 +82,6 @@ public class BridgeTCKResultWriter {
 	}
 
 	/**
-	 * Returns the string to be embedded in the Http Response.
-	 */
-
-	public String toString() {
-		mDetailTag.appendTagContent(LINE_BREAK);
-
-		return "Test: " + mTestNameTag.toString() + LINE_BREAK + "Status: " + mStatusTag.toString() + LINE_BREAK +
-			"Detail: " + mDetailTag.toString();
-	}
-
-	/**
 	 * Let's the tests add details about the test run.
 	 *
 	 * @param  detailLine  line containing detail information about the test run.
@@ -108,6 +97,17 @@ public class BridgeTCKResultWriter {
 	 */
 	public void setStatus(boolean status) {
 		mStatusTag.setTagContent(getStatusString(status));
+	}
+
+	/**
+	 * Returns the string to be embedded in the Http Response.
+	 */
+
+	public String toString() {
+		mDetailTag.appendTagContent(LINE_BREAK);
+
+		return "Test: " + mTestNameTag.toString() + LINE_BREAK + "Status: " + mStatusTag.toString() + LINE_BREAK +
+			"Detail: " + mDetailTag.toString();
 	}
 
 	/**

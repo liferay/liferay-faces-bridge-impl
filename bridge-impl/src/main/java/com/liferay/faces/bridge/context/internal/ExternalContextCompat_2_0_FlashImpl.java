@@ -40,22 +40,6 @@ public abstract class ExternalContextCompat_2_0_FlashImpl extends ExternalContex
 		super(portletContext, portletRequest, portletResponse);
 	}
 
-	protected HttpServletResponse createFlashHttpServletResponse() {
-		return new FlashHttpServletResponse(portletResponse, getRequestLocale());
-	}
-
-	protected boolean isBridgeFlashServletResponseRequired() {
-
-		if ((flash != null) && (flash instanceof BridgeFlash)) {
-			BridgeFlash bridgeFlash = (BridgeFlash) flash;
-
-			return bridgeFlash.isServletResponseRequired();
-		}
-		else {
-			return false;
-		}
-	}
-
 	/**
 	 * @see    {@link ExternalContext#getFlash()}
 	 * @since  JSF 2.0
@@ -78,6 +62,22 @@ public abstract class ExternalContextCompat_2_0_FlashImpl extends ExternalContex
 	// https://issues.apache.org/jira/browse/PORTLETBRIDGE-207
 	public void setFlash(Flash flash) {
 		this.flash = flash;
+	}
+
+	protected HttpServletResponse createFlashHttpServletResponse() {
+		return new FlashHttpServletResponse(portletResponse, getRequestLocale());
+	}
+
+	protected boolean isBridgeFlashServletResponseRequired() {
+
+		if ((flash != null) && (flash instanceof BridgeFlash)) {
+			BridgeFlash bridgeFlash = (BridgeFlash) flash;
+
+			return bridgeFlash.isServletResponseRequired();
+		}
+		else {
+			return false;
+		}
 	}
 
 }

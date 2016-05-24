@@ -111,6 +111,10 @@ public class RequestCookieMap implements Map<String, Object> {
 		return value;
 	}
 
+	public boolean isEmpty() {
+		return ((cookies == null) || (cookies.length == 0));
+	}
+
 	public Set<String> keySet() {
 		Set<String> keySet = null;
 
@@ -160,9 +164,5 @@ public class RequestCookieMap implements Map<String, Object> {
 		}
 
 		return values;
-	}
-
-	public boolean isEmpty() {
-		return ((cookies == null) || (cookies.length == 0));
 	}
 }

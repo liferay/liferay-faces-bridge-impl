@@ -38,27 +38,6 @@ public class IsPreserveActionParametersMethodTestPortlet extends GenericFacesTes
 	private static String TEST_PASS_PREFIX = "test.pass.";
 	private static String IS_PRESERVE_ACTION_PARAMS_INIT_PARAM = "javax.portlet.faces.preserveActionParams";
 
-	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
-		response.setContentType("text/html");
-
-		PrintWriter out = response.getWriter();
-
-		boolean pass = getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()) == null;
-
-		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
-
-		if (pass) {
-			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
-			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()));
-		}
-		else {
-			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
-			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
-		}
-
-		out.println(resultWriter.toString());
-	}
-
 	public boolean isPreserveActionParameters() {
 		boolean returnBoolean = super.isPreserveActionParameters();
 
@@ -87,5 +66,26 @@ public class IsPreserveActionParametersMethodTestPortlet extends GenericFacesTes
 		}
 
 		return returnBoolean;
+	}
+
+	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
+		response.setContentType("text/html");
+
+		PrintWriter out = response.getWriter();
+
+		boolean pass = getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()) == null;
+
+		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
+
+		if (pass) {
+			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
+			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()));
+		}
+		else {
+			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
+			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
+		}
+
+		out.println(resultWriter.toString());
 	}
 }

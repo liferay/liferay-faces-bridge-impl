@@ -69,6 +69,25 @@ public class BridgeFlashFallbackImpl extends BridgeFlash {
 		return hashMap.get(key);
 	}
 
+	public boolean isEmpty() {
+		return hashMap.isEmpty();
+	}
+
+	@Override
+	public boolean isKeepMessages() {
+		return keepMessages;
+	}
+
+	@Override
+	public boolean isRedirect() {
+		return redirect;
+	}
+
+	@Override
+	public boolean isServletResponseRequired() {
+		return false;
+	}
+
 	@Override
 	public void keep(String key) {
 		// TODO Auto-generated method stub
@@ -95,19 +114,6 @@ public class BridgeFlashFallbackImpl extends BridgeFlash {
 		return hashMap.remove(key);
 	}
 
-	public int size() {
-		return hashMap.size();
-	}
-
-	public Collection<Object> values() {
-		return hashMap.values();
-	}
-
-	@Override
-	public boolean isServletResponseRequired() {
-		return false;
-	}
-
 	@Override
 	public void setKeepMessages(boolean newValue) {
 		this.keepMessages = newValue;
@@ -118,17 +124,11 @@ public class BridgeFlashFallbackImpl extends BridgeFlash {
 		this.redirect = newValue;
 	}
 
-	@Override
-	public boolean isKeepMessages() {
-		return keepMessages;
+	public int size() {
+		return hashMap.size();
 	}
 
-	@Override
-	public boolean isRedirect() {
-		return redirect;
-	}
-
-	public boolean isEmpty() {
-		return hashMap.isEmpty();
+	public Collection<Object> values() {
+		return hashMap.values();
 	}
 }

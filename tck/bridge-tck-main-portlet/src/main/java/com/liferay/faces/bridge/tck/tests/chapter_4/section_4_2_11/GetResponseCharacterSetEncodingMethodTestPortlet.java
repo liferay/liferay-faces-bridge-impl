@@ -36,6 +36,21 @@ public class GetResponseCharacterSetEncodingMethodTestPortlet extends GenericFac
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";
 
+	public String getResponseCharacterSetEncoding(PortletRequest request) {
+		String returnEncoding = super.getResponseCharacterSetEncoding(request);
+
+		if (returnEncoding == null) {
+			getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(),
+				"getResponseCharacterSetEncoding correctly returned null.");
+		}
+		else {
+			getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName(),
+				"getResponseCharacterSetEncoding returned: " + returnEncoding + " but it should have returned null.");
+		}
+
+		return returnEncoding;
+	}
+
 	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 
 		// Call the method thereby running the test
@@ -57,20 +72,5 @@ public class GetResponseCharacterSetEncodingMethodTestPortlet extends GenericFac
 		}
 
 		out.println(resultWriter.toString());
-	}
-
-	public String getResponseCharacterSetEncoding(PortletRequest request) {
-		String returnEncoding = super.getResponseCharacterSetEncoding(request);
-
-		if (returnEncoding == null) {
-			getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(),
-				"getResponseCharacterSetEncoding correctly returned null.");
-		}
-		else {
-			getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName(),
-				"getResponseCharacterSetEncoding returned: " + returnEncoding + " but it should have returned null.");
-		}
-
-		return returnEncoding;
 	}
 }

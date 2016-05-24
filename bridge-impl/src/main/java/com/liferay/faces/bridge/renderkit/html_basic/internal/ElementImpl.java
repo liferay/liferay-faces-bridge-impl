@@ -60,6 +60,110 @@ public class ElementImpl implements Element {
 		return 0;
 	}
 
+	public String getAttribute(String name) {
+		return null;
+	}
+
+	public Attr getAttributeNode(String name) {
+		return null;
+	}
+
+	public Attr getAttributeNodeNS(String namespaceURI, String localName) throws DOMException {
+		return null;
+	}
+
+	public String getAttributeNS(String namespaceURI, String localName) throws DOMException {
+		return null;
+	}
+
+	public NamedNodeMap getAttributes() {
+		return null;
+	}
+
+	public String getBaseURI() {
+		return null;
+	}
+
+	public NodeList getChildNodes() {
+		return null;
+	}
+
+	public NodeList getElementsByTagName(String name) {
+		return null;
+	}
+
+	public NodeList getElementsByTagNameNS(String namespaceURI, String localName) throws DOMException {
+		return null;
+	}
+
+	public Object getFeature(String feature, String version) {
+		return null;
+	}
+
+	public Node getFirstChild() {
+		return null;
+	}
+
+	public Node getLastChild() {
+		return null;
+	}
+
+	public String getLocalName() {
+		return null;
+	}
+
+	public String getNamespaceURI() {
+		return null;
+	}
+
+	public Node getNextSibling() {
+		return null;
+	}
+
+	public String getNodeName() {
+		return nodeName;
+	}
+
+	public short getNodeType() {
+		return nodeType;
+	}
+
+	public String getNodeValue() throws DOMException {
+		return nodeValue;
+	}
+
+	public Document getOwnerDocument() {
+		return null;
+	}
+
+	public Node getParentNode() {
+		return null;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public Node getPreviousSibling() {
+		return null;
+	}
+
+	public TypeInfo getSchemaTypeInfo() {
+		return null;
+	}
+
+	public String getTagName() {
+		return null;
+	}
+
+	public String getTextContent() throws DOMException {
+		return textContent;
+	}
+
+	public Object getUserData(String key) {
+		return null;
+	}
+
 	public boolean hasAttribute(String name) {
 		return false;
 	}
@@ -78,6 +182,22 @@ public class ElementImpl implements Element {
 
 	public Node insertBefore(Node newChild, Node refChild) throws DOMException {
 		return null;
+	}
+
+	public boolean isDefaultNamespace(String namespaceURI) {
+		return false;
+	}
+
+	public boolean isEqualNode(Node arg) {
+		return false;
+	}
+
+	public boolean isSameNode(Node other) {
+		return false;
+	}
+
+	public boolean isSupported(String feature, String version) {
+		return false;
 	}
 
 	public String lookupNamespaceURI(String prefix) {
@@ -108,6 +228,49 @@ public class ElementImpl implements Element {
 	}
 
 	public Node replaceChild(Node newChild, Node oldChild) throws DOMException {
+		return null;
+	}
+
+	public void setAttribute(String name, String value) throws DOMException {
+		attributes.put(name, value);
+	}
+
+	public Attr setAttributeNode(Attr newAttr) throws DOMException {
+		return null;
+	}
+
+	public Attr setAttributeNodeNS(Attr newAttr) throws DOMException {
+		return null;
+	}
+
+	public void setAttributeNS(String namespaceURI, String qualifiedName, String value) throws DOMException {
+	}
+
+	public void setIdAttribute(String name, boolean isId) throws DOMException {
+		// no-op
+	}
+
+	public void setIdAttributeNode(Attr idAttr, boolean isId) throws DOMException {
+		// no-op
+	}
+
+	public void setIdAttributeNS(String namespaceURI, String localName, boolean isId) throws DOMException {
+		// no-op
+	}
+
+	public void setNodeValue(String nodeValue) throws DOMException {
+		this.nodeValue = nodeValue;
+	}
+
+	public void setPrefix(String prefix) throws DOMException {
+		this.prefix = prefix;
+	}
+
+	public void setTextContent(String textContent) throws DOMException {
+		this.textContent = textContent;
+	}
+
+	public Object setUserData(String key, Object data, UserDataHandler handler) {
 		return null;
 	}
 
@@ -149,169 +312,6 @@ public class ElementImpl implements Element {
 		}
 
 		return buf.toString();
-	}
-
-	public String getAttribute(String name) {
-		return null;
-	}
-
-	public void setAttribute(String name, String value) throws DOMException {
-		attributes.put(name, value);
-	}
-
-	public Attr getAttributeNode(String name) {
-		return null;
-	}
-
-	public Attr setAttributeNode(Attr newAttr) throws DOMException {
-		return null;
-	}
-
-	public Attr getAttributeNodeNS(String namespaceURI, String localName) throws DOMException {
-		return null;
-	}
-
-	public Attr setAttributeNodeNS(Attr newAttr) throws DOMException {
-		return null;
-	}
-
-	public String getAttributeNS(String namespaceURI, String localName) throws DOMException {
-		return null;
-	}
-
-	public void setAttributeNS(String namespaceURI, String qualifiedName, String value) throws DOMException {
-	}
-
-	public NamedNodeMap getAttributes() {
-		return null;
-	}
-
-	public String getBaseURI() {
-		return null;
-	}
-
-	public NodeList getChildNodes() {
-		return null;
-	}
-
-	public boolean isSupported(String feature, String version) {
-		return false;
-	}
-
-	public boolean isDefaultNamespace(String namespaceURI) {
-		return false;
-	}
-
-	public boolean isEqualNode(Node arg) {
-		return false;
-	}
-
-	public boolean isSameNode(Node other) {
-		return false;
-	}
-
-	public NodeList getElementsByTagName(String name) {
-		return null;
-	}
-
-	public NodeList getElementsByTagNameNS(String namespaceURI, String localName) throws DOMException {
-		return null;
-	}
-
-	public Object getFeature(String feature, String version) {
-		return null;
-	}
-
-	public Node getFirstChild() {
-		return null;
-	}
-
-	public void setIdAttribute(String name, boolean isId) throws DOMException {
-		// no-op
-	}
-
-	public void setIdAttributeNode(Attr idAttr, boolean isId) throws DOMException {
-		// no-op
-	}
-
-	public void setIdAttributeNS(String namespaceURI, String localName, boolean isId) throws DOMException {
-		// no-op
-	}
-
-	public Node getLastChild() {
-		return null;
-	}
-
-	public String getLocalName() {
-		return null;
-	}
-
-	public String getNamespaceURI() {
-		return null;
-	}
-
-	public Node getNextSibling() {
-		return null;
-	}
-
-	public String getNodeName() {
-		return nodeName;
-	}
-
-	public short getNodeType() {
-		return nodeType;
-	}
-
-	public String getNodeValue() throws DOMException {
-		return nodeValue;
-	}
-
-	public void setNodeValue(String nodeValue) throws DOMException {
-		this.nodeValue = nodeValue;
-	}
-
-	public Document getOwnerDocument() {
-		return null;
-	}
-
-	public Node getParentNode() {
-		return null;
-	}
-
-	public String getPrefix() {
-		return prefix;
-	}
-
-	public void setPrefix(String prefix) throws DOMException {
-		this.prefix = prefix;
-	}
-
-	public Node getPreviousSibling() {
-		return null;
-	}
-
-	public TypeInfo getSchemaTypeInfo() {
-		return null;
-	}
-
-	public String getTagName() {
-		return null;
-	}
-
-	public String getTextContent() throws DOMException {
-		return textContent;
-	}
-
-	public void setTextContent(String textContent) throws DOMException {
-		this.textContent = textContent;
-	}
-
-	public Object getUserData(String key) {
-		return null;
-	}
-
-	public Object setUserData(String key, Object data, UserDataHandler handler) {
-		return null;
 	}
 
 }

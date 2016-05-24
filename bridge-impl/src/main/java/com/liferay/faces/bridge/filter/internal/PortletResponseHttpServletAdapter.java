@@ -117,6 +117,105 @@ public class PortletResponseHttpServletAdapter extends PortletResponseWrapper im
 	}
 
 	/**
+	 * See {@link HttpServletResponse#getBufferSize()}
+	 */
+	public int getBufferSize() {
+
+		PortletResponse portletResponse = getResponse();
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getBufferSize();
+		}
+		else {
+			throw new UnsupportedOperationException();
+		}
+	}
+
+	/**
+	 * See {@link HttpServletResponse#getCharacterEncoding()}
+	 */
+	public String getCharacterEncoding() {
+
+		PortletResponse portletResponse = getResponse();
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getCharacterEncoding();
+		}
+		else {
+			throw new UnsupportedOperationException();
+		}
+	}
+
+	/**
+	 * See {@link HttpServletResponse#getContentType()}
+	 */
+	public String getContentType() {
+
+		PortletResponse portletResponse = getResponse();
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getContentType();
+		}
+		else {
+			throw new UnsupportedOperationException();
+		}
+	}
+
+	/**
+	 * See {@link HttpServletResponse#getLocale()}
+	 */
+	public Locale getLocale() {
+		return locale;
+	}
+
+	/**
+	 * See {@link HttpServletResponse#getOutputStream()}
+	 */
+	public ServletOutputStream getOutputStream() throws IOException {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * See {@link HttpServletResponse#getWriter()}
+	 */
+	public PrintWriter getWriter() throws IOException {
+
+		PortletResponse portletResponse = getResponse();
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.getWriter();
+		}
+		else {
+			throw new UnsupportedOperationException();
+		}
+	}
+
+	/**
+	 * See {@link HttpServletResponse#isCommitted()}
+	 */
+	public boolean isCommitted() {
+
+		PortletResponse portletResponse = getResponse();
+
+		if (portletResponse instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) portletResponse;
+
+			return mimeResponse.isCommitted();
+		}
+		else {
+			throw new UnsupportedOperationException();
+		}
+	}
+
+	/**
 	 * See {@link HttpServletResponse#reset()}
 	 */
 	public void reset() {
@@ -170,44 +269,10 @@ public class PortletResponseHttpServletAdapter extends PortletResponseWrapper im
 	}
 
 	/**
-	 * See {@link HttpServletResponse#getBufferSize()}
-	 */
-	public int getBufferSize() {
-
-		PortletResponse portletResponse = getResponse();
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getBufferSize();
-		}
-		else {
-			throw new UnsupportedOperationException();
-		}
-	}
-
-	/**
 	 * See {@link HttpServletResponse#setBufferSize(int)}
 	 */
 	public void setBufferSize(int size) {
 		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * See {@link HttpServletResponse#getCharacterEncoding()}
-	 */
-	public String getCharacterEncoding() {
-
-		PortletResponse portletResponse = getResponse();
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getCharacterEncoding();
-		}
-		else {
-			throw new UnsupportedOperationException();
-		}
 	}
 
 	/**
@@ -225,23 +290,6 @@ public class PortletResponseHttpServletAdapter extends PortletResponseWrapper im
 	}
 
 	/**
-	 * See {@link HttpServletResponse#getContentType()}
-	 */
-	public String getContentType() {
-
-		PortletResponse portletResponse = getResponse();
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getContentType();
-		}
-		else {
-			throw new UnsupportedOperationException();
-		}
-	}
-
-	/**
 	 * See {@link HttpServletResponse#setContentType(String)}
 	 */
 	public void setContentType(String type) {
@@ -252,23 +300,6 @@ public class PortletResponseHttpServletAdapter extends PortletResponseWrapper im
 
 			MimeResponse mimeResponse = (MimeResponse) portletResponse;
 			mimeResponse.setContentType(type);
-		}
-		else {
-			throw new UnsupportedOperationException();
-		}
-	}
-
-	/**
-	 * See {@link HttpServletResponse#isCommitted()}
-	 */
-	public boolean isCommitted() {
-
-		PortletResponse portletResponse = getResponse();
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.isCommitted();
 		}
 		else {
 			throw new UnsupportedOperationException();
@@ -297,13 +328,6 @@ public class PortletResponseHttpServletAdapter extends PortletResponseWrapper im
 	}
 
 	/**
-	 * See {@link HttpServletResponse#getLocale()}
-	 */
-	public Locale getLocale() {
-		return locale;
-	}
-
-	/**
 	 * See {@link HttpServletResponse#setLocale(Locale)}
 	 */
 	public void setLocale(Locale loc) {
@@ -321,13 +345,6 @@ public class PortletResponseHttpServletAdapter extends PortletResponseWrapper im
 	}
 
 	/**
-	 * See {@link HttpServletResponse#getOutputStream()}
-	 */
-	public ServletOutputStream getOutputStream() throws IOException {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
 	 * See {@link HttpServletResponse#setStatus(int)}
 	 */
 	public void setStatus(int sc) {
@@ -339,22 +356,5 @@ public class PortletResponseHttpServletAdapter extends PortletResponseWrapper im
 	 */
 	public void setStatus(int sc, String sm) {
 		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * See {@link HttpServletResponse#getWriter()}
-	 */
-	public PrintWriter getWriter() throws IOException {
-
-		PortletResponse portletResponse = getResponse();
-
-		if (portletResponse instanceof MimeResponse) {
-			MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-			return mimeResponse.getWriter();
-		}
-		else {
-			throw new UnsupportedOperationException();
-		}
 	}
 }

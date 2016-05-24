@@ -42,14 +42,6 @@ public class ApplicantViewBean implements Serializable {
 		fileUploaderRendered = true;
 	}
 
-	public void toggleComments() {
-		commentsRendered = !commentsRendered;
-	}
-
-	public void setCommentsRendered(boolean commentsRendered) {
-		this.commentsRendered = commentsRendered;
-	}
-
 	public boolean isCommentsRendered() {
 		return commentsRendered;
 	}
@@ -58,7 +50,15 @@ public class ApplicantViewBean implements Serializable {
 		return fileUploaderRendered;
 	}
 
+	public void setCommentsRendered(boolean commentsRendered) {
+		this.commentsRendered = commentsRendered;
+	}
+
 	public void setFileUploaderRendered(boolean fileUploaderRendered) {
 		this.fileUploaderRendered = fileUploaderRendered;
+	}
+
+	public void toggleComments() {
+		commentsRendered = !commentsRendered;
 	}
 }

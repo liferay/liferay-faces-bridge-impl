@@ -52,17 +52,7 @@ public class BridgeWriteBehindResponseResourceImpl extends ResourceResponseWrapp
 	}
 
 	@Override
-	public boolean hasFacesWriteBehindMarkup() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public byte[] getBytes() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void setCharacterEncoding(String charset) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -72,9 +62,8 @@ public class BridgeWriteBehindResponseResourceImpl extends ResourceResponseWrapp
 	}
 
 	@Override
-	public void setContentLength(int len) {
+	public boolean hasFacesWriteBehindMarkup() {
 		throw new UnsupportedOperationException();
-
 	}
 
 	@Override
@@ -85,5 +74,16 @@ public class BridgeWriteBehindResponseResourceImpl extends ResourceResponseWrapp
 	@Override
 	public boolean isChars() {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setCharacterEncoding(String charset) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setContentLength(int len) {
+		throw new UnsupportedOperationException();
+
 	}
 }

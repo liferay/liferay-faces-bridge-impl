@@ -53,20 +53,8 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 		throw new UnsupportedOperationException();
 	}
 
-	public void login(String username, String password) throws ServletException {
-		throw new UnsupportedOperationException();
-	}
-
-	public void logout() throws ServletException {
-		throw new UnsupportedOperationException();
-	}
-
 	public String getCharacterEncoding() {
 		return characterEncoding;
-	}
-
-	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
-		throw new UnsupportedOperationException();
 	}
 
 	public int getContentLength() {
@@ -77,19 +65,7 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean isAsyncStarted() {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean isAsyncSupported() {
-		throw new UnsupportedOperationException();
-	}
-
 	public long getDateHeader(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean isRequestedSessionIdFromCookie() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -110,14 +86,6 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 	}
 
 	public int getIntHeader(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean isRequestedSessionIdFromURL() {
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean isRequestedSessionIdFromUrl() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -199,5 +167,37 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 
 	public HttpSession getSession(boolean create) {
 		return new PortletSessionHttpAdapter(super.getPortletSession(create));
+	}
+
+	public boolean isAsyncStarted() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isAsyncSupported() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isRequestedSessionIdFromCookie() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isRequestedSessionIdFromURL() {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isRequestedSessionIdFromUrl() {
+		throw new UnsupportedOperationException();
+	}
+
+	public void login(String username, String password) throws ServletException {
+		throw new UnsupportedOperationException();
+	}
+
+	public void logout() throws ServletException {
+		throw new UnsupportedOperationException();
+	}
+
+	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
+		throw new UnsupportedOperationException();
 	}
 }

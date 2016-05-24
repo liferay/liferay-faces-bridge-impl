@@ -106,22 +106,22 @@ public class ApplicationScopeMap extends AbstractPropertyMap<Object> {
 	}
 
 	@Override
-	protected void removeProperty(String name) {
-		portletContext.removeAttribute(name);
-	}
-
-	@Override
 	protected Object getProperty(String name) {
 		return portletContext.getAttribute(name);
 	}
 
 	@Override
-	protected void setProperty(String name, Object value) {
-		portletContext.setAttribute(name, value);
+	protected Enumeration<String> getPropertyNames() {
+		return portletContext.getAttributeNames();
 	}
 
 	@Override
-	protected Enumeration<String> getPropertyNames() {
-		return portletContext.getAttributeNames();
+	protected void removeProperty(String name) {
+		portletContext.removeAttribute(name);
+	}
+
+	@Override
+	protected void setProperty(String name, Object value) {
+		portletContext.setAttribute(name, value);
 	}
 }

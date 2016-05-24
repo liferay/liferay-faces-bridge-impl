@@ -43,14 +43,6 @@ public class ResourceRichFacesImpl extends ResourceWrapper {
 	 * Since this method is not supplied by the {@link ResourceWrapper} class it has to be implemented here.
 	 */
 	@Override
-	public String toString() {
-		return wrappedResource.toString();
-	}
-
-	/**
-	 * Since this method is not supplied by the {@link ResourceWrapper} class it has to be implemented here.
-	 */
-	@Override
 	public String getContentType() {
 		return wrappedResource.getContentType();
 	}
@@ -59,24 +51,8 @@ public class ResourceRichFacesImpl extends ResourceWrapper {
 	 * Since this method is not supplied by the {@link ResourceWrapper} class it has to be implemented here.
 	 */
 	@Override
-	public void setContentType(String contentType) {
-		wrappedResource.setContentType(contentType);
-	}
-
-	/**
-	 * Since this method is not supplied by the {@link ResourceWrapper} class it has to be implemented here.
-	 */
-	@Override
 	public String getLibraryName() {
 		return wrappedResource.getLibraryName();
-	}
-
-	/**
-	 * Since this method is not supplied by the {@link ResourceWrapper} class it has to be implemented here.
-	 */
-	@Override
-	public void setLibraryName(String libraryName) {
-		wrappedResource.setLibraryName(libraryName);
 	}
 
 	@Override
@@ -120,6 +96,27 @@ public class ResourceRichFacesImpl extends ResourceWrapper {
 		return wrappedResource.getResourceName();
 	}
 
+	@Override
+	public Resource getWrapped() {
+		return wrappedResource;
+	}
+
+	/**
+	 * Since this method is not supplied by the {@link ResourceWrapper} class it has to be implemented here.
+	 */
+	@Override
+	public void setContentType(String contentType) {
+		wrappedResource.setContentType(contentType);
+	}
+
+	/**
+	 * Since this method is not supplied by the {@link ResourceWrapper} class it has to be implemented here.
+	 */
+	@Override
+	public void setLibraryName(String libraryName) {
+		wrappedResource.setLibraryName(libraryName);
+	}
+
 	/**
 	 * Since this method is not supplied by the {@link ResourceWrapper} class it has to be implemented here.
 	 */
@@ -128,9 +125,12 @@ public class ResourceRichFacesImpl extends ResourceWrapper {
 		wrappedResource.setResourceName(resourceName);
 	}
 
+	/**
+	 * Since this method is not supplied by the {@link ResourceWrapper} class it has to be implemented here.
+	 */
 	@Override
-	public Resource getWrapped() {
-		return wrappedResource;
+	public String toString() {
+		return wrappedResource.toString();
 	}
 
 }

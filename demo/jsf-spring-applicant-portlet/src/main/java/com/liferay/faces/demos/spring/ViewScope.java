@@ -46,6 +46,12 @@ public class ViewScope implements Scope {
 		return viewScopedBean;
 	}
 
+	public String getConversationId() {
+
+		// Unsupported feature
+		return null;
+	}
+
 	public void registerDestructionCallback(String name, Runnable callback) {
 		// Unsupported feature
 	}
@@ -59,12 +65,6 @@ public class ViewScope implements Scope {
 	}
 
 	public Object resolveContextualObject(String key) {
-
-		// Unsupported feature
-		return null;
-	}
-
-	public String getConversationId() {
 
 		// Unsupported feature
 		return null;

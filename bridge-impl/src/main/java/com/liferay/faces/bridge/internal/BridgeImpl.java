@@ -36,11 +36,11 @@ import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.BridgeUninitializedException;
 
+import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfigFactory;
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.BridgePhase;
 import com.liferay.faces.bridge.BridgePhaseFactory;
-import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.BridgeConfigFactory;
 import com.liferay.faces.bridge.filter.BridgePortletConfigFactory;
 import com.liferay.faces.bridge.scope.BridgeRequestScopeManager;
 import com.liferay.faces.bridge.scope.BridgeRequestScopeManagerFactory;
@@ -144,6 +144,14 @@ public class BridgeImpl implements Bridge {
 		}
 	}
 
+	public String getTitle() {
+		return BridgeImpl.class.getPackage().getImplementationTitle();
+	}
+
+	public String getVersion() {
+		return BridgeImpl.class.getPackage().getImplementationVersion();
+	}
+
 	public void init(PortletConfig portletConfig) throws BridgeException {
 		StringBuilder logMessage = new StringBuilder();
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss,SSS");
@@ -170,13 +178,5 @@ public class BridgeImpl implements Bridge {
 		if (portletResponse == null) {
 			throw new NullPointerException("portletResponse was null");
 		}
-	}
-
-	public String getTitle() {
-		return BridgeImpl.class.getPackage().getImplementationTitle();
-	}
-
-	public String getVersion() {
-		return BridgeImpl.class.getPackage().getImplementationVersion();
 	}
 }

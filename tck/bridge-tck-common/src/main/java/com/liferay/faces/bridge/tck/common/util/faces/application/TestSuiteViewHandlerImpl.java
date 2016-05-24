@@ -64,6 +64,51 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 		return super.createView(ctx, viewId);
 	}
 
+	public String getActionURL(FacesContext context, String viewId) {
+
+		// Call super to get the actionURL
+		String resultURL = super.getActionURL(context, viewId);
+
+		// Then test to see if we are in a render and this is an encodeActionURL test that
+		// tests the render encoding -- if so add the appropriate parameters to test.
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+			String testName = (String) context.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
+
+			if (testName == null)
+				return resultURL;
+
+			if (testName.equals("encodeActionURLWithParamRenderTest")) {
+				return appendQueryString(resultURL, "param1=testValue");
+			}
+			else if (testName.equals("encodeActionURLWithModeRenderTest") ||
+					testName.equals("encodeResourceURLWithModeTest")) {
+				return appendQueryString(resultURL, "javax.portlet.faces.PortletMode=edit&param1=testValue");
+			}
+			else if (testName.equals("encodeActionURLWithInvalidModeRenderTest")) {
+				return appendQueryString(resultURL, "javax.portlet.faces.PortletMode=blue&param1=testValue");
+			}
+			else if (testName.equals("encodeActionURLWithWindowStateRenderTest") ||
+					testName.equals("encodeResourceURLWithWindowStateTest")) {
+				return appendQueryString(resultURL, "javax.portlet.faces.WindowState=maximized&param1=testValue");
+			}
+			else if (testName.equals("encodeActionURLWithInvalidWindowStateRenderTest")) {
+				return appendQueryString(resultURL, "javax.portlet.faces.WindowState=blue&param1=testValue");
+			}
+			else if (testName.equals("encodeActionURLWithSecurityRenderTest")) {
+				return appendQueryString(resultURL, "javax.portlet.faces.Secure=true&param1=testValue");
+			}
+			else if (testName.equals("encodeActionURLWithInvalidSecurityRenderTest")) {
+				return appendQueryString(resultURL, "javax.portlet.faces.Secure=blue&param1=testValue");
+			}
+		}
+
+		return resultURL;
+	}
+
+	public ViewHandler getWrapped() {
+		return mDelegate;
+	}
+
 	@Override
 	public void renderView(FacesContext context, UIViewRoot viewToRender) throws IOException, FacesException {
 		String testName = (String) context.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
@@ -235,51 +280,6 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 		renderResponse.flushBuffer();
 	}
 
-	public String getActionURL(FacesContext context, String viewId) {
-
-		// Call super to get the actionURL
-		String resultURL = super.getActionURL(context, viewId);
-
-		// Then test to see if we are in a render and this is an encodeActionURL test that
-		// tests the render encoding -- if so add the appropriate parameters to test.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
-			String testName = (String) context.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
-
-			if (testName == null)
-				return resultURL;
-
-			if (testName.equals("encodeActionURLWithParamRenderTest")) {
-				return appendQueryString(resultURL, "param1=testValue");
-			}
-			else if (testName.equals("encodeActionURLWithModeRenderTest") ||
-					testName.equals("encodeResourceURLWithModeTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.PortletMode=edit&param1=testValue");
-			}
-			else if (testName.equals("encodeActionURLWithInvalidModeRenderTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.PortletMode=blue&param1=testValue");
-			}
-			else if (testName.equals("encodeActionURLWithWindowStateRenderTest") ||
-					testName.equals("encodeResourceURLWithWindowStateTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.WindowState=maximized&param1=testValue");
-			}
-			else if (testName.equals("encodeActionURLWithInvalidWindowStateRenderTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.WindowState=blue&param1=testValue");
-			}
-			else if (testName.equals("encodeActionURLWithSecurityRenderTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.Secure=true&param1=testValue");
-			}
-			else if (testName.equals("encodeActionURLWithInvalidSecurityRenderTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.Secure=blue&param1=testValue");
-			}
-		}
-
-		return resultURL;
-	}
-
-	public ViewHandler getWrapped() {
-		return mDelegate;
-	}
-
 	private static final class StringBuilderWriter extends Writer {
 
 		// TODO: These bridge needs to use it's own constants here. This will
@@ -307,6 +307,10 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 
 		@Override
 		public void flush() throws IOException {
+		}
+
+		public StringBuilder getBuffer() {
+			return mBuilder;
 		}
 
 		@Override
@@ -401,10 +405,6 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 				"Unable to locate a SAVESTATE_FIELD_MARKER in response.  This could be because your Faces environment doesn't write such a marker or because the bridge doesn't know the marker in use.  If the later, configure the appropriate application init parameter javax.portlet.faces.SAVESTATE_FIELD_MARKER.");
 
 			return null;
-		}
-
-		public StringBuilder getBuffer() {
-			return mBuilder;
 		}
 
 		private boolean isMarker(String marker) {

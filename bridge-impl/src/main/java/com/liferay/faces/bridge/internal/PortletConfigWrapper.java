@@ -31,6 +31,8 @@ import javax.xml.namespace.QName;
  */
 public abstract class PortletConfigWrapper implements PortletConfig, FacesWrapper<PortletConfig> {
 
+	public abstract PortletConfig getWrapped();
+
 	public Map<String, String[]> getContainerRuntimeOptions() {
 		return getWrapped().getContainerRuntimeOptions();
 	}
@@ -74,6 +76,4 @@ public abstract class PortletConfigWrapper implements PortletConfig, FacesWrappe
 	public Enumeration<Locale> getSupportedLocales() {
 		return getWrapped().getSupportedLocales();
 	}
-
-	public abstract PortletConfig getWrapped();
 }

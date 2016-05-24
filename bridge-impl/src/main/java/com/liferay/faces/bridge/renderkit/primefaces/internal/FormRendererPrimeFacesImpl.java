@@ -30,9 +30,9 @@ import javax.faces.render.Renderer;
 import javax.portlet.faces.BridgeException;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
-import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
 import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.BridgeURLFactory;
+import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
 import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.util.render.RendererWrapper;
 
@@ -100,7 +100,8 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 			ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
 			String viewId = facesContext.getViewRoot().getViewId();
 			String facesActionURL = viewHandler.getActionURL(facesContext, viewId);
-			BridgeURLFactory bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(BridgeURLFactory.class);
+			BridgeURLFactory bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(
+					BridgeURLFactory.class);
 
 			try {
 				BridgeURL partialActionURL = bridgeURLFactory.getBridgePartialActionURL(facesContext, facesActionURL);
@@ -123,6 +124,40 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 		else {
 			super.encodeBegin(facesContext, uiComponent);
 		}
+	}
+
+	@Override
+	public Renderer getWrapped() {
+		return wrappedRenderer;
+	}
+
+	protected UIComponent getChildWithRendererType(UIComponent uiComponent, String rendererType) {
+
+		UIComponent childWithRendererType = null;
+
+		List<UIComponent> children = uiComponent.getChildren();
+
+		if (children != null) {
+
+			for (UIComponent uiComponentChild : children) {
+
+				if (rendererType.equals(uiComponentChild.getRendererType())) {
+
+					childWithRendererType = uiComponentChild;
+
+					break;
+				}
+				else {
+					childWithRendererType = getChildWithRendererType(uiComponentChild, rendererType);
+
+					if (childWithRendererType != null) {
+						break;
+					}
+				}
+			}
+		}
+
+		return childWithRendererType;
 	}
 
 	protected boolean hasNonAjaxActionListener(UIComponent uiComponent) {
@@ -167,44 +202,10 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 		return nonAjaxActionListener;
 	}
 
-	protected UIComponent getChildWithRendererType(UIComponent uiComponent, String rendererType) {
-
-		UIComponent childWithRendererType = null;
-
-		List<UIComponent> children = uiComponent.getChildren();
-
-		if (children != null) {
-
-			for (UIComponent uiComponentChild : children) {
-
-				if (rendererType.equals(uiComponentChild.getRendererType())) {
-
-					childWithRendererType = uiComponentChild;
-
-					break;
-				}
-				else {
-					childWithRendererType = getChildWithRendererType(uiComponentChild, rendererType);
-
-					if (childWithRendererType != null) {
-						break;
-					}
-				}
-			}
-		}
-
-		return childWithRendererType;
-	}
-
 	protected boolean isMultiPartForm(UIComponent uiComponent) {
 
 		String enctype = (String) uiComponent.getAttributes().get("enctype");
 
 		return (enctype != null) && (enctype.toLowerCase().contains("multipart"));
-	}
-
-	@Override
-	public Renderer getWrapped() {
-		return wrappedRenderer;
 	}
 }

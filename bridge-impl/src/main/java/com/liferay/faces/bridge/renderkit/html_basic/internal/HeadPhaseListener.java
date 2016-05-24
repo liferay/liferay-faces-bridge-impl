@@ -88,6 +88,10 @@ public class HeadPhaseListener implements PhaseListener {
 
 	}
 
+	public PhaseId getPhaseId() {
+		return PhaseId.ANY_PHASE;
+	}
+
 	/**
 	 * <p>This method is called before the {@link PhaseId#RENDER_RESPONSE} phase of the JSF lifecycle is executed. The
 	 * purpose of this timing is to pick up where the {@link #beforeInvokeApplicationPhase(PhaseEvent)} method left off.
@@ -177,10 +181,6 @@ public class HeadPhaseListener implements PhaseListener {
 				}
 			}
 		}
-	}
-
-	public PhaseId getPhaseId() {
-		return PhaseId.ANY_PHASE;
 	}
 
 }

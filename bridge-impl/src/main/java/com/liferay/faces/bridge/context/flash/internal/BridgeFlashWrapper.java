@@ -28,6 +28,11 @@ import javax.faces.context.FacesContext;
  */
 public abstract class BridgeFlashWrapper extends BridgeFlash implements FacesWrapper<BridgeFlash> {
 
+	public abstract BridgeFlash getWrapped();
+
+	@Override
+	public abstract boolean isServletResponseRequired();
+
 	public void clear() {
 		getWrapped().clear();
 	}
@@ -58,6 +63,20 @@ public abstract class BridgeFlashWrapper extends BridgeFlash implements FacesWra
 		return getWrapped().get(key);
 	}
 
+	public boolean isEmpty() {
+		return getWrapped().isEmpty();
+	}
+
+	@Override
+	public boolean isKeepMessages() {
+		return getWrapped().isKeepMessages();
+	}
+
+	@Override
+	public boolean isRedirect() {
+		return getWrapped().isRedirect();
+	}
+
 	@Override
 	public void keep(String key) {
 		getWrapped().keep(key);
@@ -84,17 +103,6 @@ public abstract class BridgeFlashWrapper extends BridgeFlash implements FacesWra
 		return getWrapped().remove(key);
 	}
 
-	public int size() {
-		return getWrapped().size();
-	}
-
-	public Collection<Object> values() {
-		return getWrapped().values();
-	}
-
-	@Override
-	public abstract boolean isServletResponseRequired();
-
 	@Override
 	public void setKeepMessages(boolean newValue) {
 		getWrapped().setKeepMessages(newValue);
@@ -105,19 +113,11 @@ public abstract class BridgeFlashWrapper extends BridgeFlash implements FacesWra
 		getWrapped().setRedirect(newValue);
 	}
 
-	@Override
-	public boolean isKeepMessages() {
-		return getWrapped().isKeepMessages();
+	public int size() {
+		return getWrapped().size();
 	}
 
-	@Override
-	public boolean isRedirect() {
-		return getWrapped().isRedirect();
-	}
-
-	public abstract BridgeFlash getWrapped();
-
-	public boolean isEmpty() {
-		return getWrapped().isEmpty();
+	public Collection<Object> values() {
+		return getWrapped().values();
 	}
 }

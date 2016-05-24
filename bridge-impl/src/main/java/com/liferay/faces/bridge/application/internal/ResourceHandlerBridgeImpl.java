@@ -33,8 +33,8 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.context.BridgePortalContext;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -95,6 +95,11 @@ public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCom
 		}
 	}
 
+	@Override
+	public ResourceHandler getWrapped() {
+		return wrappedResourceHandler;
+	}
+
 	/**
 	 * This method handles the current request which is assumed to be a request for a {@link Resource}.
 	 */
@@ -140,6 +145,29 @@ public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCom
 			logger.debug("NOT HANDLED - Missing request parameter {0} so delegating handleResourceRequest to chain",
 				"javax.faces.resource");
 			getWrapped().handleResourceRequest(facesContext);
+		}
+	}
+
+	@Override
+	public boolean isResourceRequest(FacesContext facesContext) {
+
+		// If the "javax.faces.resource" request parameter is present, then that means the resource's URL was
+		// properly created with the ExternalContext.encodeResourceURL(String) method.
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
+		String resourceId = requestParameterMap.get("javax.faces.resource");
+
+		if (resourceId != null) {
+			logger.debug("Found {0} request parameter and recognized resourceId=[{1}] as a resource",
+				"javax.faces.resource", resourceId);
+
+			return true;
+		}
+		else {
+			logger.debug("Did not find the {0} request parameter so delegating isResourceRequest to chain",
+				"javax.faces.resource");
+
+			return getWrapped().isResourceRequest(facesContext);
 		}
 	}
 
@@ -326,33 +354,5 @@ public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCom
 		String setHttpStatusCodeSupport = portalContext.getProperty(BridgePortalContext.SET_HTTP_STATUS_CODE_SUPPORT);
 
 		return (setHttpStatusCodeSupport != null);
-	}
-
-	@Override
-	public boolean isResourceRequest(FacesContext facesContext) {
-
-		// If the "javax.faces.resource" request parameter is present, then that means the resource's URL was
-		// properly created with the ExternalContext.encodeResourceURL(String) method.
-		ExternalContext externalContext = facesContext.getExternalContext();
-		Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
-		String resourceId = requestParameterMap.get("javax.faces.resource");
-
-		if (resourceId != null) {
-			logger.debug("Found {0} request parameter and recognized resourceId=[{1}] as a resource",
-				"javax.faces.resource", resourceId);
-
-			return true;
-		}
-		else {
-			logger.debug("Did not find the {0} request parameter so delegating isResourceRequest to chain",
-				"javax.faces.resource");
-
-			return getWrapped().isResourceRequest(facesContext);
-		}
-	}
-
-	@Override
-	public ResourceHandler getWrapped() {
-		return wrappedResourceHandler;
 	}
 }
