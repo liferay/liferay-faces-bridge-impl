@@ -24,12 +24,14 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.xml.namespace.QName;
 
+import com.liferay.faces.util.helper.Wrapper;
+
 
 /**
  * @author  Neil Griffin
  */
 
-public class PortletConfigWrapper implements PortletConfig {
+public class PortletConfigWrapper implements PortletConfig, Wrapper<PortletConfig> {
 
 	private PortletConfig wrappedPortletConfig;
 
@@ -88,4 +90,8 @@ public class PortletConfigWrapper implements PortletConfig {
 		return wrappedPortletConfig.getSupportedLocales();
 	}
 
+	// Java 1.6+ @Override
+	public PortletConfig getWrapped() {
+		return wrappedPortletConfig;
+	}
 }
