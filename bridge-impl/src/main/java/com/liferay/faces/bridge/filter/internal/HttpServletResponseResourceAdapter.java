@@ -46,6 +46,11 @@ public class HttpServletResponseResourceAdapter extends HttpServletResponseMimeA
 	}
 
 	@Override
+	public void setContentLengthLong(long len) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public void setLocale(Locale loc) {
 		throw new UnsupportedOperationException();
 	}

@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.filter.internal;
 
 import javax.portlet.PortletURL;
+import javax.portlet.filter.PortletURLWrapper;
 
 
 /**
@@ -23,23 +24,15 @@ import javax.portlet.PortletURL;
  */
 public class ActionURLBridgePlutoImpl extends PortletURLWrapper {
 
-	// Private Data Members
-	private PortletURL wrappedActionURL;
-
 	public ActionURLBridgePlutoImpl(PortletURL actionURL) {
-		this.wrappedActionURL = actionURL;
-	}
-
-	@Override
-	public PortletURL getWrapped() {
-		return wrappedActionURL;
+		super(actionURL);
 	}
 
 	@Override
 	public void setParameter(String name, String value) {
 
 		if (value == null) {
-			PlutoBaseURLUtil.removeParameter(wrappedActionURL, name);
+			PlutoBaseURLUtil.removeParameter(getWrapped(), name);
 		}
 		else {
 			super.setParameter(name, value);

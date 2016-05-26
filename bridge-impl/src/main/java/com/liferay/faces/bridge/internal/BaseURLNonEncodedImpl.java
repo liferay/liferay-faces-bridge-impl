@@ -21,7 +21,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.portlet.BaseURL;
+import javax.portlet.PortletMode;
 import javax.portlet.PortletSecurityException;
+import javax.portlet.RenderParameters;
+import javax.portlet.WindowState;
 
 
 /**
@@ -45,8 +48,33 @@ public class BaseURLNonEncodedImpl implements BaseURL {
 	}
 
 	@Override
+	public Appendable append(Appendable out) throws IOException {
+		return null; // TODO: FACES-2695
+	}
+
+	@Override
+	public Appendable append(Appendable out, boolean escapeXML) throws IOException {
+		return null; // TODO: FACES-2695
+	}
+
+	@Override
 	public Map<String, String[]> getParameterMap() {
 		return bridgeURI.getParameterMap();
+	}
+
+	@Override
+	public PortletMode getPortletMode() {
+		return null; // TODO: FACES-2695
+	}
+
+	@Override
+	public RenderParameters getRenderParameters() {
+		return null; // TODO: FACES-2695
+	}
+
+	@Override
+	public WindowState getWindowState() {
+		return null; // TODO: FACES-2695
 	}
 
 	@Override

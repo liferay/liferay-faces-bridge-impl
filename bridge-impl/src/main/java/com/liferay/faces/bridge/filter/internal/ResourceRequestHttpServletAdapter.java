@@ -21,7 +21,10 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+import javax.portlet.PortletAsyncContext;
+import javax.portlet.ResourceParameters;
 import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -33,7 +36,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author  Neil Griffin
  */
-public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServletAdapter implements ResourceRequest {
+public class ResourceRequestHttpServletAdapter extends ClientDataRequestHttpServletAdapter implements ResourceRequest {
 
 	public ResourceRequestHttpServletAdapter(ResourceRequest resourceRequest) {
 		super(resourceRequest, null);
@@ -55,6 +58,11 @@ public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServlet
 	}
 
 	@Override
+	public long getContentLengthLong() {
+		return ((ResourceRequest) getRequest()).getContentLengthLong();
+	}
+
+	@Override
 	public String getContentType() {
 		return ((ResourceRequest) getRequest()).getContentType();
 	}
@@ -67,6 +75,11 @@ public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServlet
 	@Override
 	public String getMethod() {
 		return ((ResourceRequest) getRequest()).getMethod();
+	}
+
+	@Override
+	public PortletAsyncContext getPortletAsyncContext() {
+		return ((ResourceRequest) getRequest()).getPortletAsyncContext();
 	}
 
 	@Override
@@ -96,7 +109,23 @@ public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServlet
 	}
 
 	@Override
+	public ResourceParameters getResourceParameters() {
+		return ((ResourceRequest) getRequest()).getResourceParameters();
+	}
+
+	@Override
 	public void setCharacterEncoding(String env) throws UnsupportedEncodingException {
 		((ResourceRequest) getRequest()).setCharacterEncoding(env);
+	}
+
+	@Override
+	public PortletAsyncContext startPortletAsync() throws IllegalStateException {
+		return ((ResourceRequest) getRequest()).startPortletAsync();
+	}
+
+	@Override
+	public PortletAsyncContext startPortletAsync(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+		throws IllegalStateException {
+		return ((ResourceRequest) getRequest()).startPortletAsync(resourceRequest, resourceResponse);
 	}
 }

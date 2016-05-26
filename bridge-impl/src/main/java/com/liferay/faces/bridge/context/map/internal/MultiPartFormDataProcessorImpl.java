@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,17 +32,22 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
+import javax.portlet.PortletContext;
+import javax.portlet.PortletException;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletSession;
+import javax.portlet.RenderParameters;
 import javax.portlet.ResourceRequest;
 import javax.portlet.WindowState;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.Part;
 
 import org.apache.commons.fileupload.FileItemHeaders;
 import org.apache.commons.fileupload.FileItemIterator;
@@ -346,6 +352,11 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		}
 
 		@Override
+		public ActionParameters getActionParameters() {
+			throw new UnsupportedOperationException(); // TODO: FACES-2695 Can't use commons-fileupload
+		}
+
+		@Override
 		public Object getAttribute(String name) {
 			return resourceRequest.getAttribute(name);
 		}
@@ -368,6 +379,11 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		@Override
 		public int getContentLength() {
 			return resourceRequest.getContentLength();
+		}
+
+		@Override
+		public long getContentLengthLong() {
+			return resourceRequest.getContentLengthLong();
 		}
 
 		@Override
@@ -421,8 +437,23 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		}
 
 		@Override
+		public Part getPart(String name) throws IOException, PortletException {
+			return resourceRequest.getPart(name);
+		}
+
+		@Override
+		public Collection<Part> getParts() throws IOException, PortletException {
+			return resourceRequest.getParts();
+		}
+
+		@Override
 		public PortalContext getPortalContext() {
 			return resourceRequest.getPortalContext();
+		}
+
+		@Override
+		public PortletContext getPortletContext() {
+			return resourceRequest.getPortletContext();
 		}
 
 		@Override
@@ -486,6 +517,11 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		}
 
 		@Override
+		public RenderParameters getRenderParameters() {
+			throw new UnsupportedOperationException(); // TODO: FACES-2695 Can't use commons-fileupload
+		}
+
+		@Override
 		public String getRequestedSessionId() {
 			return resourceRequest.getRequestedSessionId();
 		}
@@ -513,6 +549,11 @@ public class MultiPartFormDataProcessorImpl implements MultiPartFormDataProcesso
 		@Override
 		public int getServerPort() {
 			return resourceRequest.getServerPort();
+		}
+
+		@Override
+		public String getUserAgent() {
+			return resourceRequest.getUserAgent();
 		}
 
 		@Override

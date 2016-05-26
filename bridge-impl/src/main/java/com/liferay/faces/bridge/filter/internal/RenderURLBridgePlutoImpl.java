@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.filter.internal;
 
 import javax.portlet.PortletURL;
+import javax.portlet.filter.PortletURLWrapper;
 
 
 /**
@@ -23,23 +24,15 @@ import javax.portlet.PortletURL;
  */
 public class RenderURLBridgePlutoImpl extends PortletURLWrapper {
 
-	// Private Data Members
-	private PortletURL wrappedRenderURL;
-
 	public RenderURLBridgePlutoImpl(PortletURL renderURL) {
-		this.wrappedRenderURL = renderURL;
-	}
-
-	@Override
-	public PortletURL getWrapped() {
-		return wrappedRenderURL;
+		super(renderURL);
 	}
 
 	@Override
 	public void setParameter(String name, String value) {
 
 		if (value == null) {
-			PlutoBaseURLUtil.removeParameter(wrappedRenderURL, name);
+			PlutoBaseURLUtil.removeParameter(getWrapped(), name);
 		}
 		else {
 			super.setParameter(name, value);

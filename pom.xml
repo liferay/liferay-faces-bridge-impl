@@ -95,6 +95,7 @@
 		<faces.api.scope>compile</faces.api.scope>
 		<faces.api.version>${faces.spec.version}</faces.api.version>
 		<faces.impl.artifact.id>jsf-impl</faces.impl.artifact.id>
+		<faces.servlet.container.initializer>com.sun.faces.config.FacesInitializer</faces.servlet.container.initializer>
 		<faces.impl.scope>runtime</faces.impl.scope>
 		<faces.spec.version>2.2</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
@@ -126,8 +127,8 @@
 		<pluto.home>${env.PORTALS_HOME}/liferay.com/${pluto.portal}-jsf-${faces.spec.version}</pluto.home>
 		<pluto.portal>pluto-${pluto.version}</pluto.portal>
 		<pluto.tomcat.dir>${pluto.home}/tomcat-${pluto.tomcat.version}</pluto.tomcat.dir>
-		<pluto.tomcat.version>7.0.42</pluto.tomcat.version>
-		<pluto.version>2.0.3</pluto.version>
+		<pluto.tomcat.version>8.0.33</pluto.tomcat.version>
+		<pluto.version>3.0-SNAPSHOT</pluto.version>
 		<pluto.version.major>2</pluto.version.major>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
@@ -505,12 +506,15 @@
 				<faces.group.id>org.apache.myfaces.core</faces.group.id>
 				<faces.api.artifact.id>myfaces-api</faces.api.artifact.id>
 				<faces.impl.artifact.id>myfaces-impl</faces.impl.artifact.id>
+				<faces.servlet.container.initializer>org.apache.myfaces.ee6.MyFacesContainerInitializer</faces.servlet.container.initializer>
 				<faces.version>${myfaces.version}</faces.version>
 			</properties>
 		</profile>
 		<profile>
 			<id>pluto</id>
 			<properties>
+				<faces.api.scope>provided</faces.api.scope>
+				<faces.impl.scope>provided</faces.impl.scope>
 				<portal.type>pluto</portal.type>
 				<war.packaging.excludes>
 					WEB-INF/glassfish-*.xml,
@@ -532,6 +536,24 @@
 			</activation>
 			<build>
 				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
+										<echo message="${faces.servlet.container.initializer}"
+											  file="${project.build.outputDirectory}/META-INF/services/javax.servlet.ServletContainerInitializer" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>
 						<configuration>
@@ -835,9 +857,9 @@
 				<version>1</version>
 			</dependency>
 			<dependency>
-				<groupId>javax.portlet</groupId>
+				<groupId>org.apache.portals.pluto</groupId>
 				<artifactId>portlet-api</artifactId>
-				<version>2.0</version>
+				<version>3.0-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>

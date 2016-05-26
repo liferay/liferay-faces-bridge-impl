@@ -23,117 +23,135 @@ import java.util.Set;
 
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequestDispatcher;
+import javax.portlet.filter.PortletContextWrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public class PortletContextTCKImpl implements PortletContext {
-
-	// Private Data Members
-	private PortletContext wrappedPortletContext;
+public class PortletContextTCKImpl extends PortletContextWrapper {
 
 	public PortletContextTCKImpl(PortletContext portletContext) {
-		this.wrappedPortletContext = portletContext;
+		super(portletContext);
 	}
 
 	@Override
 	public Object getAttribute(String name) {
-		return wrappedPortletContext.getAttribute(name);
+		return getPortletContext().getAttribute(name);
 	}
 
 	@Override
 	public Enumeration<String> getAttributeNames() {
-		return wrappedPortletContext.getAttributeNames();
+		return getPortletContext().getAttributeNames();
+	}
+
+	@Override
+	public ClassLoader getClassLoader() {
+		return getPortletContext().getClassLoader();
 	}
 
 	@Override
 	public Enumeration<String> getContainerRuntimeOptions() {
-		return wrappedPortletContext.getContainerRuntimeOptions();
+		return getPortletContext().getContainerRuntimeOptions();
+	}
+
+	@Override
+	public String getContextPath() {
+		return getPortletContext().getContextPath();
+	}
+
+	@Override
+	public int getEffectiveMajorVersion() {
+		return getPortletContext().getEffectiveMajorVersion();
+	}
+
+	@Override
+	public int getEffectiveMinorVersion() {
+		return getPortletContext().getEffectiveMinorVersion();
 	}
 
 	@Override
 	public String getInitParameter(String name) {
-		return wrappedPortletContext.getInitParameter(name);
+		return getPortletContext().getInitParameter(name);
 	}
 
 	@Override
 	public Enumeration<String> getInitParameterNames() {
-		return wrappedPortletContext.getInitParameterNames();
+		return getPortletContext().getInitParameterNames();
 	}
 
 	@Override
 	public int getMajorVersion() {
-		return wrappedPortletContext.getMajorVersion();
+		return getPortletContext().getMajorVersion();
 	}
 
 	@Override
 	public String getMimeType(String file) {
-		return wrappedPortletContext.getMimeType(file);
+		return getPortletContext().getMimeType(file);
 	}
 
 	@Override
 	public int getMinorVersion() {
-		return wrappedPortletContext.getMinorVersion();
+		return getPortletContext().getMinorVersion();
 	}
 
 	@Override
 	public PortletRequestDispatcher getNamedDispatcher(String name) {
-		return wrappedPortletContext.getNamedDispatcher(name);
+		return getPortletContext().getNamedDispatcher(name);
 	}
 
 	@Override
 	public String getPortletContextName() {
-		return wrappedPortletContext.getPortletContextName();
+		return getPortletContext().getPortletContextName();
 	}
 
 	@Override
 	public String getRealPath(String path) {
-		return wrappedPortletContext.getRealPath(path);
+		return getPortletContext().getRealPath(path);
 	}
 
 	@Override
 	public PortletRequestDispatcher getRequestDispatcher(String path) {
-		return new PortletRequestDispatcherTCKImpl(wrappedPortletContext.getRequestDispatcher(path));
+		return new PortletRequestDispatcherTCKImpl(getPortletContext().getRequestDispatcher(path));
 	}
 
 	@Override
 	public URL getResource(String path) throws MalformedURLException {
-		return wrappedPortletContext.getResource(path);
+		return getPortletContext().getResource(path);
 	}
 
 	@Override
 	public InputStream getResourceAsStream(String path) {
-		return wrappedPortletContext.getResourceAsStream(path);
+		return getPortletContext().getResourceAsStream(path);
 	}
 
 	@Override
 	public Set<String> getResourcePaths(String path) {
-		return wrappedPortletContext.getResourcePaths(path);
+		return getPortletContext().getResourcePaths(path);
 	}
 
 	@Override
 	public String getServerInfo() {
-		return wrappedPortletContext.getServerInfo();
+		return getPortletContext().getServerInfo();
 	}
 
 	@Override
 	public void log(String msg) {
-		wrappedPortletContext.log(msg);
+		getPortletContext().log(msg);
 	}
 
 	@Override
 	public void log(String message, Throwable throwable) {
-		wrappedPortletContext.log(message, throwable);
+		getPortletContext().log(message, throwable);
 	}
 
 	@Override
 	public void removeAttribute(String name) {
-		wrappedPortletContext.removeAttribute(name);
+		getPortletContext().removeAttribute(name);
 	}
 
 	@Override
 	public void setAttribute(String name, Object object) {
-		wrappedPortletContext.setAttribute(name, object);
+		getPortletContext().setAttribute(name, object);
 	}
 }

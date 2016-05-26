@@ -17,8 +17,11 @@ package com.liferay.faces.bridge.filter.internal;
 
 import java.util.Collection;
 
+import javax.portlet.ActionURL;
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletMode;
 import javax.portlet.RenderResponse;
+import javax.portlet.RenderURL;
 import javax.servlet.http.HttpServletResponse;
 
 
@@ -37,7 +40,17 @@ public class RenderResponseHttpServletAdapter extends MimeResponseHttpServletAda
 	}
 
 	@Override
-	public void setNextPossiblePortletModes(Collection<PortletMode> portletModes) {
+	public ActionURL createActionURL(Copy option) {
+		return ((RenderResponse) getResponse()).createActionURL();
+	}
+
+	@Override
+	public RenderURL createRenderURL(Copy option) {
+		return ((RenderResponse) getResponse()).createRenderURL(option);
+	}
+
+	@Override
+	public void setNextPossiblePortletModes(Collection<? extends PortletMode> portletModes) {
 		((RenderResponse) getResponse()).setNextPossiblePortletModes(portletModes);
 	}
 

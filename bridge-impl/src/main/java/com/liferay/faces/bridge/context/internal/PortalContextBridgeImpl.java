@@ -24,8 +24,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
 import javax.portlet.PortalContext;
-import javax.portlet.PortletMode;
-import javax.portlet.WindowState;
+import javax.portlet.filter.PortalContextWrapper;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
@@ -34,16 +33,15 @@ import com.liferay.faces.bridge.internal.PortletConfigParam;
 /**
  * @author  Neil Griffin
  */
-public class PortalContextBridgeImpl implements PortalContext {
+public class PortalContextBridgeImpl extends PortalContextWrapper {
 
 	// Private Data Members
 	private String ableToSetHttpStatusCode;
 	private List<String> propertyNameList;
-	private PortalContext wrappedPortalContext;
 
 	public PortalContextBridgeImpl(PortalContext portalContext) {
 
-		this.wrappedPortalContext = portalContext;
+		super(portalContext);
 
 		propertyNameList = new ArrayList<String>();
 
@@ -65,11 +63,6 @@ public class PortalContextBridgeImpl implements PortalContext {
 	}
 
 	@Override
-	public String getPortalInfo() {
-		return wrappedPortalContext.getPortalInfo();
-	}
-
-	@Override
 	public String getProperty(String name) {
 
 		if (BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT.equals(name) ||
@@ -81,7 +74,7 @@ public class PortalContextBridgeImpl implements PortalContext {
 			PartialViewContext partialViewContext = facesContext.getPartialViewContext();
 
 			if ((partialViewContext == null) || !partialViewContext.isAjaxRequest()) {
-				return wrappedPortalContext.getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT);
+				return getWrapped().getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT);
 			}
 			else {
 				return null;
@@ -106,23 +99,13 @@ public class PortalContextBridgeImpl implements PortalContext {
 			return "true";
 		}
 		else {
-			return wrappedPortalContext.getProperty(name);
+			return getWrapped().getProperty(name);
 		}
 	}
 
 	@Override
 	public Enumeration<String> getPropertyNames() {
 		return Collections.enumeration(propertyNameList);
-	}
-
-	@Override
-	public Enumeration<PortletMode> getSupportedPortletModes() {
-		return wrappedPortalContext.getSupportedPortletModes();
-	}
-
-	@Override
-	public Enumeration<WindowState> getSupportedWindowStates() {
-		return wrappedPortalContext.getSupportedWindowStates();
 	}
 
 	private String getSetHttpStatusCode() {

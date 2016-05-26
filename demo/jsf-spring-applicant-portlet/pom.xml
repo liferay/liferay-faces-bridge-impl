@@ -52,7 +52,7 @@
 			<artifactId>javax.inject</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.portlet</groupId>
+			<groupId>org.apache.portals.pluto</groupId>
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 		<dependency>

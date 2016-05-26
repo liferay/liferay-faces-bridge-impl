@@ -17,11 +17,15 @@ package com.liferay.faces.bridge.filter.internal;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Collection;
 
+import javax.portlet.ActionURL;
 import javax.portlet.CacheControl;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
+import javax.portlet.RenderURL;
+import javax.portlet.ResourceResponse;
 import javax.portlet.ResourceURL;
 import javax.portlet.filter.PortletResponseWrapper;
 import javax.servlet.ServletResponse;
@@ -70,8 +74,13 @@ public class HttpServletResponseMimeAdapter extends HttpServletResponseWrapper i
 	}
 
 	@Override
-	public PortletURL createActionURL() {
+	public <T extends PortletURL & ActionURL> T createActionURL() {
 		return wrappedMimeResponse.createActionURL();
+	}
+
+	@Override
+	public ActionURL createActionURL(Copy option) {
+		return wrappedMimeResponse.createActionURL(option);
 	}
 
 	@Override
@@ -80,8 +89,13 @@ public class HttpServletResponseMimeAdapter extends HttpServletResponseWrapper i
 	}
 
 	@Override
-	public PortletURL createRenderURL() {
+	public <T extends PortletURL & RenderURL> T createRenderURL() {
 		return wrappedMimeResponse.createRenderURL();
+	}
+
+	@Override
+	public RenderURL createRenderURL(Copy option) {
+		return wrappedMimeResponse.createRenderURL(option);
 	}
 
 	@Override
@@ -102,6 +116,21 @@ public class HttpServletResponseMimeAdapter extends HttpServletResponseWrapper i
 	@Override
 	public OutputStream getPortletOutputStream() throws IOException {
 		return wrappedMimeResponse.getPortletOutputStream();
+	}
+
+	@Override
+	public String getProperty(String key) {
+		return wrappedMimeResponse.getProperty(key);
+	}
+
+	@Override
+	public Collection<String> getPropertyNames() {
+		return wrappedMimeResponse.getPropertyNames();
+	}
+
+	@Override
+	public Collection<String> getPropertyValues(String key) {
+		return wrappedMimeResponse.getPropertyValues(key);
 	}
 
 	@Override

@@ -21,10 +21,12 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.portlet.PortalContext;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
+import javax.portlet.RenderParameters;
 import javax.portlet.WindowState;
 import javax.servlet.http.Cookie;
 
@@ -89,6 +91,11 @@ public class PortletRequestMockImpl implements PortletRequest {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public PortletContext getPortletContext() {
+		throw new UnsupportedOperationException();
+	}
+
 	public PortletMode getPortletMode() {
 		throw new UnsupportedOperationException();
 	}
@@ -129,6 +136,11 @@ public class PortletRequestMockImpl implements PortletRequest {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public RenderParameters getRenderParameters() {
+		throw new UnsupportedOperationException();
+	}
+
 	public String getRequestedSessionId() {
 		throw new UnsupportedOperationException();
 	}
@@ -150,6 +162,11 @@ public class PortletRequestMockImpl implements PortletRequest {
 	}
 
 	public int getServerPort() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String getUserAgent() {
 		throw new UnsupportedOperationException();
 	}
 

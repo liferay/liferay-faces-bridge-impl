@@ -17,6 +17,9 @@ package com.liferay.faces.bridge.filter.internal;
 
 import java.util.Locale;
 
+import javax.annotation.Resource;
+import javax.portlet.ActionURL;
+import javax.portlet.PortletURL;
 import javax.portlet.ResourceResponse;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,6 +46,11 @@ public class ResourceResponseHttpServletAdapter extends MimeResponseHttpServletA
 	@Override
 	public void setContentLength(int len) {
 		((ResourceResponse) getResponse()).setContentLength(len);
+	}
+
+	@Override
+	public void setContentLengthLong(long len) {
+		((ResourceResponse) getResponse()).setContentLengthLong(len);
 	}
 
 	@Override

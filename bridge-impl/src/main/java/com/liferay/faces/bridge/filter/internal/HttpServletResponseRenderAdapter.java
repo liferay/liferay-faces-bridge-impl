@@ -38,7 +38,7 @@ public class HttpServletResponseRenderAdapter extends HttpServletResponseMimeAda
 	}
 
 	@Override
-	public void setNextPossiblePortletModes(Collection<PortletMode> portletModes) {
+	public void setNextPossiblePortletModes(Collection<? extends PortletMode> portletModes) {
 		throw new UnsupportedOperationException();
 	}
 

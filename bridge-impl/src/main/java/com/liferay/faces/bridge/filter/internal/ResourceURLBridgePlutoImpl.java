@@ -18,8 +18,7 @@ package com.liferay.faces.bridge.filter.internal;
 import java.util.Map;
 
 import javax.portlet.ResourceURL;
-
-import com.liferay.faces.bridge.filter.internal.ResourceURLWrapper;
+import javax.portlet.filter.ResourceURLWrapper;
 
 
 /**
@@ -33,16 +32,8 @@ public class ResourceURLBridgePlutoImpl extends ResourceURLWrapper {
 	// Protected Data Members
 	protected String toStringValue;
 
-	// Private Data Members
-	private ResourceURL wrappedResourceURL;
-
 	public ResourceURLBridgePlutoImpl(ResourceURL resourceURL) {
-		this.wrappedResourceURL = resourceURL;
-	}
-
-	@Override
-	public ResourceURL getWrapped() {
-		return wrappedResourceURL;
+		super(resourceURL);
 	}
 
 	@Override
@@ -54,7 +45,7 @@ public class ResourceURLBridgePlutoImpl extends ResourceURLWrapper {
 	public void setParameter(String name, String value) {
 
 		if (value == null) {
-			PlutoBaseURLUtil.removeParameter(wrappedResourceURL, name);
+			PlutoBaseURLUtil.removeParameter(getWrapped(), name);
 		}
 		else {
 			super.setParameter(name, value);
@@ -95,5 +86,4 @@ public class ResourceURLBridgePlutoImpl extends ResourceURLWrapper {
 		// Return the normalized URL.
 		return toStringValue;
 	}
-
 }

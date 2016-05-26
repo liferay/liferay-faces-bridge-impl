@@ -22,6 +22,8 @@ import java.util.ResourceBundle;
 
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
+import javax.portlet.PortletMode;
+import javax.portlet.WindowState;
 import javax.xml.namespace.QName;
 
 
@@ -56,12 +58,22 @@ public class PortletConfigMockImpl implements PortletConfig {
 	}
 
 	@Override
+	public Enumeration<PortletMode> getPortletModes(String mimeType) {
+		return null;
+	}
+
+	@Override
 	public String getPortletName() {
 		return null;
 	}
 
 	@Override
 	public Enumeration<QName> getProcessingEventQNames() {
+		return null;
+	}
+
+	@Override
+	public Map<String, QName> getPublicRenderParameterDefinitions() {
 		return null;
 	}
 
@@ -82,6 +94,11 @@ public class PortletConfigMockImpl implements PortletConfig {
 
 	@Override
 	public Enumeration<Locale> getSupportedLocales() {
+		return null;
+	}
+
+	@Override
+	public Enumeration<WindowState> getWindowStates(String mimeType) {
 		return null;
 	}
 }

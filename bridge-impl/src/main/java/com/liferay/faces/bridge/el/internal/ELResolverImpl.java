@@ -33,13 +33,13 @@ import javax.portlet.PortletSession;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeUtil;
+import javax.portlet.filter.PortletConfigWrapper;
 import javax.servlet.jsp.JspContext;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.context.internal.LegacyBridgeContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
-import com.liferay.faces.bridge.internal.PortletConfigWrapper;
 import com.liferay.faces.bridge.preference.internal.MutablePreferenceMap;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
