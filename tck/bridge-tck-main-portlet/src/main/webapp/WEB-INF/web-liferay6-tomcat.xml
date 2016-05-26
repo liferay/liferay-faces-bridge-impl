@@ -31,7 +31,7 @@
 	<!-- BEGIN: LIFERAY PORTAL -->
 	<context-param>
 		<param-name>portletConfigWrapperClass</param-name>
-		<param-value>com.liferay.faces.bridge.tck.portlet.PortletConfigWrapper</param-value>
+		<param-value>com.liferay.faces.bridge.tck.portlet.PortletConfigTCKCompat</param-value>
 	</context-param>
 	<!-- END: LIFERAY PORTAL -->
 	<!-- BEGIN: LIFERAY FACES BRIDGE -->

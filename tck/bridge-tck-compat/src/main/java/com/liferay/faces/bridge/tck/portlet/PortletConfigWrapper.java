@@ -20,6 +20,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.faces.FacesWrapper;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.xml.namespace.QName;
@@ -29,7 +30,7 @@ import javax.xml.namespace.QName;
  * @author  Neil Griffin
  */
 
-public class PortletConfigWrapper implements PortletConfig {
+public class PortletConfigWrapper implements PortletConfig, FacesWrapper<PortletConfig> {
 
 	private PortletConfig wrappedPortletConfig;
 
@@ -88,4 +89,8 @@ public class PortletConfigWrapper implements PortletConfig {
 		return wrappedPortletConfig.getSupportedLocales();
 	}
 
+	@Override
+	public PortletConfig getWrapped() {
+		return wrappedPortletConfig;
+	}
 }
