@@ -27,7 +27,7 @@ import javax.portlet.faces.BridgeException;
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
-import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 

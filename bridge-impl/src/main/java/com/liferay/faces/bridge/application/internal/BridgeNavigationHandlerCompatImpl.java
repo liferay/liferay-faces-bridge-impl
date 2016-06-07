@@ -15,14 +15,11 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import java.util.Map;
-
 import javax.faces.application.NavigationHandler;
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
 

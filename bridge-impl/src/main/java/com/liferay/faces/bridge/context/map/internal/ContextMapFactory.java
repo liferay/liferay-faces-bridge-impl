@@ -26,7 +26,7 @@ import javax.portlet.PortletSession;
 import javax.servlet.ServletContext;
 
 import com.liferay.faces.bridge.model.UploadedFile;
-import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.helper.Wrapper;
 
 

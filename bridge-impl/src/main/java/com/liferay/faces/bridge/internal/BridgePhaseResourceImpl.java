@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
-import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.application.ResourceValidator;
 import com.liferay.faces.util.application.ResourceValidatorFactory;
 import com.liferay.faces.util.config.ApplicationConfig;
