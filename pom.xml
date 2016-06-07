@@ -99,7 +99,7 @@
 		<faces.spec.version>2.1</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
-		<icefaces3.version>3.3.0</icefaces3.version>
+		<icefaces.version>3.3.0</icefaces.version>
 		<jstl.version>1.2</jstl.version>
 		<log4j.version>1.2.14</log4j.version>
 		<liferay.app.server.dir>${liferay.home}/tomcat-${liferay.tomcat.version}</liferay.app.server.dir>
@@ -131,10 +131,10 @@
 		<pluto.version.major>2</pluto.version.major>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
-		<primefaces5.version>5.3</primefaces5.version>
+		<primefaces.version>5.3</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.stage>Production</project.stage>
-		<richfaces4.version>4.5.6.Final</richfaces4.version>
+		<richfaces.version>4.5.6.Final</richfaces.version>
 		<selenium.version>2.46.0</selenium.version>
 		<spring.version>4.2.5.RELEASE</spring.version>
 		<surefire.version>2.12</surefire.version>
@@ -721,7 +721,7 @@
 					<dependency>
 						<groupId>org.icefaces</groupId>
 						<artifactId>icefaces</artifactId>
-						<version>${icefaces3.version}</version>
+						<version>${icefaces.version}</version>
 						<exclusions>
 							<!-- FACES-1725/FACES-1598/PUSH-247: Exclude icepush.jar on WebLogic -->
 							<exclusion>
@@ -923,7 +923,7 @@
 			<dependency>
 				<groupId>org.icefaces</groupId>
 				<artifactId>icefaces</artifactId>
-				<version>${icefaces3.version}</version>
+				<version>${icefaces.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.glassfish</groupId>
@@ -942,18 +942,18 @@
 			<dependency>
 				<groupId>org.icefaces</groupId>
 				<artifactId>icefaces-ace</artifactId>
-				<version>${icefaces3.version}</version>
+				<version>${icefaces.version}</version>
 			</dependency>
 			<!-- Note: icefaces-compat required due to http://jira.icesoft.org/browse/ICE-8444 -->
 			<dependency>
 				<groupId>org.icefaces</groupId>
 				<artifactId>icefaces-compat</artifactId>
-				<version>${icefaces3.version}</version>
+				<version>${icefaces.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.icepush</groupId>
 				<artifactId>icepush</artifactId>
-				<version>${icefaces3.version}</version>
+				<version>${icefaces.version}</version>
 				<exclusions>
 					<exclusion>
 						<artifactId>jsp-api</artifactId>
@@ -964,7 +964,7 @@
 			<dependency>
 				<groupId>org.richfaces</groupId>
 				<artifactId>richfaces</artifactId>
-				<version>${richfaces4.version}</version>
+				<version>${richfaces.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.jboss.spec.javax.el</groupId>
