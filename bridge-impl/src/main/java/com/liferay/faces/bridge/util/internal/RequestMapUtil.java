@@ -21,7 +21,7 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 
 import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 
 
 /**

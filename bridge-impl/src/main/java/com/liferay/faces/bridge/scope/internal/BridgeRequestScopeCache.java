@@ -15,27 +15,14 @@
  */
 package com.liferay.faces.bridge.scope.internal;
 
-import java.util.HashMap;
 import java.util.Map;
 
 
 /**
+ * This interface defines a {@link java.util.Map} style interface for managing cache of {@link BridgeRequestScope}.
+ *
  * @author  Neil Griffin
  */
-public abstract class BridgeRequestScopeBaseImpl implements BridgeRequestScope {
+public interface BridgeRequestScopeCache extends Map<String, BridgeRequestScope> {
 
-	// Private Data Members
-	private Map<String, Object> attributeMap;
-
-	public BridgeRequestScopeBaseImpl() {
-		this.attributeMap = new HashMap<String, Object>();
-	}
-
-	public Object getAttribute(String key) {
-		return attributeMap.get(key);
-	}
-
-	public void setAttribute(String key, Object value) {
-		attributeMap.put(key, value);
-	}
 }

@@ -15,9 +15,6 @@
  */
 package com.liferay.faces.bridge.scope.internal;
 
-import com.liferay.faces.bridge.scope.BridgeRequestScopeManager;
-import com.liferay.faces.bridge.scope.BridgeRequestScopeManagerFactory;
-
 
 /**
  * @author  Neil Griffin
