@@ -54,7 +54,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>${primefaces5.version}</version>
+			<version>${primefaces.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
