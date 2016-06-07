@@ -132,7 +132,7 @@
 		<pluto.version.major>2</pluto.version.major>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
-		<primefaces.version>5.3</primefaces.version>
+		<primefaces.version>6.0</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.stage>Production</project.stage>
 		<richfaces.version>4.5.6.Final</richfaces.version>
