@@ -37,10 +37,6 @@ import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeURL;
-import com.liferay.faces.bridge.PortletModeValidator;
-import com.liferay.faces.bridge.PortletModeValidatorFactory;
-import com.liferay.faces.bridge.WindowStateValidator;
-import com.liferay.faces.bridge.WindowStateValidatorFactory;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -533,26 +529,14 @@ public abstract class BridgeURLBase implements BridgeURL {
 				firstParameterValue = parameterValues[0];
 			}
 
-			if (Bridge.PORTLET_MODE_PARAMETER.equals(parameterName)) {
-
-				// Only add the "javax.portlet.faces.PortletMode" parameter if it has a valid value.
-				if (firstParameterValue != null) {
-
-					PortletModeValidator portletModeValidator = PortletModeValidatorFactory
-						.getPortletModeValidatorInstance();
-					addParameter = portletModeValidator.isValid(firstParameterValue);
-				}
+			if (Bridge.PORTLET_MODE_PARAMETER.equals(parameterName) ||
+					Bridge.PORTLET_WINDOWSTATE_PARAMETER.equals(parameterName)) {
+				addParameter = (firstParameterValue != null);
 			}
 			else if (Bridge.PORTLET_SECURE_PARAMETER.equals(parameterName)) {
 				addParameter = ((firstParameterValue != null) &&
 						("true".equalsIgnoreCase(firstParameterValue) ||
 							"false".equalsIgnoreCase(firstParameterValue)));
-			}
-			else if (Bridge.PORTLET_WINDOWSTATE_PARAMETER.equals(parameterName)) {
-
-				WindowStateValidator windowStateValidator = WindowStateValidatorFactory
-					.getWindowStateValidatorInstance();
-				addParameter = windowStateValidator.isValid(firstParameterValue);
 			}
 			else {
 
