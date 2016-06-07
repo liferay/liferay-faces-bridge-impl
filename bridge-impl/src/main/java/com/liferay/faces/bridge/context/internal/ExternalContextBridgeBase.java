@@ -34,7 +34,7 @@ import com.liferay.faces.bridge.context.IncongruityContext;
 import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.internal.BridgeURIFactory;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
-import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 
