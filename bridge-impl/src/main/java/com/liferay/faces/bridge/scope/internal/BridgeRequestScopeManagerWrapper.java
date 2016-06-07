@@ -15,27 +15,24 @@
  */
 package com.liferay.faces.bridge.scope.internal;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.faces.FacesWrapper;
+import javax.portlet.PortletConfig;
+import javax.servlet.http.HttpSession;
 
 
 /**
  * @author  Neil Griffin
  */
-public abstract class BridgeRequestScopeBaseImpl implements BridgeRequestScope {
+public abstract class BridgeRequestScopeManagerWrapper implements BridgeRequestScopeManager,
+	FacesWrapper<BridgeRequestScopeManager> {
 
-	// Private Data Members
-	private Map<String, Object> attributeMap;
+	public abstract BridgeRequestScopeManager getWrapped();
 
-	public BridgeRequestScopeBaseImpl() {
-		this.attributeMap = new HashMap<String, Object>();
+	public void removeBridgeRequestScopesByPortlet(PortletConfig portletConfig) {
+		getWrapped().removeBridgeRequestScopesByPortlet(portletConfig);
 	}
 
-	public Object getAttribute(String key) {
-		return attributeMap.get(key);
-	}
-
-	public void setAttribute(String key, Object value) {
-		attributeMap.put(key, value);
+	public void removeBridgeRequestScopesBySession(HttpSession httpSession) {
+		getWrapped().removeBridgeRequestScopesBySession(httpSession);
 	}
 }

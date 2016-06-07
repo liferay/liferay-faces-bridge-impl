@@ -27,7 +27,7 @@ import java.util.Set;
 import javax.faces.render.ResponseStateManager;
 
 import com.liferay.faces.bridge.internal.BridgeExt;
-import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

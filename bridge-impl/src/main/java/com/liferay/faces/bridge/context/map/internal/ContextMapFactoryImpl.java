@@ -31,7 +31,7 @@ import javax.servlet.ServletContext;
 
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.bridge.model.internal.UploadedFileBridgeImpl;
-import com.liferay.faces.bridge.scope.BridgeRequestScope;
+import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.context.map.MultiPartFormData;
 import com.liferay.faces.util.product.ProductConstants;

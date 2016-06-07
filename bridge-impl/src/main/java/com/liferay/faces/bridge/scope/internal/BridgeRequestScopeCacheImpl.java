@@ -21,8 +21,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.portlet.faces.Bridge;
 
-import com.liferay.faces.bridge.scope.BridgeRequestScope;
-import com.liferay.faces.bridge.scope.BridgeRequestScopeCache;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
