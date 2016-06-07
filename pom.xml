@@ -99,7 +99,7 @@
 		<faces.spec.version>1.2</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
-		<icefaces1.version>1.8.2</icefaces1.version>
+		<icefaces.version>1.8.2</icefaces.version>
 		<jstl.version>1.2</jstl.version>
 		<log4j.version>1.2.14</log4j.version>
 		<liferay.app.server.dir>${liferay.home}/tomcat-${liferay.tomcat.version}</liferay.app.server.dir>
@@ -129,10 +129,10 @@
 		<pluto.version.major>2</pluto.version.major>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
-		<primefaces1.version>UNSUPPORTED</primefaces1.version>
+		<primefaces.version>UNSUPPORTED</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.stage>Production</project.stage>
-		<richfaces3.version>UNSUPPORTED</richfaces3.version>
+		<richfaces.version>UNSUPPORTED</richfaces.version>
 		<selenium.version>2.46.0</selenium.version>
 		<spring.version>4.2.5.RELEASE</spring.version>
 		<surefire.version>2.12</surefire.version>
@@ -824,7 +824,7 @@
 			<dependency>
 				<groupId>org.icefaces</groupId>
 				<artifactId>icefaces</artifactId>
-				<version>${icefaces1.version}</version>
+				<version>${icefaces.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>javax.el</groupId>
@@ -847,12 +847,12 @@
 			<dependency>
 				<groupId>org.icefaces</groupId>
 				<artifactId>icefaces-comps</artifactId>
-				<version>${icefaces1.version}</version>
+				<version>${icefaces.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.icefaces</groupId>
 				<artifactId>icefaces-facelets</artifactId>
-				<version>${icefaces1.version}</version>
+				<version>${icefaces.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>javax.el</groupId>
