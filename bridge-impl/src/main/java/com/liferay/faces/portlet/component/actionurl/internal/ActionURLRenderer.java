@@ -20,8 +20,7 @@ import javax.faces.render.FacesRenderer;
 import javax.portlet.ActionRequest;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletURL;
-
-import com.liferay.faces.portlet.component.actionurl.ActionURL;
+import javax.portlet.faces.component.PortletActionURL;
 
 
 /**
@@ -29,21 +28,36 @@ import com.liferay.faces.portlet.component.actionurl.ActionURL;
  */
 
 //J-
-@FacesRenderer(componentFamily = ActionURL.COMPONENT_FAMILY, rendererType = ActionURL.RENDERER_TYPE)
+@FacesRenderer(componentFamily = PortletActionURL.COMPONENT_FAMILY, rendererType = "javax.portlet.faces.ActionURL")
 //J+
 public class ActionURLRenderer extends ActionURLRendererBase {
+
+	@Override
+	protected String getPortletMode(UIComponent uiComponent) {
+		return ((PortletActionURL) uiComponent).getPortletMode();
+	}
 
 	@Override
 	protected PortletURL getPortletURL(MimeResponse mimeResponse, UIComponent uiComponent) {
 
 		PortletURL actionURL = mimeResponse.createActionURL();
-		ActionURL actionURLComponent = (ActionURL) uiComponent;
-		String name = actionURLComponent.getName();
+		PortletActionURL portletActionURLComponent = (PortletActionURL) uiComponent;
+		String name = portletActionURLComponent.getName();
 
 		if (name != null) {
 			actionURL.setParameter(ActionRequest.ACTION_NAME, name);
 		}
 
 		return actionURL;
+	}
+
+	@Override
+	protected String getWindowState(UIComponent uiComponent) {
+		return ((PortletActionURL) uiComponent).getWindowState();
+	}
+
+	@Override
+	protected boolean isCopyCurrentRenderParameters(UIComponent uiComponent) {
+		return ((PortletActionURL) uiComponent).isCopyCurrentRenderParameters();
 	}
 }

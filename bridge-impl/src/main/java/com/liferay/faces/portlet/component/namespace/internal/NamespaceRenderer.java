@@ -22,8 +22,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-
-import com.liferay.faces.portlet.component.namespace.Namespace;
+import javax.portlet.faces.component.PortletNamespace;
 
 
 /**
@@ -31,7 +30,7 @@ import com.liferay.faces.portlet.component.namespace.Namespace;
  */
 
 //J-
-@FacesRenderer(componentFamily = Namespace.COMPONENT_FAMILY, rendererType = Namespace.RENDERER_TYPE)
+@FacesRenderer(componentFamily = PortletNamespace.COMPONENT_FAMILY, rendererType = "javax.portlet.faces.Namespace")
 //J+
 public class NamespaceRenderer extends NamespaceRendererBase {
 
@@ -49,8 +48,8 @@ public class NamespaceRenderer extends NamespaceRendererBase {
 	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		String namespace = facesContext.getExternalContext().encodeNamespace("");
-		Namespace namespaceComponent = (Namespace) uiComponent;
-		String var = namespaceComponent.getVar();
+		PortletNamespace portletNamespaceComponent = (PortletNamespace) uiComponent;
+		String var = portletNamespaceComponent.getVar();
 
 		if (var == null) {
 

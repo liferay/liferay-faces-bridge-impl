@@ -30,13 +30,17 @@ import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 
-import com.liferay.faces.portlet.component.renderurl.RenderURLBase;
-
 
 /**
  * @author  Kyle Stiemann
  */
-public class AbstractRenderURLRenderer extends RenderURLRendererBase {
+public abstract class AbstractRenderURLRenderer extends RenderURLRendererBase {
+
+	protected abstract String getPortletMode(UIComponent uiComponent);
+
+	protected abstract String getWindowState(UIComponent uiComponent);
+
+	protected abstract boolean isCopyCurrentRenderParameters(UIComponent uiComponent);
 
 	@Override
 	protected BaseURL getBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException {
@@ -44,10 +48,9 @@ public class AbstractRenderURLRenderer extends RenderURLRendererBase {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();
 		PortletURL renderURL = getPortletURL(mimeResponse, uiComponent);
-		RenderURLBase renderURLcomponent = (RenderURLBase) uiComponent;
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
-		if (renderURLcomponent.isCopyCurrentRenderParameters()) {
+		if (isCopyCurrentRenderParameters(uiComponent)) {
 
 			Map<String, String[]> currentRenderParameters = portletRequest.getParameterMap();
 			String namespace = facesContext.getExternalContext().encodeNamespace("");
@@ -64,7 +67,7 @@ public class AbstractRenderURLRenderer extends RenderURLRendererBase {
 			}
 		}
 
-		String portletModeString = renderURLcomponent.getPortletMode();
+		String portletModeString = getPortletMode(uiComponent);
 		PortletMode portletMode;
 
 		if (portletModeString != null) {
@@ -81,7 +84,7 @@ public class AbstractRenderURLRenderer extends RenderURLRendererBase {
 			throw new IOException(e);
 		}
 
-		String windowStateString = renderURLcomponent.getWindowState();
+		String windowStateString = getWindowState(uiComponent);
 		WindowState windowState;
 
 		if (windowStateString != null) {

@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.portlet.component.renderurl.internal;
 
+import javax.faces.component.UIComponent;
 import javax.faces.render.FacesRenderer;
-
-import com.liferay.faces.portlet.component.renderurl.RenderURL;
+import javax.portlet.faces.component.PortletRenderURL;
 
 
 /**
@@ -25,8 +25,22 @@ import com.liferay.faces.portlet.component.renderurl.RenderURL;
  */
 
 //J-
-@FacesRenderer(componentFamily = RenderURL.COMPONENT_FAMILY, rendererType = RenderURL.RENDERER_TYPE)
+@FacesRenderer(componentFamily = PortletRenderURL.COMPONENT_FAMILY, rendererType = "javax.portlet.faces.RenderURL")
 //J+
 public class RenderURLRenderer extends AbstractRenderURLRenderer {
-	// Initial Generation
+
+	@Override
+	protected String getPortletMode(UIComponent uiComponent) {
+		return ((PortletRenderURL) uiComponent).getPortletMode();
+	}
+
+	@Override
+	protected String getWindowState(UIComponent uiComponent) {
+		return ((PortletRenderURL) uiComponent).getWindowState();
+	}
+
+	@Override
+	protected boolean isCopyCurrentRenderParameters(UIComponent uiComponent) {
+		return ((PortletRenderURL) uiComponent).isCopyCurrentRenderParameters();
+	}
 }

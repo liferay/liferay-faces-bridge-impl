@@ -28,9 +28,9 @@ import javax.portlet.BaseURL;
 import javax.portlet.PortletSecurityException;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
-
-import com.liferay.faces.portlet.component.param.Param;
-import com.liferay.faces.portlet.component.property.Property;
+import javax.portlet.faces.component.PortletBaseURL;
+import javax.portlet.faces.component.PortletParam;
+import javax.portlet.faces.component.PortletProperty;
 
 
 /**
@@ -51,10 +51,9 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 	@Override
 	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-		com.liferay.faces.portlet.component.baseurl.BaseURL baseURLComponent =
-			(com.liferay.faces.portlet.component.baseurl.BaseURL) uiComponent;
+		PortletBaseURL portletBaseURLComponent = (PortletBaseURL) uiComponent;
 		BaseURL baseURL = getBaseURL(facesContext, uiComponent);
-		Boolean secure = baseURLComponent.getSecure();
+		Boolean secure = portletBaseURLComponent.getSecure();
 
 		if (secure != null) {
 
@@ -66,18 +65,18 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 			}
 		}
 
-		List<UIComponent> children = baseURLComponent.getChildren();
+		List<UIComponent> children = portletBaseURLComponent.getChildren();
 		Map<String, String[]> parameterMap = new HashMap<String, String[]>(baseURL.getParameterMap());
 		Map<String, String[]> initialParameterMap = new HashMap<String, String[]>(parameterMap);
 		final boolean RESOURCE_PHASE = BridgeUtil.getPortletRequestPhase().equals(Bridge.PortletPhase.RESOURCE_PHASE);
 
 		for (UIComponent child : children) {
 
-			if (child instanceof Param) {
+			if (child instanceof PortletParam) {
 
-				Param param = (Param) child;
-				String name = param.getName();
-				String value = param.getValue();
+				PortletParam portletParam = (PortletParam) child;
+				String name = portletParam.getName();
+				String value = portletParam.getValue();
 
 				if (parameterMap.containsKey(name)) {
 
@@ -105,23 +104,23 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 					parameterMap.put(name, new String[] { value });
 				}
 			}
-			else if (child instanceof Property) {
+			else if (child instanceof PortletProperty) {
 
-				Property property = (Property) child;
-				String value = property.getValue();
+				PortletProperty portletProperty = (PortletProperty) child;
+				String value = portletProperty.getValue();
 
 				if (value != null) {
-					baseURL.addProperty(property.getName(), value);
+					baseURL.addProperty(portletProperty.getName(), value);
 				}
 			}
 		}
 
 		baseURL.setParameters(parameterMap);
 
-		String varName = baseURLComponent.getVar();
+		String varName = portletBaseURLComponent.getVar();
 		String url = baseURL.toString();
 
-		if (baseURLComponent.isEscapeXml()) {
+		if (portletBaseURLComponent.isEscapeXml()) {
 			url = escapeXML(url);
 		}
 

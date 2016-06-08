@@ -169,7 +169,7 @@
 		</attribute>
 		<tag-extension>
 			<extends-tags>baseURLInherited</extends-tags>
-			<parent-class><![CDATA[com.liferay.faces.portlet.component.baseurl.BaseURL]]></parent-class>
+			<parent-class><![CDATA[javax.portlet.faces.component.PortletBaseURL]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portlet.component.baseurl.internal.BaseURLRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
@@ -196,7 +196,7 @@
 		</attribute>
 		<tag-extension>
 			<extends-tags>baseURLInherited</extends-tags>
-			<parent-class><![CDATA[com.liferay.faces.portlet.component.baseurl.BaseURL]]></parent-class>
+			<parent-class><![CDATA[javax.portlet.faces.component.PortletBaseURL]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portlet.component.baseurl.internal.BaseURLRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>

@@ -23,8 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
 import javax.portlet.BaseURL;
 import javax.portlet.MimeResponse;
-
-import com.liferay.faces.portlet.component.resourceurl.ResourceURL;
+import javax.portlet.faces.component.PortletResourceURL;
 
 
 /**
@@ -32,7 +31,7 @@ import com.liferay.faces.portlet.component.resourceurl.ResourceURL;
  */
 
 //J-
-@FacesRenderer(componentFamily = ResourceURL.COMPONENT_FAMILY, rendererType = ResourceURL.RENDERER_TYPE)
+@FacesRenderer(componentFamily = PortletResourceURL.COMPONENT_FAMILY, rendererType = "javax.portlet.faces.ResourceURL")
 //J+
 public class ResourceURLRenderer extends ResourceURLRendererBase {
 
@@ -42,11 +41,11 @@ public class ResourceURLRenderer extends ResourceURLRendererBase {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();
 		javax.portlet.ResourceURL resourceURL = mimeResponse.createResourceURL();
-		ResourceURL resourceURLComponent = (ResourceURL) uiComponent;
-		String cacheability = resourceURLComponent.getCacheability();
+		PortletResourceURL portletResourceURLComponent = (PortletResourceURL) uiComponent;
+		String cacheability = portletResourceURLComponent.getCacheability();
 		resourceURL.setCacheability(cacheability);
 
-		String id = resourceURLComponent.getId();
+		String id = portletResourceURLComponent.getId();
 
 		if (id != null) {
 			resourceURL.setResourceID(id);
