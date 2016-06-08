@@ -20,8 +20,8 @@ import java.net.URISyntaxException;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
+import javax.portlet.faces.BridgeConfig;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 

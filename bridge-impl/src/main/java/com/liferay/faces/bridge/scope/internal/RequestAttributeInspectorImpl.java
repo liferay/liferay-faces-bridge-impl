@@ -32,6 +32,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.RequestAttributeInspector;
 import javax.portlet.faces.annotation.ExcludeFromManagedRequestScope;
 import javax.servlet.ServletConfig;
@@ -40,7 +41,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 

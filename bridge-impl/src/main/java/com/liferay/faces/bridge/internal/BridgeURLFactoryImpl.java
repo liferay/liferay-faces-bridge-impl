@@ -23,9 +23,9 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
+import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeException;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.BridgeURLFactory;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;

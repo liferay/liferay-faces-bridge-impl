@@ -19,8 +19,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
+import javax.portlet.faces.BridgeConfig;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 
 

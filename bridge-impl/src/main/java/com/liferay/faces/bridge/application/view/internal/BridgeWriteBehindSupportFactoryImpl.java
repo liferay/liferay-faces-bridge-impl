@@ -22,10 +22,10 @@ import javax.portlet.MimeResponse;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.BridgeWriteBehindResponse;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 

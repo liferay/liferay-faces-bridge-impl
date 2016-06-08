@@ -42,11 +42,11 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
+import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.RequestAttributeInspector;
 import javax.portlet.faces.RequestAttributeInspectorFactory;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.context.IncongruityContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.FacesMessageWrapper;

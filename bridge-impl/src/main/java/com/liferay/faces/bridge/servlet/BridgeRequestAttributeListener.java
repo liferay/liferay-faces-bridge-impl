@@ -21,12 +21,12 @@ import java.util.Set;
 import javax.faces.context.FacesContext;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
+import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.annotation.BridgeRequestScopeAttributeAdded;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletRequestAttributeEvent;
 import javax.servlet.ServletRequestAttributeListener;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

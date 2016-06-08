@@ -23,8 +23,8 @@ import java.util.Set;
 
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
+import javax.portlet.faces.BridgeConfig;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.config.ApplicationConfig;
 import com.liferay.faces.util.config.ConfiguredElement;
 import com.liferay.faces.util.config.FacesConfig;

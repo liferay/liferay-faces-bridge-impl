@@ -27,12 +27,12 @@ import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeEventHandler;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.event.EventNavigationResult;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.event.EventPayloadWrapper;
 import com.liferay.faces.bridge.event.internal.IPCPhaseListener;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;

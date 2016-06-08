@@ -18,9 +18,8 @@ package com.liferay.faces.bridge.application.view.internal;
 import javax.faces.FacesException;
 import javax.faces.FacesWrapper;
 import javax.portlet.MimeResponse;
+import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeWriteBehindResponse;
-
-import com.liferay.faces.bridge.BridgeConfig;
 
 
 /**

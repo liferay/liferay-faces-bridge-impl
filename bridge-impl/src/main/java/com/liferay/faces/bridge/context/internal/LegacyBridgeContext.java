@@ -16,8 +16,7 @@
 package com.liferay.faces.bridge.context.internal;
 
 import javax.portlet.PortletRequest;
-
-import com.liferay.faces.bridge.BridgeConfig;
+import javax.portlet.faces.BridgeConfig;
 
 
 /**

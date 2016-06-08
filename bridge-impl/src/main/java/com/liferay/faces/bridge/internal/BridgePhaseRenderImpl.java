@@ -37,9 +37,9 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
+import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeException;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandler;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandlerImpl;
 import com.liferay.faces.bridge.context.BridgePortalContext;

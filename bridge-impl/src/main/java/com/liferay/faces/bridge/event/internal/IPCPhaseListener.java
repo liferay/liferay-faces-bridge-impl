@@ -27,10 +27,10 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgePublicRenderParameterHandler;
 import javax.portlet.faces.BridgeUtil;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

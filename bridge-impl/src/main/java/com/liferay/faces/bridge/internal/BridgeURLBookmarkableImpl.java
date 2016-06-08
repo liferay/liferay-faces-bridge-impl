@@ -24,8 +24,7 @@ import java.util.Set;
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
 import javax.portlet.PortletURL;
-
-import com.liferay.faces.bridge.BridgeConfig;
+import javax.portlet.faces.BridgeConfig;
 
 
 /**

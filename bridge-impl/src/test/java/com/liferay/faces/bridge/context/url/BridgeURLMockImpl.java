@@ -20,7 +20,7 @@ import java.net.URISyntaxException;
 
 import javax.portlet.BaseURL;
 
-import com.liferay.faces.bridge.BridgeConfig;
+import javax.portlet.faces.BridgeConfig;
 import com.liferay.faces.bridge.internal.BaseURLNonEncodedImpl;
 import com.liferay.faces.bridge.internal.BridgeURLBase;
 

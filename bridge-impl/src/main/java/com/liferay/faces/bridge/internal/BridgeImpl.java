@@ -32,12 +32,12 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeConfig;
+import javax.portlet.faces.BridgeConfigFactory;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.BridgeUninitializedException;
 
-import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.BridgeConfigFactory;
 import com.liferay.faces.bridge.BridgePhase;
 import com.liferay.faces.bridge.BridgePhaseFactory;
 import com.liferay.faces.bridge.filter.BridgePortletConfigFactory;
