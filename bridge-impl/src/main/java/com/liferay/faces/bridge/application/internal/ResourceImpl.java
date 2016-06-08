@@ -32,8 +32,8 @@ import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceWrapper;
 import javax.faces.context.FacesContext;
+import javax.portlet.faces.BridgeConfig;
 
-import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.HttpHeaders;
