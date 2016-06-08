@@ -19,8 +19,8 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 
 import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.scope.RequestAttributeInspector;
-import com.liferay.faces.bridge.scope.RequestAttributeInspectorFactory;
+import com.liferay.faces.bridge.RequestAttributeInspector;
+import com.liferay.faces.bridge.RequestAttributeInspectorFactory;
 
 
 /**
