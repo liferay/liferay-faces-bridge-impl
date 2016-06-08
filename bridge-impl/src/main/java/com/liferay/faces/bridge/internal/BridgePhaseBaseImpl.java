@@ -35,11 +35,11 @@ import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.annotation.PortletNamingContainer;
+import javax.portlet.faces.filter.BridgePortletContextFactory;
 
 import com.liferay.faces.bridge.BridgePhase;
 import com.liferay.faces.bridge.context.IncongruityContext;
 import com.liferay.faces.bridge.context.IncongruityContextFactory;
-import com.liferay.faces.bridge.filter.BridgePortletContextFactory;
 import com.liferay.faces.bridge.helper.internal.PortletModeHelper;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeCache;
