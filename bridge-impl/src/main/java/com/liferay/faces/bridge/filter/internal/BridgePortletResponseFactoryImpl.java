@@ -25,8 +25,7 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.BridgeConfig;
-
-import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
+import javax.portlet.faces.filter.BridgePortletResponseFactory;
 
 
 /**

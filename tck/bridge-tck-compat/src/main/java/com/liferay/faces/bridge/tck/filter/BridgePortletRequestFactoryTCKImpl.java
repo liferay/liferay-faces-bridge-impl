@@ -26,7 +26,7 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import javax.portlet.faces.BridgeConfig;
-import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
+import javax.portlet.faces.filter.BridgePortletRequestFactory;
 import com.liferay.faces.util.product.ProductConstants;
 import com.liferay.faces.util.product.ProductMap;
 

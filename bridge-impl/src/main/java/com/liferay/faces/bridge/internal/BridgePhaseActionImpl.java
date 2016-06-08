@@ -24,9 +24,9 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeException;
+import javax.portlet.faces.filter.BridgePortletRequestFactory;
+import javax.portlet.faces.filter.BridgePortletResponseFactory;
 
-import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
-import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
