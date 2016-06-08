@@ -40,7 +40,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.scope.RequestAttributeInspector;
+import com.liferay.faces.bridge.RequestAttributeInspector;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
