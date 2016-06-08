@@ -45,10 +45,10 @@ import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.bridge.RequestAttributeInspector;
+import com.liferay.faces.bridge.RequestAttributeInspectorFactory;
 import com.liferay.faces.bridge.context.IncongruityContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
-import com.liferay.faces.bridge.scope.RequestAttributeInspector;
-import com.liferay.faces.bridge.scope.RequestAttributeInspectorFactory;
 import com.liferay.faces.bridge.util.internal.FacesMessageWrapper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
