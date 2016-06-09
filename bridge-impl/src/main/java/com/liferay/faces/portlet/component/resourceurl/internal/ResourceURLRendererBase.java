@@ -16,9 +16,9 @@
 package com.liferay.faces.portlet.component.resourceurl.internal;
 //J-
 
-import javax.annotation.Generated;
-
 import com.liferay.faces.portlet.component.baseurl.internal.BaseURLRenderer;
+
+import javax.annotation.Generated;
 
 
 /**

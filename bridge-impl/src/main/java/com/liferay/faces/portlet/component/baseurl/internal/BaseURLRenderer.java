@@ -28,7 +28,6 @@ import javax.portlet.BaseURL;
 import javax.portlet.PortletSecurityException;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
-import javax.portlet.faces.component.PortletBaseURL;
 import javax.portlet.faces.component.PortletParam;
 import javax.portlet.faces.component.PortletProperty;
 
@@ -145,7 +144,7 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 		return true;
 	}
 
-	protected abstract BaseURL getBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException;
+	protected abstract BaseURL createBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException;
 
 	/**
 	 * Escapes the text so that it is safe to use in an HTML context.

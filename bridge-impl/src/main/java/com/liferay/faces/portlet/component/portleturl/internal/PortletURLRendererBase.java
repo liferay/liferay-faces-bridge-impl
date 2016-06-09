@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.portlet.component.actionurl.internal;
+package com.liferay.faces.portlet.component.portleturl.internal;
 //J-
 
-import com.liferay.faces.portlet.component.portleturl.internal.PortletURLRenderer;
+import com.liferay.faces.portlet.component.baseurl.internal.BaseURLRenderer;
 
 import javax.annotation.Generated;
 
@@ -25,9 +25,11 @@ import javax.annotation.Generated;
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class ActionURLRendererBase extends PortletURLRenderer {
+public abstract class PortletURLRendererBase extends BaseURLRenderer {
 
 	// Protected Constants
-	protected static final String NAME = "name";
+	protected static final String COPY_CURRENT_RENDER_PARAMETERS = "copyCurrentRenderParameters";
+	protected static final String PORTLET_MODE = "portletMode";
+	protected static final String WINDOW_STATE = "windowState";
 }
 //J+

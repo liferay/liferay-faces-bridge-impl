@@ -18,6 +18,7 @@ package com.liferay.faces.portlet.component.actionurl.internal;
 import javax.faces.component.UIComponent;
 import javax.faces.render.FacesRenderer;
 import javax.portlet.ActionRequest;
+import javax.portlet.ActionURL;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletURL;
 import javax.portlet.faces.component.PortletActionURL;
@@ -33,22 +34,22 @@ import javax.portlet.faces.component.PortletActionURL;
 public class ActionURLRenderer extends ActionURLRendererBase {
 
 	@Override
-	protected String getPortletMode(UIComponent uiComponent) {
-		return ((PortletActionURL) uiComponent).getPortletMode();
-	}
+	protected PortletURL createPortletURL(MimeResponse mimeResponse, UIComponent uiComponent) {
 
-	@Override
-	protected PortletURL getPortletURL(MimeResponse mimeResponse, UIComponent uiComponent) {
-
-		PortletURL actionURL = mimeResponse.createActionURL();
-		PortletActionURL portletActionURLComponent = (PortletActionURL) uiComponent;
-		String name = portletActionURLComponent.getName();
+		ActionURL actionURL = mimeResponse.createActionURL();
+		PortletActionURL actionURLComponent = (PortletActionURL) uiComponent;
+		String name = actionURLComponent.getName();
 
 		if (name != null) {
 			actionURL.setParameter(ActionRequest.ACTION_NAME, name);
 		}
 
 		return actionURL;
+	}
+
+	@Override
+	protected String getPortletMode(UIComponent uiComponent) {
+		return ((PortletActionURL) uiComponent).getPortletMode();
 	}
 
 	@Override
