@@ -13,18 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.portlet.component.renderurl.internal;
+package com.liferay.faces.portlet.component.portleturl.internal;
 //J-
 
 import javax.annotation.Generated;
 
-import com.liferay.faces.portlet.component.portleturl.internal.PortletURLRenderer;
+import com.liferay.faces.portlet.component.baseurl.internal.BaseURLRenderer;
 
 
 /**
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class RenderURLRendererBase extends PortletURLRenderer {
+public abstract class PortletURLRendererBase extends BaseURLRenderer {
+
+	// Protected Constants
+	protected static final String COPY_CURRENT_RENDER_PARAMETERS = "copyCurrentRenderParameters";
+	protected static final String PORTLET_MODE = "portletMode";
+	protected static final String WINDOW_STATE = "windowState";
 }
 //J+

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.portlet.component.renderurl.internal;
+package com.liferay.faces.portlet.component.portleturl.internal;
 
 import java.io.IOException;
 import java.util.Map;
@@ -21,33 +21,44 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.render.FacesRenderer;
 import javax.portlet.BaseURL;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
 import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 
-import com.liferay.faces.portlet.component.renderurl.RenderURLBase;
+import com.liferay.faces.portlet.component.portleturl.PortletURL;
 
 
 /**
- * @author  Kyle Stiemann
+ * @author  Neil Griffin
  */
-public class AbstractRenderURLRenderer extends RenderURLRendererBase {
+
+//J-
+@FacesRenderer(componentFamily = PortletURL.COMPONENT_FAMILY, rendererType = PortletURL.RENDERER_TYPE)
+//J+
+public abstract class PortletURLRenderer extends PortletURLRendererBase {
+
+	protected abstract javax.portlet.PortletURL createPortletURL(MimeResponse mimeResponse, UIComponent uiComponent);
+
+	protected abstract String getPortletMode(UIComponent uiComponent);
+
+	protected abstract String getWindowState(UIComponent uiComponent);
+
+	protected abstract boolean isCopyCurrentRenderParameters(UIComponent uiComponent);
 
 	@Override
-	protected BaseURL getBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+	protected BaseURL createBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
 		MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();
-		PortletURL renderURL = getPortletURL(mimeResponse, uiComponent);
-		RenderURLBase renderURLcomponent = (RenderURLBase) uiComponent;
+		javax.portlet.PortletURL portletURL = createPortletURL(mimeResponse, uiComponent);
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
-		if (renderURLcomponent.isCopyCurrentRenderParameters()) {
+		if (isCopyCurrentRenderParameters(uiComponent)) {
 
 			Map<String, String[]> currentRenderParameters = portletRequest.getParameterMap();
 			String namespace = facesContext.getExternalContext().encodeNamespace("");
@@ -60,11 +71,11 @@ public class AbstractRenderURLRenderer extends RenderURLRendererBase {
 					name = name.substring(namespace.length());
 				}
 
-				renderURL.setParameter(name, param.getValue());
+				portletURL.setParameter(name, param.getValue());
 			}
 		}
 
-		String portletModeString = renderURLcomponent.getPortletMode();
+		String portletModeString = getPortletMode(uiComponent);
 		PortletMode portletMode;
 
 		if (portletModeString != null) {
@@ -75,13 +86,13 @@ public class AbstractRenderURLRenderer extends RenderURLRendererBase {
 		}
 
 		try {
-			renderURL.setPortletMode(portletMode);
+			portletURL.setPortletMode(portletMode);
 		}
 		catch (PortletModeException e) {
 			throw new IOException(e);
 		}
 
-		String windowStateString = renderURLcomponent.getWindowState();
+		String windowStateString = getWindowState(uiComponent);
 		WindowState windowState;
 
 		if (windowStateString != null) {
@@ -92,16 +103,12 @@ public class AbstractRenderURLRenderer extends RenderURLRendererBase {
 		}
 
 		try {
-			renderURL.setWindowState(windowState);
+			portletURL.setWindowState(windowState);
 		}
 		catch (WindowStateException e) {
 			throw new IOException(e);
 		}
 
-		return renderURL;
-	}
-
-	protected PortletURL getPortletURL(MimeResponse mimeResponse, UIComponent uiComponent) {
-		return mimeResponse.createRenderURL();
+		return portletURL;
 	}
 }
