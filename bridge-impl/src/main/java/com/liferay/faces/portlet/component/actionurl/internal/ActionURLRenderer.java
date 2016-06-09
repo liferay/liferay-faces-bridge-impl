@@ -53,6 +53,16 @@ public class ActionURLRenderer extends ActionURLRendererBase {
 	}
 
 	@Override
+	protected Boolean getSecure(UIComponent uiComponent) {
+		return ((PortletActionURL) uiComponent).getSecure();
+	}
+
+	@Override
+	protected String getVar(UIComponent uiComponent) {
+		return ((PortletActionURL) uiComponent).getVar();
+	}
+
+	@Override
 	protected String getWindowState(UIComponent uiComponent) {
 		return ((PortletActionURL) uiComponent).getWindowState();
 	}
@@ -60,5 +70,10 @@ public class ActionURLRenderer extends ActionURLRendererBase {
 	@Override
 	protected boolean isCopyCurrentRenderParameters(UIComponent uiComponent) {
 		return ((PortletActionURL) uiComponent).isCopyCurrentRenderParameters();
+	}
+
+	@Override
+	protected boolean isEscapeXml(UIComponent uiComponent) {
+		return ((PortletActionURL) uiComponent).isEscapeXml();
 	}
 }

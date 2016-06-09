@@ -42,6 +42,16 @@ public class RenderURLRenderer extends RenderURLRendererBase {
 	}
 
 	@Override
+	protected Boolean getSecure(UIComponent uiComponent) {
+		return ((PortletRenderURL) uiComponent).getSecure();
+	}
+
+	@Override
+	protected String getVar(UIComponent uiComponent) {
+		return ((PortletRenderURL) uiComponent).getVar();
+	}
+
+	@Override
 	protected String getWindowState(UIComponent uiComponent) {
 		return ((PortletRenderURL) uiComponent).getWindowState();
 	}
@@ -49,5 +59,10 @@ public class RenderURLRenderer extends RenderURLRendererBase {
 	@Override
 	protected boolean isCopyCurrentRenderParameters(UIComponent uiComponent) {
 		return ((PortletRenderURL) uiComponent).isCopyCurrentRenderParameters();
+	}
+
+	@Override
+	protected boolean isEscapeXml(UIComponent uiComponent) {
+		return ((PortletRenderURL) uiComponent).isEscapeXml();
 	}
 }
