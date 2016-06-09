@@ -51,8 +51,6 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 	@Override
 	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-		com.liferay.faces.portlet.component.baseurl.BaseURL baseURLComponent =
-			(com.liferay.faces.portlet.component.baseurl.BaseURL) uiComponent;
 		BaseURL baseURL = createBaseURL(facesContext, uiComponent);
 		Boolean secure = getSecure(uiComponent);
 
@@ -66,57 +64,8 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 			}
 		}
 
-		List<UIComponent> children = uiComponent.getChildren();
-		Map<String, String[]> parameterMap = new HashMap<String, String[]>(baseURL.getParameterMap());
-		Map<String, String[]> initialParameterMap = new HashMap<String, String[]>(parameterMap);
-		final boolean RESOURCE_PHASE = BridgeUtil.getPortletRequestPhase().equals(Bridge.PortletPhase.RESOURCE_PHASE);
-
-		for (UIComponent child : children) {
-
-			if (child instanceof Param) {
-
-				Param param = (Param) child;
-				String name = param.getName();
-				String value = param.getValue();
-
-				if (parameterMap.containsKey(name)) {
-
-					// According to the Java Portlet Specification (version 2.0 (2008-01-11)), when rendering a resource
-					// URL, parameters set by the portlet container should not be removed.
-					final boolean PARAM_SET_BY_PORTLET_CONTAINER = initialParameterMap.containsKey(name);
-					final boolean REMOVE_EMPTY_PARAMETER = (!RESOURCE_PHASE || !PARAM_SET_BY_PORTLET_CONTAINER);
-
-					if ("".equals(value) && REMOVE_EMPTY_PARAMETER) {
-						parameterMap.remove(name);
-					}
-					else if ("".equals(value) && !REMOVE_EMPTY_PARAMETER) {
-						// do nothing
-					}
-					else {
-
-						String[] paramValueArray = parameterMap.get(name);
-						String[] newParamValueArray = new String[paramValueArray.length + 1];
-						System.arraycopy(paramValueArray, 0, newParamValueArray, 0, paramValueArray.length);
-						newParamValueArray[newParamValueArray.length - 1] = value;
-						parameterMap.put(name, newParamValueArray);
-					}
-				}
-				else {
-					parameterMap.put(name, new String[] { value });
-				}
-			}
-			else if (child instanceof Property) {
-
-				Property property = (Property) child;
-				String value = property.getValue();
-
-				if (value != null) {
-					baseURL.addProperty(property.getName(), value);
-				}
-			}
-		}
-
-		baseURL.setParameters(parameterMap);
+		processParamChildren(uiComponent, baseURL);
+		processPropertyChildren(uiComponent, baseURL);
 
 		String varName = getVar(uiComponent);
 		String url = baseURL.toString();
@@ -153,6 +102,72 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 	protected abstract String getVar(UIComponent uiComponent);
 
 	protected abstract boolean isEscapeXml(UIComponent uiComponent);
+
+	protected void processParamChildren(UIComponent uiComponent, BaseURL baseURL) {
+
+		Map<String, String[]> parameterMap = baseURL.getParameterMap();
+		Map<String, String[]> initialParameterMap = new HashMap<String, String[]>(parameterMap);
+		boolean RESOURCE_PHASE = BridgeUtil.getPortletRequestPhase().equals(Bridge.PortletPhase.RESOURCE_PHASE);
+
+		List<UIComponent> children = uiComponent.getChildren();
+
+		for (UIComponent child : children) {
+
+			if (child instanceof Param) {
+
+				Param portletParam = (Param) child;
+				String name = portletParam.getName();
+				String value = portletParam.getValue();
+
+				if (parameterMap.containsKey(name)) {
+
+					// According to the Java Portlet Specification (version 2.0 (2008-01-11)), when rendering a resource
+					// URL, parameters set by the portlet container should not be removed.
+					final boolean PARAM_SET_BY_PORTLET_CONTAINER = initialParameterMap.containsKey(name);
+					final boolean REMOVE_EMPTY_PARAMETER = (!RESOURCE_PHASE || !PARAM_SET_BY_PORTLET_CONTAINER);
+
+					if ("".equals(value) && REMOVE_EMPTY_PARAMETER) {
+						parameterMap.remove(name);
+					}
+					else if ("".equals(value) && !REMOVE_EMPTY_PARAMETER) {
+						// do nothing
+					}
+					else {
+
+						String[] paramValueArray = parameterMap.get(name);
+						String[] newParamValueArray = new String[paramValueArray.length + 1];
+						System.arraycopy(paramValueArray, 0, newParamValueArray, 0, paramValueArray.length);
+						newParamValueArray[newParamValueArray.length - 1] = value;
+						parameterMap.put(name, newParamValueArray);
+					}
+				}
+				else {
+					parameterMap.put(name, new String[] { value });
+				}
+			}
+		}
+
+		baseURL.setParameters(parameterMap);
+	}
+
+	protected void processPropertyChildren(UIComponent uiComponent, BaseURL baseURL) {
+
+		List<UIComponent> children = uiComponent.getChildren();
+
+		for (UIComponent child : children) {
+
+			if (child instanceof Property) {
+
+				Property portletProperty = (Property) child;
+				String value = portletProperty.getValue();
+
+				if (value != null) {
+					baseURL.addProperty(portletProperty.getName(), value);
+				}
+			}
+		}
+
+	}
 
 	/**
 	 * Escapes the text so that it is safe to use in an HTML context.
