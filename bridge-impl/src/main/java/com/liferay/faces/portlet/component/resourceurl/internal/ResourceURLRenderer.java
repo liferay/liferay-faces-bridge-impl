@@ -54,4 +54,19 @@ public class ResourceURLRenderer extends ResourceURLRendererBase {
 
 		return resourceURL;
 	}
+
+	@Override
+	protected Boolean getSecure(UIComponent uiComponent) {
+		return ((ResourceURL) uiComponent).getSecure();
+	}
+
+	@Override
+	protected String getVar(UIComponent uiComponent) {
+		return ((ResourceURL) uiComponent).getVar();
+	}
+
+	@Override
+	protected boolean isEscapeXml(UIComponent uiComponent) {
+		return ((ResourceURL) uiComponent).isEscapeXml();
+	}
 }

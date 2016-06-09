@@ -53,6 +53,16 @@ public class ActionURLRenderer extends ActionURLRendererBase {
 	}
 
 	@Override
+	protected Boolean getSecure(UIComponent uiComponent) {
+		return ((ActionURL) uiComponent).getSecure();
+	}
+
+	@Override
+	protected String getVar(UIComponent uiComponent) {
+		return ((ActionURL) uiComponent).getVar();
+	}
+
+	@Override
 	protected String getWindowState(UIComponent uiComponent) {
 		return ((ActionURL) uiComponent).getWindowState();
 	}
@@ -60,5 +70,10 @@ public class ActionURLRenderer extends ActionURLRendererBase {
 	@Override
 	protected boolean isCopyCurrentRenderParameters(UIComponent uiComponent) {
 		return ((ActionURL) uiComponent).isCopyCurrentRenderParameters();
+	}
+
+	@Override
+	protected boolean isEscapeXml(UIComponent uiComponent) {
+		return ((ActionURL) uiComponent).isEscapeXml();
 	}
 }
