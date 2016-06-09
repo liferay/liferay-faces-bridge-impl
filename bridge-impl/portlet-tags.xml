@@ -21,9 +21,9 @@
 			<type><![CDATA[java.lang.String]]></type>
 		</attribute>
 		<tag-extension>
-			<extends-tags>renderURLInherited</extends-tags>
-			<parent-class><![CDATA[com.liferay.faces.portlet.component.renderurl.RenderURLBase]]></parent-class>
-			<renderer-parent-class><![CDATA[com.liferay.faces.portlet.component.renderurl.internal.AbstractRenderURLRenderer]]></renderer-parent-class>
+			<extends-tags>portletURLInherited</extends-tags>
+			<parent-class><![CDATA[com.liferay.faces.portlet.component.portleturl.PortletURLBase]]></parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portlet.component.portleturl.internal.PortletURLRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>
@@ -89,13 +89,6 @@
 		</tag-extension>
 	</tag>
 	<tag>
-		<description><![CDATA[This has been implemented for the sake of completeness of the portlet: tags from the JSR 286 specification. Please refer to com.liferay.faces.bridge.el.internal.ELResolverImpl and section 6.5.1 of the JSR 329 specification for more information.]]></description>
-		<tag-name>defineObjects</tag-name>
-		<tag-extension>
-			<generate-renderer>false</generate-renderer>
-		</tag-extension>
-	</tag>
-	<tag>
 		<description><![CDATA[Creates a namespace that will be unique for the current portlet resources. If the <code>var</code> attribute is present, the <code>portlet:namespace</code> tag introduces an EL variable that contains the portlet namespace. Otherwise, the namespace is written to the response.]]></description>
 		<tag-name>namespace</tag-name>
 		<attribute>
@@ -125,27 +118,7 @@
 		</tag-extension>
 	</tag>
 	<tag>
-		<description><![CDATA[The <code>portlet:property</code> tag provides the ability to add a portlet property name=value pair when nested inside a <code>portlet:actionURL</code>, a <code>portletRenderURL</code>, or a <code>portlet:resourceURL</code> tag. Using <code>portlet:property</code> is equivalent to calling the <code>BaseURL.addProperty()</code> method.]]></description>
-		<tag-name>property</tag-name>
-		<attribute>
-			<description><![CDATA[The name of the portlet property.]]></description>
-			<name>name</name>
-			<required>true</required>
-			<type><![CDATA[java.lang.String]]></type>
-		</attribute>
-		<attribute>
-			<description><![CDATA[The value of the portlet property.]]></description>
-			<name>value</name>
-			<required>true</required>
-			<type><![CDATA[java.lang.String]]></type>
-		</attribute>
-		<tag-extension>
-			<generate-renderer>false</generate-renderer>
-		</tag-extension>
-	</tag>
-	<tag>
-		<description><![CDATA[Creates a URL that points to the current portlet and triggers a render request with the supplied parameters. If the <code>var</code> attribute is present, the <code>portlet:renderURL</code> tag introduces an EL variable that contains a <code>javax.portlet.PortletURL</code> adequate for rendering. Otherwise, the URL is written to the response.]]></description>
-		<tag-name>renderURL</tag-name>
+		<tag-name>portletURL</tag-name>
 		<attribute>
 			<attribute-extension>
 				<default-value><![CDATA[false]]></default-value>
@@ -168,9 +141,74 @@
 			<type><![CDATA[java.lang.String]]></type>
 		</attribute>
 		<tag-extension>
+			<generate-taglib-xml>false</generate-taglib-xml>
 			<extends-tags>baseURLInherited</extends-tags>
 			<parent-class><![CDATA[com.liferay.faces.portlet.component.baseurl.BaseURL]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.portlet.component.baseurl.internal.BaseURLRenderer]]></renderer-parent-class>
+		</tag-extension>
+	</tag>
+	<tag>
+		<tag-name>portletURLInherited</tag-name>
+		<attribute>
+			<attribute-extension>
+				<default-value><![CDATA[false]]></default-value>
+				<inherited>true</inherited>
+			</attribute-extension>
+			<description><![CDATA[When true, copy the current request's render parameters to the URL. Defaults to false.]]></description>
+			<name>copyCurrentRenderParameters</name>
+			<required>false</required>
+			<type><![CDATA[boolean]]></type>
+		</attribute>
+		<attribute>
+			<attribute-extension>
+				<inherited>true</inherited>
+			</attribute-extension>
+			<description><![CDATA[The name of the mode of the portlet which will be accessed via the URL.]]></description>
+			<name>portletMode</name>
+			<required>false</required>
+			<type><![CDATA[java.lang.String]]></type>
+		</attribute>
+		<attribute>
+			<attribute-extension>
+				<inherited>true</inherited>
+			</attribute-extension>
+			<description><![CDATA[The name of the window state of the portlet which will be accessed via the URL.]]></description>
+			<name>windowState</name>
+			<required>false</required>
+			<type><![CDATA[java.lang.String]]></type>
+		</attribute>
+		<tag-extension>
+			<extends-tags>baseURLInherited</extends-tags>
+			<generate-java>false</generate-java>
+			<generate-taglib-xml>false</generate-taglib-xml>
+		</tag-extension>
+	</tag>
+	<tag>
+		<description><![CDATA[The <code>portlet:property</code> tag provides the ability to add a portlet property name=value pair when nested inside a <code>portlet:actionURL</code>, a <code>portletRenderURL</code>, or a <code>portlet:resourceURL</code> tag. Using <code>portlet:property</code> is equivalent to calling the <code>BaseURL.addProperty()</code> method.]]></description>
+		<tag-name>property</tag-name>
+		<attribute>
+			<description><![CDATA[The name of the portlet property.]]></description>
+			<name>name</name>
+			<required>true</required>
+			<type><![CDATA[java.lang.String]]></type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[The value of the portlet property.]]></description>
+			<name>value</name>
+			<required>true</required>
+			<type><![CDATA[java.lang.String]]></type>
+		</attribute>
+		<tag-extension>
+			<generate-renderer>false</generate-renderer>
+		</tag-extension>
+	</tag>
+	<tag>
+		<description><![CDATA[Creates a URL that points to the current portlet and triggers a render request with the supplied parameters. If the <code>var</code> attribute is present, the <code>portlet:renderURL</code> tag introduces an EL variable that contains a <code>javax.portlet.PortletURL</code> adequate for rendering. Otherwise, the URL is written to the response.]]></description>
+		<tag-name>renderURL</tag-name>
+		<tag-extension>
+			<extends-tags>portletURLInherited</extends-tags>
+			<parent-class><![CDATA[com.liferay.faces.portlet.component.portleturl.PortletURL]]></parent-class>
+			<renderer-parent-class><![CDATA[com.liferay.faces.portlet.component.portleturl.internal.PortletURLRenderer]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
 	<tag>

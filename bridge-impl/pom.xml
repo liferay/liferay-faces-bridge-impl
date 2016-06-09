@@ -63,7 +63,7 @@
 	<profiles>
 		<profile>
 			<!--
-				Note: When the generating the bridge components, the API classed will be output into
+				Note: When the generating the bridge components, the API classes will be output into
 				target/liferay-faces-bridge-api.
 			-->
 			<id>generate-components</id>

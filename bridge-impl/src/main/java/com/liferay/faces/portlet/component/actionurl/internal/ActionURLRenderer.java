@@ -34,7 +34,7 @@ import com.liferay.faces.portlet.component.actionurl.ActionURL;
 public class ActionURLRenderer extends ActionURLRendererBase {
 
 	@Override
-	protected PortletURL getPortletURL(MimeResponse mimeResponse, UIComponent uiComponent) {
+	protected PortletURL createPortletURL(MimeResponse mimeResponse, UIComponent uiComponent) {
 
 		PortletURL actionURL = mimeResponse.createActionURL();
 		ActionURL actionURLComponent = (ActionURL) uiComponent;
@@ -45,5 +45,20 @@ public class ActionURLRenderer extends ActionURLRendererBase {
 		}
 
 		return actionURL;
+	}
+
+	@Override
+	protected String getPortletMode(UIComponent uiComponent) {
+		return ((ActionURL) uiComponent).getPortletMode();
+	}
+
+	@Override
+	protected String getWindowState(UIComponent uiComponent) {
+		return ((ActionURL) uiComponent).getWindowState();
+	}
+
+	@Override
+	protected boolean isCopyCurrentRenderParameters(UIComponent uiComponent) {
+		return ((ActionURL) uiComponent).isCopyCurrentRenderParameters();
 	}
 }

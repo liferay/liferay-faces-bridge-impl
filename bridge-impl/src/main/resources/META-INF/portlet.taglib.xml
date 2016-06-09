@@ -60,17 +60,6 @@
 		</tag-extension>
 	</tag>
 	<tag>
-		<description><![CDATA[This has been implemented for the sake of completeness of the portlet: tags from the JSR 286 specification. Please refer to com.liferay.faces.bridge.el.internal.ELResolverImpl and section 6.5.1 of the JSR 329 specification for more information.]]></description>
-		<tag-name>defineObjects</tag-name>
-		<component>
-			<component-type>com.liferay.faces.portlet.component.defineobjects.DefineObjects</component-type>
-		</component>
-		<tag-extension>
-			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portlet/defineobjects/general</vdldoc:example-url>
-			<vdldoc:since>2.0.0</vdldoc:since>
-		</tag-extension>
-	</tag>
-	<tag>
 		<description><![CDATA[Creates a namespace that will be unique for the current portlet resources. If the <code>var</code> attribute is present, the <code>portlet:namespace</code> tag introduces an EL variable that contains the portlet namespace. Otherwise, the namespace is written to the response.]]></description>
 		<tag-name>namespace</tag-name>
 		<component>

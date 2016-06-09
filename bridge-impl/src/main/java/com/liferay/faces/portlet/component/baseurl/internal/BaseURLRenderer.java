@@ -53,7 +53,7 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 
 		com.liferay.faces.portlet.component.baseurl.BaseURL baseURLComponent =
 			(com.liferay.faces.portlet.component.baseurl.BaseURL) uiComponent;
-		BaseURL baseURL = getBaseURL(facesContext, uiComponent);
+		BaseURL baseURL = createBaseURL(facesContext, uiComponent);
 		Boolean secure = baseURLComponent.getSecure();
 
 		if (secure != null) {
@@ -146,7 +146,7 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 		return true;
 	}
 
-	protected abstract BaseURL getBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException;
+	protected abstract BaseURL createBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException;
 
 	/**
 	 * Escapes the text so that it is safe to use in an HTML context.
