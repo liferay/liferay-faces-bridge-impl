@@ -28,6 +28,7 @@ import javax.portlet.BaseURL;
 import javax.portlet.PortletSecurityException;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
+import javax.portlet.faces.component.PortletBaseURL;
 import javax.portlet.faces.component.PortletParam;
 import javax.portlet.faces.component.PortletProperty;
 
@@ -51,7 +52,7 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		PortletBaseURL portletBaseURLComponent = (PortletBaseURL) uiComponent;
-		BaseURL baseURL = getBaseURL(facesContext, uiComponent);
+		BaseURL baseURL = createBaseURL(facesContext, uiComponent);
 		Boolean secure = portletBaseURLComponent.getSecure();
 
 		if (secure != null) {
