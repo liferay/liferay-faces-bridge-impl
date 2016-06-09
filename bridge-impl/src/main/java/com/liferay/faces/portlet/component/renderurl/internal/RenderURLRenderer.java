@@ -16,8 +16,8 @@
 package com.liferay.faces.portlet.component.renderurl.internal;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.render.FacesRenderer;
-import javax.portlet.MimeResponse;
 import javax.portlet.PortletURL;
 
 import com.liferay.faces.portlet.component.renderurl.RenderURL;
@@ -30,11 +30,17 @@ import com.liferay.faces.portlet.component.renderurl.RenderURL;
 //J-
 @FacesRenderer(componentFamily = RenderURL.COMPONENT_FAMILY, rendererType = RenderURL.RENDERER_TYPE)
 //J+
-public class RenderURLRenderer extends RenderURLRendererBase {
+public class RenderURLRenderer extends RenderURLRendererCompat {
 
 	@Override
-	protected PortletURL createPortletURL(MimeResponse mimeResponse, UIComponent uiComponent) {
-		return mimeResponse.createRenderURL();
+	protected PortletURL createPortletURL(ExternalContext externalContext, UIComponent uiComponent) {
+
+		if (isCopyCurrentRenderParameters(uiComponent)) {
+			return createRenderURL(externalContext, ParamCopyOption.ALL_PUBLIC_PRIVATE);
+		}
+		else {
+			return createRenderURL(externalContext, ParamCopyOption.NONE);
+		}
 	}
 
 	@Override
