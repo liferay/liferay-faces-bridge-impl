@@ -41,11 +41,11 @@ public class ResourceURLRenderer extends ResourceURLRendererBase {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();
 		javax.portlet.ResourceURL resourceURL = mimeResponse.createResourceURL();
-		PortletResourceURL portletResourceURLComponent = (PortletResourceURL) uiComponent;
-		String cacheability = portletResourceURLComponent.getCacheability();
+		PortletResourceURL resourceURLComponent = (PortletResourceURL) uiComponent;
+		String cacheability = resourceURLComponent.getCacheability();
 		resourceURL.setCacheability(cacheability);
 
-		String id = portletResourceURLComponent.getId();
+		String id = resourceURLComponent.getId();
 
 		if (id != null) {
 			resourceURL.setResourceID(id);

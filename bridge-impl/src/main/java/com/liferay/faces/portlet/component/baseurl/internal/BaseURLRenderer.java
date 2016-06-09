@@ -51,9 +51,9 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 	@Override
 	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-		PortletBaseURL portletBaseURLComponent = (PortletBaseURL) uiComponent;
+		PortletBaseURL baseURLComponent = (PortletBaseURL) uiComponent;
 		BaseURL baseURL = createBaseURL(facesContext, uiComponent);
-		Boolean secure = portletBaseURLComponent.getSecure();
+		Boolean secure = baseURLComponent.getSecure();
 
 		if (secure != null) {
 
@@ -65,7 +65,7 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 			}
 		}
 
-		List<UIComponent> children = portletBaseURLComponent.getChildren();
+		List<UIComponent> children = baseURLComponent.getChildren();
 		Map<String, String[]> parameterMap = new HashMap<String, String[]>(baseURL.getParameterMap());
 		Map<String, String[]> initialParameterMap = new HashMap<String, String[]>(parameterMap);
 		final boolean RESOURCE_PHASE = BridgeUtil.getPortletRequestPhase().equals(Bridge.PortletPhase.RESOURCE_PHASE);
@@ -117,10 +117,10 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 
 		baseURL.setParameters(parameterMap);
 
-		String varName = portletBaseURLComponent.getVar();
+		String varName = baseURLComponent.getVar();
 		String url = baseURL.toString();
 
-		if (portletBaseURLComponent.isEscapeXml()) {
+		if (baseURLComponent.isEscapeXml()) {
 			url = escapeXML(url);
 		}
 
