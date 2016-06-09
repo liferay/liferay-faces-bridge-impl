@@ -16,7 +16,6 @@
 package com.liferay.faces.portlet.component.portleturl.internal;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
@@ -39,7 +38,8 @@ import javax.portlet.WindowStateException;
 //J+
 public abstract class PortletURLRenderer extends PortletURLRendererBase {
 
-	protected abstract javax.portlet.PortletURL createPortletURL(MimeResponse mimeResponse, UIComponent uiComponent);
+	protected abstract javax.portlet.PortletURL createPortletURL(ExternalContext externalContext,
+		UIComponent uiComponent);
 
 	protected abstract String getPortletMode(UIComponent uiComponent);
 
@@ -51,26 +51,8 @@ public abstract class PortletURLRenderer extends PortletURLRendererBase {
 	protected BaseURL createBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
-		MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();
-		javax.portlet.PortletURL portletURL = createPortletURL(mimeResponse, uiComponent);
+		javax.portlet.PortletURL portletURL = createPortletURL(externalContext, uiComponent);
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-
-		if (isCopyCurrentRenderParameters(uiComponent)) {
-
-			Map<String, String[]> currentRenderParameters = portletRequest.getParameterMap();
-			String namespace = facesContext.getExternalContext().encodeNamespace("");
-
-			for (Map.Entry<String, String[]> param : currentRenderParameters.entrySet()) {
-
-				String name = param.getKey();
-
-				if (name.contains(namespace)) {
-					name = name.substring(namespace.length());
-				}
-
-				portletURL.setParameter(name, param.getValue());
-			}
-		}
 
 		String portletModeString = getPortletMode(uiComponent);
 		PortletMode portletMode;

@@ -16,10 +16,11 @@
 package com.liferay.faces.portlet.component.actionurl.internal;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.render.FacesRenderer;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionURL;
-import javax.portlet.MimeResponse;
 import javax.portlet.PortletURL;
 import javax.portlet.faces.component.PortletActionURL;
 
@@ -31,12 +32,20 @@ import javax.portlet.faces.component.PortletActionURL;
 //J-
 @FacesRenderer(componentFamily = PortletActionURL.COMPONENT_FAMILY, rendererType = "javax.portlet.faces.ActionURL")
 //J+
-public class ActionURLRenderer extends ActionURLRendererBase {
+public class ActionURLRenderer extends ActionURLRendererCompat {
 
 	@Override
-	protected PortletURL createPortletURL(MimeResponse mimeResponse, UIComponent uiComponent) {
+	protected PortletURL createPortletURL(ExternalContext externalContext, UIComponent uiComponent) {
 
-		ActionURL actionURL = mimeResponse.createActionURL();
+		ActionURL actionURL;
+
+		if (isCopyCurrentRenderParameters(uiComponent)) {
+			actionURL = createActionURL(externalContext, ParamCopyOption.ALL_PUBLIC_PRIVATE);
+		}
+		else {
+			actionURL = createActionURL(externalContext, ParamCopyOption.NONE);
+		}
+
 		PortletActionURL actionURLComponent = (PortletActionURL) uiComponent;
 		String name = actionURLComponent.getName();
 
