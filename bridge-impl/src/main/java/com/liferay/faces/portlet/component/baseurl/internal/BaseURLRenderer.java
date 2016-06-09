@@ -54,7 +54,7 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 		com.liferay.faces.portlet.component.baseurl.BaseURL baseURLComponent =
 			(com.liferay.faces.portlet.component.baseurl.BaseURL) uiComponent;
 		BaseURL baseURL = createBaseURL(facesContext, uiComponent);
-		Boolean secure = baseURLComponent.getSecure();
+		Boolean secure = getSecure(uiComponent);
 
 		if (secure != null) {
 
@@ -66,7 +66,7 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 			}
 		}
 
-		List<UIComponent> children = baseURLComponent.getChildren();
+		List<UIComponent> children = uiComponent.getChildren();
 		Map<String, String[]> parameterMap = new HashMap<String, String[]>(baseURL.getParameterMap());
 		Map<String, String[]> initialParameterMap = new HashMap<String, String[]>(parameterMap);
 		final boolean RESOURCE_PHASE = BridgeUtil.getPortletRequestPhase().equals(Bridge.PortletPhase.RESOURCE_PHASE);
@@ -118,10 +118,10 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 
 		baseURL.setParameters(parameterMap);
 
-		String varName = baseURLComponent.getVar();
+		String varName = getVar(uiComponent);
 		String url = baseURL.toString();
 
-		if (baseURLComponent.isEscapeXml()) {
+		if (isEscapeXml(uiComponent)) {
 			url = escapeXML(url);
 		}
 
@@ -147,6 +147,12 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 	}
 
 	protected abstract BaseURL createBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException;
+
+	protected abstract Boolean getSecure(UIComponent uiComponent);
+
+	protected abstract String getVar(UIComponent uiComponent);
+
+	protected abstract boolean isEscapeXml(UIComponent uiComponent);
 
 	/**
 	 * Escapes the text so that it is safe to use in an HTML context.
