@@ -15,9 +15,16 @@
  */
 package com.liferay.faces.portlet.component.actionurl.internal;
 
+import java.util.List;
+
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.portlet.ActionURL;
+import javax.portlet.BaseURL;
 import javax.portlet.MimeResponse;
+import javax.portlet.MutablePortletParameters;
+import javax.portlet.faces.component.PortletActionURL;
+import javax.portlet.faces.component.PortletParam;
 
 
 /**
@@ -38,6 +45,36 @@ public abstract class ActionURLRendererCompat extends ActionURLRendererBase {
 		}
 		else {
 			return mimeResponse.createActionURL(MimeResponse.Copy.NONE);
+		}
+	}
+
+	@Override
+	protected void processParamChildren(UIComponent uiComponent, BaseURL baseURL) {
+
+		MutablePortletParameters mutablePortletParameters;
+
+		ActionURL actionURL = (ActionURL) baseURL;
+		PortletActionURL portletActionURL = (PortletActionURL) uiComponent;
+
+		if ("render".equalsIgnoreCase(portletActionURL.getType())) {
+			mutablePortletParameters = actionURL.getRenderParameters();
+		}
+		else {
+			mutablePortletParameters = actionURL.getActionParameters();
+		}
+
+		List<UIComponent> children = uiComponent.getChildren();
+
+		for (UIComponent child : children) {
+
+			if (child instanceof PortletParam) {
+
+				PortletParam portletParam = (PortletParam) child;
+				String name = portletParam.getName();
+				String value = portletParam.getValue();
+
+				mutablePortletParameters.setValue(name, value);
+			}
 		}
 	}
 }
