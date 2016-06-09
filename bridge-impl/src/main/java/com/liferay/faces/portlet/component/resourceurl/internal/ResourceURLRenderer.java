@@ -38,7 +38,7 @@ import com.liferay.faces.portlet.component.resourceurl.ResourceURL;
 public class ResourceURLRenderer extends ResourceURLRendererBase {
 
 	@Override
-	protected BaseURL getBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+	protected BaseURL createBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
 		MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();

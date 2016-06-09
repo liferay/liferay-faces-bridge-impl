@@ -10,12 +10,6 @@
 		</component>
 	</tag>
 	<tag>
-		<tag-name>defineObjects</tag-name>
-		<component>
-			<component-type>com.liferay.faces.portlet.component.defineobjects.DefineObjects</component-type>
-		</component>
-	</tag>
-	<tag>
 		<tag-name>namespace</tag-name>
 		<component>
 			<component-type>com.liferay.faces.portlet.component.namespace.Namespace</component-type>

@@ -18,14 +18,14 @@ package com.liferay.faces.portlet.component.actionurl.internal;
 
 import javax.annotation.Generated;
 
-import com.liferay.faces.portlet.component.renderurl.internal.AbstractRenderURLRenderer;
+import com.liferay.faces.portlet.component.portleturl.internal.PortletURLRenderer;
 
 
 /**
  * @author	Neil Griffin
  */
 @Generated(value = "com.liferay.alloy.tools.builder.FacesBuilder")
-public abstract class ActionURLRendererBase extends AbstractRenderURLRenderer {
+public abstract class ActionURLRendererBase extends PortletURLRenderer {
 
 	// Protected Constants
 	protected static final String NAME = "name";
