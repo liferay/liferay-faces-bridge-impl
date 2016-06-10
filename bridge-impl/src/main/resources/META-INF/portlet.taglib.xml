@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd http://vdldoc.omnifaces.org https://raw.githubusercontent.com/omnifaces/vdldoc/master/src/main/resources/org/omnifaces/vdldoc/resources/vdldoc.taglib.xml.xsd"
 	version="2.2">
 	<description><![CDATA[The Liferay Faces Bridge facelet component tags with the <code>portlet:</code> tag name prefix. These tags are designed to conform as closely as possible to the Java Portlet Specification (JSR-286) section PLT.26.]]></description>
-	<namespace>http://java.sun.com/portlet_2_0</namespace>
+	<namespace>http://xmlns.jcp.org/portlet_3_0</namespace>
 	<tag>
 		<description><![CDATA[Creates a URL that points to the current portlet and triggers an action request with the supplied parameters. If the <code>var</code> attribute is present, the <code>portlet:actionURL</code> tag introduces an EL variable that contains a <code>javax.portlet.ActionURL</code> adequate for postbacks. Otherwise, the URL is written to the response.]]></description>
 		<tag-name>actionURL</tag-name>
