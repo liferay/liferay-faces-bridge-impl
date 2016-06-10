@@ -40,8 +40,8 @@ import com.liferay.faces.util.config.FacesConfig;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -53,7 +53,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 	private static final Logger logger = LoggerFactory.getLogger(BridgePhaseResourceImpl.class);
 
 	// Private Constants
-	private static final boolean LIFERAY_PORTAL_DETECTED = ProductMap.getInstance().get(ProductConstants.LIFERAY_PORTAL)
+	private static final boolean LIFERAY_PORTAL_DETECTED = ProductFactory.getProduct(Product.Name.LIFERAY_PORTAL)
 		.isDetected();
 	private static final String[] URL_SEPARATOR_CHARS = new String[] { "?", "#", ";" };
 

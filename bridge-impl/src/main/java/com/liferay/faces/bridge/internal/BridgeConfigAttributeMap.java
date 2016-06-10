@@ -17,7 +17,8 @@ package com.liferay.faces.bridge.internal;
 
 import java.util.HashMap;
 
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -38,7 +39,14 @@ public class BridgeConfigAttributeMap extends HashMap<String, Object> {
 		Object value = super.get(key);
 
 		if (value == null) {
-			value = ProductMap.getInstance().get(key);
+
+			try {
+				Product.Name productName = Product.Name.valueOf((String) key);
+				value = ProductFactory.getProduct(productName);
+			}
+			catch (IllegalArgumentException e) {
+				// do nothing.
+			}
 		}
 
 		return value;

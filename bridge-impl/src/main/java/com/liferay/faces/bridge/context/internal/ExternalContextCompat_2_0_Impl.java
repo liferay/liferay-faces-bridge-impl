@@ -45,8 +45,7 @@ import com.liferay.faces.bridge.util.internal.FileNameUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -638,7 +637,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 
 			if ((requestContentType != null) && requestContentType.toLowerCase().startsWith("multipart/")) {
 
-				Product iceFaces = ProductMap.getInstance().get(ProductConstants.ICEFACES);
+				Product iceFaces = ProductFactory.getProduct(Product.Name.ICEFACES);
 
 				if (iceFaces.isDetected() &&
 						((iceFaces.getMajorVersion() == 2) ||

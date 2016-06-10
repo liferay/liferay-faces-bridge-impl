@@ -19,8 +19,7 @@ import javax.portlet.PortletContext;
 import javax.servlet.ServletContext;
 
 import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -31,10 +30,9 @@ public class PreDestroyInvokerFactoryImpl extends PreDestroyInvokerFactory {
 	@Override
 	public PreDestroyInvoker getPreDestroyInvoker(ServletContext servletContext) {
 
-		Product jsf = ProductMap.getInstance().get(ProductConstants.JSF);
+		final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
 
-		if (jsf.isDetected() && ProductConstants.MOJARRA.equals(jsf.getTitle())) {
-
+		if (MOJARRA_DETECTED) {
 			return new PreDestroyInvokerMojarraImpl(servletContext);
 		}
 		else {
@@ -45,10 +43,9 @@ public class PreDestroyInvokerFactoryImpl extends PreDestroyInvokerFactory {
 	@Override
 	public PreDestroyInvoker getPreDestroyInvoker(PortletContext portletContext) {
 
-		Product jsf = ProductMap.getInstance().get(ProductConstants.JSF);
+		final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
 
-		if (jsf.isDetected() && ProductConstants.MOJARRA.equals(jsf.getTitle())) {
-
+		if (MOJARRA_DETECTED) {
 			return new PreDestroyInvokerMojarraImpl(portletContext);
 		}
 		else {
