@@ -15,10 +15,11 @@
  */
 package com.liferay.faces.bridge.config;
 
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.liferay.faces.util.product.ProductMap;
 
 
 /**
@@ -49,7 +50,14 @@ public class BridgeConfigImpl implements BridgeConfig {
 			Object value = super.get(key);
 
 			if (value == null) {
-				value = ProductMap.getInstance().get(key);
+
+				try {
+					Product.Name productName = Product.Name.valueOf((String) key);
+					value = ProductFactory.getProduct(productName);
+				}
+				catch (IllegalArgumentException e) {
+					// do nothing.
+				}
 			}
 
 			return value;
