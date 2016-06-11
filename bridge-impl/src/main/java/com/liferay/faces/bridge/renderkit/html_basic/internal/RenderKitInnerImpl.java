@@ -23,8 +23,7 @@ import javax.faces.render.RenderKitWrapper;
 
 import com.liferay.faces.bridge.renderkit.bridge.internal.ResponseWriterBridgeImpl;
 import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -33,7 +32,7 @@ import com.liferay.faces.util.product.ProductMap;
 public class RenderKitInnerImpl extends RenderKitWrapper {
 
 	// Private Members
-	private static final Product ICEFACES = ProductMap.getInstance().get(ProductConstants.ICEFACES);
+	private static final Product ICEFACES = ProductFactory.getProduct(Product.Name.ICEFACES);
 	private static final boolean ICEFACES_DETECTED = ICEFACES.isDetected();
 	private static final boolean ICEFACES3_OR_LOWER = (ICEFACES_DETECTED && (ICEFACES.getMajorVersion() <= 3));
 
