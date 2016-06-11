@@ -29,8 +29,8 @@ import javax.portlet.filter.PortletRequestWrapper;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -39,7 +39,7 @@ import com.liferay.faces.util.product.ProductMap;
 public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFactory {
 
 	// Private Constants
-	private static final boolean RESIN_DETECTED = ProductMap.getInstance().get(ProductConstants.RESIN).isDetected();
+	private static final boolean RESIN_DETECTED = ProductFactory.getProduct(Product.Name.RESIN).isDetected();
 
 	// Private Data Members
 	private BridgePortletRequestFactory wrappedBridgePortletRequestFactory;

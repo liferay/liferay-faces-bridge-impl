@@ -34,8 +34,8 @@ import com.liferay.faces.bridge.model.internal.UploadedFileBridgeImpl;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.context.map.MultiPartFormData;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -44,8 +44,7 @@ import com.liferay.faces.util.product.ProductMap;
 public class ContextMapFactoryImpl extends ContextMapFactory {
 
 	// Private Constants
-	private static final boolean ICEFACES_DETECTED = ProductMap.getInstance().get(ProductConstants.ICEFACES)
-		.isDetected();
+	private static final boolean ICEFACES_DETECTED = ProductFactory.getProduct(Product.Name.ICEFACES).isDetected();
 	private static final String MULTIPART_FORM_DATA_FQCN = MultiPartFormData.class.getName();
 
 	@Override
