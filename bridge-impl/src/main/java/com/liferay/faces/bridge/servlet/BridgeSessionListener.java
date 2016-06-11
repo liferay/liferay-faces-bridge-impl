@@ -35,8 +35,7 @@ import com.liferay.faces.util.config.ApplicationConfig;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -94,19 +93,17 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 
 		if (firstInstance) {
 
-			// Determine which JSF implementation is being used (Mojarra/MyFaces).
-			ProductMap productMap = ProductMap.getInstance();
-			Product jsf = productMap.get(ProductConstants.JSF);
+			// Determine if Mojarra is able to cleanup the active view maps.
+			Product mojarra = ProductFactory.getProduct(Product.Name.MOJARRA);
 			boolean mojarraAbleToCleanup = true;
 
-			if (jsf.getTitle().equals(ProductConstants.MOJARRA) && (jsf.getMajorVersion() == 2) &&
-					(jsf.getMinorVersion() == 1)) {
+			if (mojarra.isDetected() && (mojarra.getMajorVersion() == 2) && (mojarra.getMinorVersion() == 1)) {
 
-				if (jsf.getRevisionVersion() < 18) {
+				if (mojarra.getRevisionVersion() < 18) {
 					mojarraAbleToCleanup = false;
 
 					boolean logWarning = true;
-					Product iceFaces = productMap.get(ProductConstants.ICEFACES);
+					Product iceFaces = ProductFactory.getProduct(Product.Name.ICEFACES);
 
 					if (iceFaces.isDetected()) {
 

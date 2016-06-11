@@ -32,8 +32,7 @@ import com.liferay.faces.bridge.renderkit.primefaces.internal.FormRendererPrimeF
 import com.liferay.faces.bridge.renderkit.primefaces.internal.HeadRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.richfaces.internal.FileUploadRendererRichFacesImpl;
 import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -49,13 +48,11 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 	/* package-private */ static final String STYLESHEET_RENDERER_TYPE = "javax.faces.resource.Stylesheet";
 
 	// Private Constants
-	private static final Product ICEFACES = ProductMap.getInstance().get(ProductConstants.ICEFACES);
-	private static final boolean ICEFACES_DETECTED = ICEFACES.isDetected();
-	private static final boolean ICEFACES3_OR_LOWER = (ICEFACES_DETECTED && (ICEFACES.getMajorVersion() <= 3));
+	private static final boolean ICEFACES_DETECTED = ProductFactory.getProduct(Product.Name.ICEFACES).isDetected();
 	private static final String JAVAX_FACES_BODY = "javax.faces.Body";
 	private static final String JAVAX_FACES_FORM = "javax.faces.Form";
 	private static final String JAVAX_FACES_HEAD = "javax.faces.Head";
-	private static final Product PRIMEFACES = ProductMap.getInstance().get(ProductConstants.PRIMEFACES);
+	private static final Product PRIMEFACES = ProductFactory.getProduct(Product.Name.PRIMEFACES);
 	private static final boolean PRIMEFACES_DETECTED = PRIMEFACES.isDetected();
 	private static final String PRIMEFACES_FAMILY = "org.primefaces.component";
 	private static final String RICHFACES_FILE_UPLOAD_FAMILY = "org.richfaces.FileUpload";
@@ -73,19 +70,10 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 	 */
 	@Override
 	public ResponseWriter createResponseWriter(Writer writer, String contentTypeList, String characterEncoding) {
-
-		ResponseWriter responseWriter = wrappedRenderKit.createResponseWriter(writer, contentTypeList,
+		ResponseWriter wrappedResponseWriter = wrappedRenderKit.createResponseWriter(writer, contentTypeList,
 				characterEncoding);
 
-		// FACES-2567 ICEfaces ice: (or compat) components require that the outermost ResponseWriter be an ICEfaces
-		// DOMResponseWriter. So if ICEfaces version 3 or lower is detected, do not add the ResponseWriterBridgeImpl to
-		// outside of the delegation chain. Instead RenderKitInnerImpl will add ResponseWriterBridgeImpl to the inside
-		// of the delegation chain.
-		if (!ICEFACES3_OR_LOWER) {
-			responseWriter = new ResponseWriterBridgeImpl(responseWriter);
-		}
-
-		return responseWriter;
+		return new ResponseWriterBridgeImpl(wrappedResponseWriter);
 	}
 
 	@Override

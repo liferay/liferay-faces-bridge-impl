@@ -73,8 +73,8 @@ import com.liferay.faces.bridge.util.internal.ViewUtil;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -90,8 +90,7 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 	private static final String ORG_RICHFACES_EXTENSION = "org.richfaces.extension";
 	private static final String REQUEST_ATTR_PORTLET_REQUEST = "javax.portlet.request";
 	private static final String REQUEST_ATTR_QUERY_STRING = "javax.servlet.forward.query_string";
-	private static final boolean RICHFACES_DETECTED = ProductMap.getInstance().get(ProductConstants.RICHFACES)
-		.isDetected();
+	private static final boolean RICHFACES_DETECTED = ProductFactory.getProduct(Product.Name.RICHFACES).isDetected();
 
 	// Pre-initialized Data Members
 	private Map<String, Object> applicationMap;

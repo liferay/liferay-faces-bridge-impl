@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.application.internal;
 
 import com.liferay.faces.util.application.ResourceValidator;
 import com.liferay.faces.util.application.ResourceValidatorFactory;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -27,7 +27,7 @@ import com.liferay.faces.util.product.ProductMap;
 public class ResourceValidatorFactoryBridgeImpl extends ResourceValidatorFactory {
 
 	// Private Constants
-	private static final boolean PLUTO_DETECTED = ProductMap.getInstance().get(ProductConstants.PLUTO).isDetected();
+	private static final boolean PLUTO_DETECTED = ProductFactory.getProduct(Product.Name.PLUTO).isDetected();
 
 	// Private Data Members
 	private ResourceValidatorFactory wrappedResourceValidatorFactory;
