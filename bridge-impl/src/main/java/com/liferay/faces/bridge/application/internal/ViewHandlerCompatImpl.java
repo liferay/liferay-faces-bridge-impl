@@ -28,8 +28,8 @@ import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.internal.BridgeExt;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -49,8 +49,7 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 		// Determine whether or not it is necessary to work-around the patch applied to Mojarra in JAVASERVERFACES-3023.
 		// NOTE: The detection of Mojarra is normally done with a static private constant, but that is not possible on
 		// WildFly so the detection must be done here. For more information, see FACES-2621.
-		boolean MOJARRA_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle().equals(
-				ProductConstants.MOJARRA);
+		final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
 		boolean workaroundMojarra = (MOJARRA_DETECTED) &&
 			((portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) ||
 				(portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE));

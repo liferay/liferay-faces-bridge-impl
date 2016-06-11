@@ -33,8 +33,7 @@ import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.ProductFactory;
 import com.liferay.faces.util.render.DelegatingRendererBase;
 import com.liferay.faces.util.render.RendererUtil;
 
@@ -54,9 +53,9 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 
 		String delegateBodyRendererFQCN = "com.sun.faces.renderkit.html_basic.FileRenderer";
 
-		Product jsf = ProductMap.getInstance().get(ProductConstants.JSF);
+		final boolean MYFACES_DETECTED = ProductFactory.getProduct(Product.Name.MYFACES).isDetected();
 
-		if ((jsf != null) && ProductConstants.MYFACES.equals(jsf.getTitle())) {
+		if (MYFACES_DETECTED) {
 			delegateBodyRendererFQCN = "org.apache.myfaces.renderkit.html.HtmlInputFileRenderer";
 		}
 

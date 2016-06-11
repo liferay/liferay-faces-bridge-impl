@@ -30,8 +30,7 @@ import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -116,21 +115,22 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 	protected boolean isNamespacedViewStateSupported() {
 
 		boolean namespacedViewStateSupported = true;
-		Product jsf = ProductMap.getInstance().get(ProductConstants.JSF);
+		Product mojarra = ProductFactory.getProduct(Product.Name.MOJARRA);
 
-		if (ProductConstants.MOJARRA.equals(jsf.getTitle())) {
+		if (mojarra.isDetected()) {
 
-			if (jsf.getMajorVersion() == 2) {
+			if (mojarra.getMajorVersion() == 2) {
 
-				if (jsf.getMinorVersion() == 1) {
-					namespacedViewStateSupported = (jsf.getRevisionVersion() >= 27);
+				if (mojarra.getMinorVersion() == 1) {
+					namespacedViewStateSupported = (mojarra.getRevisionVersion() >= 27);
 				}
-				else if (jsf.getMinorVersion() == 2) {
-					namespacedViewStateSupported = (jsf.getRevisionVersion() >= 4);
+				else if (mojarra.getMinorVersion() == 2) {
+					namespacedViewStateSupported = (mojarra.getRevisionVersion() >= 4);
 				}
 			}
 		}
 
+		Product jsf = ProductFactory.getProduct(Product.Name.JSF);
 		logger.debug("JSF runtime [{0}] version [{1}].[{2}].[{3}] supports namespacing [{4}]: [{5}]", jsf.getTitle(),
 			jsf.getMajorVersion(), jsf.getMinorVersion(), jsf.getRevisionVersion(),
 			ResponseStateManager.VIEW_STATE_PARAM, namespacedViewStateSupported);

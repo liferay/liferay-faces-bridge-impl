@@ -19,8 +19,8 @@ import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceHandlerWrapper;
 
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -38,8 +38,7 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 
 	// Private Constants
 	private static final String ORG_RICHFACES_RESOURCE = "org.richfaces.resource";
-	private static final boolean RICHFACES_DETECTED = ProductMap.getInstance().get(ProductConstants.RICHFACES)
-		.isDetected();
+	private static final boolean RICHFACES_DETECTED = ProductFactory.getProduct(Product.Name.RICHFACES).isDetected();
 	private static final String RICHFACES_STATIC_RESOURCE = "org.richfaces.staticResource";
 
 	// Private Data Members

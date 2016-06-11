@@ -33,8 +33,7 @@ import com.liferay.faces.bridge.filter.internal.RenderResponseHttpServletAdapter
 import com.liferay.faces.bridge.filter.internal.ResourceRequestHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.ResourceResponseHttpServletAdapter;
 import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -59,11 +58,7 @@ public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguag
 		// If MyFaces is detected, then work-around a Servlet API dependency by decorating the PortletRequest with an
 		// adapter that implements HttpServletRequest. FACES-2626: Discovery of Mojarra/MyFaces can't be in a static
 		// block or a private static variable.
-		ProductMap instance = ProductMap.getInstance();
-		Product product = instance.get(ProductConstants.JSF);
-		String title = product.getTitle();
-		boolean MOJARRA_DETECTED = title.equals(ProductConstants.MOJARRA);
-		boolean MYFACES_DETECTED = title.equals(ProductConstants.MYFACES);
+		final boolean MYFACES_DETECTED = ProductFactory.getProduct(Product.Name.MYFACES).isDetected();
 
 		if (MYFACES_DETECTED) {
 
@@ -77,6 +72,8 @@ public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguag
 				externalContext.setRequest(new ResourceRequestHttpServletAdapter((ResourceRequest) portletRequest));
 			}
 		}
+
+		final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
 
 		// If Mojarra or MyFaces is detected, then work-around a Servlet API dependency by decorating the
 		// PortletResponse with an adapter that implements HttpServletResponse.
