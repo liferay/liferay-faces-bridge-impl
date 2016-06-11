@@ -27,8 +27,8 @@ import javax.faces.context.FacesContext;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -42,8 +42,7 @@ public abstract class PublicRenderParameterCompatImpl extends PublicRenderParame
 	private static final Logger logger = LoggerFactory.getLogger(PublicRenderParameterCompatImpl.class);
 
 	// Private Constants
-	private static final boolean MOJARRA_DETECTED = (ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
-			.toLowerCase().indexOf(ProductConstants.MOJARRA.toLowerCase()) >= 0);
+	private static final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
 
 	public PublicRenderParameterCompatImpl(String prefix, String originalRequestValue, String originalModelEL,
 		String portletName) {

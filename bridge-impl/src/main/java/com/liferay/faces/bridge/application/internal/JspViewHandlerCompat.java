@@ -34,8 +34,8 @@ import com.liferay.faces.bridge.filter.internal.RenderRequestHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.RenderResponseHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.ResourceRequestHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.ResourceResponseHttpServletAdapter;
-import com.liferay.faces.util.product.ProductConstants;
-import com.liferay.faces.util.product.ProductMap;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -46,10 +46,8 @@ import com.liferay.faces.util.product.ProductMap;
 public class JspViewHandlerCompat extends ViewHandlerWrapper {
 
 	// Private Constants
-	private static final boolean MOJARRA_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
-		.equals(ProductConstants.MOJARRA);
-	private static final boolean MYFACES_DETECTED = ProductMap.getInstance().get(ProductConstants.JSF).getTitle()
-		.equals(ProductConstants.MYFACES);
+	private static final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
+	private static final boolean MYFACES_DETECTED = ProductFactory.getProduct(Product.Name.MYFACES).isDetected();
 
 	// Private Data Members
 	private ViewHandler wrappedViewHandler;
