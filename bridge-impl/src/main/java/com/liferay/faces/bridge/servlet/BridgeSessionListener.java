@@ -99,7 +99,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 
 			if (mojarra.isDetected() && (mojarra.getMajorVersion() == 2) && (mojarra.getMinorVersion() == 1)) {
 
-				if (mojarra.getRevisionVersion() < 18) {
+				if (mojarra.getPatchVersion() < 18) {
 					mojarraAbleToCleanup = false;
 
 					boolean logWarning = true;
