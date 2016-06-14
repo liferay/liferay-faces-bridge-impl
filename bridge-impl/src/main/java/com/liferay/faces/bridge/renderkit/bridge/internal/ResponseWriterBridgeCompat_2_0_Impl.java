@@ -122,18 +122,18 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 			if (mojarra.getMajorVersion() == 2) {
 
 				if (mojarra.getMinorVersion() == 1) {
-					namespacedViewStateSupported = (mojarra.getRevisionVersion() >= 27);
+					namespacedViewStateSupported = (mojarra.getPatchVersion() >= 27);
 				}
 				else if (mojarra.getMinorVersion() == 2) {
-					namespacedViewStateSupported = (mojarra.getRevisionVersion() >= 4);
+					namespacedViewStateSupported = (mojarra.getPatchVersion() >= 4);
 				}
 			}
 		}
 
 		Product jsf = ProductFactory.getProduct(Product.Name.JSF);
 		logger.debug("JSF runtime [{0}] version [{1}].[{2}].[{3}] supports namespacing [{4}]: [{5}]", jsf.getTitle(),
-			jsf.getMajorVersion(), jsf.getMinorVersion(), jsf.getRevisionVersion(),
-			ResponseStateManager.VIEW_STATE_PARAM, namespacedViewStateSupported);
+			jsf.getMajorVersion(), jsf.getMinorVersion(), jsf.getPatchVersion(), ResponseStateManager.VIEW_STATE_PARAM,
+			namespacedViewStateSupported);
 
 		return namespacedViewStateSupported;
 	}
