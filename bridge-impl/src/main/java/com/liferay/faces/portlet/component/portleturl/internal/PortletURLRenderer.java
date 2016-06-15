@@ -35,10 +35,6 @@ import com.liferay.faces.portlet.component.portleturl.PortletURL;
 /**
  * @author  Neil Griffin
  */
-
-//J-
-@FacesRenderer(componentFamily = PortletURL.COMPONENT_FAMILY, rendererType = PortletURL.RENDERER_TYPE)
-//J+
 public abstract class PortletURLRenderer extends PortletURLRendererCompat {
 
 	protected abstract javax.portlet.PortletURL createPortletURL(ExternalContext externalContext,
