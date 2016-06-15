@@ -26,6 +26,8 @@ import javax.portlet.PortletSecurityException;
 import javax.portlet.RenderParameters;
 import javax.portlet.WindowState;
 
+import com.liferay.faces.bridge.util.internal.URLUtil;
+
 
 /**
  * This class represents a non-encoded {@link BaseURL}, meaning an implementation that simply decorates a URI without
@@ -126,17 +128,7 @@ public class BaseURLNonEncodedImpl implements BaseURL {
 		String uri = bridgeURI.toString();
 
 		if (escapeXML) {
-
-			char[] tokens = new char[] { '<', '>', '&', '"', '\'', '\u00bb', '\u2013', '\u2014' };
-			String[] replacements = new String[] {
-					"&lt;", "&gt;", "&amp;", "&#034;", "&#039;", "&#187;", "&#x2013;", "&#x2014;"
-				};
-
-			for (int i = 0; i < tokens.length; i++) {
-				String token = new String(new char[] { tokens[i] });
-				String replacement = replacements[i];
-				uri = uri.replace(token, replacement);
-			}
+			uri = URLUtil.escapeXML(uri);
 		}
 
 		out.write(uri);
