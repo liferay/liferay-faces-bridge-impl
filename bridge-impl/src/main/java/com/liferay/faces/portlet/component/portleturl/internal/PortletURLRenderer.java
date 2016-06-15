@@ -20,7 +20,6 @@ import java.io.IOException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-// JSF 2: import javax.faces.render.FacesRenderer;
 import javax.portlet.BaseURL;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletMode;
@@ -35,10 +34,6 @@ import com.liferay.faces.portlet.component.portleturl.PortletURL;
 /**
  * @author  Neil Griffin
  */
-
-//J-
-// JSF 2: @FacesRenderer(componentFamily = PortletURL.COMPONENT_FAMILY, rendererType = PortletURL.RENDERER_TYPE)
-//J+
 public abstract class PortletURLRenderer extends PortletURLRendererCompat {
 
 	protected abstract javax.portlet.PortletURL createPortletURL(ExternalContext externalContext,
