@@ -32,10 +32,6 @@ import javax.portlet.WindowStateException;
 /**
  * @author  Neil Griffin
  */
-
-//J-
-// @FacesRenderer(componentFamily = PortletURL.COMPONENT_FAMILY, rendererType = PortletURL.RENDERER_TYPE)
-//J+
 public abstract class PortletURLRenderer extends PortletURLRendererBase {
 
 	protected abstract javax.portlet.PortletURL createPortletURL(ExternalContext externalContext,
