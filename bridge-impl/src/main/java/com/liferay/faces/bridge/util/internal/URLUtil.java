@@ -35,6 +35,30 @@ public class URLUtil {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(URLUtil.class);
 
+	/**
+	 * Escapes XML characters so that a URL can be safely written to the response. This method's functionality was
+	 * copied from {@link com.liferay.portal.util.HtmlImpl#escape(java.lang.String)}
+	 * (https://github.com/liferay/liferay-portal/blob/7.0.1-ga2/portal-impl/src/com/liferay/portal/util/HtmlImpl.java#L112-L120).
+	 * This method follows recommendations from
+	 * http://www.owasp.org/index.php/Cross_Site_Scripting#How_to_Protect_Yourself.
+	 */
+	public static String escapeXML(String url) {
+
+		// "&" must be replaced before the others to avoid double escaping them.
+		char[] tokens = new char[] { '&', '<', '>', '"', '\'', '\u00bb', '\u2013', '\u2014', '\u2028' };
+		String[] replacements = new String[] {
+				"&amp;", "&lt;", "&gt;", "&#034;", "&#039;", "&#187;", "&#x2013;", "&#x2014;", "&#x2028;"
+			};
+
+		for (int i = 0; i < tokens.length; i++) {
+
+			String token = Character.toString(tokens[i]);
+			url = url.replace(token, replacements[i]);
+		}
+
+		return url;
+	}
+
 	public static Map<String, String[]> parseParameterMapValuesArray(String url) {
 		Map<String, String[]> parameterMapValuesArray = new LinkedHashMap<String, String[]>();
 
