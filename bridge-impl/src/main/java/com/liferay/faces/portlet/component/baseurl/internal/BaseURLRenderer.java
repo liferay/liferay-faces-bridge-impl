@@ -32,6 +32,8 @@ import javax.portlet.faces.BridgeUtil;
 import com.liferay.faces.portlet.component.param.Param;
 import com.liferay.faces.portlet.component.property.Property;
 
+import com.liferay.faces.bridge.util.internal.URLUtil;
+
 
 /**
  * @author  Kyle Stiemann
@@ -71,7 +73,7 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 		String url = baseURL.toString();
 
 		if (isEscapeXml(uiComponent)) {
-			url = escapeXML(url);
+			url = URLUtil.escapeXML(url);
 		}
 
 		// If the user didn't specify a value for the "var" attribute, then write the URL to the response.
@@ -167,115 +169,5 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 			}
 		}
 
-	}
-
-	/**
-	 * Escapes the text so that it is safe to use in an HTML context.
-	 *
-	 * @param   text  the text to escape
-	 *
-	 * @return  the escaped HTML text, or <code>null</code> if the text is <code>null</code>
-	 */
-	private String escapeXML(String text) {
-
-		if (text == null) {
-			return null;
-		}
-
-		if (text.length() == 0) {
-			return "";
-		}
-
-		// Escape using XSS recommendations from
-		// http://www.owasp.org/index.php/Cross_Site_Scripting
-		// #How_to_Protect_Yourself
-
-		StringBuilder sb = null;
-
-		int lastReplacementIndex = 0;
-
-		for (int i = 0; i < text.length(); i++) {
-			char c = text.charAt(i);
-
-			String replacement = null;
-
-			switch (c) {
-
-			case '<': {
-				replacement = "&lt;";
-
-				break;
-			}
-
-			case '>': {
-				replacement = "&gt;";
-
-				break;
-			}
-
-			case '&': {
-				replacement = "&amp;";
-
-				break;
-			}
-
-			case '"': {
-				replacement = "&#034;";
-
-				break;
-			}
-
-			case '\'': {
-				replacement = "&#039;";
-
-				break;
-			}
-
-			case '\u00bb': {
-
-				// '�'
-				replacement = "&#187;";
-
-				break;
-			}
-
-			case '\u2013': {
-				replacement = "&#x2013;";
-
-				break;
-			}
-
-			case '\u2014': {
-				replacement = "&#x2014;";
-
-				break;
-			}
-			}
-
-			if (replacement != null) {
-
-				if (sb == null) {
-					sb = new StringBuilder();
-				}
-
-				if (i > lastReplacementIndex) {
-					sb.append(text.substring(lastReplacementIndex, i));
-				}
-
-				sb.append(replacement);
-
-				lastReplacementIndex = i + 1;
-			}
-		}
-
-		if (sb == null) {
-			return text;
-		}
-
-		if (lastReplacementIndex < text.length()) {
-			sb.append(text.substring(lastReplacementIndex));
-		}
-
-		return sb.toString();
 	}
 }
