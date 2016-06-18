@@ -20,7 +20,8 @@ import java.util.ServiceLoader;
 
 import javax.portlet.PortletException;
 import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeFactory;
+
+import com.liferay.faces.bridge.BridgeFactory;
 
 
 /**
