@@ -23,15 +23,6 @@
 				</dependency>
 			</dependencies>
 		</profile>
-		<profile>
-			<id>pluto</id>
-			<dependencies>
-				<dependency>
-					<groupId>com.liferay.faces</groupId>
-					<artifactId>com.liferay.faces.alloy.reslib</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
 	</profiles>
 	
 	<dependencies>
