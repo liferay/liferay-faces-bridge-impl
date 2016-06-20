@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:component xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3.org/1999/xhtml http://www.w3.org/2002/08/xhtml/xhtml1-transitional.xsd">
+
+	<cc:interface>
+		<cc:attribute name="width" required="false" default="100" />
+		<cc:attribute name="styleClass" required="false" />
+	</cc:interface>
+
+	<cc:implementation>
+		<c:set var="columnStyleClassFloat" value="#{12 * (cc.attrs.width / 100)}" />
+		<ui:remove><!-- Round the value. --></ui:remove>
+		<c:set var="columnStyleClassRoundedFloatString" value="#{columnStyleClassFloat + ((columnStyleClassFloat % 1 >= 0.5) ? (1 - (columnStyleClassFloat % 1)) % 1 : - (columnStyleClassFloat % 1))}" />
+		<ui:remove><!-- Remove the floating point part of the number --></ui:remove>
+		<c:set var="columnStyleClass" value="#{fn:split(columnStyleClassRoundedFloatString, '.')[0]}" />
+		<div id="#{cc.clientId}" class="#{cc.attrs.styleClass} col-md-#{columnStyleClass}">
+			<cc:insertChildren />
+		</div>
+	</cc:implementation>
+
+</ui:component>

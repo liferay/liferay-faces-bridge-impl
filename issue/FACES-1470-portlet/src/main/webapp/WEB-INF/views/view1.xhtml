@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:alloy="http://liferay.com/faces/alloy"
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:example-cc="http://xmlns.jcp.org/jsf/composite/example-cc"
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 	<h:head />
@@ -39,14 +39,14 @@
 				<li>If there are any Exceptions thrown during the sign out, or any AS7Leak objects left after garbage collection, let us know.</li>
 			</ol>
 		</h:panelGroup>
-		<alloy:row>
-			<alloy:column>
+		<example-cc:row>
+			<example-cc:column>
 				<ul>
 					<li><em><h:outputText value="#{bridgeContext.bridgeConfig.attributes['JSF']}" /></em></li>
 					<li><em><h:outputText value="#{bridgeContext.bridgeConfig.attributes['LIFERAY_FACES_ALLOY']}" /></em></li>
 					<li><em><h:outputText value="#{bridgeContext.bridgeConfig.attributes['LIFERAY_FACES_BRIDGE']}" /></em></li>
 				</ul>
-			</alloy:column>
-		</alloy:row>
+			</example-cc:column>
+		</example-cc:row>
 	</h:body>
 </f:view>
