@@ -25,7 +25,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.lifecycle.LifecycleFactory;
-import javax.faces.webapp.FacesServlet;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
@@ -96,7 +95,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		// Get the default lifecycle instance from the factory.
 		LifecycleFactory lifecycleFactory = (LifecycleFactory) FactoryFinder.getFactory(
 				FactoryFinder.LIFECYCLE_FACTORY);
-		String lifecycleId = this.portletContext.getInitParameter(FacesServlet.LIFECYCLE_ID_ATTR);
+		String lifecycleId = this.portletContext.getInitParameter(Bridge.LIFECYCLE_ID);
 
 		if (lifecycleId == null) {
 			lifecycleId = LifecycleFactory.DEFAULT_LIFECYCLE;
