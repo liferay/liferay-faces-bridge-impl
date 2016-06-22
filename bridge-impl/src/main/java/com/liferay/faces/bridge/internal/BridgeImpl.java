@@ -36,6 +36,7 @@ import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeConfigFactory;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeException;
+import javax.portlet.faces.BridgeNotAFacesRequestException;
 import javax.portlet.faces.BridgeUninitializedException;
 import javax.portlet.faces.filter.BridgePortletConfigFactory;
 
@@ -81,6 +82,12 @@ public class BridgeImpl implements Bridge {
 
 		if (initialized) {
 
+			String nonFacesTargetPath = actionRequest.getParameter(Bridge.NONFACES_TARGET_PATH_PARAMETER);
+
+			if (nonFacesTargetPath != null) {
+				throw new BridgeNotAFacesRequestException(nonFacesTargetPath);
+			}
+
 			PortletConfig wrappedPortletConfig = BridgePortletConfigFactory.getPortletConfigInstance(portletConfig);
 			BridgeConfig bridgeConfig = BridgeConfigFactory.getBridgeConfigInstance(wrappedPortletConfig);
 			BridgePhase bridgePhase = BridgePhaseFactory.getBridgeActionPhaseInstance(actionRequest, actionResponse,
@@ -98,6 +105,13 @@ public class BridgeImpl implements Bridge {
 		checkNull(eventRequest, eventResponse);
 
 		if (initialized) {
+
+			String nonFacesTargetPath = eventRequest.getParameter(Bridge.NONFACES_TARGET_PATH_PARAMETER);
+
+			if (nonFacesTargetPath != null) {
+				throw new BridgeNotAFacesRequestException(nonFacesTargetPath);
+			}
+
 			PortletConfig wrappedPortletConfig = BridgePortletConfigFactory.getPortletConfigInstance(portletConfig);
 			BridgeConfig bridgeConfig = BridgeConfigFactory.getBridgeConfigInstance(wrappedPortletConfig);
 			BridgePhase bridgePhase = BridgePhaseFactory.getBridgeEventPhaseInstance(eventRequest, eventResponse,
@@ -115,6 +129,13 @@ public class BridgeImpl implements Bridge {
 		checkNull(renderRequest, renderResponse);
 
 		if (initialized) {
+
+			String nonFacesTargetPath = renderRequest.getParameter(Bridge.NONFACES_TARGET_PATH_PARAMETER);
+
+			if (nonFacesTargetPath != null) {
+				throw new BridgeNotAFacesRequestException(nonFacesTargetPath);
+			}
+
 			PortletConfig wrappedPortletConfig = BridgePortletConfigFactory.getPortletConfigInstance(portletConfig);
 			BridgeConfig bridgeConfig = BridgeConfigFactory.getBridgeConfigInstance(wrappedPortletConfig);
 			BridgePhase bridgePhase = BridgePhaseFactory.getBridgeRenderPhaseInstance(renderRequest, renderResponse,
