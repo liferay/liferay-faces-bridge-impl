@@ -52,7 +52,7 @@ public class Tests extends Object {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event -- this ensures isAutoDispatchEvents will get called
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();

@@ -51,8 +51,9 @@ public class UIViewRootBridgeImpl extends PortletNamingContainerUIViewRoot {
 	@Override
 	public void setId(String id) {
 
-		if (BridgeUtil.isPortletRequest()) {
-			super.setId(getContainerClientId(FacesContext.getCurrentInstance()));
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		if (BridgeUtil.isPortletRequest(facesContext)) {
+			super.setId(getContainerClientId(facesContext));
 		}
 	}
 }
