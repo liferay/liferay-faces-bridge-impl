@@ -421,7 +421,6 @@ public abstract class BridgeURLBase implements BridgeURL {
 	private PortletURL createRenderURL(FacesContext facesContext, List<URIParameter> uriParameters)
 		throws MalformedURLException {
 
-		// TODO: FACES-2648 Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
 
 		if ((portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) ||

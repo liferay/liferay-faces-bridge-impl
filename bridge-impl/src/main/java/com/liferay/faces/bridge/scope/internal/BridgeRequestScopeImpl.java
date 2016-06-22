@@ -271,7 +271,6 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 				(beganInPhase == Bridge.PortletPhase.EVENT_PHASE) ||
 				(beganInPhase == Bridge.PortletPhase.RESOURCE_PHASE));
 
-		// TODO: FACES-2648 PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
 
 		if (portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) {
@@ -538,7 +537,6 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 
 		// If running in the ACTION_PHASE or EVENT_PHASE, then the Flash scope must be saved as well so that it can be
 		// restored.
-		// TODO: FACES-2648 Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
 
 		if ((portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) ||
