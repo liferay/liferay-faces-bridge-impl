@@ -64,8 +64,7 @@ public class ManagedBeanScopePhaseListener implements PhaseListener {
 
 			FacesContext facesContext = phaseEvent.getFacesContext();
 
-			// TODO: FACES-2648 PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
-			PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
+			PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 			if ((portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) ||
 					(portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE)) {
