@@ -216,7 +216,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -274,7 +274,7 @@ public class Tests extends Object {
 		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -575,7 +575,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -696,7 +696,7 @@ public class Tests extends Object {
 		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -801,7 +801,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -923,7 +923,7 @@ public class Tests extends Object {
 		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -1030,7 +1030,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -1151,7 +1151,7 @@ public class Tests extends Object {
 		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -1258,7 +1258,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -1384,7 +1384,7 @@ public class Tests extends Object {
 		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -1481,7 +1481,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -1586,7 +1586,7 @@ public class Tests extends Object {
 		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -1692,7 +1692,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -1808,7 +1808,7 @@ public class Tests extends Object {
 		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -1915,7 +1915,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -2036,7 +2036,7 @@ public class Tests extends Object {
 		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -2587,7 +2587,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			ActionRequest actionRequest = (ActionRequest) extCtx.getRequest();
 			String charEncoding = extCtx.getRequestCharacterEncoding();
 			String actionCharEncoding = actionRequest.getCharacterEncoding();
@@ -2626,7 +2626,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -2634,7 +2634,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RENDER_PHASE) {
 
 			testRunner.setTestComplete(true);
 
@@ -2698,7 +2698,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 			ResourceRequest resourceRequest = (ResourceRequest) extCtx.getRequest();
 			String charEncoding = extCtx.getRequestCharacterEncoding();
 			String resourceCharEncoding = resourceRequest.getCharacterEncoding();
@@ -2736,7 +2736,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			ActionRequest actionRequest = (ActionRequest) extCtx.getRequest();
 			String contentType = extCtx.getRequestContentType();
 			String actionContentType = actionRequest.getContentType();
@@ -2775,7 +2775,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -2783,7 +2783,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RENDER_PHASE) {
 
 			testRunner.setTestComplete(true);
 
@@ -2845,7 +2845,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 			ResourceRequest resourceRequest = (ResourceRequest) extCtx.getRequest();
 			String contentType = extCtx.getRequestContentType();
 			String resourceContentType = resourceRequest.getContentType();
@@ -2890,7 +2890,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			// Test the following: 1. Map is immutable 2. Map contains properties from the portlet request (that it
 			// should) 2. Doesn't contain the Content-Type property 3. Does include the Accept and Accept-Language
 
@@ -3034,7 +3034,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -3042,7 +3042,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RENDER_PHASE) {
 
 			testRunner.setTestComplete(true);
 
@@ -3246,7 +3246,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 			// Test the following: 1. Map is immutable 2. Map contains properties from the portlet request (that it
 			// should) 2. Doesn't contain the Content-Type property 3. Does include the Accept and Accept-Language
 
@@ -3414,7 +3414,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			// Test the following: 1. Map is immutable 2. Map contains properties from the portlet request (that it
 			// should) 2. Doesn't contain the Content-Type property 3. Does include the Accept and Accept-Language
 
@@ -3585,7 +3585,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -3593,7 +3593,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RENDER_PHASE) {
 
 			testRunner.setTestComplete(true);
 
@@ -3833,7 +3833,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 			// Test the following: 1. Map is immutable 2. Map contains properties from the portlet request (that it
 			// should) 2. Doesn't contain the Content-Type property 3. Does include the Accept and Accept-Language
 
@@ -4077,7 +4077,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			// Test the following: 1. Map is immutable 2. Map (during action) contains the parameters in the underlying
 			// request 2. Map (during render) doesn't contain any params other than the VIEW_STATE_PARAM
 
@@ -4213,7 +4213,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			// Test the following: 2. Map (during action) contains the parameters in the underlying request 2. Map
 			// (during render) doesn't contain any params other than the VIEW_STATE_PARAM
 
@@ -4383,7 +4383,7 @@ public class Tests extends Object {
 		// Now verify we have the form params that were passed to the action
 		Iterator<String> namesIterator = extCtx.getRequestParameterNames();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "getRequestParameterNamesPreserveParamsTest";
 		}
 		else {
@@ -4436,7 +4436,7 @@ public class Tests extends Object {
 		// Now verify we have the form params that were passed to the action
 		Map<String, String> paramMap = extCtx.getRequestParameterMap();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "getRequestParameterPreserveParamsTest";
 		}
 		else {
@@ -4495,7 +4495,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			// Test the following: 1. Map is immutable 2. Map (during action) contains the parameters in the underlying
 			// request 2. Map (during render) doesn't contain any params other than the VIEW_STATE_PARAM
 
@@ -4684,7 +4684,7 @@ public class Tests extends Object {
 		// Now verify we have the form params that were passed to the action
 		Map<String, String[]> paramMap = extCtx.getRequestParameterValuesMap();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "getRequestParameterValuesMapPreserveParamsTest";
 		}
 		else {
@@ -4795,7 +4795,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			try {
 				String encoding = extCtx.getResponseCharacterEncoding();
@@ -4830,7 +4830,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -4838,7 +4838,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RENDER_PHASE) {
 
 			testRunner.setTestComplete(true);
 
@@ -4904,7 +4904,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 			ResourceResponse resourceResponse = (ResourceResponse) extCtx.getResponse();
 
 			String charEncoding = extCtx.getResponseCharacterEncoding();
@@ -4942,7 +4942,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			try {
 				String contentType = extCtx.getResponseContentType();
@@ -4977,7 +4977,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -4985,7 +4985,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RENDER_PHASE) {
 
 			testRunner.setTestComplete(true);
 
@@ -5048,7 +5048,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
 			ResourceResponse resourceResponse = (ResourceResponse) extCtx.getResponse();
 			String contentType = extCtx.getResponseContentType();
 			String resourceContentType = resourceResponse.getContentType();
@@ -5088,7 +5088,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			ActionRequest aRequest = new ActionRequestWrapper((ActionRequest) extCtx.getRequest());
 
 			extCtx.setRequest(aRequest);
@@ -5176,7 +5176,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			/* Test works as follows:
 			 *    redirect to a new view   set attribute on request scope   call redirect to the renderview   when
@@ -5241,7 +5241,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			/* Test works as follows:
 			 *    set attribute on request scope   raise event which will invoke redirect   when called during render --
@@ -5296,7 +5296,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			/* Test works as follows:
 			 *    set a new value for the PRP by updating the model -- this will cause the PRP to come in the render in
@@ -5384,7 +5384,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			/* Test works as follows:
 			 *    set a new value for the PRP by updating the model -- this will cause the PRP to come in the render in
@@ -5596,7 +5596,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// ensure the managed beans come into existence
 			Boolean isIn = (Boolean) app.evaluateExpressionGet(ctx, "#{predestroyBean1.inBridgeRequestScope}",
@@ -5820,7 +5820,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			String s = extCtx.getRequestCharacterEncoding();
 			String testEncoding = null;
 

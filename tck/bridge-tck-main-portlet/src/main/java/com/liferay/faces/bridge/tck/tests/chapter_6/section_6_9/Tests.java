@@ -46,7 +46,7 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Verify that the configured attribute is passed as a parameter
 			Map<String, String> rParams = extCtx.getRequestParameterMap();

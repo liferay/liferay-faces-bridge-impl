@@ -71,7 +71,7 @@ public class Tests {
 
 		// Test that each implicit object is accessible and has the right value in
 		// both the action phase and render phase
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// ACTION REQUEST
 			try {

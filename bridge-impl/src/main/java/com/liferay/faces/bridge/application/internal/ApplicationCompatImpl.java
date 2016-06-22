@@ -60,7 +60,7 @@ public abstract class ApplicationCompatImpl extends ApplicationWrapper {
 
 		UIComponent uiComponent;
 
-		if (BridgeUtil.isPortletRequest()) {
+		if (BridgeUtil.isPortletRequest(facesContext)) {
 
 			if (componentType.equals(UIViewRoot.COMPONENT_TYPE)) {
 
