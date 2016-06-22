@@ -157,6 +157,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 
 		// If the URL is opaque, meaning it starts with something like "portlet:" or "mailto:" and
 		// doesn't have the double-forward-slash like "http://" does, then
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 		if (bridgeURI.isOpaque()) {
 
 			// If the URI starts with "portlet:", then return a BaseURL that contains the modified
@@ -173,7 +174,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 				String portletMode = getParameter(Bridge.PORTLET_MODE_PARAMETER);
 				boolean modeChanged = ((portletMode != null) && (portletMode.length() > 0));
 				Bridge.PortletPhase urlPortletPhase = bridgeURI.getPortletPhase();
-				FacesContext facesContext = FacesContext.getCurrentInstance();
 
 				if (urlPortletPhase == Bridge.PortletPhase.ACTION_PHASE) {
 					baseURL = createActionURL(facesContext, modeChanged);
@@ -238,7 +238,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 
 			// Otherwise, return a ResourceURL that can retrieve the JSF2 resource.
 			else {
-				FacesContext facesContext = FacesContext.getCurrentInstance();
 				baseURL = createResourceURL(facesContext, bridgeURI.getParameterMap());
 			}
 		}
@@ -247,7 +246,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		else if (bridgeURI.isExternal(contextPath)) {
 
 			// TCK TestPage130: encodeResourceURLForeignExternalURLBackLinkTest
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
 			baseURL = new BaseURLEncodedImpl(bridgeURI, portletResponse);
@@ -259,7 +257,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 
 			// TCK TestPage131: encodeResourceURLRelativeURLTest
 			// TCK TestPage132: encodeResourceURLRelativeURLBackLinkTest
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			String contextPath = externalContext.getRequestContextPath();
 			baseURL = new BaseURLNonEncodedRelativeImpl(bridgeURI, contextPath);
@@ -280,7 +277,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 
 				// TCK TestPage135: encodeResourceURLViewLinkTest
 				// TCK TestPage136: encodeResourceURLViewLinkWithBackLinkTest
-				FacesContext facesContext = FacesContext.getCurrentInstance();
 				ExternalContext externalContext = facesContext.getExternalContext();
 				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 				PortletURL actionURL = createActionURL(facesContext, EXCLUDED_PARAMETER_NAMES);
@@ -303,7 +299,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			// that utilize this (see below).
 			else {
 
-				Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
+				Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 				if ((portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) ||
 						(portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE)) {
@@ -320,7 +316,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 					// TCK TestPage106: encodeActionURLNonJSFViewWithInvalidModeResourceTest
 					// TCK TestPage107: encodeActionURLNonJSFViewWithWindowStateResourceTest
 					// TCK TestPage108: encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest
-					FacesContext facesContext = FacesContext.getCurrentInstance();
 					ExternalContext externalContext = facesContext.getExternalContext();
 					PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 					PortletURL renderURL = createRenderURL(facesContext, EXCLUDED_PARAMETER_NAMES);
@@ -355,7 +350,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			// TCK TestPage126: encodeActionURLWithInvalidWindowStateResourceTest
 			// TCK TestPage127: encodeURLEscapingTest
 			// TCK TestPage137: encodeResourceURLWithModeTest
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			baseURL = createResourceURL(facesContext, EXCLUDED_PARAMETER_NAMES);
 		}
 
@@ -364,7 +358,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		else if (inProtocol) {
 
 			// TCK TestPage071: nonFacesResourceTest
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ResourceURL resourceURL = createResourceURL(facesContext);
 			resourceURL.setResourceID(bridgeURI.getContextRelativePath(contextPath));
 			baseURL = resourceURL;

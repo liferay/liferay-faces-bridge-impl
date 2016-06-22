@@ -71,7 +71,7 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 
 		// Then test to see if we are in a render and this is an encodeActionURL test that
 		// tests the render encoding -- if so add the appropriate parameters to test.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(context) == Bridge.PortletPhase.RENDER_PHASE) {
 			String testName = (String) context.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
 
 			if (testName == null)
@@ -114,7 +114,7 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 		String testName = (String) context.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
 
 		// Do nothing when not running in portlet request or not the specific test
-		if (!BridgeUtil.isPortletRequest() || (testName == null) || (testName.indexOf("renderPolicyTest") < 0)) {
+		if (!BridgeUtil.isPortletRequest(context) || (testName == null) || (testName.indexOf("renderPolicyTest") < 0)) {
 			super.renderView(context, viewToRender);
 
 			return;

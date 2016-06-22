@@ -69,7 +69,7 @@ public class HeadPhaseListener implements PhaseListener {
 
 	public void beforePhase(PhaseEvent phaseEvent) {
 
-		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
+		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(phaseEvent.getFacesContext());
 
 		if ((portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE) ||
 				(portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE)) {

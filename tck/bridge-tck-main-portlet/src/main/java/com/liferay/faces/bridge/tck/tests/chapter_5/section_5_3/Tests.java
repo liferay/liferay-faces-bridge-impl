@@ -166,7 +166,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		String theHistoryEdit = (String) extCtx.getSessionMap().get("javax.portlet.faces.viewIdHistory.view");
 		String renderParam = (String) extCtx.getRequestParameterMap().get("com.liferay.faces.bridge.tck.testAttr");
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 			String viewId = ctx.getViewRoot().getViewId();
 
 			if (viewId.equals("/tests/multiRequestTest.xhtml")) {
@@ -263,7 +263,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			if (extCtx.getSessionMap().get("tck.processPRPInRestoreViewPhaseTest.modelPRPSet") == null) {
 				extCtx.getRequestMap().put("modelPRP", testRunner.getTestName());
@@ -334,7 +334,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			if (extCtx.getSessionMap().get("tck.prpModelUpdateTest.modelPRPSet") == null) {
 				extCtx.getRequestMap().put("modelPRP", testRunner.getTestName());

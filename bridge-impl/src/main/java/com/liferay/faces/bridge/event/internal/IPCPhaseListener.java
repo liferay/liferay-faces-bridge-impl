@@ -69,7 +69,7 @@ public class IPCPhaseListener implements PhaseListener {
 
 			// Section 5.2.5 and 6.4 of the JSR 329 Spec require that the phase listener short-circuit the JSF lifecycle
 			// after the RESTORE_VIEW phase completes during the EVENT_PHASE of the Portlet 2.0 lifecycle.
-			Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
+			Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 			if (portletPhase == Bridge.PortletPhase.EVENT_PHASE) {
 				facesContext.renderResponse();
@@ -81,7 +81,7 @@ public class IPCPhaseListener implements PhaseListener {
 			// Render Parameters during the ACTION_PHASE and RENDER_PHASE of the Portlet 2.0 lifecycle. It is
 			// appropriate to do this after the INVOKE_APPLICATION phase of the JSF lifecycle because that's where a JSF
 			// backing bean action (or action listener) would have been called in order to populate the model.
-			Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
+			Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 			if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) ||
 					(portletPhase == Bridge.PortletPhase.EVENT_PHASE)) {
