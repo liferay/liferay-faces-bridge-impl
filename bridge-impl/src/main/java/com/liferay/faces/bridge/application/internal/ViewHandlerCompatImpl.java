@@ -43,8 +43,7 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 	public String getRedirectURL(FacesContext facesContext, String viewId, Map<String, List<String>> parameters,
 		boolean includeViewParams) {
 
-		// TODO: FACES-2648 PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
-		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
+		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 		// Determine whether or not it is necessary to work-around the patch applied to Mojarra in JAVASERVERFACES-3023.
 		// NOTE: The detection of Mojarra is normally done with a static private constant, but that is not possible on
