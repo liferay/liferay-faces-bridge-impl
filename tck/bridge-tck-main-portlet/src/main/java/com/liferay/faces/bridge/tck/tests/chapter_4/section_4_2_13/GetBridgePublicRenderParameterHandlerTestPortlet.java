@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_13;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -38,6 +39,7 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";
 
+	@Override
 	public BridgePublicRenderParameterHandler getBridgePublicRenderParameterHandler() throws PortletException {
 
 		BridgePublicRenderParameterHandler prpHandler = super.getBridgePublicRenderParameterHandler();
@@ -50,7 +52,7 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 					getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName(),
 						"getBridgePublicRenderParameter returned null but a PRPHandler was configured.");
 				}
-				else if (prpHandler.getClass().getName().startsWith(
+				else if (isClassNameInDelegationChain(prpHandler,
 							"com.liferay.faces.bridge.tck.tests.chapter_5.section_5_3.Tests")) {
 					getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(),
 						"getBridgePublicRenderParameter correctly returned the configured PRPHandler instance.");
@@ -86,6 +88,7 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 		return prpHandler;
 	}
 
+	@Override
 	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 
 		response.setContentType("text/html");
@@ -104,5 +107,30 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 		}
 
 		out.println(resultWriter.toString());
+	}
+
+	private boolean isClassNameInDelegationChain(BridgePublicRenderParameterHandler bridgePublicRenderParameterHandler,
+		String className) {
+
+		Class<? extends BridgePublicRenderParameterHandler> bridgePublicRenderParameterHandlerClass =
+			bridgePublicRenderParameterHandler.getClass();
+
+		if (bridgePublicRenderParameterHandlerClass.getName().startsWith(className)) {
+			return true;
+		}
+		else {
+
+			try {
+				Method getWrappedMethod = bridgePublicRenderParameterHandlerClass.getMethod("getWrapped");
+				getWrappedMethod.setAccessible(true);
+				bridgePublicRenderParameterHandler = (BridgePublicRenderParameterHandler) getWrappedMethod.invoke(
+						bridgePublicRenderParameterHandler);
+
+				return isClassNameInDelegationChain(bridgePublicRenderParameterHandler, className);
+			}
+			catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }

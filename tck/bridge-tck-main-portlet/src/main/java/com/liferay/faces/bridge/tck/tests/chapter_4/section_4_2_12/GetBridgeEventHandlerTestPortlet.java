@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_12;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -38,6 +39,7 @@ public class GetBridgeEventHandlerTestPortlet extends GenericFacesTestSuitePortl
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";
 
+	@Override
 	public BridgeEventHandler getBridgeEventHandler() throws PortletException {
 
 		BridgeEventHandler eventHandler = super.getBridgeEventHandler();
@@ -50,7 +52,7 @@ public class GetBridgeEventHandlerTestPortlet extends GenericFacesTestSuitePortl
 					getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName(),
 						"getBridgeEventHandler returned null but an EventHandler was configured.");
 				}
-				else if (eventHandler.getClass().getName().startsWith(
+				else if (isClassNameInDelegationChain(eventHandler,
 							"com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.TestEventHandler")) {
 					getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(),
 						"getBridgeEventHandler correctly returned the configured EventHandler instance.");
@@ -86,6 +88,7 @@ public class GetBridgeEventHandlerTestPortlet extends GenericFacesTestSuitePortl
 		return eventHandler;
 	}
 
+	@Override
 	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 		response.setContentType("text/html");
 
@@ -103,5 +106,27 @@ public class GetBridgeEventHandlerTestPortlet extends GenericFacesTestSuitePortl
 		}
 
 		out.println(resultWriter.toString());
+	}
+
+	private boolean isClassNameInDelegationChain(BridgeEventHandler bridgeEventHandler, String className) {
+
+		Class<? extends BridgeEventHandler> bridgeEventHandlerClass = bridgeEventHandler.getClass();
+
+		if (bridgeEventHandlerClass.getName().startsWith(className)) {
+			return true;
+		}
+		else {
+
+			try {
+				Method getWrappedMethod = bridgeEventHandlerClass.getMethod("getWrapped");
+				getWrappedMethod.setAccessible(true);
+				bridgeEventHandler = (BridgeEventHandler) getWrappedMethod.invoke(bridgeEventHandler);
+
+				return isClassNameInDelegationChain(bridgeEventHandler, className);
+			}
+			catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }
