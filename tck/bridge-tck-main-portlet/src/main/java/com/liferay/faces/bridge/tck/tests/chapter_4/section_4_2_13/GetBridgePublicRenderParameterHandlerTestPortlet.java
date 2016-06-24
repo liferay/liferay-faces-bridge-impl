@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_13;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
 
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
@@ -38,9 +39,30 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";
 
-	public BridgePublicRenderParameterHandler getBridgePublicRenderParameterHandler() throws PortletException {
+	@Override
+	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 
-		BridgePublicRenderParameterHandler prpHandler = super.getBridgePublicRenderParameterHandler();
+		executeText(getBridgePublicRenderParameterHandler());
+
+		response.setContentType("text/html");
+
+		PrintWriter out = response.getWriter();
+
+		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
+
+		if (getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()) == null) {
+			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
+			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()));
+		}
+		else {
+			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
+			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
+		}
+
+		out.println(resultWriter.toString());
+	}
+
+	private void executeText(BridgePublicRenderParameterHandler prpHandler) {
 
 		try {
 
@@ -50,7 +72,7 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 					getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName(),
 						"getBridgePublicRenderParameter returned null but a PRPHandler was configured.");
 				}
-				else if (prpHandler.getClass().getName().startsWith(
+				else if (isClassNameInDelegationChain(prpHandler,
 							"com.liferay.faces.bridge.tck.tests.chapter_5.section_5_3.Tests")) {
 					getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(),
 						"getBridgePublicRenderParameter correctly returned the configured PRPHandler instance.");
@@ -82,27 +104,30 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 			getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName(),
 				"getBridgePublicRenderParameter unexpected Exception: " + e.toString());
 		}
-
-		return prpHandler;
 	}
 
-	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
+	private boolean isClassNameInDelegationChain(BridgePublicRenderParameterHandler bridgePublicRenderParameterHandler,
+		String className) {
 
-		response.setContentType("text/html");
+		Class<? extends BridgePublicRenderParameterHandler> bridgePublicRenderParameterHandlerClass =
+			bridgePublicRenderParameterHandler.getClass();
 
-		PrintWriter out = response.getWriter();
-
-		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
-
-		if (getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()) == null) {
-			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
-			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()));
+		if (bridgePublicRenderParameterHandlerClass.getName().startsWith(className)) {
+			return true;
 		}
 		else {
-			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
-			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
-		}
 
-		out.println(resultWriter.toString());
+			try {
+				Method getWrappedMethod = bridgePublicRenderParameterHandlerClass.getMethod("getWrapped");
+				getWrappedMethod.setAccessible(true);
+				bridgePublicRenderParameterHandler = (BridgePublicRenderParameterHandler) getWrappedMethod.invoke(
+						bridgePublicRenderParameterHandler);
+
+				return isClassNameInDelegationChain(bridgePublicRenderParameterHandler, className);
+			}
+			catch (Exception e) {
+				return false;
+			}
+		}
 	}
 }
