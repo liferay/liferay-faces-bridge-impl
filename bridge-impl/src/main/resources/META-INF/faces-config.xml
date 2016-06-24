@@ -53,11 +53,13 @@
 		<factory-extension>
 			<bridge:bean-manager-factory>com.liferay.faces.bridge.bean.internal.BeanManagerFactoryImpl</bridge:bean-manager-factory>
 			<bridge:bridge-config-factory>com.liferay.faces.bridge.internal.BridgeConfigFactoryImpl</bridge:bridge-config-factory>
+			<bridge:bridge-event-handler-factory>com.liferay.faces.bridge.internal.BridgeEventHandlerFactoryImpl</bridge:bridge-event-handler-factory>
 			<bridge:bridge-phase-factory>com.liferay.faces.bridge.internal.BridgePhaseFactoryImpl</bridge:bridge-phase-factory>
 			<bridge:bridge-portlet-config-factory>com.liferay.faces.bridge.filter.internal.BridgePortletConfigFactoryImpl</bridge:bridge-portlet-config-factory>
 			<bridge:bridge-portlet-context-factory>com.liferay.faces.bridge.filter.internal.BridgePortletContextFactoryImpl</bridge:bridge-portlet-context-factory>
 			<bridge:bridge-portlet-request-factory>com.liferay.faces.bridge.filter.internal.BridgePortletRequestFactoryImpl</bridge:bridge-portlet-request-factory>
 			<bridge:bridge-portlet-response-factory>com.liferay.faces.bridge.filter.internal.BridgePortletResponseFactoryImpl</bridge:bridge-portlet-response-factory>
+			<bridge:bridge-public-render-parameter-handler-factory>com.liferay.faces.bridge.internal.BridgePublicRenderParameterHandlerFactoryImpl</bridge:bridge-public-render-parameter-handler-factory>
 			<bridge:bridge-request-scope-factory>com.liferay.faces.bridge.scope.internal.BridgeRequestScopeFactoryImpl</bridge:bridge-request-scope-factory>
 			<bridge:bridge-request-scope-cache-factory>com.liferay.faces.bridge.scope.internal.BridgeRequestScopeCacheFactoryImpl</bridge:bridge-request-scope-cache-factory>
 			<bridge:bridge-request-scope-manager-factory>com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerFactoryImpl</bridge:bridge-request-scope-manager-factory>
