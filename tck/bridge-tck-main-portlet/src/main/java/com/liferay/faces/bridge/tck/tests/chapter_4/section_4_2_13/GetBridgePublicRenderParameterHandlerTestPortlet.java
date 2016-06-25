@@ -40,9 +40,29 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 	private static String TEST_PASS_PREFIX = "test.pass.";
 
 	@Override
-	public BridgePublicRenderParameterHandler getBridgePublicRenderParameterHandler() throws PortletException {
+	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 
-		BridgePublicRenderParameterHandler prpHandler = super.getBridgePublicRenderParameterHandler();
+		executeText(getBridgePublicRenderParameterHandler());
+
+		response.setContentType("text/html");
+
+		PrintWriter out = response.getWriter();
+
+		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
+
+		if (getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()) == null) {
+			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
+			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()));
+		}
+		else {
+			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
+			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
+		}
+
+		out.println(resultWriter.toString());
+	}
+
+	private void executeText(BridgePublicRenderParameterHandler prpHandler) {
 
 		try {
 
@@ -84,29 +104,6 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 			getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName(),
 				"getBridgePublicRenderParameter unexpected Exception: " + e.toString());
 		}
-
-		return prpHandler;
-	}
-
-	@Override
-	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
-
-		response.setContentType("text/html");
-
-		PrintWriter out = response.getWriter();
-
-		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
-
-		if (getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()) == null) {
-			resultWriter.setStatus(BridgeTCKResultWriter.PASS);
-			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()));
-		}
-		else {
-			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
-			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
-		}
-
-		out.println(resultWriter.toString());
 	}
 
 	private boolean isClassNameInDelegationChain(BridgePublicRenderParameterHandler bridgePublicRenderParameterHandler,
