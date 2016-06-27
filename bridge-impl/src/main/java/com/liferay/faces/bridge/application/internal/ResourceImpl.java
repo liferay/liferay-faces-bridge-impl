@@ -36,7 +36,6 @@ import javax.faces.context.FacesContext;
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
-import com.liferay.faces.util.HttpHeaders;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -317,7 +316,7 @@ public class ResourceImpl extends ResourceWrapper implements Serializable {
 					Map<String, String> requestHeaderMap = facesContext.getExternalContext().getRequestHeaderMap();
 
 					// http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.25
-					String requestHeaderValue = requestHeaderMap.get(HttpHeaders.IF_MODIFIED_SINCE);
+					String requestHeaderValue = requestHeaderMap.get("If-Modified-Since");
 
 					if (requestHeaderValue != null) {
 
@@ -341,8 +340,8 @@ public class ResourceImpl extends ResourceWrapper implements Serializable {
 							}
 						}
 						catch (ParseException e) {
-							logger.error("Unable to parse request-header=[{0}] value=[{1}]",
-								HttpHeaders.IF_MODIFIED_SINCE, requestHeaderValue);
+							logger.error("Unable to parse request-header=[{0}] value=[{1}]", "If-Modified-Since",
+								requestHeaderValue);
 						}
 					}
 
