@@ -105,7 +105,7 @@ public abstract class IncongruityContextBaseImpl extends IncongruityContext {
 	}
 
 	@Override
-	public Map<?, ?> getInitParameterMap() {
+	public Map<String, String> getInitParameterMap() {
 		throw new IllegalStateException();
 	}
 

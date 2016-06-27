@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.liferay.faces</groupId>
 	<artifactId>com.liferay.faces.bridge.impl.parent</artifactId>
-	<version>5.0.0-SNAPSHOT</version>
+	<version>6.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Liferay Faces Bridge Impl Parent</name>
 	<description>Parent POM for all Liferay Faces Bridge implementation modules</description>
@@ -97,7 +97,7 @@
 		<faces.impl.artifact.id>jsf-impl</faces.impl.artifact.id>
 		<faces.servlet.container.initializer>com.sun.faces.config.FacesInitializer</faces.servlet.container.initializer>
 		<faces.impl.scope>runtime</faces.impl.scope>
-		<faces.spec.version>2.2</faces.spec.version>
+		<faces.spec.version>2.3-edr1</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
 		<icefaces.version>4.1.1</icefaces.version>
@@ -121,7 +121,7 @@
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.weblogic.version>12.1.3.0</liferay.weblogic.version>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
-		<mojarra.version>2.2.13</mojarra.version>
+		<mojarra.version>2.3.0-m07-SNAPSHOT</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
 		<pluto.deploy.dir>${pluto.tomcat.dir}/webapps</pluto.deploy.dir>
 		<pluto.home>${env.PORTALS_HOME}/liferay.com/${pluto.portal}-jsf-${faces.spec.version}</pluto.home>
