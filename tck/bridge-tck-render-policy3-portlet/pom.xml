@@ -30,11 +30,11 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>${faces.group.id}</groupId>
+			<groupId>${faces.api.group.id}</groupId>
 			<artifactId>${faces.api.artifact.id}</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>${faces.group.id}</groupId>
+			<groupId>${faces.impl.group.id}</groupId>
 			<artifactId>${faces.impl.artifact.id}</artifactId>
 		</dependency>
 		<dependency>
