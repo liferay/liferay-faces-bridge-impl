@@ -32,9 +32,9 @@ import javax.portlet.PortletResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeFactoryFinder;
+import javax.portlet.faces.BridgeURL;
+import javax.portlet.faces.BridgeURLFactory;
 
-import com.liferay.faces.bridge.BridgeURL;
-import com.liferay.faces.bridge.BridgeURLFactory;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.bridge.util.internal.ViewUtil;

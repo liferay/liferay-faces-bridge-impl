@@ -52,11 +52,11 @@ import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeInvalidViewPathException;
+import javax.portlet.faces.BridgeURL;
 import javax.portlet.faces.BridgeWriteBehindResponse;
 import javax.portlet.faces.GenericFacesPortlet;
 import javax.servlet.http.HttpServletResponse;
 
-import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationUtil;
 import com.liferay.faces.bridge.application.view.internal.BridgeWriteBehindSupportFactory;
 import com.liferay.faces.bridge.context.BridgePortalContext;

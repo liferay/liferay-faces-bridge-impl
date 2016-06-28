@@ -30,9 +30,9 @@ import javax.faces.render.Renderer;
 import javax.faces.render.RendererWrapper;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.BridgeFactoryFinder;
+import javax.portlet.faces.BridgeURL;
+import javax.portlet.faces.BridgeURLFactory;
 
-import com.liferay.faces.bridge.BridgeURL;
-import com.liferay.faces.bridge.BridgeURLFactory;
 import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
 import com.liferay.faces.bridge.internal.BridgeExt;
 
