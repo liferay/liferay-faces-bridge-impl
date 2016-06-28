@@ -90,11 +90,12 @@
 		<arquillian.graphene.version>2.0.3.Final</arquillian.graphene.version>
 		<cdi.version>1.0-SP4</cdi.version>
 		<component.namespace>none</component.namespace>
-		<faces.group.id>com.sun.faces</faces.group.id>
-		<faces.api.artifact.id>jsf-api</faces.api.artifact.id>
-		<faces.api.scope>compile</faces.api.scope>
+		<faces.api.group.id>javax.faces</faces.api.group.id>
+		<faces.api.artifact.id>javax.faces-api</faces.api.artifact.id>
+		<faces.api.scope>provided</faces.api.scope>
 		<faces.api.version>${faces.spec.version}</faces.api.version>
-		<faces.impl.artifact.id>jsf-impl</faces.impl.artifact.id>
+		<faces.impl.group.id>org.glassfish</faces.impl.group.id>
+		<faces.impl.artifact.id>javax.faces</faces.impl.artifact.id>
 		<faces.impl.scope>runtime</faces.impl.scope>
 		<faces.spec.version>2.1</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
@@ -374,11 +375,11 @@
 			</activation>
 			<dependencies>
 				<dependency>
-					<groupId>${faces.group.id}</groupId>
+					<groupId>${faces.api.group.id}</groupId>
 					<artifactId>${faces.api.artifact.id}</artifactId>
 				</dependency>
 				<dependency>
-					<groupId>${faces.group.id}</groupId>
+					<groupId>${faces.impl.group.id}</groupId>
 					<artifactId>${faces.impl.artifact.id}</artifactId>
 				</dependency>
 			</dependencies>
@@ -519,8 +520,9 @@
 		<profile>
 			<id>myfaces</id>
 			<properties>
-				<faces.group.id>org.apache.myfaces.core</faces.group.id>
+				<faces.api.group.id>org.apache.myfaces.core</faces.api.group.id>
 				<faces.api.artifact.id>myfaces-api</faces.api.artifact.id>
+				<faces.impl.group.id>org.apache.myfaces.core</faces.impl.group.id>
 				<faces.impl.artifact.id>myfaces-impl</faces.impl.artifact.id>
 				<faces.version>${myfaces.version}</faces.version>
 			</properties>
@@ -801,14 +803,14 @@
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.sun.faces</groupId>
-				<artifactId>jsf-api</artifactId>
-				<version>${mojarra.version}</version>
+				<groupId>javax.faces</groupId>
+				<artifactId>javax.faces-api</artifactId>
+				<version>${faces.api.version}</version>
 				<scope>${faces.api.scope}</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.sun.faces</groupId>
-				<artifactId>jsf-impl</artifactId>
+				<groupId>org.glassfish</groupId>
+				<artifactId>javax.faces</artifactId>
 				<version>${mojarra.version}</version>
 				<scope>${faces.impl.scope}</scope>
 			</dependency>
