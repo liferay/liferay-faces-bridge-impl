@@ -15,10 +15,6 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import com.liferay.faces.bridge.context.IncongruityContext;
-import com.liferay.faces.bridge.context.IncongruityContextFactory;
-
-
 /**
  * @author  Neil Griffin
  */
