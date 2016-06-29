@@ -15,15 +15,16 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import javax.faces.FacesWrapper;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeException;
+
+import com.liferay.faces.util.helper.Wrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public abstract class BridgePhaseWrapper implements BridgePhase, FacesWrapper<BridgePhase> {
+public abstract class BridgePhaseWrapper implements BridgePhase, Wrapper<BridgePhase> {
 
 	public abstract BridgePhase getWrapped();
 

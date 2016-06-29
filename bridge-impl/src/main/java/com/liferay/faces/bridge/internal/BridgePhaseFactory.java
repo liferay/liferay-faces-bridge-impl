@@ -15,10 +15,6 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.BridgeFactoryFinder;
-
-import javax.faces.FacesWrapper;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
@@ -28,6 +24,10 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+
+import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.bridge.BridgeFactoryFinder;
+import com.liferay.faces.util.helper.Wrapper;
 
 
 /**
@@ -40,7 +40,7 @@ import javax.portlet.ResourceResponse;
  *
  * @author  Neil Griffin
  */
-public abstract class BridgePhaseFactory implements FacesWrapper<BridgePhaseFactory> {
+public abstract class BridgePhaseFactory implements Wrapper<BridgePhaseFactory> {
 
 	/**
 	 * Returns an instance of {@link BridgePhase} from the {@link BridgePhaseFactory} found by the {@link
