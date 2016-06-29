@@ -21,10 +21,10 @@ import java.util.EmptyStackException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
+import javax.faces.context.ResponseWriterWrapper;
 
 import org.w3c.dom.Element;
 
-import com.liferay.faces.bridge.context.HeadResponseWriter;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.ElementWriter;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.ElementWriterStack;
 import com.liferay.faces.util.logging.Logger;
@@ -34,7 +34,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public abstract class HeadResponseWriterBase extends HeadResponseWriter {
+public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(HeadResponseWriterBase.class);
