@@ -26,9 +26,6 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.BridgeConfig;
 
-import com.liferay.faces.bridge.BridgePhase;
-import com.liferay.faces.bridge.BridgePhaseFactory;
-
 
 /**
  * @author  Neil Griffin

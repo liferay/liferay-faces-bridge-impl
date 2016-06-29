@@ -36,7 +36,6 @@ import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.annotation.PortletNamingContainer;
 import javax.portlet.faces.filter.BridgePortletContextFactory;
 
-import com.liferay.faces.bridge.BridgePhase;
 import com.liferay.faces.bridge.context.IncongruityContext;
 import com.liferay.faces.bridge.context.IncongruityContextFactory;
 import com.liferay.faces.bridge.helper.internal.PortletModeHelper;
