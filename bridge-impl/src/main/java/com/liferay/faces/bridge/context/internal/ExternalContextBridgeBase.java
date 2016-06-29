@@ -30,7 +30,6 @@ import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeURL;
 import javax.portlet.faces.BridgeURLFactory;
 
-import com.liferay.faces.bridge.context.IncongruityContext;
 import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.internal.BridgeURIFactory;
 import com.liferay.faces.bridge.internal.PortletConfigParam;

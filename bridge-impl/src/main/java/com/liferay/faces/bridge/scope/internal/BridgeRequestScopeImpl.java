@@ -47,7 +47,7 @@ import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.RequestAttributeInspector;
 import javax.portlet.faces.RequestAttributeInspectorFactory;
 
-import com.liferay.faces.bridge.context.IncongruityContext;
+import com.liferay.faces.bridge.context.internal.IncongruityContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.FacesMessageWrapper;
 import com.liferay.faces.util.logging.Logger;
