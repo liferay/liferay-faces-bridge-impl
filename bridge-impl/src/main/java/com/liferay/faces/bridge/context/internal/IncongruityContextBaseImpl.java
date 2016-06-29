@@ -28,8 +28,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import com.liferay.faces.bridge.context.IncongruityContext;
-
 
 /**
  * @author  Neil Griffin
