@@ -40,8 +40,6 @@ import javax.portlet.faces.BridgeNotAFacesRequestException;
 import javax.portlet.faces.BridgeUninitializedException;
 import javax.portlet.faces.filter.BridgePortletConfigFactory;
 
-import com.liferay.faces.bridge.BridgePhase;
-import com.liferay.faces.bridge.BridgePhaseFactory;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManager;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerFactory;
 import com.liferay.faces.util.logging.Logger;
