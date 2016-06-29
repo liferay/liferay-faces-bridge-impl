@@ -36,7 +36,6 @@ import javax.portlet.PortletResponse;
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.component.internal.ComponentUtil;
 import com.liferay.faces.bridge.context.BridgePortalContext;
-import com.liferay.faces.bridge.context.HeadResponseWriter;
 import com.liferay.faces.bridge.context.HeadResponseWriterFactory;
 import com.liferay.faces.util.application.ResourceUtil;
 import com.liferay.faces.util.logging.Logger;
@@ -186,8 +185,8 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 			// Replace the ResponseWriter in the FacesContext with a HeadResponseWriter that knows how to write to
 			// the <head>...</head> section of the rendered portal page.
-			HeadResponseWriter headResponseWriter = (HeadResponseWriter) portletRequest.getAttribute(
-					HeadResponseWriter.class.getName());
+			ResponseWriter headResponseWriter = (ResponseWriter) portletRequest.getAttribute(
+					"com.liferay.faces.bridge.HeadResponseWriter");
 
 			if (headResponseWriter == null) {
 
@@ -196,7 +195,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 						portletResponse);
 			}
 
-			portletRequest.setAttribute(HeadResponseWriter.class.getName(), headResponseWriter);
+			portletRequest.setAttribute("com.liferay.faces.bridge.HeadResponseWriter", headResponseWriter);
 			facesContext.setResponseWriter(headResponseWriter);
 
 			HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
