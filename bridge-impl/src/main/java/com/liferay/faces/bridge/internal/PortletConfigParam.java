@@ -82,7 +82,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	UploadedFilesDir("com.liferay.faces.bridge.uploadedFilesDir", "javax.faces.UPLOADED_FILES_DIR",
 		System.getProperty("java.io.tmpdir")),
 
-	/** Maximum file size for an uploaded file. Default is 104857600 bytes (100MB) */
+	/** Maximum file size for an uploaded file. Default is 104,857,600 (~100MB), upper limit is 2,147,483,647 (~2GB) */
 	UploadedFileMaxSize("com.liferay.faces.bridge.uploadedFileMaxSize", "javax.faces.UPLOADED_FILE_MAX_SIZE",
 		104857600L),
 
