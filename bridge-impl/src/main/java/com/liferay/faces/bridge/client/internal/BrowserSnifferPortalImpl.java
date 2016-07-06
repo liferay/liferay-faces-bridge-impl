@@ -139,27 +139,12 @@ public class BrowserSnifferPortalImpl implements BrowserSniffer {
 	}
 
 	@Override
-	public boolean isWap() {
-		return false;
-	}
-
-	@Override
-	public boolean isWapXhtml() {
-		return false;
-	}
-
-	@Override
 	public boolean isWebKit() {
 		return false;
 	}
 
 	@Override
 	public boolean isWindows() {
-		return false;
-	}
-
-	@Override
-	public boolean isWml() {
 		return false;
 	}
 }
