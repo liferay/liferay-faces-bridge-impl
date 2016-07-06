@@ -36,7 +36,7 @@ public class BrowserSnifferFactoryBridgeImpl extends BrowserSnifferFactory {
 	@Override
 	public BrowserSniffer getBrowserSniffer(ExternalContext externalContext) {
 
-		// Since we cannot obtain the HttpServletRequest, so we cannot obtain information about the browser, so
+		// Since we cannot obtain the HttpServletRequest, we cannot obtain information about the browser, so
 		// return a BrowserSniffer implementation which returns false for all booleans, 0 for all numbers, and "" for
 		// all Strings.
 		return new BrowserSnifferPortalImpl();
