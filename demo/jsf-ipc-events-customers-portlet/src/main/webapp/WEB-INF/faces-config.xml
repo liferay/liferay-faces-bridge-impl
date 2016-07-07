@@ -4,10 +4,6 @@
 
 	<application>
 		<message-bundle>i18nFaces</message-bundle>
-		<resource-bundle>
-			<base-name>i18n</base-name>
-			<var>i18n</var>
-		</resource-bundle>
 		<view-handler>com.liferay.faces.bridge.application.PortletFaceletViewHandler</view-handler>
 	</application>
 	<managed-bean>
