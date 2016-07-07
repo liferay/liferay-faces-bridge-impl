@@ -5,10 +5,6 @@
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 		<message-bundle>i18nFaces</message-bundle>
-		<resource-bundle>
-			<base-name>i18n</base-name>
-			<var>i18n</var>
-		</resource-bundle>
 	</application>
 	<lifecycle>
 		<phase-listener>com.liferay.faces.util.lifecycle.DebugPhaseListener</phase-listener>
