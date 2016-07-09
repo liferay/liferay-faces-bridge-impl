@@ -7,7 +7,7 @@
 	<name>BridgeShowcase</name>
 	<factory>
 		<factory-extension>
-			<util:message-context-factory>com.liferay.faces.bridge.demos.context.MessageContextFactoryBridgeShowcaseImpl</util:message-context-factory>
+			<util:i18n-factory>com.liferay.faces.bridge.demos.i18n.internal.I18nFactoryBridgeShowcaseImpl</util:i18n-factory>
 		</factory-extension>
 	</factory>
 
