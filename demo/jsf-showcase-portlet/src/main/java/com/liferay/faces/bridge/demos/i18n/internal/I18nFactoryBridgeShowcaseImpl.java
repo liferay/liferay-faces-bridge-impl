@@ -13,23 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.demos.context;
+package com.liferay.faces.bridge.demos.i18n.internal;
 
-import com.liferay.faces.util.context.MessageContext;
-import com.liferay.faces.util.context.MessageContextBundleBase;
+import com.liferay.faces.util.i18n.I18n;
+import com.liferay.faces.util.i18n.I18nFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class MessageContextBridgeShowcaseImpl extends MessageContextBundleBase {
+public class I18nFactoryBridgeShowcaseImpl extends I18nFactory {
 
-	public MessageContextBridgeShowcaseImpl(MessageContext messageContext) {
-		super(messageContext);
+	// Private Data Members
+	private I18nFactory wrappedI18nFactory;
+	private I18n i18n;
+
+	public I18nFactoryBridgeShowcaseImpl(I18nFactory i18nFactory) {
+		this.wrappedI18nFactory = i18nFactory;
+
+		I18n wrappedI18n = i18nFactory.getI18n();
+		this.i18n = new I18nBridgeShowcaseImpl(wrappedI18n);
 	}
 
 	@Override
-	public String getBundleKey() {
-		return "i18n-bridge";
+	public I18n getI18n() {
+		return i18n;
+	}
+
+	@Override
+	public I18nFactory getWrapped() {
+		return wrappedI18nFactory;
 	}
 }
