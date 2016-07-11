@@ -58,14 +58,24 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 
 		if (mojarra.isDetected()) {
 
-			if (mojarra.getMajorVersion() == 2) {
+			int mojarraMajorVersion = mojarra.getMajorVersion();
 
-				if (mojarra.getMinorVersion() == 1) {
+			if (mojarraMajorVersion == 2) {
+
+				int mojarraMinorVersion = mojarra.getMinorVersion();
+
+				if (mojarraMinorVersion == 1) {
 					namespacedViewStateSupported = (mojarra.getPatchVersion() >= 27);
 				}
-				else if (mojarra.getMinorVersion() == 2) {
+				else if (mojarraMinorVersion == 2) {
 					namespacedViewStateSupported = (mojarra.getPatchVersion() >= 4);
 				}
+				else if (mojarraMinorVersion > 2) {
+					namespacedViewStateSupported = true;
+				}
+			}
+			else if (mojarraMajorVersion > 2) {
+				namespacedViewStateSupported = true;
 			}
 		}
 
