@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-
 /**
  * @author  Neil Griffin
  */

@@ -158,6 +158,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// If the URL is opaque, meaning it starts with something like "portlet:" or "mailto:" and
 		// doesn't have the double-forward-slash like "http://" does, then
 		FacesContext facesContext = FacesContext.getCurrentInstance();
+
 		if (bridgeURI.isOpaque()) {
 
 			// If the URI starts with "portlet:", then return a BaseURL that contains the modified
