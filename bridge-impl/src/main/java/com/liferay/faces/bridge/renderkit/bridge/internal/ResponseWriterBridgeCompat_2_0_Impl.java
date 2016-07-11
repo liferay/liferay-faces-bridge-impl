@@ -48,6 +48,35 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 	protected static final String VIEW_STATE_MARKER = PartialResponseWriter.VIEW_STATE_MARKER;
 	protected static final String XML_MARKER = "<?xml";
 
+	// Private Constants
+	private static final boolean JSF_RUNTIME_SUPPORTS_NAMESPACING_VIEWSTATE;
+
+	static {
+
+		boolean namespacedViewStateSupported = false;
+		Product mojarra = ProductFactory.getProduct(Product.Name.MOJARRA);
+
+		if (mojarra.isDetected()) {
+
+			if (mojarra.getMajorVersion() == 2) {
+
+				if (mojarra.getMinorVersion() == 1) {
+					namespacedViewStateSupported = (mojarra.getPatchVersion() >= 27);
+				}
+				else if (mojarra.getMinorVersion() == 2) {
+					namespacedViewStateSupported = (mojarra.getPatchVersion() >= 4);
+				}
+			}
+		}
+
+		Product jsf = ProductFactory.getProduct(Product.Name.JSF);
+		logger.debug("JSF runtime [{0}] version [{1}].[{2}].[{3}] supports namespacing [{4}]: [{5}]", jsf.getTitle(),
+			jsf.getMajorVersion(), jsf.getMinorVersion(), jsf.getPatchVersion(), ResponseStateManager.VIEW_STATE_PARAM,
+			namespacedViewStateSupported);
+
+		JSF_RUNTIME_SUPPORTS_NAMESPACING_VIEWSTATE = namespacedViewStateSupported;
+	}
+
 	// Protected Data Members
 	protected boolean namespacedParameters;
 
@@ -59,7 +88,7 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 		PortalContext portalContext = portletRequest.getPortalContext();
 		String namespacedParametersSupport = portalContext.getProperty(
 				BridgePortalContext.STRICT_NAMESPACED_PARAMETERS_SUPPORT);
-		this.namespacedParameters = (namespacedParametersSupport != null) && isNamespacedViewStateSupported();
+		this.namespacedParameters = (namespacedParametersSupport != null) && JSF_RUNTIME_SUPPORTS_NAMESPACING_VIEWSTATE;
 	}
 
 	/**
@@ -108,34 +137,6 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 				getWrapped().write(cbuf, off, len);
 			}
 		}
-	}
-
-	// FACES-2622: Normally the return value from this type of method would be done in a static block, but since that
-	// doesn't work in WildFly, the value must be determined during request processing instead.
-	protected boolean isNamespacedViewStateSupported() {
-
-		boolean namespacedViewStateSupported = true;
-		Product mojarra = ProductFactory.getProduct(Product.Name.MOJARRA);
-
-		if (mojarra.isDetected()) {
-
-			if (mojarra.getMajorVersion() == 2) {
-
-				if (mojarra.getMinorVersion() == 1) {
-					namespacedViewStateSupported = (mojarra.getPatchVersion() >= 27);
-				}
-				else if (mojarra.getMinorVersion() == 2) {
-					namespacedViewStateSupported = (mojarra.getPatchVersion() >= 4);
-				}
-			}
-		}
-
-		Product jsf = ProductFactory.getProduct(Product.Name.JSF);
-		logger.debug("JSF runtime [{0}] version [{1}].[{2}].[{3}] supports namespacing [{4}]: [{5}]", jsf.getTitle(),
-			jsf.getMajorVersion(), jsf.getMinorVersion(), jsf.getPatchVersion(), ResponseStateManager.VIEW_STATE_PARAM,
-			namespacedViewStateSupported);
-
-		return namespacedViewStateSupported;
 	}
 
 	protected void writeViewStateHiddenField() throws IOException {
