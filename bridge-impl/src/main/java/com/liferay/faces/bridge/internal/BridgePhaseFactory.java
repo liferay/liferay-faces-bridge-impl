@@ -15,9 +15,6 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.BridgeFactoryFinder;
-
 import javax.faces.FacesWrapper;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -28,6 +25,9 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+
+import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.bridge.BridgeFactoryFinder;
 
 
 /**
