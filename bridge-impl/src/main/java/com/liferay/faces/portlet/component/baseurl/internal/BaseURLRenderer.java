@@ -29,10 +29,9 @@ import javax.portlet.PortletSecurityException;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
+import com.liferay.faces.bridge.util.internal.URLUtil;
 import com.liferay.faces.portlet.component.param.Param;
 import com.liferay.faces.portlet.component.property.Property;
-
-import com.liferay.faces.bridge.util.internal.URLUtil;
 
 
 /**
