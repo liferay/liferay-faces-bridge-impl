@@ -20,6 +20,9 @@ import javax.faces.context.FacesContext;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
+
 
 /**
  * This class overrides the behavior of the {@link PortletNamingContainerUIViewRoot} standard class.
@@ -27,6 +30,9 @@ import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
  * @author  Neil Griffin
  */
 public class UIViewRootBridgeImpl extends PortletNamingContainerUIViewRoot {
+
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(UIViewRootBridgeImpl.class);
 
 	// serialVersionUID
 	private static final long serialVersionUID = 1523062041951774729L;
@@ -45,9 +51,10 @@ public class UIViewRootBridgeImpl extends PortletNamingContainerUIViewRoot {
 	@Override
 	public void setId(String id) {
 
-		if (BridgeUtil.isPortletRequest()) {
-			super.setId(getContainerClientId(FacesContext.getCurrentInstance()));
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.isPortletRequest(facesContext)) {
+			super.setId(getContainerClientId(facesContext));
 		}
 	}
-
 }
