@@ -39,6 +39,9 @@ import com.liferay.faces.util.product.ProductFactory;
  */
 public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 
+	// Private Constants
+	private static final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
+
 	@Override
 	public String getRedirectURL(FacesContext facesContext, String viewId, Map<String, List<String>> parameters,
 		boolean includeViewParams) {
@@ -46,9 +49,6 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 		// Determine whether or not it is necessary to work-around the patch applied to Mojarra in JAVASERVERFACES-3023.
-		// NOTE: The detection of Mojarra is normally done with a static private constant, but that is not possible on
-		// WildFly so the detection must be done here. For more information, see FACES-2621.
-		final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
 		boolean workaroundMojarra = (MOJARRA_DETECTED) &&
 			((portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) ||
 				(portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE));
