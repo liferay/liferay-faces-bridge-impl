@@ -17,6 +17,7 @@ package com.liferay.faces.portlet.component.actionurl.internal;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
+
 // JSF 2: import javax.faces.render.FacesRenderer;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;

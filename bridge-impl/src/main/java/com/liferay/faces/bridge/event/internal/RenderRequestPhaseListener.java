@@ -61,8 +61,7 @@ public class RenderRequestPhaseListener extends RenderRequestPhaseListenerCompat
 		}
 
 		// If the JSF 2 "View Parameters" feature is not enabled, then ensure that only the RESTORE_VIEW phase executes.
-		if (!VIEW_PARAMETERS_ENABLED &&
-				(BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE)) {
+		if (!VIEW_PARAMETERS_ENABLED && (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE)) {
 
 			facesContext.renderResponse();
 		}
