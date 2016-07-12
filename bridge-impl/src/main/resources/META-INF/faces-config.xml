@@ -88,6 +88,7 @@
 			<bridge:pre-destroy-invoker-factory>com.liferay.faces.bridge.bean.internal.PreDestroyInvokerFactoryImpl</bridge:pre-destroy-invoker-factory>
 			<bridge:request-attribute-inspector-factory>com.liferay.faces.bridge.scope.internal.RequestAttributeInspectorFactoryImpl</bridge:request-attribute-inspector-factory>
 			<util:browser-sniffer-factory>com.liferay.faces.bridge.client.internal.BrowserSnifferFactoryBridgeImpl</util:browser-sniffer-factory>
+			<util:i18n-factory>com.liferay.faces.bridge.i18n.internal.I18nFactoryBridgeImpl</util:i18n-factory>
 			<util:resource-verifier-factory>com.liferay.faces.bridge.application.internal.ResourceVerifierFactoryBridgeImpl</util:resource-verifier-factory>
 			<util:resource-validator-factory>com.liferay.faces.bridge.application.internal.ResourceValidatorFactoryBridgeImpl</util:resource-validator-factory>
 		</factory-extension>
