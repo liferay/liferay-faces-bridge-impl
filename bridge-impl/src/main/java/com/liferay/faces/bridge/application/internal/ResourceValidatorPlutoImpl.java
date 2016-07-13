@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,10 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class ResourceValidatorPlutoImpl extends ResourceValidatorWrapper {
+public class ResourceValidatorPlutoImpl extends ResourceValidatorWrapper implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 5058022096981863159L;
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ResourceValidatorPlutoImpl.class);
