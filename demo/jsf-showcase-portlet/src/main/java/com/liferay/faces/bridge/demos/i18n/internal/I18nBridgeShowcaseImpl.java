@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.demos.i18n.internal;
 
+import java.io.Serializable;
+
 import com.liferay.faces.util.i18n.I18n;
 import com.liferay.faces.util.i18n.I18nBundleBase;
 
@@ -22,7 +24,10 @@ import com.liferay.faces.util.i18n.I18nBundleBase;
 /**
  * @author  Neil Griffin
  */
-public class I18nBridgeShowcaseImpl extends I18nBundleBase {
+public class I18nBridgeShowcaseImpl extends I18nBundleBase implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 5864923365333310676L;
 
 	public I18nBridgeShowcaseImpl(I18n i18n) {
 		super(i18n);

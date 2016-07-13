@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.faces.component.UIComponent;
@@ -29,7 +30,10 @@ import com.liferay.faces.util.application.ResourceVerifierWrapper;
 /**
  * @author  Kyle Stiemann
  */
-public class ResourceVerifierBridgeImpl extends ResourceVerifierWrapper {
+public class ResourceVerifierBridgeImpl extends ResourceVerifierWrapper implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 7367617042346492537L;
 
 	// Private Members
 	private ResourceVerifier wrappedResourceVerifier;

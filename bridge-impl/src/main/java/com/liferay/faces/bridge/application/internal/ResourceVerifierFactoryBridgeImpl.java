@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
+import java.io.Serializable;
+
 import com.liferay.faces.util.application.ResourceVerifier;
 import com.liferay.faces.util.application.ResourceVerifierFactory;
 
@@ -22,23 +24,24 @@ import com.liferay.faces.util.application.ResourceVerifierFactory;
 /**
  * @author  Kyle Stiemann
  */
-public class ResourceVerifierFactoryBridgeImpl extends ResourceVerifierFactory {
+public class ResourceVerifierFactoryBridgeImpl extends ResourceVerifierFactory implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 689233019463443554L;
 
 	// Private Members
 	private ResourceVerifierFactory wrappedResourceVerifierFactory;
 	private ResourceVerifier resourceVerifier;
 
 	public ResourceVerifierFactoryBridgeImpl(ResourceVerifierFactory wrappedResourceVerifierFactory) {
+
+		ResourceVerifier resourceVerifier = wrappedResourceVerifierFactory.getResourceVerifier();
+		this.resourceVerifier = new ResourceVerifierBridgeImpl(resourceVerifier);
 		this.wrappedResourceVerifierFactory = wrappedResourceVerifierFactory;
 	}
 
 	@Override
 	public ResourceVerifier getResourceVerifier() {
-
-		if (resourceVerifier == null) {
-			resourceVerifier = new ResourceVerifierBridgeImpl(wrappedResourceVerifierFactory.getResourceVerifier());
-		}
-
 		return resourceVerifier;
 	}
 
