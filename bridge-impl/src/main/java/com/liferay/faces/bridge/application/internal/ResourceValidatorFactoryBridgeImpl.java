@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
+import java.io.Serializable;
+
 import com.liferay.faces.util.application.ResourceValidator;
 import com.liferay.faces.util.application.ResourceValidatorFactory;
 import com.liferay.faces.util.product.Product;
@@ -24,29 +26,35 @@ import com.liferay.faces.util.product.ProductFactory;
 /**
  * @author  Neil Griffin
  */
-public class ResourceValidatorFactoryBridgeImpl extends ResourceValidatorFactory {
+public class ResourceValidatorFactoryBridgeImpl extends ResourceValidatorFactory implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 4615985625648751613L;
 
 	// Private Constants
 	private static final boolean PLUTO_DETECTED = ProductFactory.getProduct(Product.Name.PLUTO).isDetected();
 
 	// Private Data Members
+	private ResourceValidator resourceValidator;
 	private ResourceValidatorFactory wrappedResourceValidatorFactory;
 
 	public ResourceValidatorFactoryBridgeImpl(ResourceValidatorFactory resourceValidatorFactory) {
+
+		ResourceValidator wrappedResourceValidator = resourceValidatorFactory.getResourceValidator();
+
+		if (PLUTO_DETECTED) {
+			this.resourceValidator = new ResourceValidatorPlutoImpl(wrappedResourceValidator);
+		}
+		else {
+			this.resourceValidator = wrappedResourceValidator;
+		}
+
 		this.wrappedResourceValidatorFactory = resourceValidatorFactory;
 	}
 
 	@Override
 	public ResourceValidator getResourceValidator() {
-
-		ResourceValidator wrappedResourceValidator = wrappedResourceValidatorFactory.getResourceValidator();
-
-		if (PLUTO_DETECTED) {
-			return new ResourceValidatorPlutoImpl(wrappedResourceValidator);
-		}
-		else {
-			return wrappedResourceValidator;
-		}
+		return resourceValidator;
 	}
 
 	// Java 1.6+ @Override

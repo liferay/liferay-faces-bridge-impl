@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.client.internal;
 
+import java.io.Serializable;
+
 import javax.faces.context.ExternalContext;
 
 import com.liferay.faces.util.client.BrowserSniffer;
@@ -24,7 +26,10 @@ import com.liferay.faces.util.client.BrowserSnifferFactory;
 /**
  * @author  Kyle Stiemann
  */
-public class BrowserSnifferFactoryBridgeImpl extends BrowserSnifferFactory {
+public class BrowserSnifferFactoryBridgeImpl extends BrowserSnifferFactory implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 2870139353498019125L;
 
 	// Private Data Memebers
 	private BrowserSnifferFactory wrappedBrowserSnifferFactory;
