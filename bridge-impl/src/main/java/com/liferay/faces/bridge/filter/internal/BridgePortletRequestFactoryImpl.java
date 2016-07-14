@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
+import java.io.Serializable;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
@@ -34,7 +36,10 @@ import com.liferay.faces.bridge.context.internal.PortalContextBridgeImpl;
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory {
+public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 1165668363125044029L;
 
 	@Override
 	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,

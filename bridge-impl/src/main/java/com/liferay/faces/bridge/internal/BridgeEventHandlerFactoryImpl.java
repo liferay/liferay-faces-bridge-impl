@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.io.Serializable;
+
 import javax.portlet.PortletConfig;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeEventHandler;
@@ -27,7 +29,10 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeEventHandlerFactoryImpl extends BridgeEventHandlerFactory {
+public class BridgeEventHandlerFactoryImpl extends BridgeEventHandlerFactory implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 6020555749253211761L;
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeEventHandlerFactoryImpl.class);
