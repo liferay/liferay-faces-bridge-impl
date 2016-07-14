@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.scope.internal;
 
+import java.io.Serializable;
+
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 
@@ -26,7 +28,10 @@ import com.liferay.faces.bridge.RequestAttributeInspectorFactory;
 /**
  * @author  Neil Griffin
  */
-public class RequestAttributeInspectorFactoryImpl extends RequestAttributeInspectorFactory {
+public class RequestAttributeInspectorFactoryImpl extends RequestAttributeInspectorFactory implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 1830965518049901309L;
 
 	@Override
 	public RequestAttributeInspector getRequestAttributeInspector(PortletRequest portletRequest,
