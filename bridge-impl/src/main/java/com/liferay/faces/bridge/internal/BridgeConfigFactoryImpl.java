@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.io.Serializable;
+
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.faces.BridgeConfig;
@@ -24,25 +26,17 @@ import javax.portlet.faces.BridgeConfigFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeConfigFactoryImpl extends BridgeConfigFactory {
+public class BridgeConfigFactoryImpl extends BridgeConfigFactory implements Serializable {
 
-	// Private Constants
-	private static final String BRIDGE_CONFIG = BridgeConfig.class.getName();
+	// serialVersionUID
+	private static final long serialVersionUID = 4355034940572775089L;
 
 	@Override
 	public BridgeConfig getBridgeConfig(PortletConfig portletConfig) {
-
-		PortletContext portletContext = portletConfig.getPortletContext();
-		BridgeConfig bridgeConfig = (BridgeConfig) portletContext.getAttribute(BRIDGE_CONFIG);
-
-		if (bridgeConfig == null) {
-			bridgeConfig = new BridgeConfigImpl(portletConfig);
-			portletContext.setAttribute(BRIDGE_CONFIG, bridgeConfig);
-		}
-
-		return bridgeConfig;
+		return new BridgeConfigImpl(portletConfig);
 	}
 
+	@Override
 	public BridgeConfigFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.

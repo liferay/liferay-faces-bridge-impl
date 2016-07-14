@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,10 @@ import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 /**
  * @author  Neil Griffin
  */
-public class BridgeURLFactoryImpl extends BridgeURLFactory {
+public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 4036112087598188923L;
 
 	@Override
 	public BridgeURL getBridgeActionURL(FacesContext facesContext, String uri) throws BridgeException {
