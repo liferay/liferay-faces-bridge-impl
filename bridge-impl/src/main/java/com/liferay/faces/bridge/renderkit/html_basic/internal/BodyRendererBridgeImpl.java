@@ -88,7 +88,10 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 		// body (the outer <div> of the portlet markup). This happens when the portlet container may not support adding
 		// resources to the <head> section. For example, Pluto does not support the feature of adding resources to the
 		// <head> section. Liferay supports it with the exception of "runtime" and WSRP portlets. See
-		// PortalContextBridgeImpl and PortalContextBridgeLiferayImpl (in bridge-ext) for more information.
+		// PortalContextBridgeImpl and PortalContextBridgeLiferayImpl (in bridge-ext) for more information. Script
+		// resources are rendered at the top of the portlet body instead of the bottom because elements and scripts in
+		// the portlet body may depend on these resources (for example jquery.js), so head resource scripts must be
+		// loaded before the portlet body is rendered.
 		Map<Object, Object> facesContextAttributes = facesContext.getAttributes();
 		List<UIComponent> headResourcesToRenderInBody = (List<UIComponent>) facesContextAttributes.get(
 				HeadRendererBridgeImpl.HEAD_RESOURCES_TO_RENDER_IN_BODY);
