@@ -20,13 +20,16 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.lifecycle.Lifecycle;
+import javax.portlet.PortletContext;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 import javax.servlet.ServletContext;
 
 
 /**
  * @author  Neil Griffin
  */
-public class FacesContextFactoryImpl extends FacesContextFactory {
+public class FacesContextFactoryImpl extends FacesContextFactoryCompatImpl {
 
 	// Private Data Members
 	private FacesContextFactory wrappedFacesContextFactory;
@@ -39,8 +42,16 @@ public class FacesContextFactoryImpl extends FacesContextFactory {
 	public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle)
 		throws FacesException {
 
-		// If the specified context is a ServletContext, then it is possible that the session is expiring.
-		if ((context != null) && (context instanceof ServletContext)) {
+		// If this is a request coming from the portlet container, then return an instance of FacesContext that is
+		// compatible with the portlet lifecycle.
+		if ((context != null) && (context instanceof PortletContext)) {
+
+			return getFacesContext((PortletContext) context, (PortletRequest) request, (PortletResponse) response,
+					lifecycle);
+		}
+
+		// Otherwise, if the specified context is a ServletContext, then it is possible that the session is expiring.
+		else if ((context != null) && (context instanceof ServletContext)) {
 
 			// If the session is expiring, then return an instance of FacesContext that can function in a limited
 			// manner during session expiration.
@@ -77,5 +88,10 @@ public class FacesContextFactoryImpl extends FacesContextFactory {
 		else {
 			return wrappedFacesContextFactory.getFacesContext(context, request, response, lifecycle);
 		}
+	}
+
+	@Override
+	public FacesContextFactory getWrapped() {
+		return wrappedFacesContextFactory;
 	}
 }
