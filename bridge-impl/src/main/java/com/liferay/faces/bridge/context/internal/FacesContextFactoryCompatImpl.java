@@ -29,6 +29,8 @@ import javax.servlet.ServletResponse;
 
 
 /**
+ * This class provides a compatibility layer that isolates differences between JSF1 and JSF2.
+ *
  * @author  Neil Griffin
  */
 public abstract class FacesContextFactoryCompatImpl extends FacesContextFactory {
