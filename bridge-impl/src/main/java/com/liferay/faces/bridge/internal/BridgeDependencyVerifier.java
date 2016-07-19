@@ -62,7 +62,7 @@ public class BridgeDependencyVerifier {
 		int jsfMajorVersion = jsf.getMajorVersion();
 		int jsfMinorVersion = jsf.getMinorVersion();
 
-		if ((jsfMajorVersion != 2) && (jsfMinorVersion != 3)) {
+		if (!((jsfMajorVersion == 2) && (jsfMinorVersion == 3))) {
 			logger.error("{0} {1} is designed to be used with JSF 2.3 but detected {2}.{3}", implementationTitle,
 				implementationVersion, jsfMajorVersion, jsfMinorVersion);
 		}
