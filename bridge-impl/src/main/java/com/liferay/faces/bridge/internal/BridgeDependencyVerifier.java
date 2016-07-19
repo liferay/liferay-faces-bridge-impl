@@ -51,9 +51,9 @@ public class BridgeDependencyVerifier {
 		Product portletApi = ProductFactory.getProduct(Product.Name.PORTLET_API);
 		int portletApiMajorVersion = portletApi.getMajorVersion();
 		int portletApiMinorVersion = portletApi.getMinorVersion();
-		if (!((portletApiMajorVersion == 2) && (portletApiMinorVersion >= 0))) {
+		if (!((portletApiMajorVersion == 3) && (portletApiMinorVersion >= 0))) {
 
-			logger.error("{0} {1} is designed to be used with Portlet 2.0 but detected {2}.{3}", implementationTitle,
+			logger.error("{0} {1} is designed to be used with Portlet 3.0 but detected {2}.{3}", implementationTitle,
 				implementationVersion, portletApiMajorVersion, portletApiMinorVersion);
 		}
 
