@@ -18,13 +18,14 @@ package com.liferay.faces.bridge.context.internal;
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.ExternalContextFactory;
-import javax.portlet.Portlet;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -34,6 +35,11 @@ public class ExternalContextFactoryImpl extends ExternalContextFactory {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ExternalContextFactoryImpl.class);
+
+	// Private Constants
+	private static final Product RICHFACES = ProductFactory.getProduct(Product.Name.RICHFACES);
+	private static final boolean FACES_2638 = RICHFACES.isDetected() && (RICHFACES.getMajorVersion() == 4) &&
+		(RICHFACES.getMinorVersion() == 5) && (RICHFACES.getPatchVersion() >= 16);
 
 	// Private Data Members
 	private ExternalContextFactory wrappedFactory;
@@ -60,7 +66,12 @@ public class ExternalContextFactoryImpl extends ExternalContextFactory {
 
 			// Workaround for FACES-2133
 			if ("org.richfaces.resource.MediaOutputResource".equals(resourceName)) {
-				return new ExternalContextRichFacesBridgeImpl(externalContext);
+				return new ExternalContextRichFacesResourceImpl(externalContext);
+			}
+
+			// Workaround for FACES_2638
+			else if (FACES_2638) {
+				return new ExternalContextRichFacesImpl(portletContext, portletRequest, portletResponse);
 			}
 			else {
 				return externalContext;
