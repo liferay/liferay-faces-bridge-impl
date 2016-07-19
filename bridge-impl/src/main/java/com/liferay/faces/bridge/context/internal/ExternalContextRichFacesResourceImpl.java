@@ -25,19 +25,19 @@ import javax.faces.context.ExternalContextWrapper;
  *
  * @author  Kyle Stiemann
  */
-public class ExternalContextRichFacesBridgeImpl extends ExternalContextWrapper {
+public class ExternalContextRichFacesResourceImpl extends ExternalContextWrapper {
 
 	// Private Data Members
 	private ExternalContext wrappedExternalContext;
 
-	public ExternalContextRichFacesBridgeImpl(ExternalContext wrappedExternalContext) {
+	public ExternalContextRichFacesResourceImpl(ExternalContext wrappedExternalContext) {
 		this.wrappedExternalContext = wrappedExternalContext;
 	}
 
 	/**
 	 * When this method returns null, {@link org.richfaces.resource.ResourceUtils#getMappingForRequest()} assumes that
 	 * the Faces Servlet URL mapping is extension based and strips the extension off the value returned by {@link
-	 * ExternalContextRichFacesBridgeImpl#getRequestServletPath()}. This method always returns null to avoid adding code
+	 * ExternalContextRichFacesResourceImpl#getRequestServletPath()}. This method always returns null to avoid adding code
 	 * in this class to detect the actual Faces Servlet URL mapping since RichFaces never uses it.
 	 */
 	@Override
