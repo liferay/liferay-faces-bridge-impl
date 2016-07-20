@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.issues;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,10 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class ModelManagedBean {
+public class ModelManagedBean implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 2958957985108536731L;
 
 	private List<Item> items;
 
