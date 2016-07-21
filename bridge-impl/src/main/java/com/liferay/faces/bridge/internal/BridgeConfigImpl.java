@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -42,19 +43,19 @@ public class BridgeConfigImpl implements BridgeConfig {
 	private static final String RENDER_RESPONSE_WRAPPER_CLASS = "render-response-wrapper-class";
 	private static final String RESOURCE_RESPONSE_WRAPPER_CLASS = "resource-response-wrapper-class";
 
-	// Private Data Members
-	private Map<String, Object> bridgeConfigAttributeMap;
-	private Set<String> excludedRequestAttributes;
-	private Map<String, String[]> publicParameterMappings;
-	private String viewIdRenderParameterName;
-	private String viewIdResourceParameterName;
-	private String writeBehindRenderResponseWrapper;
-	private String writeBehindResourceResponseWrapper;
+	// Final Data Members
+	private final Map<String, Object> bridgeConfigAttributeMap;
+	private final Set<String> excludedRequestAttributes;
+	private final Map<String, String[]> publicParameterMappings;
+	private final String viewIdRenderParameterName;
+	private final String viewIdResourceParameterName;
+	private final String writeBehindRenderResponseWrapper;
+	private final String writeBehindResourceResponseWrapper;
 
 	public BridgeConfigImpl(PortletConfig portletConfig) {
 
 		// bridgeConfigAttributeMap
-		this.bridgeConfigAttributeMap = new BridgeConfigAttributeMap();
+		BridgeConfigAttributeMap bridgeConfigAttributeMap = new BridgeConfigAttributeMap();
 
 		// configuredFacesServletMappings
 		String appConfigAttrName = ApplicationConfig.class.getName();
@@ -70,9 +71,10 @@ public class BridgeConfigImpl implements BridgeConfig {
 
 		// configuredSuffixes
 		bridgeConfigAttributeMap.put(BridgeConfigAttributeMap.CONFIGURED_SUFFIXES, facesConfig.getConfiguredSuffixes());
+		this.bridgeConfigAttributeMap = Collections.unmodifiableMap(bridgeConfigAttributeMap);
 
 		// excludedRequestAttributes
-		this.excludedRequestAttributes = new HashSet<String>();
+		Set<String> excludedRequestAttributes = new HashSet<String>();
 
 		List<ConfiguredElement> configuredApplicationExtensions = facesConfig.getConfiguredApplicationExtensions();
 
@@ -81,12 +83,14 @@ public class BridgeConfigImpl implements BridgeConfig {
 
 			if (EXCLUDED_ATTRIBUTE.equals(configuredElementName)) {
 				String excludedAttributeName = configuredElement.getValue();
-				this.excludedRequestAttributes.add(excludedAttributeName);
+				excludedRequestAttributes.add(excludedAttributeName);
 			}
 		}
 
+		this.excludedRequestAttributes = Collections.unmodifiableSet(excludedRequestAttributes);
+
 		// publicParameterMappings
-		this.publicParameterMappings = new HashMap<String, String[]>();
+		Map<String, String[]> publicParameterMappings = new HashMap<String, String[]>();
 
 		String parameter = null;
 		String modelEL = null;
@@ -118,29 +122,39 @@ public class BridgeConfigImpl implements BridgeConfig {
 							newValue[total - 1] = modelEL;
 						}
 
-						this.publicParameterMappings.put(parameter, newValue);
+						publicParameterMappings.put(parameter, newValue);
 					}
 				}
 			}
 		}
+
+		this.publicParameterMappings = Collections.unmodifiableMap(publicParameterMappings);
+
+		String writeBehindRenderResponseWrapper = null;
 
 		// writeBehindRenderResponseWrapper
 		for (ConfiguredElement configuredElement : configuredApplicationExtensions) {
 			String configuredElementName = configuredElement.getName();
 
 			if (RENDER_RESPONSE_WRAPPER_CLASS.equals(configuredElementName)) {
-				this.writeBehindRenderResponseWrapper = configuredElement.getValue();
+				writeBehindRenderResponseWrapper = configuredElement.getValue();
 			}
 		}
+
+		this.writeBehindRenderResponseWrapper = writeBehindRenderResponseWrapper;
+
+		String writeBehindResourceResponseWrapper = null;
 
 		// writeBehindResourceResponseWrapper
 		for (ConfiguredElement configuredElement : configuredApplicationExtensions) {
 			String configuredElementName = configuredElement.getName();
 
 			if (RESOURCE_RESPONSE_WRAPPER_CLASS.equals(configuredElementName)) {
-				this.writeBehindResourceResponseWrapper = configuredElement.getValue();
+				writeBehindResourceResponseWrapper = configuredElement.getValue();
 			}
 		}
+
+		this.writeBehindResourceResponseWrapper = writeBehindResourceResponseWrapper;
 
 		// viewIdResourceParameterName
 		this.viewIdResourceParameterName = PortletConfigParam.ViewIdResourceParameterName.getStringValue(portletConfig);
