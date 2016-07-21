@@ -18,7 +18,6 @@ package com.liferay.faces.bridge.internal;
 import java.io.Serializable;
 
 import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeConfigFactory;
@@ -32,9 +31,29 @@ public class BridgeConfigFactoryImpl extends BridgeConfigFactory implements Seri
 	// serialVersionUID
 	private static final long serialVersionUID = 4355034940572775089L;
 
+	// Instance field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
+	private transient volatile BridgeConfig bridgeConfig;
+
 	@Override
 	public BridgeConfig getBridgeConfig(PortletConfig portletConfig) {
-		return new BridgeConfigImpl(portletConfig);
+
+		BridgeConfig threadSafeBridgeConfig = this.bridgeConfig;
+
+		// First check without locking (not yet thread-safe)
+		if (threadSafeBridgeConfig == null) {
+
+			synchronized (this) {
+
+				threadSafeBridgeConfig = this.bridgeConfig;
+
+				// Second check with locking (thread-safe)
+				if (threadSafeBridgeConfig == null) {
+					threadSafeBridgeConfig = this.bridgeConfig = new BridgeConfigImpl(portletConfig);
+				}
+			}
+		}
+
+		return threadSafeBridgeConfig;
 	}
 
 	@Override
