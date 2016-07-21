@@ -55,7 +55,7 @@ public class BridgeConfigImpl implements BridgeConfig {
 	public BridgeConfigImpl(PortletConfig portletConfig) {
 
 		// bridgeConfigAttributeMap
-		BridgeConfigAttributeMap bridgeConfigAttributeMap = new BridgeConfigAttributeMap();
+		Map<String, Object> bridgeConfigAttributeMap = new BridgeConfigAttributeMap();
 
 		// configuredFacesServletMappings
 		String appConfigAttrName = ApplicationConfig.class.getName();
