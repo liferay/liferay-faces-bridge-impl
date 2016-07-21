@@ -38,29 +38,31 @@ public class BridgePublicRenderParameterHandlerFactoryImpl extends BridgePublicR
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgePublicRenderParameterHandlerFactoryImpl.class);
 
+	// Instance field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
+	private transient volatile BridgePublicRenderParameterHandler bridgePublicRenderParameterHandler;
+
 	@Override
 	public BridgePublicRenderParameterHandler getBridgePublicRenderParameterHandler(PortletConfig portletConfig) {
 
-		BridgePublicRenderParameterHandler bridgePublicRenderParameterHandler = null;
+		BridgePublicRenderParameterHandler threadSafeBridgePublicRenderParameterHandler =
+			this.bridgePublicRenderParameterHandler;
 
-		// TCK TestPage016: initMethodTest
-		String initParamName = Bridge.BRIDGE_PACKAGE_PREFIX + Bridge.BRIDGE_PUBLIC_RENDER_PARAMETER_HANDLER;
-		String bridgePublicRenderParameterHandlerClass = portletConfig.getInitParameter(initParamName);
+		// First check without locking (not yet thread-safe)
+		if (threadSafeBridgePublicRenderParameterHandler == null) {
 
-		if (bridgePublicRenderParameterHandlerClass != null) {
+			synchronized (this) {
 
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+				threadSafeBridgePublicRenderParameterHandler = this.bridgePublicRenderParameterHandler;
 
-			try {
-				Class<?> clazz = classLoader.loadClass(bridgePublicRenderParameterHandlerClass);
-				bridgePublicRenderParameterHandler = (BridgePublicRenderParameterHandler) clazz.newInstance();
-			}
-			catch (Exception e) {
-				logger.error(e);
+				// Second check with locking (thread-safe)
+				if (threadSafeBridgePublicRenderParameterHandler == null) {
+					threadSafeBridgePublicRenderParameterHandler = this.bridgePublicRenderParameterHandler =
+							createBridgePublicRenderParameterHandler(portletConfig);
+				}
 			}
 		}
 
-		return bridgePublicRenderParameterHandler;
+		return threadSafeBridgePublicRenderParameterHandler;
 	}
 
 	@Override
@@ -68,5 +70,29 @@ public class BridgePublicRenderParameterHandlerFactoryImpl extends BridgePublicR
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
 		return null;
+	}
+
+	private BridgePublicRenderParameterHandler createBridgePublicRenderParameterHandler(PortletConfig portletConfig) {
+
+		BridgePublicRenderParameterHandler bridgePublicRenderParameterHandler = null;
+
+		// TCK TestPage016: initMethodTest
+		String initParamName = Bridge.BRIDGE_PACKAGE_PREFIX + Bridge.BRIDGE_PUBLIC_RENDER_PARAMETER_HANDLER;
+
+		// GenericFacesPortlet.getBridgePublicRenderParameterHandler() only consults this factory if the
+		// BridgePublicRenderParameterHandler initParam is not null.
+		String bridgePublicRenderParameterHandlerClass = portletConfig.getInitParameter(initParamName);
+		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+
+		try {
+
+			Class<?> clazz = contextClassLoader.loadClass(bridgePublicRenderParameterHandlerClass);
+			bridgePublicRenderParameterHandler = (BridgePublicRenderParameterHandler) clazz.newInstance();
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
+
+		return bridgePublicRenderParameterHandler;
 	}
 }
