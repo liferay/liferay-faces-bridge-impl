@@ -37,29 +37,29 @@ public class BridgeEventHandlerFactoryImpl extends BridgeEventHandlerFactory imp
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeEventHandlerFactoryImpl.class);
 
+	// Instance field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
+	private transient volatile BridgeEventHandler bridgeEventHandler;
+
 	@Override
 	public BridgeEventHandler getBridgeEventHandler(PortletConfig portletConfig) {
 
-		BridgeEventHandler bridgeEventHandler = null;
+		BridgeEventHandler threadSafeBridgeEventHandler = this.bridgeEventHandler;
 
-		// TCK TestPage016: initMethodTest
-		String initParamName = Bridge.BRIDGE_PACKAGE_PREFIX + Bridge.BRIDGE_EVENT_HANDLER;
-		String bridgeEventHandlerClass = portletConfig.getInitParameter(initParamName);
+		// First check without locking (not yet thread-safe)
+		if (threadSafeBridgeEventHandler == null) {
 
-		if (bridgeEventHandlerClass != null) {
+			synchronized (this) {
 
-			ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+				threadSafeBridgeEventHandler = this.bridgeEventHandler;
 
-			try {
-				Class<?> clazz = contextClassLoader.loadClass(bridgeEventHandlerClass);
-				bridgeEventHandler = (BridgeEventHandler) clazz.newInstance();
-			}
-			catch (Exception e) {
-				logger.error(e);
+				// Second check with locking (thread-safe)
+				if (threadSafeBridgeEventHandler == null) {
+					threadSafeBridgeEventHandler = this.bridgeEventHandler = createBridgeEventHandler(portletConfig);
+				}
 			}
 		}
 
-		return bridgeEventHandler;
+		return threadSafeBridgeEventHandler;
 	}
 
 	@Override
@@ -67,5 +67,29 @@ public class BridgeEventHandlerFactoryImpl extends BridgeEventHandlerFactory imp
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
 		return null;
+	}
+
+	private BridgeEventHandler createBridgeEventHandler(PortletConfig portletConfig) {
+
+		BridgeEventHandler bridgeEventHandler = null;
+
+		// TCK TestPage016: initMethodTest
+		String initParamName = Bridge.BRIDGE_PACKAGE_PREFIX + Bridge.BRIDGE_EVENT_HANDLER;
+
+		// GenericFacesPortlet.getBridgeEventHandler() only consults this factory if the BridgeEventHandler initParam
+		// is not null.
+		String bridgeEventHandlerClass = portletConfig.getInitParameter(initParamName);
+		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+
+		try {
+
+			Class<?> clazz = contextClassLoader.loadClass(bridgeEventHandlerClass);
+			bridgeEventHandler = (BridgeEventHandler) clazz.newInstance();
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
+
+		return bridgeEventHandler;
 	}
 }
