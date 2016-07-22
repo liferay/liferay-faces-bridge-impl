@@ -825,6 +825,7 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 
 					try {
 						BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url, null);
+						bridgeRedirectURL.removeParameter(BridgeExt.REDIRECT_PARAMETER);
 						redirectJSF2PartialResponse(facesContext, (ResourceResponse) portletResponse,
 							bridgeRedirectURL.toString());
 					}
