@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.application.internal;
-
-import javax.faces.application.ResourceHandlerWrapper;
-
-import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
-
+package com.liferay.faces.bridge.util.internal;
 
 /**
- * This class provides a compatibility layer that isolates differences between JSF1 and JSF2.
+ * @author  Kyle Stiemann
  */
-public abstract class ResourceHandlerBridgeCompatImpl extends ResourceHandlerWrapper {
+public final class PortletResourceUtil {
 
-	@Override
-	public boolean isResourceURL(String url) {
-		return PortletResourceUtil.isPortletResourceURL(url);
+	private PortletResourceUtil() {
+		throw new AssertionError();
+	}
+
+	public static boolean isPortletResourceURL(String url) {
+		return (url != null) && url.contains("javax.faces.resource=");
 	}
 }
