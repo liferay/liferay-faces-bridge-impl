@@ -824,9 +824,7 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 				if (isJSF2PartialRequest(facesContext)) {
 
 					try {
-						BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url, null);
-						redirectJSF2PartialResponse(facesContext, (ResourceResponse) portletResponse,
-							bridgeRedirectURL.toString());
+						redirectJSF2PartialResponse(facesContext, (ResourceResponse) portletResponse, url);
 					}
 					catch (Exception e) {
 						logger.error(e);

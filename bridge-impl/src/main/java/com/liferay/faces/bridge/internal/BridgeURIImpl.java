@@ -23,6 +23,7 @@ import java.util.Set;
 import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.util.internal.URLUtil;
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -121,16 +122,7 @@ public class BridgeURIImpl implements BridgeURI {
 
 	@Override
 	public String getParameter(String name) {
-
-		Map<String, String[]> parameterMap = getParameterMap();
-		String[] values = parameterMap.get(name);
-
-		if ((values != null) && (values.length > 0)) {
-			return values[0];
-		}
-		else {
-			return null;
-		}
+		return getParameter(name, false);
 	}
 
 	@Override
@@ -348,17 +340,7 @@ public class BridgeURIImpl implements BridgeURI {
 
 	@Override
 	public String removeParameter(String name) {
-
-		String[] values = getParameterMap().remove(name);
-
-		invalidateToString();
-
-		if ((values != null) && (values.length > 0)) {
-			return values[0];
-		}
-		else {
-			return null;
-		}
+		return getParameter(name, true);
 	}
 
 	@Override
@@ -429,6 +411,45 @@ public class BridgeURIImpl implements BridgeURI {
 		}
 
 		return stringValue;
+	}
+
+	private String getParameter(String name, boolean remove) {
+
+		Map<String, String[]> parameterMap = getParameterMap();
+		String[] values;
+
+		if (remove) {
+
+			values = parameterMap.remove(name);
+			invalidateToString();
+		}
+		else {
+			values = parameterMap.get(name);
+		}
+
+		if ((values == null) || (values.length == 0)) {
+
+			String namespace = FacesContextHelperUtil.getNamespace();
+
+			if ((namespace != null) && !"".equals(namespace)) {
+
+				if (remove) {
+
+					values = parameterMap.remove(namespace + name);
+					invalidateToString();
+				}
+				else {
+					values = parameterMap.get(namespace + name);
+				}
+			}
+		}
+
+		if ((values != null) && (values.length > 0)) {
+			return values[0];
+		}
+		else {
+			return null;
+		}
 	}
 
 	private void invalidateToString() {
