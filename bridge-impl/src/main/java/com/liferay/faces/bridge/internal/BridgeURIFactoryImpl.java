@@ -31,8 +31,8 @@ public class BridgeURIFactoryImpl extends BridgeURIFactory {
 	}
 
 	@Override
-	public BridgeURI getBridgeURI(String uri) throws URISyntaxException {
-		return new BridgeURIImpl(uri);
+	public BridgeURI getBridgeURI(String namespace, String uri) throws URISyntaxException {
+		return new BridgeURIImpl(namespace, uri);
 	}
 
 	@Override
