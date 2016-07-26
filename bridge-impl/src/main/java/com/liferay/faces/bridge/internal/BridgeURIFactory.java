@@ -31,12 +31,12 @@ public abstract class BridgeURIFactory implements FacesWrapper<BridgeURIFactory>
 	 * Returns an instance of {@link BridgeURI} from the {@link BridgeURIFactory} found by the {@link
 	 * BridgeFactoryFinder}.
 	 */
-	public static BridgeURI getBridgeURIInstance(String uri) throws URISyntaxException {
+	public static BridgeURI getBridgeURIInstance(String namespace, String uri) throws URISyntaxException {
 
 		BridgeURIFactory bridgeURIFactory = (BridgeURIFactory) BridgeFactoryFinder.getFactory(BridgeURIFactory.class);
 
-		return bridgeURIFactory.getBridgeURI(uri);
+		return bridgeURIFactory.getBridgeURI(namespace, uri);
 	}
 
-	public abstract BridgeURI getBridgeURI(String uri) throws URISyntaxException;
+	public abstract BridgeURI getBridgeURI(String namespace, String uri) throws URISyntaxException;
 }

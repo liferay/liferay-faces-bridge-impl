@@ -23,7 +23,6 @@ import java.util.Set;
 import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.util.internal.URLUtil;
-import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -46,6 +45,7 @@ public class BridgeURIImpl implements BridgeURI {
 	private String fragment;
 	private Boolean hierarchical;
 	private String host;
+	private String namespace;
 	private boolean opaque;
 	private Map<String, String[]> parameters;
 	private String path;
@@ -60,7 +60,9 @@ public class BridgeURIImpl implements BridgeURI {
 	private String stringValue;
 	private String userInfo;
 
-	public BridgeURIImpl(String uri) throws URISyntaxException {
+	public BridgeURIImpl(String namespace, String uri) throws URISyntaxException {
+
+		this.namespace = namespace;
 
 		URI tempURI = new URI(uri);
 
@@ -122,7 +124,20 @@ public class BridgeURIImpl implements BridgeURI {
 
 	@Override
 	public String getParameter(String name) {
-		return getParameter(name, false);
+
+		Map<String, String[]> parameterMap = getParameterMap();
+		String[] values = parameterMap.get(name);
+
+		if (values == null) {
+			values = parameterMap.get(namespace + name);
+		}
+
+		if ((values != null) && (values.length > 0)) {
+			return values[0];
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
@@ -340,7 +355,31 @@ public class BridgeURIImpl implements BridgeURI {
 
 	@Override
 	public String removeParameter(String name) {
-		return getParameter(name, true);
+
+		String[] values = null;
+		Map<String, String[]> parameterMap = getParameterMap();
+
+		if (parameterMap.containsKey(name)) {
+			values = parameterMap.remove(name);
+			invalidateToString();
+		}
+		else {
+
+			String namespacedParameterName = namespace + name;
+
+			if (parameterMap.containsKey(namespacedParameterName)) {
+				values = parameterMap.remove(namespacedParameterName);
+				invalidateToString();
+			}
+
+		}
+
+		if ((values != null) && (values.length > 0)) {
+			return values[0];
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
@@ -411,45 +450,6 @@ public class BridgeURIImpl implements BridgeURI {
 		}
 
 		return stringValue;
-	}
-
-	private String getParameter(String name, boolean remove) {
-
-		Map<String, String[]> parameterMap = getParameterMap();
-		String[] values;
-
-		if (remove) {
-
-			values = parameterMap.remove(name);
-			invalidateToString();
-		}
-		else {
-			values = parameterMap.get(name);
-		}
-
-		if ((values == null) || (values.length == 0)) {
-
-			String namespace = FacesContextHelperUtil.getNamespace();
-
-			if ((namespace != null) && !"".equals(namespace)) {
-
-				if (remove) {
-
-					values = parameterMap.remove(namespace + name);
-					invalidateToString();
-				}
-				else {
-					values = parameterMap.get(namespace + name);
-				}
-			}
-		}
-
-		if ((values != null) && (values.length > 0)) {
-			return values[0];
-		}
-		else {
-			return null;
-		}
 	}
 
 	private void invalidateToString() {

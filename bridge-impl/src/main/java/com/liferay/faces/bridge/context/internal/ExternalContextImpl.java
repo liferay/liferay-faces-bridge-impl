@@ -682,7 +682,7 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 				// If the specified URL starts with a "#" character, is external to this application, or has a
 				// "javax.portlet.faces.DirectLink" parameter value of "true", then
 				try {
-					BridgeURI bridgeURI = bridgeURIFactory.getBridgeURI(url);
+					BridgeURI bridgeURI = bridgeURIFactory.getBridgeURI(portletResponse.getNamespace(), url);
 					String queryString = bridgeURI.getQuery();
 					boolean directLink = (queryString != null) && queryString.contains(DIRECT_LINK_EQUALS_TRUE);
 					FacesContext facesContext = FacesContext.getCurrentInstance();
