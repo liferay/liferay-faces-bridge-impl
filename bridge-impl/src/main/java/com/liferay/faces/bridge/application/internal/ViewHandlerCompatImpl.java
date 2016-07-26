@@ -28,6 +28,7 @@ import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.internal.BridgeExt;
+import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
 
@@ -67,6 +68,35 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 		}
 
 		return redirectURL;
+	}
+
+	@Override
+	public String getResourceURL(FacesContext facesContext, String path) {
+
+		// In order to render an image for a button, the Mojarra 2.1 ButtonRenderer calls
+		// RenderKitUtils#getImageSource(FacesContext,UIComponent,String) in order to get the image URL. Mojarra 2.2
+		// correctly uses the JSF 2.2 ResourceHandler.isResourceURL(String) method to first see if the URL is a JSF 2
+		// resource URL:
+		//
+		// https://github.com/javaserverfaces/mojarra/blob/2.2.12/jsf-ri/src/main/java/com/sun/faces/renderkit/RenderKitUtils.java#L1402
+		//
+		// When it determines that it is indeed a JSF 2.2 resource URL, it simply returns the URL.
+		//
+		// However, Mojarra 2.1 can't take advantage of this JSF 2.2 feature and incorrectly looks for
+		// "/javax.faces.resource" in the path instead:
+		// https://github.com/javaserverfaces/mojarra/blob/2.1.29-05/jsf-ri/src/main/java/com/sun/faces/renderkit/RenderKitUtils.java#L1356
+		//
+		// Since portlet resource URLs specify "javax.faces.resource" as a URL parameter and not part of the URL path,
+		// this check fails. Rather than simply returning the URL, Mojarra 2.1 incorrectly proceeds to call
+		// ViewHandler#getResourceURL(FacesContext,String). This method override exists to overcome the problem by
+		// preventing Mojarra's MultiViewHandler#getResourceURL(FacesContext,String) method from causing an incorrect
+		// URL to be returned.
+		if ((MOJARRA_DETECTED) && PortletResourceUtil.isPortletResourceURL(path)) {
+			return path;
+		}
+		else {
+			return super.getResourceURL(facesContext, path);
+		}
 	}
 
 	@Override
