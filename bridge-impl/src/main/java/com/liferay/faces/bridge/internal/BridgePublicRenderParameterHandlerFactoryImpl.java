@@ -38,41 +38,8 @@ public class BridgePublicRenderParameterHandlerFactoryImpl extends BridgePublicR
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgePublicRenderParameterHandlerFactoryImpl.class);
 
-	// Instance field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
-	private transient volatile BridgePublicRenderParameterHandler bridgePublicRenderParameterHandler;
-
 	@Override
 	public BridgePublicRenderParameterHandler getBridgePublicRenderParameterHandler(PortletConfig portletConfig) {
-
-		BridgePublicRenderParameterHandler threadSafeBridgePublicRenderParameterHandler =
-			this.bridgePublicRenderParameterHandler;
-
-		// First check without locking (not yet thread-safe)
-		if (threadSafeBridgePublicRenderParameterHandler == null) {
-
-			synchronized (this) {
-
-				threadSafeBridgePublicRenderParameterHandler = this.bridgePublicRenderParameterHandler;
-
-				// Second check with locking (thread-safe)
-				if (threadSafeBridgePublicRenderParameterHandler == null) {
-					threadSafeBridgePublicRenderParameterHandler = this.bridgePublicRenderParameterHandler =
-							createBridgePublicRenderParameterHandler(portletConfig);
-				}
-			}
-		}
-
-		return threadSafeBridgePublicRenderParameterHandler;
-	}
-
-	@Override
-	public BridgePublicRenderParameterHandlerFactory getWrapped() {
-
-		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
-		return null;
-	}
-
-	private BridgePublicRenderParameterHandler createBridgePublicRenderParameterHandler(PortletConfig portletConfig) {
 
 		BridgePublicRenderParameterHandler bridgePublicRenderParameterHandler = null;
 
@@ -94,5 +61,12 @@ public class BridgePublicRenderParameterHandlerFactoryImpl extends BridgePublicR
 		}
 
 		return bridgePublicRenderParameterHandler;
+	}
+
+	@Override
+	public BridgePublicRenderParameterHandlerFactory getWrapped() {
+
+		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
+		return null;
 	}
 }

@@ -37,39 +37,8 @@ public class BridgeEventHandlerFactoryImpl extends BridgeEventHandlerFactory imp
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeEventHandlerFactoryImpl.class);
 
-	// Instance field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
-	private transient volatile BridgeEventHandler bridgeEventHandler;
-
 	@Override
 	public BridgeEventHandler getBridgeEventHandler(PortletConfig portletConfig) {
-
-		BridgeEventHandler threadSafeBridgeEventHandler = this.bridgeEventHandler;
-
-		// First check without locking (not yet thread-safe)
-		if (threadSafeBridgeEventHandler == null) {
-
-			synchronized (this) {
-
-				threadSafeBridgeEventHandler = this.bridgeEventHandler;
-
-				// Second check with locking (thread-safe)
-				if (threadSafeBridgeEventHandler == null) {
-					threadSafeBridgeEventHandler = this.bridgeEventHandler = createBridgeEventHandler(portletConfig);
-				}
-			}
-		}
-
-		return threadSafeBridgeEventHandler;
-	}
-
-	@Override
-	public BridgeEventHandlerFactory getWrapped() {
-
-		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
-		return null;
-	}
-
-	private BridgeEventHandler createBridgeEventHandler(PortletConfig portletConfig) {
 
 		BridgeEventHandler bridgeEventHandler = null;
 
@@ -91,5 +60,12 @@ public class BridgeEventHandlerFactoryImpl extends BridgeEventHandlerFactory imp
 		}
 
 		return bridgeEventHandler;
+	}
+
+	@Override
+	public BridgeEventHandlerFactory getWrapped() {
+
+		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
+		return null;
 	}
 }
