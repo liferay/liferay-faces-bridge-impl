@@ -19,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,6 +36,7 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -49,15 +51,15 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 	private static final Logger logger = LoggerFactory.getLogger(BridgeURLResourceImpl.class);
 
 	// Private Constants
-	private static final String ENCODED_RESOURCE_TOKEN = "javax.faces.resource=";
-
-	// Private Pseudo-Constants
-	private static Set<String> EXCLUDED_PARAMETER_NAMES = new HashSet<String>();
+	private static final Set<String> EXCLUDED_PARAMETER_NAMES;
 
 	static {
-		EXCLUDED_PARAMETER_NAMES.add(Bridge.PORTLET_MODE_PARAMETER);
-		EXCLUDED_PARAMETER_NAMES.add(Bridge.PORTLET_SECURE_PARAMETER);
-		EXCLUDED_PARAMETER_NAMES.add(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
+
+		Set<String> excludedParameterNames = new HashSet<String>();
+		excludedParameterNames.add(Bridge.PORTLET_MODE_PARAMETER);
+		excludedParameterNames.add(Bridge.PORTLET_SECURE_PARAMETER);
+		excludedParameterNames.add(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
+		EXCLUDED_PARAMETER_NAMES = Collections.unmodifiableSet(excludedParameterNames);
 	}
 
 	// Private Data Members
@@ -231,7 +233,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		else if ((uri != null) && (uri.contains("javax.faces.resource"))) {
 
 			// If the URL has already been encoded, then return the URI unmodified.
-			if (uri.indexOf(ENCODED_RESOURCE_TOKEN) > 0) {
+			if (PortletResourceUtil.isPortletResourceURL(uri)) {
 
 				// FACES-63: Prevent double-encoding of resource URLs
 				baseURL = new BaseURLNonEncodedImpl(bridgeURI);
