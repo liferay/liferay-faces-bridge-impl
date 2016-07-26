@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletResponse;
 import javax.portlet.faces.Bridge;
 
+import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -122,6 +123,17 @@ public class ViewHandlerImpl extends ViewHandlerCompatImpl {
 		}
 
 		return actionURL;
+	}
+
+	@Override
+	public String getResourceURL(FacesContext fc, String string) {
+
+		if (PortletResourceUtil.isPortletResourceURL(string)) {
+			return string;
+		}
+		else {
+			return super.getResourceURL(fc, string);
+		}
 	}
 
 	@Override
