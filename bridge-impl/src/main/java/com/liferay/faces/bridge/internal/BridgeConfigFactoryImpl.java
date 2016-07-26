@@ -15,7 +15,10 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.portlet.PortletConfig;
 
@@ -31,29 +34,21 @@ public class BridgeConfigFactoryImpl extends BridgeConfigFactory implements Seri
 	// serialVersionUID
 	private static final long serialVersionUID = 4355034940572775089L;
 
-	// Instance field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
-	private transient volatile BridgeConfig bridgeConfig;
+	// Private Data Members
+	private transient Map<PortletConfig, BridgeConfig> bridgeConfigCache =
+		new ConcurrentHashMap<PortletConfig, BridgeConfig>();
 
 	@Override
 	public BridgeConfig getBridgeConfig(PortletConfig portletConfig) {
 
-		BridgeConfig threadSafeBridgeConfig = this.bridgeConfig;
+		BridgeConfig bridgeConfig = bridgeConfigCache.get(portletConfig);
 
-		// First check without locking (not yet thread-safe)
-		if (threadSafeBridgeConfig == null) {
-
-			synchronized (this) {
-
-				threadSafeBridgeConfig = this.bridgeConfig;
-
-				// Second check with locking (thread-safe)
-				if (threadSafeBridgeConfig == null) {
-					threadSafeBridgeConfig = this.bridgeConfig = new BridgeConfigImpl(portletConfig);
-				}
-			}
+		if (bridgeConfig == null) {
+			bridgeConfig = new BridgeConfigImpl(portletConfig);
+			bridgeConfigCache.put(portletConfig, bridgeConfig);
 		}
 
-		return threadSafeBridgeConfig;
+		return bridgeConfig;
 	}
 
 	@Override
@@ -61,5 +56,9 @@ public class BridgeConfigFactoryImpl extends BridgeConfigFactory implements Seri
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
 		return null;
+	}
+
+	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+		bridgeConfigCache = new ConcurrentHashMap<PortletConfig, BridgeConfig>();
 	}
 }
