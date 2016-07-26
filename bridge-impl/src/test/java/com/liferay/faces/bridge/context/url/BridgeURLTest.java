@@ -139,6 +139,6 @@ public class BridgeURLTest {
 	}
 
 	protected BridgeURI newBridgeURI(String uri) throws URISyntaxException {
-		return new BridgeURIImpl(uri);
+		return new BridgeURIImpl("", uri);
 	}
 }

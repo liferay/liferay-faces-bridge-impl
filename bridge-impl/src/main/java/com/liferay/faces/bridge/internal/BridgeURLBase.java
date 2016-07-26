@@ -61,14 +61,13 @@ public abstract class BridgeURLBase implements BridgeURL {
 
 	// Private Data Members
 	private String namespace;
-	private Map<String, String[]> parameterMap;
 	private String viewId;
 
 	@SuppressWarnings("unchecked")
 	public BridgeURLBase(String uri, String contextPath, String namespace, String currentViewId,
 		BridgeConfig bridgeConfig) throws URISyntaxException {
 
-		this.bridgeURI = BridgeURIFactory.getBridgeURIInstance(uri);
+		this.bridgeURI = BridgeURIFactory.getBridgeURIInstance(namespace, uri);
 		this.configuredFacesServletMappings = (List<ConfiguredServletMapping>) bridgeConfig.getAttributes().get(
 				BridgeConfigAttributeMap.CONFIGURED_FACES_SERVLET_MAPPINGS);
 		this.contextPath = contextPath;
@@ -519,7 +518,7 @@ public abstract class BridgeURLBase implements BridgeURL {
 
 		for (Map.Entry<String, String[]> mapEntry : entrySet) {
 
-			boolean addParameter = false;
+			boolean addParameter;
 			String parameterName = mapEntry.getKey();
 			String[] parameterValues = mapEntry.getValue();
 			String firstParameterValue = null;
