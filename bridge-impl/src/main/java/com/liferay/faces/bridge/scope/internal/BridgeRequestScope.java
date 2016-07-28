@@ -137,6 +137,14 @@ public interface BridgeRequestScope {
 	void removeExcludedAttributes(RenderRequest renderRequest);
 
 	/**
+	 * This method should be called in order to release resources and/or scoped data that is not to be maintained
+	 * from the ACTION_PHASE to the RENDER_PHASE.
+	 *
+	 * @param facesContext  The current {@link FacesContext}.
+	 */
+	void release(FacesContext facesContext);
+
+	/**
 	 * This method restores the scoped data that was preserved by the call to {@link #saveState(FacesContext)} method as
 	 * required by section 5.1.2 of the Bridge Spec. This method is designed to be called during the EVENT_PHASE and
 	 * RENDER_PHASE of the portlet lifecycle.

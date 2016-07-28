@@ -114,13 +114,16 @@ public class BridgePhaseActionImpl extends BridgePhaseCompat_2_2_Impl {
 			// already being present in the <head>...</head> section.
 			clearHeadManagedBeanResources(facesContext);
 
-			// Save the faces view root and any messages in the faces context so that they can be restored during
-			// the RENDER_PHASE of the portlet lifecycle.
-			bridgeRequestScope.saveState(facesContext);
-
 			// In accordance with Section 5.1.2 of the Spec, the bridge request scope must only be maintained if a
 			// redirect and portlet mode change has not occurred.
-			if (!bridgeRequestScope.isRedirectOccurred() && !bridgeRequestScope.isPortletModeChanged()) {
+			if (bridgeRequestScope.isRedirectOccurred() || bridgeRequestScope.isPortletModeChanged()) {
+				bridgeRequestScope.release(facesContext);
+			}
+			else {
+
+				// Save the faces view root and any messages in the faces context so that they can be restored during
+				// the RENDER_PHASE of the portlet lifecycle.
+				bridgeRequestScope.saveState(facesContext);
 				maintainBridgeRequestScope(actionRequest, actionResponse,
 					BridgeRequestScope.Transport.RENDER_PARAMETER);
 			}
