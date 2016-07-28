@@ -78,13 +78,4 @@ public class BridgeConfigMockImpl implements BridgeConfig {
 		return "";
 	}
 
-	@Override
-	public String getWriteBehindRenderResponseWrapper() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public String getWriteBehindResourceResponseWrapper() {
-		throw new UnsupportedOperationException();
-	}
 }
