@@ -126,6 +126,17 @@ public class ViewHandlerImpl extends ViewHandlerCompatImpl {
 	}
 
 	@Override
+	public String getResourceURL(FacesContext fc, String string) {
+
+		if (PortletResourceUtil.isPortletResourceURL(string)) {
+			return string;
+		}
+		else {
+			return super.getResourceURL(fc, string);
+		}
+	}
+
+	@Override
 	public ViewHandler getWrapped() {
 		return wrappedViewHandler;
 	}
