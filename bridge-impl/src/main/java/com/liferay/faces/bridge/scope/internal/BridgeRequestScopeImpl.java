@@ -34,6 +34,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
@@ -47,6 +48,7 @@ import javax.portlet.faces.BridgeUtil;
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.RequestAttributeInspector;
 import com.liferay.faces.bridge.RequestAttributeInspectorFactory;
+import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.internal.IncongruityContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.FacesMessageWrapper;
@@ -176,6 +178,40 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	@Override
 	public boolean isRedirectOccurred() {
 		return redirect;
+	}
+
+	@Override
+	public void release(FacesContext facesContext) {
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+		PortalContext portalContext = portletRequest.getPortalContext();
+		String postRedirectGetSupport = portalContext.getProperty(BridgePortalContext.POST_REDIRECT_GET_SUPPORT);
+
+		if (postRedirectGetSupport == null) {
+
+			// Iterate through all of the request attributes and build up a list of those that are to be removed.
+			Set<String> attributeNamesToRemove = new HashSet<String>();
+			Enumeration<String> attributeNames = portletRequest.getAttributeNames();
+
+			while (attributeNames.hasMoreElements()) {
+
+				String attributeName = attributeNames.nextElement();
+				Object attributeValue = portletRequest.getAttribute(attributeName);
+
+				if (!requestAttributeInspector.isExcludedByPreExisting(attributeName, attributeValue)) {
+					attributeNamesToRemove.add(attributeName);
+				}
+			}
+
+			for (String attributeName : attributeNamesToRemove) {
+
+				portletRequest.removeAttribute(attributeName);
+				logger.debug(
+					"Removed request attribute name=[{0}] since it did not exist before the FacesContext was acquired.",
+					attributeName);
+			}
+		}
 	}
 
 	/**
