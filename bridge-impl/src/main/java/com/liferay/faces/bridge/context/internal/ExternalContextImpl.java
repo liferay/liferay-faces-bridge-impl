@@ -30,6 +30,8 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.FacesException;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.ActionResponse;
@@ -735,12 +737,24 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 							// TestPage039-requestNoScopeOnRedirectTest and TestPage176-redirectActionTest.
 							String newViewId = bridgeURI.getContextRelativePath(contextPath);
 
+							// If redirecting to a different view, then create the target view and place it into the
+							// FacesContext.
+							UIViewRoot viewRoot = facesContext.getViewRoot();
+							String currentFacesViewId = viewRoot.getViewId();
+
+							if (!currentFacesViewId.equals(newViewId)) {
+
+								ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+								UIViewRoot newViewRoot = viewHandler.createView(facesContext, newViewId);
+								facesContext.setViewRoot(newViewRoot);
+							}
+
 							// Set the "_facesViewIdRender" parameter on the URL to the new viewId so that the call
 							// to BridgeNavigationUtil.navigate(...) below will cause a render parameter to be set
 							// which will inform containers that implement POST-REDIRECT-GET (like Pluto) that the
 							// 302 redirect URL needs to specify the new viewId in order for redirection to work in
 							// the subsequent RENDER_PHASE.
-							bridgeURI.setParameter(bridgeConfig.getViewIdRenderParameterName(), newViewId);
+							// bridgeURI.setParameter(bridgeConfig.getViewIdRenderParameterName(), newViewId);
 
 							// Update the PartialViewContext.
 							partialViewContextRenderAll(facesContext);
