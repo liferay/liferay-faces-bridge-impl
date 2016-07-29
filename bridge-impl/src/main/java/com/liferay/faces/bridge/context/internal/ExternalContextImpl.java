@@ -752,7 +752,7 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 							// which will inform containers that implement POST-REDIRECT-GET (like Pluto) that the
 							// 302 redirect URL needs to specify the new viewId in order for redirection to work in
 							// the subsequent RENDER_PHASE.
-							// bridgeURI.setParameter(bridgeConfig.getViewIdRenderParameterName(), newViewId);
+							bridgeURI.setParameter(bridgeConfig.getViewIdRenderParameterName(), newViewId);
 
 							// Update the PartialViewContext.
 							partialViewContextRenderAll(facesContext);
