@@ -21,7 +21,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.ResponseStateManager;
-import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.StateAwareResponse;
@@ -87,7 +86,7 @@ public class Tests extends Object {
 		testRunner.setTestComplete(true);
 
 		// Test that the defaultRenderKit parameter is set
-		String renderKitId = (String) extCtx.getRequestParameterMap().get(ResponseStateManager.RENDER_KIT_ID_PARAM);
+		String renderKitId = extCtx.getRequestParameterMap().get(ResponseStateManager.RENDER_KIT_ID_PARAM);
 
 		if (renderKitId == null) {
 			testRunner.setTestResult(false,
@@ -143,14 +142,11 @@ public class Tests extends Object {
 	@BridgeTest(test = "lifecycleTest")
 	public String lifecycleTest(TestRunnerBean testRunner) {
 		Boolean pass = false;
-		String msg = null;
+		String msg;
 
 		// Get the configured render policy
 		ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
-		Map m = extCtx.getRequestMap();
-
-		// Check to see what the render rule is
-		PortletContext pCtx = (PortletContext) extCtx.getContext();
+		Map<String, Object> m = extCtx.getRequestMap();
 
 		// Lifecycle check done in the FacesContextFactory -- so test/results set on every request
 		msg = (String) m.get("javax.portlet.faces.tck.testLifecyclePass");
@@ -211,8 +207,6 @@ public class Tests extends Object {
 	@BridgeTest(test = "portletSetsViewIdTest")
 	public String portletSetsViewIdTest(TestRunnerBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		PortletRequest req = (PortletRequest) extCtx.getRequest();
 
 		testRunner.setTestComplete(true);
 
@@ -236,8 +230,6 @@ public class Tests extends Object {
 	@BridgeTest(test = "portletSetsViewPathTest")
 	public String portletSetsViewPathTest(TestRunnerBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		PortletRequest req = (PortletRequest) extCtx.getRequest();
 
 		testRunner.setTestComplete(true);
 
