@@ -21,7 +21,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.ResponseStateManager;
-import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.StateAwareResponse;
@@ -147,10 +146,7 @@ public class Tests extends Object {
 
 		// Get the configured render policy
 		ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
-		Map m = extCtx.getRequestMap();
-
-		// Check to see what the render rule is
-		PortletContext pCtx = (PortletContext) extCtx.getContext();
+		Map<String, Object> m = extCtx.getRequestMap();
 
 		// Lifecycle check done in the FacesContextFactory -- so test/results set on every request
 		msg = (String) m.get("javax.portlet.faces.tck.testLifecyclePass");
@@ -211,8 +207,6 @@ public class Tests extends Object {
 	@BridgeTest(test = "portletSetsViewIdTest")
 	public String portletSetsViewIdTest(TestRunnerBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		PortletRequest req = (PortletRequest) extCtx.getRequest();
 
 		testRunner.setTestComplete(true);
 
@@ -236,8 +230,6 @@ public class Tests extends Object {
 	@BridgeTest(test = "portletSetsViewPathTest")
 	public String portletSetsViewPathTest(TestRunnerBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		PortletRequest req = (PortletRequest) extCtx.getRequest();
 
 		testRunner.setTestComplete(true);
 
@@ -254,81 +246,6 @@ public class Tests extends Object {
 				"didn't render the view 'PorletSetsViewIdSuccess.jsp' explicitly set by the portlet, instead rendered: " +
 				s);
 
-			return Constants.TEST_FAILED;
-		}
-	}
-
-	/*
-	 * Because RenderPolicy is a web.xml (application) config setting we need a different portlet app for each test.
-	 * Because of this we can test all policies in a single test method.
-	 */
-	@BridgeTest(test = "renderPolicyTest")
-	public String renderPolicyTest(TestRunnerBean testRunner) {
-		Boolean pass = false;
-		String msg = null;
-
-		// Get the configured render policy
-		ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
-		Map m = extCtx.getRequestMap();
-
-		// Check to see what the render rule is
-		PortletContext pCtx = (PortletContext) extCtx.getContext();
-		String policyStr = pCtx.getInitParameter(Bridge.RENDER_POLICY);
-		Bridge.BridgeRenderPolicy policy = (policyStr != null) ? Bridge.BridgeRenderPolicy.valueOf(policyStr) : null;
-
-		if (policy == null) {
-
-			// no policy so we are to do the default
-			msg = (String) m.get("javax.portlet.faces.tck.testRenderPolicyPass");
-
-			if (msg != null) {
-				pass = true;
-			}
-			else {
-				msg = "Failed to delegate render with render policy not set (DEFAULT).";
-			}
-		}
-		else if (policy == Bridge.BridgeRenderPolicy.DEFAULT) {
-
-			// no policy so we are to do the default
-			msg = (String) m.get("javax.portlet.faces.tck.testRenderPolicyPass");
-
-			if (msg != null) {
-				pass = true;
-			}
-			else {
-				msg = "Failed to delegate render with render policy of DEFAULT.";
-			}
-		}
-		else if (policy == Bridge.BridgeRenderPolicy.ALWAYS_DELEGATE) {
-			msg = (String) m.get("javax.portlet.faces.tck.testRenderPolicyPass");
-
-			if (msg != null) {
-				pass = true;
-			}
-			else {
-				msg = "Failed to delegate render with render policy of ALWAYS_DELEGATE.";
-			}
-		}
-		else if (policy == Bridge.BridgeRenderPolicy.NEVER_DELEGATE) {
-			msg = (String) m.get("javax.portlet.faces.tck.testRenderPolicyFail");
-
-			if (msg == null) {
-				pass = true;
-				msg = "Correctly didn't delegate with render policy of NEVER_DELEGATE";
-			}
-		}
-
-		// remove them in case we are called to render more than once
-		m.remove("javax.portlet.faces.tck.testRenderPolicyPass");
-		m.remove("javax.portlet.faces.tck.testRenderPolicyFail");
-
-		testRunner.setTestResult(pass, msg);
-
-		if (pass) {
-			return Constants.TEST_SUCCESS;
-		}
-		else {
 			return Constants.TEST_FAILED;
 		}
 	}
