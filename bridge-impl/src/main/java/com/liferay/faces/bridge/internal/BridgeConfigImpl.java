@@ -49,8 +49,6 @@ public class BridgeConfigImpl implements BridgeConfig {
 	private final Map<String, String[]> publicParameterMappings;
 	private final String viewIdRenderParameterName;
 	private final String viewIdResourceParameterName;
-	private final String writeBehindRenderResponseWrapper;
-	private final String writeBehindResourceResponseWrapper;
 
 	public BridgeConfigImpl(PortletConfig portletConfig) {
 
@@ -130,32 +128,6 @@ public class BridgeConfigImpl implements BridgeConfig {
 
 		this.publicParameterMappings = Collections.unmodifiableMap(publicParameterMappings);
 
-		String writeBehindRenderResponseWrapper = null;
-
-		// writeBehindRenderResponseWrapper
-		for (ConfiguredElement configuredElement : configuredApplicationExtensions) {
-			String configuredElementName = configuredElement.getName();
-
-			if (RENDER_RESPONSE_WRAPPER_CLASS.equals(configuredElementName)) {
-				writeBehindRenderResponseWrapper = configuredElement.getValue();
-			}
-		}
-
-		this.writeBehindRenderResponseWrapper = writeBehindRenderResponseWrapper;
-
-		String writeBehindResourceResponseWrapper = null;
-
-		// writeBehindResourceResponseWrapper
-		for (ConfiguredElement configuredElement : configuredApplicationExtensions) {
-			String configuredElementName = configuredElement.getName();
-
-			if (RESOURCE_RESPONSE_WRAPPER_CLASS.equals(configuredElementName)) {
-				writeBehindResourceResponseWrapper = configuredElement.getValue();
-			}
-		}
-
-		this.writeBehindResourceResponseWrapper = writeBehindResourceResponseWrapper;
-
 		// viewIdResourceParameterName
 		this.viewIdResourceParameterName = PortletConfigParam.ViewIdResourceParameterName.getStringValue(portletConfig);
 
@@ -188,13 +160,4 @@ public class BridgeConfigImpl implements BridgeConfig {
 		return viewIdResourceParameterName;
 	}
 
-	@Override
-	public String getWriteBehindRenderResponseWrapper() {
-		return writeBehindRenderResponseWrapper;
-	}
-
-	@Override
-	public String getWriteBehindResourceResponseWrapper() {
-		return writeBehindResourceResponseWrapper;
-	}
 }

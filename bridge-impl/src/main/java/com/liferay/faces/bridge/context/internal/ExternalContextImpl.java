@@ -52,7 +52,7 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.BridgeInvalidViewPathException;
-import javax.portlet.faces.BridgeWriteBehindResponse;
+// import javax.portlet.faces.BridgeWriteBehindResponse;
 import javax.portlet.faces.GenericFacesPortlet;
 import javax.servlet.http.HttpServletResponse;
 
@@ -60,7 +60,6 @@ import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationUtil;
-import com.liferay.faces.bridge.application.view.internal.BridgeWriteBehindSupportFactory;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderMap;
@@ -949,12 +948,12 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 				}
 
 				// Section 7.2.1 of the Spec requires that the response be an instance of BridgeWriteBehindResponse.
-				BridgeWriteBehindSupportFactory bridgeWriteBehindSupportFactory = (BridgeWriteBehindSupportFactory)
-					BridgeFactoryFinder.getFactory(BridgeWriteBehindSupportFactory.class);
-				BridgeWriteBehindResponse bridgeWriteBehindResponse =
-					bridgeWriteBehindSupportFactory.getBridgeWriteBehindResponse((MimeResponse) portletResponse,
-						bridgeConfig);
-				portletResponse = (PortletResponse) bridgeWriteBehindResponse;
+//				BridgeWriteBehindSupportFactory bridgeWriteBehindSupportFactory = (BridgeWriteBehindSupportFactory)
+//					BridgeFactoryFinder.getFactory(BridgeWriteBehindSupportFactory.class);
+//				BridgeWriteBehindResponse bridgeWriteBehindResponse =
+//					bridgeWriteBehindSupportFactory.getBridgeWriteBehindResponse((MimeResponse) portletResponse,
+//						bridgeConfig);
+//				portletResponse = (PortletResponse) bridgeWriteBehindResponse;
 				preInitializeObjects();
 			}
 			else {
