@@ -15,14 +15,17 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.ViewHandler;
+import javax.faces.FacesException;
 import javax.faces.application.ViewHandlerWrapper;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewDeclarationLanguage;
+import javax.portlet.PortletResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
@@ -84,6 +87,15 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 		return super.getViewDeclarationLanguage(context, viewId);
 	}
 
+	@Override
+	public void renderView(FacesContext facesContext, UIViewRoot uiViewRoot) throws IOException, FacesException {
+
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
+		getWrapped().renderView(facesContext, uiViewRoot);
+		externalContext.setResponse(portletResponse);
+	}
+
 	/**
 	 * Mojarra 1.x does not have the ability to process faces-config navigation-rule entries with to-view-id containing
 	 * EL-expressions. This method compensates for that shortcoming by evaluating the EL-expression that may be present
@@ -99,17 +111,5 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 
 		// This method has overridden behavior for JSF 1 but simply returns the specified viewId for JSF 2
 		return viewId;
-	}
-
-	protected ViewHandler getFacesRuntimeViewHandler() {
-
-		ViewHandler viewHandler = getWrapped();
-
-		while (viewHandler instanceof ViewHandlerWrapper) {
-			ViewHandlerWrapper viewHandlerWrapper = (ViewHandlerWrapper) viewHandler;
-			viewHandler = viewHandlerWrapper.getWrapped();
-		}
-
-		return viewHandler;
 	}
 }
