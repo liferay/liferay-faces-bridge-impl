@@ -4686,7 +4686,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/renderContentAfterViewTest.jsp</value>
+			<value>/tests/singleRequestAfterContentTest.jsp</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4724,7 +4724,7 @@
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/implementsBridgeWriteBehindResponseTest.jsp</value>
+			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
