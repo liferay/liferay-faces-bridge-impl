@@ -35,59 +35,24 @@ public class Tests extends Object {
 	// Test #6.88
 	@BridgeTest(test = "hasRenderContentAfterViewAttributeTest")
 	public String hasRenderContentAfterViewAttributeTest(TestRunnerBean testRunner) {
+
 		testRunner.setTestComplete(true);
+		testRunner.setTestResult(true,
+			"This test is no longer necessary due to <a href=\"https://issues.liferay.com/browse/FACES-2613\">FACES-2613</a>");
 
-		Boolean afterViewContent = (Boolean) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(
-				"javax.portlet.faces.RenderContentAfterView");
-
-		if (afterViewContent == null) {
-			testRunner.setTestResult(false,
-				"javax.portlet.faces.RenderContentAfterView request attribute not set prior to render (dispatch).");
-
-			return Constants.TEST_FAILED;
-		}
-		else if (afterViewContent.booleanValue()) {
-			testRunner.setTestResult(true,
-				"javax.portlet.faces.RenderContentAfterView request attribute correctly set prior to render (dispatch).");
-
-			return Constants.TEST_SUCCESS;
-		}
-		else {
-			testRunner.setTestResult(false,
-				"javax.portlet.faces.RenderContentAfterView request attribute set but is FALSE.");
-
-			return Constants.TEST_FAILED;
-		}
+		return Constants.TEST_SUCCESS;
 	}
 
 	// Test is SingleRequest -- Render
 	// Test #6.132
 	@BridgeTest(test = "implementsBridgeWriteBehindResponseTest")
 	public String implementsBridgeWriteBehindResponseTest(TestRunnerBean testRunner) {
+
 		testRunner.setTestComplete(true);
+		testRunner.setTestResult(true,
+			"This test is no longer necessary due to <a href=\"https://issues.liferay.com/browse/FACES-2613\">FACES-2613</a>");
 
-		// test is run/checked in the jsp which adds request attrs which we read here
-
-		Map m = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
-		Boolean b = (Boolean) m.get("com.liferay.faces.bridge.TCK.status");
-
-		if (b == null) {
-			testRunner.setTestResult(false,
-				"Error in running the test.  The JSP for this test didn't set the expected request attributes indicating the test status");
-
-			return Constants.TEST_FAILED;
-		}
-		else if (b.equals(Boolean.TRUE)) {
-			testRunner.setTestResult(true, (String) m.get("com.liferay.faces.bridge.TCK.detail"));
-
-			return Constants.TEST_SUCCESS;
-
-		}
-		else {
-			testRunner.setTestResult(false, (String) m.get("com.liferay.faces.bridge.TCK.detail"));
-
-			return Constants.TEST_FAILED;
-		}
+		return Constants.TEST_SUCCESS;
 	}
 
 	// Test is SingleRequest -- Render
@@ -115,8 +80,8 @@ public class Tests extends Object {
 	// Test #6.89
 	@BridgeTest(test = "renderContentAfterViewTest")
 	public String renderContentAfterViewTest(TestRunnerBean testRunner) {
-		testRunner.setTestComplete(true);
 
+		testRunner.setTestComplete(true);
 		testRunner.setTestResult(true, "Content Rendered After View.");
 
 		return Constants.TEST_SUCCESS;

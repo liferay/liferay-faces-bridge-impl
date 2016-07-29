@@ -141,11 +141,6 @@ public class TestRunnerBean extends Object {
 		return getTestResult(runTest());
 	}
 
-	// Run the test and renders the result
-	public String getRenderTestResultAsAfterContent() {
-		return getTestResultAsAfterContent(runTest());
-	}
-
 	public String getTestName() {
 		return mTestName;
 	}
@@ -192,16 +187,6 @@ public class TestRunnerBean extends Object {
 		}
 
 		return mResultWriter.toString();
-	}
-
-	public String getTestResultAsAfterContent(String s) {
-		String result = getTestResult(s);
-		char[] resultChars = result.toCharArray();
-
-		FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(
-			"javax.portlet.faces.AfterViewContent", resultChars);
-
-		return "";
 	}
 
 	public boolean getTestStatus() {

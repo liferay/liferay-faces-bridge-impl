@@ -99,15 +99,13 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 
 	@Override
 	public void renderView(FacesContext context, UIViewRoot viewToRender) throws IOException, FacesException {
+
 		String testName = (String) context.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
 
-		// Do nothing when not running in portlet request or not the specific test
-		if (!BridgeUtil.isPortletRequest(context) || (testName == null) || (testName.indexOf("renderPolicyTest") < 0)) {
+		// Do nothing when not running in portlet request
+		if (BridgeUtil.isPortletRequest(context) && (testName != null)) {
 			super.renderView(context, viewToRender);
-
-			return;
 		}
-
 	}
 
 	@Override

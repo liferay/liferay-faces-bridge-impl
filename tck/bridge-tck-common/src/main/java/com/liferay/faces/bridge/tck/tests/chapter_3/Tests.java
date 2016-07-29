@@ -21,6 +21,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.ResponseStateManager;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.StateAwareResponse;
@@ -146,7 +147,10 @@ public class Tests extends Object {
 
 		// Get the configured render policy
 		ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
-		Map<String, Object> m = extCtx.getRequestMap();
+		Map m = extCtx.getRequestMap();
+
+		// Check to see what the render rule is
+		PortletContext pCtx = (PortletContext) extCtx.getContext();
 
 		// Lifecycle check done in the FacesContextFactory -- so test/results set on every request
 		msg = (String) m.get("javax.portlet.faces.tck.testLifecyclePass");
@@ -207,6 +211,8 @@ public class Tests extends Object {
 	@BridgeTest(test = "portletSetsViewIdTest")
 	public String portletSetsViewIdTest(TestRunnerBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+		PortletRequest req = (PortletRequest) extCtx.getRequest();
 
 		testRunner.setTestComplete(true);
 
@@ -230,6 +236,8 @@ public class Tests extends Object {
 	@BridgeTest(test = "portletSetsViewPathTest")
 	public String portletSetsViewPathTest(TestRunnerBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+		PortletRequest req = (PortletRequest) extCtx.getRequest();
 
 		testRunner.setTestComplete(true);
 
@@ -250,4 +258,17 @@ public class Tests extends Object {
 		}
 	}
 
+	/*
+	 * Because RenderPolicy is a web.xml (application) config setting we need a different portlet app for each test.
+	 * Because of this we can test all policies in a single test method.
+	 */
+	@BridgeTest(test = "renderPolicyTest")
+	public String renderPolicyTest(TestRunnerBean testRunner) {
+
+		testRunner.setTestComplete(true);
+		testRunner.setTestResult(true,
+			"This test is no longer necessary due to <a href=\"https://issues.liferay.com/browse/FACES-2613\">FACES-2613</a>");
+
+		return Constants.TEST_SUCCESS;
+	}
 }
