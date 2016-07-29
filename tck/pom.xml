@@ -20,7 +20,6 @@
 		<module>bridge-tck-harness</module>
 		<module>bridge-tck-lifecycle-set-portlet</module>
 		<module>bridge-tck-main-portlet</module>
-		<module>bridge-tck-response-wrapper-portlet</module>
 	</modules>
 
 	<build>
