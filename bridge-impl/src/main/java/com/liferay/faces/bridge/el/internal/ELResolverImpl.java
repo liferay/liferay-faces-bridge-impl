@@ -292,10 +292,11 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		if (varName != null) {
 
 			if (varName.equals(ACTION_REQUEST)) {
-				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
+
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 				if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
-					FacesContext facesContext = FacesContext.getCurrentInstance();
 					value = getPortletRequest(facesContext);
 				}
 				else {
@@ -303,10 +304,11 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				}
 			}
 			else if (varName.equals(ACTION_RESPONSE)) {
-				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
+
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 				if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
-					FacesContext facesContext = FacesContext.getCurrentInstance();
 					value = getPortletResponse(facesContext);
 				}
 				else {
@@ -339,10 +341,11 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				}
 			}
 			else if (varName.equals(EVENT_REQUEST)) {
-				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
+
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 				if (portletPhase == Bridge.PortletPhase.EVENT_PHASE) {
-					FacesContext facesContext = FacesContext.getCurrentInstance();
 					value = getPortletRequest(facesContext);
 				}
 				else {
@@ -350,10 +353,11 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				}
 			}
 			else if (varName.equals(EVENT_RESPONSE)) {
-				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
+
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 				if (portletPhase == Bridge.PortletPhase.EVENT_PHASE) {
-					FacesContext facesContext = FacesContext.getCurrentInstance();
 					value = getPortletResponse(facesContext);
 				}
 				else {
@@ -411,10 +415,11 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				}
 			}
 			else if (varName.equals(RENDER_REQUEST)) {
-				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
+
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
-					FacesContext facesContext = FacesContext.getCurrentInstance();
 					value = getPortletRequest(facesContext);
 				}
 				else {
@@ -422,10 +427,11 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				}
 			}
 			else if (varName.equals(RENDER_RESPONSE)) {
-				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
+
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
-					FacesContext facesContext = FacesContext.getCurrentInstance();
 					value = getPortletResponse(facesContext);
 				}
 				else {
@@ -433,10 +439,11 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				}
 			}
 			else if (varName.equals(RESOURCE_REQUEST)) {
-				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
+
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 				if (portletPhase == Bridge.PortletPhase.RESOURCE_PHASE) {
-					FacesContext facesContext = FacesContext.getCurrentInstance();
 					value = getPortletRequest(facesContext);
 				}
 				else {
@@ -444,10 +451,11 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				}
 			}
 			else if (varName.equals(RESOURCE_RESPONSE)) {
-				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
+
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 				if (portletPhase == Bridge.PortletPhase.RESOURCE_PHASE) {
-					FacesContext facesContext = FacesContext.getCurrentInstance();
 					value = getPortletResponse(facesContext);
 				}
 				else {
