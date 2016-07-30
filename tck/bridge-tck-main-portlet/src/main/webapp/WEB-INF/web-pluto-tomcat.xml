@@ -32,11 +32,6 @@
 	</context-param>
 	<!-- END: LIFERAY FACES BRIDGE -->
 
-	<context-param>
-		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-		<param-value>.jsp</param-value>
-	</context-param>
-
 	<!-- Faces Servlet -->
 	<servlet>
 		<servlet-name>faces</servlet-name>
