@@ -425,12 +425,6 @@
 					<exists>target/jboss-portlet-war-activation.tmp</exists>
 				</file>
 			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</dependency>
-			</dependencies>
 		</profile>
 		<profile>
 			<id>jetty</id>
