@@ -109,7 +109,10 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 
 		Map<String, String[]> parameterMap = new HashMap<String, String[]>(baseURL.getParameterMap());
 		Map<String, String[]> initialParameterMap = new HashMap<String, String[]>(parameterMap);
-		boolean RESOURCE_PHASE = BridgeUtil.getPortletRequestPhase().equals(Bridge.PortletPhase.RESOURCE_PHASE);
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		boolean RESOURCE_PHASE = BridgeUtil.getPortletRequestPhase(facesContext).equals(
+				Bridge.PortletPhase.RESOURCE_PHASE);
 
 		List<UIComponent> children = uiComponent.getChildren();
 

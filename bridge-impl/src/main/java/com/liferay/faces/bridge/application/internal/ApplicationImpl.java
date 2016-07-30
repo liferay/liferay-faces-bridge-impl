@@ -65,7 +65,9 @@ public class ApplicationImpl extends ApplicationCompatImpl {
 	@SuppressWarnings("unchecked")
 	public UIComponent createComponent(String componentType) throws FacesException {
 
-		if (componentType.equals(UIViewRoot.COMPONENT_TYPE) && BridgeUtil.isPortletRequest()) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (componentType.equals(UIViewRoot.COMPONENT_TYPE) && BridgeUtil.isPortletRequest(facesContext)) {
 
 			// NOTE: Mojarra uses a servlet context listener to pre-load all the faces-config.xml files in the
 			// classpath. During this initialization, it will call subscribeToEvent() for source-class
@@ -83,7 +85,6 @@ public class ApplicationImpl extends ApplicationCompatImpl {
 
 					// Need to check again within the synchronization block, just in case.
 					if (subscribeToEventsAtRuntime) {
-						FacesContext facesContext = FacesContext.getCurrentInstance();
 						BridgeConfig bridgeConfig = RequestMapUtil.getBridgeConfig(facesContext);
 						List<ConfiguredSystemEventListener> configuredSystemEventListeners =
 							(List<ConfiguredSystemEventListener>) bridgeConfig.getAttributes().get(
