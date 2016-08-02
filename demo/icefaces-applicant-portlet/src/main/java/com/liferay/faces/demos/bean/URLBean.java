@@ -20,12 +20,16 @@ import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
+import java.io.Serializable;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class URLBean {
+public class URLBean implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 4552218772544232761L;
 
 	private PortletURL viewRenderURL;
 	private PortletURL editRenderURL;
