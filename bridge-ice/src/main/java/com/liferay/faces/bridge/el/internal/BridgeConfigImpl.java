@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.config;
+package com.liferay.faces.bridge.el.internal;
 
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -28,16 +31,40 @@ import java.util.Map;
 public class BridgeConfigImpl implements BridgeConfig {
 
 	// Private Data Members
-	private BridgeConfigAttributeMap attributes;
+	private Map<String,Object> attributes;
 
 	public BridgeConfigImpl() {
 
 		// Initialize the map of attributes
-		attributes = new BridgeConfigAttributeMap();
+		attributes = Collections.unmodifiableMap(new BridgeConfigAttributeMap());
 	}
 
 	public Map<String, Object> getAttributes() {
 		return attributes;
+	}
+
+	public Set<String> getExcludedRequestAttributes() {
+		throw new UnsupportedOperationException();
+	}
+
+	public Map<String, String[]> getPublicParameterMappings() {
+		throw new UnsupportedOperationException();
+	}
+
+	public String getViewIdRenderParameterName() {
+		throw new UnsupportedOperationException();
+	}
+
+	public String getViewIdResourceParameterName() {
+		throw new UnsupportedOperationException();
+	}
+
+	public String getWriteBehindRenderResponseWrapper() {
+		throw new UnsupportedOperationException();
+	}
+
+	public String getWriteBehindResourceResponseWrapper() {
+		throw new UnsupportedOperationException();
 	}
 
 	protected class BridgeConfigAttributeMap extends HashMap<String, Object> {

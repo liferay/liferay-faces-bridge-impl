@@ -4,9 +4,4 @@
 	<application>
 		<el-resolver>com.liferay.faces.bridge.el.internal.ELResolverImpl</el-resolver>
 	</application>
-	<managed-bean>
-		<managed-bean-name>bridgeContext</managed-bean-name>
-		<managed-bean-class>com.liferay.faces.bridge.context.internal.BridgeContextImpl</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
 </faces-config>

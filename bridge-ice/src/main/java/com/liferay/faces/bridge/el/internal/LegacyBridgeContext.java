@@ -15,20 +15,28 @@
  */
 package com.liferay.faces.bridge.el.internal;
 
-import javax.el.ELResolver;
-import javax.faces.context.FacesContext;
+import javax.portlet.PortletRequest;
+
+import com.liferay.faces.bridge.BridgeConfig;
 
 
 /**
- * This class provides a compatibility layer that isolates differences between JSF1 and JSF2.
- *
  * @author  Neil Griffin
  */
-public abstract class ELResolverCompatImpl extends ELResolver {
+public class LegacyBridgeContext {
 
-	protected Object getFlash(FacesContext facesContext) {
+	private BridgeConfig bridgeConfig;
 
-		// no-op for JSF 1.2
-		return null;
+	public LegacyBridgeContext(BridgeConfig bridgeConfig) {
+		this.bridgeConfig = bridgeConfig;
+	}
+
+	public BridgeConfig getBridgeConfig() {
+		return bridgeConfig;
+	}
+
+	public void setPortletRequest(PortletRequest portletRequest) {
+		// No-op, but method signature is required for compatibility with ICEfaces 3.3
+		// org.icefaces.ace.component.fileentry.FileEntryResourceHandler
 	}
 }

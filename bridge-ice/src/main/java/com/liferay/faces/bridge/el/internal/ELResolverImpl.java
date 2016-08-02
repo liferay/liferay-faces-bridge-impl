@@ -32,26 +32,22 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 import javax.servlet.jsp.JspContext;
 
-import com.liferay.faces.bridge.config.BridgeConfigConstants;
-import com.liferay.faces.bridge.context.BridgeContext;
-import com.liferay.faces.bridge.context.map.SessionMap;
-import com.liferay.faces.bridge.filter.HttpServletRequestAdapter;
-import com.liferay.faces.bridge.filter.HttpServletResponseAdapter;
-import com.liferay.faces.bridge.preference.MutablePreferenceMap;
+import com.icesoft.faces.webapp.http.portlet.PortletExternalContext;
+import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.helper.BooleanHelper;
 
 
 /**
  * @author  Neil Griffin
  */
-public class ELResolverImpl extends ELResolverCompatImpl {
+public class ELResolverImpl extends ELResolver {
 
 	private static final String ACTION_REQUEST = "actionRequest";
 	private static final String ACTION_RESPONSE = "actionResponse";
+	private static final String BRIDGE_CONFIG = "bridgeConfig";
 	private static final String BRIDGE_CONTEXT = "bridgeContext";
 	private static final String EVENT_REQUEST = "eventRequest";
 	private static final String EVENT_RESPONSE = "eventResponse";
-	private static final String FLASH = "bridgeFlash"; // http://java.net/jira/browse/JAVASERVERFACES-1964
 	private static final String HTTP_SESSION_SCOPE = "httpSessionScope";
 	private static final String MUTABLE_PORTLET_PREFERENCES_VALUES = "mutablePortletPreferencesValues";
 	private static final String PORTLET_CONFIG = "portletConfig";
@@ -75,7 +71,6 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		FACES_CONTEXT_VAR_NAMES.add(BRIDGE_CONTEXT);
 		FACES_CONTEXT_VAR_NAMES.add(EVENT_REQUEST);
 		FACES_CONTEXT_VAR_NAMES.add(EVENT_RESPONSE);
-		FACES_CONTEXT_VAR_NAMES.add(FLASH);
 		FACES_CONTEXT_VAR_NAMES.add(HTTP_SESSION_SCOPE);
 		FACES_CONTEXT_VAR_NAMES.add(MUTABLE_PORTLET_PREFERENCES_VALUES);
 		FACES_CONTEXT_VAR_NAMES.add(PORTLET_CONFIG);
@@ -98,7 +93,6 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		addFeatureDescriptor(BRIDGE_CONTEXT, String.class);
 		addFeatureDescriptor(EVENT_REQUEST, String.class);
 		addFeatureDescriptor(EVENT_RESPONSE, String.class);
-		addFeatureDescriptor(FLASH, String.class);
 		addFeatureDescriptor(HTTP_SESSION_SCOPE, String.class);
 		addFeatureDescriptor(MUTABLE_PORTLET_PREFERENCES_VALUES, String.class);
 		addFeatureDescriptor(PORTLET_CONFIG, String.class);
@@ -127,9 +121,7 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 
 	@Override
 	public Class<?> getCommonPropertyType(ELContext elContext, Object base) {
-		Class<?> commonPropertyType = null;
-
-		return commonPropertyType;
+		return null;
 	}
 
 	@Override
@@ -159,7 +151,7 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		}
 		else {
 
-			Object value = null;
+			Object value;
 
 			// If running inside a JSP context, meaning evaluation of a JSP-syntax (dollar-sign prefixed) EL expression
 			// like ${portletConfig} then
@@ -317,11 +309,25 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 					throw new ELException("Unable to get actionResponse during " + portletPhase);
 				}
 			}
+			else if (varName.equals(BRIDGE_CONFIG) || varName.equals(BRIDGE_CONTEXT) ||
+					varName.equals(PORTLET_CONFIG)) {
 
-			// Note: The bridgeContext is a managed-bean and so must not be resolved here.
-			// else if (varName.equals(BRIDGE_CONTEXT)) {
-			// value = BridgeContext.getCurrentInstance();
-			// }
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+				BridgeConfig bridgeConfig = new BridgeConfigImpl();
+
+				if (varName.equals(BRIDGE_CONFIG)) {
+					value = bridgeConfig;
+				}
+				else if (varName.equals(PORTLET_CONFIG)) {
+					PortletExternalContext portletExternalContext = (PortletExternalContext) facesContext.getExternalContext();
+					value = portletExternalContext.getConfig();
+				}
+				else {
+					value = new LegacyBridgeContext(bridgeConfig);
+				}
+			}
 			else if (varName.equals(EVENT_REQUEST)) {
 				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
 
@@ -343,10 +349,6 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				else {
 					throw new ELException("Unable to get eventResponse during " + portletPhase);
 				}
-			}
-			else if (varName.equals(FLASH)) {
-				FacesContext facesContext = FacesContext.getCurrentInstance();
-				value = getFlash(facesContext);
 			}
 			else if (varName.equals(HTTP_SESSION_SCOPE)) {
 				FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -372,13 +374,6 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 
 				if (portletRequest != null) {
 					value = new MutablePreferenceMap(portletRequest.getPreferences());
-				}
-			}
-			else if (varName.equals(PORTLET_CONFIG)) {
-				BridgeContext bridgeContext = BridgeContext.getCurrentInstance();
-
-				if (bridgeContext != null) {
-					value = bridgeContext.getPortletConfig();
 				}
 			}
 			else if (varName.equals(PORTLET_SESSION)) {

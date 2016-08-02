@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.map;
+package com.liferay.faces.bridge.el.internal;
 
 import java.util.Enumeration;
 import java.util.Map;
@@ -22,7 +22,6 @@ import java.util.Set;
 import javax.faces.context.ExternalContext;
 import javax.portlet.PortletSession;
 
-import com.liferay.faces.bridge.util.ManagedBeanUtil;
 import com.liferay.faces.util.map.AbstractPropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 
