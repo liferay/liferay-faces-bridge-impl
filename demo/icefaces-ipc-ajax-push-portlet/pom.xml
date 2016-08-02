@@ -8,7 +8,7 @@
 		<version>2.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>com.liferay.faces.demo.icefaces.ipc.ajax.push.portlet"</artifactId>
+	<artifactId>com.liferay.faces.demo.icefaces.ipc.ajax.push.portlet</artifactId>
 	<name>ICEfaces1 IPC Ajax Push Portlet</name>
 	<packaging>war</packaging>
 
