@@ -55,7 +55,7 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portlet/actionurl/general</vdldoc:example-url>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/jsf-showcase/-/jsf-tag/portlet/actionurl/general</vdldoc:example-url>
 			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
@@ -73,7 +73,7 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portlet/namespace/general</vdldoc:example-url>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/jsf-showcase/-/jsf-tag/portlet/namespace/general</vdldoc:example-url>
 			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
@@ -96,7 +96,7 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portlet/param/general</vdldoc:example-url>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/jsf-showcase/-/jsf-tag/portlet/param/general</vdldoc:example-url>
 			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
@@ -119,7 +119,7 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portlet/property/general</vdldoc:example-url>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/jsf-showcase/-/jsf-tag/portlet/property/general</vdldoc:example-url>
 			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
@@ -167,7 +167,7 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portlet/renderurl/general</vdldoc:example-url>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/jsf-showcase/-/jsf-tag/portlet/renderurl/general</vdldoc:example-url>
 			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
@@ -209,7 +209,7 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<tag-extension>
-			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/portlet/resourceurl/general</vdldoc:example-url>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/jsf-showcase/-/jsf-tag/portlet/resourceurl/general</vdldoc:example-url>
 			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
