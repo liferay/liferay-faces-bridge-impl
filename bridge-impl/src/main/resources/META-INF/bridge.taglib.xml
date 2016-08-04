@@ -279,7 +279,7 @@ java.lang.Object)</method-signature>
 			<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
 		</attribute>
 		<tag-extension>
-			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/showcase/-/component/bridge/inputfile/general</vdldoc:example-url>
+			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/jsf-showcase/-/jsf-tag/bridge/inputfile/general</vdldoc:example-url>
 			<vdldoc:since>2.0.0</vdldoc:since>
 		</tag-extension>
 	</tag>
