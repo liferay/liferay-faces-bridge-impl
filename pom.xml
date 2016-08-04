@@ -158,7 +158,7 @@
 				<plugin>
 					<groupId>com.liferay.faces</groupId>
 					<artifactId>com.liferay.faces.maven.plugin</artifactId>
-					<version>0.1.0-SNAPSHOT</version>
+					<version>0.1.0</version>
 					<configuration>
 						<!-- liferay.auto.deploy.dir is the location where WARs are copied for deployment -->
 						<autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
