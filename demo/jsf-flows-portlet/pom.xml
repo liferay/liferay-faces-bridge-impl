@@ -38,11 +38,6 @@
 					<groupId>com.liferay.faces</groupId>
 					<artifactId>com.liferay.faces.alloy.reslib</artifactId>
 				</dependency>
-				<dependency>
-					<groupId>com.liferay.faces</groupId>
-					<artifactId>com.liferay.faces.bridge.cdi.compat</artifactId>
-					<version>${project.version}</version>
-				</dependency>
 			</dependencies>
 		</profile>
 		<profile>
