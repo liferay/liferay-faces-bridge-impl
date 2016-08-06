@@ -7,22 +7,28 @@
 		<ignored-parameter name="_facesViewIdRender" />
 		<ignored-parameter name="countryId" />
 		<ignored-parameter name="menuItem" />
+		<overridden-parameter name="countryId"></overridden-parameter>
+		<overridden-parameter name="menuItem"></overridden-parameter>
 	</route>
 	<route>
 		<pattern>/{componentPrefix}/{componentName}/{componentUseCase}/countryId/{countryId}</pattern>
 		<ignored-parameter name="_facesViewIdRender" />
 		<ignored-parameter name="foo" />
 		<ignored-parameter name="menuItem" />
+		<overridden-parameter name="menuItem"></overridden-parameter>
 	</route>
 	<route>
 		<pattern>/{componentPrefix}/{componentName}/{componentUseCase}/{menuItem}</pattern>
 		<ignored-parameter name="_facesViewIdRender" />
 		<ignored-parameter name="countryId" />
+		<overridden-parameter name="countryId"></overridden-parameter>
 	</route>
 	<route>
 		<pattern>/{componentPrefix}/{componentName}/{componentUseCase}</pattern>
 		<ignored-parameter name="_facesViewIdRender" />
 		<ignored-parameter name="countryId" />
 		<ignored-parameter name="menuItem" />
+		<overridden-parameter name="countryId"></overridden-parameter>
+		<overridden-parameter name="menuItem"></overridden-parameter>
 	</route>
 </routes>
