@@ -7,6 +7,7 @@
 		<ignored-parameter name="_facesViewIdRender" />
 		<ignored-parameter name="countryId" />
 		<ignored-parameter name="menuItem" />
+		<overridden-parameter name="_facesViewIdRender">/views/component.xhtml</overridden-parameter>
 		<overridden-parameter name="countryId"></overridden-parameter>
 		<overridden-parameter name="menuItem"></overridden-parameter>
 	</route>
@@ -15,12 +16,14 @@
 		<ignored-parameter name="_facesViewIdRender" />
 		<ignored-parameter name="foo" />
 		<ignored-parameter name="menuItem" />
+		<overridden-parameter name="_facesViewIdRender">/views/component.xhtml</overridden-parameter>
 		<overridden-parameter name="menuItem"></overridden-parameter>
 	</route>
 	<route>
 		<pattern>/{componentPrefix}/{componentName}/{componentUseCase}/{menuItem}</pattern>
 		<ignored-parameter name="_facesViewIdRender" />
 		<ignored-parameter name="countryId" />
+		<overridden-parameter name="_facesViewIdRender">/views/component.xhtml</overridden-parameter>
 		<overridden-parameter name="countryId"></overridden-parameter>
 	</route>
 	<route>
@@ -28,6 +31,7 @@
 		<ignored-parameter name="_facesViewIdRender" />
 		<ignored-parameter name="countryId" />
 		<ignored-parameter name="menuItem" />
+		<overridden-parameter name="_facesViewIdRender">/views/component.xhtml</overridden-parameter>
 		<overridden-parameter name="countryId"></overridden-parameter>
 		<overridden-parameter name="menuItem"></overridden-parameter>
 	</route>
