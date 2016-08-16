@@ -107,7 +107,7 @@ public class IcefacesApplicantPortletTest extends TesterBase {
 	private static final String windowInnerHeightXpath = "//em[@id='window.innerHeight']";
 	private static final String windowInnerWidthXpath = "//em[@id='window.innerWidth']";
 
-	static final String url = baseUrl + webContext + "/ice4";
+	static final String url = baseUrl + webContext + "/icefaces-applicant";
 
 	@FindBy(xpath = formTagXpath)
 	private WebElement formTag;
