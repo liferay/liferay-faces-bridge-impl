@@ -20,6 +20,7 @@
 		<module>jsf-applicant-portlet</module>
 		<module>jsf-jsp-applicant-portlet</module>
 		<module>icefaces-applicant-portlet</module>
+		<module>icefaces-ipc-ajax-push-portlet</module>
 	</modules>
 
 	<profiles>
