@@ -20,11 +20,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletConfig;
 
 import com.liferay.faces.util.i18n.I18n;
+import com.liferay.faces.util.i18n.I18nUtil;
 import com.liferay.faces.util.i18n.I18nWrapper;
 
 
@@ -41,6 +43,18 @@ public class I18nBridgeImpl extends I18nWrapper implements Serializable {
 
 	public I18nBridgeImpl(I18n i18n) {
 		this.wrappedI18n = i18n;
+	}
+
+	@Override
+	public FacesMessage getFacesMessage(FacesContext facesContext, Locale locale, FacesMessage.Severity severity,
+		String messageId) {
+		return I18nUtil.getFacesMessage(this, facesContext, locale, severity, messageId);
+	}
+
+	@Override
+	public FacesMessage getFacesMessage(FacesContext facesContext, Locale locale, FacesMessage.Severity severity,
+		String messageId, Object... arguments) {
+		return I18nUtil.getFacesMessage(this, facesContext, locale, severity, messageId, arguments);
 	}
 
 	@Override
