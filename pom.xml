@@ -715,7 +715,7 @@
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.bridge.api</artifactId>
-				<version>${project.version}</version>
+				<version>2.0.0</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
