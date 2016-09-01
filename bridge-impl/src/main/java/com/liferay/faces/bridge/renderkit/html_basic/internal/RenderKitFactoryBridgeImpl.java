@@ -74,7 +74,8 @@ public class RenderKitFactoryBridgeImpl extends RenderKitFactory {
 
 		// FACES-2615 Only Add the RenderKit to the delegation chain when the application is not starting up or
 		// shutting down.
-		if ("HTML_BASIC".equals(renderKitId) && !ApplicationUtil.isStartupOrShutdown(facesContext)) {
+		if (("HTML_BASIC".equals(renderKitId) || "PRIMEFACES_MOBILE".equals(renderKitId)) &&
+				!ApplicationUtil.isStartupOrShutdown(facesContext)) {
 			return new RenderKitBridgeImpl(renderKit);
 		}
 		else {

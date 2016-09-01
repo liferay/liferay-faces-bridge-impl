@@ -24,6 +24,8 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
+import com.liferay.faces.bridge.renderkit.html_basic.internal.InlineScript;
+
 
 /**
  * This class is part of a workaround for FACES-2061 and is responsible for capturing inline scripts that are encoded by
@@ -36,6 +38,7 @@ public class PrimeFacesHeadResponseWriter extends ResponseWriter {
 	// Private Data Members
 	private List<String> externalResourceURLs;
 	private boolean inlineScript;
+	private List<InlineScript> inlineScripts;
 	private StringWriter stringWriter;
 	private boolean writingScript;
 	private boolean writingCss;
@@ -46,6 +49,7 @@ public class PrimeFacesHeadResponseWriter extends ResponseWriter {
 
 		this.externalResourceURLs = new ArrayList<String>();
 		this.inlineScript = true;
+		this.inlineScripts = new ArrayList<InlineScript>();
 		this.stringWriter = new StringWriter();
 	}
 
@@ -69,6 +73,14 @@ public class PrimeFacesHeadResponseWriter extends ResponseWriter {
 		if ("script".equals(name)) {
 
 			writingScript = false;
+
+			if (inlineScript) {
+
+				InlineScript inlineScript = new InlineScript(stringWriter.toString(), "primefaces");
+				inlineScripts.add(inlineScript);
+				stringWriter.getBuffer().setLength(0);
+			}
+
 			inlineScript = true;
 		}
 		else if ("link".equals(name)) {
@@ -98,6 +110,10 @@ public class PrimeFacesHeadResponseWriter extends ResponseWriter {
 		return externalResourceURLs;
 	}
 
+	public List<InlineScript> getInlineScripts() {
+		return inlineScripts;
+	}
+
 	@Override
 	public void startDocument() throws IOException {
 	}
@@ -111,11 +127,6 @@ public class PrimeFacesHeadResponseWriter extends ResponseWriter {
 		else if ("link".equals(name)) {
 			writingLink = true;
 		}
-	}
-
-	@Override
-	public String toString() {
-		return stringWriter.toString();
 	}
 
 	@Override
