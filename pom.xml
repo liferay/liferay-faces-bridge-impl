@@ -117,7 +117,7 @@
 		<liferay.portal>liferay-portal-${liferay.deploy.version}</liferay.portal>
 		<liferay.resin.version>4.0.33</liferay.resin.version>
 		<liferay.tomcat.version>8.0.30</liferay.tomcat.version>
-		<liferay.version>7.0.1</liferay.version>
+		<liferay.version>7.0.2</liferay.version>
 		<liferay.version.dtd>6.2</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.weblogic.version>12.1.3.0</liferay.weblogic.version>
