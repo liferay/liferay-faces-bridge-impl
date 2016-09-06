@@ -299,7 +299,11 @@ public class HeadRendererBridgeImpl extends Renderer {
 		String resourceName = (String) componentResourceAttributes.get("name");
 		String rendererType = componentResource.getRendererType();
 
-		return (resourceName == null) && RenderKitBridgeImpl.SCRIPT_RENDERER_TYPE.equals(rendererType);
+		return (componentResource instanceof InlineScript) ||
+			((resourceName == null) &&
+				(RenderKitBridgeImpl.SCRIPT_RENDERER_TYPE.equals(rendererType) ||
+					"com.liferay.faces.alloy.component.outputscript.OutputScriptRenderer".equals(rendererType) ||
+					"com.liferay.faces.metal.component.outputscript.OutputScriptRenderer".equals(rendererType)));
 	}
 
 	private boolean isInlineStyleSheet(UIComponent componentResource) {
@@ -308,7 +312,10 @@ public class HeadRendererBridgeImpl extends Renderer {
 		String resourceName = (String) componentResourceAttributes.get("name");
 		String rendererType = componentResource.getRendererType();
 
-		return (resourceName == null) && RenderKitBridgeImpl.STYLESHEET_RENDERER_TYPE.equals(rendererType);
+		return (resourceName == null) &&
+			(RenderKitBridgeImpl.STYLESHEET_RENDERER_TYPE.equals(rendererType) ||
+				"com.liferay.faces.alloy.component.outputstylesheet.OutputStylesheetRenderer".equals(rendererType) ||
+				"com.liferay.faces.metal.component.outputstylesheet.OutputStylesheetRenderer".equals(rendererType));
 	}
 
 	private boolean isStyleSheetResource(UIComponent componentResource) {

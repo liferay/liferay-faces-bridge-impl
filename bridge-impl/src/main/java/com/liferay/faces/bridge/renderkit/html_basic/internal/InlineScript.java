@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.renderkit.primefaces.internal;
+package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
 import java.util.Map;
@@ -26,21 +26,21 @@ import javax.faces.context.ResponseWriter;
 /**
  * @author  Neil Griffin
  */
-public class PrimeFacesInlineScript extends UIComponentBase {
+public class InlineScript extends UIComponentBase {
 
 	// Private Data Members
 	private String script;
 
-	public PrimeFacesInlineScript() {
+	public InlineScript() {
 		// Zero-arg constructor is necessary to support restoration of saved state by the state manager.
 	}
 
-	public PrimeFacesInlineScript(String script) {
+	public InlineScript(String script, String libraryName) {
 		this.script = script;
 
 		Map<String, Object> attributes = getAttributes();
-		attributes.put("name", "primefacesinlinescript" + script.hashCode());
-		attributes.put("library", "primefaces");
+		attributes.put("name", libraryName + "inlinescript" + script.hashCode());
+		attributes.put("library", libraryName);
 	}
 
 	@Override
