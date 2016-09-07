@@ -74,7 +74,7 @@
 			<artifactId>cdi-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.portals.pluto</groupId>
+			<groupId>javax.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 		<dependency>
