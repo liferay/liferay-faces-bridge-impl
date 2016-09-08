@@ -35,15 +35,15 @@ import com.liferay.faces.util.logging.LoggerFactory;
  *
  * @author  Neil Griffin
  */
-public class ExceptionHandlerAjaxImpl extends ExceptionHandlerWrapper {
+public class ExceptionHandlerBridgeImpl extends ExceptionHandlerWrapper {
 
 	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerAjaxImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerBridgeImpl.class);
 
 	// Private Data Members
 	private ExceptionHandler wrappedExceptionHandler;
 
-	public ExceptionHandlerAjaxImpl(ExceptionHandler exceptionHandler) {
+	public ExceptionHandlerBridgeImpl(ExceptionHandler exceptionHandler) {
 		this.wrappedExceptionHandler = exceptionHandler;
 	}
 
@@ -55,40 +55,43 @@ public class ExceptionHandlerAjaxImpl extends ExceptionHandlerWrapper {
 	@Override
 	public void handle() {
 
-		// Before delegating, log all exceptions to the console.
-		Iterable<ExceptionQueuedEvent> unhandledExceptionQueuedEvents = getUnhandledExceptionQueuedEvents();
-		Iterator<ExceptionQueuedEvent> itr = unhandledExceptionQueuedEvents.iterator();
-
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		boolean isDevelopment = facesContext.isProjectStage(ProjectStage.Development);
 
-		while (itr.hasNext()) {
-			ExceptionQueuedEvent exceptionQueuedEvent = itr.next();
-			ExceptionQueuedEventContext exceptionQueuedEventContext = exceptionQueuedEvent.getContext();
+		if (facesContext.getPartialViewContext().isAjaxRequest()) {
 
-			if (exceptionQueuedEventContext != null) {
-				Throwable throwable = exceptionQueuedEventContext.getException();
+			// Before delegating, log all exceptions to the console.
+			Iterable<ExceptionQueuedEvent> unhandledExceptionQueuedEvents = getUnhandledExceptionQueuedEvents();
+			Iterator<ExceptionQueuedEvent> itr = unhandledExceptionQueuedEvents.iterator();
 
-				if (throwable != null) {
+			boolean isDevelopment = facesContext.isProjectStage(ProjectStage.Development);
 
-					if (isDevelopment) {
-						logger.error(throwable);
+			while (itr.hasNext()) {
+				ExceptionQueuedEvent exceptionQueuedEvent = itr.next();
+				ExceptionQueuedEventContext exceptionQueuedEventContext = exceptionQueuedEvent.getContext();
+
+				if (exceptionQueuedEventContext != null) {
+					Throwable throwable = exceptionQueuedEventContext.getException();
+
+					if (throwable != null) {
+
+						if (isDevelopment) {
+							logger.error(throwable);
+						}
+						else {
+							logger.error(throwable.getMessage());
+						}
 					}
 					else {
-						logger.error(throwable.getMessage());
+						logger.error("Unable to get exception from exceptionQueuedEventContext");
 					}
 				}
 				else {
-					logger.error("Unable to get exception from exceptionQueuedEventContext");
+					logger.error("Unable to get exceptionQueuedEventContext from exceptionQueuedEvent");
 				}
-			}
-			else {
-				logger.error("Unable to get exceptionQueuedEventContext from exceptionQueuedEvent");
 			}
 		}
 
 		// Delegate to the wrapped JSF implementation's ExceptionHandler.
 		super.handle();
 	}
-
 }
