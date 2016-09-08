@@ -44,7 +44,7 @@
 	</component>
 	<factory>
 		<application-factory>com.liferay.faces.bridge.application.internal.ApplicationFactoryImpl</application-factory>
-		<exception-handler-factory>com.liferay.faces.bridge.context.internal.ExceptionHandlerFactoryImpl</exception-handler-factory>
+		<exception-handler-factory>com.liferay.faces.bridge.context.internal.ExceptionHandlerFactoryBridgeImpl</exception-handler-factory>
 		<external-context-factory>com.liferay.faces.bridge.context.internal.ExternalContextFactoryImpl</external-context-factory>
 		<faces-context-factory>com.liferay.faces.bridge.context.internal.FacesContextFactoryImpl</faces-context-factory>
 		<view-declaration-language-factory>com.liferay.faces.bridge.application.view.internal.ViewDeclarationLanguageFactoryBridgeImpl</view-declaration-language-factory>

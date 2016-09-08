@@ -17,18 +17,19 @@ package com.liferay.faces.bridge.context.internal;
 
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerFactory;
+import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
 
 
 /**
  * @author  Neil Griffin
  */
-public class ExceptionHandlerFactoryImpl extends ExceptionHandlerFactory {
+public class ExceptionHandlerFactoryBridgeImpl extends ExceptionHandlerFactory {
 
 	// Private Data Members
 	private ExceptionHandlerFactory wrappedExceptionHandlerFactory;
 
-	public ExceptionHandlerFactoryImpl(ExceptionHandlerFactory exceptionHandlerFactory) {
+	public ExceptionHandlerFactoryBridgeImpl(ExceptionHandlerFactory exceptionHandlerFactory) {
 		this.wrappedExceptionHandlerFactory = exceptionHandlerFactory;
 	}
 
@@ -36,19 +37,12 @@ public class ExceptionHandlerFactoryImpl extends ExceptionHandlerFactory {
 	public ExceptionHandler getExceptionHandler() {
 
 		ExceptionHandler wrappedExceptionHandler = wrappedExceptionHandlerFactory.getExceptionHandler();
-		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		if (facesContext.getPartialViewContext().isAjaxRequest()) {
-			return new ExceptionHandlerAjaxImpl(wrappedExceptionHandler);
-		}
-		else {
-			return wrappedExceptionHandler;
-		}
+		return new ExceptionHandlerBridgeImpl(wrappedExceptionHandler);
 	}
 
 	@Override
 	public ExceptionHandlerFactory getWrapped() {
 		return wrappedExceptionHandlerFactory;
 	}
-
 }
