@@ -5,78 +5,51 @@
 
 	<parent>
 		<groupId>com.liferay.faces.test</groupId>
-		<artifactId>com.liferay.faces.test.bridge.parent</artifactId>
+		<artifactId>com.liferay.faces.test.parent</artifactId>
 		<version>6.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>com.liferay.faces.test.bridge.integration.parent</artifactId>
-	<packaging>pom</packaging>
-	<name>Liferay Faces Bridge Test Integration</name>
-
-	<modules>
-		<module>util</module>
-		<module>demos</module>
-		<module>issues</module>
-	</modules>
-
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian.junit</groupId>
-			<artifactId>arquillian-junit-container</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian.graphene</groupId>
-			<artifactId>graphene-webdriver</artifactId>
-			<type>pom</type>
-		</dependency>
-	</dependencies>
-
-	<properties>
-		<integration.browser>phantomjs</integration.browser>
-		<integration.portal>liferay</integration.portal>
-		<integration.host>localhost</integration.host>
-		<integration.port>8080</integration.port>
-		<integration.url>http://${integration.host}:${integration.port}</integration.url>
-		<integration.context>/group/bridge-demos</integration.context>
-		<integration.signin>/web/guest/home</integration.signin>
-	</properties>
+	<artifactId>com.liferay.faces.test.integration</artifactId>
+	<packaging>jar</packaging>
+	<name>Liferay Faces Bridge Integration Tests</name>
 
 	<profiles>
 		<profile>
+			<id>liferay</id>
+			<properties>
+				<integration.container>liferay</integration.container>
+			</properties>
+		</profile>
+		<profile>
 			<id>liferay62</id>
 			<properties>
-				<integration.portal>liferay62</integration.portal>
+				<integration.container>liferay62</integration.container>
 			</properties>
 		</profile>
 		<profile>
 			<id>pluto</id>
 			<properties>
-				<integration.portal>pluto</integration.portal>
-				<integration.context>/pluto/portal</integration.context>
-				<integration.signin>/pluto/portal</integration.signin>
+				<integration.container>pluto</integration.container>
 			</properties>
 		</profile>
 		<profile>
-			<id>integration</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<skipTests>false</skipTests>
-							<systemPropertyVariables>
-								<integration.browser>${integration.browser}</integration.browser>
-							</systemPropertyVariables>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
+			<id>phantomjs</id>
+			<properties>
+				<integration.browser>phantomjs</integration.browser>
+			</properties>
+		</profile>
+		<profile>
+			<id>firefox</id>
+			<properties>
+				<integration.browser>firefox</integration.browser>
+			</properties>
+		</profile>
+		<profile>
+			<id>chrome</id>
+			<properties>
+				<integration.browser>chrome</integration.browser>
+			</properties>
 		</profile>
 		<profile>
 			<id>weblogic</id>
@@ -90,47 +63,170 @@
 				<integration.port>9080</integration.port>
 			</properties>
 		</profile>
+		<profile>
+			<id>integration</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<systemPropertyVariables>
+								<RUNNING_WITH_MAVEN_SUREFIRE_PLUGIN>true</RUNNING_WITH_MAVEN_SUREFIRE_PLUGIN>
+								<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
+								<integration.browser>${integration.browser}</integration.browser>
+								<integration.log.level>${integration.log.level}</integration.log.level>
+								<integration.container>${integration.container}</integration.container>
+								<integration.host>${integration.host}</integration.host>
+								<integration.port>${integration.port}</integration.port>
+								<integration.context>${integration.context}</integration.context>
+								<integration.sign.in.context>${integration.sign.in.context}</integration.sign.in.context>
+								<integration.login.xpath>${integration.login.xpath}</integration.login.xpath>
+								<integration.password.xpath>${integration.password.xpath}</integration.password.xpath>
+								<integration.sign.in.button.xpath>${integration.sign.in.button.xpath}</integration.sign.in.button.xpath>
+								<integration.login>${integration.login}</integration.login>
+								<integration.password>${integration.password}</integration.password>
+							</systemPropertyVariables>
+							<properties>
+								<property>
+									<name>listener</name>
+									<value>com.liferay.faces.test.selenium.IntegrationTestSuiteListener</value>
+								</property>
+							</properties>
+							<includes>
+								<include>**/*Test.java,**/Test*.java,**/*TestCase.java,**/*Tester.java</include>
+							</includes>
+						</configuration>
+					</plugin>
+					<!-- ensure that the png resource is in the temporary directory for testing -->
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>test</id>
+								<phase>process-test-resources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<copy file="src/test/resources/liferay-jsf-jersey.png" todir="${java.io.tmpdir}" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+				<pluginManagement>
+					<plugins>
+					<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+						<plugin>
+							<groupId>org.eclipse.m2e</groupId>
+							<artifactId>lifecycle-mapping</artifactId>
+							<version>1.0.0</version>
+							<configuration>
+								<lifecycleMappingMetadata>
+									<pluginExecutions>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>org.apache.maven.plugins</groupId>
+												<artifactId>maven-antrun-plugin</artifactId>
+												<versionRange>[1.7,)</versionRange>
+												<goals>
+													<goal>run</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+									</pluginExecutions>
+								</lifecycleMappingMetadata>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
 	</profiles>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<skipTests>true</skipTests>
-				</configuration>
-			</plugin>
-		</plugins>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<configuration>
-						<systemProperties>
-							<property>
-								<name>integration.portal</name>
-								<value>${integration.portal}</value>
-							</property>
-							<property>
-								<name>integration.url</name>
-								<value>${integration.url}</value>
-							</property>
-							<property>
-								<name>integration.context</name>
-								<value>${integration.context}</value>
-							</property>
-							<property>
-								<name>integration.signin</name>
-								<value>${integration.signin}</value>
-							</property>
-						</systemProperties>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+	<dependencies>
+		<!-- Integration test dependencies. -->
+		<dependency>
+			<groupId>com.liferay.faces.test</groupId>
+			<artifactId>com.liferay.faces.test.selenium</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!--
+			These demo tests use a different version of selenium, drivers, and junit than the integration tests.
+			Once the other demos are migrated to the new test framework, we can add these dependencies to the
+			parent pom.xml and remove them from here.
+		-->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-remote-driver</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-support</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-firefox-driver</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-chrome-driver</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.codeborne</groupId>
+			<artifactId>phantomjsdriver</artifactId>
+			<scope>test</scope>
+			<!-- Don't download the version of selenium that phantomjsdriver depends on since it is older than the
+			version we specify. -->
+			<exclusions>
+				<exclusion>
+					<artifactId>org.seleniumhq.selenium</artifactId>
+					<groupId>selenium-java</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.seleniumhq.selenium</artifactId>
+					<groupId>selenium-server</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.seleniumhq.selenium</artifactId>
+					<groupId>selenium-remote-driver</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.3</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- End integration test dependencies. -->
+	</dependencies>
 
 </project>
 
