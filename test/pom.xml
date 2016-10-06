@@ -9,7 +9,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>com.liferay.faces.test</groupId>
-	<artifactId>com.liferay.faces.test.bridge.parent</artifactId>
+	<artifactId>com.liferay.faces.test.parent</artifactId>
 	<packaging>pom</packaging>
 	<name>Liferay Faces Bridge Test</name>
 
