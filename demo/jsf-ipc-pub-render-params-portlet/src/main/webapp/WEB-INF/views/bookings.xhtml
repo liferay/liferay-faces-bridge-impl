@@ -4,7 +4,9 @@
 	<h:head />
 	<h:body>
 		<ui:include src="styling.xhtml" />
-		<h:form id="f1">
+		<h:outputText rendered="#{bookingsModelBean.customer.firstName == null}"
+			value="#{i18n['pleaseSelectCustomer']}" />
+		<h:form id="f1" rendered="#{bookingsModelBean.customer.firstName != null}">
 			<h:messages />
 			<h:inputHidden value="#{bookingsModelBean.customer.customerId}" />
 			<h:panelGroup>

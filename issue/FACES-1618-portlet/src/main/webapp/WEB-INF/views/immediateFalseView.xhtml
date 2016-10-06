@@ -5,19 +5,23 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-	<h:head />
+	<h:head>
+		<h:outputScript library="example" name="example.js" target="head" />
+		<h:outputStylesheet library="example" name="example.css" />
+	</h:head>
 	<h:body>
 		<h:form>
-			<h:outputText value="http://issues.liferay.com/browse/FACES-1618" />
+			<h:outputLink target="_blank" value="http://issues.liferay.com/browse/FACES-1618">http://issues.liferay.com/browse/FACES-1618</h:outputLink>
 			<br />
 			<br />
-			<h:outputText value="This is the view with the command button where no immediate attribute is set" />
+			<span id="component_resources_size">#{backingBean.componentResourcesSize}</span>
+			<h:outputText value=" resources should appear below:" />
+			<pre><ul id="FACES_1618_resources"></ul></pre>
 			<br />
 			<br />
-			<h:outputText id="headResourceIds" value="#{headManagedBean.headResourceIds}" />
-			<br />
-			<br />
-			<h:commandButton action="/WEB-INF/views/immediateTrueView" value="go to previous view" />
+			<h:commandButton action="/WEB-INF/views/immediateTrueView" value="go to previous view with immediate=&quot;false&quot;">
+				<f:ajax />
+			</h:commandButton>
 		</h:form>
 	</h:body>
 	

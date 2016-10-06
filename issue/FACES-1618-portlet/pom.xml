@@ -45,18 +45,6 @@
 			<artifactId>com.liferay.faces.alloy</artifactId>
 		</dependency>
 
-		<!-- The following ICEfaces dependencies below are specified because they produce .js resources in the head of -->
-		<!-- rendered pages. They play no other known part in this tester. Any dependencies which produce .js resources -->
-		<!-- in the head are liable to cause the same issue that this tester is testing for. -->
-		<dependency>
-			<groupId>org.icefaces</groupId>
-			<artifactId>icefaces</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.icefaces</groupId>
-			<artifactId>icefaces-ace</artifactId>
-		</dependency>
-
 	</dependencies>
 
 </project>
