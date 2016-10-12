@@ -4,6 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	<ice:portlet styleClass="example-icefaces-portlet">
 		<ui:include src="styling.xhtml" />
+		<ice:outputText rendered="#{customersModelBean.selected == null}"
+			value="#{i18n['pleaseSelectCustomer']}" />
 		<ice:form id="f" partialSubmit="true" styleClass="example-icefaces-portlet">
 			<ice:panelCollapsible expanded="true" rendered="#{customersModelBean.selected != null}">
 				<f:facet name="header">
@@ -37,10 +39,16 @@
 						</ice:selectOneMenu>
 						<ice:message for="bookingTypeId" />
 						<ice:outputLabel for="startDate" value="#{i18n['startDate']}" />
-						<ice:selectInputDate partialSubmit="true" renderAsPopup="true" required="true" value="#{booking.startDate}" />
+						<ice:selectInputDate id="startDate" partialSubmit="true" renderAsPopup="true" required="true"
+							value="#{booking.startDate}">
+							<f:convertDateTime pattern="MM/dd/yyyy" />
+						</ice:selectInputDate>
 						<ice:message for="startDate" />
 						<ice:outputLabel for="finishDate" value="#{i18n['finishDate']}" />
-						<ice:selectInputDate partialSubmit="true" renderAsPopup="true" required="true" value="#{booking.finishDate}" />
+						<ice:selectInputDate id="finishDate" partialSubmit="true" renderAsPopup="true" required="true"
+							value="#{booking.finishDate}">
+							<f:convertDateTime pattern="MM/dd/yyyy" />
+						</ice:selectInputDate>
 						<ice:message for="finishDate" />
 					</ice:panelGrid>
 				</ice:panelCollapsible>
