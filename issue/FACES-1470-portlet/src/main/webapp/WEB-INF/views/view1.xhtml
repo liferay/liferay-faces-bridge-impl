@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:alloy="http://liferay.com/faces/alloy"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core">
 	<h:head />
 	<h:body>
 		<h:form id="f1">
@@ -45,6 +45,9 @@
 					<li><em><h:outputText value="#{product.JSF}" /></em></li>
 					<li><em><h:outputText value="#{product.LIFERAY_FACES_ALLOY}" /></em></li>
 					<li><em><h:outputText value="#{product.LIFERAY_FACES_BRIDGE}" /></em></li>
+					<c:if test="#{product.LIFERAY_FACES_BRIDGE_EXT.detected}">
+						<li><em><h:outputText value="#{product.LIFERAY_FACES_BRIDGE_EXT}" /></em></li>
+					</c:if>
 				</ul>
 			</alloy:column>
 		</alloy:row>
