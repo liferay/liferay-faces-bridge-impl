@@ -9,9 +9,14 @@
 	<h:body>
 		<h:outputText value="This is view2.xhtml" />
 		<br />
-		<h:outputText value="viewParam1='#{testBean.value1}' (if the issue is fixed, the value should be equal to 'abc')" />
-		<br />
-		<h:outputText value="viewParam2='#{testBean.value2}' (if the issue is fixed, the value should be equal to 'xyz')" />
+		<h:outputText value="If the issue is fixed, the value should be equal to &quot;" />
+		<h:outputText id="viewParamValue1" value="abc" />
+		<h:outputText value="&quot;:" />
+		<pre><h:outputText id="viewParam1" value="viewParam1=#{testBean.value1}" /></pre>
+		<h:outputText value="If the issue is fixed, the value should be equal to &quot;" />
+		<h:outputText id="viewParamValue2" value="xyz" />
+		<h:outputText value="&quot;:" />
+		<pre><h:outputText id="viewParam2" value="viewParam2=#{testBean.value2}" /></pre>
 	</h:body>
 </f:view>
 
