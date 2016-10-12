@@ -4,4 +4,7 @@
 	<lifecycle>
 		<phase-listener>com.liferay.faces.util.lifecycle.DebugPhaseListener</phase-listener>
 	</lifecycle>
+	<factory>
+		<render-kit-factory>com.liferay.faces.bridge.issue.RenderKitFactoryImpl</render-kit-factory>
+	</factory>
 </faces-config>
