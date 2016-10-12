@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:aui="http://liferay.com/faces/aui"
-	xmlns:alloy="http://liferay.com/faces/alloy" xmlns:f="http://java.sun.com/jsf/core" 
-	xmlns:h="http://java.sun.com/jsf/html" xmlns:ice="http://www.icesoft.com/icefaces/component" 
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:alloy="http://liferay.com/faces/alloy" xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component" xmlns:ui="http://java.sun.com/jsf/facelets">
 	<ice:portlet styleClass="icefaces3-compat-portlet ltr">
 		<ui:include src="styling.xhtml" />
 		<ui:include src="applicant.xhtml" />
@@ -14,6 +14,9 @@
 					<li><em><h:outputText value="#{product.ICEFACES}" /></em></li>
 					<li><em><h:outputText value="#{product.LIFERAY_FACES_ALLOY}" /></em></li>
 					<li><em><h:outputText value="#{product.LIFERAY_FACES_BRIDGE}" /></em></li>
+					<c:if test="#{product.LIFERAY_FACES_BRIDGE_EXT.detected}">
+						<li><em><h:outputText value="#{product.LIFERAY_FACES_BRIDGE_EXT}" /></em></li>
+					</c:if>
 				</ul>
 			</alloy:column>
 		</alloy:row>
