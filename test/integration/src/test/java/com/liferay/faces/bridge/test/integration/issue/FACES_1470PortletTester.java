@@ -46,6 +46,8 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 		// 7. Navigate to the FACES-1470-tracker portlet and assert that no AS7Leak instances exist.
 		//
 		// Old test: https://github.com/liferay/liferay-faces-bridge-impl/blob/4.0.0/test/integration/issues/bridge/FACES-1470-portlet/src/test/java/com/liferay/faces/test/FACES1470PortletTest.java
+		//
+		// Perhaps use this: https://github.com/ronmamo/reflections
 		//J+
 	}
 }

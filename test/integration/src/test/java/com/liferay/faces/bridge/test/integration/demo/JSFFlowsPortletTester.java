@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.test.integration.demo;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.openqa.selenium.WebElement;
@@ -31,6 +33,16 @@ import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
  * @author  Kyle Stiemann
  */
 public class JSFFlowsPortletTester extends IntegrationTesterBase {
+
+	@BeforeClass
+	public static void setUpJSFFlowsPortletTester() {
+		Browser.getInstance().setWaitTimeOut(TestUtil.getBrowserWaitTimeOut(10));
+	}
+
+	@AfterClass
+	public static void tearDownJSFFlowsPortletTester() {
+		Browser.getInstance().setWaitTimeOut(TestUtil.getBrowserWaitTimeOut());
+	}
 
 	@Test
 	public void runJSFFlowsPortletTest() {
