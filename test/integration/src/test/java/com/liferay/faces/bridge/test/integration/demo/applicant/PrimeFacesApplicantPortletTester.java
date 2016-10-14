@@ -73,6 +73,11 @@ public class PrimeFacesApplicantPortletTester extends BridgeApplicantPortletTest
 	}
 
 	@Override
+	protected String getSubmitAnotherApplicationButton() {
+		return "//button[@type='submit'][contains(., 'Submit Another Application')]";
+	}
+
+	@Override
 	protected String getSubmitButtonXpath() {
 		return "//button/span[contains(text(),'Submit')]/..";
 	}
