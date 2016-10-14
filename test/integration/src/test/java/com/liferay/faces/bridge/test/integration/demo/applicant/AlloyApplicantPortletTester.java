@@ -67,7 +67,7 @@ public class AlloyApplicantPortletTester extends BridgeApplicantPortletTester {
 	@Override
 	protected String getUploadedFileXpath() {
 		return
-			"//h3[contains(text(),'Attachments')]/following-sibling::table[contains(@class,'alloy-data-table')]/tbody/tr/td[2]";
+			"//h3[contains(text(),'Attachments')]/following-sibling::table[contains(@class,'alloy-data-table')]/tbody/tr/td[2]/span";
 	}
 
 	@Override
