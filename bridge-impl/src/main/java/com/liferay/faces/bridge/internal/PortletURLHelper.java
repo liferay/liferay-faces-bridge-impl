@@ -67,7 +67,11 @@ public class PortletURLHelper {
 			baseURL.setSecure(secure);
 		}
 		catch (PortletSecurityException e) {
-			logger.error(e);
+
+			// Portlet containers like Pluto 3.0 throws PortletSecurityException when the secure URL feature is
+			// unsupported. In such cases, log the exception message at the DEBUG level in order to prevent unnecessary
+			// stacktraces in the log.
+			logger.debug(e.getMessage());
 		}
 	}
 
