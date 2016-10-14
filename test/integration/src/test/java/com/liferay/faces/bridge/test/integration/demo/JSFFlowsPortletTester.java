@@ -15,9 +15,6 @@
  */
 package com.liferay.faces.bridge.test.integration.demo;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.junit.Test;
 
 import org.openqa.selenium.WebElement;
@@ -27,7 +24,6 @@ import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
 import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.TestUtil;
-import com.liferay.faces.test.selenium.applicant.ApplicantTesterBase;
 import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
 
 
@@ -36,13 +32,6 @@ import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
  */
 public class JSFFlowsPortletTester extends IntegrationTesterBase {
 
-	// Logger
-	private static final Logger logger = Logger.getLogger(ApplicantTesterBase.class.getName());
-
-	static {
-		logger.setLevel(TestUtil.getLogLevel());
-	}
-
 	@Test
 	public void runJSFFlowsPortletTest() {
 
@@ -50,15 +39,15 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		browser.get(BridgeTestUtil.getDemoPageURL("jsf-flows"));
 
 		// Test that libraries are visible.
-		assertLibraryVisible(browser, "Mojarra");
-		assertLibraryVisible(browser, "Liferay Faces Alloy");
-		assertLibraryVisible(browser, "Liferay Faces Bridge Impl");
+		SeleniumAssert.assertLibraryVisible(browser, "Mojarra");
+		SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Alloy");
+		SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Bridge Impl");
 
 		if (TestUtil.getContainer().contains("liferay")) {
-			assertLibraryVisible(browser, "Liferay Faces Bridge Ext");
+			SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Bridge Ext");
 		}
 
-		assertLibraryVisible(browser, "Weld");
+		SeleniumAssert.assertLibraryVisible(browser, "Weld");
 
 		// Test that exiting the bookings flow scope causes beans to go out of scope.
 		String enterBookingFlowButtonXpath = "//input[@value='Enter Booking Flow']";
@@ -164,14 +153,6 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 			"flightSearchModelBeanInScope=false");
 		SeleniumAssert.assertElementTextVisible(browser, "//li/em[contains(text(),'surveyFlowModelBeanInScope')]",
 			"surveyFlowModelBeanInScope=false");
-	}
-
-	private void assertLibraryVisible(Browser browser, String libraryName) {
-
-		String libraryVersionXpath = "//li[contains(.,'" + libraryName + "')]";
-		WebElement libraryVersionElement = browser.findElementByXpath(libraryVersionXpath);
-		logger.log(Level.INFO, libraryVersionElement.getText());
-		SeleniumAssert.assertElementVisible(browser, libraryVersionXpath);
 	}
 
 	private Select createSelect(Browser browser, String selectXpath) {

@@ -5,12 +5,12 @@
 
 	<parent>
 		<groupId>com.liferay.faces.test</groupId>
-		<artifactId>com.liferay.faces.test.parent</artifactId>
+		<artifactId>com.liferay.faces.test.bridge.parent</artifactId>
 		<version>4.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>com.liferay.faces.test.integration</artifactId>
+	<artifactId>com.liferay.faces.test.bridge.integration</artifactId>
 	<packaging>jar</packaging>
 	<name>Liferay Faces Bridge Integration Tests</name>
 
@@ -101,6 +101,7 @@
 					</plugin>
 					<!-- ensure that the png resource is in the temporary directory for testing -->
 					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-antrun-plugin</artifactId>
 						<executions>
 							<execution>
