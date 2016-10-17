@@ -108,7 +108,7 @@
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.portal}-jsf-${faces.spec.version}</liferay.home>
 		<liferay.faces.alloy.version>3.0.0</liferay.faces.alloy.version>
 		<liferay.faces.bridge.ext.version>7.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
-		<liferay.faces.showcase.version>3.0.0</liferay.faces.showcase.version>
+		<liferay.faces.showcase.version>4.0.0-SNAPSHOT</liferay.faces.showcase.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.jetty.version>8.1.10</liferay.jetty.version>
@@ -120,7 +120,7 @@
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.weblogic.version>12.1.3.0</liferay.weblogic.version>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
-		<mojarra.version>2.3.0-m06</mojarra.version>
+		<mojarra.version>2.3.0-m07-SNAPSHOT</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
 		<pluto.deploy.dir>${pluto.tomcat.dir}/webapps</pluto.deploy.dir>
 		<pluto.home>${env.PORTALS_HOME}/liferay.com/${pluto.portal}-jsf-${faces.spec.version}</pluto.home>
@@ -791,7 +791,7 @@
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.util</artifactId>
-				<version>3.0.0</version>
+				<version>4.0.0-SNAPSHOT</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
