@@ -85,7 +85,7 @@
 
 	<properties>
 		<app.server.type>tomcat</app.server.type>
-		<cdi.version>1.1</cdi.version>
+		<cdi.version>1.2</cdi.version>
 		<component.namespace>none</component.namespace>
 		<faces.api.group.id>javax.faces</faces.api.group.id>
 		<faces.api.artifact.id>javax.faces-api</faces.api.artifact.id>
