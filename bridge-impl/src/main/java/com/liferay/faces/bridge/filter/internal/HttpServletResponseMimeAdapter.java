@@ -25,7 +25,6 @@ import javax.portlet.MimeResponse;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderURL;
-import javax.portlet.ResourceResponse;
 import javax.portlet.ResourceURL;
 import javax.portlet.filter.PortletResponseWrapper;
 import javax.servlet.ServletResponse;
@@ -41,7 +40,7 @@ import org.w3c.dom.Element;
 /**
  * Provides a way to decorate an {@link HttpServletResponse} as a portlet {@link MimeResponse}. The methods signatures
  * that are unique to {@link MimeResponse} throw {@link UnsupportedOperationException} since they are never called
- * during the RENDER_RESPONSE phase of the JSF lifecycle (the use-case for which this class was written). For more
+ * during the HEADER_RESPONSE phase of the JSF lifecycle (the use-case for which this class was written). For more
  * information, see {@link com.liferay.faces.bridge.context.internal.ExternalContextImpl#setResponse(Object)}.
  *
  * @author  Neil Griffin

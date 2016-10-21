@@ -25,8 +25,8 @@ import javax.portlet.filter.PortletResponseWrapper;
 public class PortletContainerDetector {
 
 	/**
-	 * Determines whether or not the specified {@link javax.portlet.PortletResponse} is one created by Liferay Portal.
-	 * If the specified {@link javax.portlet.PortletResponse} is an instance of {@link
+	 * Determines whether or not the specified {@link javax.portlet.PortletResponse} is one created by Pluto Portal. If
+	 * the specified {@link javax.portlet.PortletResponse} is an instance of {@link
 	 * javax.portlet.filter.PortletResponseWrapper} then it will work with the wrapped {@link
 	 * javax.portlet.PortletResponse}.
 	 *
