@@ -45,7 +45,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public abstract class BridgeURLBase implements BridgeURL {
+public abstract class BridgeURLBase extends BridgeURLBaseCompat implements BridgeURL {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeURLBase.class);
@@ -152,7 +152,7 @@ public abstract class BridgeURLBase implements BridgeURL {
 					// Otherwise, if the context relative path is indeed available, then
 					else {
 
-						// TCK TestPage059 (renderPhaseListenerTest)
+						// TCK TestPage059 (headerOrRenderPhaseListenerTest)
 						// TCK TestPage095 (encodeActionURLWithWindowStateActionTest)
 						// TCK TestPage097 (encodeActionURLNonJSFViewRenderTest)
 						// TCK TestPage098 (encodeActionURLNonJSFViewWithParamRenderTest)
@@ -456,8 +456,7 @@ public abstract class BridgeURLBase implements BridgeURL {
 
 		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
-		if ((portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) ||
-				(portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE)) {
+		if (isHeaderOrRenderOrResourcePhase(portletRequestPhase)) {
 
 			try {
 				logger.debug("createRenderURL uriParameters=[{0}]", uriParameters);

@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.internal;
+package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.Serializable;
 
 import javax.faces.context.ResponseWriter;
 import javax.portlet.PortletResponse;
+import javax.portlet.RenderResponse;
 
 import com.liferay.faces.bridge.context.HeadResponseWriterFactory;
 
@@ -33,7 +34,10 @@ public class HeadResponseWriterFactoryImpl extends HeadResponseWriterFactory imp
 
 	@Override
 	public ResponseWriter getHeadResponseWriter(ResponseWriter responseWriter, PortletResponse portletResponse) {
-		return new HeadResponseWriterImpl(responseWriter, portletResponse);
+
+		RenderResponse renderResponse = (RenderResponse) portletResponse;
+
+		return new HeadResponseWriterCompatImpl(responseWriter, renderResponse);
 	}
 
 	// Java 1.6+ @Override

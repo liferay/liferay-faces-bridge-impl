@@ -55,7 +55,6 @@
 			<bridge:bridge-config-factory>com.liferay.faces.bridge.internal.BridgeConfigFactoryImpl</bridge:bridge-config-factory>
 			<bridge:bridge-event-handler-factory>com.liferay.faces.bridge.internal.BridgeEventHandlerFactoryImpl</bridge:bridge-event-handler-factory>
 			<bridge:bridge-flash-factory>com.liferay.faces.bridge.context.flash.internal.BridgeFlashFactoryImpl</bridge:bridge-flash-factory>
-			<bridge:bridge-phase-factory>com.liferay.faces.bridge.internal.BridgePhaseFactoryImpl</bridge:bridge-phase-factory>
 			<bridge:bridge-portlet-config-factory>com.liferay.faces.bridge.filter.internal.BridgePortletConfigFactoryImpl</bridge:bridge-portlet-config-factory>
 			<bridge:bridge-portlet-context-factory>com.liferay.faces.bridge.filter.internal.BridgePortletContextFactoryImpl</bridge:bridge-portlet-context-factory>
 			<bridge:bridge-portlet-request-factory>com.liferay.faces.bridge.filter.internal.BridgePortletRequestFactoryImpl</bridge:bridge-portlet-request-factory>
@@ -67,7 +66,7 @@
 			<bridge:bridge-uri-factory>com.liferay.faces.bridge.internal.BridgeURIFactoryImpl</bridge:bridge-uri-factory>
 			<bridge:bridge-url-factory>com.liferay.faces.bridge.internal.BridgeURLFactoryImpl</bridge:bridge-url-factory>
 			<bridge:context-map-factory>com.liferay.faces.bridge.context.map.internal.ContextMapFactoryImpl</bridge:context-map-factory>
-			<bridge:head-response-writer-factory>com.liferay.faces.bridge.context.internal.HeadResponseWriterFactoryImpl</bridge:head-response-writer-factory>
+			<bridge:head-response-writer-factory>com.liferay.faces.bridge.renderkit.html_basic.internal.HeadResponseWriterFactoryImpl</bridge:head-response-writer-factory>
 			<bridge:incongruity-context-factory>com.liferay.faces.bridge.context.internal.IncongruityContextFactoryImpl</bridge:incongruity-context-factory>
 			<bridge:pre-destroy-invoker-factory>com.liferay.faces.bridge.bean.internal.PreDestroyInvokerFactoryImpl</bridge:pre-destroy-invoker-factory>
 			<bridge:request-attribute-inspector-factory>com.liferay.faces.bridge.scope.internal.RequestAttributeInspectorFactoryImpl</bridge:request-attribute-inspector-factory>
