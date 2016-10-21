@@ -13,32 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.internal;
+package com.liferay.faces.bridge.filter.internal;
 
-import java.io.IOException;
-import java.io.Writer;
-
-import javax.faces.FacesWrapper;
+import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 
 
 /**
- * @author  Neil Griffin
+ * @author  Kyle Stiemann
  */
-public abstract class WriterWrapper extends Writer implements FacesWrapper<Writer> {
-
-	@Override
-	public void close() throws IOException {
-		getWrapped().close();
-	}
-
-	@Override
-	public void flush() throws IOException {
-		getWrapped().flush();
-	}
-
-	@Override
-	public void write(char[] cbuf, int off, int len) throws IOException {
-		getWrapped().write(cbuf, off, len);
-	}
-
+public abstract class BridgePortletRequestFactoryCompatImpl extends BridgePortletRequestFactory {
 }

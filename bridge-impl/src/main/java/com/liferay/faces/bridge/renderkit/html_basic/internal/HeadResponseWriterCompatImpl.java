@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.internal;
+package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import javax.portlet.MimeResponse;
-import javax.portlet.PortletResponse;
+import javax.portlet.RenderResponse;
 
 import org.w3c.dom.Element;
 
@@ -28,39 +29,39 @@ import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
- * Custom {@link ResponseWriter} that has the ability to write to the <head>...</head> section of the portal page via
- * the standard Portlet 2.0 MimeResponse.MARKUP_HEAD_ELEMENT mechanism.
+ * Custom {@link ResponseWriter} that has the ability to write to the &lt;head&gt;...&lt;/head&gt; section of the portal
+ * page.
  *
  * @author  Neil Griffin
  */
-public class HeadResponseWriterImpl extends HeadResponseWriterBase {
+public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 
 	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(HeadResponseWriterImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(HeadResponseWriterCompatImpl.class);
 
 	// Private Data Members
-	private PortletResponse portletResponse;
+	private RenderResponse renderResponse;
 
-	public HeadResponseWriterImpl(ResponseWriter wrappedResponseWriter, PortletResponse portletResponse) {
+	public HeadResponseWriterCompatImpl(ResponseWriter wrappedResponseWriter, RenderResponse renderResponse) {
 		super(wrappedResponseWriter);
-		this.portletResponse = portletResponse;
+		this.renderResponse = renderResponse;
 	}
 
 	@Override
 	public Element createElement(String name) {
-		return portletResponse.createElement(name);
+		return renderResponse.createElement(name);
 	}
 
 	@Override
-	protected void addResourceToHeadSection(Element element, String nodeName) throws IOException {
+	protected void addResourceToHeadSection(Element element, String nodeName, UIComponent componentResource)
+		throws IOException {
 
 		// NOTE: The Portlet 2.0 Javadocs for the addProperty method indicate that if the key already exists,
 		// then the element will be added to any existing elements under that key name. There is a risk that
 		// multiple portlet instances on the same portal page could cause multiple <script /> elements to be
 		// added to the <head>...</head> section of the rendered portal page. See:
-		// http://portals.apache.org/pluto/portlet-2.0-apidocs/javax/portlet/PortletResponse.html#addProperty(java.lang.String,
-		// org.w3c.dom.Element)
-		portletResponse.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, element);
+		// http://portals.apache.org/pluto/portlet-2.0-apidocs/javax/portlet/PortletResponse.html#addProperty(java.lang.String,%20org.w3c.dom.Element)
+		renderResponse.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, element);
 		logger.debug(ADDED_RESOURCE_TO_HEAD, "portal", nodeName);
 	}
 }

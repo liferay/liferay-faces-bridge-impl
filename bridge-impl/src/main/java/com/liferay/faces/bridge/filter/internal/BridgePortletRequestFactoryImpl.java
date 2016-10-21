@@ -36,7 +36,7 @@ import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory implements Serializable {
+public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactoryCompatImpl implements Serializable {
 
 	// serialVersionUID
 	private static final long serialVersionUID = 1165668363125044029L;

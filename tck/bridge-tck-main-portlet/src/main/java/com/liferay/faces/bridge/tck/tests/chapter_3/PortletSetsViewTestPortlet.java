@@ -38,6 +38,7 @@ public class PortletSetsViewTestPortlet extends GenericFacesTestSuitePortlet {
 	private static final String SETSVIEWPATH_TEST = "portletSetsViewPathTest";
 	private static final String SETSINVALIDVIEWPATH_TEST = "portletSetsInvalidViewPathTest";
 
+	@Override
 	public void doDispatch(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
 		IOException {
 

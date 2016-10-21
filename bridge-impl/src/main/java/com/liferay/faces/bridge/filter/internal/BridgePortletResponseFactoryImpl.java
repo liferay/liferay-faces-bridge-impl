@@ -34,7 +34,7 @@ import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFactory implements Serializable {
+public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFactoryCompatImpl implements Serializable {
 
 	// serialVersionUID
 	private static final long serialVersionUID = 8058208620863250054L;
