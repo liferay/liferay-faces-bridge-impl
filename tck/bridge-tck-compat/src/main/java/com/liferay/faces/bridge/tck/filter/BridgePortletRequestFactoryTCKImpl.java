@@ -48,19 +48,19 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 		this.wrappedBridgePortletRequestFactory = bridgePortletRequestFactory;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 		return getWrapped().getActionRequest(actionRequest, actionResponse, portletConfig, bridgeConfig);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public EventRequest getEventRequest(EventRequest eventRequest, EventResponse eventResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 		return getWrapped().getEventRequest(eventRequest, eventResponse, portletConfig, bridgeConfig);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public RenderRequest getRenderRequest(RenderRequest renderRequest, RenderResponse renderResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
@@ -75,7 +75,7 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 		return renderRequest;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
@@ -93,7 +93,7 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 		return resourceRequest;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public BridgePortletRequestFactory getWrapped() {
 		return wrappedBridgePortletRequestFactory;
 	}

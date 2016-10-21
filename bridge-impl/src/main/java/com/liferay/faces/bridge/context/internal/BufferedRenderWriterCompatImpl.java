@@ -18,27 +18,21 @@ package com.liferay.faces.bridge.context.internal;
 import java.io.IOException;
 import java.io.Writer;
 
-import com.liferay.faces.util.helper.Wrapper;
-
 
 /**
  * @author  Neil Griffin
  */
-public abstract class WriterWrapper extends Writer implements Wrapper<Writer> {
+public class BufferedRenderWriterCompatImpl extends BufferedRenderWriterImpl {
 
-	@Override
-	public void close() throws IOException {
-		getWrapped().close();
+	/**
+	 * Renders the buffered response output to the {@link Writer}.
+	 *
+	 * @throws  IOException
+	 */
+	public void render(Writer writer) throws IOException {
+
+		for (OutputOperation outputOperation : outputOperationList) {
+			outputOperation.invoke(writer);
+		}
 	}
-
-	@Override
-	public void flush() throws IOException {
-		getWrapped().flush();
-	}
-
-	@Override
-	public void write(char[] cbuf, int off, int len) throws IOException {
-		getWrapped().write(cbuf, off, len);
-	}
-
 }

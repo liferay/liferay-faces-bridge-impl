@@ -298,8 +298,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 
 				Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
 
-				if ((portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) ||
-						(portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE)) {
+				if (isHeaderOrRenderOrResourcePhase(portletRequestPhase)) {
 
 					// TCK TestPage097: encodeActionURLNonJSFViewRenderTest
 					// TCK TestPage098: encodeActionURLNonJSFViewWithParamRenderTest
