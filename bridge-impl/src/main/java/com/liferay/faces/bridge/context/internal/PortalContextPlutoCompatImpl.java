@@ -15,31 +15,30 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import java.io.Serializable;
+import javax.portlet.PortalContext;
 
-import javax.faces.context.ResponseWriter;
-import javax.portlet.PortletResponse;
-
-import com.liferay.faces.bridge.context.HeadResponseWriterFactory;
+import com.liferay.faces.bridge.context.BridgePortalContext;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class HeadResponseWriterFactoryImpl extends HeadResponseWriterFactory implements Serializable {
+public class PortalContextPlutoCompatImpl extends PortalContextBridgeImpl {
 
-	// serialVersionUID
-	private static final long serialVersionUID = 5571696595791706125L;
-
-	@Override
-	public ResponseWriter getHeadResponseWriter(ResponseWriter responseWriter, PortletResponse portletResponse) {
-		return new HeadResponseWriterImpl(responseWriter, portletResponse);
+	public PortalContextPlutoCompatImpl(PortalContext portalContext) {
+		super(portalContext);
 	}
 
 	@Override
-	public HeadResponseWriterFactory getWrapped() {
+	public String getProperty(String name) {
 
-		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
-		return null;
+		if (BridgePortalContext.STRICT_NAMESPACED_PARAMETERS_SUPPORT.equals(name)) {
+			return Boolean.TRUE.toString();
+		}
+		else {
+			return super.getProperty(name);
+		}
 	}
 }
