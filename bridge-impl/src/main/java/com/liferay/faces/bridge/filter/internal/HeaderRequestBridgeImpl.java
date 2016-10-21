@@ -13,33 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.internal;
+package com.liferay.faces.bridge.filter.internal;
 
+import javax.portlet.HeaderRequest;
 import javax.portlet.PortalContext;
-
-import com.liferay.faces.bridge.context.BridgePortalContext;
+import javax.portlet.filter.HeaderRequestWrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public class PortalContextPlutoImpl extends PortalContextBridgeImpl {
+public class HeaderRequestBridgeImpl extends HeaderRequestWrapper {
 
-	public PortalContextPlutoImpl(PortalContext portalContext) {
-		super(portalContext);
+	// Private Data Members
+	private PortalContext portalContext;
+
+	public HeaderRequestBridgeImpl(HeaderRequest headerRequest, PortalContext portalContext) {
+		super(headerRequest);
+		this.portalContext = portalContext;
 	}
 
 	@Override
-	public String getProperty(String name) {
+	public Object getAttribute(String name) {
+		return RequestAttributeUtil.getAttribute(getRequest(), name);
+	}
 
-		if ((name != null) && name.endsWith("head.support")) {
-			return null;
-		}
-		else if (BridgePortalContext.STRICT_NAMESPACED_PARAMETERS_SUPPORT.equals(name)) {
-			return Boolean.TRUE.toString();
-		}
-		else {
-			return super.getProperty(name);
-		}
+	@Override
+	public PortalContext getPortalContext() {
+		return portalContext;
 	}
 }

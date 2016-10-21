@@ -337,7 +337,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter5_2Tests-renderPhaseListenerTest-portlet</portlet-name>
+		<portlet-name>chapter5_2Tests-headerOrRenderPhaseListenerTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>

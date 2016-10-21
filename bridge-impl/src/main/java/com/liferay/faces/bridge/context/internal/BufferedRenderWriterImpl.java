@@ -22,69 +22,54 @@ import java.util.List;
 
 
 /**
- * This class supports the render-redirect feature by queuing up a list of all write operations. Calling the {@link
- * #render()} method causes the queued operations to be invoked. Conversely, not calling the method will prevent the
- * queued operations from being invoked. This is necessary because in the case of a render-redirect, any markup written
- * to the response in the initially rendered view must be discarded.
+ * This class saves {@link Writer} operations so that they can be executed or discarded at a later time.
  *
  * @author  Neil Griffin
  */
-public class RenderRedirectWriterImpl extends RenderRedirectWriter {
+public abstract class BufferedRenderWriterImpl extends Writer {
 
-	// Private Data Members
-	private Writer wrappedWriter;
-	private List<OutputOperation> outputOperationList;
+	// Protected Data Members
+	protected List<OutputOperation> outputOperationList;
 
-	public RenderRedirectWriterImpl(Writer writer) {
-		this.wrappedWriter = writer;
+	public BufferedRenderWriterImpl() {
 		this.outputOperationList = new ArrayList<OutputOperation>();
 	}
 
 	@Override
 	public void close() throws IOException {
-		outputOperationList.add(new CloseOperation(wrappedWriter));
+		outputOperationList.add(new CloseOperation());
 	}
 
-	@Override
+	/**
+	 * Discards the buffered response output so that it will not be written to the wrapped {@link Writer}.
+	 */
 	public void discard() {
 		this.outputOperationList = new ArrayList<OutputOperation>();
 	}
 
 	@Override
 	public void flush() throws IOException {
-		outputOperationList.add(new FlushOperation(wrappedWriter));
-	}
-
-	public Writer getWrapped() {
-		return wrappedWriter;
-	}
-
-	@Override
-	public void render() throws IOException {
-
-		for (OutputOperation outputOperation : outputOperationList) {
-			outputOperation.invoke();
-		}
+		outputOperationList.add(new FlushOperation());
 	}
 
 	@Override
 	public void write(char[] cbuf) throws IOException {
 
 		if (cbuf != null) {
-			outputOperationList.add(new CbufWriteOperation(wrappedWriter, cbuf));
+			outputOperationList.add(new CbufWriteOperation(cbuf));
 		}
 	}
 
 	@Override
 	public void write(int c) throws IOException {
-		outputOperationList.add(new IntWriteOperation(wrappedWriter, c));
+		outputOperationList.add(new IntWriteOperation(c));
 	}
 
 	@Override
 	public void write(String str) throws IOException {
 
 		if (str != null) {
-			outputOperationList.add(new StrWriteOperation(wrappedWriter, str));
+			outputOperationList.add(new StrWriteOperation(str));
 		}
 	}
 
@@ -92,7 +77,7 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 	public void write(char[] cbuf, int off, int len) throws IOException {
 
 		if (cbuf != null) {
-			outputOperationList.add(new CBufOffLenOutputOperation(wrappedWriter, cbuf, off, len));
+			outputOperationList.add(new CBufOffLenOutputOperation(cbuf, off, len));
 		}
 	}
 
@@ -100,12 +85,12 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 	public void write(String str, int off, int len) throws IOException {
 
 		if (str != null) {
-			outputOperationList.add(new StrOffLenWriteOperation(wrappedWriter, str, off, len));
+			outputOperationList.add(new StrOffLenWriteOperation(str, off, len));
 		}
 	}
 
 	protected interface OutputOperation {
-		void invoke() throws IOException;
+		void invoke(Writer writer) throws IOException;
 	}
 
 	private static class CBufOffLenOutputOperation implements OutputOperation {
@@ -113,16 +98,14 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 		private char[] cbuf;
 		private int off;
 		private int len;
-		private Writer writer;
 
-		public CBufOffLenOutputOperation(Writer writer, char[] cbuf, int off, int len) {
+		public CBufOffLenOutputOperation(char[] cbuf, int off, int len) {
 			this.cbuf = cbuf.clone();
 			this.off = off;
 			this.len = len;
-			this.writer = writer;
 		}
 
-		public void invoke() throws IOException {
+		public void invoke(Writer writer) throws IOException {
 			writer.write(cbuf, off, len);
 		}
 	}
@@ -130,40 +113,32 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 	private static class CbufWriteOperation implements OutputOperation {
 
 		private char[] cbuf;
-		private Writer writer;
 
-		public CbufWriteOperation(Writer writer, char[] cbuf) {
+		public CbufWriteOperation(char[] cbuf) {
 			this.cbuf = cbuf.clone();
-			this.writer = writer;
 		}
 
-		public void invoke() throws IOException {
+		public void invoke(Writer writer) throws IOException {
 			writer.write(cbuf);
 		}
 	}
 
 	private static class CloseOperation implements OutputOperation {
 
-		private Writer writer;
-
-		public CloseOperation(Writer writer) {
-			this.writer = writer;
+		public CloseOperation() {
 		}
 
-		public void invoke() throws IOException {
+		public void invoke(Writer writer) throws IOException {
 			writer.close();
 		}
 	}
 
 	private static class FlushOperation implements OutputOperation {
 
-		private Writer writer;
-
-		public FlushOperation(Writer writer) {
-			this.writer = writer;
+		public FlushOperation() {
 		}
 
-		public void invoke() throws IOException {
+		public void invoke(Writer writer) throws IOException {
 			writer.flush();
 		}
 	}
@@ -171,14 +146,12 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 	private static class IntWriteOperation implements OutputOperation {
 
 		private int c;
-		private Writer writer;
 
-		public IntWriteOperation(Writer writer, int c) {
+		public IntWriteOperation(int c) {
 			this.c = c;
-			this.writer = writer;
 		}
 
-		public void invoke() throws IOException {
+		public void invoke(Writer writer) throws IOException {
 			writer.write(c);
 		}
 	}
@@ -188,16 +161,14 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 		private String str;
 		private int off;
 		private int len;
-		private Writer writer;
 
-		public StrOffLenWriteOperation(Writer writer, String str, int off, int len) {
+		public StrOffLenWriteOperation(String str, int off, int len) {
 			this.str = str;
 			this.off = off;
 			this.len = len;
-			this.writer = writer;
 		}
 
-		public void invoke() throws IOException {
+		public void invoke(Writer writer) throws IOException {
 			writer.write(str, off, len);
 		}
 	}
@@ -205,14 +176,12 @@ public class RenderRedirectWriterImpl extends RenderRedirectWriter {
 	private static class StrWriteOperation implements OutputOperation {
 
 		private String str;
-		private Writer writer;
 
-		public StrWriteOperation(Writer writer, String str) {
+		public StrWriteOperation(String str) {
 			this.str = str;
-			this.writer = writer;
 		}
 
-		public void invoke() throws IOException {
+		public void invoke(Writer writer) throws IOException {
 			writer.write(str);
 		}
 	}

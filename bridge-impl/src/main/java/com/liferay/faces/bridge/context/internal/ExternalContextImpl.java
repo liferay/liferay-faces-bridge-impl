@@ -59,11 +59,12 @@ import javax.portlet.faces.GenericFacesPortlet;
 import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.application.internal.BridgeNavigationUtil;
+import com.liferay.faces.bridge.application.internal.MissingResourceImpl;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderMap;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderValuesMap;
-import com.liferay.faces.bridge.filter.internal.HttpServletResponseRenderAdapter;
+import com.liferay.faces.bridge.filter.internal.HttpServletResponseHeaderAdapter;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseResourceAdapter;
 import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.bridge.internal.BridgeURI;
@@ -674,9 +675,11 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 
 			logger.debug("redirect url=[{0}]", url);
 
-			// If currently executing the ACTION_PHASE, EVENT_PHASE, or RENDER_PHASE of the portlet lifecycle, then
+			// If currently executing the ACTION_PHASE, EVENT_PHASE, HEADER_PHASE, or RENDER_PHASE of the portlet
+			// lifecycle, then
 			if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) ||
 					(portletPhase == Bridge.PortletPhase.EVENT_PHASE) ||
+					(portletPhase == Bridge.PortletPhase.HEADER_PHASE) ||
 					(portletPhase == Bridge.PortletPhase.RENDER_PHASE)) {
 
 				// If the specified URL starts with a "#" character, is external to this application, or has a
@@ -777,8 +780,10 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 							}
 						}
 
-						// Otherwise, if currently executing the RENDER_PHASE of the portlet lifecycle, then
-						else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
+						// Otherwise, if currently executing the HEADER_PHASE or RENDER_PHASE of the portlet
+						// lifecycle, then
+						else if ((portletPhase == Bridge.PortletPhase.HEADER_PHASE) ||
+								(portletPhase == Bridge.PortletPhase.RENDER_PHASE)) {
 
 							// If the specified URL is for a JSF viewId, then prepare for a render-redirect.
 							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url,
@@ -925,18 +930,18 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 			// the response. This typically happens when a JSP view (rather than a Facelets view) is to be rendered and
 			// the Faces runtime is attempting to capture the plain HTML markup that may appear after the closing
 			// </f:view> component tag (a.k.a. "after view markup"). For example, the Mojarra
-			// com.sun.faces.application.view.JspViewHandlingStrategoy will attempt to decorate the response with an
+			// com.sun.faces.application.view.JspViewHandlingStrategy will attempt to decorate the response with an
 			// isntance of com.sun.faces.application.ViewHandlerResponseWrapper. Similarly, the MyFaces
 			// org.apache.myfaces.view.jsp.JspViewDeclarationLanguage class will attempt to decorate the response with
 			// an instance of org.apache.myfaces.application.jsp.ServletViewResponseWrapper.
 			else if (response instanceof HttpServletResponse) {
 
-				// If executing the RENDER_PHASE of the portlet lifecycle, then decorate the specified
+				// If executing the HEADER_PHASE of the portlet lifecycle, then decorate the specified
 				// HttpServletResponse with an adapter that implements RenderRequest.
 				HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
-					portletResponse = new HttpServletResponseRenderAdapter(httpServletResponse,
+				if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+					portletResponse = new HttpServletResponseHeaderAdapter(httpServletResponse,
 							portletResponse.getNamespace());
 				}
 

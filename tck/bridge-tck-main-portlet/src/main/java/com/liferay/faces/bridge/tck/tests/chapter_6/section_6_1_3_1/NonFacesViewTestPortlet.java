@@ -25,14 +25,13 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 
-import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
 /**
  * @author  Michael Freedman
  */
-public class NonFacesViewTestPortlet extends GenericFacesTestSuitePortlet {
+public class NonFacesViewTestPortlet extends NonFacesViewTestCompatPortlet {
 
 	public void doDispatch(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
 		IOException {

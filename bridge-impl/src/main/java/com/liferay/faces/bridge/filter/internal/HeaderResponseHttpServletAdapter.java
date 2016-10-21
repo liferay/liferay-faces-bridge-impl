@@ -15,47 +15,48 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import java.util.Collection;
-
 import javax.portlet.ActionURL;
-import javax.portlet.MimeResponse;
-import javax.portlet.PortletMode;
-import javax.portlet.RenderResponse;
+import javax.portlet.HeaderResponse;
 import javax.portlet.RenderURL;
 import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Provides a way to decorate a {@link RenderResponse} as an {@link HttpServletResponse}. The methods signatures that
+ * Provides a way to decorate a {@link HeaderResponse} as an {@link HttpServletResponse}. The methods signatures that
  * are unique to {@link HttpServletResponse} throw {@link UnsupportedOperationException} since they are never called
  * during the RENDER_RESPONSE phase of the JSF lifecycle (the use-case for which this class was written). For more
  * information, see {@link com.liferay.faces.bridge.application.view.internal.ViewDeclarationLanguageBridgeJspImpl}.
  *
  * @author  Neil Griffin
  */
-public class RenderResponseHttpServletAdapter extends MimeResponseHttpServletAdapter implements RenderResponse {
+public class HeaderResponseHttpServletAdapter extends MimeResponseHttpServletAdapter implements HeaderResponse {
 
-	public RenderResponseHttpServletAdapter(RenderResponse renderResponse) {
-		super(renderResponse);
+	public HeaderResponseHttpServletAdapter(HeaderResponse headerResponse) {
+		super(headerResponse);
+	}
+
+	@Override
+	public void addDependency(String name, String scope, String version) {
+		((HeaderResponse) getResponse()).addDependency(name, scope, version);
+	}
+
+	@Override
+	public void addDependency(String name, String scope, String version, String markup) {
+		((HeaderResponse) getResponse()).addDependency(name, scope, version, markup);
 	}
 
 	@Override
 	public ActionURL createActionURL(Copy option) {
-		return ((RenderResponse) getResponse()).createActionURL();
+		return ((HeaderResponse) getResponse()).createActionURL();
 	}
 
 	@Override
 	public RenderURL createRenderURL(Copy option) {
-		return ((RenderResponse) getResponse()).createRenderURL(option);
-	}
-
-	@Override
-	public void setNextPossiblePortletModes(Collection<? extends PortletMode> portletModes) {
-		((RenderResponse) getResponse()).setNextPossiblePortletModes(portletModes);
+		return ((HeaderResponse) getResponse()).createRenderURL(option);
 	}
 
 	@Override
 	public void setTitle(String title) {
-		((RenderResponse) getResponse()).setTitle(title);
+		((HeaderResponse) getResponse()).setTitle(title);
 	}
 }

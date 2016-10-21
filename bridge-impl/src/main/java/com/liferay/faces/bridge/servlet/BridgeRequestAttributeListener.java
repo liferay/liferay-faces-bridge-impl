@@ -58,7 +58,7 @@ public class BridgeRequestAttributeListener implements ServletRequestAttributeLi
 	@Override
 	public void attributeAdded(ServletRequestAttributeEvent servletRequestAttributeEvent) {
 
-		// NOTE: We only care about phases prior to the RENDER_PHASE because we're concerned here about managed beans
+		// NOTE: We only care about phases prior to the HEADER_PHASE because we're concerned here about managed beans
 		// that get added to the request scope when the BridgeRequestScope begins. We're trying to provide those managed
 		// beans with an opportunity to prepare for an unexpected invocation of their methods annotated with
 		// @PreDestroy.
@@ -66,8 +66,8 @@ public class BridgeRequestAttributeListener implements ServletRequestAttributeLi
 		PortletPhase phase = (PortletPhase) servletRequest.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE);
 
 		// If this is taking place within a PortletRequest handled by the bridge in any phase prior to the
-		// RENDER_PHASE, then
-		if ((phase != null) && (phase != PortletPhase.RENDER_PHASE)) {
+		// HEADER_PHASE, then
+		if ((phase != null) && (phase != PortletPhase.HEADER_PHASE)) {
 
 			// If the attribute being added is not excluded, then invoke all methods on the attribute value (class
 			// instance) that are annotated with the BridgeRequestScopeAttributeAdded annotation.

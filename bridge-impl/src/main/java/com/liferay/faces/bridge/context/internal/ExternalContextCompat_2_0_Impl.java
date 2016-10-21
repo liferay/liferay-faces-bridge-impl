@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.FacesException;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
@@ -40,7 +39,6 @@ import javax.portlet.faces.BridgeURL;
 import javax.servlet.http.Cookie;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
-import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.FileNameUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -68,7 +66,6 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	// Lazy-Initialized Data Members
 	private Boolean iceFacesLegacyMode;
 	private String portletContextName;
-	private Boolean renderRedirectEnabled;
 	private Writer responseOutputWriter;
 
 	// Protected Data Members
@@ -339,23 +336,12 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 
 			if (responseOutputWriter == null) {
 
-				MimeResponse mimeResponse = (MimeResponse) portletResponse;
-
-				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
-
-					if (renderRedirectEnabled == null) {
-						renderRedirectEnabled = PortletConfigParam.RenderRedirectEnabled.getBooleanValue(portletConfig);
-					}
-
-					if (renderRedirectEnabled) {
-						responseOutputWriter = new RenderRedirectWriterImpl(mimeResponse.getWriter());
-					}
-					else {
-						responseOutputWriter = mimeResponse.getWriter();
-					}
-
+				if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+					responseOutputWriter = new BufferedRenderWriterCompatImpl();
 				}
 				else {
+
+					MimeResponse mimeResponse = (MimeResponse) portletResponse;
 					responseOutputWriter = mimeResponse.getWriter();
 				}
 

@@ -21,15 +21,15 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewDeclarationLanguage;
+import javax.portlet.HeaderRequest;
+import javax.portlet.HeaderResponse;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
-import com.liferay.faces.bridge.filter.internal.RenderRequestHttpServletAdapter;
-import com.liferay.faces.bridge.filter.internal.RenderResponseHttpServletAdapter;
+import com.liferay.faces.bridge.filter.internal.HeaderRequestHttpServletAdapter;
+import com.liferay.faces.bridge.filter.internal.HeaderResponseHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.ResourceRequestHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.ResourceResponseHttpServletAdapter;
 import com.liferay.faces.util.product.Product;
@@ -63,10 +63,10 @@ public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguag
 		// adapter that implements HttpServletRequest.
 		if (MYFACES_DETECTED) {
 
-			if (portletRequest instanceof RenderRequest) {
+			if (portletRequest instanceof HeaderRequest) {
 
 				String requestCharacterEncoding = externalContext.getRequestCharacterEncoding();
-				externalContext.setRequest(new RenderRequestHttpServletAdapter((RenderRequest) portletRequest,
+				externalContext.setRequest(new HeaderRequestHttpServletAdapter((HeaderRequest) portletRequest,
 						requestCharacterEncoding));
 			}
 			else if (portletRequest instanceof ResourceRequest) {
@@ -78,8 +78,8 @@ public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguag
 		// PortletResponse with an adapter that implements HttpServletResponse.
 		if (MOJARRA_DETECTED || MYFACES_DETECTED) {
 
-			if (portletResponse instanceof RenderResponse) {
-				externalContext.setResponse(new RenderResponseHttpServletAdapter((RenderResponse) portletResponse));
+			if (portletResponse instanceof HeaderResponse) {
+				externalContext.setResponse(new HeaderResponseHttpServletAdapter((HeaderResponse) portletResponse));
 			}
 			else if (portletResponse instanceof ResourceResponse) {
 				externalContext.setResponse(new ResourceResponseHttpServletAdapter((ResourceResponse) portletResponse));

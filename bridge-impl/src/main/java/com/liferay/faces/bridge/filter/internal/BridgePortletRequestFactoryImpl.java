@@ -31,13 +31,13 @@ import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.filter.BridgePortletRequestFactory;
 
 import com.liferay.faces.bridge.context.internal.PortalContextBridgeImpl;
-import com.liferay.faces.bridge.context.internal.PortalContextPlutoImpl;
+import com.liferay.faces.bridge.context.internal.PortalContextPlutoCompatImpl;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory implements Serializable {
+public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactoryCompatImpl implements Serializable {
 
 	// serialVersionUID
 	private static final long serialVersionUID = 1165668363125044029L;
@@ -67,7 +67,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 		PortalContext portalContext;
 
 		if (PortletContainerDetector.isPlutoPortletResponse(renderResponse)) {
-			portalContext = new PortalContextPlutoImpl(renderRequest.getPortalContext());
+			portalContext = new PortalContextPlutoCompatImpl(renderRequest.getPortalContext());
 		}
 		else {
 			portalContext = new PortalContextBridgeImpl(renderRequest.getPortalContext());
@@ -83,7 +83,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 		PortalContext portalContext;
 
 		if (PortletContainerDetector.isPlutoPortletResponse(resourceResponse)) {
-			portalContext = new PortalContextPlutoImpl(resourceRequest.getPortalContext());
+			portalContext = new PortalContextPlutoCompatImpl(resourceRequest.getPortalContext());
 		}
 		else {
 			portalContext = new PortalContextBridgeImpl(resourceRequest.getPortalContext());
