@@ -134,7 +134,7 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 				}
 
 				// Save the faces view root and any messages in the faces context so that they can be restored during
-				// the RENDER_PHASE of the portlet lifecycle.
+				// the HEADER_PHASE of the portlet lifecycle.
 				bridgeRequestScope.saveState(facesContext);
 
 				// Assume that the bridge request scope should be maintained from the EVENT_PHASE into the

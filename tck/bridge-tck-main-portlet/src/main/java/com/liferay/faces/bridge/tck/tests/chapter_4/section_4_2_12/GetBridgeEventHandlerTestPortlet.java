@@ -24,7 +24,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.faces.BridgeEventHandler;
 
-import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
+import com.liferay.faces.bridge.tck.common.portlet.NoRenderHeadersCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
@@ -34,7 +34,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
  * corresponding to the value of the portlet initialization parameter javax.portlet.faces.bridgeEventHandler or null if
  * this parameter doesn't exist.
  */
-public class GetBridgeEventHandlerTestPortlet extends GenericFacesTestSuitePortlet {
+public class GetBridgeEventHandlerTestPortlet extends NoRenderHeadersCompatPortlet {
 
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";

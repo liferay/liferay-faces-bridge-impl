@@ -23,7 +23,7 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
+import com.liferay.faces.bridge.tck.common.portlet.NoRenderHeadersCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
@@ -33,7 +33,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
  * javax.portlet.faces.excludedRequestAttributes and value one or more comma separated strings. This test confirms that
  * the method returns a list of string values based on parsing the initialisation parameter value.
  */
-public class GetExcludedRequestAttributesMethodTestPortlet extends GenericFacesTestSuitePortlet {
+public class GetExcludedRequestAttributesMethodTestPortlet extends NoRenderHeadersCompatPortlet {
 
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";

@@ -153,7 +153,7 @@ public abstract class BridgeURLBase implements BridgeURL {
 					// Otherwise, if the context relative path is indeed available, then
 					else {
 
-						// TCK TestPage059 (renderPhaseListenerTest)
+						// TCK TestPage059 (headerOrRenderPhaseListenerTest)
 						// TCK TestPage095 (encodeActionURLWithWindowStateActionTest)
 						// TCK TestPage097 (encodeActionURLNonJSFViewRenderTest)
 						// TCK TestPage098 (encodeActionURLNonJSFViewWithParamRenderTest)
@@ -457,7 +457,8 @@ public abstract class BridgeURLBase implements BridgeURL {
 
 		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
-		if ((portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) ||
+		if ((portletRequestPhase == Bridge.PortletPhase.HEADER_PHASE) ||
+				(portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) ||
 				(portletRequestPhase == Bridge.PortletPhase.RESOURCE_PHASE)) {
 
 			try {
