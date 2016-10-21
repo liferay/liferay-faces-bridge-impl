@@ -27,7 +27,7 @@ import javax.portlet.PortletResponse;
 import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.context.internal.RenderRedirectWriterImpl;
+import com.liferay.faces.bridge.context.internal.BufferedRenderWriterCompatImpl;
 
 
 /**
@@ -72,7 +72,7 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 				boolean renderRedirectEnabled = PortletConfigParam.RenderRedirectEnabled.getBooleanValue(portletConfig);
 
 				if (renderRedirectEnabled) {
-					responseOutputWriter = new RenderRedirectWriterImpl(mimeResponse.getWriter());
+					responseOutputWriter = new BufferedRenderWriterCompatImpl(mimeResponse.getWriter());
 				}
 				else {
 					responseOutputWriter = mimeResponse.getWriter();

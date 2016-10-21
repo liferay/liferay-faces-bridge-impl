@@ -13,23 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.test.showcase.portlet;
+package com.liferay.faces.bridge.tck.tests.chapter_4;
 
-import org.junit.Assume;
-import org.junit.Test;
-
-import com.liferay.faces.test.showcase.TesterBase;
+import javax.portlet.faces.GenericFacesPortlet;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class PortletActionURLGeneralTester extends TesterBase {
-
-	@Test
-	public void runPortletActionURLGeneralTest() {
-
-		// TODO
-		Assume.assumeTrue(false);
-	}
+public class BridgeClassDefaultTestCompatPortlet extends GenericFacesPortlet {
 }

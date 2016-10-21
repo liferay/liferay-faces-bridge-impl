@@ -17,12 +17,14 @@ package com.liferay.faces.bridge.el.internal;
 
 import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import javax.el.ELContext;
 import javax.el.ELException;
-import javax.el.ELResolver;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletConfig;
@@ -49,6 +51,7 @@ import com.liferay.faces.bridge.util.internal.RequestMapUtil;
  */
 public class ELResolverImpl extends ELResolverCompatImpl {
 
+	// Private Constants
 	private static final String ACTION_REQUEST = "actionRequest";
 	private static final String ACTION_RESPONSE = "actionResponse";
 	private static final String BRIDGE_CONFIG = "bridgeConfig";
@@ -67,66 +70,60 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 	private static final String RENDER_RESPONSE = "renderResponse";
 	private static final String RESOURCE_REQUEST = "resourceRequest";
 	private static final String RESOURCE_RESPONSE = "resourceResponse";
-	private static final ArrayList<FeatureDescriptor> FEATURE_DESCRIPTORS = new ArrayList<FeatureDescriptor>();
-	private static final HashSet<String> FACES_CONTEXT_VAR_NAMES = new HashSet<String>();
-	private static final HashSet<String> JSP_CONTEXT_VAR_NAMES = new HashSet<String>();
+	private static final List<FeatureDescriptor> FEATURE_DESCRIPTORS;
+	private static final Set<String> FACES_CONTEXT_VAR_NAMES;
+	private static final Set<String> JSP_CONTEXT_VAR_NAMES;
 
 	static {
 
 		// Initialize hash set of supported EL variable names when running in a Faces context.
-		FACES_CONTEXT_VAR_NAMES.add(ACTION_REQUEST);
-		FACES_CONTEXT_VAR_NAMES.add(ACTION_RESPONSE);
-		FACES_CONTEXT_VAR_NAMES.add(BRIDGE_CONTEXT);
-		FACES_CONTEXT_VAR_NAMES.add(EVENT_REQUEST);
-		FACES_CONTEXT_VAR_NAMES.add(EVENT_RESPONSE);
-		FACES_CONTEXT_VAR_NAMES.add(FLASH);
-		FACES_CONTEXT_VAR_NAMES.add(HTTP_SESSION_SCOPE);
-		FACES_CONTEXT_VAR_NAMES.add(MUTABLE_PORTLET_PREFERENCES_VALUES);
-		FACES_CONTEXT_VAR_NAMES.add(PORTLET_CONFIG);
-		FACES_CONTEXT_VAR_NAMES.add(PORTLET_SESSION);
-		FACES_CONTEXT_VAR_NAMES.add(PORTLET_SESSION_SCOPE);
-		FACES_CONTEXT_VAR_NAMES.add(PORTLET_PREFERENCES);
-		FACES_CONTEXT_VAR_NAMES.add(PORTLET_PREFERENCES_VALUES);
-		FACES_CONTEXT_VAR_NAMES.add(RENDER_REQUEST);
-		FACES_CONTEXT_VAR_NAMES.add(RENDER_RESPONSE);
-		FACES_CONTEXT_VAR_NAMES.add(RESOURCE_REQUEST);
-		FACES_CONTEXT_VAR_NAMES.add(RESOURCE_RESPONSE);
+		Set<String> facesContextVarNames = new HashSet<String>();
+		facesContextVarNames.add(ACTION_REQUEST);
+		facesContextVarNames.add(ACTION_RESPONSE);
+		facesContextVarNames.add(BRIDGE_CONTEXT);
+		facesContextVarNames.add(EVENT_REQUEST);
+		facesContextVarNames.add(EVENT_RESPONSE);
+		facesContextVarNames.add(FLASH);
+		facesContextVarNames.add(HTTP_SESSION_SCOPE);
+		facesContextVarNames.add(MUTABLE_PORTLET_PREFERENCES_VALUES);
+		facesContextVarNames.add(PORTLET_CONFIG);
+		facesContextVarNames.add(PORTLET_SESSION);
+		facesContextVarNames.add(PORTLET_SESSION_SCOPE);
+		facesContextVarNames.add(PORTLET_PREFERENCES);
+		facesContextVarNames.add(PORTLET_PREFERENCES_VALUES);
+		facesContextVarNames.add(RENDER_REQUEST);
+		facesContextVarNames.add(RENDER_RESPONSE);
+		facesContextVarNames.add(RESOURCE_REQUEST);
+		facesContextVarNames.add(RESOURCE_RESPONSE);
+		FACES_CONTEXT_VAR_NAMES = Collections.unmodifiableSet(facesContextVarNames);
 
 		// Initialize hash set of supported EL variable names when running in a JSP context.
-		JSP_CONTEXT_VAR_NAMES.add(HTTP_SESSION_SCOPE);
-		JSP_CONTEXT_VAR_NAMES.add(MUTABLE_PORTLET_PREFERENCES_VALUES);
+		Set<String> jspContextVarName = new HashSet<String>();
+		jspContextVarName.add(HTTP_SESSION_SCOPE);
+		jspContextVarName.add(MUTABLE_PORTLET_PREFERENCES_VALUES);
+		JSP_CONTEXT_VAR_NAMES = Collections.unmodifiableSet(jspContextVarName);
 
 		// Initialize the list of static feature descriptors.
-		addFeatureDescriptor(ACTION_REQUEST, String.class);
-		addFeatureDescriptor(ACTION_RESPONSE, String.class);
-		addFeatureDescriptor(BRIDGE_CONTEXT, String.class);
-		addFeatureDescriptor(EVENT_REQUEST, String.class);
-		addFeatureDescriptor(EVENT_RESPONSE, String.class);
-		addFeatureDescriptor(FLASH, String.class);
-		addFeatureDescriptor(HTTP_SESSION_SCOPE, String.class);
-		addFeatureDescriptor(MUTABLE_PORTLET_PREFERENCES_VALUES, String.class);
-		addFeatureDescriptor(PORTLET_CONFIG, String.class);
-		addFeatureDescriptor(PORTLET_SESSION, String.class);
-		addFeatureDescriptor(PORTLET_SESSION_SCOPE, String.class);
-		addFeatureDescriptor(PORTLET_PREFERENCES, String.class);
-		addFeatureDescriptor(PORTLET_PREFERENCES_VALUES, String.class);
-		addFeatureDescriptor(RENDER_REQUEST, String.class);
-		addFeatureDescriptor(RENDER_RESPONSE, String.class);
-		addFeatureDescriptor(RESOURCE_REQUEST, String.class);
-		addFeatureDescriptor(RESOURCE_RESPONSE, String.class);
-	}
-
-	protected static void addFeatureDescriptor(String featureName, Class<?> classType) {
-		FeatureDescriptor featureDescriptor = new FeatureDescriptor();
-		featureDescriptor.setName(featureName);
-		featureDescriptor.setDisplayName(featureName);
-		featureDescriptor.setShortDescription(featureName);
-		featureDescriptor.setExpert(false);
-		featureDescriptor.setHidden(false);
-		featureDescriptor.setPreferred(true);
-		featureDescriptor.setValue(ELResolver.TYPE, classType);
-		featureDescriptor.setValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME, true);
-		FEATURE_DESCRIPTORS.add(featureDescriptor);
+		List<FeatureDescriptor> featureDescriptors = new ArrayList<FeatureDescriptor>();
+		featureDescriptors.add(getFeatureDescriptor(ACTION_REQUEST, String.class));
+		featureDescriptors.add(getFeatureDescriptor(ACTION_RESPONSE, String.class));
+		featureDescriptors.add(getFeatureDescriptor(BRIDGE_CONTEXT, String.class));
+		featureDescriptors.add(getFeatureDescriptor(EVENT_REQUEST, String.class));
+		featureDescriptors.add(getFeatureDescriptor(EVENT_RESPONSE, String.class));
+		featureDescriptors.add(getFeatureDescriptor(FLASH, String.class));
+		featureDescriptors.add(getFeatureDescriptor(HTTP_SESSION_SCOPE, String.class));
+		featureDescriptors.add(getFeatureDescriptor(MUTABLE_PORTLET_PREFERENCES_VALUES, String.class));
+		featureDescriptors.add(getFeatureDescriptor(PORTLET_CONFIG, String.class));
+		featureDescriptors.add(getFeatureDescriptor(PORTLET_SESSION, String.class));
+		featureDescriptors.add(getFeatureDescriptor(PORTLET_SESSION_SCOPE, String.class));
+		featureDescriptors.add(getFeatureDescriptor(PORTLET_PREFERENCES, String.class));
+		featureDescriptors.add(getFeatureDescriptor(PORTLET_PREFERENCES_VALUES, String.class));
+		featureDescriptors.add(getFeatureDescriptor(RENDER_REQUEST, String.class));
+		featureDescriptors.add(getFeatureDescriptor(RENDER_RESPONSE, String.class));
+		featureDescriptors.add(getFeatureDescriptor(RESOURCE_REQUEST, String.class));
+		featureDescriptors.add(getFeatureDescriptor(RESOURCE_RESPONSE, String.class));
+		featureDescriptors.addAll(FEATURE_DESCRIPTORS_COMPAT);
+		FEATURE_DESCRIPTORS = Collections.unmodifiableList(featureDescriptors);
 	}
 
 	@Override
@@ -198,6 +195,7 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		}
 	}
 
+	@Override
 	protected PortletRequest getPortletRequest(FacesContext facesContext) {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -211,6 +209,7 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		}
 	}
 
+	@Override
 	protected PortletResponse getPortletResponse(FacesContext facesContext) {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -224,6 +223,11 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		}
 	}
 
+	@Override
+	protected boolean isFacesContextVar(String varName) {
+		return FACES_CONTEXT_VAR_NAMES.contains(varName) || super.isFacesContextVar(varName);
+	}
+
 	protected Object resolveFacesContext(ELContext elContext, Object base, Object property) {
 
 		Object value = null;
@@ -233,7 +237,7 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 			if (property instanceof String) {
 				String varName = (String) property;
 
-				if (FACES_CONTEXT_VAR_NAMES.contains(varName)) {
+				if (isFacesContextVar(varName)) {
 					value = resolveVariable(elContext, varName);
 				}
 			}
@@ -286,6 +290,7 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		return null;
 	}
 
+	@Override
 	protected Object resolveVariable(ELContext elContext, String varName) {
 		Object value = null;
 
@@ -453,6 +458,9 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				else {
 					throw new ELException("Unable to get renderResponse during " + portletPhase);
 				}
+			}
+			else {
+				value = super.resolveVariable(elContext, varName);
 			}
 		}
 
