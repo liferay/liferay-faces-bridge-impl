@@ -49,6 +49,38 @@ public class PrimeFacesApplicantPortletTester extends BridgeApplicantPortletTest
 	}
 
 	@Override
+	protected void selectDate(Browser browser) {
+
+		String datePickerTriggerXpath = "//button[contains(@class, 'ui-datepicker-trigger')]";
+		browser.centerElementInView(datePickerTriggerXpath);
+		browser.click(datePickerTriggerXpath);
+
+		String dateElement = "//table[contains(@class, 'ui-datepicker-calendar')]//a[contains(text(), '14')]";
+		browser.waitForElementVisible(dateElement);
+		browser.click(dateElement);
+	}
+
+	@Override
+	protected void selectProvince(Browser browser) {
+		selectProvinceOption(browser, "3");
+	}
+
+	@Override
+	protected void submitFile(Browser browser) {
+
+		super.submitFile(browser);
+		browser.waitForElementNotPresent("//table[contains(@class, 'ui-fileupload-files')]/tbody/tr");
+	}
+
+	private void selectProvinceOption(Browser browser, String optionValue) {
+
+		// p:selectOneMenu becomes invisible to selenium after interacting with it once, so use JavaScript to set the
+		// value.
+		WebElement provinceIdField = browser.findElementByXpath(SELECT_PROVINCE_ID_XPATH);
+		browser.executeScript("arguments[0].value=" + optionValue, provinceIdField);
+	}
+
+	@Override
 	protected String getExtraLibraryName() {
 		return "PrimeFaces";
 	}
@@ -90,35 +122,5 @@ public class PrimeFacesApplicantPortletTester extends BridgeApplicantPortletTest
 	@Override
 	protected String getUploadedFileXpath() {
 		return "//tbody[contains(@id, ':uploadedFilesTable')]/tr/td[2]";
-	}
-
-	@Override
-	protected void selectDate(Browser browser) {
-
-		browser.click("//button[contains(@class, 'ui-datepicker-trigger')]");
-
-		String dateElement = "//table[contains(@class, 'ui-datepicker-calendar')]//a[contains(text(), '14')]";
-		browser.waitForElementVisible(dateElement);
-		browser.click(dateElement);
-	}
-
-	@Override
-	protected void selectProvince(Browser browser) {
-		selectProvinceOption(browser, "3");
-	}
-
-	@Override
-	protected void submitFile(Browser browser) {
-
-		super.submitFile(browser);
-		browser.waitForElementNotPresent("//table[contains(@class, 'ui-fileupload-files')]/tbody/tr");
-	}
-
-	private void selectProvinceOption(Browser browser, String optionValue) {
-
-		// p:selectOneMenu becomes invisible to selenium after interacting with it once, so use JavaScript to set the
-		// value.
-		WebElement provinceIdField = browser.findElementByXpath(SELECT_PROVINCE_ID_XPATH);
-		browser.executeScript("arguments[0].value=" + optionValue, provinceIdField);
 	}
 }
