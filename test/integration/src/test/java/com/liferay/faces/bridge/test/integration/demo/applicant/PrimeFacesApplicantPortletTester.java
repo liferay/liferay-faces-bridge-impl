@@ -95,7 +95,9 @@ public class PrimeFacesApplicantPortletTester extends BridgeApplicantPortletTest
 	@Override
 	protected void selectDate(Browser browser) {
 
-		browser.click("//button[contains(@class, 'ui-datepicker-trigger')]");
+		String datePickerTriggerXpath = "//button[contains(@class, 'ui-datepicker-trigger')]";
+		browser.centerElementInView(datePickerTriggerXpath);
+		browser.click(datePickerTriggerXpath);
 
 		String dateElement = "//table[contains(@class, 'ui-datepicker-calendar')]//a[contains(text(), '14')]";
 		browser.waitForElementVisible(dateElement);
