@@ -193,9 +193,7 @@ public class ResourceImpl extends ResourceWrapper implements Serializable {
 			}
 		}
 
-		// In order to have Mojarra's ScriptRenderer and StylesheetRenderer function properly, this method first encodes
-		// the URL returned by the wrapped resource.
-		return facesContext.getExternalContext().encodeResourceURL(wrappedRequestPath);
+		return wrappedRequestPath;
 	}
 
 	/**
