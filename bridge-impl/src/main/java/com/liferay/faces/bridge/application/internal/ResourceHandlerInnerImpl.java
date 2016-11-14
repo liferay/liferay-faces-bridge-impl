@@ -21,7 +21,6 @@ import java.util.Map;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.util.application.ResourceValidator;

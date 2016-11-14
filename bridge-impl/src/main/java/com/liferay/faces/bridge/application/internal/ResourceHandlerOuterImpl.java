@@ -19,27 +19,18 @@ import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceHandlerWrapper;
 
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
-
 
 /**
  * Unlike the {@link ResourceHandlerInnerImpl} class, this class is designed to be the outermost {@link ResourceHandler}
  * in the chain-of-responsibility. In order to achieve this outermost status, this class does not appear in the bridge's
- * faces-config.xml descriptor. Rather, it is created by the {@link ApplicationImpl#getResourceHandler()} method. If
- * necessary, it wraps resources with {@link ResourceHandlerWrapper} instances that override the {@link
- * Resource#getRequestPath()} method. This provides the bridge with the opportunity to have the final authority
- * regarding the format of resource URLs created by ResourceHandlers like the ones provided by ICEfaces, PrimeFaces, and
- * RichFaces.
+ * faces-config.xml descriptor. Rather, it is created by the {@link ApplicationCompatImpl#getResourceHandler()} method.
+ * It wraps resources with {@link Resource} instances that override the {@link Resource#getRequestPath()} method. This
+ * provides the bridge with the opportunity to have the final authority regarding the format of resource URLs created by
+ * ResourceHandlers like the ones provided by ICEfaces, PrimeFaces, and RichFaces.
  *
  * @author  Neil Griffin
  */
 public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
-
-	// Private Constants
-	private static final String ORG_RICHFACES_RESOURCE = "org.richfaces.resource";
-	private static final boolean RICHFACES_DETECTED = ProductFactory.getProduct(Product.Name.RICHFACES).isDetected();
-	private static final String RICHFACES_STATIC_RESOURCE = "org.richfaces.staticResource";
 
 	// Private Data Members
 	private ResourceHandler wrappedResourceHandler;
@@ -52,7 +43,7 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 	public Resource createResource(String resourceName) {
 
 		Resource resource = super.createResource(resourceName);
-		resource = createResource(resourceName, resource);
+		resource = createResource(resource);
 
 		return resource;
 	}
@@ -61,7 +52,7 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 	public Resource createResource(String resourceName, String libraryName) {
 
 		Resource resource = super.createResource(resourceName, libraryName);
-		resource = createResource(resourceName, resource);
+		resource = createResource(resource);
 
 		return resource;
 	}
@@ -70,7 +61,7 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 	public Resource createResource(String resourceName, String libraryName, String contentType) {
 
 		Resource resource = super.createResource(resourceName, libraryName, contentType);
-		resource = createResource(resourceName, resource);
+		resource = createResource(resource);
 
 		return resource;
 	}
@@ -80,25 +71,7 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 		return wrappedResourceHandler;
 	}
 
-	private Resource createResource(String resourceName, Resource resource) {
-
-		if ((resource != null) && RICHFACES_DETECTED) {
-
-			// If this is a RichFaces static css resource, then return a filtered Richfaces static CSS resource.
-			if (resourceName.startsWith(RICHFACES_STATIC_RESOURCE) && resourceName.endsWith(".css")) {
-				resource = new ResourceRichFacesCSSImpl(resource);
-			}
-
-			// If this is a RichFaces static packed.js resource, then return a filtered Richfaces static packed.js
-			// resource.
-			else if (resourceName.startsWith(RICHFACES_STATIC_RESOURCE) && resourceName.endsWith("packed.js")) {
-				resource = new ResourceRichFacesPackedJSImpl(resource);
-			}
-			else if (resource.getClass().getName().startsWith(ORG_RICHFACES_RESOURCE)) {
-				resource = new ResourceRichFacesImpl(resource);
-			}
-		}
-
-		return resource;
+	private Resource createResource(Resource resource) {
+		return new ResourceOuterImpl(resource);
 	}
 }
