@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.faces.application.Application;
+import javax.faces.application.ResourceHandler;
 import javax.faces.application.ViewHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -36,7 +37,6 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeUtil;
 
-import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -160,6 +160,8 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// If the URL is opaque, meaning it starts with something like "portlet:" or "mailto:" and
 		// doesn't have the double-forward-slash like "http://" does, then
 		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Application application = facesContext.getApplication();
+		ResourceHandler resourceHandler = application.getResourceHandler();
 
 		if (bridgeURI.isOpaque()) {
 
@@ -229,20 +231,18 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			}
 		}
 
-		// Otherwise, if the URL is identified by the ResourceHandler as a JSF2 resource URL, then
-		else if ((uri != null) && (uri.contains("javax.faces.resource"))) {
+		// Otherwise, if the URL is identified by the ResourceHandler as a JSF2 portlet resource URL, then return the
+		// URI unmodified.
+		else if (resourceHandler.isResourceURL(uri)) {
 
-			// If the URL has already been encoded, then return the URI unmodified.
-			if (PortletResourceUtil.isPortletResourceURL(uri)) {
+			// FACES-63: Prevent double-encoding of resource URLs
+			baseURL = new BaseURLNonEncodedImpl(bridgeURI);
+		}
 
-				// FACES-63: Prevent double-encoding of resource URLs
-				baseURL = new BaseURLNonEncodedImpl(bridgeURI);
-			}
-
-			// Otherwise, return a ResourceURL that can retrieve the JSF2 resource.
-			else {
-				baseURL = createResourceURL(facesContext, bridgeURI.getParameterMap());
-			}
+		// Otherwise, if the URL is not a JSF2 resource URL, but still contains the "javax.faces.resource" resource
+		// URL identifier, then return a ResourceURL that can retrieve the JSF2 resource.
+		else if ((uri != null) && uri.contains("javax.faces.resource")) {
+			baseURL = createResourceURL(facesContext, bridgeURI.getParameterMap());
 		}
 
 		// Otherwise, if the URL is external, then return an encoded BaseURL string representation of the URL.

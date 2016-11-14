@@ -15,18 +15,20 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import javax.faces.application.ResourceHandlerWrapper;
-
-import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
- * This class provides a compatibility layer that isolates differences between JSF1 and JSF2.
+ * This class provides a compatibility layer that isolates differences between Pluto 2.0 and Pluto 3.0.
  */
-public abstract class ResourceHandlerBridgeCompatImpl extends ResourceHandlerWrapper {
+public abstract class ResourceHandlerBridgeCompatPluto_3_0_Impl extends ResourceHandlerBridgeCompat_2_0_Impl {
+
+	// Private Constants
+	private static final boolean PLUTO_DETECTED = ProductFactory.getProduct(Product.Name.PLUTO).isDetected();
 
 	@Override
 	public boolean isResourceURL(String url) {
-		return PortletResourceUtil.isPortletResourceURL(url);
+		return (PLUTO_DETECTED && url.contains("javax.faces.resource:")) || super.isResourceURL(url);
 	}
 }
