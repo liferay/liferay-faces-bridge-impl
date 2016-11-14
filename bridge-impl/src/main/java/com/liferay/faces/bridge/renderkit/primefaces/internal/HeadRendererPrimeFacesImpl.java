@@ -32,7 +32,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
-import javax.portlet.PortletResponse;
 
 import com.liferay.faces.bridge.component.internal.ResourceComponent;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.HeadRendererBridgeImpl;
@@ -124,10 +123,8 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 		if (externalResourceURLs.size() > 0) {
 
 			ExternalContext externalContext = facesContext.getExternalContext();
-			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
-			String namespace = portletResponse.getNamespace();
-			String resourceNameParam = namespace + "javax.faces.resource";
-			String libraryNameParam = namespace + "ln";
+			String resourceNameParam = externalContext.encodeNamespace("javax.faces.resource");
+			String libraryNameParam = externalContext.encodeNamespace("ln");
 
 			for (String externalResourceURL : externalResourceURLs) {
 
@@ -142,11 +139,37 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 
 					String[] resourceNameParamValues = parsedParameterMapValuesArray.get(resourceNameParam);
 
+					if ((resourceNameParamValues == null) || (resourceNameParamValues.length < 1)) {
+						resourceNameParamValues = parsedParameterMapValuesArray.get("javax.faces.resource");
+					}
+
 					if ((resourceNameParamValues != null) && (resourceNameParamValues.length > 0)) {
 						resourceName = resourceNameParamValues[0];
 					}
 
+					if (resourceName == null) {
+
+						int indexOfResource = decodedExternalResourceURL.indexOf("javax.faces.resource/");
+						int indexOfQuery = decodedExternalResourceURL.indexOf("?");
+
+						if (indexOfResource > -1) {
+
+							int indexOfResourceName = indexOfResource + "javax.faces.resource/".length();
+
+							if (indexOfQuery > -1) {
+								resourceName = decodedExternalResourceURL.substring(indexOfResourceName, indexOfQuery);
+							}
+							else {
+								resourceName = decodedExternalResourceURL.substring(indexOfResourceName);
+							}
+						}
+					}
+
 					String[] libraryNameParamValues = parsedParameterMapValuesArray.get(libraryNameParam);
+
+					if ((libraryNameParamValues == null) || (libraryNameParamValues.length < 1)) {
+						libraryNameParamValues = parsedParameterMapValuesArray.get("ln");
+					}
 
 					if ((libraryNameParamValues != null) && (libraryNameParamValues.length > 0)) {
 						libraryName = libraryNameParamValues[0];
@@ -161,7 +184,7 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 							libraryName.startsWith(PRIMEFACES_THEME_PREFIX)) {
 
 						ResourceComponent primefacesThemeResource = new ResourceComponent(facesContext, resourceName,
-								libraryName, namespace);
+								libraryName, externalContext.encodeNamespace(""));
 						Map<Object, Object> facesContextAttributes = facesContext.getAttributes();
 						facesContextAttributes.put("primefacesTheme", primefacesThemeResource);
 					}

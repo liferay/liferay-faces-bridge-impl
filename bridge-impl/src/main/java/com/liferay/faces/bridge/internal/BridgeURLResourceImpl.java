@@ -36,7 +36,7 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
+import com.liferay.faces.bridge.util.internal.PortletResourceUtilCompat;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -229,20 +229,17 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			}
 		}
 
-		// Otherwise, if the URL is identified by the ResourceHandler as a JSF2 resource URL, then
-		else if ((uri != null) && (uri.contains("javax.faces.resource"))) {
+		// Otherwise, if the URL is a JSF2 portlet resource URL, then
+		else if (PortletResourceUtilCompat.isPortletResourceURL(uri)) {
 
-			// If the URL has already been encoded, then return the URI unmodified.
-			if (PortletResourceUtil.isPortletResourceURL(uri)) {
+			// FACES-63 Return the URI unmodified to prevent double-encoding of resource URLs.
+			baseURL = new BaseURLNonEncodedImpl(bridgeURI);
+		}
 
-				// FACES-63: Prevent double-encoding of resource URLs
-				baseURL = new BaseURLNonEncodedImpl(bridgeURI);
-			}
-
-			// Otherwise, return a ResourceURL that can retrieve the JSF2 resource.
-			else {
-				baseURL = createResourceURL(facesContext, bridgeURI.getParameterMap());
-			}
+		// Otherwise, if the URL is not a JSF2 portlet resource URL, but still contains the "javax.faces.resource"
+		// resource URL identifier, then return a ResourceURL that can retrieve the JSF2 resource.
+		else if ((uri != null) && uri.contains("javax.faces.resource")) {
+			baseURL = createResourceURL(facesContext, bridgeURI.getParameterMap());
 		}
 
 		// Otherwise, if the URL is external, then return an encoded BaseURL string representation of the URL.
