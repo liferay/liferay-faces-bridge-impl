@@ -31,7 +31,7 @@ import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.internal.BridgeExt;
-import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
+import com.liferay.faces.bridge.util.internal.PortletResourceUtilCompat;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
 
@@ -94,7 +94,7 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 		// ViewHandler#getResourceURL(FacesContext,String). This method override exists to overcome the problem by
 		// preventing Mojarra's MultiViewHandler#getResourceURL(FacesContext,String) method from causing an incorrect
 		// URL to be returned.
-		if ((MOJARRA_DETECTED) && PortletResourceUtil.isPortletResourceURL(path)) {
+		if ((MOJARRA_DETECTED) && PortletResourceUtilCompat.isPortletResourceURL(path)) {
 			return path;
 		}
 		else {

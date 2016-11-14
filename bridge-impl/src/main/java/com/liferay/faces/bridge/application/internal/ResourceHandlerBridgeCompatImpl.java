@@ -19,7 +19,7 @@ import javax.faces.application.ResourceHandlerWrapper;
 
 
 /**
- * This class provides a compatibility layer that isolates differences between JSF1 and JSF2.
+ * This class provides a compatibility layer that isolates differences between JSF 2.1 and JSF 2.2.
  */
 public abstract class ResourceHandlerBridgeCompatImpl extends ResourceHandlerWrapper {
 
