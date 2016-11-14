@@ -46,13 +46,13 @@ import com.liferay.faces.util.logging.LoggerFactory;
  *
  * @author  Neil Griffin
  */
-public class ResourceImpl extends ResourceWrapper implements Serializable {
+public class ResourceInnerImpl extends ResourceWrapper implements Serializable {
 
 	// serialVersionUID
 	private static final long serialVersionUID = 827821821511052062L;
 
 	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(ResourceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ResourceInnerImpl.class);
 
 	// Private Constants
 	private static final String HTTP_SPEC_DATE_PATTERN = "EEE, dd MMM yyyy HH:mm:ss zzz";
@@ -84,10 +84,10 @@ public class ResourceImpl extends ResourceWrapper implements Serializable {
 	/**
 	 * This constructor is used by Mojarra via reflection during state saving.
 	 */
-	public ResourceImpl() {
+	public ResourceInnerImpl() {
 	}
 
-	public ResourceImpl(Resource wrappedResource) {
+	public ResourceInnerImpl(Resource wrappedResource) {
 		this.wrappedResource = wrappedResource;
 	}
 

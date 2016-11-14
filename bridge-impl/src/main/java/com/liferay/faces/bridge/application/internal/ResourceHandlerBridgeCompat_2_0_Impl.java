@@ -17,16 +17,15 @@ package com.liferay.faces.bridge.application.internal;
 
 import javax.faces.application.ResourceHandlerWrapper;
 
-import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
-
 
 /**
  * This class provides a compatibility layer that isolates differences between JSF1 and JSF2.
  */
-public abstract class ResourceHandlerBridgeCompatImpl extends ResourceHandlerWrapper {
+public abstract class ResourceHandlerBridgeCompat_2_0_Impl extends ResourceHandlerWrapper {
 
 	@Override
 	public boolean isResourceURL(String url) {
-		return PortletResourceUtil.isPortletResourceURL(url);
+		return (url != null) &&
+			(url.contains("javax.faces.resource=") || url.equals(MissingResourceImpl.RES_NOT_FOUND));
 	}
 }

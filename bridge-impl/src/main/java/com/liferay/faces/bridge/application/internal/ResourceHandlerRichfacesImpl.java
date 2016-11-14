@@ -19,6 +19,9 @@ import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceHandlerWrapper;
 
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
+
 
 /**
  * Unlike the {@link ResourceHandlerInnerImpl} class, this class is designed to be the outermost {@link ResourceHandler}
@@ -31,20 +34,22 @@ import javax.faces.application.ResourceHandlerWrapper;
  *
  * @author  Neil Griffin
  */
-public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
+public class ResourceHandlerRichfacesImpl extends ResourceHandlerOuterImpl {
 
-	// Private Data Members
-	private ResourceHandler wrappedResourceHandler;
+	// Private Constants
+	private static final String ORG_RICHFACES_RESOURCE = "org.richfaces.resource";
+	private static final boolean RICHFACES_DETECTED = ProductFactory.getProduct(Product.Name.RICHFACES).isDetected();
+	private static final String RICHFACES_STATIC_RESOURCE = "org.richfaces.staticResource";
 
-	public ResourceHandlerOuterImpl(ResourceHandler resourceHandler) {
-		this.wrappedResourceHandler = resourceHandler;
+	public ResourceHandlerRichfacesImpl(ResourceHandler resourceHandler) {
+		super(resourceHandler);
 	}
 
 	@Override
 	public Resource createResource(String resourceName) {
 
 		Resource resource = super.createResource(resourceName);
-		resource = createResource(resource);
+		resource = createResource(resourceName, resource);
 
 		return resource;
 	}
@@ -53,7 +58,7 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 	public Resource createResource(String resourceName, String libraryName) {
 
 		Resource resource = super.createResource(resourceName, libraryName);
-		resource = createResource(resource);
+		resource = createResource(resourceName, resource);
 
 		return resource;
 	}
@@ -62,17 +67,30 @@ public class ResourceHandlerOuterImpl extends ResourceHandlerWrapper {
 	public Resource createResource(String resourceName, String libraryName, String contentType) {
 
 		Resource resource = super.createResource(resourceName, libraryName, contentType);
-		resource = createResource(resource);
+		resource = createResource(resourceName, resource);
 
 		return resource;
 	}
 
-	@Override
-	public ResourceHandler getWrapped() {
-		return wrappedResourceHandler;
-	}
+	private Resource createResource(String resourceName, Resource resource) {
 
-	private Resource createResource(Resource resource) {
-		return new ResourceOuterImpl(resource);
+		if ((resource != null) && RICHFACES_DETECTED) {
+
+			// If this is a RichFaces static css resource, then return a filtered Richfaces static CSS resource.
+			if (resourceName.startsWith(RICHFACES_STATIC_RESOURCE) && resourceName.endsWith(".css")) {
+				resource = new ResourceRichFacesCSSImpl(resource);
+			}
+
+			// If this is a RichFaces static packed.js resource, then return a filtered Richfaces static packed.js
+			// resource.
+			else if (resourceName.startsWith(RICHFACES_STATIC_RESOURCE) && resourceName.endsWith("packed.js")) {
+				resource = new ResourceRichFacesPackedJSImpl(resource);
+			}
+			else if (resource.getClass().getName().startsWith(ORG_RICHFACES_RESOURCE)) {
+				resource = new ResourceRichFacesImpl(resource);
+			}
+		}
+
+		return resource;
 	}
 }
