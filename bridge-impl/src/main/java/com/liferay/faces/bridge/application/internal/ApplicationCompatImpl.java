@@ -27,6 +27,7 @@ import javax.faces.event.SystemEventListener;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.component.internal.UIViewRootBridgeImpl;
+import com.liferay.faces.util.application.ApplicationUtil;
 import com.liferay.faces.util.config.ConfiguredSystemEventListener;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -88,8 +89,14 @@ public abstract class ApplicationCompatImpl extends ApplicationWrapper {
 
 		ResourceHandler resourceHandler = super.getResourceHandler();
 
-		if ((resourceHandler != null) && resourceHandler.getClass().getName().startsWith("org.richfaces.resource")) {
-			resourceHandler = new ResourceHandlerOuterImpl(resourceHandler);
+		if (resourceHandler != null) {
+
+			if (resourceHandler.getClass().getName().startsWith("org.richfaces.resource")) {
+				resourceHandler = new ResourceHandlerRichfacesImpl(resourceHandler);
+			}
+			else if (!ApplicationUtil.isStartupOrShutdown(FacesContext.getCurrentInstance())) {
+				resourceHandler = new ResourceHandlerOuterImpl(resourceHandler);
+			}
 		}
 
 		return resourceHandler;

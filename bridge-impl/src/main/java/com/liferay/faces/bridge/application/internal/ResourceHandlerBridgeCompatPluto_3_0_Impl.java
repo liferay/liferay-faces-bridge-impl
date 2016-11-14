@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.util.internal;
+package com.liferay.faces.bridge.application.internal;
+
 
 /**
- * @author  Kyle Stiemann
+ * This class provides a compatibility layer that isolates differences between Pluto 2.0 and Pluto 3.0.
  */
-public final class PortletResourceUtil {
+public abstract class ResourceHandlerBridgeCompatPluto_3_0_Impl extends ResourceHandlerBridgeCompat_2_0_Impl {
 
-	private PortletResourceUtil() {
-		throw new AssertionError();
-	}
-
-	public static boolean isPortletResourceURL(String url) {
-		return (url != null) && url.contains("javax.faces.resource=");
+	@Override
+	public boolean isResourceURL(String url) {
+		return super.isResourceURL(url);
 	}
 }

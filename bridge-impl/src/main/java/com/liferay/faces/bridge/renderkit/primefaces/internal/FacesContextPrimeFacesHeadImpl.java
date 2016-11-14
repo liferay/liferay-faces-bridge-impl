@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.renderkit.primefaces.internal;
 
+import javax.faces.application.Application;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextWrapper;
@@ -31,6 +32,14 @@ public class FacesContextPrimeFacesHeadImpl extends FacesContextWrapper {
 
 	public FacesContextPrimeFacesHeadImpl(FacesContext facesContext) {
 		this.wrappedFacesContext = facesContext;
+	}
+
+	@Override
+	public Application getApplication() {
+
+		Application application = super.getApplication();
+
+		return new ApplicationPrimeFacesHeadImpl(application);
 	}
 
 	@Override

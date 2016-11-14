@@ -43,7 +43,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCompatImpl {
+public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCompatPluto_3_0_Impl {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ResourceHandlerBridgeImpl.class);
@@ -65,7 +65,7 @@ public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCom
 			return new MissingResourceImpl(getWrapped(), resourceName);
 		}
 		else {
-			return new ResourceImpl(wrappableResource);
+			return new ResourceInnerImpl(wrappableResource);
 		}
 	}
 
@@ -78,7 +78,7 @@ public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCom
 			return new MissingResourceImpl(getWrapped(), resourceName, libraryName);
 		}
 		else {
-			return new ResourceImpl(wrappableResource);
+			return new ResourceInnerImpl(wrappableResource);
 		}
 	}
 
@@ -91,7 +91,7 @@ public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCom
 			return new MissingResourceImpl(getWrapped(), resourceName, libraryName, contentType);
 		}
 		else {
-			return new ResourceImpl(wrappableResource);
+			return new ResourceInnerImpl(wrappableResource);
 		}
 	}
 

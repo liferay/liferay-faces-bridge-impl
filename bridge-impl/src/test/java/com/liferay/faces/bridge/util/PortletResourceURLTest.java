@@ -18,22 +18,25 @@ package com.liferay.faces.bridge.util;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
+import com.liferay.faces.bridge.application.internal.MissingResourceImpl;
+import com.liferay.faces.bridge.application.internal.ResourceHandlerInnerImpl;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class PortletResourceUtilTest {
+public class PortletResourceURLTest {
 
 	@Test
 	public void testIsPortletResourceURL() {
 
-		Assert.assertTrue(PortletResourceUtil.isPortletResourceURL("javax.faces.resource="));
-		Assert.assertFalse(PortletResourceUtil.isPortletResourceURL("javax.faces.resource"));
-		Assert.assertTrue(PortletResourceUtil.isPortletResourceURL(
+		ResourceHandlerInnerImpl bridgeResourceHandler = new ResourceHandlerInnerImpl(new ResourceHandlerMockImpl());
+		Assert.assertTrue(bridgeResourceHandler.isResourceURL("javax.faces.resource="));
+		Assert.assertFalse(bridgeResourceHandler.isResourceURL("javax.faces.resource"));
+		Assert.assertTrue(bridgeResourceHandler.isResourceURL(
 				"http://liferay.com?javax.faces.resource=example.js&ln=example"));
-		Assert.assertFalse(PortletResourceUtil.isPortletResourceURL(
+		Assert.assertFalse(bridgeResourceHandler.isResourceURL(
 				"http://liferay.com/javax.faces.resource/example.js&ln=example"));
+		Assert.assertTrue(bridgeResourceHandler.isResourceURL(MissingResourceImpl.RES_NOT_FOUND));
 	}
 }
