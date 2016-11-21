@@ -67,23 +67,6 @@
 						</h:panelGroup>
 					</h:panelGroup>
 				</fieldset>
-				<fieldset>
-					<h:panelGroup layout="block" styleClass="row-fluid">
-						<h:panelGroup layout="block" styleClass="span12">
-							<h:panelGroup id="commentsField" layout="block" styleClass="control-group">
-								<h:outputLabel styleClass="control-label" value="#{i18n['comments']}" />
-								<h:panelGroup id="showHide" layout="block">
-									<h:commandLink actionListener="#{applicantViewBean.toggleComments}" immediate="true"
-										rendered="#{!applicantViewBean.commentsRendered}" value="#{i18n['show']} #{i18n['comments']}" />
-									<h:commandLink actionListener="#{applicantViewBean.toggleComments}" immediate="true"
-										rendered="#{applicantViewBean.commentsRendered}" value="#{i18n['hide']} #{i18n['comments']}" />
-								</h:panelGroup>
-								<h:inputTextarea id="comments" cols="50" rows="10" rendered="#{applicantViewBean.commentsRendered}"
-									value="#{applicantModelBean.comments}" />
-							</h:panelGroup>
-						</h:panelGroup>
-					</h:panelGroup>
-				</fieldset>
 				<hr />
 				<h:commandButton action="#{applicantBackingBean.submit}" value="#{i18n['submit']}" />
 				<!-- Test 5.4.2 Encoding PortletMode changes in Faces navigation -->

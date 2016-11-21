@@ -35,30 +35,17 @@ public class ApplicantViewBean implements Serializable {
 	private static final long serialVersionUID = 5456293483676149659L;
 
 	// JavaBean Properties for UI
-	private boolean commentsRendered;
 	private boolean fileUploaderRendered;
 
 	public void addAttachment(ActionEvent actionEvent) {
 		fileUploaderRendered = true;
 	}
 
-	public boolean isCommentsRendered() {
-		return commentsRendered;
-	}
-
 	public boolean isFileUploaderRendered() {
 		return fileUploaderRendered;
 	}
 
-	public void setCommentsRendered(boolean commentsRendered) {
-		this.commentsRendered = commentsRendered;
-	}
-
 	public void setFileUploaderRendered(boolean fileUploaderRendered) {
 		this.fileUploaderRendered = fileUploaderRendered;
-	}
-
-	public void toggleComments() {
-		commentsRendered = !commentsRendered;
 	}
 }

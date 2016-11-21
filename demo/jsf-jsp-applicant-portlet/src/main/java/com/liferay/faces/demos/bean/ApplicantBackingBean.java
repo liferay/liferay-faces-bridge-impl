@@ -163,7 +163,6 @@ public class ApplicantBackingBean implements Serializable {
 			logger.debug("city=" + applicantModelBean.getCity());
 			logger.debug("provinceId=" + applicantModelBean.getProvinceId());
 			logger.debug("postalCode=" + applicantModelBean.getPostalCode());
-			logger.debug("comments=" + applicantModelBean.getComments());
 
 			List<UploadedFile> uploadedFiles = applicantModelBean.getUploadedFiles();
 

@@ -43,7 +43,6 @@ public class ApplicantModelBean implements Serializable {
 	// Private Data Members
 	private List<UploadedFile> uploadedFiles;
 	private String city;
-	private String comments;
 	private Date dateOfBirth;
 	private String emailAddress;
 	private String firstName;
@@ -66,7 +65,6 @@ public class ApplicantModelBean implements Serializable {
 	public void clearProperties() {
 		uploadedFiles = new ArrayList<UploadedFile>();
 		city = null;
-		comments = null;
 		dateOfBirth = null;
 		emailAddress = null;
 		firstName = null;
@@ -84,10 +82,6 @@ public class ApplicantModelBean implements Serializable {
 		else {
 			return autoFillCity;
 		}
-	}
-
-	public String getComments() {
-		return comments;
 	}
 
 	public Date getDateOfBirth() {
@@ -145,10 +139,6 @@ public class ApplicantModelBean implements Serializable {
 			this.city = autoFillCity;
 			autoFillCity = null;
 		}
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
