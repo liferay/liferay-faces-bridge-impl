@@ -15,16 +15,26 @@
  */
 package com.liferay.faces.bridge.util.internal;
 
+import com.liferay.faces.bridge.application.internal.MissingResourceImpl;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
+
+
 /**
  * @author  Kyle Stiemann
  */
-public final class PortletResourceUtil {
+public final class PortletResourceUtilCompat {
 
-	private PortletResourceUtil() {
+	// Private Constants
+	private static final boolean PLUTO_DETECTED = ProductFactory.getProduct(Product.Name.PLUTO).isDetected();
+
+	private PortletResourceUtilCompat() {
 		throw new AssertionError();
 	}
 
 	public static boolean isPortletResourceURL(String url) {
-		return (url != null) && url.contains("javax.faces.resource=");
+		return (url != null) &&
+			((PLUTO_DETECTED && url.contains("javax.faces.resource:")) || url.contains("javax.faces.resource=") ||
+				url.equals(MissingResourceImpl.RES_NOT_FOUND));
 	}
 }

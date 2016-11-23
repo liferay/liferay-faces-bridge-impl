@@ -37,13 +37,15 @@ import com.liferay.faces.util.logging.LoggerFactory;
  */
 public class MissingResourceImpl extends Resource {
 
+	// Public Constants
+	public static final String RES_NOT_FOUND = "RES_NOT_FOUND";
+
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(MissingResourceImpl.class);
 
 	// Private Constants
 	private static final String ERROR_MSG =
 		"Resource handler=[{0}] was unable to create a resource for resourceName=[{1}] libraryName=[{2}] contentType=[{3}]";
-	private static final String RES_NOT_FOUND = "RES_NOT_FOUND";
 
 	// Private Data Members
 	private String contentType;
