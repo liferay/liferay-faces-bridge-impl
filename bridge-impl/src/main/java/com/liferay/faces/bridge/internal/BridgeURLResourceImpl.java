@@ -36,7 +36,7 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
+import com.liferay.faces.bridge.util.internal.PortletResourceUtilCompat;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -159,6 +159,8 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 
 		// If the URL is opaque, meaning it starts with something like "portlet:" or "mailto:" and
 		// doesn't have the double-forward-slash like "http://" does, then
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
 		if (bridgeURI.isOpaque()) {
 
 			// If the URI starts with "portlet:", then return a BaseURL that contains the modified
@@ -175,7 +177,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 				String portletMode = getParameter(Bridge.PORTLET_MODE_PARAMETER);
 				boolean modeChanged = ((portletMode != null) && (portletMode.length() > 0));
 				Bridge.PortletPhase urlPortletPhase = bridgeURI.getPortletPhase();
-				FacesContext facesContext = FacesContext.getCurrentInstance();
 
 				if (urlPortletPhase == Bridge.PortletPhase.ACTION_PHASE) {
 					baseURL = createActionURL(facesContext, modeChanged);
@@ -228,28 +229,23 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			}
 		}
 
-		// Otherwise, if the URL is identified by the ResourceHandler as a JSF2 resource URL, then
-		else if ((uri != null) && (uri.contains("javax.faces.resource"))) {
+		// Otherwise, if the URL is a JSF2 portlet resource URL, then
+		else if (PortletResourceUtilCompat.isPortletResourceURL(uri)) {
 
-			// If the URL has already been encoded, then return the URI unmodified.
-			if (PortletResourceUtil.isPortletResourceURL(uri)) {
+			// FACES-63 Return the URI unmodified to prevent double-encoding of resource URLs.
+			baseURL = new BaseURLNonEncodedImpl(bridgeURI);
+		}
 
-				// FACES-63: Prevent double-encoding of resource URLs
-				baseURL = new BaseURLNonEncodedImpl(bridgeURI);
-			}
-
-			// Otherwise, return a ResourceURL that can retrieve the JSF2 resource.
-			else {
-				FacesContext facesContext = FacesContext.getCurrentInstance();
-				baseURL = createResourceURL(facesContext, bridgeURI.getParameterMap());
-			}
+		// Otherwise, if the URL is not a JSF2 portlet resource URL, but still contains the "javax.faces.resource"
+		// resource URL identifier, then return a ResourceURL that can retrieve the JSF2 resource.
+		else if ((uri != null) && uri.contains("javax.faces.resource")) {
+			baseURL = createResourceURL(facesContext, bridgeURI.getParameterMap());
 		}
 
 		// Otherwise, if the URL is external, then return an encoded BaseURL string representation of the URL.
 		else if (bridgeURI.isExternal(contextPath)) {
 
 			// TCK TestPage130: encodeResourceURLForeignExternalURLBackLinkTest
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
 			baseURL = new BaseURLEncodedImpl(bridgeURI, portletResponse);
@@ -261,7 +257,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 
 			// TCK TestPage131: encodeResourceURLRelativeURLTest
 			// TCK TestPage132: encodeResourceURLRelativeURLBackLinkTest
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			String contextPath = externalContext.getRequestContextPath();
 			baseURL = new BaseURLNonEncodedRelativeImpl(bridgeURI, contextPath);
@@ -282,7 +277,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 
 				// TCK TestPage135: encodeResourceURLViewLinkTest
 				// TCK TestPage136: encodeResourceURLViewLinkWithBackLinkTest
-				FacesContext facesContext = FacesContext.getCurrentInstance();
 				ExternalContext externalContext = facesContext.getExternalContext();
 				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 				PortletURL actionURL = createActionURL(facesContext, EXCLUDED_PARAMETER_NAMES);
@@ -322,7 +316,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 					// TCK TestPage106: encodeActionURLNonJSFViewWithInvalidModeResourceTest
 					// TCK TestPage107: encodeActionURLNonJSFViewWithWindowStateResourceTest
 					// TCK TestPage108: encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest
-					FacesContext facesContext = FacesContext.getCurrentInstance();
 					ExternalContext externalContext = facesContext.getExternalContext();
 					PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 					PortletURL renderURL = createRenderURL(facesContext, EXCLUDED_PARAMETER_NAMES);
@@ -357,7 +350,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			// TCK TestPage126: encodeActionURLWithInvalidWindowStateResourceTest
 			// TCK TestPage127: encodeURLEscapingTest
 			// TCK TestPage137: encodeResourceURLWithModeTest
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			baseURL = createResourceURL(facesContext, EXCLUDED_PARAMETER_NAMES);
 		}
 
@@ -366,7 +358,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		else if (inProtocol) {
 
 			// TCK TestPage071: nonFacesResourceTest
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ResourceURL resourceURL = createResourceURL(facesContext);
 			resourceURL.setResourceID(bridgeURI.getContextRelativePath(contextPath));
 			baseURL = resourceURL;

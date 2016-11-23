@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.util;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.liferay.faces.bridge.util.internal.PortletResourceUtil;
+import com.liferay.faces.bridge.util.internal.PortletResourceUtilCompat;
 
 
 /**
@@ -29,11 +29,11 @@ public class PortletResourceUtilTest {
 	@Test
 	public void testIsPortletResourceURL() {
 
-		Assert.assertTrue(PortletResourceUtil.isPortletResourceURL("javax.faces.resource="));
-		Assert.assertFalse(PortletResourceUtil.isPortletResourceURL("javax.faces.resource"));
-		Assert.assertTrue(PortletResourceUtil.isPortletResourceURL(
+		Assert.assertTrue(PortletResourceUtilCompat.isPortletResourceURL("javax.faces.resource="));
+		Assert.assertFalse(PortletResourceUtilCompat.isPortletResourceURL("javax.faces.resource"));
+		Assert.assertTrue(PortletResourceUtilCompat.isPortletResourceURL(
 				"http://liferay.com?javax.faces.resource=example.js&ln=example"));
-		Assert.assertFalse(PortletResourceUtil.isPortletResourceURL(
+		Assert.assertFalse(PortletResourceUtilCompat.isPortletResourceURL(
 				"http://liferay.com/javax.faces.resource/example.js&ln=example"));
 	}
 }

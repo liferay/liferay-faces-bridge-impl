@@ -15,16 +15,17 @@
  */
 package com.liferay.faces.bridge.util.internal;
 
+
 /**
  * @author  Kyle Stiemann
  */
-public final class PortletResourceUtil {
+public final class PortletResourceUtilCompat {
 
-	private PortletResourceUtil() {
+	private PortletResourceUtilCompat() {
 		throw new AssertionError();
 	}
 
 	public static boolean isPortletResourceURL(String url) {
-		return (url != null) && url.contains("javax.faces.resource=");
+		return (url != null) && (url.contains("javax.faces.resource="));
 	}
 }
