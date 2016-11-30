@@ -46,7 +46,8 @@ public final class BridgeTestUtil {
 	}
 
 	public static String getDemoContext(String portletPageName) {
-		return TestUtil.getSystemPropertyOrDefault("integration.context", DEFAULT_DEMO_CONTEXT) + "/" + portletPageName;
+		return TestUtil.getSystemPropertyOrDefault("integration.demo.context", DEFAULT_DEMO_CONTEXT) + "/" +
+			portletPageName;
 	}
 
 	public static String getDemoPageURL(String portletPageName) {
@@ -54,7 +55,7 @@ public final class BridgeTestUtil {
 	}
 
 	public static String getIssueContext(String portletPageName) {
-		return TestUtil.getSystemPropertyOrDefault("integration.context", DEFAULT_ISSUE_CONTEXT) + "/" +
+		return TestUtil.getSystemPropertyOrDefault("integration.issue.context", DEFAULT_ISSUE_CONTEXT) + "/" +
 			portletPageName;
 	}
 
