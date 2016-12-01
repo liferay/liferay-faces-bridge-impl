@@ -15,29 +15,27 @@
  */
 package com.liferay.faces.demos.bean;
 
+import java.io.Serializable;
+
+
 /**
- * @author  Neil Griffin
+ * This is a JSF view managed-bean for the applicant.xhtml composition.
+ *
+ * @author  Kyle Stiemann
  */
-public class ApplicantViewBean {
+public class ApplicantViewBean implements Serializable {
 
-	// JavaBeans Properties for UI
-	private boolean commentsRendered;
+	// serialVersionUID
+	private static final long serialVersionUID = 5456293483676149659L;
+
+	// JavaBean Properties for UI
 	private boolean fileUploaderRendered;
-
-	public boolean isCommentsRendered() {
-		return commentsRendered;
-	}
 
 	public boolean isFileUploaderRendered() {
 		return fileUploaderRendered;
 	}
 
-	public void setCommentsRendered(boolean commentsRendered) {
-		this.commentsRendered = commentsRendered;
-	}
-
 	public void setFileUploaderRendered(boolean fileUploaderRendered) {
 		this.fileUploaderRendered = fileUploaderRendered;
 	}
-
 }
