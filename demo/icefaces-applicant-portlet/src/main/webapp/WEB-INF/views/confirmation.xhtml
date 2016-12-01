@@ -6,6 +6,8 @@
 		<ui:include src="styling.xhtml" />
 		<ice:messages />
 		<ice:form>
+			<ice:outputText value="#{i18n['dear']} #{bridgeFlash['firstName']}," />
+			<br />
 			<ice:outputText value="#{i18n['thank-you-for-applying-for-a-job-with-our-organization']}" />
 			<hr />
 			<ice:commandButton action="submit-another-application" value="#{i18n['submit-another-application']}" />

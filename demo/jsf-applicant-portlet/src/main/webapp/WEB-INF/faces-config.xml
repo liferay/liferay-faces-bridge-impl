@@ -21,6 +21,10 @@
 			<value>#{applicantViewBean}</value>
 		</managed-property>
 		<managed-property>
+			<property-name>bridgeFlash</property-name>
+			<value>#{bridgeFlash}</value>
+		</managed-property>
+		<managed-property>
 			<property-name>listModelBean</property-name>
 			<value>#{listModelBean}</value>
 		</managed-property>
@@ -33,6 +37,11 @@
 	<managed-bean>
 		<managed-bean-name>applicantViewBean</managed-bean-name>
 		<managed-bean-class>com.liferay.faces.demos.bean.ApplicantViewBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>bridgeFlash</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.demos.bean.BridgeFlash</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>

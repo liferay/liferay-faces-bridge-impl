@@ -22,6 +22,7 @@ import java.util.TimeZone;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.junit.runners.MethodSorters;
@@ -187,6 +188,10 @@ public class JSF_JSPApplicantPortletTester extends IntegrationTesterBase {
 		SeleniumAssert.assertElementTextVisible(browser, firstNameFieldErrorXpath, "Value is required");
 	}
 
+	/**
+	 * This test is not valid in JSF 1.2 because f:validateRegex does not exist in JSF 1.2.
+	 */
+	@Ignore
 	@Test
 	public void runApplicantPortletTest_D_EmailValidation() {
 

@@ -21,7 +21,7 @@
 									<h:message for="lastName" />
 								</aui:field>
 								<aui:field id="emailAddressField" label="#{i18n['email-address']}">
-									<h:inputText id="emailAddress" required="true" validatorMessage="#{i18n['invalid-email-address']}"
+									<h:inputText id="emailAddress" required="true"
 										value="#{applicantModelBean.emailAddress}" />
 									<h:message for="emailAddress" />
 								</aui:field>

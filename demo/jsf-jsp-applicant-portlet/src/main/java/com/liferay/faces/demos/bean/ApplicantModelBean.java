@@ -17,7 +17,9 @@ package com.liferay.faces.demos.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import com.liferay.faces.bridge.model.UploadedFile;
@@ -50,6 +52,9 @@ public class ApplicantModelBean implements Serializable {
 
 	public ApplicantModelBean() {
 		clearProperties();
+
+		Calendar calendar = new GregorianCalendar();
+		this.dateOfBirth = calendar.getTime();
 	}
 
 	public void clearProperties() {

@@ -31,6 +31,8 @@ import com.liferay.faces.demos.dto.City;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -49,6 +51,7 @@ public class ApplicantBackingBean implements Serializable {
 	// Injections
 	private transient ApplicantModelBean applicantModelBean;
 	private transient ApplicantViewBean applicantViewBean;
+	private transient BridgeFlash bridgeFlash;
 	private transient ListModelBean listModelBean;
 
 	// Private Data Members
@@ -105,6 +108,10 @@ public class ApplicantBackingBean implements Serializable {
 		return attachment3;
 	}
 
+	public boolean isBridgeExtDetected() {
+		return ProductFactory.getProduct(Product.Name.LIFERAY_FACES_BRIDGE_EXT).isDetected();
+	}
+
 	public void postalCodeListener(ValueChangeEvent valueChangeEvent) {
 
 		try {
@@ -146,6 +153,12 @@ public class ApplicantBackingBean implements Serializable {
 		this.attachment3 = attachment3;
 	}
 
+	public void setBridgeFlash(BridgeFlash bridgeFlash) {
+
+		// Injected via WEB-INF/faces-config.xml managed-property
+		this.bridgeFlash = bridgeFlash;
+	}
+
 	public void setListModelBean(ListModelBean listModelBean) {
 
 		// Injected via WEB-INF/faces-config.xml managed-property
@@ -154,8 +167,10 @@ public class ApplicantBackingBean implements Serializable {
 
 	public String submit() {
 
+		String firstName = applicantModelBean.getFirstName();
+
 		if (logger.isDebugEnabled()) {
-			logger.debug("firstName=" + applicantModelBean.getFirstName());
+			logger.debug("firstName=" + firstName);
 			logger.debug("lastName=" + applicantModelBean.getLastName());
 			logger.debug("emailAddress=" + applicantModelBean.getEmailAddress());
 			logger.debug("phoneNumber=" + applicantModelBean.getPhoneNumber());
@@ -181,6 +196,7 @@ public class ApplicantBackingBean implements Serializable {
 				logger.debug("Deleted file=[{0}]", file);
 			}
 
+			bridgeFlash.setFirstName(firstName);
 			applicantModelBean.clearProperties();
 
 			return "success";

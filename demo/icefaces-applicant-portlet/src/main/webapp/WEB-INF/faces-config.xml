@@ -23,6 +23,10 @@
 			<value>#{applicantViewBean}</value>
 		</managed-property>
 		<managed-property>
+			<property-name>bridgeFlash</property-name>
+			<value>#{bridgeFlash}</value>
+		</managed-property>
+		<managed-property>
 			<property-name>listModelBean</property-name>
 			<value>#{listModelBean}</value>
 		</managed-property>
@@ -38,6 +42,11 @@
 		<managed-bean-class>com.liferay.faces.demos.bean.ApplicantViewBean</managed-bean-class>
 		<!-- Note that ICEfaces 1.x changes the behavior JSF 1.x "request" scope into something similar to JSF 2.x @ViewScoped -->
 		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>bridgeFlash</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.demos.bean.BridgeFlash</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>listModelBean</managed-bean-name>
