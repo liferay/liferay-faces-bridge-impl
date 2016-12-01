@@ -194,10 +194,6 @@ public class ApplicantBackingBean implements Serializable {
 		}
 	}
 
-	public void toggleComments(ActionEvent actionEvent) {
-		applicantViewBean.setCommentsRendered(!applicantViewBean.isCommentsRendered());
-	}
-
 	@SuppressWarnings("unchecked")
 	public void uploadAttachments(ActionEvent actionEvent) {
 
