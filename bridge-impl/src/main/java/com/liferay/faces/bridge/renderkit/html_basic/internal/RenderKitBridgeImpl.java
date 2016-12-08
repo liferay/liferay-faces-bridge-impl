@@ -15,17 +15,13 @@
  */
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
-import java.io.Writer;
-
 import javax.faces.component.UIForm;
 import javax.faces.component.UIOutput;
-import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitWrapper;
 import javax.faces.render.Renderer;
 
 import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
-import com.liferay.faces.bridge.renderkit.bridge.internal.ResponseWriterBridgeImpl;
 import com.liferay.faces.bridge.renderkit.icefaces.internal.HeadRendererICEfacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.FileUploadRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.FormRendererPrimeFacesImpl;
@@ -41,7 +37,7 @@ import com.liferay.faces.util.product.ProductFactory;
  *
  * @author  Neil Griffin
  */
-public class RenderKitBridgeImpl extends RenderKitWrapper {
+public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 
 	// Package-Private Constants
 	/* package-private */ static final String SCRIPT_RENDERER_TYPE = "javax.faces.resource.Script";
@@ -58,22 +54,8 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 	private static final String RICHFACES_FILE_UPLOAD_FAMILY = "org.richfaces.FileUpload";
 	private static final String RICHFACES_FILE_UPLOAD_RENDERER_TYPE = "org.richfaces.FileUploadRenderer";
 
-	// Private Data Members
-	private RenderKit wrappedRenderKit;
-
 	public RenderKitBridgeImpl(RenderKit wrappedRenderKit) {
-		this.wrappedRenderKit = wrappedRenderKit;
-	}
-
-	/**
-	 * Provides the bridge with the ability to wrap the HTML_BASIC ResponseWriter provided by the JSF implementation.
-	 */
-	@Override
-	public ResponseWriter createResponseWriter(Writer writer, String contentTypeList, String characterEncoding) {
-		ResponseWriter wrappedResponseWriter = wrappedRenderKit.createResponseWriter(writer, contentTypeList,
-				characterEncoding);
-
-		return new ResponseWriterBridgeImpl(wrappedResponseWriter);
+		super(wrappedRenderKit);
 	}
 
 	@Override
@@ -117,10 +99,5 @@ public class RenderKitBridgeImpl extends RenderKitWrapper {
 		}
 
 		return renderer;
-	}
-
-	@Override
-	public RenderKit getWrapped() {
-		return wrappedRenderKit;
 	}
 }
