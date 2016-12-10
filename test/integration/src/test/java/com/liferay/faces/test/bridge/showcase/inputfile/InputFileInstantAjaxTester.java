@@ -13,23 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.test.showcase.portlet;
+package com.liferay.faces.test.bridge.showcase.inputfile;
 
-import org.junit.Assume;
 import org.junit.Test;
-
-import com.liferay.faces.test.showcase.TesterBase;
 
 
 /**
  * @author  Kyle Stiemann
+ * @author  Philip White
  */
-public class PortletActionURLGeneralTester extends TesterBase {
+public class InputFileInstantAjaxTester extends InputFileTester {
 
 	@Test
-	public void runPortletActionURLGeneralTest() {
-
-		// TODO
-		Assume.assumeTrue(false);
+	public void runBridgeInputFileInstantAjaxTest() throws Exception {
+		runBridgeInputFileTest(true, false);
 	}
 }
