@@ -75,7 +75,7 @@ public class ActionURLDemoPortlet extends GenericFacesPortlet {
 
 			String foo = renderRequest.getParameter("foo");
 			writer.write("<p>");
-			writer.write("Action Parameter <strong>foo</strong>=" + foo);
+			writer.write("Action Parameter:<pre>foo=" + foo + "</pre>");
 			writer.write("</p>");
 
 			PortletURL renderURL = renderResponse.createRenderURL();
