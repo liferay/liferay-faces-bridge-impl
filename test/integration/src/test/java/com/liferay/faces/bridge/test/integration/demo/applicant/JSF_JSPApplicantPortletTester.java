@@ -15,26 +15,18 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
-
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.Assume;
 import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.Ignore;
 
 import org.junit.runners.MethodSorters;
 
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
 import com.liferay.faces.test.selenium.Browser;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
 
@@ -44,24 +36,9 @@ import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
  * @author  Philip White
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class JSF_JSPApplicantPortletTester extends IntegrationTesterBase {
+public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 
-	// Private Constants
-	private static final String EDIT_LINK_XPATH = "//input[contains(@value,'Edit Preferences')]";
-	private static final String LIFERAY_JSF_JERSEY_PNG_FILE_PATH = System.getProperty("java.io.tmpdir") +
-		"liferay-jsf-jersey.png";
-
-	@BeforeClass
-	public static void setUpApplicantTester() {
-		Browser.getInstance().setWaitTimeOut(TestUtil.getBrowserWaitTimeOut(10));
-	}
-
-	@AfterClass
-	public static void tearDownApplicantTester() {
-		Browser.getInstance().setWaitTimeOut(TestUtil.getBrowserWaitTimeOut());
-	}
-
-	@Test
+	@Override
 	public void runApplicantPortletTest_A_ApplicantViewRendered() throws Exception {
 
 		Browser browser = Browser.getInstance();
@@ -78,7 +55,7 @@ public class JSF_JSPApplicantPortletTester extends IntegrationTesterBase {
 		SeleniumAssert.assertElementVisible(browser, getCityFieldXpath());
 		SeleniumAssert.assertElementVisible(browser, getProvinceIdFieldXpath());
 		SeleniumAssert.assertElementVisible(browser, getPostalCodeFieldXpath());
-		assertAddAttachmentVisible(browser);
+		SeleniumAssert.assertElementVisible(browser, getAddAttachmentXpath());
 		SeleniumAssert.assertLibraryVisible(browser, "Mojarra");
 		SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Bridge Impl");
 
@@ -93,82 +70,7 @@ public class JSF_JSPApplicantPortletTester extends IntegrationTesterBase {
 		}
 	}
 
-	@Test
-	public void runApplicantPortletTest_B_EditMode() {
-
-		// Test that changing the date pattern via preferences changes the Birthday value in the portlet.
-		Browser browser = Browser.getInstance();
-		browser.click(EDIT_LINK_XPATH);
-
-		String datePatternPreferencesXpath = getDatePatternPreferencesXpath();
-
-		try {
-			browser.waitForElementVisible(datePatternPreferencesXpath);
-		}
-		catch (TimeoutException e) {
-
-			resetBrowser();
-			throw (e);
-		}
-
-		browser.clear(datePatternPreferencesXpath);
-
-		String newDatePattern = "MM/dd/yy";
-		browser.sendKeys(datePatternPreferencesXpath, newDatePattern);
-
-		String preferencesSubmitButtonXpath = getPreferencesSubmitButtonXpath();
-		browser.click(preferencesSubmitButtonXpath);
-
-		String dateOfBirthFieldXpath = getDateOfBirthFieldXpath();
-
-		try {
-			browser.waitForElementVisible(dateOfBirthFieldXpath);
-		}
-		catch (TimeoutException e) {
-
-			resetBrowser();
-			throw (e);
-		}
-
-		Date today = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(newDatePattern);
-		TimeZone gmtTimeZone = TimeZone.getTimeZone("Greenwich");
-		simpleDateFormat.setTimeZone(gmtTimeZone);
-
-		String todayString = simpleDateFormat.format(today);
-		SeleniumAssert.assertElementValue(browser, dateOfBirthFieldXpath, todayString);
-
-		// Test that resetting the date pattern via preferences changes the Birthday year back to the long version.
-		browser.click(EDIT_LINK_XPATH);
-
-		try {
-			browser.waitForElementVisible(datePatternPreferencesXpath);
-		}
-		catch (TimeoutException e) {
-
-			resetBrowser();
-			throw (e);
-		}
-
-		String preferencesResetButtonXpath = getPreferencesResetButtonXpath();
-		browser.click(preferencesResetButtonXpath);
-
-		try {
-			browser.waitForElementVisible(dateOfBirthFieldXpath);
-		}
-		catch (TimeoutException e) {
-
-			resetBrowser();
-			throw (e);
-		}
-
-		String oldDatePattern = "MM/dd/yyyy";
-		simpleDateFormat.applyPattern(oldDatePattern);
-		todayString = simpleDateFormat.format(today);
-		SeleniumAssert.assertElementValue(browser, dateOfBirthFieldXpath, todayString);
-	}
-
-	@Test
+	@Override
 	public void runApplicantPortletTest_C_FirstNameField() {
 
 		Browser browser = Browser.getInstance();
@@ -187,7 +89,7 @@ public class JSF_JSPApplicantPortletTester extends IntegrationTesterBase {
 		SeleniumAssert.assertElementTextVisible(browser, firstNameFieldErrorXpath, "Value is required");
 	}
 
-	@Test
+	@Override
 	public void runApplicantPortletTest_D_EmailValidation() {
 
 		Browser browser = Browser.getInstance();
@@ -203,7 +105,7 @@ public class JSF_JSPApplicantPortletTester extends IntegrationTesterBase {
 		SeleniumAssert.assertElementNotPresent(browser, emailAddressFieldErrorXpath);
 	}
 
-	@Test
+	@Override
 	public void runApplicantPortletTest_E_AllFieldsRequired() {
 
 		Browser browser = Browser.getInstance();
@@ -230,20 +132,31 @@ public class JSF_JSPApplicantPortletTester extends IntegrationTesterBase {
 		clearAllFields(browser);
 	}
 
-	@Test
+	/**
+	 * The auto-populate city and state feature does not exist in the JSP applicant portlet.
+	 */
+	@Ignore
+	@Override
 	public void runApplicantPortletTest_F_AutoPopulateCityState() {
-
-		Browser browser = Browser.getInstance();
-		submitPostalCodeAndWaitForPostback(browser, "32801");
-		SeleniumAssert.assertElementValue(browser, getCityFieldXpath(), "Orlando");
-		SeleniumAssert.assertElementValue(browser, getProvinceIdFieldXpath(), "3");
+		Assume.assumeTrue(false);
 	}
 
-	@Test
-	public void runApplicantPortletTest_G_DateValidation() {
+	/**
+	 * The comments feature does not exist in the JSP applicant portlet.
+	 */
+	@Ignore
+	@Override
+	public void runApplicantPortletTest_G_Comments() {
+		Assume.assumeTrue(false);
+	}
+
+	@Override
+	public void runApplicantPortletTest_H_DateValidation() {
 
 		Browser browser = Browser.getInstance();
 		String dateOfBirthFieldXpath = getDateOfBirthFieldXpath();
+		browser.waitForElementVisible(dateOfBirthFieldXpath);
+		submitPostalCodeAndWaitForPostback(browser, "32802");
 		browser.clear(dateOfBirthFieldXpath);
 		browser.centerElementInView(dateOfBirthFieldXpath);
 		browser.sendKeys(dateOfBirthFieldXpath, "12/34/5678");
@@ -257,53 +170,26 @@ public class JSF_JSPApplicantPortletTester extends IntegrationTesterBase {
 		SeleniumAssert.assertElementNotPresent(browser, dateOfBirthFieldErrorXpath);
 	}
 
-	@Test
-	public void runApplicantPortletTest_H_FileUpload() {
+	@Override
+	public void runApplicantPortletTest_I_FileUpload() {
 
 		Browser browser = Browser.getInstance();
-
-		browser.click(getAddAttachmentXpath());
-
-		String fileUploadChooserXpath = getFileUploadChooser1Xpath();
-
-		try {
-			browser.waitForElementVisible(fileUploadChooserXpath);
-		}
-		catch (TimeoutException e) {
-
-			resetBrowser();
-			throw (e);
-		}
-
-		WebElement fileUploadChooser = browser.findElementByXpath(fileUploadChooserXpath);
-
-		// Workaround PrimeFaces p:fileUpload being invisible to selenium.
-		browser.executeScript("arguments[0].style.transform = 'none';", fileUploadChooser);
-
-		// Workaround https://github.com/ariya/phantomjs/issues/10993 by removing the multiple attribute from <input
-		// type="file" />
-		if (browser.getName().equals("phantomjs")) {
-
-			browser.executeScript(
-				"var multipleFileUploadElements = document.querySelectorAll('input[type=\"file\"][multiple]');" +
-				"for (var i = 0; i < multipleFileUploadElements.length; i++) {" +
-				"multipleFileUploadElements[i].removeAttribute('multiple'); }");
-		}
-
-		fileUploadChooser.sendKeys(LIFERAY_JSF_JERSEY_PNG_FILE_PATH);
-		submitFile(browser);
-		SeleniumAssert.assertElementTextVisible(browser, getUploadedFileXpath(), "jersey");
+		String addAttachmentXpath = getAddAttachmentXpath();
+		browser.waitForElementVisible(addAttachmentXpath);
+		browser.click(addAttachmentXpath);
+		browser.waitForElementVisible(getFileUploadChooserXpath());
+		super.runApplicantPortletTest_I_FileUpload();
 	}
 
-	@Test
-	public void runApplicantPortletTest_I_Submit() throws InterruptedException {
+	@Override
+	public void runApplicantPortletTest_J_Submit() {
 
 		Browser browser = Browser.getInstance();
 		clearAllFields(browser);
 		browser.click(getSubmitButtonXpath());
+		browser.waitForElementVisible(getLastNameFieldXpath());
 
 		browser.sendKeys(getFirstNameFieldXpath(), "David");
-		browser.waitForElementVisible(getLastNameFieldXpath());
 		browser.sendKeys(getLastNameFieldXpath(), "Samuel");
 		browser.sendKeys(getEmailAddressFieldXpath(), "no_need@just.pray");
 		browser.sendKeys(getPhoneNumberFieldXpath(), "(way) too-good");
@@ -316,119 +202,40 @@ public class JSF_JSPApplicantPortletTester extends IntegrationTesterBase {
 		SeleniumAssert.assertElementTextVisible(browser, getConfimationFormXpath(), "Dear David,");
 	}
 
-	protected void assertAddAttachmentVisible(Browser browser) {
-		SeleniumAssert.assertElementVisible(browser, getAddAttachmentXpath());
-	}
+	@Override
+	protected void clearAllFields(Browser browser) {
 
-	protected void clearProvince(Browser browser) {
-		createSelect(browser, getProvinceIdFieldXpath()).selectByVisibleText("Select");
-	}
+		browser.clear(getFirstNameFieldXpath());
+		browser.clear(getLastNameFieldXpath());
+		browser.clear(getEmailAddressFieldXpath());
+		browser.clear(getPhoneNumberFieldXpath());
+		browser.clear(getDateOfBirthFieldXpath());
+		browser.clear(getCityFieldXpath());
+		clearProvince(browser);
 
-	protected final Select createSelect(Browser browser, String selectXpath) {
-
-		WebElement selectField = browser.findElementByXpath(selectXpath);
-
-		return new Select(selectField);
+		Keys[] clearPostalCodeKeys = {
+				Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE
+			};
+		submitPostalCodeAndWaitForPostback(browser, clearPostalCodeKeys);
 	}
 
 	protected String getAddAttachmentXpath() {
 		return "//input[contains(@value,'Add Attachment')]";
 	}
 
-	protected String getCityFieldXpath() {
-		return "//input[contains(@id,':city')]";
-	}
-
-	protected String getConfimationFormXpath() {
-		return "//form[@method='post']";
-	}
-
+	@Override
 	protected String getContext() {
 		return BridgeTestUtil.getDemoContext("jsf-jsp-applicant");
 	}
 
-	protected String getDateOfBirthFieldXpath() {
-		return "//input[contains(@id,':dateOfBirth')]";
+	@Override
+	protected String getEditModeXpath() {
+		return "//input[contains(@value,'Edit Preferences')]";
 	}
 
-	protected String getDatePatternPreferencesXpath() {
-		return "//input[contains(@id,':datePattern')]";
-	}
-
-	protected String getEmailAddressFieldXpath() {
-		return "//input[contains(@id,':emailAddress')]";
-	}
-
-	protected String getExtraLibraryName() {
-		return null;
-	}
-
-	protected String getFieldErrorXpath(String fieldXpath) {
-		return fieldXpath + "/../span[@class='portlet-msg-error']";
-	}
-
-	protected String getFileUploadChooser1Xpath() {
+	@Override
+	protected String getFileUploadChooserXpath() {
 		return "(//input[@type='file'])[1]";
-	}
-
-	protected String getFirstNameFieldXpath() {
-		return "//input[contains(@id,':firstName')]";
-	}
-
-	protected String getLastNameFieldXpath() {
-		return "//input[contains(@id,':lastName')]";
-	}
-
-	protected String getLogoXpath() {
-		return "//img[contains(@src, 'liferay-logo.png')]";
-	}
-
-	protected String getPhoneNumberFieldXpath() {
-		return "//input[contains(@id,':phoneNumber')]";
-	}
-
-	protected String getPostalCodeFieldXpath() {
-		return "//input[contains(@id,':postalCode')]";
-	}
-
-	protected String getPostalCodeToolTipXpath() {
-		return "//img[contains(@title, 'Type any of these ZIP codes')]";
-	}
-
-	protected String getPreferencesResetButtonXpath() {
-		return "//input[@type='submit'][@value='Reset']";
-	}
-
-	protected String getPreferencesSubmitButtonXpath() {
-		return "//input[@type='submit'][@value='Submit']";
-	}
-
-	protected String getProvinceIdFieldXpath() {
-		return "//select[contains(@id,':provinceId')]";
-	}
-
-	protected String getSubmitAnotherApplicationButton() {
-		return "//input[@type='submit'][contains(@value, 'Submit Another Application')]";
-	}
-
-	protected String getSubmitButtonXpath() {
-		return "//input[@type='submit'][@value='Submit']";
-	}
-
-	protected String getSubmitFileButtonXpath() {
-		return "//form[@method='post'][@enctype='multipart/form-data']/input[@type='submit'][@value='Submit']";
-	}
-
-	protected String getUploadedFileXpath() {
-		return "//tr[@class='portlet-section-body results-row']/td[2]";
-	}
-
-	protected void selectDate(Browser browser) {
-		browser.sendKeys(getDateOfBirthFieldXpath(), "01/02/3456");
-	}
-
-	protected void selectProvince(Browser browser) {
-		createSelect(browser, getProvinceIdFieldXpath()).selectByVisibleText("FL");
 	}
 
 	protected final void submitAndWaitForPostback(Browser browser) {
@@ -440,13 +247,7 @@ public class JSF_JSPApplicantPortletTester extends IntegrationTesterBase {
 		browser.waitForElementVisible(submitButtonXpath);
 	}
 
-	protected void submitFile(Browser browser) {
-
-		browser.click(getSubmitFileButtonXpath());
-		browser.waitForElementVisible(getUploadedFileXpath());
-	}
-
-	protected final void submitPostalCodeAndWaitForPostback(Browser browser, String postalCode) {
+	protected final void submitPostalCodeAndWaitForPostback(Browser browser, CharSequence... postalCode) {
 
 		String postalCodeFieldXpath = getPostalCodeFieldXpath();
 		WebElement postalCodeField = browser.findElementByXpath(postalCodeFieldXpath);
@@ -454,27 +255,5 @@ public class JSF_JSPApplicantPortletTester extends IntegrationTesterBase {
 		postalCodeField.sendKeys(Keys.TAB);
 		browser.waitUntil(ExpectedConditions.stalenessOf(postalCodeField));
 		browser.waitForElementVisible(postalCodeFieldXpath);
-	}
-
-	private void clearAllFields(Browser browser) {
-
-		browser.clear(getFirstNameFieldXpath());
-		browser.clear(getLastNameFieldXpath());
-		browser.clear(getEmailAddressFieldXpath());
-		browser.clear(getPhoneNumberFieldXpath());
-		browser.clear(getDateOfBirthFieldXpath());
-		browser.clear(getCityFieldXpath());
-		clearProvince(browser);
-		browser.clear(getPostalCodeFieldXpath());
-	}
-
-	private void resetBrowser() {
-
-		// Reset everything in case there was an error.
-		Browser browser = Browser.getInstance();
-		browser.manage().deleteAllCookies();
-		signIn(browser);
-		browser.get(TestUtil.DEFAULT_BASE_URL + getContext());
-		browser.waitForElementVisible(getLogoXpath());
 	}
 }
