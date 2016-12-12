@@ -26,14 +26,5 @@
 	<h:outputStylesheet library="example" name="example.css" target="head" />
 	<h:outputStylesheet library="example" name="portlet.css" target="head" />
 	<h:outputStylesheet library="example" name="liferay-theme-override.css" target="head" />
-	<c:if test="#{product.LIFERAY_PORTAL.majorVersion >= 7}">
-		<ui:remove>
-			<!--
-				Workaround FACES-2677: Primefaces state list items appear after SPA navigation to and from
-				primefaces-applicant-portlet on Liferay 7.0
-			-->
-		</ui:remove>
-		<h:outputStylesheet library="workaround" name="FACES-2677.css" target="head" p:data-senna-track="permanent" />
-	</c:if>
 
 </ui:composition>
