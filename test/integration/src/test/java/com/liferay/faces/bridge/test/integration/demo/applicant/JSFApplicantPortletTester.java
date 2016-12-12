@@ -16,15 +16,218 @@
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
 import org.junit.Assume;
-import org.junit.Test;
+import org.junit.FixMethodOrder;
+import org.junit.Ignore;
+
+import org.junit.runners.MethodSorters;
+
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
+import com.liferay.faces.test.selenium.Browser;
+import com.liferay.faces.test.selenium.TestUtil;
+import com.liferay.faces.test.selenium.applicant.ApplicantTesterBase;
+import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+
 
 /**
  * @author  Kyle Stiemann
+ * @author  Philip White
  */
-public class JSFApplicantPortletTester {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+public class JSFApplicantPortletTester extends ApplicantTesterBase {
 
-	@Test
-	public void runJSFApplicantPortletTest() {
-		Assume.assumeTrue("The jsf-applicant-portlet test must be run manually.", false);
+	@Override
+	public void runApplicantPortletTest_A_ApplicantViewRendered() throws Exception {
+
+		Browser browser = Browser.getInstance();
+		browser.get(TestUtil.DEFAULT_BASE_URL + getContext());
+
+		// Wait to begin the test until the logo is rendered.
+		browser.waitForElementVisible(getPostalCodeFieldXpath());
+
+		SeleniumAssert.assertElementVisible(browser, getFirstNameFieldXpath());
+		SeleniumAssert.assertElementVisible(browser, getLastNameFieldXpath());
+		SeleniumAssert.assertElementVisible(browser, getEmailAddressFieldXpath());
+		SeleniumAssert.assertElementVisible(browser, getPhoneNumberFieldXpath());
+		SeleniumAssert.assertElementVisible(browser, getDateOfBirthFieldXpath());
+		SeleniumAssert.assertElementVisible(browser, getCityFieldXpath());
+		SeleniumAssert.assertElementVisible(browser, getProvinceIdFieldXpath());
+		SeleniumAssert.assertElementVisible(browser, getPostalCodeFieldXpath());
+		assertFileUploadChooserVisible(browser);
+		SeleniumAssert.assertLibraryVisible(browser, "Mojarra");
+		SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Bridge Impl");
+
+		if (TestUtil.getContainer().contains("liferay")) {
+			SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Bridge Ext");
+		}
+
+		String extraLibraryName = getExtraLibraryName();
+
+		if (extraLibraryName != null) {
+			SeleniumAssert.assertLibraryVisible(browser, getExtraLibraryName());
+		}
+	}
+
+	@Override
+	public void runApplicantPortletTest_C_FirstNameField() {
+
+		Browser browser = Browser.getInstance();
+		submitPostalCodeAndWaitForPostback(browser, "32802");
+
+		String firstNameFieldXpath = getFirstNameFieldXpath();
+		browser.sendKeys(firstNameFieldXpath, "asdf");
+
+		browser.click(getSubmitButtonXpath());
+
+		String firstNameFieldErrorXpath = getFieldErrorXpath(firstNameFieldXpath);
+		SeleniumAssert.assertElementNotPresent(browser, firstNameFieldErrorXpath);
+		browser.clear(firstNameFieldXpath);
+		browser.click(getSubmitButtonXpath());
+		browser.waitForElementValue(firstNameFieldXpath, "");
+		SeleniumAssert.assertElementTextVisible(browser, firstNameFieldErrorXpath, "Value is required");
+	}
+
+	/**
+	 * This test is not valid in JSF 1.2 because f:validateRegex does not exist in JSF 1.2.
+	 */
+	@Ignore
+	@Override
+	public void runApplicantPortletTest_D_EmailValidation() {
+		Assume.assumeTrue(false);
+	}
+
+	@Override
+	public void runApplicantPortletTest_E_AllFieldsRequired() {
+
+		Browser browser = Browser.getInstance();
+		clearAllFields(browser);
+		browser.click(getSubmitButtonXpath());
+		browser.waitForElementVisible(getPostalCodeFieldXpath());
+		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getPostalCodeFieldXpath()),
+			"Value is required");
+		submitPostalCodeAndWaitForPostback(browser, "32802");
+		submitAndWaitForPostback(browser);
+		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getFirstNameFieldXpath()),
+			"Value is required");
+		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getLastNameFieldXpath()),
+			"Value is required");
+		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getEmailAddressFieldXpath()),
+			"Value is required");
+		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getPhoneNumberFieldXpath()),
+			"Value is required");
+		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getDateOfBirthFieldXpath()),
+			"Value is required");
+		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getCityFieldXpath()), "Value is required");
+		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getProvinceIdFieldXpath()),
+			"Value is required");
+		clearAllFields(browser);
+	}
+
+	/**
+	 * The auto-populate city and state feature does not exist in the JSF 1.2 applicant portlet.
+	 */
+	@Ignore
+	@Override
+	public void runApplicantPortletTest_F_AutoPopulateCityState() {
+		Assume.assumeTrue(false);
+	}
+
+	/**
+	 * The comments feature does not exist in the JSP applicant portlet.
+	 */
+	@Ignore
+	@Override
+	public void runApplicantPortletTest_G_Comments() {
+		Assume.assumeTrue(false);
+	}
+
+	@Override
+	public void runApplicantPortletTest_H_DateValidation() {
+
+		Browser browser = Browser.getInstance();
+		String dateOfBirthFieldXpath = getDateOfBirthFieldXpath();
+		browser.waitForElementVisible(dateOfBirthFieldXpath);
+		submitPostalCodeAndWaitForPostback(browser, "32802");
+		browser.clear(dateOfBirthFieldXpath);
+		browser.centerElementInView(dateOfBirthFieldXpath);
+		browser.sendKeys(dateOfBirthFieldXpath, "12/34/5678");
+		submitAndWaitForPostback(browser);
+
+		String dateOfBirthFieldErrorXpath = getFieldErrorXpath(dateOfBirthFieldXpath);
+		SeleniumAssert.assertElementTextVisible(browser, dateOfBirthFieldErrorXpath, "Invalid date format");
+		browser.clear(dateOfBirthFieldXpath);
+		browser.sendKeys(dateOfBirthFieldXpath, "01/02/3456");
+		submitAndWaitForPostback(browser);
+		SeleniumAssert.assertElementNotPresent(browser, dateOfBirthFieldErrorXpath);
+	}
+
+	@Override
+	public void runApplicantPortletTest_J_Submit() {
+
+		Browser browser = Browser.getInstance();
+		clearAllFields(browser);
+		browser.click(getSubmitButtonXpath());
+		browser.waitForElementVisible(getLastNameFieldXpath());
+
+		browser.sendKeys(getFirstNameFieldXpath(), "David");
+		browser.sendKeys(getLastNameFieldXpath(), "Samuel");
+		browser.sendKeys(getEmailAddressFieldXpath(), "no_need@just.pray");
+		browser.sendKeys(getPhoneNumberFieldXpath(), "(way) too-good");
+		selectDate(browser);
+		browser.sendKeys(getCityFieldXpath(), "North Orlando");
+		selectProvince(browser);
+		submitPostalCodeAndWaitForPostback(browser, "32802");
+		browser.click(getSubmitButtonXpath());
+		browser.waitForElementVisible(getSubmitAnotherApplicationButton());
+		SeleniumAssert.assertElementTextVisible(browser, getConfimationFormXpath(), "Dear David,");
+	}
+
+	@Override
+	protected void clearAllFields(Browser browser) {
+
+		browser.clear(getFirstNameFieldXpath());
+		browser.clear(getLastNameFieldXpath());
+		browser.clear(getEmailAddressFieldXpath());
+		browser.clear(getPhoneNumberFieldXpath());
+		browser.clear(getDateOfBirthFieldXpath());
+		browser.clear(getCityFieldXpath());
+		clearProvince(browser);
+
+		Keys[] clearPostalCodeKeys = {
+				Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE
+			};
+		submitPostalCodeAndWaitForPostback(browser, clearPostalCodeKeys);
+	}
+
+	@Override
+	protected String getContext() {
+		return BridgeTestUtil.getDemoContext("jsf-applicant");
+	}
+
+	@Override
+	protected String getEditModeXpath() {
+		return "//input[contains(@value,'Edit Preferences')]";
+	}
+
+	protected final void submitAndWaitForPostback(Browser browser) {
+
+		String submitButtonXpath = getSubmitButtonXpath();
+		WebElement submitButton = browser.findElementByXpath(submitButtonXpath);
+		submitButton.click();
+		browser.waitUntil(ExpectedConditions.stalenessOf(submitButton));
+		browser.waitForElementVisible(submitButtonXpath);
+	}
+
+	protected final void submitPostalCodeAndWaitForPostback(Browser browser, CharSequence... postalCode) {
+
+		String postalCodeFieldXpath = getPostalCodeFieldXpath();
+		WebElement postalCodeField = browser.findElementByXpath(postalCodeFieldXpath);
+		postalCodeField.sendKeys(postalCode);
+		postalCodeField.sendKeys(Keys.TAB);
+		browser.waitUntil(ExpectedConditions.stalenessOf(postalCodeField));
+		browser.waitForElementVisible(postalCodeFieldXpath);
 	}
 }

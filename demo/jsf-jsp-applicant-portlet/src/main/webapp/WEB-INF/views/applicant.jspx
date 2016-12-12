@@ -21,7 +21,7 @@
 									<h:message for="lastName" />
 								</aui:field>
 								<aui:field id="emailAddressField" label="#{i18n['email-address']}">
-									<h:inputText id="emailAddress" required="true" validatorMessage="#{i18n['invalid-email-address']}"
+									<h:inputText id="emailAddress" required="true"
 										value="#{applicantModelBean.emailAddress}" />
 									<h:message for="emailAddress" />
 								</aui:field>
@@ -50,7 +50,7 @@
 								</aui:field>
 								<aui:field id="postalCodeField" label="#{i18n['zip-postal']}">
 									<h:inputText id="postalCode" immediate="true" onchange="this.form.submit()" required="true"
-										value="#{applicantModelBean.postalCode}" valueChangeListener="#{applicantBackingBean.postalCodeListener}" />
+										value="#{applicantModelBean.postalCode}" />
 									<h:graphicImage value="/images/icon-help.png" title="#{i18n['postal-code-hint']}" />
 									<h:message id="postalCodeMessage" for="postalCode" />
 								</aui:field>

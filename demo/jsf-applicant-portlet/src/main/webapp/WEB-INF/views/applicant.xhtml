@@ -32,7 +32,6 @@
 							<aui:field id="emailAddressField"
 								label="#{i18n['email-address']}">
 								<h:inputText id="emailAddress" required="true"
-									validatorMessage="#{i18n['invalid-email-address']}"
 									value="#{applicantModelBean.emailAddress}" />
 								<h:message for="emailAddress" />
 							</aui:field>
@@ -70,34 +69,10 @@
 							<aui:field id="postalCodeField" label="#{i18n['zip-postal']}">
 								<h:inputText id="postalCode" immediate="true"
 									onchange="this.form.submit()" required="true"
-									value="#{applicantModelBean.postalCode}"
-									valueChangeListener="#{applicantBackingBean.postalCodeListener}" />
+									value="#{applicantModelBean.postalCode}" />
 								<h:graphicImage value="/images/icon-help.png"
 									title="#{i18n['postal-code-hint']}" />
 								<h:message id="postalCodeMessage" for="postalCode" />
-							</aui:field>
-						</alloy:column>
-					</alloy:row>
-				</aui:fieldset>
-				<aui:fieldset>
-					<alloy:row>
-						<alloy:column>
-							<aui:field id="commentsField" label="#{i18n['comments']}">
-								<h:panelGroup id="showHide" layout="block">
-									<h:commandLink
-										actionListener="#{applicantBackingBean.toggleComments}"
-										immediate="true"
-										rendered="#{!applicantViewBean.commentsRendered}"
-										value="#{i18n['show']} #{i18n['comments']}" />
-									<h:commandLink
-										actionListener="#{applicantBackingBean.toggleComments}"
-										immediate="true"
-										rendered="#{applicantViewBean.commentsRendered}"
-										value="#{i18n['hide']} #{i18n['comments']}" />
-								</h:panelGroup>
-								<h:inputTextarea id="comments" cols="50" rows="10"
-									rendered="#{applicantViewBean.commentsRendered}"
-									value="#{applicantModelBean.comments}" />
 							</aui:field>
 						</alloy:column>
 					</alloy:row>

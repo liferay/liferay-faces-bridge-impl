@@ -50,6 +50,7 @@ public class ApplicantBackingBean implements Serializable {
 	// Injections
 	private transient ApplicantModelBean applicantModelBean;
 	private transient ApplicantViewBean applicantViewBean;
+	private transient BridgeFlash bridgeFlash;
 	private transient ListModelBean listModelBean;
 
 	public void deleteUploadedFile(ActionEvent actionEvent) {
@@ -153,6 +154,12 @@ public class ApplicantBackingBean implements Serializable {
 		this.applicantViewBean = applicantViewBean;
 	}
 
+	public void setBridgeFlash(BridgeFlash bridgeFlash) {
+
+		// Injected via WEB-INF/faces-config.xml managed-property
+		this.bridgeFlash = bridgeFlash;
+	}
+
 	public void setListModelBean(ListModelBean listModelBean) {
 
 		// Injected via WEB-INF/faces-config.xml managed-property
@@ -161,8 +168,10 @@ public class ApplicantBackingBean implements Serializable {
 
 	public String submit() {
 
+		String firstName = applicantModelBean.getFirstName();
+
 		if (logger.isDebugEnabled()) {
-			logger.debug("firstName=" + applicantModelBean.getFirstName());
+			logger.debug("firstName=" + firstName);
 			logger.debug("lastName=" + applicantModelBean.getLastName());
 			logger.debug("emailAddress=" + applicantModelBean.getEmailAddress());
 			logger.debug("phoneNumber=" + applicantModelBean.getPhoneNumber());
@@ -189,6 +198,7 @@ public class ApplicantBackingBean implements Serializable {
 				logger.debug("Deleted file=[{0}]", file);
 			}
 
+			bridgeFlash.setFirstName(firstName);
 			applicantModelBean.clearProperties();
 
 			return "success";

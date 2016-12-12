@@ -23,14 +23,14 @@ import java.util.Map;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.model.UploadedFile;
-import com.liferay.faces.demos.dto.City;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -49,7 +49,7 @@ public class ApplicantBackingBean implements Serializable {
 	// Injections
 	private transient ApplicantModelBean applicantModelBean;
 	private transient ApplicantViewBean applicantViewBean;
-	private transient ListModelBean listModelBean;
+	private transient BridgeFlash bridgeFlash;
 
 	// Private Data Members
 	private transient InputFile attachment1;
@@ -105,21 +105,8 @@ public class ApplicantBackingBean implements Serializable {
 		return attachment3;
 	}
 
-	public void postalCodeListener(ValueChangeEvent valueChangeEvent) {
-
-		try {
-			String newPostalCode = (String) valueChangeEvent.getNewValue();
-			City city = listModelBean.getCityByPostalCode(newPostalCode);
-
-			if (city != null) {
-				applicantModelBean.setAutoFillCity(city.getCityName());
-				applicantModelBean.setAutoFillProvinceId(city.getProvinceId());
-			}
-		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
-		}
+	public boolean isBridgeExtDetected() {
+		return ProductFactory.getProduct(Product.Name.LIFERAY_FACES_BRIDGE_EXT).isDetected();
 	}
 
 	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
@@ -146,16 +133,18 @@ public class ApplicantBackingBean implements Serializable {
 		this.attachment3 = attachment3;
 	}
 
-	public void setListModelBean(ListModelBean listModelBean) {
+	public void setBridgeFlash(BridgeFlash bridgeFlash) {
 
 		// Injected via WEB-INF/faces-config.xml managed-property
-		this.listModelBean = listModelBean;
+		this.bridgeFlash = bridgeFlash;
 	}
 
 	public String submit() {
 
+		String firstName = applicantModelBean.getFirstName();
+
 		if (logger.isDebugEnabled()) {
-			logger.debug("firstName=" + applicantModelBean.getFirstName());
+			logger.debug("firstName=" + firstName);
 			logger.debug("lastName=" + applicantModelBean.getLastName());
 			logger.debug("emailAddress=" + applicantModelBean.getEmailAddress());
 			logger.debug("phoneNumber=" + applicantModelBean.getPhoneNumber());
@@ -181,6 +170,7 @@ public class ApplicantBackingBean implements Serializable {
 				logger.debug("Deleted file=[{0}]", file);
 			}
 
+			bridgeFlash.setFirstName(firstName);
 			applicantModelBean.clearProperties();
 
 			return "success";
