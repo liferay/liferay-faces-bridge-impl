@@ -105,23 +105,6 @@ public class ApplicantBackingBean implements Serializable {
 		return attachment3;
 	}
 
-	public void postalCodeListener(ValueChangeEvent valueChangeEvent) {
-
-		try {
-			String newPostalCode = (String) valueChangeEvent.getNewValue();
-			City city = listModelBean.getCityByPostalCode(newPostalCode);
-
-			if (city != null) {
-				applicantModelBean.setAutoFillCity(city.getCityName());
-				applicantModelBean.setAutoFillProvinceId(city.getProvinceId());
-			}
-		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
-		}
-	}
-
 	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
 
 		// Injected via @ManagedProperty annotation
