@@ -23,10 +23,6 @@
 			<property-name>bridgeFlash</property-name>
 			<value>#{bridgeFlash}</value>
 		</managed-property>
-		<managed-property>
-			<property-name>listModelBean</property-name>
-			<value>#{listModelBean}</value>
-		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>applicantModelBean</managed-bean-name>

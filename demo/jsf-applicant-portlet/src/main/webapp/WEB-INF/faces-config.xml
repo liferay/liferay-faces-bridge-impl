@@ -17,16 +17,8 @@
 			<value>#{applicantModelBean}</value>
 		</managed-property>
 		<managed-property>
-			<property-name>applicantViewBean</property-name>
-			<value>#{applicantViewBean}</value>
-		</managed-property>
-		<managed-property>
 			<property-name>bridgeFlash</property-name>
 			<value>#{bridgeFlash}</value>
-		</managed-property>
-		<managed-property>
-			<property-name>listModelBean</property-name>
-			<value>#{listModelBean}</value>
 		</managed-property>
 	</managed-bean>
 	<managed-bean>

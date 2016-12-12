@@ -21,11 +21,9 @@ import java.util.List;
 
 import javax.faces.component.UICommand;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 
 import com.liferay.faces.bridge.event.FileUploadEvent;
 import com.liferay.faces.bridge.model.UploadedFile;
-import com.liferay.faces.demos.dto.City;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -48,9 +46,7 @@ public class ApplicantBackingBean implements Serializable {
 
 	// Injections
 	private transient ApplicantModelBean applicantModelBean;
-	private transient ApplicantViewBean applicantViewBean;
 	private transient BridgeFlash bridgeFlash;
-	private transient ListModelBean listModelBean;
 
 	public void deleteUploadedFile(ActionEvent actionEvent) {
 
@@ -95,45 +91,16 @@ public class ApplicantBackingBean implements Serializable {
 		return ProductFactory.getProduct(Product.Name.LIFERAY_FACES_BRIDGE_EXT).isDetected();
 	}
 
-	public void postalCodeListener(ValueChangeEvent valueChangeEvent) {
-
-		try {
-			String newPostalCode = (String) valueChangeEvent.getNewValue();
-			City city = listModelBean.getCityByPostalCode(newPostalCode);
-
-			if (city != null) {
-				applicantModelBean.setAutoFillCity(city.getCityName());
-				applicantModelBean.setAutoFillProvinceId(city.getProvinceId());
-			}
-		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
-		}
-	}
-
 	public void setApplicantModelBean(ApplicantModelBean applicantModelBean) {
 
 		// Injected via WEB-INF/faces-config.xml managed-property
 		this.applicantModelBean = applicantModelBean;
 	}
 
-	public void setApplicantViewBean(ApplicantViewBean applicantViewBean) {
-
-		// Injected via WEB-INF/faces-config.xml managed-property
-		this.applicantViewBean = applicantViewBean;
-	}
-
 	public void setBridgeFlash(BridgeFlash bridgeFlash) {
 
 		// Injected via WEB-INF/faces-config.xml managed-property
 		this.bridgeFlash = bridgeFlash;
-	}
-
-	public void setListModelBean(ListModelBean listModelBean) {
-
-		// Injected via WEB-INF/faces-config.xml managed-property
-		this.listModelBean = listModelBean;
 	}
 
 	public String submit() {
