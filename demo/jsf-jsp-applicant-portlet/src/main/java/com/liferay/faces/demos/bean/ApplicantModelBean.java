@@ -46,10 +46,6 @@ public class ApplicantModelBean implements Serializable {
 	private String postalCode;
 	private Long provinceId;
 
-	// Private Data Members (auto-fill)
-	private String autoFillCity;
-	private Long autoFillProvinceId;
-
 	public ApplicantModelBean() {
 		clearProperties();
 
@@ -70,13 +66,7 @@ public class ApplicantModelBean implements Serializable {
 	}
 
 	public String getCity() {
-
-		if (autoFillCity == null) {
-			return city;
-		}
-		else {
-			return autoFillCity;
-		}
+		return city;
 	}
 
 	public Date getDateOfBirth() {
@@ -104,36 +94,15 @@ public class ApplicantModelBean implements Serializable {
 	}
 
 	public Long getProvinceId() {
-
-		if (autoFillProvinceId == null) {
-			return provinceId;
-		}
-		else {
-			return autoFillProvinceId;
-		}
+		return provinceId;
 	}
 
 	public List<UploadedFile> getUploadedFiles() {
 		return uploadedFiles;
 	}
 
-	public void setAutoFillCity(String autoFillCity) {
-		this.autoFillCity = autoFillCity;
-	}
-
-	public void setAutoFillProvinceId(Long autoFillProvinceId) {
-		this.autoFillProvinceId = autoFillProvinceId;
-	}
-
 	public void setCity(String city) {
-
-		if (autoFillCity == null) {
-			this.city = city;
-		}
-		else {
-			this.city = autoFillCity;
-			autoFillCity = null;
-		}
+		this.city = city;
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
@@ -161,14 +130,6 @@ public class ApplicantModelBean implements Serializable {
 	}
 
 	public void setProvinceId(Long provinceId) {
-
-		if (autoFillProvinceId == null) {
-			this.provinceId = provinceId;
-		}
-		else {
-			this.provinceId = autoFillProvinceId;
-			autoFillProvinceId = null;
-		}
+		this.provinceId = provinceId;
 	}
-
 }
