@@ -59,8 +59,7 @@
 							<h:panelGroup id="postalCodeField" layout="block" styleClass="control-group">
 								<h:outputLabel styleClass="control-label" value="#{i18n['zip-postal']}" />
 								<h:inputText id="postalCode" immediate="true" onchange="this.form.submit()" required="true"
-									style="width: 100px;" value="#{applicantModelBean.postalCode}"
-									valueChangeListener="#{applicantBackingBean.postalCodeListener}" />
+									style="width: 100px;" value="#{applicantModelBean.postalCode}" />
 								<h:graphicImage library="example" name="icon-help.png" title="#{i18n['postal-code-hint']}" />
 								<h:message id="postalCodeMessage" for="postalCode" />
 							</h:panelGroup>
