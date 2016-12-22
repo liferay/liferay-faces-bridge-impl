@@ -2517,27 +2517,30 @@ public class Tests extends Object {
 		ExternalContext extCtx = ctx.getExternalContext();
 
 		// test encodeActionURL preserves the xml escape encoding in the url it returns
-		if (isStrictXhtmlEncoded(
-					extCtx.encodeActionURL(
-						extCtx.getRequestContextPath() + "/tests/SingleRequestTest.jsf?parm1=a&param2=b"))) {
+		String nonEscapedURL = extCtx.getRequestContextPath() + "/tests/SingleRequestTest.jsf?parm1=a&param2=b";
+		String encodedNonEscapedURL = extCtx.encodeActionURL(nonEscapedURL);
+
+		if (isStrictXhtmlEncoded(encodedNonEscapedURL)) {
 			testRunner.setTestResult(false,
 				"EncodeActionURL incorrectly returned an url including xml escaping when the input url wasn't escaped.");
 
 			return Constants.TEST_FAILED;
 		}
 
-		if (
-			!isStrictXhtmlEncoded(
-					extCtx.encodeActionURL(
-						extCtx.getRequestContextPath() + "/tests/SingleRequestTest.jsf?parm1=a&amp;param2=b"))) {
+		String escapedURL = extCtx.getRequestContextPath() + "/tests/SingleRequestTest.jsf?parm1=a&amp;param2=b";
+		String encodedEscapedURL = extCtx.encodeActionURL(escapedURL);
+
+		if (!isStrictXhtmlEncoded(encodedEscapedURL) && encodedEscapedURL.contains("&")) {
 			testRunner.setTestResult(false,
 				"EncodeActionURL incorrectly returned an url without xml escaping when the input url was escaped.");
 
 			return Constants.TEST_FAILED;
 		}
 
-		if (isStrictXhtmlEncoded(
-					extCtx.encodeActionURL(extCtx.getRequestContextPath() + "/tests/SingleRequestTest.jsf"))) {
+		nonEscapedURL = extCtx.getRequestContextPath() + "/tests/SingleRequestTest.jsf";
+		encodedNonEscapedURL = extCtx.encodeActionURL(nonEscapedURL);
+
+		if (isStrictXhtmlEncoded(encodedNonEscapedURL)) {
 			testRunner.setTestResult(false,
 				"EncodeActionURL incorrectly returned an url including xml escaping when the input url contained no indication (no query string).");
 
@@ -2546,26 +2549,33 @@ public class Tests extends Object {
 
 		ViewHandler vh = ctx.getApplication().getViewHandler();
 
-		if (isStrictXhtmlEncoded(
-					extCtx.encodeResourceURL(
-						vh.getResourceURL(ctx, "/tests/SingleRequestTest.jsf?parm1=a&param2=b")))) {
+		String nonEscapedPath = "/tests/SingleRequestTest.jsf?parm1=a&param2=b";
+		String nonEscapedResourceURL = vh.getResourceURL(ctx, nonEscapedPath);
+		String encodedNonEscapedResourceURL = extCtx.encodeResourceURL(nonEscapedResourceURL);
+
+		if (isStrictXhtmlEncoded(encodedNonEscapedResourceURL)) {
 			testRunner.setTestResult(false,
 				"EncodeResourceURL incorrectly returned an url including xml escaping when the input url wasn't escaped.");
 
 			return Constants.TEST_FAILED;
 		}
 
-		if (
-			!isStrictXhtmlEncoded(
-					extCtx.encodeResourceURL(
-						vh.getResourceURL(ctx, "/tests/SingleRequestTest.jsf?parm1=a&amp;param2=b")))) {
+		String escapedPath = "/tests/SingleRequestTest.jsf?parm1=a&amp;param2=b";
+		String escapedResourceURL = vh.getResourceURL(ctx, escapedPath);
+		String encodedEscapedResourceURL = extCtx.encodeResourceURL(escapedResourceURL);
+
+		if (!isStrictXhtmlEncoded(encodedEscapedResourceURL) && encodedEscapedURL.contains("&")) {
 			testRunner.setTestResult(false,
 				"EncodeResourceURL incorrectly returned an url without xml escaping when the input url was escaped.");
 
 			return Constants.TEST_FAILED;
 		}
 
-		if (isStrictXhtmlEncoded(extCtx.encodeResourceURL(vh.getResourceURL(ctx, "/tests/SingleRequestTest.jsf")))) {
+		nonEscapedPath = "/tests/SingleRequestTest.jsf";
+		nonEscapedResourceURL = vh.getResourceURL(ctx, nonEscapedPath);
+		encodedNonEscapedResourceURL = extCtx.encodeResourceURL(nonEscapedResourceURL);
+
+		if (isStrictXhtmlEncoded(encodedNonEscapedResourceURL)) {
 			testRunner.setTestResult(false,
 				"EncodeResourceURL incorrectly returned an url including xml escaping when the input url contained no indication (no query string).");
 
@@ -5946,11 +5956,7 @@ public class Tests extends Object {
 	private boolean isStrictXhtmlEncoded(String url) {
 
 		// check for use of &amp; in query string
-		int currentPos = url.indexOf('?');
-
-		if (currentPos == -1)
-			return false;
-
+		int currentPos = 0;
 		boolean isStrict = false;
 
 		while (true) {
