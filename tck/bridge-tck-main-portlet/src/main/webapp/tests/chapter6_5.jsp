@@ -73,23 +73,8 @@
       Bridge's ELresolver is properly delegating to the JSPResolver for this resolution.
       If it isn't it will resolve these values and we will report an error --%>
 
-<%-- portletConfig --%>
-<c:set var="tck_portletConfig" value="${portletConfig}" scope="page"/>
-
-<%-- renderRequest --%>
-<c:set var="tck_renderRequest" value="${renderRequest}" scope="page"/>
-
-<%-- renderResponse --%>
-<c:set var="tck_renderResponse" value="${renderResponse}" scope="page"/>
-
-<%-- portletSession --%>
-<c:set var="tck_portletSession" value="${portletSession}" scope="page"/>
-
 <%-- portletSessionScope --%>
 <c:set var="tck_portletSessionScope" value="${portletSessionScope}" scope="page"/>
-
-<%-- portletPreferences --%>
-<c:set var="tck_portletPreferences" value="${portletPreferences}" scope="page"/>
 
 <%-- portletPreferencesValues --%>
 <c:set var="tck_portletPreferencesValues" value="${portletPreferencesValues}" scope="page"/>
@@ -176,34 +161,9 @@
   /* verify we didn't resolve the portlet implicit objects tied to portlet:defineObjects -- as
      we didn't use this construct in the page in order to prove the bridge properly delegates */
 
-	if (pageContext.getAttribute("tck_portletConfig") != null) {
-		status = false;
-		detail += "'portletConfig' improperly resolved.  'portlet:defineObjects' isn't used in this JSP meaning the EL shouldn't have resolved, but it did.  This implies the Bridge's EL resolver handled the resolution which is wrong.<br>";
-	}
-
-	if (pageContext.getAttribute("tck_renderRequest") != null) {
-		status = false;
-		detail += "'renderRequest' improperly resolved.  'portlet:defineObjects' isn't used in this JSP meaning the EL shouldn't have resolved, but it did.  This implies the Bridge's EL resolver handled the resolution which is wrong.<br>";
-	}
-
-	if (pageContext.getAttribute("tck_renderResponse") != null) {
-		status = false;
-		detail += "'renderResponse' improperly resolved.  'portlet:defineObjects' isn't used in this JSP meaning the EL shouldn't have resolved, but it did.  This implies the Bridge's EL resolver handled the resolution which is wrong.<br>";
-	}
-
-	if (pageContext.getAttribute("tck_portletSession") != null) {
-		status = false;
-		detail += "'portletSession' improperly resolved.  'portlet:defineObjects' isn't used in this JSP meaning the EL shouldn't have resolved, but it did.  This implies the Bridge's EL resolver handled the resolution which is wrong.<br>";
-	}
-
 	if (pageContext.getAttribute("tck_portletSessionScope") != null) {
 		status = false;
 		detail += "'portletSessionScope' improperly resolved.  'portlet:defineObjects' isn't used in this JSP meaning the EL shouldn't have resolved, but it did.  This implies the Bridge's EL resolver handled the resolution which is wrong.<br>";
-	}
-
-	if (pageContext.getAttribute("tck_portletPreferences") != null) {
-		status = false;
-		detail += "'portletPreferences' improperly resolved.  'portlet:defineObjects' isn't used in this JSP meaning the EL shouldn't have resolved, but it did.  This implies the Bridge's EL resolver handled the resolution which is wrong.<br>";
 	}
 
 	if (pageContext.getAttribute("tck_portletPreferencesValues") != null) {
