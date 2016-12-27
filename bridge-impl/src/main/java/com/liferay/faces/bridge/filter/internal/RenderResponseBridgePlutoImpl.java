@@ -17,7 +17,6 @@ package com.liferay.faces.bridge.filter.internal;
 
 import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
-import javax.portlet.filter.RenderResponseWrapper;
 
 
 /**
