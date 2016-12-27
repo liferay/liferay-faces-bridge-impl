@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
@@ -41,7 +43,7 @@ import com.liferay.faces.util.product.ProductFactory;
 /**
  * @author  Neil Griffin
  */
-public class ContextMapFactoryImpl extends ContextMapFactory {
+public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 
 	// Private Constants
 	private static final boolean ICEFACES_DETECTED = ProductFactory.getProduct(Product.Name.ICEFACES).isDetected();
@@ -180,7 +182,7 @@ public class ContextMapFactoryImpl extends ContextMapFactory {
 
 				if (multiPartFormData == null) {
 					facesRequestParameterMap = new FacesRequestParameterMapImpl(responseNamespace, bridgeRequestScope,
-							facesViewParameterMap, defaultRenderKitId);
+							facesViewParameterMap, defaultRenderKitId, getSeparatorChar());
 
 					MultiPartFormDataProcessor multiPartFormDataProcessor = new MultiPartFormDataProcessorImpl();
 					Map<String, List<com.liferay.faces.util.model.UploadedFile>> uploadedFileMap =
@@ -201,7 +203,7 @@ public class ContextMapFactoryImpl extends ContextMapFactory {
 		if (facesRequestParameterMap == null) {
 			Map<String, String[]> parameterMap = portletRequest.getParameterMap();
 			facesRequestParameterMap = new FacesRequestParameterMapImpl(parameterMap, responseNamespace,
-					bridgeRequestScope, facesViewParameterMap, defaultRenderKitId);
+					bridgeRequestScope, facesViewParameterMap, defaultRenderKitId, getSeparatorChar());
 		}
 
 		return facesRequestParameterMap;
