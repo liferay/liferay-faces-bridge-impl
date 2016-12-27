@@ -28,7 +28,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class IncongruityContextImpl extends IncongruityContextCompatImpl {
+public class IncongruityContextImpl extends IncongruityContextCompat_2_3_Impl {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(IncongruityContextImpl.class);

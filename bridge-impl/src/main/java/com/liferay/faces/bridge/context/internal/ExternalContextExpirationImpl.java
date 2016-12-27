@@ -37,7 +37,7 @@ import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
  *
  * @author  Neil Griffin
  */
-public class ExternalContextExpirationImpl extends ExternalContext {
+public class ExternalContextExpirationImpl extends ExternalContextExpirationCompatImpl {
 
 	// Private Data Members
 	private Map<String, Object> applicationMap;
