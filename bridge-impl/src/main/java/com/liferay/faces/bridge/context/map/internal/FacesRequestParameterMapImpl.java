@@ -51,22 +51,27 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 	private String defaultRenderKitId;
 	private Map<String, String> facesViewParameterMap;
 	private String namespace;
+	private String separatorChar;
 	private Map<String, String[]> wrappedParameterMap;
 
 	public FacesRequestParameterMapImpl(String namespace, BridgeRequestScope bridgeRequestScope,
-		Map<String, String> facesViewParameterMap, String defaultRenderKitId) {
-		this(new HashMap<String, String[]>(), namespace, bridgeRequestScope, facesViewParameterMap, defaultRenderKitId);
+		Map<String, String> facesViewParameterMap, String defaultRenderKitId, String separatorChar) {
+		this(new HashMap<String, String[]>(), namespace, bridgeRequestScope, facesViewParameterMap, defaultRenderKitId,
+			separatorChar);
 	}
 
 	public FacesRequestParameterMapImpl(Map<String, String[]> parameterMap, String namespace,
-		BridgeRequestScope bridgeRequestScope, Map<String, String> facesViewParameterMap, String defaultRenderKitId) {
+		BridgeRequestScope bridgeRequestScope, Map<String, String> facesViewParameterMap, String defaultRenderKitId,
+		String separatorChar) {
 		this.wrappedParameterMap = parameterMap;
 		this.namespace = namespace;
 		this.bridgeRequestScope = bridgeRequestScope;
 		this.facesViewParameterMap = facesViewParameterMap;
 		this.defaultRenderKitId = defaultRenderKitId;
+		this.separatorChar = separatorChar;
 	}
 
+	@Override
 	public void addValue(String key, String value) {
 
 		boolean namespacedKey = ((key != null) && key.startsWith(namespace));
@@ -97,6 +102,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 	/**
 	 * This method provides an optimized lookup to see if a key is within the specified request parameter values map.
 	 */
+	@Override
 	public boolean containsKey(Object key) {
 
 		// Assume that they key is not found.
@@ -142,7 +148,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 
 				// If the key is "javax.faces.ViewState" then avoid the performance impact of the superclass delegation
 				// by handling this special case here.
-				if (ResponseStateManager.VIEW_STATE_PARAM.equals(keyAsString)) {
+				if (keyAsString.endsWith(ResponseStateManager.VIEW_STATE_PARAM)) {
 
 					String viewStateParam = getFirst(key);
 
@@ -237,6 +243,10 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 				values = get(namespace + key);
 			}
 
+			if (values == null) {
+				values = get(namespace + separatorChar + key);
+			}
+
 			if ((values != null) && (values.length > 0)) {
 				firstValue = values[0];
 			}
@@ -291,7 +301,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 		}
 
 		if (viewStateParam != null) {
-			requestParamerNameList.add(ResponseStateManager.VIEW_STATE_PARAM);
+			requestParamerNameList.add(namespace + separatorChar + ResponseStateManager.VIEW_STATE_PARAM);
 		}
 
 		if (bridgeRequestScope != null) {
