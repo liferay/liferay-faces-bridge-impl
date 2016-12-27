@@ -23,7 +23,7 @@ import javax.portlet.filter.RenderResponseWrapper;
 /**
  * @author  Neil Griffin
  */
-public class RenderResponseBridgePlutoImpl extends RenderResponseBridgePlutoCompatImpl {
+public class RenderResponseBridgePlutoImpl extends RenderResponseWrapper {
 
 	public RenderResponseBridgePlutoImpl(RenderResponse renderResponse) {
 		super(renderResponse);
