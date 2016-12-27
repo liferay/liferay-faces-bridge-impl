@@ -17,14 +17,12 @@ package com.liferay.faces.bridge.filter.internal;
 
 import javax.portlet.PortletURL;
 import javax.portlet.ResourceResponse;
-import javax.portlet.ResourceURL;
-import javax.portlet.filter.ResourceResponseWrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public class ResourceResponseBridgePlutoImpl extends ResourceResponseWrapper {
+public class ResourceResponseBridgePlutoImpl extends ResourceResponseBridgePlutoCompatImpl {
 
 	public ResourceResponseBridgePlutoImpl(ResourceResponse resourceResponse) {
 		super(resourceResponse);
@@ -38,11 +36,6 @@ public class ResourceResponseBridgePlutoImpl extends ResourceResponseWrapper {
 	@Override
 	public PortletURL createRenderURL() {
 		return new RenderURLBridgePlutoImpl(super.createRenderURL());
-	}
-
-	@Override
-	public ResourceURL createResourceURL() throws IllegalStateException {
-		return new ResourceURLBridgePlutoImpl(super.createResourceURL());
 	}
 
 	@Override
