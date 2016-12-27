@@ -4238,7 +4238,7 @@ public class Tests extends Object {
 				// verify its in the underlying request Enumeration
 				while (requestNamesEnum.hasMoreElements()) {
 
-					if (name.equals(requestNamesEnum.nextElement())) {
+					if (name.contains(requestNamesEnum.nextElement())) {
 						foundName = true;
 
 						break;
@@ -4286,7 +4286,7 @@ public class Tests extends Object {
 			while (namesIterator.hasNext()) {
 				String s = namesIterator.next();
 
-				if (s.equals(ResponseStateManager.VIEW_STATE_PARAM)) {
+				if (s.contains(ResponseStateManager.VIEW_STATE_PARAM)) {
 					foundViewState = true;
 				}
 				else if (s.indexOf("formDataField1") > -1) {
