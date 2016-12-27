@@ -15,18 +15,17 @@
  */
 package com.liferay.faces.bridge.context.map.internal;
 
-import javax.faces.context.FacesContext;
-
-
 /**
+ * This class provides a compatibility layer that isolates differences between JSF 2.3 and earlier versions of JSF.
+ *
  * @author  Neil Griffin
  */
 public abstract class ContextMapFactoryCompatImpl extends ContextMapFactory {
 
 	protected String getSeparatorChar() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		char namingContainerSeparatorChar = facesContext.getNamingContainerSeparatorChar();
 
-		return Character.toString(namingContainerSeparatorChar);
+		// JSF 2.3 introduced usage of the separator char to delimit the namespace prefix, but this is not necessary
+		// in earlier version fo JSF, so simply return an empty string.
+		return "";
 	}
 }
