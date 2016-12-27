@@ -19,11 +19,17 @@ import javax.faces.context.FacesContext;
 
 
 /**
+ * This class provides a compatibility layer that isolates differences between JSF 2.3 and earlier versions of JSF.
+ *
  * @author  Neil Griffin
  */
 public abstract class ContextMapFactoryCompatImpl extends ContextMapFactory {
 
 	protected String getSeparatorChar() {
+
+		// JSF 2.3 introduced usage of the separator char to delimit the namespace prefix. For more information, see
+		// https://issues.liferay.com/browse/FACES-2976 and
+		// https://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-790.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		char namingContainerSeparatorChar = facesContext.getNamingContainerSeparatorChar();
 
