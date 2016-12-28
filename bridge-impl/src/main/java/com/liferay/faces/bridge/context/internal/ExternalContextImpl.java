@@ -806,6 +806,14 @@ public class ExternalContextImpl extends ExternalContextCompat_2_2_Impl {
 								String viewIdRenderParameterValue = bridgeRedirectURL.getParameter(
 										viewIdRenderParameterName);
 
+								// FACES-2978: Support render-redirect.
+								if (viewIdRenderParameterValue == null) {
+
+									Map<String, Object> requestMap = externalContext.getRequestMap();
+									String requestMapKey = Bridge.VIEW_ID + url;
+									viewIdRenderParameterValue = (String) requestMap.remove(requestMapKey);
+								}
+
 								if (viewIdRenderParameterValue != null) {
 
 									// TCK TestPage 179: redirectRenderPRP1Test

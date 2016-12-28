@@ -43,7 +43,7 @@ public class BridgeURLPartialActionImpl extends BridgeURLBase {
 	}
 
 	// Java 1.6+ @Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 
 		BaseURL baseURL = null;
 
@@ -56,7 +56,6 @@ public class BridgeURLPartialActionImpl extends BridgeURLBase {
 				logger.debug("URL starts with http so assuming that it has already been encoded: url=[{0}]", uri);
 			}
 			else {
-				FacesContext facesContext = FacesContext.getCurrentInstance();
 				baseURL = createResourceURL(facesContext, bridgeURI.getParameterMap());
 			}
 		}

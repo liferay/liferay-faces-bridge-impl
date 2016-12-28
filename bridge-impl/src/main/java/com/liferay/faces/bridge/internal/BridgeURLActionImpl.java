@@ -106,7 +106,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 	}
 
 	@Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 
 		BaseURL baseURL;
 		String uri = bridgeURI.toString();
@@ -134,7 +134,6 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 			// Otherwise, if the URI has a "javax.portlet.faces.DirectLink" parameter with a value of "true",
 			// then return an absolute path (to the path in the URI) as required by the Bridge Spec.
 			else if (directLink || bridgeURI.isExternal(contextPath)) {
-				FacesContext facesContext = FacesContext.getCurrentInstance();
 				ExternalContext externalContext = facesContext.getExternalContext();
 				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 				baseURL = new BaseURLNonEncodedDirectImpl(bridgeURI, portletRequest.getScheme(),
@@ -156,8 +155,6 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 				// Note: If the URI starts with "portlet:", then the type of URL the portlet container
 				// creates is determined by what follows the scheme, such as "portlet:action" "portlet:render" and
 				// "portlet:resource".
-				FacesContext facesContext = FacesContext.getCurrentInstance();
-
 				if (bridgeURI.isPortletScheme()) {
 					Bridge.PortletPhase urlPortletPhase = bridgeURI.getPortletPhase();
 

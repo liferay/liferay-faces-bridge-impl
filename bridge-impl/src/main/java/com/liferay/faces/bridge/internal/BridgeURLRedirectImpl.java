@@ -73,7 +73,7 @@ public class BridgeURLRedirectImpl extends BridgeURLBase {
 
 	// Java 1.6+ @Override
 	@Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 
 		// TCK TestPage039 (requestNoScopeOnRedirectTest)
 		return new BaseURLNonEncodedImpl(bridgeURI);

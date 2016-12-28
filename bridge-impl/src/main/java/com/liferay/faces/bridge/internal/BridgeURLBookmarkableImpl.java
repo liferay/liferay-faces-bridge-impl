@@ -70,7 +70,7 @@ public class BridgeURLBookmarkableImpl extends BridgeURLBase {
 	}
 
 	// Java 1.6+ @Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 		return new BaseURLNonEncodedImpl(bridgeURI);
 	}
 }
