@@ -34,6 +34,7 @@ import javax.portlet.PortletURL;
 import javax.portlet.ResourceURL;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
+import javax.portlet.filter.PortletURLWrapper;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeURL;
@@ -235,7 +236,8 @@ public abstract class BridgeURLBase implements BridgeURL {
 		try {
 
 			// Ask the Portlet Container for a BaseURL that contains the modified parameters.
-			BaseURL baseURL = toBaseURL();
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			BaseURL baseURL = toBaseURL(facesContext);
 
 			// If the URL string has escaped characters (like %20 for space, etc) then ask the
 			// portlet container to create an escaped representation of the URL string.
@@ -259,6 +261,25 @@ public abstract class BridgeURLBase implements BridgeURL {
 			else {
 				stringValue = baseURL.toString();
 			}
+
+			// FACES-2978: In order to support a redirect that occurs during the RENDER_PHASE of the portlet lifecycle
+			// as an "in-place" navigation (a.k.a. "render-redirect"), the viewId is saved as a request attribute that
+			// is retrieved by ExternalContext.redirect(String url). This is necessary because the redirect URL passed
+			// to ExternalContext.redirect(String url) is already encoded by ExternalContext.encodeActionURL(String url)
+			// and the bridge does not have the ability to parse the encoded redirect URL for the target viewId
+			// parameter.
+			if (baseURL instanceof FacesViewActionURL) {
+
+				FacesViewActionURL facesViewActionURL = (FacesViewActionURL) baseURL;
+				String viewId = facesViewActionURL.getViewId();
+
+				if (viewId != null) {
+					ExternalContext externalContext = facesContext.getExternalContext();
+					Map<String, Object> requestMap = externalContext.getRequestMap();
+					String requestMapKey = Bridge.VIEW_ID + stringValue;
+					requestMap.put(requestMapKey, viewId);
+				}
+			}
 		}
 		catch (MalformedURLException e) {
 			logger.error(e);
@@ -267,7 +288,7 @@ public abstract class BridgeURLBase implements BridgeURL {
 		return stringValue;
 	}
 
-	protected abstract BaseURL toBaseURL() throws MalformedURLException;
+	protected abstract BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException;
 
 	protected void copyRenderParameters(PortletRequest portletRequest, BaseURL baseURL) {
 
@@ -410,6 +431,20 @@ public abstract class BridgeURLBase implements BridgeURL {
 				copyURIParametersToBaseURL(uriParameters, actionURL);
 			}
 
+			// FACES-2978: Support render-redirect.
+			for (URIParameter uriParameter : uriParameters) {
+
+				if (viewIdRenderParameterName.equalsIgnoreCase(uriParameter.getName())) {
+					String[] parameterValues = uriParameter.getValues();
+
+					if ((parameterValues != null) && (parameterValues.length > 0)) {
+
+						// TCK TestPage 179: redirectRenderPRP1Test
+						return new FacesViewActionURL(actionURL, parameterValues[0]);
+					}
+				}
+			}
+
 			return actionURL;
 		}
 		catch (ClassCastException e) {
@@ -445,7 +480,6 @@ public abstract class BridgeURLBase implements BridgeURL {
 		else {
 			throw new MalformedURLException("Unable to create a RenderURL during " + portletRequestPhase.toString());
 		}
-
 	}
 
 	private ResourceURL createResourceURL(FacesContext facesContext, List<URIParameter> uriParameters)
@@ -655,6 +689,21 @@ public abstract class BridgeURLBase implements BridgeURL {
 		}
 
 		return uriParameters;
+	}
+
+	private static class FacesViewActionURL extends PortletURLWrapper {
+
+		// Private Data Members
+		private String viewId;
+
+		public FacesViewActionURL(PortletURL portletURL, String viewId) {
+			super(portletURL);
+			this.viewId = viewId;
+		}
+
+		public String getViewId() {
+			return viewId;
+		}
 	}
 
 	private static class URIParameter {
