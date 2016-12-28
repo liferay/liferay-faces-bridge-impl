@@ -106,13 +106,12 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 	}
 
 	@Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 
 		BaseURL baseURL;
 		String uri = bridgeURI.toString();
 
 		// If this is executing during the ACTION_PHASE of the portlet lifecycle, then
-		FacesContext facesContext = FacesContext.getCurrentInstance();
 		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 		if (portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) {
