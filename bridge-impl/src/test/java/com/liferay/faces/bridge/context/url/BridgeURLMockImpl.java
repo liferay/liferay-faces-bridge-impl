@@ -18,6 +18,7 @@ package com.liferay.faces.bridge.context.url;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
+import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
 
 import com.liferay.faces.bridge.BridgeConfig;
@@ -36,7 +37,7 @@ public class BridgeURLMockImpl extends BridgeURLBase {
 	}
 
 	@Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 		return new BaseURLNonEncodedImpl(bridgeURI);
 	}
 }

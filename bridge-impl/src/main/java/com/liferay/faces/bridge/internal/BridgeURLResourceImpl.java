@@ -152,15 +152,13 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 	}
 
 	@Override
-	public BaseURL toBaseURL() throws MalformedURLException {
+	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 
 		BaseURL baseURL;
 		String uri = bridgeURI.toString();
 
 		// If the URL is opaque, meaning it starts with something like "portlet:" or "mailto:" and
 		// doesn't have the double-forward-slash like "http://" does, then
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-
 		if (bridgeURI.isOpaque()) {
 
 			// If the URI starts with "portlet:", then return a BaseURL that contains the modified
@@ -288,7 +286,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 				// forward to the generated reference." According to a clarification in the Portlet 3.0 JavaDoc for
 				// BaseURL#setProperty(String,String), setting the parameter to null will remove it.
 				actionURL.setParameter(Bridge.PORTLET_SECURE_PARAMETER, (String) null);
-
 				baseURL = actionURL;
 			}
 
