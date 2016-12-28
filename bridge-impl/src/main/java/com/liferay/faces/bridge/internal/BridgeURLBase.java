@@ -34,7 +34,6 @@ import javax.portlet.PortletURL;
 import javax.portlet.ResourceURL;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
-import javax.portlet.filter.PortletURLWrapper;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeURL;
@@ -691,7 +690,7 @@ public abstract class BridgeURLBase implements BridgeURL {
 		return uriParameters;
 	}
 
-	private static class FacesViewActionURL extends PortletURLWrapper {
+	private static class FacesViewActionURL extends PortletURLWrapperCompat {
 
 		// Private Data Members
 		private String viewId;
