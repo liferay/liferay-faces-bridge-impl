@@ -120,6 +120,10 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 			}
 
 			if (!found) {
+				found = wrappedParameterMap.containsKey(namespace + separatorChar + key);
+			}
+
+			if (!found) {
 
 				// NOTE: If the valuesMap.containsKey(String) method call returned true, then trust that fact and let
 				// this method return true as well. Otherwise, don't trust it! This might be a Liferay WSRP producer
