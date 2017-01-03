@@ -52,6 +52,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 	private Map<String, String> facesViewParameterMap;
 	private String namespace;
 	private String separatorChar;
+	private boolean separatorCharEnabled;
 	private Map<String, String[]> wrappedParameterMap;
 
 	public FacesRequestParameterMapImpl(String namespace, BridgeRequestScope bridgeRequestScope,
@@ -69,6 +70,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 		this.facesViewParameterMap = facesViewParameterMap;
 		this.defaultRenderKitId = defaultRenderKitId;
 		this.separatorChar = separatorChar;
+		this.separatorCharEnabled = ((separatorChar != null) && (separatorChar.length() > 0));
 	}
 
 	@Override
@@ -119,7 +121,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 				found = wrappedParameterMap.containsKey(namespace + key);
 			}
 
-			if (!found) {
+			if (!found && separatorCharEnabled) {
 				found = wrappedParameterMap.containsKey(namespace + separatorChar + key);
 			}
 
@@ -247,7 +249,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 				values = get(namespace + key);
 			}
 
-			if (values == null) {
+			if ((values == null) && separatorCharEnabled) {
 				values = get(namespace + separatorChar + key);
 			}
 
@@ -304,7 +306,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 			viewStateParam = bridgeRequestScope.getPreservedViewStateParam();
 		}
 
-		if (viewStateParam != null) {
+		if ((viewStateParam != null) && separatorCharEnabled) {
 			requestParamerNameList.add(namespace + separatorChar + ResponseStateManager.VIEW_STATE_PARAM);
 		}
 
