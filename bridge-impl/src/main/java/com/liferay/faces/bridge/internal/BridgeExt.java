@@ -31,4 +31,6 @@ public interface BridgeExt {
 	public static final String RENDER_REDIRECT_AFTER_DISPATCH = "com.liferay.faces.bridge.renderRedirectAfterDispatch";
 	public static final String RENDER_REDIRECT_VIEW_ID = "com.liferay.faces.bridge.renderRedirectViewId";
 	public static final String RESPONSE_CHARACTER_ENCODING = "com.liferay.faces.bridge.responseCharacterEncoding";
+	public static final String BUFFERED_RESPONSE_OUTPUT_WRITER =
+		"com.liferay.faces.bridge.bufferedResponseOutputWriter";
 }

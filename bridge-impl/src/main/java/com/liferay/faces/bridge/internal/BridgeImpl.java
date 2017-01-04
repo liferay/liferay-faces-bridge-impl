@@ -49,7 +49,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgeImpl implements Bridge {
+public class BridgeImpl extends BridgeCompatImpl {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeImpl.class);
@@ -88,8 +88,8 @@ public class BridgeImpl implements Bridge {
 
 			PortletConfig wrappedPortletConfig = BridgePortletConfigFactory.getPortletConfigInstance(portletConfig);
 			BridgeConfig bridgeConfig = BridgeConfigFactory.getBridgeConfigInstance(wrappedPortletConfig);
-			BridgePhase bridgePhase = BridgePhaseFactory.getBridgeActionPhaseInstance(actionRequest, actionResponse,
-					wrappedPortletConfig, bridgeConfig);
+			BridgePhase bridgePhase = new BridgePhaseActionImpl(actionRequest, actionResponse, wrappedPortletConfig,
+					bridgeConfig);
 			bridgePhase.execute();
 		}
 		else {
@@ -112,8 +112,8 @@ public class BridgeImpl implements Bridge {
 
 			PortletConfig wrappedPortletConfig = BridgePortletConfigFactory.getPortletConfigInstance(portletConfig);
 			BridgeConfig bridgeConfig = BridgeConfigFactory.getBridgeConfigInstance(wrappedPortletConfig);
-			BridgePhase bridgePhase = BridgePhaseFactory.getBridgeEventPhaseInstance(eventRequest, eventResponse,
-					wrappedPortletConfig, bridgeConfig);
+			BridgePhase bridgePhase = new BridgePhaseEventImpl(eventRequest, eventResponse, wrappedPortletConfig,
+					bridgeConfig);
 			bridgePhase.execute();
 		}
 		else {
@@ -136,7 +136,7 @@ public class BridgeImpl implements Bridge {
 
 			PortletConfig wrappedPortletConfig = BridgePortletConfigFactory.getPortletConfigInstance(portletConfig);
 			BridgeConfig bridgeConfig = BridgeConfigFactory.getBridgeConfigInstance(wrappedPortletConfig);
-			BridgePhase bridgePhase = BridgePhaseFactory.getBridgeRenderPhaseInstance(renderRequest, renderResponse,
+			BridgePhase bridgePhase = new BridgePhaseRenderCompatImpl(renderRequest, renderResponse,
 					wrappedPortletConfig, bridgeConfig);
 			bridgePhase.execute();
 		}
@@ -153,8 +153,8 @@ public class BridgeImpl implements Bridge {
 		if (initialized) {
 			PortletConfig wrappedPortletConfig = BridgePortletConfigFactory.getPortletConfigInstance(portletConfig);
 			BridgeConfig bridgeConfig = BridgeConfigFactory.getBridgeConfigInstance(wrappedPortletConfig);
-			BridgePhase bridgePhase = BridgePhaseFactory.getBridgeResourcePhaseInstance(resourceRequest,
-					resourceResponse, wrappedPortletConfig, bridgeConfig);
+			BridgePhase bridgePhase = new BridgePhaseResourceImpl(resourceRequest, resourceResponse,
+					wrappedPortletConfig, bridgeConfig);
 			bridgePhase.execute();
 		}
 		else {
@@ -196,5 +196,15 @@ public class BridgeImpl implements Bridge {
 		if (portletResponse == null) {
 			throw new NullPointerException("portletResponse was null");
 		}
+	}
+
+	@Override
+	protected PortletConfig getPortletConfig() {
+		return portletConfig;
+	}
+
+	@Override
+	protected boolean isInitialized() {
+		return initialized;
 	}
 }

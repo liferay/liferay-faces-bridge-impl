@@ -30,12 +30,12 @@ import java.util.Set;
 import javax.faces.application.Application;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
@@ -56,7 +56,7 @@ public class Tests extends Object {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
-		RenderResponse response = (RenderResponse) extCtx.getResponse();
+		MimeResponse response = (MimeResponse) extCtx.getResponse();
 
 		String encodedNamespace = extCtx.encodeNamespace("");
 

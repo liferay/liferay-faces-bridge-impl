@@ -13,31 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.internal;
+package com.liferay.faces.bridge.internal;
 
-import java.io.IOException;
-import java.io.Writer;
-
+import javax.portlet.PortletConfig;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+import javax.portlet.faces.Bridge;
 
 
 /**
- * Wraps a {@link PortletResponse} {@link Writer} in order to support render-redirect by buffering response output.
- *
- * @author  ngriffin
+ * @author  Kyle Stiemann
  */
-public abstract class RenderRedirectWriter extends WriterWrapper {
+public abstract class BridgeCompatImpl implements Bridge {
 
-	/**
-	 * Discards the buffered response output so that it will not be written to the wrapped {@link Writer}.
-	 */
-	public abstract void discard();
+	protected abstract void checkNull(PortletRequest portletRequest, PortletResponse portletResponse);
 
-	/**
-	 * Renders the buffered response output to the wrapped {@link Writer}.
-	 *
-	 * @throws  IOException
-	 */
-	public abstract void render() throws IOException;
+	protected abstract PortletConfig getPortletConfig();
 
+	protected abstract boolean isInitialized();
 }

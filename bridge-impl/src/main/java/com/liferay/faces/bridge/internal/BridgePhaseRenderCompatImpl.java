@@ -43,7 +43,7 @@ import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandler;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandlerImpl;
 import com.liferay.faces.bridge.context.BridgePortalContext;
-import com.liferay.faces.bridge.context.internal.RenderRedirectWriter;
+import com.liferay.faces.bridge.context.internal.BufferedRenderWriterCompatImpl;
 import com.liferay.faces.bridge.event.internal.IPCPhaseListener;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
@@ -54,16 +54,16 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
+public class BridgePhaseRenderCompatImpl extends BridgePhaseCompat_2_2_Impl {
 
 	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(BridgePhaseRenderImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(BridgePhaseRenderCompatImpl.class);
 
 	// Private Data Members
 	private RenderRequest renderRequest;
 	private RenderResponse renderResponse;
 
-	public BridgePhaseRenderImpl(RenderRequest renderRequest, RenderResponse renderResponse,
+	public BridgePhaseRenderCompatImpl(RenderRequest renderRequest, RenderResponse renderResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		super(portletConfig, bridgeConfig);
@@ -260,8 +260,8 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 			// ResponseOutputWriter has buffered up markup that must be discarded. This is because we don't want the
 			// markup from the original Faces view to be included with the markup of Faces view found in the
 			// redirect URL.
-			if (writer instanceof RenderRedirectWriter) {
-				RenderRedirectWriter responseOutputWriter = (RenderRedirectWriter) writer;
+			if (writer instanceof BufferedRenderWriterCompatImpl) {
+				BufferedRenderWriterCompatImpl responseOutputWriter = (BufferedRenderWriterCompatImpl) writer;
 				responseOutputWriter.discard();
 			}
 
@@ -276,8 +276,8 @@ public class BridgePhaseRenderImpl extends BridgePhaseCompat_2_2_Impl {
 		else {
 
 			// In the case that a render-redirect took place, need to render the buffered markup to the response.
-			if (writer instanceof RenderRedirectWriter) {
-				RenderRedirectWriter responseOutputWriter = (RenderRedirectWriter) writer;
+			if (writer instanceof BufferedRenderWriterCompatImpl) {
+				BufferedRenderWriterCompatImpl responseOutputWriter = (BufferedRenderWriterCompatImpl) writer;
 				responseOutputWriter.render();
 			}
 		}
