@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.bean.ApplicationScoped;
+import javax.enterprise.context.ApplicationScoped;
 
 import com.liferay.faces.demos.dto.Customer;
 

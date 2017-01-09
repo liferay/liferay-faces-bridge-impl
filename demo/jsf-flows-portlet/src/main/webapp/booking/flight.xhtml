@@ -2,8 +2,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:alloy="http://liferay.com/faces/alloy"
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	<alloy:field id="departureField" label="#{i18n['departure-airport']}" required="true">
-		<h:selectOneMenu id="departureId" value="#{bookingFlowModelBean.bookingDepartureId}">
+	<alloy:field id="departureField" label="#{i18n['departure-airport']}">
+		<h:selectOneMenu id="departureId" value="#{bookingFlowModelBean.bookingDepartureId}" required="true">
 			<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
 			<f:selectItems itemValue="#{airport.airportId}" itemLabel="#{airport.city}: #{airport.name}"
 				value="#{airportService.airports}" var="airport" />
@@ -11,16 +11,17 @@
 		</h:selectOneMenu>
 		<h:message for="departureId" />
 	</alloy:field>
-	<alloy:field id="arrivalField" label="#{i18n['arrival-airport']}" required="true">
-		<h:selectOneMenu id="arrivalId" value="#{bookingFlowModelBean.bookingArrivalId}">
+	<alloy:field id="arrivalField" label="#{i18n['arrival-airport']}">
+		<h:selectOneMenu id="arrivalId" value="#{bookingFlowModelBean.bookingArrivalId}" required="true">
 			<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
 			<f:selectItems itemValue="#{airport.airportId}" itemLabel="#{airport.city}: #{airport.name}"
 				value="#{airportService.airports}" var="airport" />
 			<f:ajax render="arrivalField" />
 		</h:selectOneMenu>
+		<h:message for="arrivalId" />
 	</alloy:field>
-	<alloy:field id="departureDateField" label="#{i18n['departure-date']}" required="true">
-		<input jsf:id="departureDate" jsf:value="#{bookingFlowModelBean.bookingDepartureDate}" type="date">
+	<alloy:field id="departureDateField" label="#{i18n['departure-date']}">
+		<input jsf:id="departureDate" jsf:value="#{bookingFlowModelBean.bookingDepartureDate}" jsf:required="true" type="date">
 			<f:convertDateTime pattern="yyyy-MM-dd" />
 			<f:ajax render="departureDateField" />
 		</input>
@@ -28,6 +29,6 @@
 	</alloy:field>
 	<hr />
 	<h:commandButton action="flightSearch" value="#{i18n['search-flights']}">
-		<f:ajax execute="@form" />
+		<f:ajax execute="@form" render="@form" />
 	</h:commandButton>
 </ui:composition>
