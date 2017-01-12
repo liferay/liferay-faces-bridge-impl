@@ -548,36 +548,6 @@
 							</execution>
 						</executions>
 					</plugin>
-					<plugin>
-						<artifactId>maven-war-plugin</artifactId>
-						<configuration>
-							<webXml>${project.build.directory}/pluto-resources/web.xml</webXml>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.portals.pluto</groupId>
-						<artifactId>maven-pluto-plugin</artifactId>
-						<version>${pluto.version}</version>
-						<dependencies>
-							<dependency>
-								<groupId>org.apache.portals.pluto</groupId>
-								<artifactId>pluto-util</artifactId>
-								<version>${pluto.version}</version>
-								<scope>runtime</scope>
-							</dependency>
-						</dependencies>
-						<executions>
-							<execution>
-								<phase>generate-resources</phase>
-								<goals>
-									<goal>assemble</goal>
-								</goals>
-								<configuration>
-									<webXml>${basedir}/src/main/webapp/WEB-INF/${webapp.descriptor}</webXml>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
 				</plugins>
 			</build>
 		</profile>
