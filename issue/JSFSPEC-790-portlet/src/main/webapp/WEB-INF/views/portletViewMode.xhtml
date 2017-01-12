@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<h:head />
+	<h:body>
+		<h:form id="a" style="background-color: #aaaaaa">
+			<p>
+				<h:outputText value="This is 'form a'" style="font-weight: bold;" />
+			</p>
+			<p>
+				<h:outputText value="Current Server Time: #{testBean.currentServerTime}" />
+			</p>
+			<p>
+				<h:outputLabel for="fooFormA" value="Enter a new value for foo:" />
+				<br />
+				<h:inputText id="fooFormA" value="#{testBean.foo}" />
+			</p>
+			<p>
+				<h:commandButton action="#{testBean.action}" value="click me to execute 'form a' but re-render 'form b'">
+					<f:ajax execute="a" render=":b" />
+				</h:commandButton>
+				<br />
+				<h:commandLink id="cmdLink1" value="click me to execute 'form a' but re-render 'form b'"
+							   onclick="jsf.ajax.request(this,event,{execute:'a',render:':b'}); return false;"/>
+			</p>
+		</h:form>
+		<hr />
+		<h:form id="b" style="background-color: #bbbbbb">
+			<p>
+				<h:outputText value="This is 'form b'" style="font-weight: bold;" />
+			</p>
+			<p>
+				<h:outputText value="Current Server Time: #{testBean.currentServerTime}" />
+			</p>
+			<p>
+				<h:outputLabel for="fooFormB" value="Enter a new value for foo:" />
+				<br />
+				<h:inputText id="fooFormB" value="#{testBean.foo}" />
+			</p>
+			<p>
+				<h:commandButton action="#{testBean.action}" value="click me to execute 'form b' but re-render 'form a'">
+					<f:ajax execute="b" render=":a" />
+				</h:commandButton>
+				<br />
+				<h:commandLink id="cmdLink2" value="click me to execute 'form b' but re-render 'form a'"
+							   onclick="jsf.ajax.request(this,event,{execute:'b',render:':a'}); return false;"/>
+			</p>
+		</h:form>
+		<hr />
+		<h:form id="c" style="background-color: #cccccc">
+			<p>
+				<h:outputText value="This is 'form c'" style="font-weight: bold;" />
+			</p>
+			<p>
+				<h:outputText value="Current Server Time: #{testBean.currentServerTime}" />
+			</p>
+			<p>
+				<h:outputLabel for="fooFormC" value="Enter a new value for foo:" />
+				<br />
+				<h:inputText id="fooFormC" value="#{testBean.foo}" />
+			</p>
+			<p>
+				<h:commandButton action="#{testBean.action}" value="click me to execute 'form c' but re-render 'form a' and 'form b'">
+					<f:ajax execute="c" render=":a :b" />
+				</h:commandButton>
+				<br />
+				<h:commandLink id="cmdLink3" value="click me to execute 'form c' but re-render 'form a' and 'form b'"
+					onclick="jsf.ajax.request(this,event,{execute:'c',render:':a :b'}); return false;"/>
+			</p>
+		</h:form>
+		<hr />
+		<h:form style="background-color: #dddddd">
+			<p>
+				<h:outputText value="This is form d" style="font-weight: bold;" />
+			</p>
+			<p>
+				<h:outputText value="Current Server Time: #{testBean.currentServerTime}" />
+			</p>
+			<p>
+				<h:outputText value="Note: The javax.faces.ViewState field won't get updated in this form" />
+			</p>
+		</h:form>
+		<hr />
+		<ul>
+			<li><em><h:outputText value="#{product.JSF}" /></em></li>
+			<li><em><h:outputText value="#{product.LIFERAY_FACES_BRIDGE}" /></em></li>
+		</ul>
+	</h:body>
+</f:view>
