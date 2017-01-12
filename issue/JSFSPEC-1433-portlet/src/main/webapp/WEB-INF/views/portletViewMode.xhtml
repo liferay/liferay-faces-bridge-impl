@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+	<h:head />
+	<h:body>
+		<h2>Test Procedure:</h2>
+		<ul>
+			<li>Click Submit and verify that you see <span class="portlet-msg-error">"Validation Error: Value is required"</span> for the firstName and lastName fields.</li>
+			<li>Type "John" in the firstName field.</li>
+			<li>Using your browser's "Inspect" feature, remove <strong><code>&lt;input id="namingConainerId:_:myForm:lastName" ... /></code></strong> from the DOM.</li>
+			<li>Click Submit.</li>
+		</ul>
+		<h2>Test Results:</h2>
+		<p>
+			<strong>If the issue still exists, </strong>
+			<span>then form submission will succeed and you will see the global FacesMessage </span>
+			<span class="portlet-msg-info">"Hello John null"</span>
+		</p>
+		<p>
+			<strong>Otherwise, if the issue is fixed, </strong>
+			<span>You should see </span>
+			<span class="portlet-msg-error">"Validation Error: Value is required"</span>
+			<span> for the lastName field.</span>
+		</p>
+		<hr />
+		<h:form id="myForm">
+			<h:messages globalOnly="true" />
+			<em>* indicates a required field</em>
+			<br />
+			<h:outputLabel value="* First Name:" />
+			<h:inputText id="firstName" label="First Name" required="true" value="#{testBean.firstName}" />
+			<h:message for="firstName" />
+			<br />
+			<h:outputLabel value=" Middle Name:" />
+			<h:inputText id="middleName" label="Middle Name" value="#{testBean.middleName}" />
+			<h:message for="middleName" />
+			<br />
+			<h:outputLabel value="* Last Name:" />
+			<h:inputText id="lastName" label="Last Name" required="true" value="#{testBean.lastName}" />
+			<h:message for="lastName" />
+			<br />
+			<h:commandButton action="#{testBean.action}" value="Submit">
+				<f:ajax execute="@form" render="@form" />
+			</h:commandButton>
+		</h:form>
+		<hr />
+		<ul>
+			<li><em><h:outputText value="#{product.JSF}" /></em></li>
+			<li><em><h:outputText value="#{product.LIFERAY_FACES_BRIDGE}" /></em></li>
+		</ul>
+	</h:body>
+</f:view>
