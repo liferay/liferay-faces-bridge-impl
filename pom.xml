@@ -95,7 +95,7 @@
 		<faces.impl.artifact.id>javax.faces</faces.impl.artifact.id>
 		<faces.servlet.container.initializer>com.sun.faces.config.FacesInitializer</faces.servlet.container.initializer>
 		<faces.impl.scope>runtime</faces.impl.scope>
-		<faces.spec.version>2.3-edr1</faces.spec.version>
+		<faces.spec.version>2.3-prd</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
 		<icefaces.version>4.1.1</icefaces.version>
