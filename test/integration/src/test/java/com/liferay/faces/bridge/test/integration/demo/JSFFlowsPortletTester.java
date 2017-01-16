@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.test.integration.demo;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.Keys;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -129,43 +129,23 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		String titleFieldXpath = "//select[contains(@id,':titleId')]";
 		browser.waitForElementVisible(titleFieldXpath);
 		createSelect(browser, titleFieldXpath).selectByVisibleText("Mr.");
-
-		String firstNameFieldXpath = "//input[contains(@id,':firstName')]";
-		browser.sendKeys(firstNameFieldXpath, "Gilbert");
-
-		String lastNameFieldXpath = "//input[contains(@id,':lastName')]";
-		browser.sendKeys(lastNameFieldXpath, "Godfried");
-
-		String emailAddressFieldXpath = "//input[contains(@id,':emailAddress')]";
-		browser.sendKeys(emailAddressFieldXpath, "Gilbert@Godfried.org");
-
-		String phoneNumberFieldXpath = "//input[contains(@id,':phoneNumber')]";
-		browser.sendKeys(phoneNumberFieldXpath, "1234567890");
-
-		String addressLine1FieldXpath = "//input[contains(@id,':addressLine1')]";
-		browser.sendKeys(addressLine1FieldXpath, "123 Gilgod Ave");
-
-		String cityFieldXpath = "//input[contains(@id,':city')]";
-		browser.sendKeys(cityFieldXpath, "Hollywood");
-
-		String provinceIdFieldXpath = "//select[contains(@id,':provinceId')]";
-		createSelect(browser, provinceIdFieldXpath).selectByVisibleText("California");
-
-		String paymentTypeIdFieldXpath = "//select[contains(@id,':paymentTypeId')]";
-		createSelect(browser, paymentTypeIdFieldXpath).selectByVisibleText("Visa");
-
-		String accountNumberFieldXpath = "//input[contains(@id,':accountNumber')]";
-		browser.sendKeys(accountNumberFieldXpath, "12345678901234567890");
-
-		String expirationMonthFieldXpath = "//input[contains(@id,':expirationMonth')]";
-		browser.sendKeys(expirationMonthFieldXpath, "01/35");
-
+		browser.sendKeys("//input[contains(@id,':firstName')]", "Gilbert");
+		browser.sendKeys("//input[contains(@id,':lastName')]", "Godfried");
+		browser.sendKeys("//input[contains(@id,':emailAddress')]", "Gilbert@Godfried.org");
+		browser.sendKeys("//input[contains(@id,':phoneNumber')]", "1234567890");
+		browser.sendKeys("//input[contains(@id,':addressLine1')]", "123 Gilgod Ave");
+		browser.sendKeys("//input[contains(@id,':city')]", "Hollywood");
+		createSelect(browser, "//select[contains(@id,':provinceId')]").selectByVisibleText("California");
+		createSelect(browser, "//select[contains(@id,':paymentTypeId')]").selectByVisibleText("Visa");
+		browser.sendKeys("//input[contains(@id,':accountNumber')]", "12345678901234567890");
+		browser.sendKeys("//input[contains(@id,':expirationMonth')]", "01/35");
 		browser.click("//input[@value='Purchase']");
-		String cvvFieldXpath = "//input[contains(@id,':cvv')]";
-		browser.waitForElementVisible(cvvFieldXpath + "/../span[@class='portlet-msg-error']");
-		SeleniumAssert.assertElementTextVisible(browser, cvvFieldXpath + "/../span[@class='portlet-msg-error']", "Value is required");
-		browser.sendKeys(cvvFieldXpath, "123");
 
+		String cvvFieldXpath = "//input[contains(@id,':cvv')]";
+		String cvvFieldErrorXpath = cvvFieldXpath + "/../span[@class='portlet-msg-error']";
+		browser.waitForElementVisible(cvvFieldErrorXpath);
+		SeleniumAssert.assertElementTextVisible(browser, cvvFieldErrorXpath, "Value is required");
+		browser.sendKeys(cvvFieldXpath, "123");
 		browser.click("//input[@value='Purchase']");
 
 		String callSurveyFlowButtonXpath = "//input[@value='Call Survey Flow']";
