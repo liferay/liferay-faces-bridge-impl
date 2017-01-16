@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_6;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.portlet.MimeResponse;
+import javax.portlet.RenderResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.annotation.PortletNamingContainer;
@@ -56,7 +56,7 @@ public class Tests extends Object {
 			// Values set by portlet at end of action
 			String clientIdInAction = (String) extCtx.getRequestMap().get(
 					"com.liferay.faces.bridge.tck.clientIdInAction");
-			String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
+			String namespace = ((RenderResponse) ctx.getExternalContext().getResponse()).getNamespace();
 
 			if (clientId.indexOf(namespace) < 0) {
 				testRunner.setTestResult(false,
@@ -87,7 +87,7 @@ public class Tests extends Object {
 	public String portletNamingContainerClientIdTest(TestRunnerBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		UIViewRoot viewRoot = ctx.getViewRoot();
-		String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
+		String namespace = ((RenderResponse) ctx.getExternalContext().getResponse()).getNamespace();
 
 		testRunner.setTestComplete(true);
 
@@ -119,7 +119,7 @@ public class Tests extends Object {
 	public String portletNamingContainerUIViewRootClientIdTest(TestRunnerBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		UIViewRoot viewRoot = ctx.getViewRoot();
-		String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
+		String namespace = ((RenderResponse) ctx.getExternalContext().getResponse()).getNamespace();
 
 		testRunner.setTestComplete(true);
 

@@ -31,15 +31,19 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 
+import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
 /**
  * @author  Michael Freedman
  */
-public class ManualBridgeInvokePortlet extends ManualBridgeInvokeCompatPortlet {
+public class ManualBridgeInvokePortlet extends GenericFacesTestSuitePortlet {
 
+	private static final String EXCEPTIONTHROWN_NODEFAULTVIEWID_TEST = "exceptionThrownWhenNoDefaultViewIdTest";
+	private static final String VIEWIDWITHPARAM_TEST = "viewIdWithParam_1_Test";
 	private static final String FACESCONTEXTRELEASED_ACTION_TEST = "facesContextReleasedActionTest";
 	private static final String PORTLETPHASEREMOVED_ACTION_TEST = "portletPhaseRemovedActionTest";
 	private static final String FACESCONTEXTRELEASED_EVENT_TEST = "facesContextReleasedEventTest";
@@ -53,19 +57,39 @@ public class ManualBridgeInvokePortlet extends ManualBridgeInvokeCompatPortlet {
 	public void doDispatch(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
 		IOException {
 
-		if (getTestName().equals(BRIDGESETSCONTENTTYPE_TEST)) {
+		if (getTestName().equals(EXCEPTIONTHROWN_NODEFAULTVIEWID_TEST)) {
+
+			Bridge bridge = super.getFacesBridge(renderRequest, renderResponse);
+
+			try {
+				bridge.doFacesRequest(renderRequest, renderResponse);
+			}
+			catch (BridgeDefaultViewNotSpecifiedException e) {
+				outputTestResult(renderResponse, Boolean.TRUE,
+					"Correctly threw BridgeDefaultViewNotSpecifiedException when no default defined.");
+			}
+			catch (Exception e) {
+				outputTestResult(renderResponse, Boolean.FALSE,
+					"Didn't throw BridgeDefaultViewNotSpecifiedException when no default defined.");
+			}
+		}
+		else if (getTestName().equals(BRIDGESETSCONTENTTYPE_TEST)) {
 
 			// By invoking the bridge directly (and not setting the contentType)
 			// we force the bridge to have to do the work
 			Bridge bridge = super.getFacesBridge(renderRequest, renderResponse);
 			bridge.doFacesRequest(renderRequest, renderResponse);
 		}
+		else if (getTestName().equals(VIEWIDWITHPARAM_TEST)) {
+			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/singleRequestTest.xhtml?param1=testValue");
+			super.doDispatch(renderRequest, renderResponse);
+		}
 		else if (getTestName().equals(FACESCONTEXTRELEASED_ACTION_TEST) ||
 				getTestName().equals(PORTLETPHASEREMOVED_ACTION_TEST) ||
 				getTestName().equals(FACESCONTEXTRELEASED_EVENT_TEST) ||
 				getTestName().equals(PORTLETPHASEREMOVED_EVENT_TEST)) {
 
-			// Output in the Test method for this test
+			// Output in the Test method fort his test
 			super.doDispatch(renderRequest, renderResponse);
 		}
 		else if (getTestName().equals(FACESCONTEXTRELEASED_RENDER_TEST)) {
@@ -201,8 +225,7 @@ public class ManualBridgeInvokePortlet extends ManualBridgeInvokeCompatPortlet {
 		}
 	}
 
-	@Override
-	protected void outputTestResult(MimeResponse response, Boolean pass, String detail) throws IOException {
+	private void outputTestResult(MimeResponse response, Boolean pass, String detail) throws IOException {
 		response.setContentType("text/html");
 
 		PrintWriter out = response.getWriter();
