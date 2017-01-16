@@ -54,7 +54,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
 /**
  * @author  jhaley
  */
-public class Tests extends TestsCompat {
+public class Tests {
 
 	/**
 	 * Testing JSF EL - implicits are in alpha order.
@@ -124,12 +124,12 @@ public class Tests extends TestsCompat {
 				testImplicitObject(testRunner, facesResolver, ctx, "view", ctx.getViewRoot());
 
 				// Portlet implicit objects
-				// httpSessionScope:  mutable Map containing PortletSession attribute/values at APPLICATION_SCOPE
+				// httpSessionScope:  mutable Map containing PortletSession attribute/values at APPLICATION_SCOPE.
 				testHttpSessionScope(testRunner, facesResolver, ctx, "httpSessionScope",
 					(PortletSession) extCtx.getSession(true));
 
 				// mutablePortletPreferencesValues: mutable Map of type Map<String,
-				// javax.portlet.faces.preference.Preference>
+				// javax.portlet.faces.preference.Preference>.
 				testMutablePortletPreferencesValues(testRunner, facesResolver, ctx, "mutablePortletPreferencesValues",
 					((PortletRequest) extCtx.getRequest()).getPreferences().getMap());
 
@@ -137,18 +137,18 @@ public class Tests extends TestsCompat {
 				testImplicitObject(testRunner, facesResolver, ctx, "portletConfig",
 					extCtx.getRequestMap().get(Constants.PORTLET_CONFIG));
 
-				// portletPreferences -> ExternalContext.getRequest().getPreferences() object
+				// portletPreferences -> ExternalContext.getRequest().getPreferences() object.
 				testImplicitObject(testRunner, facesResolver, ctx, "portletPreferences",
 					((PortletRequest) extCtx.getRequest()).getPreferences());
 
-				// portletPreferencesValues -> ExternalContext.getRequest()).getPreferences().getMap()
+				// portletPreferencesValues -> ExternalContext.getRequest()).getPreferences().getMap().
 				testImplicitObjectArrayMaps(testRunner, facesResolver, ctx, "portletPreferencesValues",
 					((PortletRequest) extCtx.getRequest()).getPreferences().getMap());
 
 				// portletSession -> ExternalContext.getSession()
 				testImplicitObject(testRunner, facesResolver, ctx, "portletSession", extCtx.getSession(true));
 
-				// portletSessionScope -> ExternalContext.getSessionMap()
+				// portletSessionScope -> ExternalContext.getSessionMap().
 				testImplicitObject(testRunner, facesResolver, ctx, "portletSessionScope", extCtx.getSessionMap());
 			}
 			catch (Throwable t) {
@@ -157,12 +157,12 @@ public class Tests extends TestsCompat {
 
 			return "JSF_ELTest";
 		}
-		else // HEADER or RENDER REQUEST
+		else // RENDER REQUEST
 		{
 
 			try {
 
-				// JSF Implicit Objects:
+				// JSF Implicit Objects
 				// application -> ExternalContext.getContext();
 				testImplicitObject(testRunner, facesResolver, ctx, "application", extCtx.getContext());
 
@@ -207,12 +207,12 @@ public class Tests extends TestsCompat {
 				testImplicitObject(testRunner, facesResolver, ctx, "view", ctx.getViewRoot());
 
 				// Portlet implicit objects
-				// httpSessionScope:  mutable Map containing PortletSession attribute/values at APPLICATION_SCOPE
+				// httpSessionScope:  mutable Map containing PortletSession attribute/values at APPLICATION_SCOPE.
 				testHttpSessionScope(testRunner, facesResolver, ctx, "httpSessionScope",
 					(PortletSession) extCtx.getSession(true));
 
 				// mutablePortletPreferencesValues: mutable Map of type Map<String,
-				// javax.portlet.faces.preference.Preference>
+				// javax.portlet.faces.preference.Preference>.
 				testMutablePortletPreferencesValues(testRunner, facesResolver, ctx, "mutablePortletPreferencesValues",
 					((PortletRequest) extCtx.getRequest()).getPreferences().getMap());
 
@@ -220,25 +220,25 @@ public class Tests extends TestsCompat {
 				testImplicitObject(testRunner, facesResolver, ctx, "portletConfig",
 					extCtx.getRequestMap().get(Constants.PORTLET_CONFIG));
 
-				// portletPreferences -> ExternalContext.getRequest().getPreferences() object
+				// portletPreferences -> ExternalContext.getRequest().getPreferences() object.
 				testImplicitObject(testRunner, facesResolver, ctx, "portletPreferences",
 					((PortletRequest) extCtx.getRequest()).getPreferences());
 
-				// portletPreferencesValues -> ExternalContext.getRequest()).getPreferences().getMap()
+				// portletPreferencesValues -> ExternalContext.getRequest()).getPreferences().getMap().
 				testImplicitObjectArrayMaps(testRunner, facesResolver, ctx, "portletPreferencesValues",
 					((PortletRequest) extCtx.getRequest()).getPreferences().getMap());
 
 				// portletSession -> ExternalContext.getSession()
 				testImplicitObject(testRunner, facesResolver, ctx, "portletSession", extCtx.getSession(true));
 
-				// portletSessionScope -> ExternalContext.getSessionMap()
+				// portletSessionScope -> ExternalContext.getSessionMap().
 				testImplicitObject(testRunner, facesResolver, ctx, "portletSessionScope", extCtx.getSessionMap());
 
-				//J-
-				// request -> ExternalContext.getRequest()
-				// response -> ExternalContext.getResponse()
-				//J+
-				testImplicitRequestResponseObjects(testRunner, ctx);
+				// renderRequest -> object of type javax.portlet.RenderRequest
+				testImplicitObject(testRunner, facesResolver, ctx, "renderRequest", extCtx.getRequest());
+
+				// renderResponse -> object of type javax.portlet.RenderResponse
+				testImplicitObject(testRunner, facesResolver, ctx, "renderResponse", extCtx.getResponse());
 			}
 			catch (Throwable t) {
 				fail(testRunner, "JSF EL failure in render request: " + t.getCause().toString());
@@ -249,7 +249,7 @@ public class Tests extends TestsCompat {
 				// Things completed successfully
 				testRunner.setTestComplete(true);
 				testRunner.setTestResult(true,
-					"JSF EL impicit objects correctly resolved in action and render/header phases.");
+					"JSF EL impicit objects correctly resolved in both action and render phases.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -285,21 +285,6 @@ public class Tests extends TestsCompat {
 			return Constants.TEST_FAILED;
 		}
 
-	}
-
-	@Override
-	protected void testImplicitObject(TestRunnerBean testRunner, ELResolver resolver, FacesContext ctx,
-		String implicitObject, Object compareTo) {
-		Object objectFromFacesEL = resolver.getValue(ctx.getELContext(), null, implicitObject);
-
-		if ((objectFromFacesEL == null) || !ctx.getELContext().isPropertyResolved()) {
-			fail(testRunner, "implicit object " + implicitObject + " didn't resolve using the Faces EL resolver.");
-		}
-		else if ((objectFromFacesEL != compareTo) && !objectFromFacesEL.equals(compareTo)) {
-			fail(testRunner,
-				"implicit object  " + implicitObject +
-				" resolved using the Faces EL resolver but its not equal to what is expected.");
-		}
 	}
 
 	private boolean arrayMapsEquals(Map<String, String[]> a, Map<String, String[]> b) {
@@ -388,6 +373,20 @@ public class Tests extends TestsCompat {
 		if (count != objectFromFacesEL.size()) {
 			fail(testRunner,
 				"resolved implicit object httpSessionScope doesn't contain the same number of entries as are in the portlet's session ApplicationScope.");
+		}
+	}
+
+	private void testImplicitObject(TestRunnerBean testRunner, ELResolver resolver, FacesContext ctx,
+		String implicitObject, Object compareTo) {
+		Object objectFromFacesEL = resolver.getValue(ctx.getELContext(), null, implicitObject);
+
+		if ((objectFromFacesEL == null) || !ctx.getELContext().isPropertyResolved()) {
+			fail(testRunner, "implicit object " + implicitObject + " didn't resolve using the Faces EL resolver.");
+		}
+		else if ((objectFromFacesEL != compareTo) && !objectFromFacesEL.equals(compareTo)) {
+			fail(testRunner,
+				"implicit object  " + implicitObject +
+				" resolved using the Faces EL resolver but its not equal to what is expected.");
 		}
 	}
 

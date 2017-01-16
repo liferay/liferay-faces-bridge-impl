@@ -59,7 +59,7 @@
 	<entry key="group/bridge-tck/testpage056">portletPhaseRemovedActionTest</entry>
 	<entry key="group/bridge-tck/testpage057">bridgeSetsContentTypeTest</entry>
 	<entry key="group/bridge-tck/testpage058">isPostbackTest</entry>
-	<entry key="group/bridge-tck/testpage059">headerOrRenderPhaseListenerTest</entry>
+	<entry key="group/bridge-tck/testpage059">renderPhaseListenerTest</entry>
 	<entry key="group/bridge-tck/testpage060">eventPhaseListenerTest</entry>
 	<entry key="group/bridge-tck/testpage061">eventScopeRestoredTest</entry>
 	<entry key="group/bridge-tck/testpage062">eventScopeNotRestoredRedirectTest</entry>

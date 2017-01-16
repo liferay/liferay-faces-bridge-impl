@@ -33,14 +33,21 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUninitializedException;
 
+import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
 /**
  * @author  Michael Freedman
  */
-public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
+public class BridgeDestroyTestPortlet extends GenericFacesTestSuitePortlet {
 
+	static final String DESTROY_ACTION_TEST = "actionDestroyTest";
+	static final String DESTROY_EVENT_TEST = "eventDestroyTest";
+	static final String DESTROY_RENDER_TEST = "renderDestroyTest";
+	static final String DESTROY_RESOURCE_TEST = "resourceDestroyTest";
+	static final String DESTROY_DOUBLE_TEST = "doubleDestroyTest";
+	static final String NULLREQUEST_RENDER_TEST = "nullRequestRenderTest";
 	static final String NULLREQUEST_ACTION_TEST = "nullRequestActionTest";
 
 	private String mActionResult = null;
@@ -123,11 +130,6 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 		else {
 			super.serveResource(request, response);
 		}
-	}
-
-	@Override
-	protected String getMActionResult() {
-		return mActionResult;
 	}
 
 	private void encodeDestroyTestAlreadyRun(String testName) {

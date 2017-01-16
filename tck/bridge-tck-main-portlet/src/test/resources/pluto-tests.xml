@@ -66,7 +66,7 @@ NOTE:
 	<entry key="pluto/portal/TestPage056">portletPhaseRemovedActionTest</entry>
 	<entry key="pluto/portal/TestPage057">bridgeSetsContentTypeTest</entry>
 	<entry key="pluto/portal/TestPage058">isPostbackTest</entry>
-	<entry key="pluto/portal/TestPage059">headerOrRenderPhaseListenerTest</entry>
+	<entry key="pluto/portal/TestPage059">renderPhaseListenerTest</entry>
 <!-- 	<entry key="pluto/portal/TestPage060">eventPhaseListenerTest</entry> -->
 <!-- 	<entry key="pluto/portal/TestPage061">eventScopeRestoredTest</entry> -->
 <!-- 	<entry key="pluto/portal/TestPage062">eventScopeNotRestoredRedirectTest</entry> -->
