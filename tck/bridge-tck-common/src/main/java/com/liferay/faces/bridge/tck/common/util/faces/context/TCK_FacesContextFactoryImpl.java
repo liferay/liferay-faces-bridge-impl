@@ -22,7 +22,6 @@ import javax.faces.context.FacesContextFactory;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.lifecycle.LifecycleFactory;
 import javax.portlet.ActionRequest;
-import javax.portlet.HeaderRequest;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -144,15 +143,15 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 					"Phase attribute either not set or has incorrect value during action ... ");
 			}
 		}
-		else if (request instanceof HeaderRequest) {
+		else {
 
-			if ((phase != null) && (phase == Bridge.PortletPhase.HEADER_PHASE)) {
-				request.setAttribute("javax.portlet.faces.tck.verifyPortletPhaseDuringHeaderPass",
-					"Phase attribute correctly set during header.");
+			if ((phase != null) && (phase == Bridge.PortletPhase.RENDER_PHASE)) {
+				request.setAttribute("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderPass",
+					"Phase attribute correctly set during render.");
 			}
 			else {
-				request.setAttribute("javax.portlet.faces.tck.verifyPortletPhaseDuringHeaderFail",
-					"Phase attribute either not set or has incorrect value during header.");
+				request.setAttribute("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderFail",
+					"Phase attribute either not set or has incorrect value during render.");
 			}
 		}
 	}
