@@ -57,7 +57,7 @@
 <entry key="pluto/portal/TestPage056">portletPhaseRemovedActionTest</entry>
 <entry key="pluto/portal/TestPage057">bridgeSetsContentTypeTest</entry>
 <entry key="pluto/portal/TestPage058">isPostbackTest</entry>
-<entry key="pluto/portal/TestPage059">headerOrRenderPhaseListenerTest</entry>
+<entry key="pluto/portal/TestPage059">renderPhaseListenerTest</entry>
 <entry key="pluto/portal/TestPage068">facesContextReleasedRenderTest</entry>
 <entry key="pluto/portal/TestPage069">portletPhaseRemovedRenderTest</entry>
 <entry key="pluto/portal/TestPage070">verifyResourcePhaseTest</entry>

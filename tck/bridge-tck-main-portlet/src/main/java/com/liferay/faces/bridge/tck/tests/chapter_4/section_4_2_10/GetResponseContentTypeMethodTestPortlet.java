@@ -23,7 +23,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import com.liferay.faces.bridge.tck.common.portlet.NoRenderHeadersCompatPortlet;
+import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
@@ -34,7 +34,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
  * the preferred content type for this request.
  */
 
-public class GetResponseContentTypeMethodTestPortlet extends NoRenderHeadersCompatPortlet {
+public class GetResponseContentTypeMethodTestPortlet extends GenericFacesTestSuitePortlet {
 
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";
