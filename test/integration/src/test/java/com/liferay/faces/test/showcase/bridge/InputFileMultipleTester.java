@@ -13,29 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.test.bridge.showcase;
+package com.liferay.faces.test.showcase.bridge;
 
 import org.junit.Test;
 
-import com.liferay.faces.test.selenium.Browser;
-import com.liferay.faces.test.showcase.image.ImageTester;
+import com.liferay.faces.test.showcase.inputfile.InputFileTester;
 
 
 /**
  * @author  Kyle Stiemann
  * @author  Philip White
  */
-public class PortletResourceURLGeneralTester extends ImageTester {
+public class InputFileMultipleTester extends InputFileTester {
 
 	@Test
-	public void runPortletResourceURLGeneralTest() {
+	public void runBridgeInputFileMultipleTest() throws Exception {
 
-		Browser browser = Browser.getInstance();
-		navigateToUseCase(browser, "portlet", "resourceURL", "general");
-
-		// Test that the image resource is rendered on the page.
-		String imageXpath =
-			"//div[@class='showcase-example']//img[contains(@src,'javax.faces.resource')][contains(@src,'ln=images') or contains(@src,'ln:images')]";
-		assertImageRendered(browser, imageXpath);
+		// Multiple file upload is currently unsupported on Selenium, so this test only tests uploading a single file.
+		// https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/2239
+		runInputFileTest("bridge", "multiple");
 	}
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.test.bridge.showcase;
+package com.liferay.faces.test.showcase.portlet;
 
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ import com.liferay.faces.test.showcase.TesterBase;
  * @author  Kyle Stiemann
  * @author  Philip White
  */
-public class PortletActionURLGeneralTester extends TesterBase {
+public class ActionURLGeneralTester extends TesterBase {
 
 	@Test
 	public void runPortletActionURLGeneralTest() {
@@ -34,22 +34,24 @@ public class PortletActionURLGeneralTester extends TesterBase {
 		Browser browser = Browser.getInstance();
 		navigateToUseCase(browser, "portlet", "actionURL", "general");
 
-		// Click "Submit Non-Faces Postback" and check that it opens the Non-Faces Postback page
+		// Submit the form and test that the browser navigated to the Non-Faces Postback page which displays the
+		// submitted value for the "foo" parameter.
 		String toActionParamPageXpath =
 			"//div[@class='showcase-example-usage']//input[@value='Submit Non-Faces Postback']";
 		browser.click(toActionParamPageXpath);
 
-		String ReturnToPortletActionURLXpath =
+		String returnToPortletActionURLXpath =
 			"//div[contains(@class,'portlet-body') or contains(@class,'body')]//a[contains(text(),'Return to portlet:actionURL')]";
-		browser.waitForElementVisible(ReturnToPortletActionURLXpath);
+		browser.waitForElementVisible(returnToPortletActionURLXpath);
 		SeleniumAssert.assertElementVisible(browser,
 			"//div[@class='portlet-body' or contains(@class,'body')]//pre[text()='foo=1234']");
-		SeleniumAssert.assertElementVisible(browser, ReturnToPortletActionURLXpath);
+		SeleniumAssert.assertElementVisible(browser, returnToPortletActionURLXpath);
 
-		// Click "Return to portlet:actionURL in the Liferay Faces Showcase" and check that it opens the
-		// PortletActionURL page
-		browser.click(ReturnToPortletActionURLXpath);
-		waitForShowcasePageReady(browser);
+		// Click the return link and test that the browser returned to the correct page.
+		browser.click(returnToPortletActionURLXpath);
+
+		// Due to SennaJS/SPA race condition, we cannot use waitForShowcasePageReady() in this case.
+		browser.waitForElementVisible(toActionParamPageXpath);
 		SeleniumAssert.assertElementVisible(browser, toActionParamPageXpath);
 	}
 }
