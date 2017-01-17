@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.test.bridge.showcase.inputfile;
+package com.liferay.faces.test.showcase.bridge;
 
 import org.junit.Test;
+
+import com.liferay.faces.test.showcase.inputfile.InputFileTester;
 
 
 /**
  * @author  Kyle Stiemann
  * @author  Philip White
  */
-public class InputFileGeneralTester extends InputFileTester {
+public class InputFileInstantAjaxTester extends InputFileTester {
 
 	@Test
-	public void runBridgeInputFileGeneralTest() throws Exception {
-		runBridgeInputFileTest(false, false);
+	public void runBridgeInputFileInstantAjaxTest() throws Exception {
+		runInputFileTest("bridge", "instant-ajax");
 	}
 }
