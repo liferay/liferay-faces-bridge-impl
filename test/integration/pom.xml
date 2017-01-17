@@ -187,6 +187,7 @@
 									</properties>
 									<excludes>
 										<exclude>**/bridge/**</exclude>
+										<exclude>**/portlet/**</exclude>
 									</excludes>
 									<includes>
 										<include>**/showcase/**/*Test.java,**/showcase/**/Test*.java,**/showcase/**/*TestCase.java,**/showcase/**/*Tester.java</include>

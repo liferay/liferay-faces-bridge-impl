@@ -13,19 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.test.bridge.showcase.inputfile;
+package com.liferay.faces.test.showcase.portlet;
 
 import org.junit.Test;
+
+import com.liferay.faces.test.selenium.Browser;
+import com.liferay.faces.test.showcase.TesterBase;
 
 
 /**
  * @author  Kyle Stiemann
  * @author  Philip White
  */
-public class InputFileMultipleTester extends InputFileTester {
+public class ResourceURLGeneralTester extends TesterBase {
 
 	@Test
-	public void runBridgeInputFileMultipleTest() throws Exception {
-		runBridgeInputFileTest(false, true);
+	public void runPortletResourceURLGeneralTest() {
+
+		Browser browser = Browser.getInstance();
+		navigateToUseCase(browser, "portlet", "resourceURL", "general");
+
+		// Test that the image resource is rendered.
+		assertImageRendered(browser,
+			"//div[@class='showcase-example']//img[contains(@src,'javax.faces.resource')][contains(@src,'ln=images') or contains(@src,'ln:images')]");
 	}
 }

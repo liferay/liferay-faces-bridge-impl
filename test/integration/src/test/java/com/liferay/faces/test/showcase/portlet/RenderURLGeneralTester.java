@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.test.bridge.showcase;
+package com.liferay.faces.test.showcase.portlet;
 
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ import com.liferay.faces.test.showcase.TesterBase;
  * @author  Kyle Stiemann
  * @author  Philip White
  */
-public class PortletRenderURLGeneralTester extends TesterBase {
+public class RenderURLGeneralTester extends TesterBase {
 
 	@Test
 	public void runPortletRenderURLGeneralTest() {
@@ -34,13 +34,15 @@ public class PortletRenderURLGeneralTester extends TesterBase {
 		Browser browser = Browser.getInstance();
 		navigateToUseCase(browser, "portlet", "renderURL", "general");
 
-		// Click "Hyperlink targeting the Showcase portlet" and check that it opens the Showcase portlet home page
+		// Click the home page link and test that the browser navigated to the home page.
 		String hyperlinkTargetingTheShowcasePortletXpath =
 			"(//div[@class='showcase-example-usage'])/a[text()='Hyperlink targeting the Showcase portlet']";
 		browser.click(hyperlinkTargetingTheShowcasePortletXpath);
 
-		// due to SPA race condition, we cannot use "waitForShowcasePageReady(browser);"
-		browser.waitForElementVisible("(//div[@class='showcase-home'])//a[text()='JSR 378']");
-		SeleniumAssert.assertElementVisible(browser, "(//div[@class='showcase-home'])//a[text()='JSR 378']");
+		String jsr378Xpath = "(//div[@class='showcase-home'])//a[text()='JSR 378']";
+
+		// Due to SennaJS/SPA race condition, we cannot use waitForShowcasePageReady() in this case.
+		browser.waitForElementVisible(jsr378Xpath);
+		SeleniumAssert.assertElementVisible(browser, jsr378Xpath);
 	}
 }
