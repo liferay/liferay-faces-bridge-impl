@@ -309,7 +309,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 
 		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
-		if (portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) {
+		if (portletRequestPhase == Bridge.PortletPhase.HEADER_PHASE) {
 
 			ExternalContext externalContext = facesContext.getExternalContext();
 			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
@@ -398,8 +398,8 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			}
 		}
 
-		// If running in the RENDER_PHASE, then the Flash scope must be restored.
-		if (portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) {
+		// If running in the HEADER_PHASE, then the Flash scope must be restored.
+		if (portletRequestPhase == Bridge.PortletPhase.HEADER_PHASE) {
 
 			// NOTE: PROPOSED-FOR-BRIDGE3-API: https://issues.apache.org/jira/browse/PORTLETBRIDGE-201
 			// Restore the flash scope.
@@ -410,9 +410,9 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			restoreClientWindow(facesContext.getExternalContext());
 		}
 
-		// If running in the RENDER_PHASE, then the incongruity context must be restored.
+		// If running in the HEADER_PHASE, then the incongruity context must be restored.
 		if (((beganInPhase == Bridge.PortletPhase.ACTION_PHASE) || (beganInPhase == Bridge.PortletPhase.EVENT_PHASE)) &&
-				(portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE)) {
+				(portletRequestPhase == Bridge.PortletPhase.HEADER_PHASE)) {
 
 			List<IncongruityAttribute> savedIncongruityAttributes = (List<IncongruityAttribute>) getAttribute(
 					BRIDGE_REQ_SCOPE_ATTR_INCONGRUITY_CONTEXT_ATTRIBUTES);

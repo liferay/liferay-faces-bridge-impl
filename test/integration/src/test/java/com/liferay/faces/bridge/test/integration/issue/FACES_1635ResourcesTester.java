@@ -41,7 +41,8 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 	public void runFACES_1635ResourcesTest() {
 
 		String container = TestUtil.getContainer();
-		Assume.assumeTrue("The FACES-1635 test is only valid on Liferay Portal.", container.contains("liferay"));
+		Assume.assumeTrue("The FACES-1635 test is only valid on Liferay Portal and Pluto 3.0+.",
+			container.startsWith("liferay") || (container.startsWith("pluto") && !container.startsWith("pluto2")));
 
 		Browser browser = Browser.getInstance();
 		browser.get(BridgeTestUtil.getIssuePageURL("faces-1635") + "?p_p_parallel=0");
@@ -60,7 +61,7 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 
 			if (isExternalJavaScriptResource(headScript, scriptSrc)) {
 
-				String resourceId = getResourceId(scriptSrc);
+				String resourceId = getResourceId(scriptSrc, container);
 
 				if (resourceId != null) {
 					Assert.assertTrue("Head contains duplicate script with resourceId=\"" + resourceId +
@@ -78,7 +79,7 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 
 			if (isCSSLink(headLink, linkHref)) {
 
-				String resourceId = getResourceId(linkHref);
+				String resourceId = getResourceId(linkHref, container);
 
 				if (resourceId != null) {
 					Assert.assertTrue("Head contains duplicate stylesheet with resourceId=\"" + resourceId +
@@ -86,6 +87,8 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 				}
 			}
 		}
+
+		Assert.assertTrue("No head resources found.", !resourceIds.isEmpty());
 
 		// Test that the entire document does not contain duplicate scripts.
 		List<WebElement> bodyScripts = browser.findElements(By.xpath("//body//script"));
@@ -95,7 +98,7 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 
 			if (isExternalJavaScriptResource(bodyScript, scriptSrc)) {
 
-				String resourceId = getResourceId(scriptSrc);
+				String resourceId = getResourceId(scriptSrc, container);
 
 				if (resourceId != null) {
 					Assert.assertTrue("Body contains duplicate script with resourceId=\"" + resourceId +
@@ -113,7 +116,7 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 
 			if (isCSSLink(bodyLink, linkHref)) {
 
-				String resourceId = getResourceId(linkHref);
+				String resourceId = getResourceId(linkHref, container);
 
 				if (resourceId != null) {
 					Assert.assertTrue("Body contains duplicate stylesheet with resourceId=\"" + resourceId +
@@ -121,23 +124,44 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 				}
 			}
 		}
+
+		Assert.assertTrue("No resources found.", !resourceIds.isEmpty());
 	}
 
-	private String getResourceId(String resourceURL) {
+	private String getResourceId(String resourceURL, String container) {
 
 		String resourceId = "";
-		int queryIndex = resourceURL.indexOf("?");
+		String splitString = "[?]";
 
-		if (queryIndex > -1) {
+		if (container.startsWith("pluto")) {
+			splitString = "[/][_][_]rs[0-9][/].*?[_][_]rv[0-9][;]";
+		}
 
-			String queryString = resourceURL.substring(queryIndex + 1);
-			String[] parameters = queryString.split("[&]");
+		String[] baseURLAndQueryArray = resourceURL.split(splitString);
+
+		if ((baseURLAndQueryArray.length > 1) && (baseURLAndQueryArray[1] != null) &&
+				!"".equals(baseURLAndQueryArray[1])) {
+
+			String queryString = baseURLAndQueryArray[1];
+			splitString = "[&]";
+
+			if (container.startsWith("pluto")) {
+				splitString = "[/][_][_]rv[0-9][;]";
+			}
+
+			String[] parameters = queryString.split(splitString);
+
+			splitString = "[=]";
+
+			if (container.startsWith("pluto")) {
+				splitString = "[:]";
+			}
 
 			for (String parameter : parameters) {
 
 				if (parameter != null) {
 
-					String[] parameterArray = parameter.split("[=]");
+					String[] parameterArray = parameter.split(splitString);
 					String name = null;
 					String value = null;
 

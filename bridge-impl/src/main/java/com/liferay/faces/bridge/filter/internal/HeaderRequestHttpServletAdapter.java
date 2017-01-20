@@ -15,26 +15,26 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import javax.portlet.RenderRequest;
+import javax.portlet.HeaderRequest;
 import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * Provides a way to decorate a {@link RenderRequest} as an {@link HttpServletRequest}. The methods signatures that are
+ * Provides a way to decorate a {@link HeaderRequest} as an {@link HttpServletRequest}. The methods signatures that are
  * unique to {@link HttpServletRequest} throw {@link UnsupportedOperationException} since they are never called during
  * the RENDER_RESPONSE phase of the JSF lifecycle (the use-case for which this class was written). For more information,
  * see {@link com.liferay.faces.bridge.application.view.internal.ViewDeclarationLanguageBridgeJspImpl}.
  *
  * @author  Neil Griffin
  */
-public class RenderRequestHttpServletAdapter extends PortletRequestHttpServletAdapter implements RenderRequest {
+public class HeaderRequestHttpServletAdapter extends PortletRequestHttpServletAdapter implements HeaderRequest {
 
-	public RenderRequestHttpServletAdapter(RenderRequest renderRequest, String characterEncoding) {
-		super(renderRequest, characterEncoding);
+	public HeaderRequestHttpServletAdapter(HeaderRequest headerRequest, String characterEncoding) {
+		super(headerRequest, characterEncoding);
 	}
 
 	@Override
 	public String getETag() {
-		return ((RenderRequest) getRequest()).getETag();
+		return ((HeaderRequest) getRequest()).getETag();
 	}
 }

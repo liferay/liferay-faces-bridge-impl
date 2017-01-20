@@ -18,10 +18,10 @@ package com.liferay.faces.bridge.tck.tests.chapter_3;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.portlet.HeaderRequest;
+import javax.portlet.HeaderResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeInvalidViewPathException;
 
@@ -38,42 +38,43 @@ public class PortletSetsViewTestPortlet extends GenericFacesTestSuitePortlet {
 	private static final String SETSVIEWPATH_TEST = "portletSetsViewPathTest";
 	private static final String SETSINVALIDVIEWPATH_TEST = "portletSetsInvalidViewPathTest";
 
-	public void doDispatch(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
-		IOException {
-
-		if (getTestName().equals(SETSVIEWID_TEST)) {
-			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/portletSetsViewIdTestSuccess.xhtml");
-			super.doDispatch(renderRequest, renderResponse);
-		}
-		else if (getTestName().equals(SETSVIEWPATH_TEST)) {
-			renderRequest.setAttribute(Bridge.VIEW_PATH, "/tests/portletSetsViewIdTestSuccess.jsf");
-			super.doDispatch(renderRequest, renderResponse);
-		}
-		else if (getTestName().equals(SETSINVALIDVIEWPATH_TEST)) {
-			renderRequest.setAttribute(Bridge.VIEW_PATH, "/tests/InvalidViewPath.jsp");
-
-			Bridge bridge = super.getFacesBridge(renderRequest, renderResponse);
-
-			try {
-				bridge.doFacesRequest(renderRequest, renderResponse);
-				outputInvalidViewPathTestResult(renderResponse, false);
-			}
-			catch (BridgeInvalidViewPathException e) {
-				outputInvalidViewPathTestResult(renderResponse, true);
-			}
-			catch (Exception e) {
-				outputInvalidViewPathTestResult(renderResponse, false);
-			}
-		}
-
-	}
-
 	public void init(PortletConfig config) throws PortletException {
 		super.init(config);
 
 	}
 
-	private void outputInvalidViewPathTestResult(RenderResponse response, boolean pass) throws IOException {
+	@Override
+	public void renderHeaders(HeaderRequest headerRequest, HeaderResponse headerResponse) throws PortletException,
+		IOException {
+
+		if (getTestName().equals(SETSVIEWID_TEST)) {
+			headerRequest.setAttribute(Bridge.VIEW_ID, "/tests/portletSetsViewIdTestSuccess.xhtml");
+			super.renderHeaders(headerRequest, headerResponse);
+		}
+		else if (getTestName().equals(SETSVIEWPATH_TEST)) {
+			headerRequest.setAttribute(Bridge.VIEW_PATH, "/tests/portletSetsViewIdTestSuccess.jsf");
+			super.renderHeaders(headerRequest, headerResponse);
+		}
+		else if (getTestName().equals(SETSINVALIDVIEWPATH_TEST)) {
+			headerRequest.setAttribute(Bridge.VIEW_PATH, "/tests/InvalidViewPath.jsp");
+
+			Bridge bridge = super.getFacesBridge(headerRequest, headerResponse);
+
+			try {
+				bridge.doFacesRequest(headerRequest, headerResponse);
+				outputInvalidViewPathTestResult(headerResponse, false);
+			}
+			catch (BridgeInvalidViewPathException e) {
+				outputInvalidViewPathTestResult(headerResponse, true);
+			}
+			catch (Exception e) {
+				outputInvalidViewPathTestResult(headerResponse, false);
+			}
+		}
+
+	}
+
+	private void outputInvalidViewPathTestResult(HeaderResponse response, boolean pass) throws IOException {
 
 		if (getTestName().equals(SETSINVALIDVIEWPATH_TEST)) {
 			response.setContentType("text/html");

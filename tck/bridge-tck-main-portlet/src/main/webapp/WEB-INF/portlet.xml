@@ -1276,7 +1276,7 @@
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter5_2Tests-renderPhaseListenerTest-portlet</portlet-name>
+		<portlet-name>chapter5_2Tests-headerOrRenderPhaseListenerTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
 		<init-param>
@@ -1290,7 +1290,7 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter5_2Tests-renderPhaseListenerTest-portlet</title>
+			<title>chapter5_2Tests-headerOrRenderPhaseListenerTest-portlet</title>
 		</portlet-info>
 	</portlet>
 

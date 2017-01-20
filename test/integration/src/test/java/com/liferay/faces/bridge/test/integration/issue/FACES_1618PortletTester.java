@@ -161,7 +161,7 @@ public class FACES_1618PortletTester extends IntegrationTesterBase {
 	}
 
 	private boolean resourceShouldBeSuppressed(List<String> loadedResourceIds, String resourceId, String container) {
-		return loadedResourceIds.contains(resourceId) && !(container.contains("pluto") && resourceId.endsWith(".css"));
+		return loadedResourceIds.contains(resourceId) && !(container.contains("pluto2") && resourceId.endsWith(".css"));
 	}
 
 	private void waitForAllResources(Browser browser, String componentResourcesSizeXpath, String resourcesXpath) {

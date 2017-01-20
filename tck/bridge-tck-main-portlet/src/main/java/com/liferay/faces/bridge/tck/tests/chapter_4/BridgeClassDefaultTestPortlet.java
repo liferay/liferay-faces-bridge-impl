@@ -21,7 +21,6 @@ import java.io.PrintWriter;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.portlet.faces.GenericFacesPortlet;
 
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
@@ -31,7 +30,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
  * javax.portlet.faces.BridgeClassName - the resource META-INF/services/javax.portlet.faces.Bridge (default) bridge
  * implementation jar.
  */
-public class BridgeClassDefaultTestPortlet extends GenericFacesPortlet {
+public class BridgeClassDefaultTestPortlet extends BridgeClassDefaultTestCompatPortlet {
 
 	public static String TEST_NAME = "bridgeClassDefaultTest";
 

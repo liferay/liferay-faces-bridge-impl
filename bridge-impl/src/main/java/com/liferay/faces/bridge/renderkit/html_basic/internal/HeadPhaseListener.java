@@ -37,7 +37,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
  * PhaseId#RENDER_RESPONSE} phases of the JSF lifecycle. Along with {@link HeadManagedBean} and {@link
  * HeadRendererBridgeImpl}, this class helps provides a solution to an issue regarding Ajax-initiated execution of
  * navigation-rules in a portlet. When a portal page is first rendered by the portal, all of the portlets on the page
- * participate in the {@link PortletRequest#RENDER_PHASE} of the Portlet lifecycle. During this initial HTTP-GET
+ * participate in the {@link PortletRequest#HEADER_PHASE} of the Portlet lifecycle. During this initial HTTP-GET
  * operation, the bridge has the ability to add JavaScript and CSS resources to the &lt;head&gt; section of the rendered
  * portal page. Subsequent Ajax-initiated execution of the JSF lifecycle via the {@link PortletRequest#RESOURCE_PHASE}
  * are NOT ABLE add resources to the to the &lt;head&gt; section.</p>

@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.internal;
+package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.EmptyStackException;
+import java.util.Stack;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -25,8 +26,7 @@ import javax.faces.context.ResponseWriterWrapper;
 
 import org.w3c.dom.Element;
 
-import com.liferay.faces.bridge.renderkit.html_basic.internal.ElementWriter;
-import com.liferay.faces.bridge.renderkit.html_basic.internal.ElementWriterStack;
+import com.liferay.faces.bridge.util.internal.URLUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -43,13 +43,16 @@ public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 		"Added resource to {0}'s <head>...</head> section, element=[{1}]";
 
 	// Private Data Members
-	ResponseWriter wrappedResponseWriter;
-	ElementWriterStack elementWriterStack;
+	private ResponseWriter wrappedResponseWriter;
+	private ElementWriterStack elementWriterStack;
+	private Stack<UIComponent> componentResourceStack;
 	private boolean titleElement = false;
 
 	public HeadResponseWriterBase(ResponseWriter wrappedResponseWriter) {
+
 		this.wrappedResponseWriter = wrappedResponseWriter;
 		this.elementWriterStack = new ElementWriterStack();
+		this.componentResourceStack = new Stack<UIComponent>();
 	}
 
 	public abstract Element createElement(String name);
@@ -134,8 +137,10 @@ public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 				String nodeName = element.getNodeName();
 				logger.trace("POPPED element name=[{0}]", nodeName);
 
+				UIComponent componentResource = componentResourceStack.pop();
+
 				if (!"head".equals(nodeName)) {
-					addResourceToHeadSection(element, nodeName);
+					addResourceToHeadSection(element, nodeName, componentResource);
 				}
 			}
 			catch (EmptyStackException e) {
@@ -189,6 +194,7 @@ public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 			Element element = createElement(name);
 			ElementWriter elementWriter = new ElementWriter(element);
 			elementWriterStack.push(elementWriter);
+			componentResourceStack.push(component);
 			logger.trace("PUSHED element name=[{0}]", name);
 		}
 	}
@@ -337,106 +343,12 @@ public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 	public void writeURIAttribute(String name, Object value, String property) throws IOException {
 
 		if (value != null) {
-			value = escapeURI(value.toString());
+			value = URLUtil.escapeXML(value.toString());
 		}
 
 		writeAttribute(name, value, property);
 	}
 
-	protected abstract void addResourceToHeadSection(Element element, String nodeName) throws IOException;
-
-	protected String escapeURI(String uri) {
-
-		if (uri.length() == 0) {
-			return "";
-		}
-
-		// Escape using XSS recommendations from
-		// http://www.owasp.org/index.php/Cross_Site_Scripting#How_to_Protect_Yourself
-		StringBuilder sb = null;
-
-		int lastReplacementIndex = 0;
-
-		for (int i = 0; i < uri.length(); i++) {
-
-			char c = uri.charAt(i);
-			String replacement = null;
-
-			switch (c) {
-
-			case '<': {
-				replacement = "&lt;";
-
-				break;
-			}
-
-			case '>': {
-				replacement = "&gt;";
-
-				break;
-			}
-
-			case '&': {
-				replacement = "&amp;";
-
-				break;
-			}
-
-			case '"': {
-				replacement = "&#034;";
-
-				break;
-			}
-
-			case '\'': {
-				replacement = "&#039;";
-
-				break;
-			}
-
-			case '\u00bb': {
-				replacement = "&#187;";
-
-				break;
-			}
-
-			case '\u2013': {
-				replacement = "&#x2013;";
-
-				break;
-			}
-
-			case '\u2014': {
-				replacement = "&#x2014;";
-
-				break;
-			}
-			}
-
-			if (replacement != null) {
-
-				if (sb == null) {
-					sb = new StringBuilder();
-				}
-
-				if (i > lastReplacementIndex) {
-					sb.append(uri.substring(lastReplacementIndex, i));
-				}
-
-				sb.append(replacement);
-
-				lastReplacementIndex = i + 1;
-			}
-		}
-
-		if (sb == null) {
-			return uri;
-		}
-
-		if (lastReplacementIndex < uri.length()) {
-			sb.append(uri.substring(lastReplacementIndex));
-		}
-
-		return sb.toString();
-	}
+	protected abstract void addResourceToHeadSection(Element element, String nodeName, UIComponent componentResource)
+		throws IOException;
 }

@@ -13,31 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.internal;
+package com.liferay.faces.bridge.tck.common.portlet;
 
 import java.io.IOException;
-import java.io.Writer;
 
-import javax.portlet.PortletResponse;
+import javax.portlet.HeaderRequest;
+import javax.portlet.HeaderResponse;
+import javax.portlet.PortletException;
 
 
 /**
- * Wraps a {@link PortletResponse} {@link Writer} in order to support render-redirect by buffering response output.
- *
- * @author  ngriffin
+ * @author  Kyle Stiemann
  */
-public abstract class RenderRedirectWriter extends WriterWrapper {
+public class NoRenderHeadersCompatPortlet extends GenericFacesTestSuitePortlet {
 
-	/**
-	 * Discards the buffered response output so that it will not be written to the wrapped {@link Writer}.
-	 */
-	public abstract void discard();
-
-	/**
-	 * Renders the buffered response output to the wrapped {@link Writer}.
-	 *
-	 * @throws  IOException
-	 */
-	public abstract void render() throws IOException;
-
+	@Override
+	public void renderHeaders(HeaderRequest headerRequest, HeaderResponse headerResponse) throws PortletException,
+		IOException {
+		// no-op
+	}
 }
