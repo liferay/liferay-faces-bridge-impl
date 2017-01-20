@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.FacesException;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
@@ -348,7 +347,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 					}
 
 					if (renderRedirectEnabled) {
-						responseOutputWriter = new RenderRedirectWriterImpl(mimeResponse.getWriter());
+						responseOutputWriter = new BufferedRenderWriterCompatImpl(mimeResponse.getWriter());
 					}
 					else {
 						responseOutputWriter = mimeResponse.getWriter();

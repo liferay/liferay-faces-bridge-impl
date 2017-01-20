@@ -29,7 +29,7 @@ import javax.portlet.RenderResponse;
 import javax.portlet.faces.BridgeEventHandler;
 import javax.portlet.faces.BridgePublicRenderParameterHandler;
 
-import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
+import com.liferay.faces.bridge.tck.common.portlet.NoRenderHeadersCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
@@ -40,7 +40,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
  * name is set up - getDefaultViewIdMap has been called and the portlet context attribute set
  */
 
-public class InitMethodTestPortlet extends GenericFacesTestSuitePortlet {
+public class InitMethodTestPortlet extends NoRenderHeadersCompatPortlet {
 
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";

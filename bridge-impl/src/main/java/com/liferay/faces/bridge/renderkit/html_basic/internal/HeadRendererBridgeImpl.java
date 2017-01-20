@@ -70,6 +70,14 @@ public class HeadRendererBridgeImpl extends Renderer {
 		return (resourceName != null) && resourceName.endsWith("js");
 	}
 
+	/* package-private */ static boolean isStyleSheetResource(UIComponent componentResource) {
+
+		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
+		String resourceName = (String) componentResourceAttributes.get("name");
+
+		return (resourceName != null) && resourceName.endsWith("css");
+	}
+
 	@Override
 	public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
 		// no-op because Portlets are forbidden from rendering the <head>...</head> section.
@@ -316,13 +324,5 @@ public class HeadRendererBridgeImpl extends Renderer {
 			(RenderKitBridgeImpl.STYLESHEET_RENDERER_TYPE.equals(rendererType) ||
 				"com.liferay.faces.alloy.component.outputstylesheet.OutputStylesheetRenderer".equals(rendererType) ||
 				"com.liferay.faces.metal.component.outputstylesheet.OutputStylesheetRenderer".equals(rendererType));
-	}
-
-	private boolean isStyleSheetResource(UIComponent componentResource) {
-
-		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
-		String resourceName = (String) componentResourceAttributes.get("name");
-
-		return (resourceName != null) && resourceName.endsWith("css");
 	}
 }
