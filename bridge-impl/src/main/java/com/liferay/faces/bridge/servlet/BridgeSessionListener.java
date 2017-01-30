@@ -58,7 +58,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 
 	@Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {
-		// no-op
+		FactoryExtensionFinder.getInstance().releaseFactories();
 	}
 
 	/**
