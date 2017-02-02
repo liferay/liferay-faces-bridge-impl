@@ -24,20 +24,14 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
-
 import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.filter.BridgePortletRequestFactory;
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFactory {
-
-	// Private Constants
-	private static final boolean RESIN_DETECTED = ProductFactory.getProduct(Product.Name.RESIN).isDetected();
+public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFactoryTCKCompatImpl {
 
 	// Private Data Members
 	private BridgePortletRequestFactory wrappedBridgePortletRequestFactory;

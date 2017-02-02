@@ -38,6 +38,7 @@ import javax.xml.namespace.QName;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
 import com.liferay.faces.bridge.tck.common.Constants;
+import com.liferay.faces.bridge.tck.common.util.BridgeTCKUtil;
 
 
 /**
@@ -45,6 +46,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
  */
 public class Tests extends Object implements PhaseListener {
 
+	@Override
 	public void afterPhase(PhaseEvent event) {
 
 		PhaseId phase = event.getPhaseId();
@@ -59,26 +61,27 @@ public class Tests extends Object implements PhaseListener {
 		String testname = (String) m.get(Constants.TEST_NAME);
 		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) m.get(Bridge.PORTLET_LIFECYCLE_PHASE);
 
-		if (testname.equals("renderPhaseListenerTest") && portletPhase.equals(Bridge.PortletPhase.RENDER_PHASE)) {
+		if (testname.equals("renderPhaseListenerTest") && BridgeTCKUtil.isHeaderOrRenderPhase(portletPhase)) {
 			m.put("org.apache.portlet.faces.tck.lastAfterPhase", phase);
 		}
 		else if (testname.equals("eventPhaseListenerTest") && (portletPhase.equals(Bridge.PortletPhase.EVENT_PHASE))) {
 			m.put("org.apache.portlet.faces.tck.lastAfterPhase", phase);
 		}
 
-		if ((portletPhase.equals(Bridge.PortletPhase.RENDER_PHASE) &&
+		if ((BridgeTCKUtil.isHeaderOrRenderPhase(portletPhase) &&
 					(testname.equals("facesContextReleasedRenderTest") ||
 						testname.equals("portletPhaseRemovedRenderTest"))) ||
 				(portletPhase.equals(Bridge.PortletPhase.RESOURCE_PHASE) &&
 					(testname.equals("facesContextReleasedResourceTest") ||
 						testname.equals("portletPhaseRemovedResourceTest")))) {
 
-			// prematurely prevent render from happening as the Portlet needs to write to the response once it verifys
+			// prematurely prevent render from happening as the Portlet needs to write to the response once it verifies
 			// that the corresponding elements were cleaned up
 			ctx.responseComplete();
 		}
 	}
 
+	@Override
 	public void beforePhase(PhaseEvent event) {
 		PhaseId phase = event.getPhaseId();
 
@@ -92,7 +95,7 @@ public class Tests extends Object implements PhaseListener {
 		String testname = (String) m.get(Constants.TEST_NAME);
 		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) m.get(Bridge.PORTLET_LIFECYCLE_PHASE);
 
-		if (testname.equals("renderPhaseListenerTest") && (portletPhase.equals(Bridge.PortletPhase.RENDER_PHASE))) {
+		if (testname.equals("renderPhaseListenerTest") && (BridgeTCKUtil.isHeaderOrRenderPhase(portletPhase))) {
 			m.put("org.apache.portlet.faces.tck.lastBeforePhase", phase);
 		}
 		else if (testname.equals("eventPhaseListenerTest") && (portletPhase.equals(Bridge.PortletPhase.EVENT_PHASE))) {
@@ -594,6 +597,7 @@ public class Tests extends Object implements PhaseListener {
 		}
 	}
 
+	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.ANY_PHASE;
 	}
@@ -685,7 +689,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RENDER_PHASE) {
+		if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
 			testRunner.setTestComplete(true);
 
 			PortletSession session = ((PortletRequest) extCtx.getRequest()).getPortletSession(true);
@@ -957,7 +961,7 @@ public class Tests extends Object implements PhaseListener {
 
 			return "";
 		}
-		else if ((BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RENDER_PHASE) &&
+		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx) &&
 				(m.get("com.liferay.faces.bridge.tck.pprSubmitted") != null)) {
 			testRunner.setTestComplete(true);
 

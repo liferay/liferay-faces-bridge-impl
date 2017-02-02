@@ -23,7 +23,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
+import com.liferay.faces.bridge.tck.common.portlet.NonRenderResponseCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
@@ -31,7 +31,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
  * Checks that GenericFacesPortlet#getResponseCharacterSetEncoding method works as stated in section 4.2.11. - The
  * GenericFacesPortlet implements getResponseCharacterSetEncoding by always returning null.
  */
-public class GetResponseCharacterSetEncodingMethodTestPortlet extends GenericFacesTestSuitePortlet {
+public class GetResponseCharacterSetEncodingMethodTestPortlet extends NonRenderResponseCompatPortlet {
 
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";

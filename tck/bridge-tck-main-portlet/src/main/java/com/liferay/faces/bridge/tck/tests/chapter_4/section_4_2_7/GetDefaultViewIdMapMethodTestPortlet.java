@@ -24,7 +24,7 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
+import com.liferay.faces.bridge.tck.common.portlet.NonRenderResponseCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
@@ -34,7 +34,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
  * This test confirms that the method returns a map where the key is the string version of [mode] and the map value is
  * the portlet initialization parameter value.
  */
-public class GetDefaultViewIdMapMethodTestPortlet extends GenericFacesTestSuitePortlet {
+public class GetDefaultViewIdMapMethodTestPortlet extends NonRenderResponseCompatPortlet {
 
 	private static String TEST_NAME = "getDefaultViewIdMapMethodTest";
 	private static String TEST_FAIL_PREFIX = "test.fail.";
