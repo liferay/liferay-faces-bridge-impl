@@ -13,25 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.internal;
+package com.liferay.faces.bridge.context.internal;
 
-import javax.portlet.PortletConfig;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.faces.Bridge;
 
 
 /**
- * This class provides a compatibility layer that isolates differences related to Portlet 2.0/3.0 and helps to minimize
- * diffs across branches.
+ * This class provides a compatibility layer that isolates differences between Portlet 2.0 and 3.0.
  *
- * @author  Kyle Stiemann
+ * @author  Neil Griffin
  */
-public abstract class BridgeCompatImpl implements Bridge {
+public abstract class ExternalContextCompat_Portlet3_Impl extends ExternalContextCompat_2_2_Impl {
 
-	protected abstract void checkNull(PortletRequest portletRequest, PortletResponse portletResponse);
+	public ExternalContextCompat_Portlet3_Impl(PortletContext portletContext, PortletRequest portletRequest,
+		PortletResponse portletResponse) {
+		super(portletContext, portletRequest, portletResponse);
+	}
 
-	protected abstract PortletConfig getPortletConfig();
+	// Java 1.6+ @Override
+	protected boolean isHeaderPhase(Bridge.PortletPhase portletPhase) {
+		return false;
+	}
 
-	protected abstract boolean isInitialized();
+	@Override
+	protected boolean isHeaderPhaseSupported() {
+		return true;
+	}
 }
