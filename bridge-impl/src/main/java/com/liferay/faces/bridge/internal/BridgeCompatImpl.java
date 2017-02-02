@@ -30,6 +30,9 @@ import javax.portlet.faces.filter.BridgePortletConfigFactory;
 
 
 /**
+ * This class provides a compatibility layer that isolates differences related to Portlet 2.0/3.0 and helps to minimize
+ * diffs across branches.
+ *
  * @author  Kyle Stiemann
  */
 public abstract class BridgeCompatImpl implements Bridge {
