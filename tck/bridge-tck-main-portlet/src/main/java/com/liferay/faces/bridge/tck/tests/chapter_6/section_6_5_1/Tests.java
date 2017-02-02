@@ -73,7 +73,7 @@ public class Tests {
 		// both the action phase and render phase
 		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
-			// ACTION REQUEST
+			// ActionRequest
 			try {
 
 				// First ensure there are entries in the various scopes
@@ -157,9 +157,10 @@ public class Tests {
 
 			return "JSF_ELTest";
 		}
-		else // RENDER REQUEST
-		{
 
+		// HeaderRequest / RenderRequest
+		else
+		{
 			try {
 
 				// JSF Implicit Objects
@@ -234,11 +235,25 @@ public class Tests {
 				// portletSessionScope -> ExternalContext.getSessionMap().
 				testImplicitObject(testRunner, facesResolver, ctx, "portletSessionScope", extCtx.getSessionMap());
 
-				// renderRequest -> object of type javax.portlet.RenderRequest
-				testImplicitObject(testRunner, facesResolver, ctx, "renderRequest", extCtx.getRequest());
+				// RenderRequest
+				if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RENDER_PHASE) {
 
-				// renderResponse -> object of type javax.portlet.RenderResponse
-				testImplicitObject(testRunner, facesResolver, ctx, "renderResponse", extCtx.getResponse());
+					// renderRequest -> object of type javax.portlet.RenderRequest
+					testImplicitObject(testRunner, facesResolver, ctx, "renderRequest", extCtx.getRequest());
+
+					// renderResponse -> object of type javax.portlet.RenderResponse
+					testImplicitObject(testRunner, facesResolver, ctx, "renderResponse", extCtx.getResponse());
+				}
+
+				// HeaderRequest
+				else {
+
+					// headerRequest -> object of type javax.portlet.HeaderRequest
+					testImplicitObject(testRunner, facesResolver, ctx, "headerRequest", extCtx.getRequest());
+
+					// headerResponse -> object of type javax.portlet.HeaderResponse
+					testImplicitObject(testRunner, facesResolver, ctx, "headerResponse", extCtx.getResponse());
+				}
 			}
 			catch (Throwable t) {
 				fail(testRunner, "JSF EL failure in render request: " + t.getCause().toString());

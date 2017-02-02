@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.common.util.faces.context;
 
+import com.liferay.faces.bridge.tck.common.util.BridgeTCKUtil;
+
 import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
@@ -145,7 +147,7 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 		}
 		else {
 
-			if ((phase != null) && (phase == Bridge.PortletPhase.RENDER_PHASE)) {
+			if ((phase != null) && (BridgeTCKUtil.isHeaderOrRenderPhase(phase))) {
 				request.setAttribute("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderPass",
 					"Phase attribute correctly set during render.");
 			}

@@ -22,7 +22,7 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
+import com.liferay.faces.bridge.tck.common.portlet.NonRenderResponseCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
@@ -32,7 +32,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
  * javax.portlet.faces.preserveActionParams. If this initialization parameter doesn't exist, false is returned.
  */
 
-public class IsPreserveActionParametersMethodTestPortlet extends GenericFacesTestSuitePortlet {
+public class IsPreserveActionParametersMethodTestPortlet extends NonRenderResponseCompatPortlet {
 
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";

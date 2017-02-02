@@ -27,7 +27,7 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
+import com.liferay.faces.bridge.tck.common.portlet.NonRenderResponseCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
@@ -35,7 +35,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
  * Checks that GenericFacesPortlet#getBridgeClassName method works as stated in section 4.2.6. Compares return value
  * with the expected value.
  */
-public class GetBridgeClassNameMethodTestPortlet extends GenericFacesTestSuitePortlet {
+public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompatPortlet {
 	public static String TEST_NAME = "getBridgeClassNameMethodTest";
 
 	private static String TEST_ATTR_PREFIX = "test.";
