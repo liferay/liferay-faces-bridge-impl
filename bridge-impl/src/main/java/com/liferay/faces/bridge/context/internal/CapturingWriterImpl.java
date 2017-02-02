@@ -22,54 +22,50 @@ import java.util.List;
 
 
 /**
- * This class saves {@link Writer} operations so that they can be executed or discarded at a later time.
- *
  * @author  Neil Griffin
  */
-public abstract class BufferedRenderWriterImpl extends Writer {
+public class CapturingWriterImpl extends CapturingWriter {
 
 	// Protected Data Members
-	protected List<OutputOperation> outputOperationList;
+	private List<WriterOperation> writerOperations;
 
-	public BufferedRenderWriterImpl() {
-		this.outputOperationList = new ArrayList<OutputOperation>();
+	public CapturingWriterImpl() {
+		this.writerOperations = new ArrayList<WriterOperation>();
 	}
 
 	@Override
 	public void close() throws IOException {
-		outputOperationList.add(new CloseOperation());
-	}
-
-	/**
-	 * Discards the buffered response output so that it will not be written to the wrapped {@link Writer}.
-	 */
-	public void discard() {
-		this.outputOperationList = new ArrayList<OutputOperation>();
+		writerOperations.add(new CloseOperation());
 	}
 
 	@Override
 	public void flush() throws IOException {
-		outputOperationList.add(new FlushOperation());
+		writerOperations.add(new FlushOperation());
+	}
+
+	@Override
+	public List<WriterOperation> getWriterOperations() {
+		return writerOperations;
 	}
 
 	@Override
 	public void write(char[] cbuf) throws IOException {
 
 		if (cbuf != null) {
-			outputOperationList.add(new CbufWriteOperation(cbuf));
+			writerOperations.add(new CbufWriteOperation(cbuf));
 		}
 	}
 
 	@Override
 	public void write(int c) throws IOException {
-		outputOperationList.add(new IntWriteOperation(c));
+		writerOperations.add(new IntWriteOperation(c));
 	}
 
 	@Override
 	public void write(String str) throws IOException {
 
 		if (str != null) {
-			outputOperationList.add(new StrWriteOperation(str));
+			writerOperations.add(new StrWriteOperation(str));
 		}
 	}
 
@@ -77,7 +73,7 @@ public abstract class BufferedRenderWriterImpl extends Writer {
 	public void write(char[] cbuf, int off, int len) throws IOException {
 
 		if (cbuf != null) {
-			outputOperationList.add(new CBufOffLenOutputOperation(cbuf, off, len));
+			writerOperations.add(new CBufOffLenWriterOperation(cbuf, off, len));
 		}
 	}
 
@@ -85,32 +81,29 @@ public abstract class BufferedRenderWriterImpl extends Writer {
 	public void write(String str, int off, int len) throws IOException {
 
 		if (str != null) {
-			outputOperationList.add(new StrOffLenWriteOperation(str, off, len));
+			writerOperations.add(new StrOffLenWriteOperation(str, off, len));
 		}
 	}
 
-	protected interface OutputOperation {
-		void invoke(Writer writer) throws IOException;
-	}
-
-	private static class CBufOffLenOutputOperation implements OutputOperation {
+	private static class CBufOffLenWriterOperation implements WriterOperation {
 
 		private char[] cbuf;
 		private int off;
 		private int len;
 
-		public CBufOffLenOutputOperation(char[] cbuf, int off, int len) {
+		public CBufOffLenWriterOperation(char[] cbuf, int off, int len) {
 			this.cbuf = cbuf.clone();
 			this.off = off;
 			this.len = len;
 		}
 
+		@Override
 		public void invoke(Writer writer) throws IOException {
 			writer.write(cbuf, off, len);
 		}
 	}
 
-	private static class CbufWriteOperation implements OutputOperation {
+	private static class CbufWriteOperation implements WriterOperation {
 
 		private char[] cbuf;
 
@@ -118,32 +111,35 @@ public abstract class BufferedRenderWriterImpl extends Writer {
 			this.cbuf = cbuf.clone();
 		}
 
+		@Override
 		public void invoke(Writer writer) throws IOException {
 			writer.write(cbuf);
 		}
 	}
 
-	private static class CloseOperation implements OutputOperation {
+	private static class CloseOperation implements WriterOperation {
 
 		public CloseOperation() {
 		}
 
+		@Override
 		public void invoke(Writer writer) throws IOException {
 			writer.close();
 		}
 	}
 
-	private static class FlushOperation implements OutputOperation {
+	private static class FlushOperation implements WriterOperation {
 
 		public FlushOperation() {
 		}
 
+		@Override
 		public void invoke(Writer writer) throws IOException {
 			writer.flush();
 		}
 	}
 
-	private static class IntWriteOperation implements OutputOperation {
+	private static class IntWriteOperation implements WriterOperation {
 
 		private int c;
 
@@ -151,12 +147,13 @@ public abstract class BufferedRenderWriterImpl extends Writer {
 			this.c = c;
 		}
 
+		@Override
 		public void invoke(Writer writer) throws IOException {
 			writer.write(c);
 		}
 	}
 
-	private static class StrOffLenWriteOperation implements OutputOperation {
+	private static class StrOffLenWriteOperation implements WriterOperation {
 
 		private String str;
 		private int off;
@@ -168,12 +165,13 @@ public abstract class BufferedRenderWriterImpl extends Writer {
 			this.len = len;
 		}
 
+		@Override
 		public void invoke(Writer writer) throws IOException {
 			writer.write(str, off, len);
 		}
 	}
 
-	private static class StrWriteOperation implements OutputOperation {
+	private static class StrWriteOperation implements WriterOperation {
 
 		private String str;
 
@@ -181,6 +179,7 @@ public abstract class BufferedRenderWriterImpl extends Writer {
 			this.str = str;
 		}
 
+		@Override
 		public void invoke(Writer writer) throws IOException {
 			writer.write(str);
 		}
