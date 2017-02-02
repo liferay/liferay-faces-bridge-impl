@@ -25,6 +25,7 @@ import javax.portlet.EventResponse;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletSecurityException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -33,14 +34,14 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 
-import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
+import com.liferay.faces.bridge.tck.common.portlet.RenderViewDispatchCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
 /**
  * @author  Michael Freedman
  */
-public class ManualBridgeInvokePortlet extends GenericFacesTestSuitePortlet {
+public class ManualBridgeInvokePortlet extends RenderViewDispatchCompatPortlet {
 
 	private static final String EXCEPTIONTHROWN_NODEFAULTVIEWID_TEST = "exceptionThrownWhenNoDefaultViewIdTest";
 	private static final String VIEWIDWITHPARAM_TEST = "viewIdWithParam_1_Test";
@@ -54,79 +55,13 @@ public class ManualBridgeInvokePortlet extends GenericFacesTestSuitePortlet {
 	private static final String PORTLETPHASEREMOVED_RESOURCE_TEST = "portletPhaseRemovedResourceTest";
 	private static final String BRIDGESETSCONTENTTYPE_TEST = "bridgeSetsContentTypeTest";
 
-	public void doDispatch(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
-		IOException {
-
-		if (getTestName().equals(EXCEPTIONTHROWN_NODEFAULTVIEWID_TEST)) {
-
-			Bridge bridge = super.getFacesBridge(renderRequest, renderResponse);
-
-			try {
-				bridge.doFacesRequest(renderRequest, renderResponse);
-			}
-			catch (BridgeDefaultViewNotSpecifiedException e) {
-				outputTestResult(renderResponse, Boolean.TRUE,
-					"Correctly threw BridgeDefaultViewNotSpecifiedException when no default defined.");
-			}
-			catch (Exception e) {
-				outputTestResult(renderResponse, Boolean.FALSE,
-					"Didn't throw BridgeDefaultViewNotSpecifiedException when no default defined.");
-			}
-		}
-		else if (getTestName().equals(BRIDGESETSCONTENTTYPE_TEST)) {
-
-			// By invoking the bridge directly (and not setting the contentType)
-			// we force the bridge to have to do the work
-			Bridge bridge = super.getFacesBridge(renderRequest, renderResponse);
-			bridge.doFacesRequest(renderRequest, renderResponse);
-		}
-		else if (getTestName().equals(VIEWIDWITHPARAM_TEST)) {
-			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/singleRequestTest.xhtml?param1=testValue");
-			super.doDispatch(renderRequest, renderResponse);
-		}
-		else if (getTestName().equals(FACESCONTEXTRELEASED_ACTION_TEST) ||
-				getTestName().equals(PORTLETPHASEREMOVED_ACTION_TEST) ||
-				getTestName().equals(FACESCONTEXTRELEASED_EVENT_TEST) ||
-				getTestName().equals(PORTLETPHASEREMOVED_EVENT_TEST)) {
-
-			// Output in the Test method fort his test
-			super.doDispatch(renderRequest, renderResponse);
-		}
-		else if (getTestName().equals(FACESCONTEXTRELEASED_RENDER_TEST)) {
-			super.doDispatch(renderRequest, renderResponse);
-
-			if (
-				renderRequest.getPortletSession(true).getAttribute(
-						"org.apache.portlet.faces.tck.facesContextReleased") != null) {
-				outputTestResult(renderResponse, Boolean.TRUE, "Correctly release FacesContext at end of render.");
-				renderRequest.getPortletSession().removeAttribute("org.apache.portlet.faces.tck.facesContextReleased");
-			}
-			else {
-				outputTestResult(renderResponse, Boolean.FALSE, "FacesContext not release at end of render.");
-			}
-		}
-		else if (getTestName().equals(PORTLETPHASEREMOVED_RENDER_TEST)) {
-			super.doDispatch(renderRequest, renderResponse);
-
-			if (renderRequest.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE) == null) {
-				outputTestResult(renderResponse, Boolean.TRUE,
-					"Correctly removed Portlet Phase attribute at end of render.");
-			}
-			else {
-				outputTestResult(renderResponse, Boolean.FALSE,
-					"Didn't remove Portlet Phase attribute at end of render.");
-			}
-		}
-		else {
-			super.doDispatch(renderRequest, renderResponse);
-		}
-	}
-
+	@Override
 	public void init(PortletConfig config) throws PortletException {
 		super.init(config);
 
 	}
 
+	@Override
 	public void processAction(ActionRequest request, ActionResponse response) throws PortletException,
 		PortletSecurityException, IOException {
 		super.processAction(request, response);
@@ -162,6 +97,7 @@ public class ManualBridgeInvokePortlet extends GenericFacesTestSuitePortlet {
 		}
 	}
 
+	@Override
 	public void processEvent(EventRequest request, EventResponse response) throws PortletException,
 		PortletSecurityException, IOException {
 		super.processEvent(request, response);
@@ -197,6 +133,79 @@ public class ManualBridgeInvokePortlet extends GenericFacesTestSuitePortlet {
 		}
 	}
 
+	@Override
+	public void renderView(RenderRequest renderRequest, MimeResponse mimeResponse) throws PortletException,
+		IOException {
+
+		if (getTestName().equals(EXCEPTIONTHROWN_NODEFAULTVIEWID_TEST)) {
+
+			Bridge bridge = super.getFacesBridge(renderRequest, mimeResponse);
+
+			try {
+				doBridgeFacesRequest(bridge, renderRequest, mimeResponse);
+			}
+			catch (BridgeDefaultViewNotSpecifiedException e) {
+				outputTestResult(renderRequest, mimeResponse, Boolean.TRUE,
+					"Correctly threw BridgeDefaultViewNotSpecifiedException when no default defined.");
+			}
+			catch (Exception e) {
+				outputTestResult(renderRequest, mimeResponse, Boolean.FALSE,
+					"Didn't throw BridgeDefaultViewNotSpecifiedException when no default defined.");
+			}
+		}
+		else if (getTestName().equals(BRIDGESETSCONTENTTYPE_TEST)) {
+
+			// By invoking the bridge directly (and not setting the contentType)
+			// we force the bridge to have to do the work
+			Bridge bridge = super.getFacesBridge(renderRequest, mimeResponse);
+			doBridgeFacesRequest(bridge, renderRequest, mimeResponse);
+		}
+		else if (getTestName().equals(VIEWIDWITHPARAM_TEST)) {
+			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/singleRequestTest.xhtml?param1=testValue");
+			dispatchToView(renderRequest, mimeResponse);
+		}
+		else if (getTestName().equals(FACESCONTEXTRELEASED_ACTION_TEST) ||
+				getTestName().equals(PORTLETPHASEREMOVED_ACTION_TEST) ||
+				getTestName().equals(FACESCONTEXTRELEASED_EVENT_TEST) ||
+				getTestName().equals(PORTLETPHASEREMOVED_EVENT_TEST)) {
+
+			// Output in the Test method fort his test
+			dispatchToView(renderRequest, mimeResponse);
+		}
+		else if (getTestName().equals(FACESCONTEXTRELEASED_RENDER_TEST)) {
+
+			dispatchToView(renderRequest, mimeResponse);
+
+			if (
+				renderRequest.getPortletSession(true).getAttribute(
+						"org.apache.portlet.faces.tck.facesContextReleased") != null) {
+				outputTestResult(renderRequest, mimeResponse, Boolean.TRUE,
+					"Correctly release FacesContext at end of render.");
+				renderRequest.getPortletSession().removeAttribute("org.apache.portlet.faces.tck.facesContextReleased");
+			}
+			else {
+				outputTestResult(renderRequest, mimeResponse, Boolean.FALSE,
+					"FacesContext not release at end of render.");
+			}
+		}
+		else if (getTestName().equals(PORTLETPHASEREMOVED_RENDER_TEST)) {
+			dispatchToView(renderRequest, mimeResponse);
+
+			if (renderRequest.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE) == null) {
+				outputTestResult(renderRequest, mimeResponse, Boolean.TRUE,
+					"Correctly removed Portlet Phase attribute at end of render.");
+			}
+			else {
+				outputTestResult(renderRequest, mimeResponse, Boolean.FALSE,
+					"Didn't remove Portlet Phase attribute at end of render.");
+			}
+		}
+		else {
+			dispatchToView(renderRequest, mimeResponse);
+		}
+	}
+
+	@Override
 	public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
 
 		if (getTestName().equals(FACESCONTEXTRELEASED_RESOURCE_TEST)) {
@@ -204,31 +213,32 @@ public class ManualBridgeInvokePortlet extends GenericFacesTestSuitePortlet {
 
 			if (request.getPortletSession(true).getAttribute("org.apache.portlet.faces.tck.facesContextReleased") !=
 					null) {
-				outputTestResult(response, Boolean.TRUE, "Correctly release FacesContext at end of resource request.");
+				outputTestResult(request, response, Boolean.TRUE,
+					"Correctly release FacesContext at end of resource request.");
 				request.getPortletSession().removeAttribute("org.apache.portlet.faces.tck.facesContextReleased");
 			}
 			else {
-				outputTestResult(response, Boolean.FALSE, "FacesContext not release at end of resource request.");
+				outputTestResult(request, response, Boolean.FALSE,
+					"FacesContext not release at end of resource request.");
 			}
 		}
 		else if (getTestName().equals(PORTLETPHASEREMOVED_RESOURCE_TEST)) {
 			super.serveResource(request, response);
 
 			if (request.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE) == null) {
-				outputTestResult(response, Boolean.TRUE,
+				outputTestResult(request, response, Boolean.TRUE,
 					"Correctly removed Portlet Phase attribute at end of resource request.");
 			}
 			else {
-				outputTestResult(response, Boolean.FALSE,
+				outputTestResult(request, response, Boolean.FALSE,
 					"Didn't remove Portlet Phase attribute at end of resource request.");
 			}
 		}
 	}
 
-	private void outputTestResult(MimeResponse response, Boolean pass, String detail) throws IOException {
-		response.setContentType("text/html");
+	protected void outputTestResult(PortletRequest portletRequest, MimeResponse mimeResponse, Boolean pass,
+		String detail) throws IOException {
 
-		PrintWriter out = response.getWriter();
 		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
 
 		if (pass.booleanValue()) {
@@ -240,6 +250,15 @@ public class ManualBridgeInvokePortlet extends GenericFacesTestSuitePortlet {
 			resultWriter.setDetail(detail);
 		}
 
-		out.println(resultWriter.toString());
+		if ((mimeResponse instanceof RenderResponse) || (mimeResponse instanceof ResourceResponse)) {
+
+			mimeResponse.setContentType("text/html");
+
+			PrintWriter out = mimeResponse.getWriter();
+			out.println(resultWriter.toString());
+		}
+		else {
+			portletRequest.setAttribute(BridgeTCKResultWriter.class.getName(), resultWriter);
+		}
 	}
 }
