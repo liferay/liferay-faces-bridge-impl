@@ -58,6 +58,7 @@ public class BridgeImpl extends BridgeCompatImpl {
 	private boolean initialized = false;
 	private PortletConfig portletConfig;
 
+	@Override
 	public void destroy() {
 		initialized = false;
 
@@ -73,6 +74,7 @@ public class BridgeImpl extends BridgeCompatImpl {
 		}
 	}
 
+	@Override
 	public void doFacesRequest(ActionRequest actionRequest, ActionResponse actionResponse)
 		throws BridgeDefaultViewNotSpecifiedException, BridgeUninitializedException, BridgeException {
 
@@ -97,6 +99,7 @@ public class BridgeImpl extends BridgeCompatImpl {
 		}
 	}
 
+	@Override
 	public void doFacesRequest(EventRequest eventRequest, EventResponse eventResponse)
 		throws BridgeUninitializedException, BridgeException {
 
@@ -121,6 +124,7 @@ public class BridgeImpl extends BridgeCompatImpl {
 		}
 	}
 
+	@Override
 	public void doFacesRequest(RenderRequest renderRequest, RenderResponse renderResponse)
 		throws BridgeDefaultViewNotSpecifiedException, BridgeUninitializedException, BridgeException {
 
@@ -145,6 +149,7 @@ public class BridgeImpl extends BridgeCompatImpl {
 		}
 	}
 
+	@Override
 	public void doFacesRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws BridgeUninitializedException, BridgeException {
 
@@ -170,6 +175,7 @@ public class BridgeImpl extends BridgeCompatImpl {
 		return BridgeImpl.class.getPackage().getImplementationVersion();
 	}
 
+	@Override
 	public void init(PortletConfig portletConfig) throws BridgeException {
 		StringBuilder logMessage = new StringBuilder();
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss,SSS");
@@ -185,6 +191,7 @@ public class BridgeImpl extends BridgeCompatImpl {
 		this.portletConfig = portletConfig;
 	}
 
+	@Override
 	protected void checkNull(PortletRequest portletRequest, PortletResponse portletResponse) {
 
 		// Null check required by the TCK.
