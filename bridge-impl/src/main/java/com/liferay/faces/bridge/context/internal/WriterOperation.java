@@ -22,17 +22,7 @@ import java.io.Writer;
 /**
  * @author  Neil Griffin
  */
-public class BufferedRenderWriterCompatImpl extends BufferedRenderWriterImpl {
+public interface WriterOperation {
 
-	/**
-	 * Renders the buffered response output to the {@link Writer}.
-	 *
-	 * @throws  IOException
-	 */
-	public void render(Writer writer) throws IOException {
-
-		for (OutputOperation outputOperation : outputOperationList) {
-			outputOperation.invoke(writer);
-		}
-	}
+	public void invoke(Writer writer) throws IOException;
 }

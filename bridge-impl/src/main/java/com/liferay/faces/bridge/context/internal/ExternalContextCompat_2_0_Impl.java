@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.FacesException;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
@@ -39,6 +40,7 @@ import javax.servlet.http.Cookie;
 
 import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.context.BridgePortalContext;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.FileNameUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -66,6 +68,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	// Lazy-Initialized Data Members
 	private Boolean iceFacesLegacyMode;
 	private String portletContextName;
+	private Boolean renderRedirectEnabled;
 	private Writer responseOutputWriter;
 
 	// Protected Data Members
@@ -336,15 +339,47 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 
 			if (responseOutputWriter == null) {
 
-				if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
-					responseOutputWriter = new BufferedRenderWriterCompatImpl();
+				// If executing in the HEADER_PHASE of the portlet lifecycle, then return a capturing writer so that
+				// writing can be delayed until the RENDER_PHASE of the portlet lifecycle.
+				if (isHeaderPhase(portletPhase)) {
+					responseOutputWriter = new CapturingWriterImpl();
 				}
+
+				// Otherwise, since executing in the RENDER_PHASE of the portlet lifecycle:
 				else {
 
-					MimeResponse mimeResponse = (MimeResponse) portletResponse;
-					responseOutputWriter = mimeResponse.getWriter();
-				}
+					// If the HEADER_PHASE is supported, then assume that the writer's output was captured in the
+					// HEADER_PHASE of the portlet lifecycle and now needs to be written in the RENDER_PHASE. In this
+					// case, return a writer that will write directly to the response.
+					if (isHeaderPhaseSupported()) {
 
+						MimeResponse mimeResponse = (MimeResponse) portletResponse;
+						responseOutputWriter = mimeResponse.getWriter();
+					}
+
+					// Otherwise, since the HEADER_PHASE is not supported:
+					else {
+
+						// If the render-redirect feature is enabled, then return a capturing writer so that the
+						// bridge has the opportunity to discard output in the case that a render-redirect actually
+						// occurs.
+						if (renderRedirectEnabled == null) {
+							renderRedirectEnabled = PortletConfigParam.RenderRedirectEnabled.getBooleanValue(
+									portletConfig);
+						}
+
+						if (renderRedirectEnabled) {
+							responseOutputWriter = new CapturingWriterImpl();
+						}
+
+						// Otherwise, return a writer that will write directly to the response.
+						else {
+
+							MimeResponse mimeResponse = (MimeResponse) portletResponse;
+							responseOutputWriter = mimeResponse.getWriter();
+						}
+					}
+				}
 			}
 
 			return responseOutputWriter;
@@ -567,6 +602,10 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 			}
 		}
 	}
+
+	protected abstract boolean isHeaderPhase(Bridge.PortletPhase portletPhase);
+
+	protected abstract boolean isHeaderPhaseSupported();
 
 	protected Cookie createCookie(String name, String value, Map<String, Object> properties) {
 

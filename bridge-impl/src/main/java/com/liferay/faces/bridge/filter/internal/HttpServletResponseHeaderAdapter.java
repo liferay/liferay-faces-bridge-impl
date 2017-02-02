@@ -13,25 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.internal;
+package com.liferay.faces.bridge.filter.internal;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.faces.Bridge;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
  * This class provides a compatibility layer that isolates differences related to Portlet 2.0/3.0 and helps to minimize
  * diffs across branches.
  *
- * @author  Kyle Stiemann
+ * @author  Neil Griffin
  */
-public abstract class BridgeCompatImpl implements Bridge {
+public class HttpServletResponseHeaderAdapter extends HttpServletResponseRenderAdapter {
 
-	protected abstract void checkNull(PortletRequest portletRequest, PortletResponse portletResponse);
-
-	protected abstract PortletConfig getPortletConfig();
-
-	protected abstract boolean isInitialized();
+	public HttpServletResponseHeaderAdapter(HttpServletResponse httpServletResponse, String namespace) {
+		super(httpServletResponse, namespace);
+	}
 }

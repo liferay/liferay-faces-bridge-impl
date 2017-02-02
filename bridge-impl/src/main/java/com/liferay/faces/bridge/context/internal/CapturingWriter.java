@@ -13,25 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.internal;
+package com.liferay.faces.bridge.context.internal;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.faces.Bridge;
+import java.io.Writer;
+import java.util.List;
 
 
 /**
- * This class provides a compatibility layer that isolates differences related to Portlet 2.0/3.0 and helps to minimize
- * diffs across branches.
+ * This abstract class represents a <em>capturing</em> {@link Writer}, meaning a writer that captures write operations
+ * (and associated data) rather than writing them to an output stream.
  *
- * @author  Kyle Stiemann
+ * @author  Neil Griffin
  */
-public abstract class BridgeCompatImpl implements Bridge {
+public abstract class CapturingWriter extends Writer {
 
-	protected abstract void checkNull(PortletRequest portletRequest, PortletResponse portletResponse);
-
-	protected abstract PortletConfig getPortletConfig();
-
-	protected abstract boolean isInitialized();
+	public abstract List<WriterOperation> getWriterOperations();
 }
