@@ -82,10 +82,10 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 
 		String departureXpath = "//select[contains(@id,':departureId')]";
 		browser.waitForElementVisible(departureXpath);
-		createSelect(browser, departureXpath).selectByVisibleText("Los Angeles: Los Angeles Intl");
+		selectOptionContainingText(browser, departureXpath, "LAX");
 
 		String arrivalXpath = "//select[contains(@id,':arrivalId')]";
-		createSelect(browser, arrivalXpath).selectByVisibleText("Louisville: Louisville International Airport");
+		selectOptionContainingText(browser, arrivalXpath, "SDF");
 		browser.sendKeys("//input[contains(@id,':departureDate')]", "2015-08-12");
 
 		String searchFlightsButtonXpath = "//input[@value='Search Flights']";
@@ -117,8 +117,8 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		// Test that flights can be purchased.
 		createSelect(browser, bookingTypeXpath).selectByVisibleText("Flight");
 		browser.waitForElementVisible(departureXpath);
-		createSelect(browser, departureXpath).selectByVisibleText("Louisville: Louisville International Airport");
-		createSelect(browser, arrivalXpath).selectByVisibleText("Orlando: Orlando Intl");
+		selectOptionContainingText(browser, departureXpath, "SDF");
+		selectOptionContainingText(browser, arrivalXpath, "MCO");
 		browser.sendKeys("//input[contains(@id,':departureDate')]", "2015-08-12");
 		browser.click(searchFlightsButtonXpath);
 		browser.waitForElementVisible(addToCartButtonXpath);
@@ -190,5 +190,12 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		WebElement element = browser.findElementByXpath(selectXpath);
 
 		return new Select(element);
+	}
+
+	private void selectOptionContainingText(Browser browser, String selectXpath, String text) {
+
+		WebElement option = browser.findElementByXpath(selectXpath + "/option[contains(text(),'" + text + "')]");
+		String value = option.getAttribute("value");
+		createSelect(browser, selectXpath).selectByValue(value);
 	}
 }
