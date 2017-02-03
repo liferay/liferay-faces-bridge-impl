@@ -26,7 +26,7 @@ import javax.portlet.faces.Bridge;
  *
  * @author  Neil Griffin
  */
-public abstract class ExternalContextCompat_Portlet3_Impl extends ExternalContextCompat_2_3_Impl {
+public abstract class ExternalContextCompat_Portlet3_Impl extends ExternalContextCompat_2_2_Impl {
 
 	public ExternalContextCompat_Portlet3_Impl(PortletContext portletContext, PortletRequest portletRequest,
 		PortletResponse portletResponse) {
