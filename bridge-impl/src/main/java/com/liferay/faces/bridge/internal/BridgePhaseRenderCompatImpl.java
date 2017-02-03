@@ -15,20 +15,21 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.context.internal.WriterOperation;
-import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
-import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.List;
 
-import javax.faces.context.ExternalContext;
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeException;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.List;
+
+import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.bridge.context.internal.WriterOperation;
+import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
+import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
 
 
 /**
@@ -37,7 +38,7 @@ import java.util.List;
  *
  * @author  Neil Griffin
  */
-public abstract class BridgePhaseRenderCompatImpl extends BridgePhaseCompat_2_2_Impl {
+public abstract class BridgePhaseRenderCompatImpl extends BridgePhaseHeaderRenderCommon {
 
 	// Private Data Members
 	protected RenderRequest renderRequest;
@@ -45,7 +46,6 @@ public abstract class BridgePhaseRenderCompatImpl extends BridgePhaseCompat_2_2_
 
 	public BridgePhaseRenderCompatImpl(RenderRequest renderRequest, RenderResponse renderResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-
 		super(portletConfig, bridgeConfig);
 		this.renderRequest = BridgePortletRequestFactory.getRenderRequestInstance(renderRequest, renderResponse,
 				portletConfig, bridgeConfig);
@@ -53,25 +53,25 @@ public abstract class BridgePhaseRenderCompatImpl extends BridgePhaseCompat_2_2_
 				portletConfig, bridgeConfig);
 	}
 
+	@Override
+	protected MimeResponse getMimeResponse() {
+		return renderResponse;
+	}
+
+	@Override
+	protected RenderRequest getRenderRequest() {
+		return renderRequest;
+	}
+
 	protected void execute(String renderRedirectViewId) throws BridgeException, IOException {
+		executeRender(null, Bridge.PortletPhase.RENDER_PHASE);
+	}
 
-		init(renderRequest, renderResponse, Bridge.PortletPhase.RENDER_PHASE);
+	@Override
+	protected void renderCapturedOperations(List<WriterOperation> writerOperations, Writer writer) throws IOException {
 
-		// Spec 6.6 (Namespacing)
-		indicateNamespacingToConsumers(facesContext.getViewRoot(), renderResponse);
-
-		ExternalContext externalContext = facesContext.getExternalContext();
-		List<WriterOperation> writerOperations = (List<WriterOperation>) renderRequest.getAttribute(
-				BridgeExt.WRITER_OPERATIONS);
-		renderRequest.removeAttribute(BridgeExt.WRITER_OPERATIONS);
-
-		if (writerOperations != null) {
-
-			Writer responseOutputWriter = getResponseOutputWriter(externalContext);
-
-			for (WriterOperation writerOperation : writerOperations) {
-				writerOperation.invoke(responseOutputWriter);
-			}
+		for (WriterOperation writerOperation : writerOperations) {
+			writerOperation.invoke(writer);
 		}
 	}
 }
