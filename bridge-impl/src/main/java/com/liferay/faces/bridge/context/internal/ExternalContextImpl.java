@@ -64,7 +64,7 @@ import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderMap;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderValuesMap;
-import com.liferay.faces.bridge.filter.internal.HttpServletResponseHeaderAdapter;
+import com.liferay.faces.bridge.filter.internal.HttpServletResponseRenderAdapter;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseResourceAdapter;
 import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.bridge.internal.BridgeURI;
@@ -935,12 +935,12 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			// an instance of org.apache.myfaces.application.jsp.ServletViewResponseWrapper.
 			else if (response instanceof HttpServletResponse) {
 
-				// If executing the HEADER_PHASE of the portlet lifecycle, then decorate the specified
+				// If executing the RENDER_PHASE of the portlet lifecycle, then decorate the specified
 				// HttpServletResponse with an adapter that implements RenderRequest.
 				HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
-				if (isHeaderPhase(portletPhase)) {
-					portletResponse = new HttpServletResponseHeaderAdapter(httpServletResponse,
+				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
+					portletResponse = new HttpServletResponseRenderAdapter(httpServletResponse,
 							portletResponse.getNamespace());
 				}
 
