@@ -39,12 +39,6 @@ public abstract class RenderViewDispatchCompatPortlet extends GenericFacesTestSu
 		bridge.doFacesRequest(renderRequest, (RenderResponse) mimeResponse);
 	}
 
-	// Java 1.6+ @Override
-	public void renderHeaders(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
-		IOException {
-		renderView(renderRequest, renderResponse);
-	}
-
 	protected abstract void renderView(RenderRequest renderRequest, MimeResponse mimeResponse) throws PortletException,
 		IOException;
 
@@ -65,7 +59,7 @@ public abstract class RenderViewDispatchCompatPortlet extends GenericFacesTestSu
 	protected void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
 		IOException {
 
-		super.doView(renderRequest, renderResponse);
+		renderView(renderRequest, renderResponse);
 		outputResultWriter(renderRequest, renderResponse);
 	}
 
