@@ -52,6 +52,7 @@ import javax.xml.namespace.QName;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
 import com.liferay.faces.bridge.tck.common.Constants;
+import com.liferay.faces.bridge.tck.common.util.BridgeTCKUtil;
 import com.liferay.faces.bridge.tck.common.util.HTTPUtils;
 
 
@@ -332,7 +333,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		RenderResponse response = (RenderResponse) extCtx.getResponse();
+		MimeResponse response = (MimeResponse) extCtx.getResponse();
 		PortletURL portletURL = response.createActionURL();
 		portletURL.setParameter("param1", "value1");
 		portletURL.setParameter("param2", "value2");
@@ -387,7 +388,7 @@ public class Tests extends Object {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		RenderResponse response = (RenderResponse) extCtx.getResponse();
+		MimeResponse response = (MimeResponse) extCtx.getResponse();
 		PortletURL portletURL = response.createRenderURL();
 		portletURL.setParameter("param1", "value1");
 		portletURL.setParameter("param2", "value2");
@@ -1313,8 +1314,8 @@ public class Tests extends Object {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
 			Map<String, String> requestParameterMap = ctx.getExternalContext().getRequestParameterMap();
 
 			String testName = testRunner.getTestName();
@@ -2634,7 +2635,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
 
 			testRunner.setTestComplete(true);
 
@@ -2783,7 +2784,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
 
 			testRunner.setTestComplete(true);
 
@@ -3042,7 +3043,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
 
 			testRunner.setTestComplete(true);
 
@@ -3593,7 +3594,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
 
 			testRunner.setTestComplete(true);
 
@@ -4838,7 +4839,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
 
 			testRunner.setTestComplete(true);
 
@@ -4878,10 +4879,10 @@ public class Tests extends Object {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
-		RenderResponse renderResponse = (RenderResponse) extCtx.getResponse();
+		MimeResponse mimeResponse = (MimeResponse) extCtx.getResponse();
 
 		String charEncoding = extCtx.getResponseCharacterEncoding();
-		String renderCharEncoding = renderResponse.getCharacterEncoding();
+		String renderCharEncoding = mimeResponse.getCharacterEncoding();
 
 		if (((charEncoding == null) && (renderCharEncoding == null)) || charEncoding.equals(renderCharEncoding)) {
 			testRunner.setTestResult(true,
@@ -4985,7 +4986,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
+		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
 
 			testRunner.setTestComplete(true);
 
@@ -5023,9 +5024,9 @@ public class Tests extends Object {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
-		RenderResponse renderResponse = (RenderResponse) extCtx.getResponse();
+		MimeResponse mimeResponse = (MimeResponse) extCtx.getResponse();
 		String contentType = extCtx.getResponseContentType();
-		String renderContentType = renderResponse.getContentType();
+		String renderContentType = mimeResponse.getContentType();
 
 		if (((contentType == null) && (renderContentType == null)) || contentType.equals(renderContentType)) {
 			testRunner.setTestResult(true,

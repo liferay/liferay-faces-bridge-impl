@@ -15,18 +15,16 @@
  */
 package com.liferay.faces.bridge.tck.beans;
 
-import java.lang.IllegalStateException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.Map;
+import com.liferay.faces.bridge.tck.annotation.BridgeTest;
+import com.liferay.faces.bridge.tck.common.Constants;
+import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
-import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.common.Constants;
-import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.Map;
 
 
 /**
