@@ -37,6 +37,7 @@ import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeURL;
+import com.liferay.faces.bridge.filter.internal.PortletURLWrapper;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -689,18 +690,24 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		return uriParameters;
 	}
 
-	private static class FacesViewActionURL extends PortletURLWrapperCompat {
+	private static class FacesViewActionURL extends PortletURLWrapper {
 
 		// Private Data Members
+		private PortletURL portletURL;
 		private String viewId;
 
 		public FacesViewActionURL(PortletURL portletURL, String viewId) {
-			super(portletURL);
+			this.portletURL = portletURL;
 			this.viewId = viewId;
 		}
 
 		public String getViewId() {
 			return viewId;
+		}
+
+		@Override
+		public PortletURL getWrapped() {
+			return this.portletURL;
 		}
 	}
 
