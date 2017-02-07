@@ -236,7 +236,7 @@ public class Tests {
 				testImplicitObject(testRunner, facesResolver, ctx, "portletSessionScope", extCtx.getSessionMap());
 
 				// RenderRequest
-				if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RENDER_PHASE) {
+				if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE) {
 
 					// renderRequest -> object of type javax.portlet.RenderRequest
 					testImplicitObject(testRunner, facesResolver, ctx, "renderRequest", extCtx.getRequest());

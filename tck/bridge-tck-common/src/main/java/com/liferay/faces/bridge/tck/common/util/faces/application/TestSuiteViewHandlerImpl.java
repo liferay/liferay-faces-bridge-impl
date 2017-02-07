@@ -104,7 +104,7 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 		String testName = (String) context.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
 
 		// Do nothing when not running in portlet request
-		if (BridgeUtil.isPortletRequest(context) && (testName != null)) {
+		if (BridgeUtil.isPortletRequest() && (testName != null)) {
 			super.renderView(context, viewToRender);
 		}
 	}

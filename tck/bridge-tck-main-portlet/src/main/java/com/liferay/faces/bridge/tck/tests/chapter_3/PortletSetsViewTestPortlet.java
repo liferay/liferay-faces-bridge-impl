@@ -50,11 +50,11 @@ public class PortletSetsViewTestPortlet extends RenderViewDispatchCompatPortlet 
 		IOException {
 
 		if (getTestName().equals(SETSVIEWID_TEST)) {
-			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/portletSetsViewIdTestSuccess.xhtml");
+			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/PortletSetsViewIdTestSuccess.jsp");
 			dispatchToView(renderRequest, mimeResponse);
 		}
 		else if (getTestName().equals(SETSVIEWPATH_TEST)) {
-			renderRequest.setAttribute(Bridge.VIEW_PATH, "/tests/portletSetsViewIdTestSuccess.jsf");
+			renderRequest.setAttribute(Bridge.VIEW_PATH, "/tests/PortletSetsViewIdTestSuccess.jsf");
 			dispatchToView(renderRequest, mimeResponse);
 		}
 		else if (getTestName().equals(SETSINVALIDVIEWPATH_TEST)) {

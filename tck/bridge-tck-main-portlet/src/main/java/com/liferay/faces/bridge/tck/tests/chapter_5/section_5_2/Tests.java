@@ -46,7 +46,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKUtil;
  */
 public class Tests extends Object implements PhaseListener {
 
-	@Override
+	// Java 1.6+ @Override
 	public void afterPhase(PhaseEvent event) {
 
 		PhaseId phase = event.getPhaseId();
@@ -81,7 +81,7 @@ public class Tests extends Object implements PhaseListener {
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void beforePhase(PhaseEvent event) {
 		PhaseId phase = event.getPhaseId();
 
@@ -140,7 +140,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Clear settings from previous run of the test: Done here because this render doesn't happen in scope so
 			// second rendition doesn't keep the test result -- rather rerenders
@@ -229,7 +229,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Set the value into the model underneath the public render parameter
 			extCtx.getRequestMap().put("modelPRP", testRunner.getTestName());
@@ -291,7 +291,7 @@ public class Tests extends Object implements PhaseListener {
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> m = extCtx.getRequestMap();
 
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
 				testRunner.getTestName());
@@ -337,7 +337,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Clear settings from previous run of the test
 			extCtx.getSessionMap().put(TestEventHandler.EVENT_RECEIVED, null);
@@ -395,7 +395,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Clear settings from previous run of the test
 			extCtx.getSessionMap().put(TestEventHandler.EVENT_RECEIVED, null);
@@ -452,7 +452,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Clear settings from previous run of the test: Done here because this render doesn't happen in scope so
 			// second rendition doesn't keep the test result -- rather rerenders
@@ -510,7 +510,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "exceptionThrownWhenNoDefaultViewIdTest"; // action Navigation result
 		}
 		else {
@@ -540,7 +540,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "facesContextReleasedActionTest"; // action Navigation result
 		}
 		else {
@@ -570,7 +570,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
@@ -597,7 +597,7 @@ public class Tests extends Object implements PhaseListener {
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public PhaseId getPhaseId() {
 		return PhaseId.ANY_PHASE;
 	}
@@ -611,7 +611,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "ignoreCurrentViewIdModeChangeTest"; // action Navigation result
 		}
 		else {
@@ -683,7 +683,7 @@ public class Tests extends Object implements PhaseListener {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "nonFacesResourceTest";
 		}
 
@@ -733,7 +733,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "portletPhaseRemovedActionTest"; // action Navigation result
 		}
 		else {
@@ -763,7 +763,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
 				testRunner.getTestName());
@@ -798,7 +798,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Now verify that a change to a public render parameter is carried forward
 			String currentValue = (String) requestMap.get("modelPRP");
@@ -894,7 +894,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			return "renderRedirectTest"; // action Navigation result
 		}
@@ -956,7 +956,7 @@ public class Tests extends Object implements PhaseListener {
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
 
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 			m.put("testAttr", testRunner.getTestName());
 
 			return "";
@@ -1003,7 +1003,7 @@ public class Tests extends Object implements PhaseListener {
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
 
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// set a request scoped attr and then continue
 			m.put("testAttr", testRunner.getTestName());
@@ -1013,7 +1013,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 			String s = (String) m.get("testAttr");
 
 			if (s == null) {
@@ -1066,7 +1066,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			return "verifyPortletPhaseTest"; // action Navigation result
 		}
@@ -1111,7 +1111,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			testRunner.setTestResult(true, "ResourcePhase attribute correctly set during resource processing.");
 

@@ -38,7 +38,7 @@ public abstract class ExternalContextCompat_Portlet3_Impl extends ExternalContex
 		return false;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	protected boolean isHeaderPhaseSupported() {
 		return true;
 	}

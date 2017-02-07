@@ -31,7 +31,7 @@ public class BridgeTCKUtil {
 
 	public static boolean isHeaderOrRenderPhase(FacesContext facesContext) {
 
-		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase();
 
 		return Bridge.PortletPhase.RENDER_PHASE.equals(portletPhase);
 	}
