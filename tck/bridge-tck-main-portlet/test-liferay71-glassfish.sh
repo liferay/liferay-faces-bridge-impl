@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn surefire-report:report -P tck,liferay,glassfish
+mvn verify -P selenium,liferay,chrome,glassfish "$@"
