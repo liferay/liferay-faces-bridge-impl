@@ -51,7 +51,7 @@ public abstract class RenderViewDispatchCompatPortlet extends GenericFacesTestSu
 	protected void doEdit(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
 		IOException {
 
-		super.doEdit(renderRequest, renderResponse);
+		renderView(renderRequest, renderResponse);
 		outputResultWriter(renderRequest, renderResponse);
 	}
 
