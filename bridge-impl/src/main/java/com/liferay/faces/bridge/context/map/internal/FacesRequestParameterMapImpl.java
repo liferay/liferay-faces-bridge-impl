@@ -289,13 +289,13 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 			renderKitIdParam = defaultRenderKitId;
 		}
 
-		List<String> requestParamerNameList = new ArrayList<String>();
-		requestParamerNameList.addAll(wrappedParameterMap.keySet());
+		List<String> requestParameterNameList = new ArrayList<String>();
+		requestParameterNameList.addAll(wrappedParameterMap.keySet());
 
 		// Section 6.9 of the Bridge spec requires that a parameter name be added to the return value of
 		// ExternalContext.getRequestParameterNames() for ResponseStateManager.RENDER_KIT_ID_PARAM.
 		if (renderKitIdParam != null) {
-			requestParamerNameList.add(ResponseStateManager.RENDER_KIT_ID_PARAM);
+			requestParameterNameList.add(ResponseStateManager.RENDER_KIT_ID_PARAM);
 		}
 
 		// If the "javax.faces.ViewState" parameter was preserved in the BridgeRequestScope, then add it to the return
@@ -306,8 +306,14 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 			viewStateParam = bridgeRequestScope.getPreservedViewStateParam();
 		}
 
-		if ((viewStateParam != null) && separatorCharEnabled) {
-			requestParamerNameList.add(namespace + separatorChar + ResponseStateManager.VIEW_STATE_PARAM);
+		if (viewStateParam != null) {
+
+			if (separatorCharEnabled) {
+				requestParameterNameList.add(namespace + separatorChar + ResponseStateManager.VIEW_STATE_PARAM);
+			}
+			else {
+				requestParameterNameList.add(namespace + ResponseStateManager.VIEW_STATE_PARAM);
+			}
 		}
 
 		if (bridgeRequestScope != null) {
@@ -317,7 +323,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 				Set<String> keySet = preservedActionParamMap.keySet();
 
 				for (String key : keySet) {
-					requestParamerNameList.add(key);
+					requestParameterNameList.add(key);
 				}
 			}
 		}
@@ -325,10 +331,10 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 		Set<String> keySet = facesViewParameterMap.keySet();
 
 		for (String key : keySet) {
-			requestParamerNameList.add(key);
+			requestParameterNameList.add(key);
 		}
 
-		keyNames.addAll(requestParamerNameList);
+		keyNames.addAll(requestParameterNameList);
 
 		return keyNames;
 	}
