@@ -1,10 +1,10 @@
-# Running the Liferay Faces Bridge Integration Tests
+# Running the Liferay Faces Bridge TCK Tests
 
-The Liferay Faces Bridge integration tests can be run from an IDE (such as Eclipse) or the command line. The test framework expects that the tests have already been deployed to a running portal instance and have already been added to the appropriate pages.
+The Liferay Faces Bridge TCK tests can be run from the command line. The test framework expects that the TCK portlets have already been deployed to a running portal instance and have already been added to the appropriate pages.
 
-Before running the tests from the command line, you must navigate into the `test/integration` directory:
+Before running the tests from the command line, you must navigate into the `tck/bridge-tck-main-portlet` directory:
 
-	cd test/integration
+	cd tck/bridge-tck-main-portlet
 
 The tests can be activated by using the `selenium` maven profile. To run all the tests:
 
@@ -16,13 +16,9 @@ Different browsers can be activated via the `chrome`, `firefox`, `phantomjs`, `j
 
 **Note:** HTMLUnit and [JBrowser](https://github.com/MachinePublishers/jBrowserDriver) may fail to open web pages with complex JavaScript due to their experimental/buggy JavaScript support. PhantomJS is recommended for testing complex pages in a headless environment. Chrome (or the slightly slower Firefox) is recommended for testing complex pages in a normal desktop environment. See the root `pom.xml` file dependencies section for the required versions of each browser.
 
-Single tests and groups of tests can be selected via the the `it.test` property. The `it.test` property uses wildcards to select tests from their fully qualified class names. For example, to run only the issue portlet tests:
+Single tests and groups of tests can be selected via the the `integration.test.filter` property. The `integration.test.filter` property is a regular expression which checked against TCK test names. Matching tests are run. For example, to run only the "Destroy" tests:
 
-	mvn verify -P selenium,liferay -Dit.test=*issue.*Test*
-
-Unfortunately the bridge tests will be executed twice when run with the `it.test` property since there are multiple `maven-failsafe-plugin` `<execution>` elements. To avoid this behavior, you can temporarily comment out the `alloy-showcase-selenium-tests` `<execution>` in the `pom.xml` file.
-
-Likewise, `-Dit.test=*Applicant*` would run only the applicant portlet tests, and `-Dit.test=*demo.JSF*` would run only the non-applicant demo portlet tests.
+	mvn verify -P selenium,liferay -Dintegration.test.filter=.*Destroy.*
 
 The tests can also be run on Pluto Portal with the `pluto` profile:
 
@@ -38,14 +34,14 @@ The `integration.port` property controls which port the browser will navigate to
 
 All of the above properties and profiles can be combined to run tests in more complex scenarios. Here are some examples:
 
-- Run the issue tests with Chrome against a Pluto Portal instance running on port 4000.
- 
-		mvn verify -P selenium,pluto,chrome -Dintegration.port=4000 -Dit.test=*issue.*Test*
+- Run the "Destroy" tests with Chrome against a Pluto Portal instance running on port 4000.
+
+		mvn verify -P selenium,pluto,chrome -Dintegration.port=4000 -Dintegration.test.filter=.*Destroy.*
 
 - Run the tests on Firefox with more verbose logs:
 
 		mvn verify -P selenium,liferay,firefox -Dintegration.log.level=INFO
 
-- Run the FACES-1635 test on Chrome:
+- Run the getRequestParameterNamesCoreTest test on Chrome:
 
-		mvn verify -P selenium,liferay,chrome -Dit.test=*FACES_1635* 
+		mvn verify -P selenium,liferay,chrome -Dintegration.test.filter=getRequestParameterNamesCoreTest

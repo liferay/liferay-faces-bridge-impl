@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn surefire-report:report -P tck,pluto,tomcat
+mvn verify -P selenium,pluto,chrome,tomcat "$@"
