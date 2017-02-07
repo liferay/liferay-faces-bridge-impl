@@ -104,9 +104,9 @@
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/liferay-portal-${liferay.deploy.version}-jsf-${faces.spec.version}</liferay.home>
-		<liferay.faces.alloy.version>2.0.1-SNAPSHOT</liferay.faces.alloy.version> <!-- No version available that is compatible with JSF 1.x -->
+		<liferay.faces.alloy.version>UNSUPPORTED</liferay.faces.alloy.version>
 		<liferay.faces.bridge.ext.version>1.0.1-SNAPSHOT</liferay.faces.bridge.ext.version>
-		<liferay.faces.showcase.version>2.0.1-SNAPSHOT</liferay.faces.showcase.version> <!-- No version available that is compatible with JSF 1.x -->
+		<liferay.faces.showcase.version>UNSUPPORTED</liferay.faces.showcase.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.jetty.version>8.1.10</liferay.jetty.version>
