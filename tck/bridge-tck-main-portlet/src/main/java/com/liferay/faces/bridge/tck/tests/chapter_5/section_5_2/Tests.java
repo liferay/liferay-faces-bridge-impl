@@ -626,7 +626,7 @@ public class Tests extends Object implements PhaseListener {
 
 			testRunner.setTestComplete(true);
 
-			if (viewId.equals("/tests/multiRequestTestResultRenderCheck.xhtml")) {
+			if (viewId.equals("/tests/MultiRequestTestResultRenderCheck.jsp")) {
 				testRunner.setTestResult(true,
 					"Second render correctly used the default view because there was a mode change.");
 
@@ -901,13 +901,13 @@ public class Tests extends Object implements PhaseListener {
 		else {
 			String viewId = ctx.getViewRoot().getViewId();
 
-			if (viewId.equals("/tests/multiRequestTestResultRenderCheck.xhtml")) {
+			if (viewId.equals("/tests/MultiRequestTestResultRenderCheck.jsp")) {
 
 				// issue the redirect
 				ViewHandler viewHandler = ctx.getApplication().getViewHandler();
 
 				try {
-					extCtx.redirect(viewHandler.getActionURL(ctx, "/tests/redisplayRenderRequestTest.xhtml"));
+					extCtx.redirect(viewHandler.getActionURL(ctx, "/tests/RedisplayRenderRequestTest.jsp"));
 				}
 				catch (IOException e) {
 					testRunner.setTestComplete(true);
@@ -918,7 +918,7 @@ public class Tests extends Object implements PhaseListener {
 
 				return "renderRedirectTest";
 			}
-			else if (viewId.equals("/tests/redisplayRenderRequestTest.xhtml")) {
+			else if (viewId.equals("/tests/RedisplayRenderRequestTest.jsp")) {
 
 				// If redisplay hasn't been invoked yet -- merely return
 				if (extCtx.getSessionMap().get("org.apache.portlet.faces.tck.redisplay") == null) {

@@ -161,7 +161,7 @@ public class ManualBridgeInvokePortlet extends RenderViewDispatchCompatPortlet {
 			doBridgeFacesRequest(bridge, renderRequest, mimeResponse);
 		}
 		else if (getTestName().equals(VIEWIDWITHPARAM_TEST)) {
-			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/singleRequestTest.xhtml?param1=testValue");
+			renderRequest.setAttribute(Bridge.VIEW_ID, "/tests/SingleRequestTest.jsp?param1=testValue");
 			dispatchToView(renderRequest, mimeResponse);
 		}
 		else if (getTestName().equals(FACESCONTEXTRELEASED_ACTION_TEST) ||
