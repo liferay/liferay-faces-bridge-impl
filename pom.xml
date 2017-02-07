@@ -863,11 +863,6 @@
 				<artifactId>spring-web</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.seleniumhq.selenium.client-drivers</groupId>
-				<artifactId>selenium-java-client-driver</artifactId>
-				<version>1.0.1</version>
-			</dependency>
 
 			<!-- Integration test dependencies. -->
 			<dependency>
@@ -901,8 +896,7 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<!-- Note: the tests require that Firefox 21 is installed on the system. -->
-				<!-- TODO allow tests to run on a more recent version of Firefox -->
+				<!-- Note: the tests require that Firefox 46.0 is installed on the system. -->
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-firefox-driver</artifactId>
 				<version>2.53.0</version>
@@ -937,6 +931,25 @@
 						<groupId>selenium-remote-driver</groupId>
 					</exclusion>
 				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.seleniumhq.selenium</groupId>
+				<artifactId>htmlunit-driver</artifactId>
+				<version>2.23.2</version>
+				<scope>test</scope>
+			</dependency>
+			<!--
+			<dependency>
+				<groupId>net.sourceforge.htmlunit</groupId>
+				<artifactId>htmlunit</artifactId>
+				<version>2.23</version>
+			</dependency>
+			-->
+			<dependency>
+				<groupId>com.machinepublishers</groupId>
+				<artifactId>jbrowserdriver</artifactId>
+				<version>0.17.3</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
