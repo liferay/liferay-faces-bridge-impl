@@ -127,7 +127,7 @@
 		<pluto.tomcat.version>8.0.38</pluto.tomcat.version>
 		<pluto.version.major>3</pluto.version.major>
 		<pluto.version.minor>0</pluto.version.minor>
-		<pluto.version.patch>0</pluto.version.patch>
+		<pluto.version.patch>1</pluto.version.patch>
 		<pluto.version>${pluto.version.major}.${pluto.version.minor}.${pluto.version.patch}</pluto.version>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
