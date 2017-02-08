@@ -30,7 +30,6 @@ import javax.portlet.ResourceResponse;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.context.internal.PortalContextBridgeImpl;
-import com.liferay.faces.bridge.context.internal.PortalContextPlutoCompatImpl;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 
 
@@ -42,7 +41,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	// serialVersionUID
 	private static final long serialVersionUID = 1165668363125044029L;
 
-	@Override
+	// Java 1.6+ @Override
 	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
@@ -51,7 +50,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 		return new ActionRequestBridgeImpl(actionRequest, portalContext);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public EventRequest getEventRequest(EventRequest eventRequest, EventResponse eventResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
@@ -60,39 +59,25 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 		return new EventRequestBridgeImpl(eventRequest, portalContext);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public RenderRequest getRenderRequest(RenderRequest renderRequest, RenderResponse renderResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext;
-
-		if (PortletContainerDetector.isPlutoPortletResponse(renderResponse)) {
-			portalContext = new PortalContextPlutoCompatImpl(renderRequest.getPortalContext());
-		}
-		else {
-			portalContext = new PortalContextBridgeImpl(renderRequest.getPortalContext());
-		}
+		PortalContext portalContext = new PortalContextBridgeImpl(renderRequest.getPortalContext());
 
 		return new RenderRequestBridgeImpl(renderRequest, portalContext);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext;
-
-		if (PortletContainerDetector.isPlutoPortletResponse(resourceResponse)) {
-			portalContext = new PortalContextPlutoCompatImpl(resourceRequest.getPortalContext());
-		}
-		else {
-			portalContext = new PortalContextBridgeImpl(resourceRequest.getPortalContext());
-		}
+		PortalContext portalContext = new PortalContextBridgeImpl(resourceRequest.getPortalContext());
 
 		return new ResourceRequestBridgeImpl(resourceRequest, portalContext);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public BridgePortletRequestFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
