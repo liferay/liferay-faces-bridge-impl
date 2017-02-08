@@ -59,7 +59,6 @@ import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationUtil;
-import com.liferay.faces.bridge.application.internal.MissingResourceImpl;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderMap;
