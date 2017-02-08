@@ -59,7 +59,6 @@ import javax.portlet.faces.GenericFacesPortlet;
 import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.application.internal.BridgeNavigationUtil;
-import com.liferay.faces.bridge.application.internal.MissingResourceImpl;
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.context.map.internal.RequestHeaderMap;
@@ -679,7 +678,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			// lifecycle, then
 			if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) ||
 					(portletPhase == Bridge.PortletPhase.EVENT_PHASE) ||
-					(portletPhase == Bridge.PortletPhase.HEADER_PHASE) ||
+					isHeaderPhase(portletPhase) ||
 					(portletPhase == Bridge.PortletPhase.RENDER_PHASE)) {
 
 				// If the specified URL starts with a "#" character, is external to this application, or has a
@@ -782,8 +781,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 						// Otherwise, if currently executing the HEADER_PHASE or RENDER_PHASE of the portlet
 						// lifecycle, then
-						else if ((portletPhase == Bridge.PortletPhase.HEADER_PHASE) ||
-								(portletPhase == Bridge.PortletPhase.RENDER_PHASE)) {
+						else if (isHeaderPhase(portletPhase) || (portletPhase == Bridge.PortletPhase.RENDER_PHASE)) {
 
 							// If the specified URL is for a JSF viewId, then prepare for a render-redirect.
 							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext, url,
@@ -937,7 +935,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			else if (response instanceof HttpServletResponse) {
 
 				// If executing the HEADER_PHASE of the portlet lifecycle, then decorate the specified
-				// HttpServletResponse with an adapter that implements RenderRequest.
+				// HttpServletResponse with an adapter that implements HeaderRequest.
 				HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
 				if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
