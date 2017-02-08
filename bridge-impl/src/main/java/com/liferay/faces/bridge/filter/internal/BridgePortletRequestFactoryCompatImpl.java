@@ -23,7 +23,6 @@ import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.filter.BridgePortletRequestFactory;
 
 import com.liferay.faces.bridge.context.internal.PortalContextBridgeImpl;
-import com.liferay.faces.bridge.context.internal.PortalContextPlutoCompatImpl;
 
 
 /**
@@ -35,14 +34,7 @@ public abstract class BridgePortletRequestFactoryCompatImpl extends BridgePortle
 	public HeaderRequest getHeaderRequest(HeaderRequest headerRequest, HeaderResponse headerResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext;
-
-		if (PortletContainerDetector.isPlutoPortletResponse(headerResponse)) {
-			portalContext = new PortalContextPlutoCompatImpl(headerRequest.getPortalContext());
-		}
-		else {
-			portalContext = new PortalContextBridgeImpl(headerRequest.getPortalContext());
-		}
+		PortalContext portalContext = new PortalContextBridgeImpl(headerRequest.getPortalContext());
 
 		return new HeaderRequestBridgeImpl(headerRequest, portalContext);
 	}

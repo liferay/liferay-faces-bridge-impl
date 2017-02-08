@@ -31,7 +31,6 @@ import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.filter.BridgePortletRequestFactory;
 
 import com.liferay.faces.bridge.context.internal.PortalContextBridgeImpl;
-import com.liferay.faces.bridge.context.internal.PortalContextPlutoCompatImpl;
 
 
 /**
@@ -64,14 +63,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	public RenderRequest getRenderRequest(RenderRequest renderRequest, RenderResponse renderResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext;
-
-		if (PortletContainerDetector.isPlutoPortletResponse(renderResponse)) {
-			portalContext = new PortalContextPlutoCompatImpl(renderRequest.getPortalContext());
-		}
-		else {
-			portalContext = new PortalContextBridgeImpl(renderRequest.getPortalContext());
-		}
+		PortalContext portalContext = new PortalContextBridgeImpl(renderRequest.getPortalContext());
 
 		return new RenderRequestBridgeImpl(renderRequest, portalContext);
 	}
@@ -80,14 +72,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext;
-
-		if (PortletContainerDetector.isPlutoPortletResponse(resourceResponse)) {
-			portalContext = new PortalContextPlutoCompatImpl(resourceRequest.getPortalContext());
-		}
-		else {
-			portalContext = new PortalContextBridgeImpl(resourceRequest.getPortalContext());
-		}
+		PortalContext portalContext = new PortalContextBridgeImpl(resourceRequest.getPortalContext());
 
 		return new ResourceRequestBridgeImpl(resourceRequest, portalContext);
 	}
