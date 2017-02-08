@@ -31,6 +31,7 @@ import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
 
 /**
  * @author  Kyle Stiemann
+ * @author  Philip White
  */
 public class JSFFlowsPortletTester extends IntegrationTesterBase {
 
@@ -81,10 +82,10 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 
 		String departureXpath = "//select[contains(@id,':departureId')]";
 		browser.waitForElementVisible(departureXpath);
-		createSelect(browser, departureXpath).selectByVisibleText("Los Angeles: Los Angeles Intl");
+		selectOptionContainingText(browser, departureXpath, "LAX");
 
 		String arrivalXpath = "//select[contains(@id,':arrivalId')]";
-		createSelect(browser, arrivalXpath).selectByVisibleText("Louisville: Louisville International Airport");
+		selectOptionContainingText(browser, arrivalXpath, "SDF");
 		browser.sendKeys("//input[contains(@id,':departureDate')]", "2015-08-12");
 
 		String searchFlightsButtonXpath = "//input[@value='Search Flights']";
@@ -116,8 +117,8 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		// Test that flights can be purchased.
 		createSelect(browser, bookingTypeXpath).selectByVisibleText("Flight");
 		browser.waitForElementVisible(departureXpath);
-		createSelect(browser, departureXpath).selectByVisibleText("Louisville: Louisville International Airport");
-		createSelect(browser, arrivalXpath).selectByVisibleText("Orlando: Orlando Intl");
+		selectOptionContainingText(browser, departureXpath, "SDF");
+		selectOptionContainingText(browser, arrivalXpath, "MCO");
 		browser.sendKeys("//input[contains(@id,':departureDate')]", "2015-08-12");
 		browser.click(searchFlightsButtonXpath);
 		browser.waitForElementVisible(addToCartButtonXpath);
@@ -125,9 +126,26 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		browser.waitForElementVisible(removeButtonXpath);
 		browser.click("//input[@value='Checkout']");
 
-		String firstNameFieldXpath = "//input[contains(@id,':firstName')]";
-		browser.waitForElementVisible(firstNameFieldXpath);
-		browser.sendKeys(firstNameFieldXpath, "Gilbert");
+		String titleFieldXpath = "//select[contains(@id,':titleId')]";
+		browser.waitForElementVisible(titleFieldXpath);
+		createSelect(browser, titleFieldXpath).selectByVisibleText("Mr.");
+		browser.sendKeys("//input[contains(@id,':firstName')]", "Gilbert");
+		browser.sendKeys("//input[contains(@id,':lastName')]", "Godfried");
+		browser.sendKeys("//input[contains(@id,':emailAddress')]", "Gilbert@Godfried.org");
+		browser.sendKeys("//input[contains(@id,':phoneNumber')]", "1234567890");
+		browser.sendKeys("//input[contains(@id,':addressLine1')]", "123 Gilgod Ave");
+		browser.sendKeys("//input[contains(@id,':city')]", "Hollywood");
+		createSelect(browser, "//select[contains(@id,':provinceId')]").selectByVisibleText("California");
+		createSelect(browser, "//select[contains(@id,':paymentTypeId')]").selectByVisibleText("Visa");
+		browser.sendKeys("//input[contains(@id,':accountNumber')]", "12345678901234567890");
+		browser.sendKeys("//input[contains(@id,':expirationMonth')]", "01/35");
+		browser.click("//input[@value='Purchase']");
+
+		String cvvFieldXpath = "//input[contains(@id,':cvv')]";
+		String cvvFieldErrorXpath = cvvFieldXpath + "/../span[@class='portlet-msg-error']";
+		browser.waitForElementVisible(cvvFieldErrorXpath);
+		SeleniumAssert.assertElementTextVisible(browser, cvvFieldErrorXpath, "Value is required");
+		browser.sendKeys(cvvFieldXpath, "123");
 		browser.click("//input[@value='Purchase']");
 
 		String callSurveyFlowButtonXpath = "//input[@value='Call Survey Flow']";
@@ -172,5 +190,12 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		WebElement element = browser.findElementByXpath(selectXpath);
 
 		return new Select(element);
+	}
+
+	private void selectOptionContainingText(Browser browser, String selectXpath, String text) {
+
+		WebElement option = browser.findElementByXpath(selectXpath + "/option[contains(text(),'" + text + "')]");
+		String value = option.getAttribute("value");
+		createSelect(browser, selectXpath).selectByValue(value);
 	}
 }
