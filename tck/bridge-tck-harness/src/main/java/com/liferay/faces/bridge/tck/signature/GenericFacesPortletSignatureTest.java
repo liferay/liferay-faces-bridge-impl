@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,8 @@ package com.liferay.faces.bridge.tck.signature;
 
 import java.lang.reflect.Method;
 
+import org.junit.Assert;
 import org.junit.Test;
-
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
 
 
 /**
@@ -106,15 +104,17 @@ public class GenericFacesPortletSignatureTest {
 			actualReturnType = method.getReturnType();
 
 			if (actualReturnType.equals(expectedReturnType)) {
-				assertTrue(true);
+				Assert.assertTrue(true);
 			}
 			else {
-				fail("public void " + expectedReturnType + " " + methodName + " not found in GenericFacesPortlet.");
+				Assert.fail("public void " + expectedReturnType + " " + methodName +
+					" not found in GenericFacesPortlet.");
 			}
 
 		}
 		catch (Exception e) {
-			fail("public void " + expectedReturnType + " " + methodName + " not found in GenericFacesPortlet.");
+			throw new AssertionError("public void " + expectedReturnType + " " + methodName +
+				" not found in GenericFacesPortlet.", e);
 		}
 	}
 }
