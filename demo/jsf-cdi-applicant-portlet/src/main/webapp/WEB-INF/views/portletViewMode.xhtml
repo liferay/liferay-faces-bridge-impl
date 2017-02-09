@@ -17,6 +17,9 @@
 						<li><em><h:outputText value="#{product.LIFERAY_FACES_BRIDGE_EXT}" /></em></li>
 					</c:if>
 					<li><em><h:outputText value="#{product.CDI}" /></em></li>
+					<li><em><h:outputText value="Session producer: session.id == #{session.id}" /></em></li>
+					<li><em><h:outputText value="Request producer: request.contentPath == #{request.contextPath}" /></em></li>
+					<li><em><h:outputText value="Other JSF CDI producers inject: #{testProducersBean.results}" /></em></li>
 				</ul>
 			</alloy:column>
 		</alloy:row>
