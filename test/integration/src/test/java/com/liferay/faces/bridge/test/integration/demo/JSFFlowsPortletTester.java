@@ -31,6 +31,7 @@ import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
 
 /**
  * @author  Kyle Stiemann
+ * @author  Philip White
  */
 public class JSFFlowsPortletTester extends IntegrationTesterBase {
 
@@ -125,9 +126,26 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		browser.waitForElementVisible(removeButtonXpath);
 		browser.click("//input[@value='Checkout']");
 
-		String firstNameFieldXpath = "//input[contains(@id,':firstName')]";
-		browser.waitForElementVisible(firstNameFieldXpath);
-		browser.sendKeys(firstNameFieldXpath, "Gilbert");
+		String titleFieldXpath = "//select[contains(@id,':titleId')]";
+		browser.waitForElementVisible(titleFieldXpath);
+		createSelect(browser, titleFieldXpath).selectByVisibleText("Mr.");
+		browser.sendKeys("//input[contains(@id,':firstName')]", "Gilbert");
+		browser.sendKeys("//input[contains(@id,':lastName')]", "Godfried");
+		browser.sendKeys("//input[contains(@id,':emailAddress')]", "Gilbert@Godfried.org");
+		browser.sendKeys("//input[contains(@id,':phoneNumber')]", "1234567890");
+		browser.sendKeys("//input[contains(@id,':addressLine1')]", "123 Gilgod Ave");
+		browser.sendKeys("//input[contains(@id,':city')]", "Hollywood");
+		createSelect(browser, "//select[contains(@id,':provinceId')]").selectByVisibleText("California");
+		createSelect(browser, "//select[contains(@id,':paymentTypeId')]").selectByVisibleText("Visa");
+		browser.sendKeys("//input[contains(@id,':accountNumber')]", "12345678901234567890");
+		browser.sendKeys("//input[contains(@id,':expirationMonth')]", "01/35");
+		browser.click("//input[@value='Purchase']");
+
+		String cvvFieldXpath = "//input[contains(@id,':cvv')]";
+		String cvvFieldErrorXpath = cvvFieldXpath + "/../span[@class='portlet-msg-error']";
+		browser.waitForElementVisible(cvvFieldErrorXpath);
+		SeleniumAssert.assertElementTextVisible(browser, cvvFieldErrorXpath, "Value is required");
+		browser.sendKeys(cvvFieldXpath, "123");
 		browser.click("//input[@value='Purchase']");
 
 		String callSurveyFlowButtonXpath = "//input[@value='Call Survey Flow']";
