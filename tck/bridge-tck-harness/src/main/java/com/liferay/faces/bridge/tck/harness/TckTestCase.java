@@ -23,8 +23,10 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -52,7 +54,7 @@ import com.liferay.faces.test.selenium.TestUtil;
 public class TckTestCase extends IntegrationTesterBase {
 
 	// Logger
-	private static final Logger logger = Logger.getLogger(TckTestCase.class.getName());
+	private static final Logger logger = LoggerFactory.getLogger(TckTestCase.class);
 
 	// XPath
 	private static final String TEST_RESULT_STATUS_XPATH_TEMPLATE = "//span[@id=\"{0}-result-status\"]";
@@ -82,8 +84,6 @@ public class TckTestCase extends IntegrationTesterBase {
 	private static final int MAX_NUMBER_ACTIONS = 10;
 
 	static {
-
-		logger.setLevel(TestUtil.getLogLevel());
 
 		String tckContext = "/";
 		int defaultBrowserWaitTimeout = 5;
@@ -117,7 +117,7 @@ public class TckTestCase extends IntegrationTesterBase {
 	@Parameters
 	public static Collection testData() {
 
-		logger.log(Level.INFO, "testData()");
+		logger.info("testData()");
 
 		List testList = new ArrayList<String[]>(200);
 		InputStream excludedTestsInputStream = null;
@@ -127,7 +127,7 @@ public class TckTestCase extends IntegrationTesterBase {
 			excludedTestsInputStream = TckTestCase.class.getResourceAsStream(EXCLUDED_TESTS_FILE_PATH);
 		}
 		catch (Exception e) {
-			logger.log(Level.SEVERE, "Unable to acccess test exclusions file, {0} Exception thrown: {1}",
+			logger.error("Unable to acccess test exclusions file, {0} Exception thrown: {1}",
 				new String[] { EXCLUDED_TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
@@ -138,7 +138,7 @@ public class TckTestCase extends IntegrationTesterBase {
 			exProps.loadFromXML(excludedTestsInputStream);
 		}
 		catch (Exception e) {
-			logger.log(Level.SEVERE, "Unable to parse test exclusions file, {0} Exception thrown: {1}",
+			logger.error("Unable to parse test exclusions file, {0} Exception thrown: {1}",
 				new String[] { EXCLUDED_TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
@@ -147,7 +147,7 @@ public class TckTestCase extends IntegrationTesterBase {
 			testsInputStream = TckTestCase.class.getResourceAsStream(TESTS_FILE_PATH);
 		}
 		catch (Exception e) {
-			logger.log(Level.SEVERE, "Unable to acccess test description file, {0} Exception thrown: {1}",
+			logger.error("Unable to acccess test description file, {0} Exception thrown: {1}",
 				new String[] { TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
@@ -158,7 +158,7 @@ public class TckTestCase extends IntegrationTesterBase {
 			testProps.loadFromXML(testsInputStream);
 		}
 		catch (Exception e) {
-			logger.log(Level.SEVERE, "Unable to parse test description file, {0} Exception thrown: {1}",
+			logger.error("Unable to parse test description file, {0} Exception thrown: {1}",
 				new String[] { TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
