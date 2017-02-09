@@ -44,18 +44,87 @@
 			<properties>
 				<integration.browser>phantomjs</integration.browser>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.codeborne</groupId>
+					<artifactId>phantomjsdriver</artifactId>
+					<scope>test</scope>
+					<!-- Don't download the version of selenium that phantomjsdriver depends on since it is older than the
+					version we specify. -->
+					<exclusions>
+						<exclusion>
+							<artifactId>org.seleniumhq.selenium</artifactId>
+							<groupId>selenium-java</groupId>
+						</exclusion>
+						<exclusion>
+							<artifactId>org.seleniumhq.selenium</artifactId>
+							<groupId>selenium-server</groupId>
+						</exclusion>
+						<exclusion>
+							<artifactId>org.seleniumhq.selenium</artifactId>
+							<groupId>selenium-remote-driver</groupId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>firefox</id>
 			<properties>
 				<integration.browser>firefox</integration.browser>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>selenium-firefox-driver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>chrome</id>
 			<properties>
 				<integration.browser>chrome</integration.browser>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>selenium-chrome-driver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>htmlunit</id>
+			<properties>
+				<integration.browser>htmlunit</integration.browser>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>selenium-htmlunit-driver</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+					<version>2.4</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>jbrowser</id>
+			<properties>
+				<integration.browser>jbrowser</integration.browser>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.machinepublishers</groupId>
+					<artifactId>jbrowserdriver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>weblogic</id>
@@ -133,6 +202,11 @@
 										<include>**/*Test.java,**/Test*.java,**/*TestCase.java,**/*Tester.java</include>
 									</includes>
 									<trimStackTrace>false</trimStackTrace>
+									<!--
+										When specifying alloy tests, no other tests from this execution will be run,
+										so do not fail when no tests are specified.
+									-->
+									<failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
 									<dependenciesToScan>
 										<dependency>com.liferay.faces.demo:com.liferay.faces.demo.jsf.showcase.webapp</dependency>
 									</dependenciesToScan>
@@ -287,37 +361,6 @@
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-support</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-firefox-driver</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-chrome-driver</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.codeborne</groupId>
-			<artifactId>phantomjsdriver</artifactId>
-			<scope>test</scope>
-			<!-- Don't download the version of selenium that phantomjsdriver depends on since it is older than the
-			version we specify. -->
-			<exclusions>
-				<exclusion>
-					<artifactId>org.seleniumhq.selenium</artifactId>
-					<groupId>selenium-java</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>org.seleniumhq.selenium</artifactId>
-					<groupId>selenium-server</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>org.seleniumhq.selenium</artifactId>
-					<groupId>selenium-remote-driver</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
