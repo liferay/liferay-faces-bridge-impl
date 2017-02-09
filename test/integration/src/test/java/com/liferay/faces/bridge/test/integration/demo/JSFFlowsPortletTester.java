@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.test.integration.demo;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -31,6 +31,7 @@ import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
 
 /**
  * @author  Kyle Stiemann
+ * @author  Philip White
  */
 public class JSFFlowsPortletTester extends IntegrationTesterBase {
 
@@ -125,15 +126,52 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		browser.waitForElementVisible(removeButtonXpath);
 		browser.click("//input[@value='Checkout']");
 
+		String titleFieldXpath = "//select[contains(@id,':titleId')]";
+		browser.waitForElementVisible(titleFieldXpath);
+		createSelect(browser, titleFieldXpath).selectByVisibleText("Mr.");
+
 		String firstNameFieldXpath = "//input[contains(@id,':firstName')]";
-		browser.waitForElementVisible(firstNameFieldXpath);
-		browser.sendKeys(firstNameFieldXpath, "Gilbert");
+		browser.sendKeys(firstNameFieldXpath, "John");
+
+		String lastNameFieldXpath = "//input[contains(@id,':lastName')]";
+		browser.sendKeys(lastNameFieldXpath, "Adams");
+
+		String emailAddressFieldXpath = "//input[contains(@id,':emailAddress')]";
+		browser.sendKeys(emailAddressFieldXpath, "john.adams@liferay.com");
+
+		String phoneNumberFieldXpath = "//input[contains(@id,':phoneNumber')]";
+		browser.sendKeys(phoneNumberFieldXpath, "1234567890");
+
+		String addressLine1FieldXpath = "//input[contains(@id,':addressLine1')]";
+		browser.sendKeys(addressLine1FieldXpath, "1400 Montefino Ave.");
+
+		String cityFieldXpath = "//input[contains(@id,':city')]";
+		browser.sendKeys(cityFieldXpath, "Diamond Bar");
+
+		String provinceIdFieldXpath = "//select[contains(@id,':provinceId')]";
+		createSelect(browser, provinceIdFieldXpath).selectByVisibleText("California");
+
+		String paymentTypeIdFieldXpath = "//select[contains(@id,':paymentTypeId')]";
+		createSelect(browser, paymentTypeIdFieldXpath).selectByVisibleText("Visa");
+
+		String accountNumberFieldXpath = "//input[contains(@id,':accountNumber')]";
+		browser.sendKeys(accountNumberFieldXpath, "12345678901234567890");
+
+		String expirationMonthFieldXpath = "//input[contains(@id,':expirationMonth')]";
+		browser.sendKeys(expirationMonthFieldXpath, "01/35");
+
+		browser.click("//input[@value='Purchase']");
+		String cvvFieldXpath = "//input[contains(@id,':cvv')]";
+		browser.waitForElementVisible(cvvFieldXpath + "/../span[@class='portlet-msg-error']");
+		SeleniumAssert.assertElementTextVisible(browser, cvvFieldXpath + "/../span[@class='portlet-msg-error']", "Value is required");
+		browser.sendKeys(cvvFieldXpath, "123");
+
 		browser.click("//input[@value='Purchase']");
 
 		String callSurveyFlowButtonXpath = "//input[@value='Call Survey Flow']";
 		browser.waitForElementVisible(callSurveyFlowButtonXpath);
 		SeleniumAssert.assertElementTextVisible(browser, "//div[contains(@class,'liferay-faces-bridge-body')]//form",
-			"Thank you Gilbert for your purchase.");
+			"Thank you John for your purchase.");
 
 		// Test the survey flow scope.
 		browser.click(callSurveyFlowButtonXpath);
@@ -147,7 +185,7 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		String returnFromSurveyFlowButtonXpath = "//input[@value='Return From Survey Flow']";
 		browser.waitForElementVisible(returnFromSurveyFlowButtonXpath);
 		SeleniumAssert.assertElementTextVisible(browser, "//div[contains(@class,'liferay-faces-bridge-body')]//form",
-			"Thank you Gilbert for participating in our survey.");
+			"Thank you John for participating in our survey.");
 
 		// Test that exiting the survey flow scope causes beans to go out of scope.
 		browser.click(returnFromSurveyFlowButtonXpath);
