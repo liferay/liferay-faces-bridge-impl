@@ -108,14 +108,6 @@
 			<properties>
 				<portlet.container>pluto</portlet.container>
 				<integration.container>${portlet.container}</integration.container>
-				<portal.version.major>3</portal.version.major>
-			</properties>
-		</profile>
-		<profile>
-			<id>pluto2</id>
-			<properties>
-				<portlet.container>pluto</portlet.container>
-				<integration.container>${portlet.container}2</integration.container>
 				<portal.version.major>2</portal.version.major>
 			</properties>
 		</profile>
