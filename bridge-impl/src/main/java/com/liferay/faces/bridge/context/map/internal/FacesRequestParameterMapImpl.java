@@ -51,19 +51,22 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 	private String defaultRenderKitId;
 	private Map<String, String> facesViewParameterMap;
 	private String namespace;
+	private boolean namespaceViewState;
 	private String separatorChar;
 	private boolean separatorCharEnabled;
+	private boolean strictParameterNamespacing;
 	private Map<String, String[]> wrappedParameterMap;
 
 	public FacesRequestParameterMapImpl(String namespace, BridgeRequestScope bridgeRequestScope,
-		Map<String, String> facesViewParameterMap, String defaultRenderKitId, String separatorChar) {
+		Map<String, String> facesViewParameterMap, String defaultRenderKitId, String separatorChar,
+		boolean strictParameterNamespacing, boolean namespaceViewState) {
 		this(new HashMap<String, String[]>(), namespace, bridgeRequestScope, facesViewParameterMap, defaultRenderKitId,
-			separatorChar);
+			separatorChar, strictParameterNamespacing, namespaceViewState);
 	}
 
 	public FacesRequestParameterMapImpl(Map<String, String[]> parameterMap, String namespace,
 		BridgeRequestScope bridgeRequestScope, Map<String, String> facesViewParameterMap, String defaultRenderKitId,
-		String separatorChar) {
+		String separatorChar, boolean strictParameterNamespacing, boolean namespaceViewState) {
 		this.wrappedParameterMap = parameterMap;
 		this.namespace = namespace;
 		this.bridgeRequestScope = bridgeRequestScope;
@@ -71,6 +74,8 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 		this.defaultRenderKitId = defaultRenderKitId;
 		this.separatorChar = separatorChar;
 		this.separatorCharEnabled = ((separatorChar != null) && (separatorChar.length() > 0));
+		this.strictParameterNamespacing = strictParameterNamespacing;
+		this.namespaceViewState = namespaceViewState;
 	}
 
 	@Override
@@ -92,7 +97,13 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 			wrappedParameterMap.put(key, values);
 		}
 		else {
-			wrappedParameterMap.put(namespace + key, values);
+
+			if (strictParameterNamespacing) {
+				wrappedParameterMap.put(namespace + key, values);
+			}
+			else {
+				wrappedParameterMap.put(key, values);
+			}
 		}
 	}
 
@@ -312,7 +323,13 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 				requestParameterNameList.add(namespace + separatorChar + ResponseStateManager.VIEW_STATE_PARAM);
 			}
 			else {
-				requestParameterNameList.add(namespace + ResponseStateManager.VIEW_STATE_PARAM);
+
+				if (namespaceViewState) {
+					requestParameterNameList.add(namespace + ResponseStateManager.VIEW_STATE_PARAM);
+				}
+				else {
+					requestParameterNameList.add(ResponseStateManager.VIEW_STATE_PARAM);
+				}
 			}
 		}
 
