@@ -348,12 +348,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-		<!--
-			These demo tests use a different version of selenium, drivers, and junit than the integration tests.
-			Once the other demos are migrated to the new test framework, we can add these dependencies to the
-			parent pom.xml and remove them from here.
-		-->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
