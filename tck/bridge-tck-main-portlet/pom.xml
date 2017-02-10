@@ -101,26 +101,10 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<id>liferay62</id>
-			<properties>
-				<portlet.container>liferay</portlet.container>
-				<integration.container>${portlet.container}62</integration.container>
-				<portal.version.major>6</portal.version.major>
-			</properties>
-		</profile>
-		<profile>
 			<id>pluto</id>
 			<properties>
 				<portlet.container>pluto</portlet.container>
 				<integration.container>${portlet.container}</integration.container>
-				<portal.version.major>3</portal.version.major>
-			</properties>
-		</profile>
-		<profile>
-			<id>pluto2</id>
-			<properties>
-				<portlet.container>pluto</portlet.container>
-				<integration.container>${portlet.container}2</integration.container>
 				<portal.version.major>2</portal.version.major>
 			</properties>
 		</profile>
@@ -228,6 +212,15 @@
 			<properties>
 				<integration.port>7001</integration.port>
 			</properties>
+			<dependencies>
+				<!-- FACES-1599: Trinidad API must only appear in the global classpath -->
+				<dependency>
+					<groupId>org.apache.myfaces.trinidad</groupId>
+					<artifactId>trinidad-api</artifactId>
+					<version>${tck.trinidad.version}</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>websphere</id>
@@ -390,28 +383,6 @@
 				</dependency>
 				<!-- End integration test dependencies. -->
 			</dependencies>
-		</profile>
-		<profile>
-			<id>weblogic</id>
-			<properties>
-				<bridge.tck.test.port>7001</bridge.tck.test.port>
-			</properties>
-			<dependencies>
-				<!-- FACES-1599: Trinidad API must only appear in the global classpath -->
-				<dependency>
-					<groupId>org.apache.myfaces.trinidad</groupId>
-					<artifactId>trinidad-api</artifactId>
-					<version>${tck.trinidad.version}</version>
-					<scope>provided</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>websphere</id>
-			<properties>
-				<bridge.tck.test.host>192.168.10.110</bridge.tck.test.host>
-				<bridge.tck.test.port>9080</bridge.tck.test.port>
-			</properties>
 		</profile>
 	</profiles>
 

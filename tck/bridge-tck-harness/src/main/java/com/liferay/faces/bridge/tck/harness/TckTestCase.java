@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,7 @@
  */
 package com.liferay.faces.bridge.tck.harness;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,200 +24,102 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
 
 import org.junit.runners.Parameterized.Parameters;
 
-import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.Selenium;
-import com.thoughtworks.selenium.SeleniumException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import com.liferay.faces.test.selenium.Browser;
+import com.liferay.faces.test.selenium.IntegrationTesterBase;
+import com.liferay.faces.test.selenium.TestUtil;
 
 
 /**
  * @author  Michael Freedman
+ * @author  Kyle Stiemann
  */
 @RunWith(TckParameterized.class)
-public class TckTestCase {
+public class TckTestCase extends IntegrationTesterBase {
 
-	private static final String MAX_WAIT = "60000";
-	private static final int MAX_NUMBER_ACTIONS = 10;
+	// Logger
+	private static final Logger logger = Logger.getLogger(TckTestCase.class.getName());
 
-	protected static Selenium sSelenium;
-
-	// XPaths for results using span ids
-	private static final String TEST_RESULT_NAME_XPATH = "//span[@id=\"{0}-test-name\"]";
-	private static final String TEST_RESULT_STATUS_XPATH = "//span[@id=\"{0}-result-status\"]";
-	private static final String TEST_RESULT_DETAIL_XPATH = "//span[@id=\"{0}-result-detail\"]";
-
-	// XPaths for Trinidad PPR results which do not include TCK
-	// span ids.
-	private static final String TEST_RESULT_NAME_PPR_XPATH = "//span[contains(.,\"{0}\")]";
-	private static final String TEST_RESULT_STATUS_PPR_XPATH = "//span[contains(.,\"{0}\")]/p[contains(.,\"Status\")]";
-	private static final String TEST_RESULT_DETAIL_PPR_XPATH = "//span[contains(.,\"{0}\")]/p[3]";
-
-	private static final String[] ACTION_FPR_XPATHS = {
+	// XPath
+	private static final String TEST_RESULT_STATUS_XPATH_TEMPLATE = "//span[@id=\"{0}-result-status\"]";
+	private static final String TEST_RESULT_DETAIL_XPATH_TEMPLATE = "//span[@id=\"{0}-result-detail\"]";
+	private static final String TEST_RESULT_STATUS_XPATH = "//p[contains (.,\"Status\")]";
+	private static final String TEST_RESULT_AJAX_STATUS_XPATH = "//span[contains(.,\"{0}\")]/p[contains(.,\"Status\")]";
+	private static final String TEST_IFRAME_XPATH = "//iframe[@name=\"tck-iframe\"]";
+	private static final String[] RUN_TEST_XPATHS = {
 			"//input[@type=\"submit\" and @value=\"Run Test\"]", "//a[text()=\"Run Test\"]"
 		};
-
-	private static final String[] ACTION_PPR_XPATHS = {
+	private static final String[] RUN_AJAX_TEST_XPATHS = {
 			"//button[@class=\"portlet-form-button\" and contains(.,\"Run Test\")]",
 			"//a[@class=\"portlet-font\" and contains(.,\"Run Test\")]"
 		};
 
-	private static final String IFRAME_XPATH = "//iframe[@name=\"tck-iframe\"]";
-	private static final String IFRAME_NAME = "tck-iframe";
-	private static final String IFRAME_TIMEOUT = "5000";
+	// Private Constants
+	private static final String TEST_FILE_KEY = "integration.tests.file";
+	private static final String EXCLUDED_TESTS_FILE_KEY = "integration.excluded.tests.file";
+	private static final String PORTLET_CONTAINER = TestUtil.getContainer("liferay");
+	private static final String TESTS_FILE_PATH = TestUtil.getSystemPropertyOrDefault(TEST_FILE_KEY,
+			"/" + PORTLET_CONTAINER + "-tests.xml");
+	private static final String EXCLUDED_TESTS_FILE_PATH = TestUtil.getSystemPropertyOrDefault(EXCLUDED_TESTS_FILE_KEY,
+			"/excluded-tests.xml");
+	private static final String TCK_CONTEXT;
+	private static final int DEFAULT_BROWSER_WAIT_TIMEOUT;
+	private static final int MAX_NUMBER_ACTIONS = 10;
 
-	private static final String TCK_HOME = "BRIDGE_301_TCK_HOME";
-	private static final String PROPS_FILE = "bridge.tck.properties";
-	private static final String LOGIN_FILE = "bridge.tck.login.properties";
-	private static final String LOGIN_FILE_KEY = "bridge.tck.login.file";
-
-	private static final String CLIENT_BASE_URL_KEY = "bridge.tck.test.base-url";
-	private static final String TEST_FILE_KEY = "bridge.tck.test.file";
-	private static final String TEST_FILTER_KEY = "bridge.tck.test.filter";
-	private static final String TEST_EXCLUSIONS_FILE_KEY = "bridge.tck.test.exclusions.file";
-	private static final String SELENIUM_BROWSER_KEY = "bridge.tck.browser";
-	private static final String SELENIUM_HOST_KEY = "bridge.tck.selenium.host";
-	private static final String SELENIUM_PORT_KEY = "bridge.tck.selenium.port";
-
-	private static final String DEFAULT_SELENIUM_BROWSER = "*firefox";
-	private static final String DEFAULT_SELENIUM_HOST = "localhost";
-	private static final String DEFAULT_SELENIUM_PORT = "4444";
-
-	private static String sClientBaseUrl;
-	private static String sTestFile;
-	private static String sTestExclusionsFile;
-	private static String sTestFilter;
-	private static String sSeleniumBrowser; // = DEFAULT_SELENIUM_BROWSER;
-	private static String sSeleniumHost; // = DEFAULT_SELENIUM_HOST;
-	private static int sSeleniumPort; // = DEFAULT_SELENIUM_PORT;
-
-	// Name value pairs for fields in login page
-	private static List<String[]> sLoginFields;
-
-	// Name of button in login page
-	private static String sLoginButton;
+	//J-
+	private static final String USE_POP_UP_MODE_SCRIPT =
+		"var forms = document.getElementsByTagName('form');" +
+		"for (var i = 0; i < forms.length; i++) {" +
+		"forms[i]['action'] = forms[i]['action'].replace('p_p_state=normal', 'p_p_state=pop_up');" +
+		"}" +
+		"var links = document.getElementsByTagName('a');" +
+		"for (var i = 0; i < links.length; i++) {" +
+		"links[i]['href'] = links[i]['href'].replace('p_p_state=normal', 'p_p_state=pop_up');" +
+		"}";
+	//J+
 
 	static {
-		log("static block");
 
-		String tckHomeDir = System.getenv(TCK_HOME);
+		logger.setLevel(TestUtil.getLogLevel());
 
-		if (tckHomeDir == null) {
+		String tckContext = "/";
+		int defaultBrowserWaitTimeout = 5;
 
-			// Default value for the TCK home.
-			tckHomeDir = System.getProperty("user.home") + File.separator + "BridgeTckHome";
+		if (PORTLET_CONTAINER.contains("liferay")) {
+			tckContext = "/group/bridge-tck/";
+		}
+		else if (PORTLET_CONTAINER.contains("pluto")) {
+			tckContext = TestUtil.DEFAULT_PLUTO_CONTEXT + "/";
+			defaultBrowserWaitTimeout = 1;
 		}
 
-		File propsFile = new File(tckHomeDir, PROPS_FILE);
-		Properties fileProps = null;
-
-		try {
-			log("Home dir: " + tckHomeDir);
-
-			FileInputStream fis = null;
-
-			fis = new FileInputStream(propsFile);
-			fileProps = new Properties();
-			fileProps.load(fis);
-		}
-		catch (FileNotFoundException fnfe) {
-
-			// Not necessarily an error.
-			log("No TCK properties file, " + propsFile + " does not exist");
-			propsFile = null;
-		}
-		catch (IOException ioe) {
-			errLog("Error loading TCK properties file, " + propsFile.getName());
-			System.exit(1);
-		}
-
-		sClientBaseUrl = getProperty(fileProps, CLIENT_BASE_URL_KEY, null, true);
-		sTestFilter = getProperty(fileProps, TEST_FILTER_KEY, null, false);
-		sTestFile = getProperty(fileProps, TEST_FILE_KEY, null, true);
-		sTestExclusionsFile = getProperty(fileProps, TEST_EXCLUSIONS_FILE_KEY, null, true);
-
-		sSeleniumHost = getProperty(fileProps, SELENIUM_HOST_KEY, DEFAULT_SELENIUM_HOST, false);
-		sSeleniumPort = Integer.parseInt(getProperty(fileProps, SELENIUM_PORT_KEY, DEFAULT_SELENIUM_PORT, false));
-
-		sSeleniumBrowser = getProperty(fileProps, SELENIUM_BROWSER_KEY, DEFAULT_SELENIUM_BROWSER, false);
-
-		// Login properties file
-		try {
-			FileInputStream fis = null;
-
-			if (System.getProperty(LOGIN_FILE_KEY) != null) {
-				fis = new FileInputStream(System.getProperty(LOGIN_FILE_KEY));
-			}
-			else {
-				fis = new FileInputStream(new File(tckHomeDir, LOGIN_FILE));
-			}
-
-			Properties props = new Properties();
-			props.load(fis);
-
-			Enumeration propsNameList = props.propertyNames();
-
-			while (propsNameList.hasMoreElements()) {
-				String loginProp = (String) propsNameList.nextElement();
-
-				if (props.get(loginProp).equals("")) {
-
-					// A button login property is defined as name only
-					sLoginButton = loginProp;
-				}
-				else {
-
-					if (sLoginFields == null) {
-						sLoginFields = new ArrayList<String[]>();
-					}
-
-					sLoginFields.add(new String[] { loginProp, (String) props.get(loginProp) });
-				}
-			}
-		}
-		catch (FileNotFoundException fnfe) {
-			// No login properties file.  Not an error condition.
-		}
-		catch (IOException ioe) {
-			errLog("Error loading login properties file, " + propsFile.getName());
-			System.exit(1);
-		}
-
-		log("test file: " + sTestFile);
-		log("test filter: " + sTestFilter);
-
-		log("End of static block");
+		TCK_CONTEXT = tckContext;
+		DEFAULT_BROWSER_WAIT_TIMEOUT = defaultBrowserWaitTimeout;
 	}
 
-	private String mPageName;
-	private String mTestName;
+	// Private Data Members
+	private String pageName;
+	private String testName;
+	private String testPortletName;
 
-	private Boolean mIsTrinidadPPR = null;
-
-	public TckTestCase(String pageName, String testName) {
-		mPageName = pageName;
-		mTestName = testName;
-	}
-
-	public static void errLog(String msg) {
-		Logger.getLogger("global").log(Level.SEVERE, msg);
-	}
-
-	public static void log(String msg) {
-		Logger.getLogger("global").log(Level.INFO, msg);
+	public TckTestCase(String pageName, String testName, String testPortletName) {
+		this.pageName = pageName;
+		this.testName = testName;
+		this.testPortletName = testPortletName;
 	}
 
 	public static void main(String[] args) {
@@ -229,405 +128,404 @@ public class TckTestCase {
 		new org.junit.runner.JUnitCore().runClasses(TckTestCase.class);
 	}
 
-	@AfterClass
-	public static void runAfterClass() throws Exception {
-
-		if (sSelenium != null) {
-			sSelenium.stop();
-			sSelenium.shutDownSeleniumServer();
-		}
-	}
-
-	@BeforeClass
-	public static void setUpSession() throws Exception {
-		log("setUpSession");
-
-		try {
-			log("SeleniumHost: " + sSeleniumHost);
-			log("SeleniumPort: " + sSeleniumPort);
-			log("SeleniumBrowser: " + sSeleniumBrowser);
-			log("ClientBaseUrl: " + sClientBaseUrl);
-			sSelenium = new DefaultSelenium(sSeleniumHost, sSeleniumPort, sSeleniumBrowser, sClientBaseUrl);
-			sSelenium.start();
-			sSelenium.setTimeout(MAX_WAIT);
-		}
-		catch (Exception exception) {
-			exception.printStackTrace();
-			throw exception;
-		}
-	}
-
 	@Parameters
 	public static Collection testData() {
-		log("testData()");
 
-		List testList = new ArrayList<String[]>(200);
-		FileInputStream exIs = null;
-		FileInputStream tis = null;
-		Pattern filterPattern = null;
+		logger.log(Level.INFO, "testData()");
 
-		if ((sTestFilter != null) && (sTestFilter.length() > 0)) {
-			filterPattern = Pattern.compile(sTestFilter);
-		}
+		List<String[]> testList = new ArrayList<String[]>(200);
+		InputStream excludedTestsInputStream = null;
+		InputStream testsInputStream = null;
 
 		try {
-			exIs = new FileInputStream(sTestExclusionsFile);
+			excludedTestsInputStream = TckTestCase.class.getResourceAsStream(EXCLUDED_TESTS_FILE_PATH);
 		}
 		catch (Exception e) {
-			errLog("Unable to acccess test exclusions file, " + sTestExclusionsFile + " Exception thrown: " +
-				e.getMessage());
+			logger.log(Level.SEVERE, "Unable to acccess test exclusions file, {0} Exception thrown: {1}",
+				new String[] { EXCLUDED_TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
 
 		Properties exProps = new Properties();
 
 		try {
-			exProps.loadFromXML(exIs);
+			exProps.loadFromXML(excludedTestsInputStream);
 		}
 		catch (Exception e) {
-			errLog("Unable to parse test exclusions file, " + sTestExclusionsFile + " Exception thrown: " +
-				e.getMessage());
+			logger.log(Level.SEVERE, "Unable to parse test exclusions file, {0} Exception thrown: {1}",
+				new String[] { EXCLUDED_TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
 
 		try {
-			tis = new FileInputStream(sTestFile);
+			testsInputStream = TckTestCase.class.getResourceAsStream(TESTS_FILE_PATH);
 		}
 		catch (Exception e) {
-			errLog("Unable to acccess test description file, " + sTestFile + " Exception thrown: " + e.getMessage());
+			logger.log(Level.SEVERE, "Unable to acccess test description file, {0} Exception thrown: {1}",
+				new String[] { TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
 
 		Properties testProps = new Properties();
 
 		try {
-			testProps.loadFromXML(tis);
+			testProps.loadFromXML(testsInputStream);
 		}
 		catch (Exception e) {
-			errLog("Unable to parse test description file, " + sTestFile + " Exception thrown: " + e.getMessage());
+			logger.log(Level.SEVERE, "Unable to parse test description file, {0} Exception thrown: {1}",
+				new String[] { TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
 
-		Enumeration tests = testProps.propertyNames();
+		Enumeration<?> tests = testProps.propertyNames();
+		Pattern extractTestNamePattern = Pattern.compile("chapter[0-9_]+Tests-([a-zA-Z]+)-portlet");
+		Pattern testFilterPattern = null;
+		String testFilter = TestUtil.getSystemPropertyOrDefault("integration.test.filter", null);
+
+		if (testFilter != null) {
+			testFilterPattern = Pattern.compile(testFilter);
+		}
 
 		while (tests.hasMoreElements()) {
+
 			String page = (String) tests.nextElement();
-			String testName = testProps.getProperty(page);
-			boolean filterMatch = true;
+			String testPortletName = testProps.getProperty(page);
+			String testName = extractTestNamePattern.matcher(testPortletName).replaceFirst("$1");
 
-			if (filterPattern != null) {
-				Matcher m = filterPattern.matcher(testName);
-				filterMatch = m.matches();
-			}
-
-			if (filterMatch) {
-
-				if (exProps.getProperty(testName) == null) {
-					testList.add(new String[] { page, testName });
-				}
+			if ((exProps.getProperty(testName) == null) &&
+					((testFilterPattern == null) || testFilterPattern.matcher(testName).matches())) {
+				testList.add(new String[] { page, testName, testPortletName });
 			}
 		}
 
 		return testList;
 	}
 
-	private static String getProperty(Properties fileProperties, String key, String defaultValue, boolean required) {
-		boolean checkFirst = (defaultValue != null);
-
-		if (System.getProperty(key) != null) {
-			return System.getProperty(key);
-		}
-
-		if ((fileProperties != null) && ((String) fileProperties.get(key) != null)) {
-			return (String) fileProperties.get(key);
-		}
-
-		if (defaultValue != null) {
-			return defaultValue;
-		}
-		else if (required) {
-			errLog("Property " + key + " has not been set.");
-			System.exit(1);
-		}
-
-		return defaultValue;
-	}
-
 	public String getName() {
-		return mTestName;
-	}
-
-	public void login() {
-
-		if (sLoginFields != null) {
-
-			for (String[] field : sLoginFields) {
-
-				if (!sSelenium.isElementPresent("//input[@name='" + field[0] + "']")) {
-
-					// Not a login page
-					return;
-				}
-			}
-
-			for (String[] field : sLoginFields) {
-				sSelenium.type(field[0], field[1]);
-			}
-
-			sSelenium.click(sLoginButton);
-			sSelenium.waitForPageToLoad(MAX_WAIT);
-		}
+		return testName;
 	}
 
 	@Before
 	public void runBeforeEachTest() throws Exception {
-		sSelenium.open(mPageName);
-		sSelenium.waitForPageToLoad(MAX_WAIT);
+
+		Browser browser = Browser.getInstance();
+		String query = "";
+
+		if (useWindowStatePopUp()) {
+			query = "?p_p_state=pop_up&p_p_id=" + testPortletName.replace("-", "") +
+				"_WAR_comliferayfacestestbridgetckmainportlet";
+		}
+
+		browser.get(TestUtil.DEFAULT_BASE_URL + TCK_CONTEXT + pageName + query);
+
+		if (useWindowStatePopUp()) {
+			browser.executeScript(USE_POP_UP_MODE_SCRIPT);
+		}
 	}
 
 	@Test
 	public void testPage() {
-		login();
 
-		try {
-			loadTckIFrame();
+		Browser browser = Browser.getInstance();
+		testPage(browser, true);
+	}
 
-			if (isResultPage()) {
-				recordResult();
-			}
-			else if (isFPRActionPage()) {
-				performFPRAction();
-			}
-			else if (isPPRActionPage()) {
-				performPPRAction();
-			}
-			else {
+	@Override
+	protected void doSetUp() {
 
-				// Default case, unrecognised page content.
-				StringBuilder sb = new StringBuilder().append("Unexpected page content.\n").append(
-						sSelenium.getBodyText());
-				fail(sb.toString());
-			}
-		}
-		catch (SeleniumException se) {
-			fail(se.getMessage());
+		super.doSetUp();
+
+		Browser browser = Browser.getInstance();
+		int browserWaitTimeOut = TestUtil.getBrowserWaitTimeOut(DEFAULT_BROWSER_WAIT_TIMEOUT);
+		browser.setWaitTimeOut(browserWaitTimeOut);
+	}
+
+	private void appendPageSourceIfNeccessary(Browser browser, StringBuilder stringBuilder) {
+
+		if (TestUtil.getLogLevel().intValue() <= Level.CONFIG.intValue()) {
+
+			stringBuilder.append("\n");
+
+			String pageSource = browser.getPageSource().replaceAll("(\\s)+", "$1");
+			stringBuilder.append(pageSource);
+			stringBuilder.append("\n");
 		}
 	}
 
-	private boolean isFPRActionPage() {
+	private boolean areElementsVisible(Browser browser, String... elementXpaths) {
 
-		for (String path : ACTION_FPR_XPATHS) {
+		boolean elementVisible = false;
 
-			if (sSelenium.isElementPresent(path)) {
-				return true;
-			}
-		}
+		for (String elementXpath : elementXpaths) {
 
-		return false;
-	}
+			List<WebElement> elements = browser.findElements(By.xpath(elementXpath));
 
-	private boolean isPPRActionPage() {
+			if (elements.size() > 0) {
 
-		for (String path : ACTION_PPR_XPATHS) {
+				if (elements.get(0).isDisplayed()) {
 
-			if (sSelenium.isElementPresent(path)) {
-				return true;
-			}
-		}
+					elementVisible = true;
 
-		return false;
-	}
-
-	private boolean isResultPage() {
-		return (sSelenium.isElementPresent("//p[contains (.,\"Status\")]"));
-	}
-
-	private void loadTckIFrame() {
-
-		// Will load the iframe if present or throw an exception if the iframe
-		// can not be loaded.
-		if (sSelenium.isElementPresent(IFRAME_XPATH)) {
-			sSelenium.selectFrame(IFRAME_XPATH);
-
-			if (!sSelenium.isElementPresent("//body")) {
-
-				// Only wait for iframe to load if it hasn't already.  Waiting for
-				// an already loaded iframe will time out.
-				try {
-					sSelenium.waitForFrameToLoad(IFRAME_NAME, IFRAME_TIMEOUT);
-
-				}
-				catch (SeleniumException se) {
-					StringBuilder sb = new StringBuilder().append("Exception thrown while loading tck-iframe.\n")
-						.append(se.getMessage()).append("\n").append(sSelenium.getBodyText());
-					throw new SeleniumException(sb.toString());
+					break;
 				}
 			}
+		}
 
-			sSelenium.selectFrame("relative=parent");
+		return elementVisible;
+	}
+
+	private void loadImagesIfNecessary(Browser browser) {
+
+		if (testName.equals("nonFacesResourceTest")) {
+			browser.loadImages();
 		}
 	}
 
-	private void performFPRAction() {
+	private void recordResult(Browser browser) {
 
-outer:
-		for (int i = 0; i < MAX_NUMBER_ACTIONS; i++) {
-
-			for (String action : ACTION_FPR_XPATHS) {
-
-				if (sSelenium.isElementPresent(action)) {
-
-					// Click component
-					sSelenium.click(action);
-					sSelenium.waitForPageToLoad(MAX_WAIT);
-
-					if (isResultPage()) {
-
-						// If results page shows record result.
-						recordResult();
-
-						return;
-					}
-
-					// If no results page carry on looking for components to click on.
-					continue outer;
-				}
-			}
-
-			StringBuilder sb = new StringBuilder().append(i).append(
-					" full page request action(s) have been performed on this portlet without any final result or test components to exercise.\n")
-					.append(sSelenium.getBodyText());
-			throw new SeleniumException(sb.toString());
-		}
-
-		StringBuilder sb = new StringBuilder().append(MAX_NUMBER_ACTIONS).append(
-				" actions have been performed on this portlet without any final result.\n").append(
-				sSelenium.getBodyText());
-		throw new SeleniumException(sb.toString());
-	}
-
-	private void performPPRAction() {
-		// There's no andWait equivalent for a PPR request.  Instead, when clicked
-		// a PPR component portlet will either return a result or a different
-		// component to click.
-
-// Click first "Run Test "component found in portlet.
-outer:
-
-		// Wait for a result or another control to be rendered.
-		for (int i = 1; i <= MAX_NUMBER_ACTIONS; i++) {
-
-			for (String pprPath : ACTION_PPR_XPATHS) {
-
-				if (sSelenium.isElementPresent(pprPath)) {
-					sSelenium.click(pprPath);
-					waitForValidPPResponse(pprPath);
-
-					String result = MessageFormat.format(TEST_RESULT_STATUS_PPR_XPATH, new Object[] { mTestName });
-
-					if (sSelenium.isElementPresent(result)) {
-						recordResult();
-
-						return;
-					}
-
-					continue outer;
-				}
-			}
-
-			StringBuilder sb = new StringBuilder().append(i).append(" PPR action(s) executed with no valid result.\n")
-				.append(sSelenium.getBodyText());
-			throw new SeleniumException(sb.toString());
-		}
-	}
-
-	private void recordResult() {
 		String failMsg = null;
 		String details = null;
 		String testStatus = null;
 
 		// Look for results that use the tck span ids
-		String tckResultXPath = MessageFormat.format(TEST_RESULT_STATUS_XPATH, new Object[] { mTestName });
+		String tckResultXPath = MessageFormat.format(TEST_RESULT_STATUS_XPATH_TEMPLATE, new Object[] { testName });
 
-		if (sSelenium.isElementPresent(tckResultXPath)) {
+		if (areElementsVisible(browser, tckResultXPath)) {
 
 			try {
-				testStatus = sSelenium.getText(tckResultXPath);
 
-				String tckDetailsXPath = MessageFormat.format(TEST_RESULT_DETAIL_XPATH, new Object[] { mTestName });
-				details = sSelenium.getText(tckDetailsXPath);
+				WebElement resultElement = browser.findElementByXpath(tckResultXPath);
+				testStatus = resultElement.getText();
+
+				String tckDetailsXPath = MessageFormat.format(TEST_RESULT_DETAIL_XPATH_TEMPLATE,
+						new Object[] { testName });
+				WebElement detailsElement = browser.findElementByXpath(tckDetailsXPath);
+				details = detailsElement.getText();
 			}
-			catch (SeleniumException se) {
+			catch (WebDriverException e) {
 
 				// Invalid result format
-				StringBuilder sb = new StringBuilder().append("Test failed but no test result details found.\n").append(
-						se.getMessage()).append("\n").append(sSelenium.getBodyText());
-				throw new SeleniumException(sb.toString());
+				StringBuilder sb = new StringBuilder();
+				sb.append(pageName);
+				sb.append(": ");
+				sb.append(testName);
+				sb.append(": ");
+				sb.append("Test failed but no test result details found.\n");
+
+				String message = e.getMessage();
+				sb.append(message);
+				appendPageSourceIfNeccessary(browser, sb);
+				throw new WebDriverException(sb.toString());
 			}
 		}
 		else {
 
-			// PPR content with no TCK span ids.
-			if ((sSelenium.isElementPresent("//p[contains (.,\"FAILED\")]"))) {
+			// Ajax test content with no TCK span ids.
+			if ((areElementsVisible(browser, "//p[contains (.,\"FAILED\")]"))) {
 
 				// Portlet shows a failure result so display details
 				try {
-					details = sSelenium.getText("//p[contains(.,\"Detail\")]//p[1]");
+
+					WebElement detailsElement = browser.findElementByXpath("//p[contains(.,\"Detail\")]//p[1]");
+					details = detailsElement.getText();
 				}
-				catch (SeleniumException se) {
+				catch (WebDriverException e) {
 
 					// Portlet contains no detail section, should never happen.
-					StringBuilder sb = new StringBuilder().append("Test failed but no test result details found.\n")
-						.append(se.getMessage()).append("\n").append(sSelenium.getBodyText());
-					throw new SeleniumException(sb.toString());
+					StringBuilder sb = new StringBuilder();
+					sb.append(pageName);
+					sb.append(": ");
+					sb.append(testName);
+					sb.append(": Test failed but no test result details found.\n");
+
+					String message = e.getMessage();
+					sb.append(message);
+					appendPageSourceIfNeccessary(browser, sb);
+					throw new WebDriverException(sb.toString());
 				}
 			}
-			else if (sSelenium.isElementPresent("//p[contains (.,\"SUCCESS\")]")) {
+			else if (areElementsVisible(browser, "//p[contains (.,\"SUCCESS\")]")) {
 				testStatus = "SUCCESS";
 			}
 		}
 
-		failMsg = new StringBuilder().append("FAILED").append("\n").append(details).toString();
-
-		assertTrue(failMsg, ("SUCCESS".equals(testStatus)));
+		StringBuilder sb = new StringBuilder();
+		sb.append(pageName);
+		sb.append(": ");
+		sb.append(testName);
+		sb.append(": FAILED\n");
+		sb.append(details);
+		appendPageSourceIfNeccessary(browser, sb);
+		failMsg = sb.toString();
+		Assert.assertEquals(failMsg, "SUCCESS", testStatus);
 	}
 
-	private void waitForValidPPResponse(String previousPath) {
+	private void runAjaxTest(Browser browser) {
 
-		// Waits for a valid response and returns or throws an exception.
-		// Valid responses are a success/fail result or a different PPR "Run Test"
-		// component.
-		String result = MessageFormat.format(TEST_RESULT_STATUS_PPR_XPATH, new Object[] { mTestName });
-		int i = 0;
+		boolean resultObtained = false;
 
-		for (i = 0; i < 3; i++) {
+		// Wait for a result or another control to be rendered.
+		for (int i = 0; i < MAX_NUMBER_ACTIONS; i++) {
 
-			if (sSelenium.isElementPresent(result)) {
+			for (String xpath : RUN_AJAX_TEST_XPATHS) {
 
-				// A result
-				return;
-			}
+				if (areElementsVisible(browser, xpath)) {
 
-			for (String pprPath : ACTION_PPR_XPATHS) {
+					browser.click(xpath);
+					switchToIFrameIfNecessary(browser);
 
-				if (!pprPath.equals(previousPath)) {
+					try {
 
-					if (sSelenium.isElementPresent(pprPath)) {
-						return;
+						String resultXpath = MessageFormat.format(TEST_RESULT_AJAX_STATUS_XPATH,
+								new Object[] { testName });
+						browser.waitForElementVisible(resultXpath);
+						recordResult(browser);
+						resultObtained = true;
+					}
+					catch (TimeoutException e) {
+						// continue.
 					}
 				}
 			}
 
-			// No valid response, wait for about a sec and retry
-			try {
-				Thread.sleep(1000);
-			}
-			catch (InterruptedException ie) {
+			if (!resultObtained && !areElementsVisible(browser, RUN_AJAX_TEST_XPATHS)) {
+
+				StringBuilder sb = new StringBuilder();
+				sb.append(pageName);
+				sb.append(": ");
+				sb.append(testName);
+				sb.append(": ");
+				sb.append(i + 1);
+				sb.append(" ajax action(s) executed with no valid result.");
+				appendPageSourceIfNeccessary(browser, sb);
+				throw new WebDriverException(sb.toString());
 			}
 		}
 
-		StringBuilder sb = new StringBuilder().append("No valid response to PPR action.\n").append(
-				sSelenium.getBodyText());
-		throw new SeleniumException(sb.toString());
+		if (!resultObtained) {
+
+			StringBuilder sb = new StringBuilder();
+			sb.append(pageName);
+			sb.append(": ");
+			sb.append(testName);
+			sb.append(": ");
+			sb.append(MAX_NUMBER_ACTIONS);
+			sb.append(" actions have been performed on this portlet without any final result.");
+			appendPageSourceIfNeccessary(browser, sb);
+			throw new WebDriverException(sb.toString());
+		}
+	}
+
+	private void runTest(Browser browser) {
+
+		boolean resultObtained = false;
+
+		for (int i = 0; i < MAX_NUMBER_ACTIONS; i++) {
+
+			for (String xpath : RUN_TEST_XPATHS) {
+
+				if (areElementsVisible(browser, xpath)) {
+
+					browser.click(xpath);
+					browser.waitForElementVisible("//body");
+					loadImagesIfNecessary(browser);
+					switchToIFrameIfNecessary(browser);
+
+					// If results page shows record result.
+					if (areElementsVisible(browser, TEST_RESULT_STATUS_XPATH)) {
+
+						recordResult(browser);
+						resultObtained = true;
+					}
+					else if (useWindowStatePopUp()) {
+						browser.executeScript(USE_POP_UP_MODE_SCRIPT);
+					}
+					// Otherwise continue clicking on elements.
+				}
+			}
+
+			if (!resultObtained && !areElementsVisible(browser, RUN_TEST_XPATHS)) {
+
+				StringBuilder sb = new StringBuilder();
+				sb.append(pageName);
+				sb.append(": ");
+				sb.append(testName);
+				sb.append("\n: ");
+				sb.append(i + 1);
+				sb.append(
+					" full page request action(s) have been performed on this portlet without any final result or test components to exercise.");
+				appendPageSourceIfNeccessary(browser, sb);
+				throw new WebDriverException(sb.toString());
+			}
+		}
+
+		if (!resultObtained) {
+
+			StringBuilder sb = new StringBuilder();
+			sb.append(pageName);
+			sb.append(": ");
+			sb.append(testName);
+			sb.append("\n: ");
+			sb.append(MAX_NUMBER_ACTIONS);
+			sb.append(" actions have been performed on this portlet without any final result.");
+			appendPageSourceIfNeccessary(browser, sb);
+			throw new WebDriverException(sb.toString());
+		}
+	}
+
+	private void switchToIFrameIfNecessary(Browser browser) {
+
+		if (areElementsVisible(browser, TEST_IFRAME_XPATH)) {
+
+			browser.switchTo().frame("tck-iframe");
+			browser.waitForElementVisible("//body");
+		}
+	}
+
+	private void testPage(Browser browser, boolean switchToIFrameIfNecessary) throws WebDriverException {
+
+		try {
+
+			if (areElementsVisible(browser, TEST_RESULT_STATUS_XPATH)) {
+				recordResult(browser);
+			}
+			else if (areElementsVisible(browser, RUN_TEST_XPATHS)) {
+				runTest(browser);
+			}
+			else if (areElementsVisible(browser, RUN_AJAX_TEST_XPATHS)) {
+				runAjaxTest(browser);
+			}
+			else if (switchToIFrameIfNecessary && areElementsVisible(browser, TEST_IFRAME_XPATH)) {
+
+				browser.switchTo().frame("tck-iframe");
+				browser.waitForElementVisible("//body");
+
+				testPage(browser, false);
+			}
+			else {
+
+				// Default case, unrecognised page content.
+				StringBuilder sb = new StringBuilder();
+				sb.append(pageName);
+				sb.append(": ");
+				sb.append(testName);
+				sb.append("\n: Unexpected page content.");
+				appendPageSourceIfNeccessary(browser, sb);
+				Assert.fail(sb.toString());
+			}
+		}
+		catch (WebDriverException e) {
+			throw new AssertionError("Uncaught WebDriverException: " + e.getMessage(), e);
+		}
+	}
+
+	private boolean useWindowStatePopUp() {
+		return PORTLET_CONTAINER.contains("liferay") &&
+			!(testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest") ||
+				testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest") ||
+				testName.equals("encodeActionURLWithInvalidWindowStateActionTest") ||
+				testName.equals("encodeActionURLWithInvalidWindowStateEventTest") ||
+				testName.equals("encodeActionURLWithInvalidWindowStateRenderTest") ||
+				testName.equals("encodeResourceURLWithWindowStateTest"));
 	}
 }
