@@ -23,10 +23,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
-
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -40,7 +38,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.htmlunit.HtmlUnitUtil;
 
 import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
@@ -49,12 +46,13 @@ import com.liferay.faces.test.selenium.TestUtil;
 
 /**
  * @author  Michael Freedman
+ * @author  Kyle Stiemann
  */
 @RunWith(TckParameterized.class)
 public class TckTestCase extends IntegrationTesterBase {
 
 	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(TckTestCase.class);
+	private static final Logger logger = Logger.getLogger(TckTestCase.class.getName());
 
 	// XPath
 	private static final String TEST_RESULT_STATUS_XPATH_TEMPLATE = "//span[@id=\"{0}-result-status\"]";
@@ -83,7 +81,21 @@ public class TckTestCase extends IntegrationTesterBase {
 	private static final int DEFAULT_BROWSER_WAIT_TIMEOUT;
 	private static final int MAX_NUMBER_ACTIONS = 10;
 
+	//J-
+	private static final String USE_POP_UP_MODE_SCRIPT =
+		"var forms = document.getElementsByTagName('form');" +
+		"for (var i = 0; i < forms.length; i++) {" +
+		"forms[i]['action'] = forms[i]['action'].replace('p_p_state=normal', 'p_p_state=pop_up');" +
+		"}" +
+		"var links = document.getElementsByTagName('a');" +
+		"for (var i = 0; i < links.length; i++) {" +
+		"links[i]['href'] = links[i]['href'].replace('p_p_state=normal', 'p_p_state=pop_up');" +
+		"}";
+	//J+
+
 	static {
+
+		logger.setLevel(TestUtil.getLogLevel());
 
 		String tckContext = "/";
 		int defaultBrowserWaitTimeout = 5;
@@ -100,12 +112,15 @@ public class TckTestCase extends IntegrationTesterBase {
 		DEFAULT_BROWSER_WAIT_TIMEOUT = defaultBrowserWaitTimeout;
 	}
 
-	private String mPageName;
-	private String mTestName;
+	// Private Data Members
+	private String pageName;
+	private String testName;
+	private String testPortletName;
 
-	public TckTestCase(String pageName, String testName) {
-		mPageName = pageName;
-		mTestName = testName;
+	public TckTestCase(String pageName, String testName, String testPortletName) {
+		this.pageName = pageName;
+		this.testName = testName;
+		this.testPortletName = testPortletName;
 	}
 
 	public static void main(String[] args) {
@@ -117,9 +132,9 @@ public class TckTestCase extends IntegrationTesterBase {
 	@Parameters
 	public static Collection testData() {
 
-		logger.info("testData()");
+		logger.log(Level.INFO, "testData()");
 
-		List testList = new ArrayList<String[]>(200);
+		List<String[]> testList = new ArrayList<String[]>(200);
 		InputStream excludedTestsInputStream = null;
 		InputStream testsInputStream = null;
 
@@ -127,7 +142,7 @@ public class TckTestCase extends IntegrationTesterBase {
 			excludedTestsInputStream = TckTestCase.class.getResourceAsStream(EXCLUDED_TESTS_FILE_PATH);
 		}
 		catch (Exception e) {
-			logger.error("Unable to acccess test exclusions file, {0} Exception thrown: {1}",
+			logger.log(Level.SEVERE, "Unable to acccess test exclusions file, {0} Exception thrown: {1}",
 				new String[] { EXCLUDED_TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
@@ -138,7 +153,7 @@ public class TckTestCase extends IntegrationTesterBase {
 			exProps.loadFromXML(excludedTestsInputStream);
 		}
 		catch (Exception e) {
-			logger.error("Unable to parse test exclusions file, {0} Exception thrown: {1}",
+			logger.log(Level.SEVERE, "Unable to parse test exclusions file, {0} Exception thrown: {1}",
 				new String[] { EXCLUDED_TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
@@ -147,7 +162,7 @@ public class TckTestCase extends IntegrationTesterBase {
 			testsInputStream = TckTestCase.class.getResourceAsStream(TESTS_FILE_PATH);
 		}
 		catch (Exception e) {
-			logger.error("Unable to acccess test description file, {0} Exception thrown: {1}",
+			logger.log(Level.SEVERE, "Unable to acccess test description file, {0} Exception thrown: {1}",
 				new String[] { TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
@@ -158,12 +173,13 @@ public class TckTestCase extends IntegrationTesterBase {
 			testProps.loadFromXML(testsInputStream);
 		}
 		catch (Exception e) {
-			logger.error("Unable to parse test description file, {0} Exception thrown: {1}",
+			logger.log(Level.SEVERE, "Unable to parse test description file, {0} Exception thrown: {1}",
 				new String[] { TESTS_FILE_PATH, e.getMessage() });
 			System.exit(1);
 		}
 
 		Enumeration<?> tests = testProps.propertyNames();
+		Pattern extractTestNamePattern = Pattern.compile("chapter[0-9_]+Tests-([a-zA-Z]+)-portlet");
 		Pattern testFilterPattern = null;
 		String testFilter = TestUtil.getSystemPropertyOrDefault("integration.test.filter", null);
 
@@ -174,11 +190,12 @@ public class TckTestCase extends IntegrationTesterBase {
 		while (tests.hasMoreElements()) {
 
 			String page = (String) tests.nextElement();
-			String testName = testProps.getProperty(page);
+			String testPortletName = testProps.getProperty(page);
+			String testName = extractTestNamePattern.matcher(testPortletName).replaceFirst("$1");
 
 			if ((exProps.getProperty(testName) == null) &&
 					((testFilterPattern == null) || testFilterPattern.matcher(testName).matches())) {
-				testList.add(new String[] { page, testName });
+				testList.add(new String[] { page, testName, testPortletName });
 			}
 		}
 
@@ -186,14 +203,25 @@ public class TckTestCase extends IntegrationTesterBase {
 	}
 
 	public String getName() {
-		return mTestName;
+		return testName;
 	}
 
 	@Before
 	public void runBeforeEachTest() throws Exception {
 
 		Browser browser = Browser.getInstance();
-		browser.get(TestUtil.DEFAULT_BASE_URL + TCK_CONTEXT + mPageName);
+		String query = "";
+
+		if (useWindowStatePopUp()) {
+			query = "?p_p_state=pop_up&p_p_id=" + testPortletName.replace("-", "") +
+				"_WAR_comliferayfacestestbridgetckmainportlet";
+		}
+
+		browser.get(TestUtil.DEFAULT_BASE_URL + TCK_CONTEXT + pageName + query);
+
+		if (useWindowStatePopUp()) {
+			browser.executeScript(USE_POP_UP_MODE_SCRIPT);
+		}
 	}
 
 	@Test
@@ -249,13 +277,8 @@ public class TckTestCase extends IntegrationTesterBase {
 
 	private void loadImagesIfNecessary(Browser browser) {
 
-		String browserName = browser.getName();
-
-		if ("htmlunit".equals(browserName) && mTestName.equals("nonFacesResourceTest")) {
-
-			// HtmlUnit does not load images by default while all other browsers load images by default. In order to
-			// be consistent with other browsers, load any images that are on the page.
-			HtmlUnitUtil.loadImages(browser);
+		if (testName.equals("nonFacesResourceTest")) {
+			browser.loadImages();
 		}
 	}
 
@@ -266,7 +289,7 @@ public class TckTestCase extends IntegrationTesterBase {
 		String testStatus = null;
 
 		// Look for results that use the tck span ids
-		String tckResultXPath = MessageFormat.format(TEST_RESULT_STATUS_XPATH_TEMPLATE, new Object[] { mTestName });
+		String tckResultXPath = MessageFormat.format(TEST_RESULT_STATUS_XPATH_TEMPLATE, new Object[] { testName });
 
 		if (areElementsVisible(browser, tckResultXPath)) {
 
@@ -276,7 +299,7 @@ public class TckTestCase extends IntegrationTesterBase {
 				testStatus = resultElement.getText();
 
 				String tckDetailsXPath = MessageFormat.format(TEST_RESULT_DETAIL_XPATH_TEMPLATE,
-						new Object[] { mTestName });
+						new Object[] { testName });
 				WebElement detailsElement = browser.findElementByXpath(tckDetailsXPath);
 				details = detailsElement.getText();
 			}
@@ -284,9 +307,9 @@ public class TckTestCase extends IntegrationTesterBase {
 
 				// Invalid result format
 				StringBuilder sb = new StringBuilder();
-				sb.append(mPageName);
+				sb.append(pageName);
 				sb.append(": ");
-				sb.append(mTestName);
+				sb.append(testName);
 				sb.append(": ");
 				sb.append("Test failed but no test result details found.\n");
 
@@ -311,9 +334,9 @@ public class TckTestCase extends IntegrationTesterBase {
 
 					// Portlet contains no detail section, should never happen.
 					StringBuilder sb = new StringBuilder();
-					sb.append(mPageName);
+					sb.append(pageName);
 					sb.append(": ");
-					sb.append(mTestName);
+					sb.append(testName);
 					sb.append(": Test failed but no test result details found.\n");
 
 					String message = e.getMessage();
@@ -328,9 +351,9 @@ public class TckTestCase extends IntegrationTesterBase {
 		}
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(mPageName);
+		sb.append(pageName);
 		sb.append(": ");
-		sb.append(mTestName);
+		sb.append(testName);
 		sb.append(": FAILED\n");
 		sb.append(details);
 		appendPageSourceIfNeccessary(browser, sb);
@@ -355,7 +378,7 @@ public class TckTestCase extends IntegrationTesterBase {
 					try {
 
 						String resultXpath = MessageFormat.format(TEST_RESULT_AJAX_STATUS_XPATH,
-								new Object[] { mTestName });
+								new Object[] { testName });
 						browser.waitForElementVisible(resultXpath);
 						recordResult(browser);
 						resultObtained = true;
@@ -369,9 +392,9 @@ public class TckTestCase extends IntegrationTesterBase {
 			if (!resultObtained && !areElementsVisible(browser, RUN_AJAX_TEST_XPATHS)) {
 
 				StringBuilder sb = new StringBuilder();
-				sb.append(mPageName);
+				sb.append(pageName);
 				sb.append(": ");
-				sb.append(mTestName);
+				sb.append(testName);
 				sb.append(": ");
 				sb.append(i + 1);
 				sb.append(" ajax action(s) executed with no valid result.");
@@ -383,9 +406,9 @@ public class TckTestCase extends IntegrationTesterBase {
 		if (!resultObtained) {
 
 			StringBuilder sb = new StringBuilder();
-			sb.append(mPageName);
+			sb.append(pageName);
 			sb.append(": ");
-			sb.append(mTestName);
+			sb.append(testName);
 			sb.append(": ");
 			sb.append(MAX_NUMBER_ACTIONS);
 			sb.append(" actions have been performed on this portlet without any final result.");
@@ -415,16 +438,19 @@ public class TckTestCase extends IntegrationTesterBase {
 						recordResult(browser);
 						resultObtained = true;
 					}
-					// If no results page carry on looking for components to click on.
+					else if (useWindowStatePopUp()) {
+						browser.executeScript(USE_POP_UP_MODE_SCRIPT);
+					}
+					// Otherwise continue clicking on elements.
 				}
 			}
 
 			if (!resultObtained && !areElementsVisible(browser, RUN_TEST_XPATHS)) {
 
 				StringBuilder sb = new StringBuilder();
-				sb.append(mPageName);
+				sb.append(pageName);
 				sb.append(": ");
-				sb.append(mTestName);
+				sb.append(testName);
 				sb.append("\n: ");
 				sb.append(i + 1);
 				sb.append(
@@ -437,9 +463,9 @@ public class TckTestCase extends IntegrationTesterBase {
 		if (!resultObtained) {
 
 			StringBuilder sb = new StringBuilder();
-			sb.append(mPageName);
+			sb.append(pageName);
 			sb.append(": ");
-			sb.append(mTestName);
+			sb.append(testName);
 			sb.append("\n: ");
 			sb.append(MAX_NUMBER_ACTIONS);
 			sb.append(" actions have been performed on this portlet without any final result.");
@@ -481,9 +507,9 @@ public class TckTestCase extends IntegrationTesterBase {
 
 				// Default case, unrecognised page content.
 				StringBuilder sb = new StringBuilder();
-				sb.append(mPageName);
+				sb.append(pageName);
 				sb.append(": ");
-				sb.append(mTestName);
+				sb.append(testName);
 				sb.append("\n: Unexpected page content.");
 				appendPageSourceIfNeccessary(browser, sb);
 				Assert.fail(sb.toString());
@@ -492,5 +518,15 @@ public class TckTestCase extends IntegrationTesterBase {
 		catch (WebDriverException e) {
 			throw new AssertionError("Uncaught WebDriverException: " + e.getMessage(), e);
 		}
+	}
+
+	private boolean useWindowStatePopUp() {
+		return PORTLET_CONTAINER.contains("liferay") &&
+			!(testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest") ||
+				testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest") ||
+				testName.equals("encodeActionURLWithInvalidWindowStateActionTest") ||
+				testName.equals("encodeActionURLWithInvalidWindowStateEventTest") ||
+				testName.equals("encodeActionURLWithInvalidWindowStateRenderTest") ||
+				testName.equals("encodeResourceURLWithWindowStateTest"));
 	}
 }
