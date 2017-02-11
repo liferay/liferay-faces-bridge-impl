@@ -16,17 +16,20 @@
 package com.liferay.faces.bridge.context.map.internal;
 
 import java.util.Enumeration;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 
-import com.liferay.faces.util.map.AbstractPropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 
 
 /**
+ * This class provides a {@link Map <String,Object>} abstraction over the {@link ServletContext} attributes. Since it is
+ * designed to exist and be used within the scope of a request, it is not thread-safe.
+ *
  * @author  Neil Griffin
  */
-public class ServletContextAttributeMap extends AbstractPropertyMap<Object> {
+public class ServletContextAttributeMap extends AbstractMutablePropertyMap<Object> {
 
 	// Private Data Members
 	private ServletContext servletContext;
@@ -41,23 +44,23 @@ public class ServletContextAttributeMap extends AbstractPropertyMap<Object> {
 	}
 
 	@Override
-	protected Object getProperty(String name) {
+	protected Object getMutableProperty(String name) {
 		return servletContext.getAttribute(name);
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	protected Enumeration<String> getPropertyNames() {
+	protected Enumeration<String> getMutablePropertyNames() {
 		return servletContext.getAttributeNames();
 	}
 
 	@Override
-	protected void removeProperty(String name) {
+	protected void removeMutableProperty(String name) {
 		servletContext.removeAttribute(name);
 	}
 
 	@Override
-	protected void setProperty(String name, Object value) {
+	protected void setMutableProperty(String name, Object value) {
 		servletContext.setAttribute(name, value);
 	}
 }

@@ -24,20 +24,26 @@ import javax.servlet.http.Cookie;
 
 
 /**
+ * This class provides a {@link Map<String,Object>} abstraction over request cookies. Since it is designed to exist and
+ * be used within the scope of a request, it is not thread-safe.
+ *
  * @author  Neil Griffin
  */
 public class RequestCookieMap implements Map<String, Object> {
 
+	// Private Data Members
 	private Cookie[] cookies;
 
 	public RequestCookieMap(Cookie[] cookies) {
 		this.cookies = cookies;
 	}
 
+	@Override
 	public void clear() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public boolean containsKey(Object key) {
 		boolean found = false;
 
@@ -59,6 +65,7 @@ public class RequestCookieMap implements Map<String, Object> {
 		return found;
 	}
 
+	@Override
 	public boolean containsValue(Object value) {
 		boolean found = false;
 
@@ -76,6 +83,7 @@ public class RequestCookieMap implements Map<String, Object> {
 		return found;
 	}
 
+	@Override
 	public Set<Map.Entry<String, Object>> entrySet() {
 		Set<Map.Entry<String, Object>> entrySet = null;
 
@@ -92,6 +100,7 @@ public class RequestCookieMap implements Map<String, Object> {
 		return entrySet;
 	}
 
+	@Override
 	public Cookie get(Object key) {
 		Cookie value = null;
 
@@ -111,10 +120,12 @@ public class RequestCookieMap implements Map<String, Object> {
 		return value;
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return ((cookies == null) || (cookies.length == 0));
 	}
 
+	@Override
 	public Set<String> keySet() {
 		Set<String> keySet = null;
 
@@ -130,18 +141,22 @@ public class RequestCookieMap implements Map<String, Object> {
 		return keySet;
 	}
 
+	@Override
 	public Cookie put(String key, Object value) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public void putAll(Map<? extends String, ? extends Object> t) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Cookie remove(Object key) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public int size() {
 		int size = 0;
 
@@ -152,6 +167,7 @@ public class RequestCookieMap implements Map<String, Object> {
 		return size;
 	}
 
+	@Override
 	public Collection<Object> values() {
 		Collection<Object> values = null;
 

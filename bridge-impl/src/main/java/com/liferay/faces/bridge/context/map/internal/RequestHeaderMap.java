@@ -23,6 +23,9 @@ import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
+ * This class provides a {@link Map<String,String>} abstraction over request headers. Since it is designed to exist and
+ * be used within the scope of a request, it is not thread-safe.
+ *
  * @author  Neil Griffin
  */
 public class RequestHeaderMap extends CaseInsensitiveHashMap<String> {
