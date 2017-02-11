@@ -29,14 +29,16 @@ import com.liferay.faces.bridge.bean.internal.BeanManagerFactory;
 import com.liferay.faces.bridge.bean.internal.PreDestroyInvoker;
 import com.liferay.faces.bridge.bean.internal.PreDestroyInvokerFactory;
 import com.liferay.faces.util.config.ApplicationConfig;
-import com.liferay.faces.util.map.AbstractPropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 
 
 /**
+ * This class provides a {@link Map<String,Object>} abstraction over the {@link PortletSession} attributes. Since it is
+ * designed to exist and be used within the scope of a request, it is not thread-safe.
+ *
  * @author  Neil Griffin
  */
-public class SessionScopeMap extends AbstractPropertyMap<Object> {
+public class SessionScopeMap extends AbstractMutablePropertyMap<Object> {
 
 	// Private Data Members
 	private BeanManager beanManager;
@@ -112,22 +114,22 @@ public class SessionScopeMap extends AbstractPropertyMap<Object> {
 	}
 
 	@Override
-	protected Object getProperty(String name) {
+	protected Object getMutableProperty(String name) {
 		return portletSession.getAttribute(name, scope);
 	}
 
 	@Override
-	protected Enumeration<String> getPropertyNames() {
+	protected Enumeration<String> getMutablePropertyNames() {
 		return portletSession.getAttributeNames(scope);
 	}
 
 	@Override
-	protected void removeProperty(String name) {
+	protected void removeMutableProperty(String name) {
 		portletSession.removeAttribute(name, scope);
 	}
 
 	@Override
-	protected void setProperty(String name, Object value) {
+	protected void setMutableProperty(String name, Object value) {
 		portletSession.setAttribute(name, value, scope);
 	}
 }

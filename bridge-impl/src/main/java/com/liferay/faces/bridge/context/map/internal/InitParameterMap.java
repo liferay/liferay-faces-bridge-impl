@@ -19,15 +19,18 @@ import java.util.Enumeration;
 
 import javax.portlet.PortletContext;
 
-import com.liferay.faces.util.map.AbstractPropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 
 
 /**
+ * This class provides a {@link java.util.Map<String,String>} abstraction over the {@link PortletContext} init
+ * parameters. Since it is designed to exist and be used within the scope of a request, it is not thread-safe.
+ *
  * @author  Neil Griffin
  */
-public class InitParameterMap extends AbstractPropertyMap<String> {
+public class InitParameterMap extends AbstractImmutablePropertyMap<String> {
 
+	// Private Data Members
 	private PortletContext portletContext;
 
 	public InitParameterMap(PortletContext portletContext) {
@@ -40,22 +43,12 @@ public class InitParameterMap extends AbstractPropertyMap<String> {
 	}
 
 	@Override
-	protected String getProperty(String name) {
-		return portletContext.getInitParameter(name);
-	}
-
-	@Override
-	protected Enumeration<String> getPropertyNames() {
+	protected Enumeration<String> getImmutablePropertyNames() {
 		return portletContext.getInitParameterNames();
 	}
 
 	@Override
-	protected void removeProperty(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	protected void setProperty(String name, String value) {
-		throw new UnsupportedOperationException();
+	protected String getProperty(String name) {
+		return portletContext.getInitParameter(name);
 	}
 }

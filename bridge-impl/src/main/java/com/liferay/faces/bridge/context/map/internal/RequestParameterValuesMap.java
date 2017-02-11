@@ -18,16 +18,19 @@ package com.liferay.faces.bridge.context.map.internal;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.Set;
 
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
-import com.liferay.faces.util.map.AbstractPropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 
 
 /**
+ * This class provides a {@link Map<String,String[]>} abstraction over request parameter values. Since it is designed to
+ * exist and be used within the scope of a request, it is not thread-safe.
+ *
  * @author  Neil Griffin
  */
-public class RequestParameterValuesMap extends AbstractPropertyMap<String[]> implements Map<String, String[]> {
+public class RequestParameterValuesMap extends AbstractImmutablePropertyMap<String[]> implements Map<String, String[]> {
 
 	// Private Data Members
 	private FacesRequestParameterMap facesRequestParameterMap;
@@ -46,26 +49,15 @@ public class RequestParameterValuesMap extends AbstractPropertyMap<String[]> imp
 		return new RequestParameterValuesMapEntry(name, this);
 	}
 
-	/**
-	 * This method returns the value of the specified parameter name according to the current portlet request.
-	 */
 	@Override
 	protected String[] getProperty(String name) {
 		return facesRequestParameterMap.get(name);
 	}
 
 	@Override
-	protected Enumeration<String> getPropertyNames() {
-		return Collections.enumeration(facesRequestParameterMap.keySet());
-	}
+	protected Enumeration<String> getImmutablePropertyNames() {
 
-	@Override
-	protected void removeProperty(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	protected void setProperty(String name, String[] value) {
-		throw new UnsupportedOperationException();
+		Set<String> parameterNames = facesRequestParameterMap.keySet();
+		return Collections.enumeration(parameterNames);
 	}
 }
