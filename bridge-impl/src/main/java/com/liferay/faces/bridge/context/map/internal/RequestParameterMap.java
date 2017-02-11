@@ -18,16 +18,19 @@ package com.liferay.faces.bridge.context.map.internal;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.Set;
 
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
-import com.liferay.faces.util.map.AbstractPropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 
 
 /**
+ * This class provides a {@link Map<String,String>} abstraction over request parameters. Since it is designed to exist
+ * and be used within the scope of a request, it is not thread-safe.
+ *
  * @author  Neil Griffin
  */
-public class RequestParameterMap extends AbstractPropertyMap<String> implements Map<String, String> {
+public class RequestParameterMap extends AbstractImmutablePropertyMap<String> {
 
 	// Private Data Members
 	private FacesRequestParameterMap facesRequestParameterMap;
@@ -52,17 +55,9 @@ public class RequestParameterMap extends AbstractPropertyMap<String> implements 
 	}
 
 	@Override
-	protected Enumeration<String> getPropertyNames() {
-		return Collections.enumeration(facesRequestParameterMap.keySet());
-	}
+	protected Enumeration<String> getImmutablePropertyNames() {
 
-	@Override
-	protected void removeProperty(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	protected void setProperty(String name, String value) {
-		throw new UnsupportedOperationException();
+		Set<String> parameterNames = facesRequestParameterMap.keySet();
+		return Collections.enumeration(parameterNames);
 	}
 }

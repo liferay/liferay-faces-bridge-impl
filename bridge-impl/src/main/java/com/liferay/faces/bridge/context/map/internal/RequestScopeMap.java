@@ -18,8 +18,7 @@ package com.liferay.faces.bridge.context.map.internal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.faces.context.ExternalContext;
@@ -32,21 +31,23 @@ import com.liferay.faces.bridge.bean.internal.BeanManagerFactory;
 import com.liferay.faces.bridge.bean.internal.PreDestroyInvoker;
 import com.liferay.faces.bridge.bean.internal.PreDestroyInvokerFactory;
 import com.liferay.faces.util.config.ApplicationConfig;
-import com.liferay.faces.util.map.AbstractPropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 
 
 /**
+ * This class provides a {@link Map <String,Object>} abstraction over the {@link PortletRequest} attributes. Since it
+ * is designed to exist and be used within the scope of a request, it is not thread-safe.
+ *
  * @author  Neil Griffin
  */
-public class RequestScopeMap extends AbstractPropertyMap<Object> {
+public class RequestScopeMap extends AbstractMutablePropertyMap<Object> {
 
 	// Private Data Members
 	private BeanManager beanManager;
 	private PortletRequest portletRequest;
 	private PreDestroyInvoker preDestroyInvoker;
 	private boolean preferPreDestroy;
-	private Set<String> removedAttributeNames;
+	private Set<String> removedPropertyNames;
 
 	public RequestScopeMap(PortletContext portletContext, PortletRequest portletRequest,
 		Set<String> removedAttributeNames, boolean preferPreDestroy) {
@@ -57,18 +58,12 @@ public class RequestScopeMap extends AbstractPropertyMap<Object> {
 				BeanManagerFactory.class);
 		this.beanManager = beanManagerFactory.getBeanManager(applicationConfig.getFacesConfig());
 		this.portletRequest = portletRequest;
+		this.removedPropertyNames = removedAttributeNames;
 		this.preferPreDestroy = preferPreDestroy;
 
 		PreDestroyInvokerFactory preDestroyInvokerFactory = (PreDestroyInvokerFactory) BridgeFactoryFinder.getFactory(
 				PreDestroyInvokerFactory.class);
 		this.preDestroyInvoker = preDestroyInvokerFactory.getPreDestroyInvoker(portletContext);
-
-		if (removedAttributeNames == null) {
-			this.removedAttributeNames = new HashSet<String>();
-		}
-		else {
-			this.removedAttributeNames = removedAttributeNames;
-		}
 	}
 
 	/**
@@ -95,47 +90,33 @@ public class RequestScopeMap extends AbstractPropertyMap<Object> {
 	}
 
 	@Override
-	protected Object getProperty(String name) {
+	protected Object getMutableProperty(String name) {
 		return portletRequest.getAttribute(name);
 	}
 
 	@Override
-	protected Enumeration<String> getPropertyNames() {
+	protected Enumeration<String> getMutablePropertyNames() {
 
-		List<String> attributeNames = new ArrayList<String>();
+		if ((removedPropertyNames != null) && (removedPropertyNames.size() > 0)) {
 
-		Enumeration<String> portletRequestAttributeNames = portletRequest.getAttributeNames();
+			Enumeration<String> attributeNames = portletRequest.getAttributeNames();
+			ArrayList<String> attributeNameList = Collections.list(attributeNames);
+			attributeNameList.removeAll(removedPropertyNames);
 
-		if (portletRequestAttributeNames != null) {
-
-			while (portletRequestAttributeNames.hasMoreElements()) {
-				String attributeName = portletRequestAttributeNames.nextElement();
-
-				if (!removedAttributeNames.contains(attributeName)) {
-					attributeNames.add(attributeName);
-				}
-			}
+			return Collections.enumeration(attributeNameList);
 		}
-
-		return Collections.enumeration(attributeNames);
+		else {
+			return portletRequest.getAttributeNames();
+		}
 	}
 
 	@Override
-	protected void removeProperty(String name) {
-		removedAttributeNames.add(name);
+	protected void removeMutableProperty(String name) {
 		portletRequest.removeAttribute(name);
 	}
 
 	@Override
-	protected void setProperty(String name, Object value) {
-
-		// If the specified attribute name is regarded as previously removed, then no longer regard it as removed since
-		// it is being added back now.
-		if (removedAttributeNames.contains(name)) {
-			removedAttributeNames.remove(name);
-		}
-
-		// Set the attribute value on the underlying request.
+	protected void setMutableProperty(String name, Object value) {
 		portletRequest.setAttribute(name, value);
 	}
 }
