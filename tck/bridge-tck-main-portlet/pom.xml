@@ -291,6 +291,7 @@
 										<integration.test.filter>${integration.test.filter}</integration.test.filter>
 										<integration.login>${integration.login}</integration.login>
 										<integration.password>${integration.password}</integration.password>
+										<integration.default.liferay.window.state>${integration.default.liferay.window.state}</integration.default.liferay.window.state>
 									</systemPropertyVariables>
 									<properties>
 										<property>
