@@ -69,26 +69,28 @@ public class TckTestCase extends IntegrationTesterBase {
 		};
 
 	// Private Constants
-	private static final String TEST_FILE_KEY = "integration.tests.file";
-	private static final String EXCLUDED_TESTS_FILE_KEY = "integration.excluded.tests.file";
 	private static final String PORTLET_CONTAINER = TestUtil.getContainer("liferay");
-	private static final String TESTS_FILE_PATH = TestUtil.getSystemPropertyOrDefault(TEST_FILE_KEY,
+	private static final String TESTS_FILE_PATH = TestUtil.getSystemPropertyOrDefault("integration.tests.file",
 			"/" + PORTLET_CONTAINER + "-tests.xml");
-	private static final String EXCLUDED_TESTS_FILE_PATH = TestUtil.getSystemPropertyOrDefault(EXCLUDED_TESTS_FILE_KEY,
-			"/excluded-tests.xml");
+	private static final String EXCLUDED_TESTS_FILE_PATH = TestUtil.getSystemPropertyOrDefault(
+			"integration.excluded.tests.file", "/excluded-tests.xml");
 	private static final String TCK_CONTEXT;
+	private static final String DEFAULT_LIFERAY_WINDOW_STATE = TestUtil.getSystemPropertyOrDefault(
+			"integration.default.liferay.window.state", "exclusive");
 	private static final int DEFAULT_BROWSER_WAIT_TIMEOUT;
 	private static final int MAX_NUMBER_ACTIONS = 10;
 
 	//J-
-	private static final String USE_POP_UP_MODE_SCRIPT =
+	private static final String USE_DEFAULT_LIFERAY_WINDOW_STATE_SCRIPT =
 		"var forms = document.getElementsByTagName('form');" +
 		"for (var i = 0; i < forms.length; i++) {" +
-		"forms[i]['action'] = forms[i]['action'].replace('p_p_state=normal', 'p_p_state=pop_up');" +
+		"forms[i]['action'] =" +
+		"forms[i]['action'].replace('p_p_state=normal', 'p_p_state=" + DEFAULT_LIFERAY_WINDOW_STATE + "');" +
 		"}" +
 		"var links = document.getElementsByTagName('a');" +
 		"for (var i = 0; i < links.length; i++) {" +
-		"links[i]['href'] = links[i]['href'].replace('p_p_state=normal', 'p_p_state=pop_up');" +
+		"links[i]['href'] =" +
+		"links[i]['href'].replace('p_p_state=normal', 'p_p_state=" + DEFAULT_LIFERAY_WINDOW_STATE + "');" +
 		"}";
 	//J+
 
@@ -211,15 +213,15 @@ public class TckTestCase extends IntegrationTesterBase {
 		Browser browser = Browser.getInstance();
 		String query = "";
 
-		if (useWindowStatePopUp()) {
-			query = "?p_p_state=pop_up&p_p_id=" + testPortletName.replace("-", "") +
+		if (useDefaultLiferayWindowState(DEFAULT_LIFERAY_WINDOW_STATE)) {
+			query = "?p_p_state=" + DEFAULT_LIFERAY_WINDOW_STATE + "&p_p_id=" + testPortletName.replace("-", "") +
 				"_WAR_comliferayfacestestbridgetckmainportlet";
 		}
 
 		browser.get(TestUtil.DEFAULT_BASE_URL + TCK_CONTEXT + pageName + query);
 
-		if (useWindowStatePopUp()) {
-			browser.executeScript(USE_POP_UP_MODE_SCRIPT);
+		if (useDefaultLiferayWindowState(DEFAULT_LIFERAY_WINDOW_STATE)) {
+			browser.executeScript(USE_DEFAULT_LIFERAY_WINDOW_STATE_SCRIPT);
 		}
 	}
 
@@ -437,8 +439,8 @@ public class TckTestCase extends IntegrationTesterBase {
 						recordResult(browser);
 						resultObtained = true;
 					}
-					else if (useWindowStatePopUp()) {
-						browser.executeScript(USE_POP_UP_MODE_SCRIPT);
+					else if (useDefaultLiferayWindowState(DEFAULT_LIFERAY_WINDOW_STATE)) {
+						browser.executeScript(USE_DEFAULT_LIFERAY_WINDOW_STATE_SCRIPT);
 					}
 					// Otherwise continue clicking on elements.
 				}
@@ -519,8 +521,10 @@ public class TckTestCase extends IntegrationTesterBase {
 		}
 	}
 
-	private boolean useWindowStatePopUp() {
+	private boolean useDefaultLiferayWindowState(String defaultLiferayWindowState) {
 		return PORTLET_CONTAINER.contains("liferay") &&
+			!((defaultLiferayWindowState == null) || defaultLiferayWindowState.equals("") ||
+				defaultLiferayWindowState.equals("normal")) &&
 			!(testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest") ||
 				testName.equals("encodeActionURLWithInvalidWindowStateActionTest") ||
