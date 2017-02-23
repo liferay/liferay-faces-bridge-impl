@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import javax.portlet.HeaderResponse;
-import javax.portlet.MimeResponse;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -60,14 +59,20 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 	protected void addResourceToHeadSection(Element element, String nodeName, UIComponent componentResource)
 		throws IOException {
 
-		if (HeadRendererBridgeImpl.isScriptResource(componentResource) ||
-				HeadRendererBridgeImpl.isStyleSheetResource(componentResource)) {
+		String resourceId;
+		String scope = null;
+		String version = null;
+		String elementString = toString(nodeName, element);
 
-			String resourceId = ResourceUtil.getResourceId(componentResource);
+		if ((componentResource != null) &&
+				(RenderKitUtil.isScriptResource(componentResource) ||
+					RenderKitUtil.isStyleSheetResource(componentResource))) {
+
+			resourceId = ResourceUtil.getResourceId(componentResource);
 
 			// TODO consider support for portlet:scope attribute via TagDecorator.
 			Map<String, Object> attributes = componentResource.getAttributes();
-			String scope = (String) attributes.get("portlet:scope");
+			scope = (String) attributes.get("portlet:scope");
 
 			// TODO add option to configure this boolean on a portlet wide basis.
 			boolean scopeComponentResourcesToPortlet = false;
@@ -77,7 +82,7 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 			}
 
 			// TODO consider support for portlet:version attribute via TagDecorator.
-			String version = (String) attributes.get("portlet:version");
+			version = (String) attributes.get("portlet:version");
 
 			// TODO add option to configure this boolean on a portlet wide basis.
 			boolean obtainComponentResourceVersionFromURL = false;
@@ -113,26 +118,19 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 					}
 				}
 			}
-
-			String elementString = toString(nodeName, element);
-			headerResponse.addDependency(resourceId, scope, version, elementString);
 		}
 		else {
 
-			// NOTE: The Portlet 2.0 Javadocs for the addProperty method indicate that if the key already exists,
-			// then the element will be added to any existing elements under that key name. There is a risk that
-			// multiple portlet instances on the same portal page could cause multiple <script /> elements to be
-			// added to the <head>...</head> section of the rendered portal page. See:
-			// http://portals.apache.org/pluto/portlet-2.0-apidocs/javax/portlet/PortletResponse.html#addProperty(java.lang.String,%20org.w3c.dom.Element)
-			headerResponse.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, element);
-			logger.debug(ADDED_RESOURCE_TO_HEAD, "portal", nodeName);
+			// Generate a unique id for each element that is not a JSF resource.
+			resourceId = Integer.toString(element.hashCode()) + Integer.toString(headerResponse.hashCode());
 		}
+
+		headerResponse.addDependency(resourceId, scope, version, elementString);
 	}
 
 	private int getParameterValueStartIndex(String queryString, String parameterName) {
 
 		int parameterValueStartIndex = -1;
-
 		String parameterEqual = parameterName + "=";
 		String andParameterEqual = "&" + parameterEqual;
 
@@ -151,10 +149,10 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 		return parameterValueStartIndex;
 	}
 
-	private String toString(String nodeName, Element scriptOrCSSResourceElement) {
+	private String toString(String nodeName, Element scriptOrCSSElement) {
 
 		String elementString = "<" + nodeName;
-		NamedNodeMap attributes = scriptOrCSSResourceElement.getAttributes();
+		NamedNodeMap attributes = scriptOrCSSElement.getAttributes();
 
 		for (int i = 0; i < attributes.getLength(); i++) {
 
@@ -162,11 +160,17 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 			elementString += " " + attribute.getNodeName() + "=\"" + attribute.getNodeValue() + "\"";
 		}
 
-		if (nodeName.equals("script")) {
-			elementString += "></script>";
-		}
-		else {
-			elementString += ">";
+		elementString += ">";
+
+		if (!nodeName.equals("link")) {
+
+			String textContent = scriptOrCSSElement.getTextContent();
+
+			if (textContent != null) {
+				elementString += textContent;
+			}
+
+			elementString += "</" + nodeName + ">";
 		}
 
 		return elementString;

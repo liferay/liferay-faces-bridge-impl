@@ -468,7 +468,7 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-isPostbackTest-portlet"/>
 		</page>
 		<page name="TestPage059" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-renderPhaseListenerTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-headerPhaseListenerTest-portlet"/>
 		</page>
 		<page name="TestPage060" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-eventPhaseListenerTest-portlet"/>
@@ -925,6 +925,12 @@ limitations under the License.
 		</page>
 		<page name="TestPage211" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_9Tests-usesConfiguredRenderKitTest-portlet"/>
+		</page>
+		<page name="TestPage212" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-resourcesRenderedInHeadTest-portlet"/>
+		</page>
+		<page name="TestPage213" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-markupRenderedInRenderPhaseTest-portlet"/>
 		</page>
 
 	</render-config>

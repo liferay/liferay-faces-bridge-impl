@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -50,9 +49,6 @@ import com.liferay.faces.util.logging.LoggerFactory;
  */
 public class HeadRendererBridgeImpl extends Renderer {
 
-	// Package-Private Constants
-	/* package-private */ static final String HEAD_RESOURCES_TO_RENDER_IN_BODY = "headResourcesToRenderInBody";
-
 	// Private Constants
 	private static final String FIRST_FACET = "first";
 	private static final String MIDDLE_FACET = "middle";
@@ -60,22 +56,6 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(HeadRendererBridgeImpl.class);
-
-	/* package-private */ static boolean isScriptResource(UIComponent componentResource) {
-
-		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
-		String resourceName = (String) componentResourceAttributes.get("name");
-
-		return (resourceName != null) && resourceName.endsWith("js");
-	}
-
-	/* package-private */ static boolean isStyleSheetResource(UIComponent componentResource) {
-
-		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
-		String resourceName = (String) componentResourceAttributes.get("name");
-
-		return (resourceName != null) && resourceName.endsWith("css");
-	}
 
 	@Override
 	public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
@@ -100,14 +80,19 @@ public class HeadRendererBridgeImpl extends Renderer {
 		List<UIComponent> headComponentResources = uiViewRoot.getComponentResources(facesContext, "head");
 		List<UIComponent> styleSheetResources = new ArrayList<UIComponent>();
 		List<UIComponent> scriptResources = new ArrayList<UIComponent>();
+		List<UIComponent> otherHeadResources = new ArrayList<UIComponent>();
 
 		for (UIComponent headComponentResource : headComponentResources) {
 
-			if (isStyleSheetResource(headComponentResource) || isInlineStyleSheet(headComponentResource)) {
+			if (RenderKitUtil.isStyleSheetResource(headComponentResource) ||
+					isInlineStyleSheet(headComponentResource)) {
 				styleSheetResources.add(headComponentResource);
 			}
-			else {
+			else if (RenderKitUtil.isScriptResource(headComponentResource) || isInlineScript(headComponentResource)) {
 				scriptResources.add(headComponentResource);
+			}
+			else {
+				otherHeadResources.add(headComponentResource);
 			}
 		}
 
@@ -116,12 +101,19 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 		for (UIComponent child : children) {
 
-			if (isStyleSheetResource(child) || isInlineStyleSheet(child)) {
+			if (RenderKitUtil.isStyleSheetResource(child) || isInlineStyleSheet(child)) {
 				styleSheetResources.add(child);
 			}
-			else if (isScriptResource(child) || isInlineScript(child)) {
+			else if (RenderKitUtil.isScriptResource(child) || isInlineScript(child)) {
 				scriptResources.add(child);
 			}
+			else {
+				otherHeadResources.add(child);
+			}
+		}
+
+		if (!otherHeadResources.isEmpty()) {
+			headResources.addAll(otherHeadResources);
 		}
 
 		// Add the list of stylesheet components that are in the view root.
@@ -183,7 +175,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 		// Save the list of resources that are to be rendered in the body section so that the body renderer can find it.
 		Map<Object, Object> facesContextAttributes = facesContext.getAttributes();
-		facesContextAttributes.put(HEAD_RESOURCES_TO_RENDER_IN_BODY, headResourcesToRenderInBody);
+		facesContextAttributes.put(RenderKitUtil.HEAD_RESOURCES_TO_RENDER_IN_BODY, headResourcesToRenderInBody);
 
 		if (!headResources.isEmpty()) {
 
@@ -205,21 +197,13 @@ public class HeadRendererBridgeImpl extends Renderer {
 			portletRequest.setAttribute("com.liferay.faces.bridge.HeadResponseWriter", headResponseWriter);
 			facesContext.setResponseWriter(headResponseWriter);
 
-			HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
-			Set<String> headResourceIds;
-
-			if (headManagedBean == null) {
-				headResourceIds = new HashSet<String>();
-			}
-			else {
-				headResourceIds = headManagedBean.getHeadResourceIds();
-			}
+			Set<String> headResourceIds = RenderKitUtil.getHeadResourceIds(facesContext);
 
 			for (UIComponent headResource : headResources) {
 
 				headResource.encodeAll(facesContext);
 
-				if (isScriptResource(headResource) || isStyleSheetResource(headResource)) {
+				if (RenderKitUtil.isScriptResource(headResource) || RenderKitUtil.isStyleSheetResource(headResource)) {
 					headResourceIds.add(ResourceUtil.getResourceId(headResource));
 				}
 			}
@@ -283,10 +267,10 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 	private boolean ableToAddResourceToHead(PortalContext portalContext, UIComponent componentResource) {
 
-		if (isStyleSheetResource(componentResource)) {
+		if (RenderKitUtil.isStyleSheetResource(componentResource)) {
 			return (portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT) != null);
 		}
-		else if (isScriptResource(componentResource)) {
+		else if (RenderKitUtil.isScriptResource(componentResource)) {
 			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT) != null);
 		}
 		else if (isInlineStyleSheet(componentResource)) {
@@ -296,7 +280,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT) != null);
 		}
 		else {
-			return false;
+			return (portalContext.getProperty(BridgePortalContext.ADD_ELEMENT_TO_HEAD_SUPPORT) != null);
 		}
 	}
 
@@ -308,7 +292,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 		return (componentResource instanceof InlineScript) ||
 			((resourceName == null) &&
-				(RenderKitBridgeImpl.SCRIPT_RENDERER_TYPE.equals(rendererType) ||
+				(RenderKitUtil.SCRIPT_RENDERER_TYPE.equals(rendererType) ||
 					"com.liferay.faces.alloy.component.outputscript.OutputScriptRenderer".equals(rendererType) ||
 					"com.liferay.faces.metal.component.outputscript.OutputScriptRenderer".equals(rendererType)));
 	}
@@ -320,7 +304,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 		String rendererType = componentResource.getRendererType();
 
 		return (resourceName == null) &&
-			(RenderKitBridgeImpl.STYLESHEET_RENDERER_TYPE.equals(rendererType) ||
+			(RenderKitUtil.STYLESHEET_RENDERER_TYPE.equals(rendererType) ||
 				"com.liferay.faces.alloy.component.outputstylesheet.OutputStylesheetRenderer".equals(rendererType) ||
 				"com.liferay.faces.metal.component.outputstylesheet.OutputStylesheetRenderer".equals(rendererType));
 	}

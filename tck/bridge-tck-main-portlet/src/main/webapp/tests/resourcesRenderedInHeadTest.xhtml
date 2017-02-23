@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:portlet="http://xmlns.jcp.org/portlet_3_0"
+		xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<h:head>
+		<h:outputScript library="test" name="resourcesRenderedInHeadTest.js" />
+		<portlet:resourceURL var="testResource1">
+			<portlet:param name="ln" value="test" />
+			<portlet:param name="javax.faces.resource" value="resource1.js" />
+		</portlet:resourceURL>
+		<script type="text/javascript" src="${testResource1}"></script>
+		<h:outputStylesheet library="test" name="resource1.css" />
+	</h:head>
+	<h:body>
+		<h:outputScript target="head">
+			// Set the id of this script since h:outputScript's id attribute is not rendered in the html.
+			var scripts = document.getElementsByTagName('script');
+			var currentScript = scripts[scripts.length - 1];
+			currentScript.id = 'inlineScript_js';
+
+			window.getTestHeadElementIds = function() {
+				return #{resourcesRenderedInHeadTestBean.testHeadElementIdsJSArray};
+			}
+		</h:outputScript>
+		<h:panelGroup rendered="#{!resourcesRenderedInHeadTestBean.addPropertyMarkupHeadElementCalled and resourcesRenderedInHeadTestBean.testHeadElementsNotAddedViaAddDependency == ''}">
+			<div id="resourcesRenderedInHeadTestResults"></div>
+		</h:panelGroup>
+		<h:panelGroup
+			rendered="#{resourcesRenderedInHeadTestBean.addPropertyMarkupHeadElementCalled or resourcesRenderedInHeadTestBean.testHeadElementsNotAddedViaAddDependency != ''}">
+			<p>Test: <span id="resourcesRenderedInHeadTest-test-name">resourcesRenderedInHeadTest</span></p>
+			<p>Status: <span id="resourcesRenderedInHeadTest-result-status">FAILURE</span></p>
+			<p>Detail: <span id="resourcesRenderedInHeadTest-result-detail">
+				<h:outputText rendered="#{resourcesRenderedInHeadTestBean.addPropertyMarkupHeadElementCalled}"
+					value="The bridge incorrectly attempted to add an element to the &lt;head&gt; section via headerRequest.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, value)." />
+				<h:outputText rendered="#{resourcesRenderedInHeadTestBean.testHeadElementsNotAddedViaAddDependency != ''}"
+					value=" The bridge failed to call headerRequest.addDependency() for the following resources: #{resourcesRenderedInHeadTestBean.testHeadElementsNotAddedViaAddDependency}" />
+			</span></p>
+		</h:panelGroup>
+		<h:form>
+			<!-- Only included to test that component resources like jsf.js are included in the head section. -->
+			<h:commandButton class="run-ppr-button" value="Run Test">
+				<f:ajax render="@form"/>
+			</h:commandButton>
+		</h:form>
+	</h:body>
+</f:view>

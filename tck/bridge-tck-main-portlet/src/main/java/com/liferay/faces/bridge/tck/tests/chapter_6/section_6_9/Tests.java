@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -167,7 +167,7 @@ public class Tests extends Object {
 
 			if (detail.length() == 0) {
 				testRunner.setTestResult(true,
-					"The portlet configured renderkit was correctly expressed as a request parameter (via the ExternalContext apis) in both the action and render phases.");
+					"The portlet configured renderkit was correctly expressed as a request parameter (via the ExternalContext apis) in both the action and header phases.");
 
 				return Constants.TEST_SUCCESS;
 			}
