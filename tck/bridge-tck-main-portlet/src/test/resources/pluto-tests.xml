@@ -66,7 +66,7 @@ NOTE:
 	<entry key="TestPage056">chapter5_2Tests-portletPhaseRemovedActionTest-portlet</entry>
 	<entry key="TestPage057">chapter5_2Tests-bridgeSetsContentTypeTest-portlet</entry>
 	<entry key="TestPage058">chapter5_2Tests-isPostbackTest-portlet</entry>
-	<entry key="TestPage059">chapter5_2Tests-renderPhaseListenerTest-portlet</entry>
+	<entry key="TestPage059">chapter5_2Tests-headerPhaseListenerTest-portlet</entry>
 <!-- 	<entry key="TestPage060">chapter5_2Tests-eventPhaseListenerTest-portlet</entry> -->
 <!-- 	<entry key="TestPage061">chapter5_2Tests-eventScopeRestoredTest-portlet</entry> -->
 <!-- 	<entry key="TestPage062">chapter5_2Tests-eventScopeNotRestoredRedirectTest-portlet</entry> -->
@@ -219,4 +219,6 @@ NOTE:
 	<entry key="TestPage209">chapter6_7Tests-restoredViewStateParameterTest-portlet</entry>
 	<entry key="TestPage210">chapter6_7Tests-setsIsPostbackAttributeTest-portlet</entry>
 	<entry key="TestPage211">chapter6_9Tests-usesConfiguredRenderKitTest-portlet</entry>
+	<entry key="TestPage212">chapter5_2Tests-resourcesRenderedInHeadTest-portlet</entry>
+	<entry key="TestPage213">chapter5_2Tests-markupRenderedInRenderPhaseTest-portlet</entry>
 </properties>
