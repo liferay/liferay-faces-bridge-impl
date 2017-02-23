@@ -62,6 +62,9 @@
 		<render-kit-factory>com.liferay.faces.bridge.tck.renderkit.TestRenderKitFactory</render-kit-factory>
 		<faces-context-factory>com.liferay.faces.bridge.tck.common.util.faces.context.TCK_FacesContextFactoryImpl</faces-context-factory>
 		<lifecycle-factory>com.liferay.faces.bridge.tck.common.util.faces.application.TestSuiteLifecycleFactoryImpl</lifecycle-factory>
+		<factory-extension>
+			<bridge:bridge-portlet-response-factory>com.liferay.faces.bridge.tck.filter.BridgePortletResponseFactoryTCKImpl</bridge:bridge-portlet-response-factory>
+		</factory-extension>
 	</factory>
 	<managed-bean>
 		<managed-bean-name>chapter3Tests</managed-bean-name>
