@@ -19,11 +19,6 @@
 			<artifactId>commons-fileupload</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<optional>true</optional>
-		</dependency>
 		<!-- END: Only required for bridge:inputFile -->
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
