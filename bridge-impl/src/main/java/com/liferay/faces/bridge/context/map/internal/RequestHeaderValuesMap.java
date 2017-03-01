@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.PortletRequest;
 import javax.portlet.ResourceRequest;
+import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.util.helper.BooleanHelper;
@@ -152,7 +153,9 @@ public class RequestHeaderValuesMap extends RequestHeaderValuesMapCompat {
 			// we assume that it's Ajax and add the "Faces-Request" header with value "partial/ajax". Note that this is
 			// normally done by the jsf.js JavaScript library, but in a portlet environment, the original XmlHttpRequest
 			// is not made available to the portlet bridge.
-			if (portletRequest instanceof ResourceRequest) {
+			if ((portletRequest instanceof ResourceRequest) ||
+					Bridge.PortletPhase.RESOURCE_PHASE.equals(
+						portletRequest.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE))) {
 
 				// If the BridgeExt.FACES_AJAX_PARAMETER request parameter is "true" then set the "partial/ajax" header
 				// so that the Ajax-based PartialResponseWriter renders XML. Otherwise, since the URL was probably setup
