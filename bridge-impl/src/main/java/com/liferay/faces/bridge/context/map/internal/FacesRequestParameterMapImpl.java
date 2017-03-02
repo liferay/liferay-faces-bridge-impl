@@ -50,9 +50,9 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 	private BridgeRequestScope bridgeRequestScope;
 	private String defaultRenderKitId;
 	private Map<String, String> facesViewParameterMap;
+	private String parameterPrefix;
 	private String namespace;
 	private boolean namespaceViewState;
-	private String separatorChar;
 	private boolean separatorCharEnabled;
 	private boolean strictParameterNamespacing;
 	private Map<String, String[]> wrappedParameterMap;
@@ -67,15 +67,22 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 	public FacesRequestParameterMapImpl(Map<String, String[]> parameterMap, String namespace,
 		BridgeRequestScope bridgeRequestScope, Map<String, String> facesViewParameterMap, String defaultRenderKitId,
 		String separatorChar, boolean strictParameterNamespacing, boolean namespaceViewState) {
+
 		this.wrappedParameterMap = parameterMap;
 		this.namespace = namespace;
 		this.bridgeRequestScope = bridgeRequestScope;
 		this.facesViewParameterMap = facesViewParameterMap;
 		this.defaultRenderKitId = defaultRenderKitId;
-		this.separatorChar = separatorChar;
 		this.separatorCharEnabled = ((separatorChar != null) && (separatorChar.length() > 0));
 		this.strictParameterNamespacing = strictParameterNamespacing;
 		this.namespaceViewState = namespaceViewState;
+
+		if (this.separatorCharEnabled) {
+			this.parameterPrefix = namespace + separatorChar;
+		}
+		else {
+			this.parameterPrefix = namespace;
+		}
 	}
 
 	@Override
@@ -133,7 +140,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 			}
 
 			if (!found && separatorCharEnabled) {
-				found = wrappedParameterMap.containsKey(namespace + separatorChar + key);
+				found = wrappedParameterMap.containsKey(parameterPrefix + key);
 			}
 
 			if (!found) {
@@ -235,6 +242,10 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 			values = wrappedParameterMap.get(namespace + key);
 		}
 
+		if ((values == null) && separatorCharEnabled) {
+			values = wrappedParameterMap.get(parameterPrefix + key);
+		}
+
 		if (values == null) {
 
 			String specialParameterValue = getSpecialParameterValue(key.toString());
@@ -261,7 +272,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 			}
 
 			if ((values == null) && separatorCharEnabled) {
-				values = get(namespace + separatorChar + key);
+				values = get(parameterPrefix + key);
 			}
 
 			if ((values != null) && (values.length > 0)) {
@@ -319,17 +330,11 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 
 		if (viewStateParam != null) {
 
-			if (separatorCharEnabled) {
-				requestParameterNameList.add(namespace + separatorChar + ResponseStateManager.VIEW_STATE_PARAM);
+			if (separatorCharEnabled || namespaceViewState) {
+				requestParameterNameList.add(parameterPrefix + ResponseStateManager.VIEW_STATE_PARAM);
 			}
 			else {
-
-				if (namespaceViewState) {
-					requestParameterNameList.add(namespace + ResponseStateManager.VIEW_STATE_PARAM);
-				}
-				else {
-					requestParameterNameList.add(ResponseStateManager.VIEW_STATE_PARAM);
-				}
+				requestParameterNameList.add(ResponseStateManager.VIEW_STATE_PARAM);
 			}
 		}
 
@@ -384,23 +389,37 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 	protected String getSpecialParameterValue(String parameterName) {
 
 		String specialParameterValue = null;
+		String nonPrefixedParameterName = "";
 
-		if (ResponseStateManager.RENDER_KIT_ID_PARAM.equals(parameterName)) {
+		if (parameterName != null) {
+
+			if (parameterName.startsWith(parameterPrefix)) {
+				nonPrefixedParameterName = parameterName.substring(parameterPrefix.length());
+			}
+			else if (parameterName.startsWith(namespace)) {
+				nonPrefixedParameterName = parameterName.substring(namespace.length());
+			}
+			else {
+				nonPrefixedParameterName = parameterName;
+			}
+		}
+
+		if (ResponseStateManager.RENDER_KIT_ID_PARAM.equals(nonPrefixedParameterName)) {
 
 			// If not found in the request, Section 6.9 of the Bridge spec requires that the value of the
 			// ResponseStateManager.RENDER_KIT_ID_PARAM request parameter be set to the value of the
 			// "javax.portlet.faces.<portletName>.defaultRenderKitId" PortletContext attribute.
 			specialParameterValue = defaultRenderKitId;
 		}
-		else if (ResponseStateManager.VIEW_STATE_PARAM.equals(parameterName)) {
+		else if (ResponseStateManager.VIEW_STATE_PARAM.equals(nonPrefixedParameterName)) {
 
 			if (bridgeRequestScope != null) {
 				specialParameterValue = bridgeRequestScope.getPreservedViewStateParam();
 			}
 		}
-		else if (parameterName.startsWith(COM_LIFERAY_FACES_BRIDGE) ||
-				BridgeExt.FACES_AJAX_PARAMETER.equals(parameterName) ||
-				PRIMEFACES_DYNAMIC_CONTENT_PARAM.equals(parameterName)) {
+		else if (nonPrefixedParameterName.startsWith(COM_LIFERAY_FACES_BRIDGE) ||
+				BridgeExt.FACES_AJAX_PARAMETER.equals(nonPrefixedParameterName) ||
+				PRIMEFACES_DYNAMIC_CONTENT_PARAM.equals(nonPrefixedParameterName)) {
 
 			// For the sake of performance, this case is a no-op. If the value wasn't found in the PortletRequest, then
 			// it won't be found in the preserved action parameter map or the faces view parameter map.
