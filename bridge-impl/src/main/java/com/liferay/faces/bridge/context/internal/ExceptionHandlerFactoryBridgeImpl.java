@@ -17,14 +17,22 @@ package com.liferay.faces.bridge.context.internal;
 
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerFactory;
-import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
+
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
  * @author  Neil Griffin
  */
 public class ExceptionHandlerFactoryBridgeImpl extends ExceptionHandlerFactory {
+
+	// Private Constants
+	private static final Product ICEFACES = ProductFactory.getProduct(Product.Name.ICEFACES);
+	private static final boolean ICEFACES_DETECTED = ICEFACES.isDetected();
+	private static final int ICEFACES_MAJOR_VERSION = ICEFACES.getMajorVersion();
+	private static final int ICEFACES_MINOR_VERSION = ICEFACES.getMinorVersion();
 
 	// Private Data Members
 	private ExceptionHandlerFactory wrappedExceptionHandlerFactory;
@@ -37,6 +45,14 @@ public class ExceptionHandlerFactoryBridgeImpl extends ExceptionHandlerFactory {
 	public ExceptionHandler getExceptionHandler() {
 
 		ExceptionHandler wrappedExceptionHandler = wrappedExceptionHandlerFactory.getExceptionHandler();
+
+		if (ICEFACES_DETECTED &&
+				(((ICEFACES_MAJOR_VERSION == 4) && (ICEFACES_MINOR_VERSION < 2)) || (ICEFACES_MAJOR_VERSION < 4))) {
+
+			// Workaround for https://issues.liferay.com/browse/FACES-3012
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			facesContext.getPartialViewContext();
+		}
 
 		return new ExceptionHandlerBridgeImpl(wrappedExceptionHandler);
 	}
