@@ -99,7 +99,6 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 					}
 					else {
 						logger.debug("Added resource parameter name={0} value={1}", parameterName, parameterValue);
-						System.err.println("!@#$ added RESOURCE parameter name=" + parameterName + " value=" + parameterValue);
 					}
 				}
 			}

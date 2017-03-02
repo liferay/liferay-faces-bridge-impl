@@ -13,13 +13,6 @@
 	<description>Implementation of the API for Liferay Faces Bridge</description>
 
 	<dependencies>
-		<!-- BEGIN: Only required for bridge:inputFile -->
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<!-- END: Only required for bridge:inputFile -->
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
 			<artifactId>com.liferay.faces.bridge.api</artifactId>
