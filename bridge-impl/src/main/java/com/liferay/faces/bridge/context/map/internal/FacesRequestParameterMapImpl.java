@@ -267,20 +267,8 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 
 			String[] values = get(key);
 
-			if (values == null) {
-				values = get(namespace + key);
-			}
-
-			if ((values == null) && separatorCharEnabled) {
-				values = get(parameterPrefix + key);
-			}
-
 			if ((values != null) && (values.length > 0)) {
 				firstValue = values[0];
-			}
-
-			if (firstValue == null) {
-				firstValue = getSpecialParameterValue(key.toString());
 			}
 		}
 
