@@ -28,9 +28,9 @@ import javax.faces.render.Renderer;
 import javax.faces.render.RendererWrapper;
 import javax.portlet.PortletRequest;
 import javax.portlet.faces.BridgeFactoryFinder;
+import javax.servlet.http.Part;
 
-import org.apache.commons.fileupload.FileItem;
-
+import com.liferay.faces.bridge.component.inputfile.internal.HtmlInputFilePartImpl;
 import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.model.UploadedFile;
@@ -50,8 +50,8 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 	private static final Logger logger = LoggerFactory.getLogger(FileUploadRendererPrimeFacesImpl.class);
 
 	// Private Constants
-	private static final String FQCN_DEFAULT_UPLOADED_FILE = "org.primefaces.model.DefaultUploadedFile";
 	private static final String FQCN_FILE_UPLOAD_EVENT = "org.primefaces.event.FileUploadEvent";
+	private static final String FQCN_NATIVE_UPLOADED_FILE = "org.primefaces.model.NativeUploadedFile";
 	private static final String FQCN_UPLOADED_FILE = "org.primefaces.model.UploadedFile";
 
 	// Private Data Members
@@ -90,12 +90,12 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 					for (UploadedFile uploadedFile : uploadedFiles) {
 
 						// Convert the UploadedFile to a Commons-FileUpload FileItem.
-						FileItem fileItem = new PrimeFacesFileItem(clientId, uploadedFile);
+						Part part = new HtmlInputFilePartImpl(uploadedFile, clientId);
 
 						// Reflectively create an instance of the PrimeFaces DefaultUploadedFile class.
-						Class<?> defaultUploadedFileClass = Class.forName(FQCN_DEFAULT_UPLOADED_FILE);
-						Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(FileItem.class);
-						Object defaultUploadedFile = constructor.newInstance(fileItem);
+						Class<?> defaultUploadedFileClass = Class.forName(FQCN_NATIVE_UPLOADED_FILE);
+						Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(Part.class);
+						Object defaultUploadedFile = constructor.newInstance(part);
 
 						// If the PrimeFaces FileUpload component is in "simple" mode, then simply set the submitted
 						// value of the component to the DefaultUploadedFile instance.
