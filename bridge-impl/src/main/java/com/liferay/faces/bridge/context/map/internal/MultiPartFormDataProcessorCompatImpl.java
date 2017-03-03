@@ -124,7 +124,7 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 					String fileName = getValidFileName(contentDispositionHeader);
 
 					// If the current field is a simple form-field, then save the form field value in the map.
-					if (fileName != null) {
+					if ((fileName != null) && (fileName.length() > 0)) {
 
 						String fieldName = part.getName();
 						File uploadedFilePath = new File(uploadedFilesPath, fileName);
