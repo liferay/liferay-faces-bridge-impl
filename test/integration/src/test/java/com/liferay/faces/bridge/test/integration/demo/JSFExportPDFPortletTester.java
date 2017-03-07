@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,7 +96,7 @@ public class JSFExportPDFPortletTester extends IntegrationTesterBase {
 
 			InputStream inputStream = httpURLConnection.getInputStream();
 			ReadableByteChannel readableByteChannel = Channels.newChannel(inputStream);
-			String shearerRichPDFFilePath = System.getProperty("java.io.tmpdir") + "Shearer-Rich.pdf";
+			String shearerRichPDFFilePath = TestUtil.JAVA_IO_TMPDIR + "Shearer-Rich.pdf";
 			FileOutputStream fileOutputStream = new FileOutputStream(shearerRichPDFFilePath);
 			FileChannel fileOutputStreamChannel = fileOutputStream.getChannel();
 			fileOutputStreamChannel.transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
