@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,11 @@
 package com.liferay.faces.demos.service;
 
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
@@ -30,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.FacesException;
 import javax.inject.Named;
 
 import com.liferay.faces.demos.dto.Airport;
@@ -51,7 +54,7 @@ public class AirportServiceMockImpl implements AirportService {
 	// Private Constants
 	private static final String AIRPORTS_FILENAME = "airports.csv";
 	private static final String AIRPORTS_URL =
-		"https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat";
+		"https://raw.githubusercontent.com/jpatokal/openflights/5d623a6969a1adee7961cf1c9a8a212c4a784713/data/airports.dat";
 	private static final String CANADA = "Canada";
 	private static final String JAVA_IO_TMPDIR = "java.io.tmpdir";
 	private static final String UNITED_STATES = "United States";
@@ -72,33 +75,43 @@ public class AirportServiceMockImpl implements AirportService {
 		if (!airportsFile.exists()) {
 
 			URL url = null;
+			InputStream inputStream = null;
+			OutputStream outputStream = null;
 
 			try {
+
 				url = new URL(AIRPORTS_URL);
 
 				logger.info("Downloading url=[{0}]", url);
 
-				InputStream inputStream = url.openStream();
-				OutputStream outputStream = new FileOutputStream(airportsFile);
+				inputStream = url.openStream();
+				outputStream = new FileOutputStream(airportsFile);
+
 				byte[] buffer = new byte[1024];
 				int bytesRead = 0;
 
 				while ((bytesRead = inputStream.read(buffer)) > 0) {
 					outputStream.write(buffer, 0, bytesRead);
 				}
-
-				outputStream.close();
-				inputStream.close();
 			}
 			catch (Exception e) {
-				logger.warn("Error '{0}' when trying to download url=[{1}]", e.getMessage(), url);
+				throw new FacesException("Error when trying to download url=[" + url + "]", e);
+			}
+			finally {
+
+				close(outputStream);
+				close(inputStream);
 			}
 		}
 
-		try {
-			FileReader fileReader = new FileReader(airportsFile);
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
 
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
+		try {
+
+			fileReader = new FileReader(airportsFile);
+			bufferedReader = new BufferedReader(fileReader);
+
 			String csvLine;
 
 			while ((csvLine = bufferedReader.readLine()) != null) {
@@ -127,12 +140,14 @@ public class AirportServiceMockImpl implements AirportService {
 					}
 				}
 			}
-
-			bufferedReader.close();
-			fileReader.close();
 		}
 		catch (Exception e) {
-			logger.error(e);
+			throw new FacesException("Error when populating the list of airports from " + airportsFile.getPath(), e);
+		}
+		finally {
+
+			close(bufferedReader);
+			close(fileReader);
 		}
 
 		Collections.sort(this.airports, new AirportComparator());
@@ -146,6 +161,19 @@ public class AirportServiceMockImpl implements AirportService {
 	@Override
 	public List<Airport> getAirports() {
 		return airports;
+	}
+
+	private void close(Closeable closeable) {
+
+		if (closeable != null) {
+
+			try {
+				closeable.close();
+			}
+			catch (IOException e) {
+				// do nothing.
+			}
+		}
 	}
 
 	private static class AirportComparator implements Comparator<Airport> {

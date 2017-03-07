@@ -5,7 +5,7 @@
 	<alloy:field id="departureField" label="#{i18n['departure-airport']}">
 		<h:selectOneMenu id="departureId" value="#{bookingFlowModelBean.bookingDepartureId}" required="true">
 			<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
-			<f:selectItems itemValue="#{airport.airportId}" itemLabel="#{airport.city}: #{airport.name}"
+			<f:selectItems itemValue="#{airport.airportId}" itemLabel="#{airport.city}: #{airport.name} (#{airport.code})"
 				value="#{airportService.airports}" var="airport" />
 			<f:ajax render="departureField" />
 		</h:selectOneMenu>
@@ -14,7 +14,7 @@
 	<alloy:field id="arrivalField" label="#{i18n['arrival-airport']}">
 		<h:selectOneMenu id="arrivalId" value="#{bookingFlowModelBean.bookingArrivalId}" required="true">
 			<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
-			<f:selectItems itemValue="#{airport.airportId}" itemLabel="#{airport.city}: #{airport.name}"
+			<f:selectItems itemValue="#{airport.airportId}" itemLabel="#{airport.city}: #{airport.name} (#{airport.code})"
 				value="#{airportService.airports}" var="airport" />
 			<f:ajax render="arrivalField" />
 		</h:selectOneMenu>
