@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -159,8 +159,8 @@ public class Tests {
 		}
 
 		// HeaderRequest / RenderRequest
-		else
-		{
+		else {
+
 			try {
 
 				// JSF Implicit Objects
@@ -264,7 +264,7 @@ public class Tests {
 				// Things completed successfully
 				testRunner.setTestComplete(true);
 				testRunner.setTestResult(true,
-					"JSF EL impicit objects correctly resolved in both action and render phases.");
+					"JSF EL impicit objects correctly resolved in both action and header/render phases.");
 
 				return Constants.TEST_SUCCESS;
 			}

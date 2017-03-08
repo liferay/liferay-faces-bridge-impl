@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,9 @@ public class PortalContextBridgeImpl extends PortalContextWrapper {
 	@Override
 	public String getProperty(String name) {
 
-		if (BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT.equals(name) ||
+		if (PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT.equals(name) ||
+				BridgePortalContext.ADD_ELEMENT_TO_HEAD_SUPPORT.equals(name) ||
+				BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT.equals(name) ||
 				BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT.equals(name) ||
 				BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT.equals(name) ||
 				BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT.equals(name)) {
@@ -74,7 +76,13 @@ public class PortalContextBridgeImpl extends PortalContextWrapper {
 			PartialViewContext partialViewContext = facesContext.getPartialViewContext();
 
 			if ((partialViewContext == null) || !partialViewContext.isAjaxRequest()) {
-				return getWrapped().getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT);
+
+				if (PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT.equals(name)) {
+					return getWrapped().getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT);
+				}
+				else {
+					return "true";
+				}
 			}
 			else {
 				return null;

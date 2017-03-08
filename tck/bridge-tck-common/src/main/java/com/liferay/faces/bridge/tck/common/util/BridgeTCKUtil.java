@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,15 +26,13 @@ import javax.portlet.faces.BridgeUtil;
 public class BridgeTCKUtil {
 
 	public static boolean isHeaderOrRenderPhase(Bridge.PortletPhase portletPhase) {
-		return (Bridge.PortletPhase.HEADER_PHASE.equals(portletPhase) ||
-			Bridge.PortletPhase.RENDER_PHASE.equals(portletPhase));
+		return Bridge.PortletPhase.HEADER_PHASE.equals(portletPhase);
 	}
 
 	public static boolean isHeaderOrRenderPhase(FacesContext facesContext) {
 
 		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
-		return (Bridge.PortletPhase.HEADER_PHASE.equals(portletPhase) ||
-				Bridge.PortletPhase.RENDER_PHASE.equals(portletPhase));
+		return isHeaderOrRenderPhase(portletPhase);
 	}
 }

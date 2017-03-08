@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1315,6 +1315,7 @@ public class Tests extends Object {
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		FacesContext ctx = FacesContext.getCurrentInstance();
+
 		if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
 			Map<String, String> requestParameterMap = ctx.getExternalContext().getRequestParameterMap();
 
@@ -2690,13 +2691,13 @@ public class Tests extends Object {
 
 		if (charEncoding == null) {
 			testRunner.setTestResult(true,
-				"extCtx.getRequestCharacterEncoding() correctly returned null when called during the render phase.");
+				"extCtx.getRequestCharacterEncoding() correctly returned null when called during the header phase.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testRunner.setTestResult(false,
-				"extCtx.getRequestCharacterEncoding() incorrectly returned non-null value when called during the render phase: " +
+				"extCtx.getRequestCharacterEncoding() incorrectly returned non-null value when called during the header phase: " +
 				charEncoding);
 
 			return Constants.TEST_FAILED;
@@ -2837,13 +2838,13 @@ public class Tests extends Object {
 
 		if (contentType == null) {
 			testRunner.setTestResult(true,
-				"extCtx.getRequestContentType() correctly returned null when called during the render phase.");
+				"extCtx.getRequestContentType() correctly returned null when called during the header phase.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testRunner.setTestResult(false,
-				"extCtx.getRequestContentType() incorrectly returned non-null value when called during the render phase: " +
+				"extCtx.getRequestContentType() incorrectly returned non-null value when called during the header phase: " +
 				contentType);
 
 			return Constants.TEST_FAILED;
@@ -4055,19 +4056,19 @@ public class Tests extends Object {
 
 		if (!foundField1) {
 			testRunner.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterMap() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
+				"Failed Header Phase: extCtx.getRequestParameterMap() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
 		else if (!foundField2) {
 			testRunner.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterMap() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
+				"Failed Header Phase: extCtx.getRequestParameterMap() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
 		else {
 			testRunner.setTestResult(true,
-				"Passed RenderPhase: The getRequestParameterMap Map correctly exposed the query string fields in defaultViewId.");
+				"Passed Header Phase: The getRequestParameterMap Map correctly exposed the query string fields in defaultViewId.");
 
 			return Constants.TEST_SUCCESS;
 		}
@@ -4171,7 +4172,7 @@ public class Tests extends Object {
 
 			if (paramMap.get(ResponseStateManager.VIEW_STATE_PARAM) == null) {
 				testRunner.setTestResult(false,
-					"Render Phase extCtx.getRequestParameterMap() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action phase was: " +
+					"Header Phase extCtx.getRequestParameterMap() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action phase was: " +
 					testRunner.getTestResult());
 
 				return Constants.TEST_FAILED;
@@ -4196,19 +4197,19 @@ public class Tests extends Object {
 
 			if (foundField1) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterMap() incorrectly contains the value for the 'field1' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterMap() incorrectly contains the value for the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (foundField2) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterMap() incorrectly contains the value for the 'field2' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterMap() incorrectly contains the value for the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else {
 				testRunner.appendTestDetail(
-					"Passed RenderPhase: The getRequestParameterMap Map correctly excluded the submitted form fields from the render Phase.");
+					"Passed Header Phase: The getRequestParameterMap Map correctly excluded the submitted form fields from the Header Phase.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -4310,26 +4311,26 @@ public class Tests extends Object {
 
 			if (!foundViewState) {
 				testRunner.setTestResult(false,
-					"Render phase extCtx.getRequestParameterNames() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action Phase was: " +
+					"Header phase extCtx.getRequestParameterNames() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action Phase was: " +
 					testRunner.getTestResult());
 
 				return Constants.TEST_FAILED;
 			}
 			else if (foundField1) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterName() incorrectly contains the 'field1' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterName() incorrectly contains the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (foundField2) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterName() incorrectly contains the 'field2' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterName() incorrectly contains the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else {
 				testRunner.appendTestDetail(
-					"Passed RenderPhase: The getRequestParameterName() correctly excluded the submitted form fields from the render phase.");
+					"Passed Header Phase: The getRequestParameterName() correctly excluded the submitted form fields from the header phase.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -4365,19 +4366,19 @@ public class Tests extends Object {
 
 		if (!foundField1) {
 			testRunner.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterNames() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
+				"Failed Header Phase: extCtx.getRequestParameterNames() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
 		else if (!foundField2) {
 			testRunner.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterNames() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
+				"Failed Header Phase: extCtx.getRequestParameterNames() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
 		else {
 			testRunner.setTestResult(true,
-				"Passed RenderPhase: The getRequestParameterNames Iterator correctly exposed the query string fields in defaultViewId.");
+				"Passed Header Phase: The getRequestParameterNames Iterator correctly exposed the query string fields in defaultViewId.");
 
 			return Constants.TEST_SUCCESS;
 		}
@@ -4417,19 +4418,19 @@ public class Tests extends Object {
 
 			if (!foundField1) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterNames() didn't properly preserve the value for the 'field1' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterNames() didn't properly preserve the value for the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (!foundField2) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterNames() didn't properly preserve the value for the 'field2' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterNames() didn't properly preserve the value for the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else {
 				testRunner.setTestResult(true,
-					"Passed RenderPhase: The getRequestParameterNames Iterator correctly preserved the submitted form fields into the render phase.");
+					"Passed Header Phase: The getRequestParameterNames Iterator correctly preserved the submitted form fields into the header phase.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -4472,19 +4473,19 @@ public class Tests extends Object {
 
 			if (!foundField1) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterMap() didn't properly preserve the value for the 'field1' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterMap() didn't properly preserve the value for the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (!foundField2) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterMap() didn't properly preserve the value for the 'field2' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterMap() didn't properly preserve the value for the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else {
 				testRunner.setTestResult(true,
-					"Passed RenderPhase: The getRequestParameterMap Map correctly preserved the submitted form fields into the render Phase.");
+					"Passed Header Phase: The getRequestParameterMap Map correctly preserved the submitted form fields into the Header Phase.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -4592,7 +4593,7 @@ public class Tests extends Object {
 
 			if (paramMap.get(ResponseStateManager.VIEW_STATE_PARAM) == null) {
 				testRunner.setTestResult(false,
-					"Render Phase extCtx.getRequestParameterValuesMap() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action phase was: " +
+					"Header Phase extCtx.getRequestParameterValuesMap() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action phase was: " +
 					testRunner.getTestResult());
 
 				return Constants.TEST_FAILED;
@@ -4616,19 +4617,19 @@ public class Tests extends Object {
 
 			if (foundField1) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterValuesMap() incorrectly contains the value for the 'field1' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterValuesMap() incorrectly contains the value for the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (foundField2) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterValuesMap() incorrectly contains the value for the 'field2' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterValuesMap() incorrectly contains the value for the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else {
 				testRunner.appendTestDetail(
-					"Passed RenderPhase: The getRequestParameterValuesMap Map correctly excluded the submitted form fields from the render Phase.");
+					"Passed Header Phase: The getRequestParameterValuesMap Map correctly excluded the submitted form fields from the Header Phase.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -4666,19 +4667,19 @@ public class Tests extends Object {
 
 		if (!foundField1) {
 			testRunner.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterValuesMap() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
+				"Failed Header Phase: extCtx.getRequestParameterValuesMap() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
 		else if (!foundField2) {
 			testRunner.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterValuesMap() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
+				"Failed Header Phase: extCtx.getRequestParameterValuesMap() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
 		else {
 			testRunner.setTestResult(true,
-				"Passed RenderPhase: The getRequestParameterValuesMap Map correctly exposed the query string fields in defaultViewId.");
+				"Passed Header Phase: The getRequestParameterValuesMap Map correctly exposed the query string fields in defaultViewId.");
 
 			return Constants.TEST_SUCCESS;
 		}
@@ -4719,19 +4720,19 @@ public class Tests extends Object {
 
 			if (!foundField1) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterValuesMap() didn't properly preserve the value for the 'field1' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterValuesMap() didn't properly preserve the value for the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (!foundField2) {
 				testRunner.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterValuesMap() didn't properly preserve the value for the 'field2' form parameter.");
+					"Failed Header Phase: extCtx.getRequestParameterValuesMap() didn't properly preserve the value for the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else {
 				testRunner.setTestResult(true,
-					"Passed RenderPhase: The getRequestParameterValuesMap Map correctly preserved the submitted form fields into the render Phase.");
+					"Passed Header Phase: The getRequestParameterValuesMap Map correctly preserved the submitted form fields into the Header Phase.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -4754,13 +4755,13 @@ public class Tests extends Object {
 		// the value should be null
 		if (pathInfo == null) {
 			testRunner.setTestResult(true,
-				"Passed RenderPhase: extCtx.getRequestPathInfo() correctly returned a null value as the Faces servlet is extension mapped.");
+				"Passed Header Phase: extCtx.getRequestPathInfo() correctly returned a null value as the Faces servlet is extension mapped.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testRunner.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestPathInfo() returned a non-null value though null was expected as the Faces servlet is extension mapped.");
+				"Failed Header Phase: extCtx.getRequestPathInfo() returned a non-null value though null was expected as the Faces servlet is extension mapped.");
 
 			return Constants.TEST_FAILED;
 		}
@@ -4786,14 +4787,14 @@ public class Tests extends Object {
 
 		if (servletPath.equalsIgnoreCase(viewId)) {
 			testRunner.setTestResult(true,
-				"Passed RenderPhase: extCtx.getRequestServletPath() correctly returned the unmapped (extension mapped) viewId: " +
+				"Passed Header Phase: extCtx.getRequestServletPath() correctly returned the unmapped (extension mapped) viewId: " +
 				servletPath);
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testRunner.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestServletPath() returned something other than the the unmapped (extension mapped) viewId.  Expected: " +
+				"Failed Header Phase: extCtx.getRequestServletPath() returned something other than the the unmapped (extension mapped) viewId.  Expected: " +
 				viewId + " getRequestServletPath returned: " + servletPath);
 
 			return Constants.TEST_FAILED;
@@ -5909,13 +5910,13 @@ public class Tests extends Object {
 
 			// In portlet 1.0 there is no supprt for this -- so spec says ignore
 			testRunner.setTestResult(true,
-				"setRequestCharacterEncoding correctly didn't throw an exception when called during the render Phase.");
+				"setRequestCharacterEncoding correctly didn't throw an exception when called during the Header Phase.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		catch (Exception e) {
 			testRunner.setTestResult(false,
-				"setRequestCharacterEncoding correctly didn't throw an exception when called during the render Phase.");
+				"setRequestCharacterEncoding correctly didn't throw an exception when called during the Header Phase.");
 
 			return Constants.TEST_FAILED;
 		}
