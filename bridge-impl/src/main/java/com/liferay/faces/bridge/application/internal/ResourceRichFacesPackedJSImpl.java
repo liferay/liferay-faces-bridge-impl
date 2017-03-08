@@ -15,6 +15,9 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.faces.application.Resource;
 
 import com.liferay.faces.util.application.FilteredResourceBase;
@@ -96,31 +99,59 @@ public class ResourceRichFacesPackedJSImpl extends FilteredResourceBase {
 			logger.debug("Found javax.faces.ViewState selector in packed.js");
 
 			javaScriptText = replaceToken(javaScriptText, token,
-					"this.fileUpload.form.find(\"input[name$='javax.faces.ViewState']\"), parameterPrefix=viewState.attr('name').substring(0,viewState.attr('name').indexOf('javax.faces.ViewState'));");
+					"'',vsElem=this.fileUpload.form.find(\"input[name$='javax.faces.ViewState']\"),paramPrefix=vsElem.attr('name').substring(0,vsElem.attr('name').indexOf('javax.faces.ViewState'));");
 
-			javaScriptText = replaceToken(javaScriptText, "formData.append(\"javax.faces.ViewState\"",
-					"formData.append(viewState.attr('name')");
+			javaScriptText = replaceToken(javaScriptText, "append(\"javax.faces.ViewState\",",
+					"append(vsElem.attr('name'),vsElem.val()+");
 
 			javaScriptText = replaceToken(javaScriptText, "javax.faces.partial.ajax=",
-					"\" + parameterPrefix + \"javax.faces.partial.ajax=");
+					"\" + paramPrefix + \"javax.faces.partial.ajax=");
 
 			javaScriptText = replaceToken(javaScriptText, "javax.faces.partial.execute=",
-					"\" + parameterPrefix + \"javax.faces.partial.execute=");
+					"\" + paramPrefix + \"javax.faces.partial.execute=");
 
 			javaScriptText = replaceToken(javaScriptText, "javax.faces.ViewState=",
-					"\" + parameterPrefix + \"javax.faces.ViewState=");
+					"\" + paramPrefix + \"javax.faces.ViewState=");
 
 			javaScriptText = replaceToken(javaScriptText, "javax.faces.source=",
-					"\" + parameterPrefix + \"javax.faces.source=");
+					"\" + paramPrefix + \"javax.faces.source=");
 
 			javaScriptText = replaceToken(javaScriptText, "org.richfaces.ajax.component=",
-					"\" + parameterPrefix + \"org.richfaces.ajax.component=");
+					"\" + paramPrefix + \"org.richfaces.ajax.component=");
 
-			javaScriptText = replaceToken(javaScriptText, "delimiter + UID", "delimiter + parameterPrefix + UID");
+			// Uncompressed: newAction =  originalAction + delimiter + UID + "=" + this.uid
+			// Compressed: R=T+L+A+"="+this.uid
+			String regEx = "\\w+\\s*=\\s*\\w+\\s*\\+\\s*\\w+\\s*\\+\\s*\\w+\\s*\\+\\s*\"=\"\\s*\\+\\s*this.uid";
 
-			javaScriptText = replaceToken(javaScriptText, "delimiter+UID", "delimiter+parameterPrefix+UID");
+			Matcher matcher = Pattern.compile(regEx).matcher(javaScriptText);
 
-			javaScriptText = javaScriptText.replace("viewState)", "viewState.val())");
+			if (matcher.find()) {
+				String matchingText = javaScriptText.substring(matcher.start(), matcher.end());
+				String[] parts = matchingText.split("\\+");
+				String fixedMatchingText = parts[0] + "+" + parts[1] + "+ paramPrefix +" + parts[2] + "+" + parts[3] +
+					"+" + parts[4];
+				javaScriptText = javaScriptText.substring(0, matcher.start()) + fixedMatchingText +
+					javaScriptText.substring(matcher.end());
+			}
+			else {
+				logger.warn("Unable fix the javax.faces.ViewState value because newAction can't be found");
+			}
+
+			// Uncompressed: javax.faces.ViewState=" + encodeURIComponent(viewState)
+			// Compressed: javax.faces.ViewState="+encodeURIComponent(C)
+			regEx = "javax.faces.ViewState\\=\"\\s*\\+\\s*encodeURIComponent[(]\\w+[)]";
+			matcher = Pattern.compile(regEx).matcher(javaScriptText);
+
+			if (matcher.find()) {
+				String matchingText = javaScriptText.substring(matcher.start(), matcher.end());
+				int openParenPos = matchingText.indexOf("(");
+				String fixedMatchingText = matchingText.substring(0, openParenPos) + "(vsElem.val())";
+				javaScriptText = javaScriptText.substring(0, matcher.start()) + fixedMatchingText +
+					javaScriptText.substring(matcher.end());
+			}
+			else {
+				logger.warn("Unable to find and fix encodeURIComponent(viewState)");
+			}
 		}
 
 		return javaScriptText;
