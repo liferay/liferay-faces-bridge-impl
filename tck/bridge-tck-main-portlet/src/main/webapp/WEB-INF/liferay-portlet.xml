@@ -337,7 +337,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter5_2Tests-renderPhaseListenerTest-portlet</portlet-name>
+		<portlet-name>chapter5_2Tests-headerPhaseListenerTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
@@ -1099,6 +1099,16 @@
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_9Tests-usesConfiguredRenderKitTest-portlet</portlet-name>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+	</portlet>
+	<portlet>
+		<portlet-name>chapter5_2Tests-resourcesRenderedInHeadTest-portlet</portlet-name>
+		<!-- JAVASERVERFACES-3031 -->
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+	</portlet>
+	<portlet>
+		<portlet-name>chapter5_2Tests-markupRenderedInRenderPhaseTest-portlet</portlet-name>
+		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<role-mapper>

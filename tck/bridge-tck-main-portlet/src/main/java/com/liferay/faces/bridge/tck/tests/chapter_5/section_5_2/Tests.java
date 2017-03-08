@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2016 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,7 +61,7 @@ public class Tests extends Object implements PhaseListener {
 		String testname = (String) m.get(Constants.TEST_NAME);
 		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) m.get(Bridge.PORTLET_LIFECYCLE_PHASE);
 
-		if (testname.equals("renderPhaseListenerTest") && BridgeTCKUtil.isHeaderOrRenderPhase(portletPhase)) {
+		if (testname.equals("headerPhaseListenerTest") && (BridgeTCKUtil.isHeaderOrRenderPhase(portletPhase))) {
 			m.put("org.apache.portlet.faces.tck.lastAfterPhase", phase);
 		}
 		else if (testname.equals("eventPhaseListenerTest") && (portletPhase.equals(Bridge.PortletPhase.EVENT_PHASE))) {
@@ -95,7 +95,7 @@ public class Tests extends Object implements PhaseListener {
 		String testname = (String) m.get(Constants.TEST_NAME);
 		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) m.get(Bridge.PORTLET_LIFECYCLE_PHASE);
 
-		if (testname.equals("renderPhaseListenerTest") && (BridgeTCKUtil.isHeaderOrRenderPhase(portletPhase))) {
+		if (testname.equals("headerPhaseListenerTest") && (BridgeTCKUtil.isHeaderOrRenderPhase(portletPhase))) {
 			m.put("org.apache.portlet.faces.tck.lastBeforePhase", phase);
 		}
 		else if (testname.equals("eventPhaseListenerTest") && (portletPhase.equals(Bridge.PortletPhase.EVENT_PHASE))) {
@@ -181,20 +181,20 @@ public class Tests extends Object implements PhaseListener {
 			}
 			else if (param == null) {
 				testRunner.setTestResult(false,
-					"Render parameter set in action phase not carried forward through the event phase into the render phase.");
+					"Render parameter set in action phase not carried forward through the event phase into the header/render phase.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (!param.equals("value")) {
 				testRunner.setTestResult(false,
-					"(Private) Render parameter set in action phase carried forward through the event phase into the render phase but with an unexpected value.  Received: " +
+					"(Private) Render parameter set in action phase carried forward through the event phase into the header/render phase but with an unexpected value.  Received: " +
 					param + " but expected: value");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (modelPRP == null) {
 				testRunner.setTestResult(false,
-					"(Public) Render parameter set in event phase wasn't received/value pushed to its model in the render phase.");
+					"(Public) Render parameter set in event phase wasn't received/value pushed to its model in the header/render phase.");
 
 				return Constants.TEST_FAILED;
 			}
@@ -602,6 +602,41 @@ public class Tests extends Object implements PhaseListener {
 		return PhaseId.ANY_PHASE;
 	}
 
+	// Test is SingleRequest -- Render/Action
+	// Test #5.33 --
+	@BridgeTest(test = "headerPhaseListenerTest")
+	public String headerPhaseListenerTest(TestRunnerBean testRunner) {
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		ExternalContext extCtx = ctx.getExternalContext();
+		Map<String, Object> m = extCtx.getRequestMap();
+
+		testRunner.setTestComplete(true);
+
+		// Phase Listener (below) has set these attributes
+		PhaseId lastBeforePhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastBeforePhase");
+		PhaseId lastAfterPhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastAfterPhase");
+
+		if ((lastBeforePhaseId == null) || (lastAfterPhaseId == null)) {
+			testRunner.setTestResult(false,
+				"Header incorrectly didn't invoke either or both the RESTORE_VIEW before/after listener.");
+
+			return Constants.TEST_FAILED;
+		}
+		else if ((lastBeforePhaseId == PhaseId.RESTORE_VIEW) && (lastAfterPhaseId == PhaseId.RESTORE_VIEW)) {
+			testRunner.setTestResult(true,
+				"Header properly invoked the RESTORE_VIEW phase including calling its before/after listeners and didnt' execute any other action phases.");
+
+			return Constants.TEST_SUCCESS;
+		}
+		else {
+			testRunner.setTestResult(false,
+				"Header incorrectly executed an action phase/listener post RESTORE_VIEW: lastBeforePhase: " +
+				lastBeforePhaseId.toString() + " lastAfterPhase: " + lastAfterPhaseId.toString());
+
+			return Constants.TEST_FAILED;
+		}
+	}
+
 	// Test is MultiRequest -- Render/Action
 	// Test #5.19
 	@BridgeTest(test = "ignoreCurrentViewIdModeChangeTest")
@@ -828,7 +863,7 @@ public class Tests extends Object implements PhaseListener {
 
 			if (modelPRP == null) {
 				testRunner.setTestResult(false,
-					"(Public) Render parameter set in action phase wasn't received/value pushed to its model in the render phase.");
+					"(Public) Render parameter set in action phase wasn't received/value pushed to its model in the header/render phase.");
 
 				return Constants.TEST_FAILED;
 			}
@@ -846,41 +881,6 @@ public class Tests extends Object implements PhaseListener {
 				return Constants.TEST_SUCCESS;
 
 			}
-		}
-	}
-
-	// Test is SingleRequest -- Render/Action
-	// Test #5.33 --
-	@BridgeTest(test = "renderPhaseListenerTest")
-	public String renderPhaseListenerTest(TestRunnerBean testRunner) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> m = extCtx.getRequestMap();
-
-		testRunner.setTestComplete(true);
-
-		// Phase Listener (below) has set these attributes
-		PhaseId lastBeforePhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastBeforePhase");
-		PhaseId lastAfterPhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastAfterPhase");
-
-		if ((lastBeforePhaseId == null) || (lastAfterPhaseId == null)) {
-			testRunner.setTestResult(false,
-				"Render incorrectly didn't invoke either or both the RESTORE_VIEW before/after listener.");
-
-			return Constants.TEST_FAILED;
-		}
-		else if ((lastBeforePhaseId == PhaseId.RESTORE_VIEW) && (lastAfterPhaseId == PhaseId.RESTORE_VIEW)) {
-			testRunner.setTestResult(true,
-				"Render properly invoked the RESTORE_VIEW phase including calling its before/after listeners and didnt' execute any other action phases.");
-
-			return Constants.TEST_SUCCESS;
-		}
-		else {
-			testRunner.setTestResult(false,
-				"Render incorrectly executed an action phase/listener post RESTORE_VIEW: lastBeforePhase: " +
-				lastBeforePhaseId.toString() + " lastAfterPhase: " + lastAfterPhaseId.toString());
-
-			return Constants.TEST_FAILED;
 		}
 	}
 
