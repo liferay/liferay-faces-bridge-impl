@@ -101,9 +101,9 @@
 		<!-- be called. -->
 		<phase-listener>com.liferay.faces.bridge.event.internal.ManagedBeanScopePhaseListener</phase-listener>
 		<!-- Section 5.2.6 also indicates that the bridge must proactively ensure that only the RESTORE_VIEW phase -->
-		<!-- executes, and Section 6.4 indicates that a PhaseListener must be used. The RenderRequestPhaseListener -->
+		<!-- executes, and Section 6.4 indicates that a PhaseListener must be used. The HeaderRequestPhaseListener -->
 		<!-- satisfies this requirement. -->
-		<phase-listener>com.liferay.faces.bridge.event.internal.RenderRequestPhaseListener</phase-listener>
+		<phase-listener>com.liferay.faces.bridge.event.internal.HeaderRequestPhaseListener</phase-listener>
 		<!-- Add the HeadPhaseListener in order to handle the case of Ajax-initiated execution of navigation-rules -->
 		<!-- in a portlet. -->
 		<phase-listener>com.liferay.faces.bridge.renderkit.html_basic.internal.HeadPhaseListener</phase-listener>

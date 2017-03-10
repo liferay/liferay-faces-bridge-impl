@@ -131,7 +131,7 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 		}
 
 		// Otherwise, in accordance with Section 5.2.6 of the Spec, execute the JSF lifecycle so that ONLY the
-		// RESTORE_VIEW phase executes. Note that this is accomplished by the RenderRequestPhaseListener.
+		// RESTORE_VIEW phase executes. Note that this is accomplished by the HeaderRequestPhaseListener.
 		else {
 
 			try {
