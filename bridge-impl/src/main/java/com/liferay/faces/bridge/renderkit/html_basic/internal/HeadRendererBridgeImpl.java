@@ -76,7 +76,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 			headResources.addAll(firstResources);
 		}
 
-		// Sort the components that are in the view root into stylesheets and scripts.
+		// Sort the components that are in the view root into stylesheets, scripts, and other.
 		List<UIComponent> headComponentResources = uiViewRoot.getComponentResources(facesContext, "head");
 		List<UIComponent> styleSheetResources = new ArrayList<UIComponent>();
 		List<UIComponent> scriptResources = new ArrayList<UIComponent>();
@@ -92,11 +92,13 @@ public class HeadRendererBridgeImpl extends Renderer {
 				scriptResources.add(headComponentResource);
 			}
 			else {
+
+				// Other kids of head resources include <base>, <meta>, <noscript>, <script>, and <style> elements.
 				otherHeadResources.add(headComponentResource);
 			}
 		}
 
-		// Sort children into stylesheets and scripts.
+		// Sort children into stylesheets, scripts, and other.
 		List<UIComponent> children = uiComponent.getChildren();
 
 		for (UIComponent child : children) {

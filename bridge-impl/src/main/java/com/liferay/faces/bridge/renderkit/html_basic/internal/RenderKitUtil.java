@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 /**
  * @author  Kyle Stiemann
  */
-public final class RenderKitUtil {
+/* package private */ final class RenderKitUtil {
 
 	// Package-Private Constants
 	/* package-private */ static final String HEAD_RESOURCES_TO_RENDER_IN_BODY = "headResourcesToRenderInBody";

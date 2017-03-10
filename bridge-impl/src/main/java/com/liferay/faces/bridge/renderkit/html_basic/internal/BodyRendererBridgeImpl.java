@@ -61,22 +61,21 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 	public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		ResponseWriter originalResponseWriter = facesContext.getResponseWriter();
-		ResponseWriterBridgeBodyImpl responseWriterPortletBodyImpl = new ResponseWriterBridgeBodyImpl(
-				originalResponseWriter);
-		facesContext.setResponseWriter(responseWriterPortletBodyImpl);
+		ResponseWriter responseWriter = new ResponseWriterBridgeBodyImpl(originalResponseWriter);
+		facesContext.setResponseWriter(responseWriter);
 		super.encodeBegin(facesContext, uiComponent);
 
 		PortletNamingContainerUIViewRoot viewRoot = (PortletNamingContainerUIViewRoot) facesContext.getViewRoot();
 		String clientId = viewRoot.getContainerClientId(facesContext);
-		responseWriterPortletBodyImpl.writeAttribute("id", clientId, null);
+		responseWriter.writeAttribute("id", clientId, null);
 
 		String styleClass = (String) uiComponent.getAttributes().get("styleClass");
 
 		// If no styleClass has been specified, add a special CSS class name in the rendered markup in order to
 		// clue-in the developer that a <div> was rendered instead of <body>. If styleClass is not null, then the
-		// responseWriterBridgeBodyImpl will append STYLE_CLASS_PORTLET_BODY to the specified styleClass.
+		// ResponseWriterBridgeBodyImpl will append STYLE_CLASS_PORTLET_BODY to the specified styleClass.
 		if (styleClass == null) {
-			responseWriterPortletBodyImpl.writeAttribute("class", RenderKitUtil.STYLE_CLASS_PORTLET_BODY, "styleClass");
+			responseWriter.writeAttribute("class", RenderKitUtil.STYLE_CLASS_PORTLET_BODY, "styleClass");
 		}
 
 		// Render each of the head resources that were not renderable in the head section into the top of the portlet
@@ -119,9 +118,8 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 	public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		ResponseWriter originalResponseWriter = facesContext.getResponseWriter();
-		ResponseWriterBridgeBodyImpl responseWriterPortletBodyImpl = new ResponseWriterBridgeBodyImpl(
-				originalResponseWriter);
-		facesContext.setResponseWriter(responseWriterPortletBodyImpl);
+		ResponseWriter responseWriter = new ResponseWriterBridgeBodyImpl(originalResponseWriter);
+		facesContext.setResponseWriter(responseWriter);
 		super.encodeEnd(facesContext, uiComponent);
 		facesContext.setResponseWriter(originalResponseWriter);
 	}

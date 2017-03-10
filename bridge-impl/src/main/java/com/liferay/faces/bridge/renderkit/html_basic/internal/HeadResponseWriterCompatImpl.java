@@ -27,8 +27,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import com.liferay.faces.util.application.ResourceUtil;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -38,9 +36,6 @@ import com.liferay.faces.util.logging.LoggerFactory;
  * @author  Neil Griffin
  */
 public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
-
-	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(HeadResponseWriterCompatImpl.class);
 
 	// Private Data Members
 	private HeaderResponse headerResponse;
@@ -62,7 +57,7 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 		String resourceId;
 		String scope = null;
 		String version = null;
-		String elementString = toString(nodeName, element);
+		String elementString = elementToString(nodeName, element);
 
 		if ((componentResource != null) &&
 				(RenderKitUtil.isScriptResource(componentResource) ||
@@ -149,30 +144,38 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 		return parameterValueStartIndex;
 	}
 
-	private String toString(String nodeName, Element scriptOrCSSElement) {
+	private String elementToString(String nodeName, Element element) {
 
-		String elementString = "<" + nodeName;
-		NamedNodeMap attributes = scriptOrCSSElement.getAttributes();
+		StringBuilder buf = new StringBuilder("<");
+		buf.append(nodeName);
+
+		NamedNodeMap attributes = element.getAttributes();
 
 		for (int i = 0; i < attributes.getLength(); i++) {
 
 			Node attribute = attributes.item(i);
-			elementString += " " + attribute.getNodeName() + "=\"" + attribute.getNodeValue() + "\"";
+			buf.append(" ");
+			buf.append(attribute.getNodeName());
+			buf.append("=\"");
+			buf.append(attribute.getNodeValue());
+			buf.append("\"");
 		}
 
-		elementString += ">";
+		buf.append(">");
 
 		if (!nodeName.equals("link")) {
 
-			String textContent = scriptOrCSSElement.getTextContent();
+			String textContent = element.getTextContent();
 
 			if (textContent != null) {
-				elementString += textContent;
+				buf.append(textContent);
 			}
 
-			elementString += "</" + nodeName + ">";
+			buf.append("</");
+			buf.append(nodeName);
+			buf.append(">");
 		}
 
-		return elementString;
+		return buf.toString();
 	}
 }
