@@ -20,21 +20,24 @@ import java.util.Locale;
 
 
 /**
+ * This class decorates a {@link PrintWriter} in order to suppress write operations rather than actually performing the
+ * write operations.
+ *
  * @author  Kyle Stiemann
  */
-public class PrintWriterMarkupRenderedInRenderPhaseTestImpl extends PrintWriter {
+public class SuppressedPrintWriter extends PrintWriter {
 
 	// Private Data Members
-	private int writeMethodCalls = 0;
+	private boolean attemptedWrite;
 
-	public PrintWriterMarkupRenderedInRenderPhaseTestImpl(PrintWriter printWriter) {
+	public SuppressedPrintWriter(PrintWriter printWriter) {
 		super(printWriter);
 	}
 
 	@Override
 	public PrintWriter append(CharSequence csq) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 
 		return this;
 	}
@@ -42,7 +45,7 @@ public class PrintWriterMarkupRenderedInRenderPhaseTestImpl extends PrintWriter 
 	@Override
 	public PrintWriter append(char c) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 
 		return this;
 	}
@@ -50,7 +53,7 @@ public class PrintWriterMarkupRenderedInRenderPhaseTestImpl extends PrintWriter 
 	@Override
 	public PrintWriter append(CharSequence csq, int start, int end) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 
 		return this;
 	}
@@ -73,7 +76,7 @@ public class PrintWriterMarkupRenderedInRenderPhaseTestImpl extends PrintWriter 
 	@Override
 	public PrintWriter format(String format, Object... args) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 
 		return this;
 	}
@@ -81,82 +84,82 @@ public class PrintWriterMarkupRenderedInRenderPhaseTestImpl extends PrintWriter 
 	@Override
 	public PrintWriter format(Locale l, String format, Object... args) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 
 		return this;
 	}
 
-	public int getWriteMethodCalls() {
-		return writeMethodCalls;
+	public boolean isAttemptedWrite() {
+		return attemptedWrite;
 	}
 
 	@Override
 	public void print(boolean b) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void print(char c) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void print(int i) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void print(long l) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void print(float f) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void print(double d) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void print(char[] s) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void print(String s) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void print(Object obj) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public PrintWriter printf(String format, Object... args) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 
 		return this;
 	}
@@ -164,7 +167,7 @@ public class PrintWriterMarkupRenderedInRenderPhaseTestImpl extends PrintWriter 
 	@Override
 	public PrintWriter printf(Locale l, String format, Object... args) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 
 		return this;
 	}
@@ -172,105 +175,105 @@ public class PrintWriterMarkupRenderedInRenderPhaseTestImpl extends PrintWriter 
 	@Override
 	public void println() {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void println(boolean x) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void println(char x) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void println(int x) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void println(long x) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void println(float x) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void println(double x) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void println(char[] x) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void println(String x) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void println(Object x) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void write(int c) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void write(char[] buf) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void write(String s) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void write(char[] buf, int off, int len) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 
 	@Override
 	public void write(String s, int off, int len) {
 
-		writeMethodCalls++;
+		attemptedWrite = true;
 		// no-op
 	}
 }

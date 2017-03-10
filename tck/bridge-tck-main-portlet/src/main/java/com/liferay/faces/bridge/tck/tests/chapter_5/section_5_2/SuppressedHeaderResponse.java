@@ -18,43 +18,34 @@ package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.portlet.RenderResponse;
-import javax.portlet.filter.RenderResponseWrapper;
+import javax.portlet.HeaderResponse;
+import javax.portlet.filter.HeaderResponseWrapper;
 
 
 /**
+ * This class decorates a {@link HeaderResponse} in order to suppress write operations by the {@link PrintWriter}
+ * returned by {@link #getWriter()}.
+ *
  * @author  Kyle Stiemann
  */
-public class RenderResponseMarkupRenderedInRenderPhaseTestImpl extends RenderResponseWrapper {
+public class SuppressedHeaderResponse extends HeaderResponseWrapper {
 
 	// Private Data Members
-	private PrintWriterMarkupRenderedInRenderPhaseTestImpl printWriterMarkupRenderedInRenderPhaseTestImpl;
+	private SuppressedPrintWriter suppressedPrintWriter;
 
-	public RenderResponseMarkupRenderedInRenderPhaseTestImpl(RenderResponse wrappedRenderResponse) {
-		super(wrappedRenderResponse);
-	}
-
-	public int getWriteMethodCalls() {
-
-		int writeMethodCalls = 0;
-
-		if (printWriterMarkupRenderedInRenderPhaseTestImpl != null) {
-			writeMethodCalls = printWriterMarkupRenderedInRenderPhaseTestImpl.getWriteMethodCalls();
-		}
-
-		return writeMethodCalls;
+	public SuppressedHeaderResponse(HeaderResponse wrappedHeaderResponse) {
+		super(wrappedHeaderResponse);
 	}
 
 	@Override
 	public PrintWriter getWriter() throws IOException {
 
-		if (printWriterMarkupRenderedInRenderPhaseTestImpl == null) {
+		if (suppressedPrintWriter == null) {
 
 			PrintWriter printWriter = super.getWriter();
-			printWriterMarkupRenderedInRenderPhaseTestImpl = new PrintWriterMarkupRenderedInRenderPhaseTestImpl(
-					printWriter);
+			suppressedPrintWriter = new SuppressedPrintWriter(printWriter);
 		}
 
-		return printWriterMarkupRenderedInRenderPhaseTestImpl;
+		return suppressedPrintWriter;
 	}
 }
