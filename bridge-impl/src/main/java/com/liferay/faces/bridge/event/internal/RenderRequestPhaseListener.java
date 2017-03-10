@@ -38,7 +38,7 @@ public class RenderRequestPhaseListener extends RenderRequestPhaseListenerCompat
 	private static final long serialVersionUID = 8470095938465172618L;
 
 	// Protected (Lazy-Initialized) Constants
-	protected static Boolean VIEW_PARAMETERS_ENABLED;
+	private static Boolean VIEW_PARAMETERS_ENABLED;
 
 	// Private Data Members
 	private PhaseId phaseId = PhaseId.RESTORE_VIEW;
@@ -50,7 +50,7 @@ public class RenderRequestPhaseListener extends RenderRequestPhaseListenerCompat
 
 		if (VIEW_PARAMETERS_ENABLED == null) {
 
-			synchronized (phaseId) {
+			synchronized (this) {
 
 				if (VIEW_PARAMETERS_ENABLED == null) {
 
