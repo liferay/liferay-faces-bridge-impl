@@ -49,7 +49,7 @@ public class HeaderRequestPhaseListener implements PhaseListener {
 
 			if (VIEW_PARAMETERS_ENABLED == null) {
 
-				synchronized (phaseId) {
+				synchronized (this) {
 
 					if (VIEW_PARAMETERS_ENABLED == null) {
 
