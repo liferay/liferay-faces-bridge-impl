@@ -24,10 +24,10 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletResponse;
 import javax.portlet.filter.PortletResponseWrapper;
 
-import static com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.HeaderResponseResourcesRenderedInHeadTestImpl.TEST_HEAD_ELEMENT_IDS;
-
 
 /**
+ * This class is a JSF managed-bean that is used by resourcesRenderedInHeadTest.xhtml in order to display test results.
+ *
  * @author  Kyle Stiemann
  */
 @ManagedBean
@@ -41,7 +41,7 @@ public class ResourcesRenderedInHeadTestBean {
 
 		String testHeadElementIdsJSArray = "";
 
-		for (String testHeadElementId : HeaderResponseResourcesRenderedInHeadTestImpl.TEST_HEAD_ELEMENT_IDS) {
+		for (String testHeadElementId : DependencyTrackingHeaderResponse.TEST_HEAD_ELEMENT_IDS) {
 
 			if (testHeadElementIdsJSArray.length() > 0) {
 				testHeadElementIdsJSArray += ", ";
@@ -53,73 +53,88 @@ public class ResourcesRenderedInHeadTestBean {
 		TEST_HEAD_ELEMENT_IDS_JS_ARRAY = "[ " + testHeadElementIdsJSArray + " ]";
 	}
 
+	// Private Data Members
+	private Boolean addPropertyMarkupHeadElementCalled;
+	private String testHeadElementsNotAddedViaAddDependency;
+
 	public String getTestHeadElementIdsJSArray() {
 		return TEST_HEAD_ELEMENT_IDS_JS_ARRAY;
 	}
 
+	/**
+	 * This method returns the elements that were EXPECTED to be added via {@link
+	 * javax.portlet.HeaderResponse#addDependency(String, String, String)} or {@link
+	 * javax.portlet.HeaderResponse#addDependency(String, String, String, String)} but were not. If this method returns
+	 * a non-empty value then that would indicate a test condition failure.
+	 */
 	public String getTestHeadElementsNotAddedViaAddDependency() {
 
-		String testHeadElementsAddedViaAddDependencyString = "";
-		Set<String> testHeadElementsAddedViaAddDependency = null;
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
+		if (testHeadElementsNotAddedViaAddDependency == null) {
 
-		while (portletResponse instanceof PortletResponseWrapper) {
+			StringBuilder buf = new StringBuilder();
+			DependencyTrackingHeaderResponse dependencyTrackingHeaderResponse = getDependencyTrackingHeaderResponse();
+			Set<String> testHeadElementsAddedViaAddDependency =
+				dependencyTrackingHeaderResponse.getTestHeadElementsAddedViaAddDependency();
 
-			if (portletResponse instanceof HeaderResponseResourcesRenderedInHeadTestImpl) {
+			for (String testHeadElementId : DependencyTrackingHeaderResponse.TEST_HEAD_ELEMENT_IDS) {
 
-				HeaderResponseResourcesRenderedInHeadTestImpl headerResponseResourcesRenderedInHeadTestImpl =
-					(HeaderResponseResourcesRenderedInHeadTestImpl) portletResponse;
-				testHeadElementsAddedViaAddDependency =
-					headerResponseResourcesRenderedInHeadTestImpl.getTestHeadElementsAddedViaAddDependency();
+				if ((testHeadElementsAddedViaAddDependency == null) ||
+						!testHeadElementsAddedViaAddDependency.contains(testHeadElementId)) {
 
-				break;
-			}
+					if (buf.length() > 0) {
+						buf.append(", ");
+					}
 
-			PortletResponseWrapper portletResponseWrapper = (PortletResponseWrapper) portletResponse;
-			portletResponse = portletResponseWrapper.getResponse();
-		}
-
-		for (String testHeadElementId : TEST_HEAD_ELEMENT_IDS) {
-
-			if ((testHeadElementsAddedViaAddDependency == null) ||
-					!testHeadElementsAddedViaAddDependency.contains(testHeadElementId)) {
-
-				if (testHeadElementsAddedViaAddDependencyString.length() > 0) {
-					testHeadElementsAddedViaAddDependencyString += ", ";
+					buf.append(testHeadElementId);
 				}
-
-				testHeadElementsAddedViaAddDependencyString += testHeadElementId;
 			}
+
+			testHeadElementsNotAddedViaAddDependency = buf.toString();
 		}
 
-		return testHeadElementsAddedViaAddDependencyString;
+		return testHeadElementsNotAddedViaAddDependency;
 	}
 
+	/**
+	 * Determines whether or not the {@link javax.portlet.HeaderResponse#addProperty(String, org.w3c.dom.Element)}
+	 * method was called in order to add a resource to the <head>...</head> section of the page. Since the FacesBridge
+	 * is not supposed to do this, returning a value of <code>true</code> would indicate a test condition failure.
+	 */
 	public boolean isAddPropertyMarkupHeadElementCalled() {
 
-		boolean addPropertyMarkupHeadElementCalled = false;
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
+		if (addPropertyMarkupHeadElementCalled == null) {
 
-		while (portletResponse instanceof PortletResponseWrapper) {
-
-			if (portletResponse instanceof HeaderResponseResourcesRenderedInHeadTestImpl) {
-
-				HeaderResponseResourcesRenderedInHeadTestImpl headerResponseResourcesRenderedInHeadTestImpl =
-					(HeaderResponseResourcesRenderedInHeadTestImpl) portletResponse;
-				addPropertyMarkupHeadElementCalled =
-					headerResponseResourcesRenderedInHeadTestImpl.isAddPropertyMarkupHeadElementCalled();
-
-				break;
-			}
-
-			PortletResponseWrapper portletResponseWrapper = (PortletResponseWrapper) portletResponse;
-			portletResponse = portletResponseWrapper.getResponse();
+			DependencyTrackingHeaderResponse dependencyTrackingHeaderResponse = getDependencyTrackingHeaderResponse();
+			addPropertyMarkupHeadElementCalled =
+				dependencyTrackingHeaderResponse.isAddPropertyMarkupHeadElementCalled();
 		}
 
 		return addPropertyMarkupHeadElementCalled;
+	}
+
+	private DependencyTrackingHeaderResponse getDependencyTrackingHeaderResponse() {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
+
+		return getDependencyTrackingHeaderResponse(portletResponse);
+	}
+
+	private DependencyTrackingHeaderResponse getDependencyTrackingHeaderResponse(PortletResponse portletResponse) {
+
+		if (portletResponse instanceof DependencyTrackingHeaderResponse) {
+			return (DependencyTrackingHeaderResponse) portletResponse;
+		}
+		else if (portletResponse instanceof PortletResponseWrapper) {
+			PortletResponseWrapper portletResponseWrapper = (PortletResponseWrapper) portletResponse;
+
+			return getDependencyTrackingHeaderResponse(portletResponseWrapper.getResponse());
+		}
+		else {
+
+			// Unexpected error
+			return null;
+		}
 	}
 }

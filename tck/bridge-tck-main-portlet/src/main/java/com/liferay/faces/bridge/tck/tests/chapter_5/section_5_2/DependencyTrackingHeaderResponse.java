@@ -26,9 +26,14 @@ import org.w3c.dom.Element;
 
 
 /**
+ * This class decorates a {@link HeaderResponse} in order to track which of the expected resources are added via the
+ * {@link #addDependency(String, String, String, String)} or {@link #addDependency(String, String, String)} methods. It
+ * also tracks whether or not the {@link #addProperty(String, Element)} or {@link #addProperty(String, String)} methods
+ * were called.
+ *
  * @author  Kyle Stiemann
  */
-public class HeaderResponseResourcesRenderedInHeadTestImpl extends HeaderResponseWrapper {
+public class DependencyTrackingHeaderResponse extends HeaderResponseWrapper {
 
 	// Private Constants
 	private static final String INLINE_SCRIPT_JS = "inlineScript_js";
@@ -42,7 +47,7 @@ public class HeaderResponseResourcesRenderedInHeadTestImpl extends HeaderRespons
 	private boolean addPropertyMarkupHeadElementCalled = false;
 	private Set<String> testHeadElementsAddedViaAddDependency = new HashSet<String>();
 
-	public HeaderResponseResourcesRenderedInHeadTestImpl(HeaderResponse headerResponse) {
+	public DependencyTrackingHeaderResponse(HeaderResponse headerResponse) {
 		super(headerResponse);
 	}
 

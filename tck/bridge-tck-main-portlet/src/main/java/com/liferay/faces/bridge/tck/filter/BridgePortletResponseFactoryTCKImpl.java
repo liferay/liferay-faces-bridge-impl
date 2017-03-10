@@ -32,7 +32,7 @@ import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.filter.BridgePortletResponseFactory;
 
 import com.liferay.faces.bridge.tck.common.Constants;
-import com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.HeaderResponseResourcesRenderedInHeadTestImpl;
+import com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.DependencyTrackingHeaderResponse;
 
 
 /**
@@ -76,7 +76,7 @@ public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFa
 		String testName = (String) headerRequest.getAttribute(Constants.TEST_NAME);
 
 		if (RESOURCES_RENDERED_IN_HEAD_TEST.equals(testName)) {
-			returnHeaderResponse = new HeaderResponseResourcesRenderedInHeadTestImpl(returnHeaderResponse);
+			returnHeaderResponse = new DependencyTrackingHeaderResponse(returnHeaderResponse);
 		}
 
 		return returnHeaderResponse;
