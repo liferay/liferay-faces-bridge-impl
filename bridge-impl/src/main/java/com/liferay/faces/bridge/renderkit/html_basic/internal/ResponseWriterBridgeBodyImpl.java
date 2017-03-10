@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
-import java.util.Stack;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -38,7 +37,7 @@ public class ResponseWriterBridgeBodyImpl extends ResponseWriterWrapper {
 	private static final Logger logger = LoggerFactory.getLogger(ResponseWriterBridgeBodyImpl.class);
 
 	// Private Data Members
-	private Stack<String> elementsStack = new Stack<String>();
+	private String currentElement;
 	private ResponseWriter wrapppedResponseWriter;
 
 	public ResponseWriterBridgeBodyImpl(ResponseWriter wrapppedResponseWriter) {
@@ -48,9 +47,7 @@ public class ResponseWriterBridgeBodyImpl extends ResponseWriterWrapper {
 	@Override
 	public void endElement(String name) throws IOException {
 
-		if (!elementsStack.empty()) {
-			elementsStack.pop();
-		}
+		currentElement = null;
 
 		// Supress illegal elements that have been migrated from the <head> section.
 		if ("title".equals(name) || "base".equals(name) || "meta".equals(name)) {
@@ -75,7 +72,7 @@ public class ResponseWriterBridgeBodyImpl extends ResponseWriterWrapper {
 	@Override
 	public void startElement(String name, UIComponent component) throws IOException {
 
-		elementsStack.push(name);
+		currentElement = name;
 
 		// Supress illegal elements that have been migrated from the <head> section.
 		if ("title".equals(name) || "base".equals(name) || "meta".equals(name)) {
@@ -94,12 +91,6 @@ public class ResponseWriterBridgeBodyImpl extends ResponseWriterWrapper {
 
 	@Override
 	public void writeAttribute(String name, Object value, String property) throws IOException {
-
-		String currentElement = null;
-
-		if (!elementsStack.empty()) {
-			currentElement = elementsStack.peek();
-		}
 
 		if ("body".equals(currentElement) &&
 				("onload".equals(name) || "onunload".equals(name) || "role".equals(name) || "xmlns".equals(name))) {
