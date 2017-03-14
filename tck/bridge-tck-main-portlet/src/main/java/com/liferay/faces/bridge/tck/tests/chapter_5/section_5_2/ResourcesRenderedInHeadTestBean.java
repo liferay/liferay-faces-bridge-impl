@@ -15,12 +15,24 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.PreRenderComponentEvent;
 import javax.portlet.PortletResponse;
 import javax.portlet.filter.PortletResponseWrapper;
 
@@ -34,31 +46,12 @@ import javax.portlet.filter.PortletResponseWrapper;
 @RequestScoped
 public class ResourcesRenderedInHeadTestBean {
 
-	// Private Constants
-	private static final String TEST_HEAD_ELEMENT_IDS_JS_ARRAY;
-
-	static {
-
-		String testHeadElementIdsJSArray = "";
-
-		for (String testHeadElementId : DependencyTrackingHeaderResponse.TEST_HEAD_ELEMENT_IDS) {
-
-			if (testHeadElementIdsJSArray.length() > 0) {
-				testHeadElementIdsJSArray += ", ";
-			}
-
-			testHeadElementIdsJSArray += "'" + testHeadElementId + "'";
-		}
-
-		TEST_HEAD_ELEMENT_IDS_JS_ARRAY = "[ " + testHeadElementIdsJSArray + " ]";
-	}
-
 	// Private Data Members
 	private Boolean addPropertyMarkupHeadElementCalled;
 	private String testHeadElementsNotAddedViaAddDependency;
 
 	public String getTestHeadElementIdsJSArray() {
-		return TEST_HEAD_ELEMENT_IDS_JS_ARRAY;
+		return ResourcesRenderedInHeadTestUtil.TEST_HEAD_ELEMENT_IDS_JS_ARRAY;
 	}
 
 	/**
@@ -76,16 +69,16 @@ public class ResourcesRenderedInHeadTestBean {
 			Set<String> testHeadElementsAddedViaAddDependency =
 				dependencyTrackingHeaderResponse.getTestHeadElementsAddedViaAddDependency();
 
-			for (String testHeadElementId : DependencyTrackingHeaderResponse.TEST_HEAD_ELEMENT_IDS) {
+			for (String[] testHeadElementId : ResourcesRenderedInHeadTestUtil.TEST_HEAD_ELEMENT_IDS) {
 
 				if ((testHeadElementsAddedViaAddDependency == null) ||
-						!testHeadElementsAddedViaAddDependency.contains(testHeadElementId)) {
+						!testHeadElementsAddedViaAddDependency.contains(testHeadElementId[0])) {
 
 					if (buf.length() > 0) {
 						buf.append(", ");
 					}
 
-					buf.append(testHeadElementId);
+					buf.append(testHeadElementId[0]);
 				}
 			}
 
@@ -110,6 +103,48 @@ public class ResourcesRenderedInHeadTestBean {
 		}
 
 		return addPropertyMarkupHeadElementCalled;
+	}
+
+	/**
+	 * This method causes each head resource to render an id attribute containing the resource name or client id if the
+	 * resource name is unavailable. See {@link ResponseWriterResourceIdImpl} and the comments below for more details.
+	 */
+	public void preRenderHeadListener(ComponentSystemEvent componentSystemEvent) throws AbortProcessingException {
+
+		// Obtain all head resources.
+		UIComponent uiComponent = componentSystemEvent.getComponent();
+		List<UIComponent> children = uiComponent.getChildren();
+		FacesContext facesContext = componentSystemEvent.getFacesContext();
+		UIViewRoot uiViewRoot = facesContext.getViewRoot();
+		List<UIComponent> componentResources = uiViewRoot.getComponentResources(facesContext, "head");
+		List<UIComponent> headResources = new ArrayList<UIComponent>(children);
+		headResources.addAll(componentResources);
+
+		// For each script and stylesheet resource add a PreRenderComponentEvent listener that sets the outermost
+		// ResponseWriter to an instance of ResponseWriterResourceIdImpl.
+		for (UIComponent headResource : headResources) {
+
+			String rendererType = headResource.getRendererType();
+
+			if ((headResource instanceof UIOutput) &&
+					(rendererType.equals("javax.faces.resource.Script") ||
+						rendererType.equals("javax.faces.resource.Stylesheet"))) {
+				headResource.subscribeToEvent(PreRenderComponentEvent.class, new ComponentSystemEventListener() {
+
+						@Override
+						public void processEvent(ComponentSystemEvent componentSystemEvent)
+							throws AbortProcessingException {
+
+							FacesContext facesContext = componentSystemEvent.getFacesContext();
+							ResponseWriter responseWriter = facesContext.getResponseWriter();
+
+							if (!(responseWriter instanceof ResponseWriterResourceIdImpl)) {
+								facesContext.setResponseWriter(new ResponseWriterResourceIdImpl(responseWriter));
+							}
+						}
+					});
+			}
+		}
 	}
 
 	private DependencyTrackingHeaderResponse getDependencyTrackingHeaderResponse() {

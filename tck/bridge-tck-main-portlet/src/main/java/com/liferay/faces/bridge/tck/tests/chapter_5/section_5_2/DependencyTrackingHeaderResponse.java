@@ -35,14 +35,6 @@ import org.w3c.dom.Element;
  */
 public class DependencyTrackingHeaderResponse extends HeaderResponseWrapper {
 
-	// Private Constants
-	private static final String INLINE_SCRIPT_JS = "inlineScript_js";
-
-	// Package-Private Constants
-	/* package-private */ static final String[] TEST_HEAD_ELEMENT_IDS = new String[] {
-			"jsf.js", "resourcesRenderedInHeadTest.js", "resource1.js", "resource1.css", INLINE_SCRIPT_JS
-		};
-
 	// Private Data Members
 	private boolean addPropertyMarkupHeadElementCalled = false;
 	private Set<String> testHeadElementsAddedViaAddDependency = new HashSet<String>();
@@ -54,11 +46,11 @@ public class DependencyTrackingHeaderResponse extends HeaderResponseWrapper {
 	@Override
 	public void addDependency(String name, String scope, String version) {
 
-		for (String testHeadElementId : TEST_HEAD_ELEMENT_IDS) {
-
-			if (name.contains(testHeadElementId)) {
-				testHeadElementsAddedViaAddDependency.add(testHeadElementId);
-			}
+		// The portlet container may provide certain resources out-of-the-box. In that case, the bridge may elect not
+		// to provide the markup for the resource. In this test, jsf.js is the only resource that may potentially be
+		// provided in this manner.
+		if ("jsf.js".equals(name) && "javax.faces".equals(scope)) {
+			testHeadElementsAddedViaAddDependency.add("jsf.js");
 		}
 
 		super.addDependency(name, scope, version);
@@ -67,14 +59,24 @@ public class DependencyTrackingHeaderResponse extends HeaderResponseWrapper {
 	@Override
 	public void addDependency(String name, String scope, String version, String markup) {
 
-		for (String testHeadElementId : TEST_HEAD_ELEMENT_IDS) {
+		for (String[] testHeadElementId : ResourcesRenderedInHeadTestUtil.TEST_HEAD_ELEMENT_IDS) {
 
-			if ((markup.contains("src=\"") || markup.contains("href=\"")) &&
-					(name.contains(testHeadElementId) || markup.contains(testHeadElementId))) {
-				testHeadElementsAddedViaAddDependency.add(testHeadElementId);
-			}
-			else if (markup.contains(INLINE_SCRIPT_JS)) {
-				testHeadElementsAddedViaAddDependency.add(testHeadElementId);
+			// For each script and stylesheet check if the id contains the testHeadElementId. See
+			// ResponseWriterResourceIdImpl for more details.
+			String escapedTestHeadElementId = ResourcesRenderedInHeadTestUtil.escapeId(testHeadElementId[0]);
+			String idContainsTestHeadElementIdRegex = ".*id=\"[^\"]*" + escapedTestHeadElementId + "\"(.|\n)*";
+
+			if ((markup.contains("<script") || markup.contains("<style") || markup.contains("<link")) &&
+					markup.matches(idContainsTestHeadElementIdRegex)) {
+
+				// If the resource has a name and library, make sure that they were correctly specified as the name and
+				// scope of the dependency.
+				if ((testHeadElementId.length == 1) ||
+						(testHeadElementId[0].equals(name) && testHeadElementId[1].equals(scope))) {
+					testHeadElementsAddedViaAddDependency.add(testHeadElementId[0]);
+				}
+
+				break;
 			}
 		}
 

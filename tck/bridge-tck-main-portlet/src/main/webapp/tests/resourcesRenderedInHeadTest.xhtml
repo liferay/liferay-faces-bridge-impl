@@ -2,17 +2,13 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
 		xmlns:h="http://xmlns.jcp.org/jsf/html">
 	<h:head>
+		<f:event type="preRenderComponent" listener="#{resourcesRenderedInHeadTestBean.preRenderHeadListener}" />
 		<h:outputScript library="test" name="resourcesRenderedInHeadTest.js" />
-		<script type="text/javascript" src="#{resource['test:resource1.js']}"></script>
+		<script id="resource1_js" type="text/javascript" src="#{resource['test:resource1.js']}"></script>
 		<h:outputStylesheet library="test" name="resource1.css" />
 	</h:head>
 	<h:body>
-		<h:outputScript target="head">
-			// Set the id of this script since h:outputScript's id attribute is not rendered in the html.
-			var scripts = document.getElementsByTagName('script');
-			var currentScript = scripts[scripts.length - 1];
-			currentScript.id = 'inlineScript_js';
-
+		<h:outputScript id="inlineScript_js" target="head">
 			window.getTestHeadElementIds = function() {
 				return #{resourcesRenderedInHeadTestBean.testHeadElementIdsJSArray};
 			}
@@ -28,7 +24,7 @@
 				<h:outputText rendered="#{resourcesRenderedInHeadTestBean.addPropertyMarkupHeadElementCalled}"
 					value="The bridge incorrectly attempted to add an element to the &lt;head&gt; section via headerRequest.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, value)." />
 				<h:outputText rendered="#{resourcesRenderedInHeadTestBean.testHeadElementsNotAddedViaAddDependency != ''}"
-					value=" The bridge failed to call headerRequest.addDependency() for the following resources: #{resourcesRenderedInHeadTestBean.testHeadElementsNotAddedViaAddDependency}" />
+					value=" The following resources were either not added via headerRequest.addDependency() OR they were added without specifying the resource and library names as the name and scope arguments of headerRequest.addDependency(): #{resourcesRenderedInHeadTestBean.testHeadElementsNotAddedViaAddDependency}" />
 			</span></p>
 		</h:panelGroup>
 		<h:form>
