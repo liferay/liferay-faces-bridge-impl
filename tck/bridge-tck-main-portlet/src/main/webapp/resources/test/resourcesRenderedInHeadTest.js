@@ -7,19 +7,10 @@
 
 		for (var i = 0; i < testHeadElementIds.length; i++) {
 
-			if ((element.id && element.id.indexOf(testHeadElementIds[i]) > -1) || (element.src &&
-					element.src.indexOf('javax.faces.resource') > -1 &&
-					element.src.indexOf(testHeadElementIds[i]) > -1) ||
-					(element.href && element.href.indexOf('javax.faces.resource') > -1 &&
-					element.href.indexOf(testHeadElementIds[i]) > -1)) {
+			if (element.id.indexOf(testHeadElementIds[i]) > -1) {
 
-				if ((element.src && element.src.indexOf('javax.faces.resource/') > -1) ||
-						(element.href && element.href.indexOf('javax.faces.resource/') > -1)) {
-					console.log('Warning: servlet mapped resource found.');
-				}
-				else {
-					testHeadElementId = testHeadElementIds[i];
-				}
+				testHeadElementId = testHeadElementIds[i];
+				break;
 			}
 		}
 
