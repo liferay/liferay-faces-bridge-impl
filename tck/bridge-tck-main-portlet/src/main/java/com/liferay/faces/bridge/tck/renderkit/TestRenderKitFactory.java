@@ -27,6 +27,9 @@ import javax.faces.render.RenderKitFactory;
  */
 public class TestRenderKitFactory extends RenderKitFactory {
 
+	// Public Constants
+	public static final String TEST_RENDER_KIT_ID = "TestRenderKit";
+
 	// Private Data Members
 	private RenderKitFactory wrappedRenderKitFactory;
 
@@ -42,12 +45,13 @@ public class TestRenderKitFactory extends RenderKitFactory {
 	@Override
 	public RenderKit getRenderKit(FacesContext facesContext, String renderKitId) {
 
-		if ("TestRenderKit".equals(renderKitId)) {
-			return wrappedRenderKitFactory.getRenderKit(facesContext, "HTML_BASIC");
+		String testRenderKitId = renderKitId;
+
+		if (TestRenderKitFactory.TEST_RENDER_KIT_ID.equals(renderKitId)) {
+			testRenderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT;
 		}
-		else {
-			return wrappedRenderKitFactory.getRenderKit(facesContext, renderKitId);
-		}
+
+		return wrappedRenderKitFactory.getRenderKit(facesContext, testRenderKitId);
 	}
 
 	@Override

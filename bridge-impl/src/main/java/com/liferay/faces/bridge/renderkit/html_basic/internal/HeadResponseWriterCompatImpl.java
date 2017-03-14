@@ -54,7 +54,7 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 	protected void addResourceToHeadSection(Element element, String nodeName, UIComponent componentResource)
 		throws IOException {
 
-		String resourceId;
+		String name;
 		String scope = null;
 		String version = null;
 		String elementString = elementToString(nodeName, element);
@@ -63,18 +63,9 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 				(RenderKitUtil.isScriptResource(componentResource) ||
 					RenderKitUtil.isStyleSheetResource(componentResource))) {
 
-			resourceId = ResourceUtil.getResourceId(componentResource);
-
-			// TODO consider support for portlet:scope attribute via TagDecorator.
 			Map<String, Object> attributes = componentResource.getAttributes();
-			scope = (String) attributes.get("portlet:scope");
-
-			// TODO add option to configure this boolean on a portlet wide basis.
-			boolean scopeComponentResourcesToPortlet = false;
-
-			if ((scope == null) && scopeComponentResourcesToPortlet) {
-				scope = headerResponse.getNamespace();
-			}
+			name = (String) attributes.get("name");
+			scope = (String) attributes.get("library");
 
 			// TODO consider support for portlet:version attribute via TagDecorator.
 			version = (String) attributes.get("portlet:version");
@@ -117,31 +108,10 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 		else {
 
 			// Generate a unique id for each element that is not a JSF resource.
-			resourceId = Integer.toString(element.hashCode()) + Integer.toString(headerResponse.hashCode());
+			name = Integer.toString(element.hashCode()) + Integer.toString(headerResponse.hashCode());
 		}
 
-		headerResponse.addDependency(resourceId, scope, version, elementString);
-	}
-
-	private int getParameterValueStartIndex(String queryString, String parameterName) {
-
-		int parameterValueStartIndex = -1;
-		String parameterEqual = parameterName + "=";
-		String andParameterEqual = "&" + parameterEqual;
-
-		if (queryString.startsWith(parameterEqual)) {
-			parameterValueStartIndex = queryString.indexOf(parameterEqual) + parameterEqual.length();
-		}
-		else if (queryString.contains(andParameterEqual)) {
-
-			parameterValueStartIndex = queryString.indexOf(andParameterEqual);
-
-			if (parameterValueStartIndex > -1) {
-				parameterValueStartIndex += andParameterEqual.length();
-			}
-		}
-
-		return parameterValueStartIndex;
+		headerResponse.addDependency(name, scope, version, elementString);
 	}
 
 	private String elementToString(String nodeName, Element element) {
@@ -177,5 +147,26 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 		}
 
 		return buf.toString();
+	}
+
+	private int getParameterValueStartIndex(String queryString, String parameterName) {
+
+		int parameterValueStartIndex = -1;
+		String parameterEqual = parameterName + "=";
+		String andParameterEqual = "&" + parameterEqual;
+
+		if (queryString.startsWith(parameterEqual)) {
+			parameterValueStartIndex = queryString.indexOf(parameterEqual) + parameterEqual.length();
+		}
+		else if (queryString.contains(andParameterEqual)) {
+
+			parameterValueStartIndex = queryString.indexOf(andParameterEqual);
+
+			if (parameterValueStartIndex > -1) {
+				parameterValueStartIndex += andParameterEqual.length();
+			}
+		}
+
+		return parameterValueStartIndex;
 	}
 }
