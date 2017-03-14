@@ -27,6 +27,7 @@ import javax.portlet.faces.BridgeUtil;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
 import com.liferay.faces.bridge.tck.common.Constants;
+import com.liferay.faces.bridge.tck.renderkit.TestRenderKit;
 
 
 /**
@@ -76,7 +77,7 @@ public class Tests extends Object {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name isn't in the ExternalContext.getRequestParameterValuesMap map during the action request.<br> ";
 			}
-			else if (!vals[0].equalsIgnoreCase("TestRenderKit")) {
+			else if (!vals[0].equalsIgnoreCase(TestRenderKit.TEST_RENDER_KIT_ID)) {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterValuesMap map during the action request contains an unexpected value.  Expected: TestRenderKit but received:" +
 					vals[0] + ".<br> ";
@@ -88,7 +89,7 @@ public class Tests extends Object {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name isn't in the ExternalContext.getRequestParameterMap map during the action request.<br> ";
 			}
-			else if (!val.equalsIgnoreCase("TestRenderKit")) {
+			else if (!val.equalsIgnoreCase(TestRenderKit.TEST_RENDER_KIT_ID)) {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterMap map during the action request contains an unexpected value.  Expected: TestRenderKit but received:" +
 					val + ".<br> ";
@@ -147,7 +148,7 @@ public class Tests extends Object {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name isn't in the ExternalContext.getRequestParameterValuesMap map during the render request.<br> ";
 			}
-			else if (!vals[0].equalsIgnoreCase("TestRenderKit")) {
+			else if (!vals[0].equalsIgnoreCase(TestRenderKit.TEST_RENDER_KIT_ID)) {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterValuesMap map during the render request contains an unexpected value.  Expected: TestRenderKit but received:" +
 					vals[0] + ".<br> ";
@@ -159,7 +160,7 @@ public class Tests extends Object {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name isn't in the ExternalContext.getRequestParameterMap map during the render request.<br> ";
 			}
-			else if (!val.equalsIgnoreCase("TestRenderKit")) {
+			else if (!val.equalsIgnoreCase(TestRenderKit.TEST_RENDER_KIT_ID)) {
 				detail +=
 					"There is a portlet specific configured renderkit but its corresponding parameter name from the ExternalContext.getRequestParameterMap map during the render request contains an unexpected value.  Expected: TestRenderKit but received:" +
 					val + ".<br> ";

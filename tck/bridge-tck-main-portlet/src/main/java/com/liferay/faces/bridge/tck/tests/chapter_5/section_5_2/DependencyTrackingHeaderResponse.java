@@ -35,12 +35,9 @@ import org.w3c.dom.Element;
  */
 public class DependencyTrackingHeaderResponse extends HeaderResponseWrapper {
 
-	// Private Constants
-	private static final String INLINE_SCRIPT_JS = "inlineScript_js";
-
 	// Package-Private Constants
 	/* package-private */ static final String[] TEST_HEAD_ELEMENT_IDS = new String[] {
-			"jsf.js", "resourcesRenderedInHeadTest.js", "resource1.js", "resource1.css", INLINE_SCRIPT_JS
+			"jsf_js", "resourcesRenderedInHeadTest_js", "resource1_js", "resource1_css", "inlineScript_js"
 		};
 
 	// Private Data Members
@@ -69,11 +66,10 @@ public class DependencyTrackingHeaderResponse extends HeaderResponseWrapper {
 
 		for (String testHeadElementId : TEST_HEAD_ELEMENT_IDS) {
 
-			if ((markup.contains("src=\"") || markup.contains("href=\"")) &&
-					(name.contains(testHeadElementId) || markup.contains(testHeadElementId))) {
-				testHeadElementsAddedViaAddDependency.add(testHeadElementId);
-			}
-			else if (markup.contains(INLINE_SCRIPT_JS)) {
+			String idContainsTestHeadElementIdRegex = "[\\S\\s]*id=\"[^\"]*" + testHeadElementId + "\"[\\S\\s]*";
+
+			if ((markup.contains("<script") || markup.contains("<style") || markup.contains("<link")) &&
+					(name.contains(testHeadElementId) || markup.matches(idContainsTestHeadElementIdRegex))) {
 				testHeadElementsAddedViaAddDependency.add(testHeadElementId);
 			}
 		}

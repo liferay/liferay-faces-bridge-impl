@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
-		xmlns:h="http://xmlns.jcp.org/jsf/html">
+		xmlns:h="http://xmlns.jcp.org/jsf/html" renderKitId="TestRenderKit">
 	<h:head>
 		<h:outputScript library="test" name="resourcesRenderedInHeadTest.js" />
-		<script type="text/javascript" src="#{resource['test:resource1.js']}"></script>
+		<script id="resource1_js" type="text/javascript" src="#{resource['test:resource1.js']}"></script>
 		<h:outputStylesheet library="test" name="resource1.css" />
 	</h:head>
 	<h:body>
-		<h:outputScript target="head">
-			// Set the id of this script since h:outputScript's id attribute is not rendered in the html.
-			var scripts = document.getElementsByTagName('script');
-			var currentScript = scripts[scripts.length - 1];
-			currentScript.id = 'inlineScript_js';
-
+		<h:outputScript id="inlineScript_js" target="head">
 			window.getTestHeadElementIds = function() {
 				return #{resourcesRenderedInHeadTestBean.testHeadElementIdsJSArray};
 			}
