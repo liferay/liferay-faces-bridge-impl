@@ -16,10 +16,15 @@
 package com.liferay.faces.bridge.tck.renderkit;
 
 import java.util.Iterator;
+import java.util.Map;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
+
+import com.liferay.faces.bridge.tck.common.Constants;
+import com.liferay.faces.util.application.ApplicationUtil;
 
 
 /**
@@ -42,12 +47,23 @@ public class TestRenderKitFactory extends RenderKitFactory {
 	@Override
 	public RenderKit getRenderKit(FacesContext facesContext, String renderKitId) {
 
-		if ("TestRenderKit".equals(renderKitId)) {
-			return wrappedRenderKitFactory.getRenderKit(facesContext, "HTML_BASIC");
+		RenderKit renderKit;
+
+		if (!ApplicationUtil.isStartupOrShutdown(facesContext) &&
+				TestRenderKit.TEST_RENDER_KIT_ID.equals(renderKitId)) {
+
+			renderKit = wrappedRenderKitFactory.getRenderKit(facesContext, "HTML_BASIC");
+
+			ExternalContext externalContext = facesContext.getExternalContext();
+			Map<String, Object> requestMap = externalContext.getRequestMap();
+			String testName = (String) requestMap.get(Constants.TEST_NAME);
+			renderKit = new TestRenderKit(renderKit, testName);
 		}
 		else {
-			return wrappedRenderKitFactory.getRenderKit(facesContext, renderKitId);
+			renderKit = wrappedRenderKitFactory.getRenderKit(facesContext, renderKitId);
 		}
+
+		return renderKit;
 	}
 
 	@Override
