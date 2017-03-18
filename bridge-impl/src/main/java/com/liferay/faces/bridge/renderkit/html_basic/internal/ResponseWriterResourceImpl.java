@@ -18,9 +18,10 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.context.ResponseWriterWrapper;
-import javax.portlet.faces.BridgeFactoryFinder;
 
 import com.liferay.faces.util.render.FacesURLEncoder;
 import com.liferay.faces.util.render.FacesURLEncoderFactory;
@@ -39,9 +40,12 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 	private static final String REGEX_AMPERSAND = "[&]amp;";
 
 	// Private Data Members
+	FacesURLEncoder facesURLEncoder;
 	private ResponseWriter wrappedResponseWriter;
 
-	public ResponseWriterResourceImpl(ResponseWriter responseWriter) {
+	public ResponseWriterResourceImpl(FacesContext facesContext, ResponseWriter responseWriter) {
+		ExternalContext externalContext = facesContext.getExternalContext();
+		this.facesURLEncoder = FacesURLEncoderFactory.getFacesURLEncoderInstance(externalContext);
 		this.wrappedResponseWriter = responseWriter;
 	}
 
@@ -82,7 +86,6 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 
 		if ((value != null) && (value instanceof String)) {
 			String encoding = wrappedResponseWriter.getCharacterEncoding();
-			FacesURLEncoder facesURLEncoder = FacesURLEncoderFactory.getFacesURLEncoderInstance();
 			String encodedURI = facesURLEncoder.encode((String) value, encoding);
 
 			if (encodedURI != null) {

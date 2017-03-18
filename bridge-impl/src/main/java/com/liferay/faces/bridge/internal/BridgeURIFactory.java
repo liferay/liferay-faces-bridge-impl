@@ -18,6 +18,7 @@ package com.liferay.faces.bridge.internal;
 import java.net.URISyntaxException;
 
 import javax.faces.FacesWrapper;
+import javax.portlet.PortletContext;
 import javax.portlet.faces.BridgeFactoryFinder;
 
 
@@ -30,9 +31,9 @@ public abstract class BridgeURIFactory implements FacesWrapper<BridgeURIFactory>
 	 * Returns an instance of {@link BridgeURI} from the {@link BridgeURIFactory} found by the {@link
 	 * BridgeFactoryFinder}.
 	 */
-	public static BridgeURI getBridgeURIInstance(String namespace, String uri) throws URISyntaxException {
+	public static BridgeURI getBridgeURIInstance(PortletContext portletContext, String namespace, String uri) throws URISyntaxException {
 
-		BridgeURIFactory bridgeURIFactory = (BridgeURIFactory) BridgeFactoryFinder.getFactory(BridgeURIFactory.class);
+		BridgeURIFactory bridgeURIFactory = (BridgeURIFactory) BridgeFactoryFinder.getFactory(portletContext, BridgeURIFactory.class);
 
 		return bridgeURIFactory.getBridgeURI(namespace, uri);
 	}

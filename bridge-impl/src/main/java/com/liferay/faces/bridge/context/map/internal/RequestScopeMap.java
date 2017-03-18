@@ -55,14 +55,14 @@ public class RequestScopeMap extends AbstractMutablePropertyMap<Object> {
 		String appConfigAttrName = ApplicationConfig.class.getName();
 		ApplicationConfig applicationConfig = (ApplicationConfig) portletContext.getAttribute(appConfigAttrName);
 		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(
-				BeanManagerFactory.class);
+				portletContext, BeanManagerFactory.class);
 		this.beanManager = beanManagerFactory.getBeanManager(applicationConfig.getFacesConfig());
 		this.portletRequest = portletRequest;
 		this.removedPropertyNames = removedAttributeNames;
 		this.preferPreDestroy = preferPreDestroy;
 
 		PreDestroyInvokerFactory preDestroyInvokerFactory = (PreDestroyInvokerFactory) BridgeFactoryFinder.getFactory(
-				PreDestroyInvokerFactory.class);
+				portletContext, PreDestroyInvokerFactory.class);
 		this.preDestroyInvoker = preDestroyInvokerFactory.getPreDestroyInvoker(portletContext);
 	}
 

@@ -25,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.portlet.PortletContext;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeFactoryFinder;
@@ -82,8 +83,9 @@ public class ManagedBeanScopePhaseListener implements PhaseListener {
 				String appConfigAttrName = ApplicationConfig.class.getName();
 				Map<String, Object> applicationMap = externalContext.getApplicationMap();
 				ApplicationConfig applicationConfig = (ApplicationConfig) applicationMap.get(appConfigAttrName);
+				PortletContext portletContext = (PortletContext) externalContext.getContext();
 				BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(
-						BeanManagerFactory.class);
+						portletContext, BeanManagerFactory.class);
 				BeanManager beanManager = beanManagerFactory.getBeanManager(applicationConfig.getFacesConfig());
 
 				for (Map.Entry<String, Object> mapEntry : mapEntries) {

@@ -122,7 +122,8 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 		super(portletContext, portletRequest, portletResponse);
 
-		this.contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(ContextMapFactory.class);
+		this.contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
+				ContextMapFactory.class);
 
 		preInitializeObjects();
 
@@ -677,8 +678,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			// If currently executing the ACTION_PHASE, EVENT_PHASE, HEADER_PHASE, or RENDER_PHASE of the portlet
 			// lifecycle, then
 			if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) ||
-					(portletPhase == Bridge.PortletPhase.EVENT_PHASE) ||
-					isHeaderPhase(portletPhase) ||
+					(portletPhase == Bridge.PortletPhase.EVENT_PHASE) || isHeaderPhase(portletPhase) ||
 					(portletPhase == Bridge.PortletPhase.RENDER_PHASE)) {
 
 				// If the specified URL starts with a "#" character, is external to this application, or has a
