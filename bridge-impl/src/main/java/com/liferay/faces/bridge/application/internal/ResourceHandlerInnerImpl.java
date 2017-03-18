@@ -21,6 +21,7 @@ import java.util.Map;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.portlet.PortletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.util.application.ResourceValidator;
@@ -68,7 +69,7 @@ public class ResourceHandlerInnerImpl extends ResourceHandlerBridgeImpl {
 
 		String resourceId = libraryName + "/" + resourceName;
 
-		ResourceValidator resourceValidator = ResourceValidatorFactory.getResourceValidatorInstance();
+		ResourceValidator resourceValidator = ResourceValidatorFactory.getResourceValidatorInstance(externalContext);
 
 		// If the resource name or library name contains a banned path like WEB-INF or META-INF, then do not serve
 		// the resource.

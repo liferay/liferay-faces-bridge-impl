@@ -52,12 +52,12 @@ public class SessionScopeMap extends AbstractMutablePropertyMap<Object> {
 
 		String appConfigAttrName = ApplicationConfig.class.getName();
 		ApplicationConfig applicationConfig = (ApplicationConfig) portletContext.getAttribute(appConfigAttrName);
-		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(
+		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(portletContext,
 				BeanManagerFactory.class);
 		this.beanManager = beanManagerFactory.getBeanManager(applicationConfig.getFacesConfig());
 
 		PreDestroyInvokerFactory preDestroyInvokerFactory = (PreDestroyInvokerFactory) BridgeFactoryFinder.getFactory(
-				PreDestroyInvokerFactory.class);
+				portletContext, PreDestroyInvokerFactory.class);
 		this.preDestroyInvoker = preDestroyInvokerFactory.getPreDestroyInvoker(portletContext);
 		this.portletSession = portletSession;
 		this.preferPreDestroy = preferPreDestroy;

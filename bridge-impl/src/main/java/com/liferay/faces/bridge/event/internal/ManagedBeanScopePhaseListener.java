@@ -25,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.portlet.PortletContext;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
@@ -57,7 +58,7 @@ public class ManagedBeanScopePhaseListener implements PhaseListener {
 	// serialVersionUID
 	private static final long serialVersionUID = 1713704308484763548L;
 
-	@Override
+	// Java 1.6+ @Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		if (phaseEvent.getPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -82,8 +83,9 @@ public class ManagedBeanScopePhaseListener implements PhaseListener {
 				String appConfigAttrName = ApplicationConfig.class.getName();
 				Map<String, Object> applicationMap = externalContext.getApplicationMap();
 				ApplicationConfig applicationConfig = (ApplicationConfig) applicationMap.get(appConfigAttrName);
+				PortletContext portletContext = (PortletContext) externalContext.getContext();
 				BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(
-						BeanManagerFactory.class);
+						portletContext, BeanManagerFactory.class);
 				BeanManager beanManager = beanManagerFactory.getBeanManager(applicationConfig.getFacesConfig());
 
 				for (Map.Entry<String, Object> mapEntry : mapEntries) {
@@ -104,12 +106,12 @@ public class ManagedBeanScopePhaseListener implements PhaseListener {
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 		// This method is required by the PhaseListener interface but is not used.
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public PhaseId getPhaseId() {
 		return PhaseId.RENDER_RESPONSE;
 	}

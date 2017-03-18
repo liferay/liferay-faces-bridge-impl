@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
@@ -70,7 +71,9 @@ public class ResourceRendererImpl extends RendererWrapper implements ComponentSy
 
 		String resourceInfo = "<span>" + ResourceUtil.getResourceId(uiComponentResource) + "</span>";
 
-		if (ResourceVerifierFactory.getResourceVerifierInstance().isDependencySatisfied(facesContext,
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		if (ResourceVerifierFactory.getResourceVerifierInstance(externalContext).isDependencySatisfied(facesContext,
 					uiComponentResource)) {
 			resourceInfo += " was suppressed.";
 		}
@@ -90,18 +93,18 @@ public class ResourceRendererImpl extends RendererWrapper implements ComponentSy
 		return wrappedRenderer;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public boolean isTransient() {
 		return transientFlag;
 	}
 
 	/**
-	 * Since the Mojarra {@link com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer} class implements {@link
+	 * Since the Mojarra com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer class implements {@link
 	 * ComponentSystemEventListener}, this class must implement that interface too, since this is a wrapper type of
 	 * class. Mojarra uses this method to intercept {@link PostAddToViewEvent} in order to add script and link resources
 	 * to the head (if the target attribute has a value of "head").
 	 */
-	@Override
+	// Java 1.6+ @Override
 	public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
 
 		// If the wrapped renderer has the ability to listen to component system events, then invoke the event
@@ -118,7 +121,7 @@ public class ResourceRendererImpl extends RendererWrapper implements ComponentSy
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void restoreState(FacesContext facesContext, Object state) {
 
 		if (wrappedRenderer == null) {
@@ -134,12 +137,12 @@ public class ResourceRendererImpl extends RendererWrapper implements ComponentSy
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public Object saveState(FacesContext facesContext) {
 		return wrappedRenderer.getClass().getName();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void setTransient(boolean newTransientValue) {
 		this.transientFlag = newTransientValue;
 	}

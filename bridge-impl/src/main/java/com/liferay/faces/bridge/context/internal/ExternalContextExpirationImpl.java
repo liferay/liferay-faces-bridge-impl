@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.context.ExternalContext;
+import javax.portlet.PortletContext;
 import javax.servlet.ServletContext;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
@@ -48,7 +49,8 @@ public class ExternalContextExpirationImpl extends ExternalContext {
 		this.servletContext = servletContext;
 
 		// Initialize the application map.
-		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
+		PortletContext portletContext = new PortletContextAdapter(servletContext);
+		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
 				ContextMapFactory.class);
 		this.applicationMap = contextMapFactory.getServletContextAttributeMap(servletContext);
 

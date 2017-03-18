@@ -25,6 +25,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.render.Renderer;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
@@ -73,10 +74,11 @@ public class FileUploadRendererRichFacesImpl extends RendererWrapper {
 		try {
 
 			// Get the UploadedFile from the request attribute map.
-			ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
+			ExternalContext externalContext = facesContext.getExternalContext();
+			PortletContext portletContext = (PortletContext) externalContext.getContext();
+			ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
 					ContextMapFactory.class);
 
-			ExternalContext externalContext = facesContext.getExternalContext();
 			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 			Map<String, List<UploadedFile>> uploadedFileMap = contextMapFactory.getUploadedFileMap(portletRequest);
 

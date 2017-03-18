@@ -16,15 +16,33 @@
 package com.liferay.faces.bridge.context.flash.internal;
 
 import javax.faces.FacesWrapper;
+import javax.portlet.PortletConfig;
+import javax.portlet.PortletContext;
+
+import com.liferay.faces.bridge.BridgeFactoryFinder;
 
 
 /**
- * NOTE: PROPOSED-FOR-JSR344-API (FACTORY FOR THE JSF 2.2 API) See:
+ * This class is was the inspiration for the JSF 2.2 javax.faces.context.FlashFactory. For more information, see:
  * http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1071
  *
  * @author  Neil Griffin
  */
 public abstract class BridgeFlashFactory implements FacesWrapper<BridgeFlashFactory> {
+
+	/**
+	 * Returns a thread-safe instance of {@link BridgeFlash} from the {@link BridgeFlashFactory} found by the {@link
+	 * BridgeFactoryFinder}. The returned instance is not guaranteed to be {@link java.io.Serializable}.
+	 *
+	 * @param  portletContext  The context associated with the current portlet.
+	 */
+	public static BridgeFlash getBridgeFlashInstance(PortletContext portletContext) {
+
+		BridgeFlashFactory bridgeFlashFactory = (BridgeFlashFactory) BridgeFactoryFinder.getFactory(portletContext,
+				BridgeFlashFactory.class);
+
+		return bridgeFlashFactory.getBridgeFlash();
+	}
 
 	public abstract BridgeFlash getBridgeFlash();
 }

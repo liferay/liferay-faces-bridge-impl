@@ -382,7 +382,7 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				PortletConfig portletConfig = RequestMapUtil.getPortletConfig(portletRequest);
 				PortletContext portletContext = portletConfig.getPortletContext();
 				boolean preferPreDestroy = PortletConfigParam.PreferPreDestroy.getBooleanValue(portletConfig);
-				ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
+				ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
 						ContextMapFactory.class);
 				value = contextMapFactory.getSessionScopeMap(portletContext, portletSession,
 						PortletSession.APPLICATION_SCOPE, preferPreDestroy);

@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.liferay.faces.bridge.context.flash.internal.BridgeFlash;
 import com.liferay.faces.bridge.context.flash.internal.BridgeFlashFactory;
 import com.liferay.faces.bridge.context.flash.internal.FlashHttpServletResponse;
-import com.liferay.faces.util.factory.FactoryExtensionFinder;
 
 
 /**
@@ -41,16 +40,14 @@ public abstract class ExternalContextCompat_2_0_FlashImpl extends ExternalContex
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getFlash()}
+	 * @see    {@link javax.faces.context.ExternalContext#getFlash()}
 	 * @since  JSF 2.0
 	 */
 	@Override
 	public Flash getFlash() {
 
 		if (flash == null) {
-			BridgeFlashFactory bridgeFlashFactory = (BridgeFlashFactory) FactoryExtensionFinder.getFactory(
-					BridgeFlashFactory.class);
-			flash = bridgeFlashFactory.getBridgeFlash();
+			flash = BridgeFlashFactory.getBridgeFlashInstance(portletContext);
 		}
 
 		return flash;

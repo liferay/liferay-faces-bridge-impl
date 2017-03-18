@@ -20,6 +20,7 @@ import java.net.URISyntaxException;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
+import javax.portlet.PortletContext;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.internal.BaseURLNonEncodedImpl;
@@ -32,8 +33,8 @@ import com.liferay.faces.bridge.internal.BridgeURLBase;
 public class BridgeURLMockImpl extends BridgeURLBase {
 
 	public BridgeURLMockImpl(String uri, String contextPath, String namespace, String currentViewId,
-		BridgeConfig bridgeConfig) throws URISyntaxException {
-		super(uri, contextPath, namespace, currentViewId, bridgeConfig);
+		PortletContext portletContext, BridgeConfig bridgeConfig) throws URISyntaxException {
+		super(uri, contextPath, namespace, currentViewId, portletContext, bridgeConfig);
 	}
 
 	@Override
