@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.scope.internal;
 
+import javax.portlet.PortletContext;
+
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.util.helper.Wrapper;
 
@@ -35,10 +37,10 @@ public abstract class BridgeRequestScopeManagerFactory implements Wrapper<Bridge
 	 * Returns an instance of {@link BridgeRequestScopeManager} from the {@link BridgeRequestScopeManagerFactory} found
 	 * by the {@link BridgeFactoryFinder}.
 	 */
-	public static BridgeRequestScopeManager getBridgeRequestScopeManagerInstance() {
+	public static BridgeRequestScopeManager getBridgeRequestScopeManagerInstance(PortletContext portletContext) {
 
 		BridgeRequestScopeManagerFactory bridgeRequestScopeManagerFactory = (BridgeRequestScopeManagerFactory)
-			BridgeFactoryFinder.getFactory(BridgeRequestScopeManagerFactory.class);
+			BridgeFactoryFinder.getFactory(portletContext, BridgeRequestScopeManagerFactory.class);
 
 		return bridgeRequestScopeManagerFactory.getBridgeRequestScopeManager();
 	}

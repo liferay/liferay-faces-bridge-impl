@@ -115,7 +115,7 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 		}
 
 		UploadedFileFactory uploadedFileFactory = (UploadedFileFactory) BridgeFactoryFinder.getFactory(
-				UploadedFileFactory.class);
+				portletConfig.getPortletContext(), UploadedFileFactory.class);
 
 		// Begin parsing the request for file parts:
 		try {

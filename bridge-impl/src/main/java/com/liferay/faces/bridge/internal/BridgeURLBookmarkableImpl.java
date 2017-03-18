@@ -23,6 +23,7 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletURL;
 
 import com.liferay.faces.bridge.BridgeConfig;
@@ -48,9 +49,10 @@ import com.liferay.faces.bridge.BridgeConfig;
 public class BridgeURLBookmarkableImpl extends BridgeURLBase {
 
 	public BridgeURLBookmarkableImpl(String uri, String contextPath, String namespace, String currentViewId,
-		Map<String, List<String>> bookmarkParameters, BridgeConfig bridgeConfig) throws URISyntaxException {
+		Map<String, List<String>> bookmarkParameters, PortletContext portletContext, BridgeConfig bridgeConfig)
+		throws URISyntaxException {
 
-		super(uri, contextPath, namespace, currentViewId, bridgeConfig);
+		super(uri, contextPath, namespace, currentViewId, portletContext, bridgeConfig);
 
 		// Since the Bridge's version of ExternalContext.encodeActionURL(String url) needs to detect whether or not the
 		// specified URL is bookmarkable, ensure that "_jsfBridgeBookmarkable=true" appears in the query-string.
@@ -69,7 +71,7 @@ public class BridgeURLBookmarkableImpl extends BridgeURLBase {
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 		return new BaseURLNonEncodedImpl(bridgeURI);
 	}

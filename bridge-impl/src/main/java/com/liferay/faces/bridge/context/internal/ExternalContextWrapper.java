@@ -26,203 +26,184 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.context.ExternalContext;
-import javax.portlet.PortletContext;
-import javax.servlet.ServletContext;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
-import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
+import com.liferay.faces.util.helper.Wrapper;
 
 
 /**
- * This class is an implementation of {@link ExternalContext} that can be used during session expiration.
- *
  * @author  Neil Griffin
  */
-public class ExternalContextExpirationImpl extends ExternalContext {
+public abstract class ExternalContextWrapper extends ExternalContext implements Wrapper<ExternalContext> {
 
-	// Private Data Members
-	private Map<String, Object> applicationMap;
-	private ServletContext servletContext;
-
-	public ExternalContextExpirationImpl(ServletContext servletContext) {
-
-		this.servletContext = servletContext;
-
-		// Initialize the application map.
-		PortletContext portletContext = new PortletContextAdapter(servletContext);
-		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
-				ContextMapFactory.class);
-		this.applicationMap = contextMapFactory.getServletContextAttributeMap(servletContext);
-
-	}
+	public abstract ExternalContext getWrapped();
 
 	@Override
 	public void dispatch(String path) throws IOException {
-		throw new UnsupportedOperationException();
+		getWrapped().dispatch(path);
 	}
 
 	@Override
 	public String encodeActionURL(String url) {
-		throw new UnsupportedOperationException();
+		return getWrapped().encodeActionURL(url);
 	}
 
 	@Override
 	public String encodeNamespace(String name) {
-		throw new UnsupportedOperationException();
+		return getWrapped().encodeNamespace(name);
 	}
 
 	@Override
 	public String encodeResourceURL(String url) {
-		throw new UnsupportedOperationException();
+		return getWrapped().encodeResourceURL(url);
 	}
 
 	@Override
 	public Map<String, Object> getApplicationMap() {
-		return applicationMap;
+		return getWrapped().getApplicationMap();
 	}
 
 	@Override
 	public String getAuthType() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getAuthType();
 	}
 
 	@Override
 	public Object getContext() {
-		return servletContext;
+		return getWrapped().getContext();
 	}
 
 	@Override
 	public String getInitParameter(String name) {
-		throw new UnsupportedOperationException();
+		return getWrapped().getInitParameter(name);
 	}
 
 	@Override
-	public Map<String, String> getInitParameterMap() {
-		throw new UnsupportedOperationException();
+	public Map getInitParameterMap() {
+		return getWrapped().getInitParameterMap();
 	}
 
 	@Override
 	public String getRemoteUser() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRemoteUser();
 	}
 
 	@Override
 	public Object getRequest() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequest();
 	}
 
 	@Override
 	public String getRequestContextPath() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestContextPath();
 	}
 
 	@Override
 	public Map<String, Object> getRequestCookieMap() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestCookieMap();
 	}
 
 	@Override
 	public Map<String, String> getRequestHeaderMap() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestHeaderMap();
 	}
 
 	@Override
 	public Map<String, String[]> getRequestHeaderValuesMap() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestHeaderValuesMap();
 	}
 
 	@Override
 	public Locale getRequestLocale() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestLocale();
 	}
 
 	@Override
 	public Iterator<Locale> getRequestLocales() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestLocales();
 	}
 
 	@Override
 	public Map<String, Object> getRequestMap() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestMap();
 	}
 
 	@Override
 	public Map<String, String> getRequestParameterMap() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestParameterMap();
 	}
 
 	@Override
 	public Iterator<String> getRequestParameterNames() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestParameterNames();
 	}
 
 	@Override
 	public Map<String, String[]> getRequestParameterValuesMap() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestParameterValuesMap();
 	}
 
 	@Override
 	public String getRequestPathInfo() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestPathInfo();
 	}
 
 	@Override
 	public String getRequestServletPath() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getRequestServletPath();
 	}
 
 	@Override
 	public URL getResource(String path) throws MalformedURLException {
-		throw new UnsupportedOperationException();
+		return getWrapped().getResource(path);
 	}
 
 	@Override
 	public InputStream getResourceAsStream(String path) {
-		throw new UnsupportedOperationException();
+		return getWrapped().getResourceAsStream(path);
 	}
 
 	@Override
 	public Set<String> getResourcePaths(String path) {
-		throw new UnsupportedOperationException();
+		return getWrapped().getResourcePaths(path);
 	}
 
 	@Override
 	public Object getResponse() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getResponse();
 	}
 
 	@Override
 	public Object getSession(boolean create) {
-		throw new UnsupportedOperationException();
+		return getWrapped().getSession(create);
 	}
 
 	@Override
 	public Map<String, Object> getSessionMap() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getSessionMap();
 	}
 
 	@Override
 	public Principal getUserPrincipal() {
-		throw new UnsupportedOperationException();
+		return getWrapped().getUserPrincipal();
 	}
 
 	@Override
 	public boolean isUserInRole(String role) {
-		throw new UnsupportedOperationException();
+		return false;
 	}
 
 	@Override
 	public void log(String message) {
-		throw new UnsupportedOperationException();
+		getWrapped().log(message);
 	}
 
 	@Override
-	public void log(String message, Throwable exception) {
-		throw new UnsupportedOperationException();
+	public void log(String message, Throwable throwable) {
+		getWrapped().log(message, throwable);
 	}
 
 	@Override
-	public void redirect(String url) throws IOException {
-		throw new UnsupportedOperationException();
+	public void redirect(String path) throws IOException {
+		getWrapped().redirect(path);
 	}
 }

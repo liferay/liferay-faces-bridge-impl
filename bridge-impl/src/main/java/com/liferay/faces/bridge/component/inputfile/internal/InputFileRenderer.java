@@ -24,6 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
@@ -86,10 +87,11 @@ public class InputFileRenderer extends InputFileRendererCompat {
 
 	protected Map<String, List<UploadedFile>> getUploadedFileMap(FacesContext facesContext) {
 
-		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletContext portletContext = (PortletContext) externalContext.getContext();
+		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
 				ContextMapFactory.class);
 
-		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
 		return contextMapFactory.getUploadedFileMap(portletRequest);

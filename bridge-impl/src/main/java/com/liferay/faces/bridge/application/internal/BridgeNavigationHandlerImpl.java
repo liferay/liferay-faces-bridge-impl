@@ -25,6 +25,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletConfig;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -112,9 +113,9 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandlerCompatIm
 
 					if (portletResponse instanceof StateAwareResponse) {
 
-						PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+						PortletContext portletContext = (PortletContext) externalContext.getContext();
 						BridgeURLFactory bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(
-								BridgeURLFactory.class);
+								portletContext, BridgeURLFactory.class);
 
 						try {
 							BridgeURL bridgeActionURL = bridgeURLFactory.getBridgeActionURL(facesContext, toViewId);
@@ -132,6 +133,7 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandlerCompatIm
 								bridgeActionURL.setParameter(Bridge.PORTLET_WINDOWSTATE_PARAMETER, windowState);
 							}
 
+							PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 							BridgeRequestScope bridgeRequestScope = (BridgeRequestScope) portletRequest.getAttribute(
 									BridgeRequestScope.class.getName());
 							BridgeNavigationUtil.navigate(portletRequest, (StateAwareResponse) portletResponse,

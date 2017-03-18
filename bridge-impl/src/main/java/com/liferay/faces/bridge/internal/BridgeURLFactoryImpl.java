@@ -23,6 +23,7 @@ import java.util.Map;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.faces.BridgeException;
 
@@ -51,7 +52,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 
 		try {
 			return new BridgeURLActionImpl(uri, contextInfo.contextPath, contextInfo.namespace,
-					contextInfo.currentFacesViewId, contextInfo.bridgeConfig);
+					contextInfo.currentFacesViewId, contextInfo.portletContext, contextInfo.bridgeConfig);
 		}
 		catch (URISyntaxException e) {
 			throw new BridgeException(e);
@@ -66,7 +67,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 
 		try {
 			return new BridgeURLBookmarkableImpl(uri, contextInfo.contextPath, contextInfo.namespace,
-					contextInfo.currentFacesViewId, parameters, contextInfo.bridgeConfig);
+					contextInfo.currentFacesViewId, parameters, contextInfo.portletContext, contextInfo.bridgeConfig);
 		}
 		catch (URISyntaxException e) {
 			throw new BridgeException(e);
@@ -80,7 +81,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 
 		try {
 			return new BridgeURLPartialActionImpl(uri, contextInfo.contextPath, contextInfo.namespace,
-					contextInfo.currentFacesViewId, contextInfo.bridgeConfig);
+					contextInfo.currentFacesViewId, contextInfo.portletContext, contextInfo.bridgeConfig);
 		}
 		catch (URISyntaxException e) {
 			throw new BridgeException(e);
@@ -95,7 +96,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 
 		try {
 			return new BridgeURLRedirectImpl(uri, contextInfo.contextPath, contextInfo.namespace, parameters,
-					contextInfo.bridgeConfig);
+					contextInfo.portletContext, contextInfo.bridgeConfig);
 		}
 		catch (URISyntaxException e) {
 			throw new BridgeException(e);
@@ -130,6 +131,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 		public String contextPath;
 		public String currentFacesViewId;
 		public String namespace;
+		public PortletContext portletContext;
 
 		public ContextInfo(FacesContext facesContext) {
 
@@ -145,6 +147,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 			}
 
 			this.namespace = externalContext.encodeNamespace("");
+			this.portletContext = (PortletContext) externalContext.getContext();
 		}
 	}
 }

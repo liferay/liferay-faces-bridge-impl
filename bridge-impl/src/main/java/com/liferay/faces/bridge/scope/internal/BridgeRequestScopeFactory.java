@@ -43,7 +43,7 @@ public abstract class BridgeRequestScopeFactory implements Wrapper<BridgeRequest
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		BridgeRequestScopeFactory bridgeRequestScopeFactory = (BridgeRequestScopeFactory) BridgeFactoryFinder
-			.getFactory(BridgeRequestScopeFactory.class);
+			.getFactory(portletConfig.getPortletContext(), BridgeRequestScopeFactory.class);
 
 		return bridgeRequestScopeFactory.getBridgeRequestScope(portletRequest, portletConfig, bridgeConfig);
 	}

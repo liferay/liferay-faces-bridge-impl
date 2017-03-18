@@ -24,6 +24,7 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletURL;
 
 import com.liferay.faces.bridge.BridgeConfig;
@@ -49,9 +50,10 @@ import com.liferay.faces.bridge.BridgeConfig;
 public class BridgeURLRedirectImpl extends BridgeURLBase {
 
 	public BridgeURLRedirectImpl(String uri, String contextPath, String namespace,
-		Map<String, List<String>> redirectParameters, BridgeConfig bridgeConfig) throws URISyntaxException {
+		Map<String, List<String>> redirectParameters, PortletContext portletContext, BridgeConfig bridgeConfig)
+		throws URISyntaxException {
 
-		super(uri, contextPath, namespace, null, bridgeConfig);
+		super(uri, contextPath, namespace, null, portletContext, bridgeConfig);
 
 		// Since the Bridge's version of ExternalContext.encodeActionURL(String url) needs to detect whether or not the
 		// specified URL is for a redirect, ensure that "_jsfBridgeRedirect=true" appears in the query-string.
@@ -71,7 +73,6 @@ public class BridgeURLRedirectImpl extends BridgeURLBase {
 		}
 	}
 
-	// Java 1.6+ @Override
 	@Override
 	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 

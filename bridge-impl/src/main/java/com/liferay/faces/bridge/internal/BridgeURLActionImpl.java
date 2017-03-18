@@ -21,6 +21,7 @@ import java.net.URISyntaxException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.faces.Bridge;
@@ -42,9 +43,9 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 	private boolean redirect;
 
 	public BridgeURLActionImpl(String uri, String contextPath, String namespace, String currentViewId,
-		BridgeConfig bridgeConfig) throws URISyntaxException {
+		PortletContext portletContext, BridgeConfig bridgeConfig) throws URISyntaxException {
 
-		super(uri, contextPath, namespace, currentViewId, bridgeConfig);
+		super(uri, contextPath, namespace, currentViewId, portletContext, bridgeConfig);
 
 		// If the URI starts with "portlet:", then
 		if (bridgeURI.isPortletScheme()) {

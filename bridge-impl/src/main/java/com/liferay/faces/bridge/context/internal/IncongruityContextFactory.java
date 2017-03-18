@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
+import javax.portlet.PortletContext;
+
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.util.helper.Wrapper;
 
@@ -35,10 +37,10 @@ public abstract class IncongruityContextFactory implements Wrapper<IncongruityCo
 	 * Returns an instance of {@link IncongruityContext} from the {@link IncongruityContextFactory} found by the {@link
 	 * BridgeFactoryFinder}.
 	 */
-	public static IncongruityContext getIncongruityContextInstance() {
+	public static IncongruityContext getIncongruityContextInstance(PortletContext portletContext) {
 
 		IncongruityContextFactory incongruityContextFactory = (IncongruityContextFactory) BridgeFactoryFinder
-			.getFactory(IncongruityContextFactory.class);
+			.getFactory(portletContext, IncongruityContextFactory.class);
 
 		return incongruityContextFactory.getIncongruityContext();
 	}

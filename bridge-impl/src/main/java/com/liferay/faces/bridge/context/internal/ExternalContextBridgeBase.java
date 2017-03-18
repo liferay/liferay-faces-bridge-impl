@@ -68,8 +68,10 @@ public abstract class ExternalContextBridgeBase extends ExternalContext {
 		this.portletConfig = RequestMapUtil.getPortletConfig(portletRequest);
 		this.manageIncongruities = PortletConfigParam.ManageIncongruities.getBooleanValue(portletConfig);
 		this.bridgeRequestScope = (BridgeRequestScope) portletRequest.getAttribute(BridgeRequestScope.class.getName());
-		this.bridgeURIFactory = (BridgeURIFactory) BridgeFactoryFinder.getFactory(BridgeURIFactory.class);
-		this.bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(BridgeURLFactory.class);
+		this.bridgeURIFactory = (BridgeURIFactory) BridgeFactoryFinder.getFactory(portletContext,
+				BridgeURIFactory.class);
+		this.bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(portletContext,
+				BridgeURLFactory.class);
 		this.configuredFacesServletMappings = (List<ConfiguredServletMapping>) bridgeConfig.getAttributes().get(
 				BridgeConfigAttributeMap.CONFIGURED_FACES_SERVLET_MAPPINGS);
 		this.configuredSuffixes = (List<String>) bridgeConfig.getAttributes().get(

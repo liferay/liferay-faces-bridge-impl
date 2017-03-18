@@ -29,6 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
 import javax.portlet.BaseURL;
 import javax.portlet.MimeResponse;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.ResourceURL;
@@ -66,9 +67,9 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 
 	@SuppressWarnings("unchecked")
 	public BridgeURLBase(String uri, String contextPath, String namespace, String currentViewId,
-		BridgeConfig bridgeConfig) throws URISyntaxException {
+		PortletContext portletContext, BridgeConfig bridgeConfig) throws URISyntaxException {
 
-		this.bridgeURI = BridgeURIFactory.getBridgeURIInstance(namespace, uri);
+		this.bridgeURI = BridgeURIFactory.getBridgeURIInstance(portletContext, namespace, uri);
 		this.configuredFacesServletMappings = (List<ConfiguredServletMapping>) bridgeConfig.getAttributes().get(
 				BridgeConfigAttributeMap.CONFIGURED_FACES_SERVLET_MAPPINGS);
 		this.contextPath = contextPath;
@@ -78,7 +79,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		this.viewIdResourceParameterName = bridgeConfig.getViewIdResourceParameterName();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public String getParameter(String name) {
 
 		Map<String, String[]> parameterMap = bridgeURI.getParameterMap();
@@ -96,12 +97,12 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public Map<String, String[]> getParameterMap() {
 		return bridgeURI.getParameterMap();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public String getViewId() {
 
 		if (viewId == null) {
@@ -205,7 +206,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		return viewId;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public String removeParameter(String name) {
 
 		String[] values = bridgeURI.getParameterMap().remove(name);
@@ -218,12 +219,12 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void setParameter(String name, String[] value) {
 		bridgeURI.getParameterMap().put(name, value);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void setParameter(String name, String value) {
 		bridgeURI.getParameterMap().put(name, new String[] { value });
 	}
