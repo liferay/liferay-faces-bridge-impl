@@ -20,6 +20,7 @@ import java.net.URISyntaxException;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
+import javax.portlet.PortletContext;
 import javax.portlet.faces.BridgeConfig;
 
 import com.liferay.faces.util.logging.Logger;
@@ -35,9 +36,9 @@ public class BridgeURLPartialActionImpl extends BridgeURLBase {
 	private static final Logger logger = LoggerFactory.getLogger(BridgeURLPartialActionImpl.class);
 
 	public BridgeURLPartialActionImpl(String uri, String contextPath, String namespace, String currentViewId,
-		BridgeConfig bridgeConfig) throws URISyntaxException {
+		PortletContext portletContext, BridgeConfig bridgeConfig) throws URISyntaxException {
 
-		super(uri, contextPath, namespace, currentViewId, bridgeConfig);
+		super(uri, contextPath, namespace, currentViewId, portletContext, bridgeConfig);
 
 		bridgeURI.setParameter(BridgeExt.FACES_AJAX_PARAMETER, "true");
 	}

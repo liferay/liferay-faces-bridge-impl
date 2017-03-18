@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.render.Renderer;
 import javax.faces.render.RendererWrapper;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.http.Part;
@@ -78,8 +79,9 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 			if (submittedValue != null) {
 
 				// Get the UploadedFile from the request attribute map.
+				PortletContext portletContext = (PortletContext) externalContext.getContext();
 				ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
-						ContextMapFactory.class);
+						portletContext, ContextMapFactory.class);
 				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 				Map<String, List<UploadedFile>> uploadedFileMap = contextMapFactory.getUploadedFileMap(portletRequest);
 

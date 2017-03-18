@@ -15,9 +15,18 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.util.Enumeration;
+import java.util.Map;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.ExternalContextWrapper;
+import javax.portlet.PortletContext;
 import javax.portlet.faces.BridgeFactoryFinder;
 
+import com.liferay.faces.bridge.context.map.internal.AbstractImmutablePropertyMap;
+import com.liferay.faces.bridge.context.map.internal.ApplicationScopeMapEntry;
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
+import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 
 
 /**
@@ -26,7 +35,55 @@ import com.liferay.faces.util.factory.FactoryExtensionFinder;
 public class BridgeFactoryFinderImpl extends BridgeFactoryFinder {
 
 	@Override
-	public Object getFactoryInstance(Class<?> clazz) {
-		return FactoryExtensionFinder.getFactory(clazz);
+	public Object getFactoryInstance(PortletContext portletContext, Class<?> clazz) {
+
+		ExternalContext factoryExternalContext = new FactoryExternalContext(portletContext);
+
+		return FactoryExtensionFinder.getFactory(factoryExternalContext, clazz);
+	}
+
+	private static class FactoryApplicationScopeMap extends AbstractImmutablePropertyMap<Object> {
+
+		// Private Data Members
+		private PortletContext portletContext;
+
+		private FactoryApplicationScopeMap(PortletContext portletContext) {
+			this.portletContext = portletContext;
+		}
+
+		@Override
+		protected AbstractPropertyMapEntry<Object> createPropertyMapEntry(String name) {
+			return new ApplicationScopeMapEntry(portletContext, name);
+		}
+
+		@Override
+		protected Enumeration<String> getImmutablePropertyNames() {
+			return portletContext.getAttributeNames();
+		}
+
+		@Override
+		protected Object getProperty(String name) {
+			return portletContext.getAttribute(name);
+		}
+	}
+
+	private static class FactoryExternalContext extends ExternalContextWrapper {
+
+		// Private Data Members
+		private Map<String, Object> applicationMap;
+
+		public FactoryExternalContext(PortletContext portletContext) {
+			this.applicationMap = new FactoryApplicationScopeMap(portletContext);
+		}
+
+		@Override
+		public Map<String, Object> getApplicationMap() {
+			return applicationMap;
+		}
+
+		@Override
+		public ExternalContext getWrapped() {
+			return null;
+		}
 	}
 }

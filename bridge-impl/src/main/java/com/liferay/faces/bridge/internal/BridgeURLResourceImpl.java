@@ -28,6 +28,7 @@ import javax.faces.application.ViewHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
@@ -69,7 +70,8 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 	public BridgeURLResourceImpl(FacesContext facesContext, String uri, String contextPath, String namespace,
 		String currentViewId, BridgeConfig bridgeConfig) throws URISyntaxException {
 
-		super(uri, contextPath, namespace, currentViewId, bridgeConfig);
+		super(uri, contextPath, namespace, currentViewId,
+			(PortletContext) facesContext.getExternalContext().getContext(), bridgeConfig);
 
 		this.inProtocol = (bridgeURI.getParameter(Bridge.IN_PROTOCOL_RESOURCE_LINK) != null);
 		this.viewLink = BooleanHelper.isTrueToken(bridgeURI.getParameter(Bridge.VIEW_LINK));

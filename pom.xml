@@ -107,7 +107,7 @@
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/liferay-portal-${liferay.deploy.version}-jsf-${faces.spec.version}</liferay.home>
 		<liferay.faces.alloy.version>3.0.1-SNAPSHOT</liferay.faces.alloy.version>
-		<liferay.faces.bridge.ext.version>5.0.0</liferay.faces.bridge.ext.version>
+		<liferay.faces.bridge.ext.version>5.0.1-SNAPSHOT</liferay.faces.bridge.ext.version>
 		<liferay.faces.showcase.version>3.0.1-SNAPSHOT</liferay.faces.showcase.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
@@ -761,7 +761,7 @@
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.util</artifactId>
-				<version>3.0.0</version>
+				<version>3.1.0-SNAPSHOT</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>

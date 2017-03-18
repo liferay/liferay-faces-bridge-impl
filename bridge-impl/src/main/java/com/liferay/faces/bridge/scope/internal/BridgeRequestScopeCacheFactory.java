@@ -39,7 +39,7 @@ public abstract class BridgeRequestScopeCacheFactory implements FacesWrapper<Bri
 	public static BridgeRequestScopeCache getBridgeRequestScopeCacheInstance(PortletContext portletContext) {
 
 		BridgeRequestScopeCacheFactory bridgeRequestScopeCacheFactory = (BridgeRequestScopeCacheFactory)
-			BridgeFactoryFinder.getFactory(BridgeRequestScopeCacheFactory.class);
+			BridgeFactoryFinder.getFactory(portletContext, BridgeRequestScopeCacheFactory.class);
 
 		return bridgeRequestScopeCacheFactory.getBridgeRequestScopeCache(portletContext);
 	}

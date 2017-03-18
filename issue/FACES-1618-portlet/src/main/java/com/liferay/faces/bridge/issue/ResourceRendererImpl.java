@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
@@ -70,7 +71,9 @@ public class ResourceRendererImpl extends RendererWrapper implements ComponentSy
 
 		String resourceInfo = "<span>" + ResourceUtil.getResourceId(uiComponentResource) + "</span>";
 
-		if (ResourceVerifierFactory.getResourceVerifierInstance().isDependencySatisfied(facesContext,
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		if (ResourceVerifierFactory.getResourceVerifierInstance(externalContext).isDependencySatisfied(facesContext,
 					uiComponentResource)) {
 			resourceInfo += " was suppressed.";
 		}
@@ -96,7 +99,7 @@ public class ResourceRendererImpl extends RendererWrapper implements ComponentSy
 	}
 
 	/**
-	 * Since the Mojarra {@link com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer} class implements {@link
+	 * Since the Mojarra com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer class implements {@link
 	 * ComponentSystemEventListener}, this class must implement that interface too, since this is a wrapper type of
 	 * class. Mojarra uses this method to intercept {@link PostAddToViewEvent} in order to add script and link resources
 	 * to the head (if the target attribute has a value of "head").
