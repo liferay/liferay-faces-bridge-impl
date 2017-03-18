@@ -78,7 +78,7 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 
 			// Set a custom response writer that knows how to remove double-encoded ampersands from URLs.
 			responseWriter = facesContext.getResponseWriter();
-			facesContext.setResponseWriter(new ResponseWriterResourceImpl(responseWriter));
+			facesContext.setResponseWriter(new ResponseWriterResourceImpl(facesContext, responseWriter));
 		}
 
 		// Ask the wrapped renderer to encode the script.

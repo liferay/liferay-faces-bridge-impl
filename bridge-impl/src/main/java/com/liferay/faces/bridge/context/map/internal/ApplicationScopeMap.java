@@ -47,7 +47,7 @@ public class ApplicationScopeMap extends AbstractMutablePropertyMap<Object> {
 
 	public ApplicationScopeMap(PortletContext portletContext, boolean preferPreDestroy) {
 
-		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(
+		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(portletContext,
 				BeanManagerFactory.class);
 		this.portletContext = portletContext;
 
@@ -57,7 +57,7 @@ public class ApplicationScopeMap extends AbstractMutablePropertyMap<Object> {
 		this.preferPreDestroy = preferPreDestroy;
 
 		PreDestroyInvokerFactory preDestroyInvokerFactory = (PreDestroyInvokerFactory) BridgeFactoryFinder.getFactory(
-				PreDestroyInvokerFactory.class);
+				portletContext, PreDestroyInvokerFactory.class);
 		this.preDestroyInvoker = preDestroyInvokerFactory.getPreDestroyInvoker(portletContext);
 	}
 

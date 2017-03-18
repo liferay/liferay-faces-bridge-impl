@@ -35,8 +35,8 @@ import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 
 
 /**
- * This class provides a {@link Map <String,Object>} abstraction over the {@link PortletRequest} attributes. Since it
- * is designed to exist and be used within the scope of a request, it is not thread-safe.
+ * This class provides a {@link Map <String,Object>} abstraction over the {@link PortletRequest} attributes. Since it is
+ * designed to exist and be used within the scope of a request, it is not thread-safe.
  *
  * @author  Neil Griffin
  */
@@ -54,7 +54,7 @@ public class RequestScopeMap extends AbstractMutablePropertyMap<Object> {
 
 		String appConfigAttrName = ApplicationConfig.class.getName();
 		ApplicationConfig applicationConfig = (ApplicationConfig) portletContext.getAttribute(appConfigAttrName);
-		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(
+		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(portletContext,
 				BeanManagerFactory.class);
 		this.beanManager = beanManagerFactory.getBeanManager(applicationConfig.getFacesConfig());
 		this.portletRequest = portletRequest;
@@ -62,7 +62,7 @@ public class RequestScopeMap extends AbstractMutablePropertyMap<Object> {
 		this.preferPreDestroy = preferPreDestroy;
 
 		PreDestroyInvokerFactory preDestroyInvokerFactory = (PreDestroyInvokerFactory) BridgeFactoryFinder.getFactory(
-				PreDestroyInvokerFactory.class);
+				portletContext, PreDestroyInvokerFactory.class);
 		this.preDestroyInvoker = preDestroyInvokerFactory.getPreDestroyInvoker(portletContext);
 	}
 

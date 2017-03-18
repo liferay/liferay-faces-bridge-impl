@@ -23,6 +23,7 @@ import javax.faces.component.html.HtmlInputFile;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.servlet.http.Part;
 
@@ -108,10 +109,11 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 
 	protected Map<String, List<UploadedFile>> getUploadedFileMap(FacesContext facesContext) {
 
-		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletContext portletContext = (PortletContext) externalContext.getContext();
+		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
 				ContextMapFactory.class);
 
-		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
 		return contextMapFactory.getUploadedFileMap(portletRequest);

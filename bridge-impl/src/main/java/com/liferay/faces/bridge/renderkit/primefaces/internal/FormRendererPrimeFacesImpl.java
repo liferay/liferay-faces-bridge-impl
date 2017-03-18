@@ -23,11 +23,13 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionListener;
 import javax.faces.render.Renderer;
 import javax.faces.render.RendererWrapper;
+import javax.portlet.PortletContext;
 import javax.portlet.faces.BridgeException;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
@@ -100,7 +102,9 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 			ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
 			String viewId = facesContext.getViewRoot().getViewId();
 			String facesActionURL = viewHandler.getActionURL(facesContext, viewId);
-			BridgeURLFactory bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(
+			ExternalContext externalContext = facesContext.getExternalContext();
+			PortletContext portletContext = (PortletContext) externalContext.getContext();
+			BridgeURLFactory bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(portletContext,
 					BridgeURLFactory.class);
 
 			try {

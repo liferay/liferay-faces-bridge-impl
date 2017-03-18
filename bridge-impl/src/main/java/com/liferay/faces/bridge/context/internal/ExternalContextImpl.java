@@ -122,14 +122,15 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 		super(portletContext, portletRequest, portletResponse);
 
-		this.contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(ContextMapFactory.class);
+		this.contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
+				ContextMapFactory.class);
 
 		preInitializeObjects();
 
 		logger.debug("User-Agent requested URL=[{0}]", getRequestURL());
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void dispatch(String path) throws IOException {
 
 		logger.debug("Acquiring dispatcher for JSP path=[{0}]", path);
@@ -179,7 +180,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	/**
 	 * @see  ExternalContext#encodeNamespace(String)
 	 */
-	// Java 1.6+ @Override
+	@Override
 	public String encodeNamespace(String name) {
 
 		if (name == null) {
@@ -198,7 +199,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	/**
 	 * @see  ExternalContext#encodeResourceURL(String)
 	 */
-	// Java 1.6+ @Override
+	@Override
 	public String encodeResourceURL(String url) {
 
 		if (url == null) {
@@ -218,12 +219,12 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, Object> getApplicationMap() {
 		return applicationMap;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getAuthType() {
 
 		if (authType == null) {
@@ -233,7 +234,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		return authType;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Object getContext() {
 		return portletContext;
 	}
@@ -244,7 +245,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	 * the {@link PortletContext#getInitParameter(String)} method. This provides a way for init-param values found in
 	 * the WEB-INF/portlet.xml descriptor to override context-param values found in the WEB-INF/web.xml descriptor.
 	 */
-	// Java 1.6+ @Override
+	@Override
 	public String getInitParameter(String name) {
 
 		String initParameter = portletConfig.getInitParameter(name);
@@ -256,12 +257,12 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		return initParameter;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, String> getInitParameterMap() {
 		return initParameterMap;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getRemoteUser() {
 
 		if (remoteUser == null) {
@@ -271,12 +272,12 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		return remoteUser;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Object getRequest() {
 		return portletRequest;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getRequestCharacterEncoding() {
 
 		if (portletRequest instanceof ClientDataRequest) {
@@ -309,7 +310,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getRequestContentType() {
 
 		if (portletRequest instanceof ClientDataRequest) {
@@ -346,12 +347,12 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getRequestContextPath() {
 		return requestContextPath;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, Object> getRequestCookieMap() {
 
 		if (requestCookieMap == null) {
@@ -361,7 +362,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		return requestCookieMap;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, String> getRequestHeaderMap() {
 
 		if (requestHeaderMap == null) {
@@ -371,7 +372,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		return requestHeaderMap;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, String[]> getRequestHeaderValuesMap() {
 
 		if (requestHeaderValuesMap == null) {
@@ -381,7 +382,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		return requestHeaderValuesMap;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Locale getRequestLocale() {
 
 		if (requestLocale == null) {
@@ -391,17 +392,17 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		return requestLocale;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Iterator<Locale> getRequestLocales() {
 		return new LocaleIterator(portletRequest.getLocales());
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, Object> getRequestMap() {
 		return requestAttributeMap;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, String> getRequestParameterMap() {
 
 		if (requestParameterMap == null) {
@@ -417,12 +418,12 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		return requestParameterMap;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Iterator<String> getRequestParameterNames() {
 		return getRequestParameterMap().keySet().iterator();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, String[]> getRequestParameterValuesMap() {
 
 		if (requestParameterValuesMap == null) {
@@ -443,7 +444,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	 *
 	 * @see  javax.faces.context.ExternalContext#getRequestPathInfo()
 	 */
-	// Java 1.6+ @Override
+	@Override
 	public String getRequestPathInfo() {
 
 		String returnValue = null;
@@ -492,7 +493,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	/**
 	 * Section 6.1.3.1 of the JSR 329 spec describes the logic for this method.
 	 */
-	// Java 1.6+ @Override
+	@Override
 	public String getRequestServletPath() {
 
 		if (requestServletPath == null) {
@@ -537,27 +538,27 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		return requestServletPath;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public URL getResource(String path) throws MalformedURLException {
 		return portletContext.getResource(path);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public InputStream getResourceAsStream(String path) {
 		return portletContext.getResourceAsStream(path);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Set<String> getResourcePaths(String path) {
 		return portletContext.getResourcePaths(path);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Object getResponse() {
 		return portletResponse;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getResponseCharacterEncoding() {
 
 		if (portletResponse instanceof MimeResponse) {
@@ -606,7 +607,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	/**
 	 * @see  {@link ExternalContext#getResponseContentType()}
 	 */
-	// Java 1.6+ @Override
+	@Override
 	public String getResponseContentType() {
 
 		if (portletResponse instanceof MimeResponse) {
@@ -632,17 +633,17 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	/**
 	 * @see  {@link ExternalContext#getSession(boolean)}
 	 */
-	// Java 1.6+ @Override
+	@Override
 	public Object getSession(boolean create) {
 		return portletRequest.getPortletSession(create);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, Object> getSessionMap() {
 		return sessionMap;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Principal getUserPrincipal() {
 
 		if (userPrincipal == null) {
@@ -652,22 +653,22 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		return userPrincipal;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public boolean isUserInRole(String role) {
 		return portletRequest.isUserInRole(role);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void log(String message) {
 		portletContext.log(message);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void log(String message, Throwable exception) {
 		portletContext.log(message, exception);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void redirect(String url) throws IOException {
 
 		if (url != null) {
@@ -677,8 +678,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			// If currently executing the ACTION_PHASE, EVENT_PHASE, HEADER_PHASE, or RENDER_PHASE of the portlet
 			// lifecycle, then
 			if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) ||
-					(portletPhase == Bridge.PortletPhase.EVENT_PHASE) ||
-					isHeaderPhase(portletPhase) ||
+					(portletPhase == Bridge.PortletPhase.EVENT_PHASE) || isHeaderPhase(portletPhase) ||
 					(portletPhase == Bridge.PortletPhase.RENDER_PHASE)) {
 
 				// If the specified URL starts with a "#" character, is external to this application, or has a
@@ -865,7 +865,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void setRequest(Object request) {
 
 		if ((request != null) && (request instanceof PortletRequest)) {
@@ -882,7 +882,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void setRequestCharacterEncoding(String encoding) throws UnsupportedEncodingException,
 		IllegalStateException {
 
@@ -912,7 +912,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void setResponse(Object response) {
 
 		if (response != null) {
@@ -972,7 +972,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	/**
 	 * @see  ExternalContext#setResponseCharacterEncoding(String)
 	 */
-	// Java 1.6+ @Override
+	@Override
 	public void setResponseCharacterEncoding(String encoding) {
 
 		if (encoding != null) {

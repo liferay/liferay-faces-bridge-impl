@@ -30,6 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 import javax.portlet.PortalContext;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
@@ -199,8 +200,9 @@ public class HeadRendererBridgeImpl extends Renderer {
 			if (headResponseWriter == null) {
 
 				PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
+				PortletContext portletContext = (PortletContext) externalContext.getContext();
 				headResponseWriter = HeadResponseWriterFactory.getHeadResponseWriterInstance(responseWriterBackup,
-						portletResponse);
+						portletContext, portletResponse);
 			}
 
 			portletRequest.setAttribute("com.liferay.faces.bridge.HeadResponseWriter", headResponseWriter);

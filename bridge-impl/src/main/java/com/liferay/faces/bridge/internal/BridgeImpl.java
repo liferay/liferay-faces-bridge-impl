@@ -66,7 +66,7 @@ public class BridgeImpl extends BridgeCompatImpl {
 		try {
 
 			BridgeRequestScopeManager bridgeRequestScopeManager = BridgeRequestScopeManagerFactory
-				.getBridgeRequestScopeManagerInstance();
+				.getBridgeRequestScopeManagerInstance(portletConfig.getPortletContext());
 			bridgeRequestScopeManager.removeBridgeRequestScopesByPortlet(portletConfig);
 		}
 		catch (Throwable t) {

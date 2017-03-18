@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.servlet;
 
 import java.util.Enumeration;
 
+import javax.portlet.PortletContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -29,6 +30,7 @@ import com.liferay.faces.bridge.bean.internal.BeanManager;
 import com.liferay.faces.bridge.bean.internal.BeanManagerFactory;
 import com.liferay.faces.bridge.bean.internal.PreDestroyInvoker;
 import com.liferay.faces.bridge.bean.internal.PreDestroyInvokerFactory;
+import com.liferay.faces.bridge.context.internal.PortletContextAdapter;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManager;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerFactory;
 import com.liferay.faces.util.config.ApplicationConfig;
@@ -64,6 +66,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 	/**
 	 * This method provides the ability to discover the Mojarra InjectionProvider at startup.
 	 */
+	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 
 		ServletContext servletContext = servletContextEvent.getServletContext();
@@ -82,13 +85,18 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 		}
 	}
 
+	@Override
 	public void sessionCreated(HttpSessionEvent httpSessionEvent) {
 
 		// FACES-2427: Prevent an error message during session expiration by ensuring that the BridgeFactoryFinder has
 		// been initialized during session creation.
-		BridgeFactoryFinder.getFactory(BeanManagerFactory.class);
+		HttpSession httpSession = httpSessionEvent.getSession();
+		ServletContext servletContext = httpSession.getServletContext();
+		PortletContext portletContext = new PortletContextAdapter(servletContext);
+		BridgeFactoryFinder.getFactory(portletContext, BeanManagerFactory.class);
 	}
 
+	@Override
 	public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
 
 		if (firstInstance) {
@@ -129,9 +137,13 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 			BridgeRequestScopeManagerFactory bridgeRequestScopeManagerFactory = null;
 
 			try {
-				beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(BeanManagerFactory.class);
+				HttpSession httpSession = httpSessionEvent.getSession();
+				ServletContext servletContext = httpSession.getServletContext();
+				PortletContext portletContext = new PortletContextAdapter(servletContext);
+				beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(portletContext,
+						BeanManagerFactory.class);
 				bridgeRequestScopeManagerFactory = (BridgeRequestScopeManagerFactory) BridgeFactoryFinder.getFactory(
-						BridgeRequestScopeManagerFactory.class);
+						portletContext, BridgeRequestScopeManagerFactory.class);
 			}
 			catch (Exception e) {
 
@@ -203,8 +215,10 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 									// one would get cleaned-up by Mojarra.
 									if (beanManager.isManagedBean(attributeName, attributeValue)) {
 
+										PortletContext portletContext = new PortletContextAdapter(servletContext);
 										PreDestroyInvokerFactory preDestroyInvokerFactory = (PreDestroyInvokerFactory)
-											BridgeFactoryFinder.getFactory(PreDestroyInvokerFactory.class);
+											BridgeFactoryFinder.getFactory(portletContext,
+												PreDestroyInvokerFactory.class);
 										PreDestroyInvoker preDestroyInvoker =
 											preDestroyInvokerFactory.getPreDestroyInvoker(servletContext);
 										preDestroyInvoker.invokeAnnotatedMethods(attributeValue, true);
