@@ -54,6 +54,12 @@ public class BridgeFactoryFinderImpl extends BridgeFactoryFinder {
 		return FactoryExtensionFinder.getFactory(factoryExternalContext, factoryClass);
 	}
 
+	@Override
+	public void releaseFactories(PortletContext portletContext) {
+		ExternalContext factoryExternalContext = new FactoryExternalContext(portletContext);
+		FactoryExtensionFinder.getInstance().releaseFactories(factoryExternalContext);
+	}
+
 	private static class FactoryApplicationScopeMap extends AbstractImmutablePropertyMap<Object> {
 
 		// Private Data Members
