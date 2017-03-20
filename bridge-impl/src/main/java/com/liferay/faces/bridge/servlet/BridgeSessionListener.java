@@ -60,7 +60,9 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 
 	@Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {
-		// no-op
+		ServletContext servletContext = servletContextEvent.getServletContext();
+		PortletContext portletContext = new PortletContextAdapter(servletContext);
+		BridgeFactoryFinder.getInstance().releaseFactories(portletContext);
 	}
 
 	/**
