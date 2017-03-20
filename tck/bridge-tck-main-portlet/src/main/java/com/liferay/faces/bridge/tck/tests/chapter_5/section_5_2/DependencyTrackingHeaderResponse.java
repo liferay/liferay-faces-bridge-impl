@@ -46,9 +46,11 @@ public class DependencyTrackingHeaderResponse extends HeaderResponseWrapper {
 	@Override
 	public void addDependency(String name, String scope, String version) {
 
-		// The portlet container may provide certain resources out-of-the-box. In that case, the bridge may elect not
-		// to provide the markup for the resource. In this test, jsf.js is the only resource that may potentially be
-		// provided in this manner.
+		// The Liferay Faces Bridge Reference Implementation (RI) does not call this method. However, other
+		// implementations (or extensions to the RI) might call it. Because of this, it is important for the TCK to
+		// implement this method. Of the resources defined in ResourcesRenderedInHeadTestUtil, only jsf.js could fall
+		// into the category of being added without markup. For example, if the portlet container provided jsf.js
+		// out-of-the-box, then the bridge could elect to not provide the markup for the resource.
 		if ("jsf.js".equals(name) && "javax.faces".equals(scope)) {
 			testHeadElementsAddedViaAddDependency.add("jsf.js");
 		}
