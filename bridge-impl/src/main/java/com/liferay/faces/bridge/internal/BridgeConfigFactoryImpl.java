@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.portlet.PortletConfig;
+import javax.portlet.PortletContext;
 import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeConfigFactory;
 
@@ -33,18 +34,15 @@ public class BridgeConfigFactoryImpl extends BridgeConfigFactory implements Seri
 	// serialVersionUID
 	private static final long serialVersionUID = 4355034940572775089L;
 
-	// Private Data Members
-	private transient Map<PortletConfig, BridgeConfig> bridgeConfigCache =
-		new ConcurrentHashMap<PortletConfig, BridgeConfig>();
-
 	@Override
 	public BridgeConfig getBridgeConfig(PortletConfig portletConfig) {
 
-		BridgeConfig bridgeConfig = bridgeConfigCache.get(portletConfig);
+		PortletContext portletContext = portletConfig.getPortletContext();
+		BridgeConfig bridgeConfig = (BridgeConfig) portletContext.getAttribute(BridgeConfigFactoryImpl.class.getName());
 
 		if (bridgeConfig == null) {
 			bridgeConfig = new BridgeConfigImpl(portletConfig);
-			bridgeConfigCache.put(portletConfig, bridgeConfig);
+			portletContext.setAttribute(BridgeConfigFactoryImpl.class.getName(), bridgeConfig);
 		}
 
 		return bridgeConfig;
@@ -55,9 +53,5 @@ public class BridgeConfigFactoryImpl extends BridgeConfigFactory implements Seri
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.
 		return null;
-	}
-
-	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-		bridgeConfigCache = new ConcurrentHashMap<PortletConfig, BridgeConfig>();
 	}
 }
