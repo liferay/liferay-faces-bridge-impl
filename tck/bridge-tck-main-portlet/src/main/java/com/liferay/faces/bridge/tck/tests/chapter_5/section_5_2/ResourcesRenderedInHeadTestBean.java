@@ -16,8 +16,6 @@
 package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -114,7 +112,7 @@ public class ResourcesRenderedInHeadTestBean {
 		// Obtain all head resources.
 		UIComponent uiComponent = componentSystemEvent.getComponent();
 		List<UIComponent> children = uiComponent.getChildren();
-		FacesContext facesContext = componentSystemEvent.getFacesContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 		UIViewRoot uiViewRoot = facesContext.getViewRoot();
 		List<UIComponent> componentResources = uiViewRoot.getComponentResources(facesContext, "head");
 		List<UIComponent> headResources = new ArrayList<UIComponent>(children);
@@ -135,7 +133,7 @@ public class ResourcesRenderedInHeadTestBean {
 						public void processEvent(ComponentSystemEvent componentSystemEvent)
 							throws AbortProcessingException {
 
-							FacesContext facesContext = componentSystemEvent.getFacesContext();
+							FacesContext facesContext = FacesContext.getCurrentInstance();
 							ResponseWriter responseWriter = facesContext.getResponseWriter();
 
 							if (!(responseWriter instanceof ResponseWriterResourceIdImpl)) {
