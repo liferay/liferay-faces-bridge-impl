@@ -49,11 +49,6 @@ public class IceFacesApplicantPortletTester extends BridgeApplicantPortletTester
 
 	@Override
 	protected String getUploadedFileXpath() {
-		return "//div[contains(@class, 'ui-datatable')]//tr/td[2]";
-	}
-
-	@Override
-	protected String getUploadedFileXpath() {
 		return "//tr[contains(@class,'ui-datatable-even')]/td[2]";
 	}
 
