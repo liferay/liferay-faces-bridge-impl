@@ -98,7 +98,7 @@
 		<faces.spec.version>2.3-prd</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
-		<icefaces.version>4.1.1</icefaces.version>
+		<icefaces.version>4.2.0</icefaces.version>
 		<jstl.version>1.2</jstl.version>
 		<log4j.version>1.2.14</log4j.version>
 		<liferay.app.server.dir>${liferay.home}/tomcat-${liferay.tomcat.version}</liferay.app.server.dir>
