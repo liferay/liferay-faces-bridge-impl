@@ -53,6 +53,11 @@ public class IceFacesApplicantPortletTester extends BridgeApplicantPortletTester
 	}
 
 	@Override
+	protected String getUploadedFileXpath() {
+		return "//tr[contains(@class,'ui-datatable-even')]/td[2]";
+	}
+
+	@Override
 	protected void selectDate(Browser browser) {
 
 		browser.click(getDateOfBirthFieldXpath());
