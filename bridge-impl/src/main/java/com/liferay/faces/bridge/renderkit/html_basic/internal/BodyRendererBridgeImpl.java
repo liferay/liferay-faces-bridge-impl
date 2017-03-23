@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,9 +43,6 @@ import com.liferay.faces.util.render.RendererWrapper;
  */
 public class BodyRendererBridgeImpl extends RendererWrapper {
 
-	// Package-Private Constants
-	/* package-private */ static final String STYLE_CLASS_PORTLET_BODY = "liferay-faces-bridge-body";
-
 	// Private Members
 	private Renderer wrappedBodyRenderer;
 
@@ -64,25 +60,23 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 	@SuppressWarnings("unchecked")
 	public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-		ResponseWriter responseWriter = facesContext.getResponseWriter();
-		ResponseWriterBridgeBodyImpl responseWriterPortletBodyImpl = new ResponseWriterBridgeBodyImpl(responseWriter);
-		facesContext.setResponseWriter(responseWriterPortletBodyImpl);
+		ResponseWriter originalResponseWriter = facesContext.getResponseWriter();
+		ResponseWriter responseWriter = new ResponseWriterBridgeBodyImpl(originalResponseWriter);
+		facesContext.setResponseWriter(responseWriter);
 		super.encodeBegin(facesContext, uiComponent);
 
 		PortletNamingContainerUIViewRoot viewRoot = (PortletNamingContainerUIViewRoot) facesContext.getViewRoot();
 		String clientId = viewRoot.getContainerClientId(facesContext);
-		responseWriterPortletBodyImpl.writeAttribute("id", clientId, null);
+		responseWriter.writeAttribute("id", clientId, null);
 
 		String styleClass = (String) uiComponent.getAttributes().get("styleClass");
 
 		// If no styleClass has been specified, add a special CSS class name in the rendered markup in order to
 		// clue-in the developer that a <div> was rendered instead of <body>. If styleClass is not null, then the
-		// responseWriterBridgeBodyImpl will append STYLE_CLASS_PORTLET_BODY to the specified styleClass.
+		// ResponseWriterBridgeBodyImpl will append STYLE_CLASS_PORTLET_BODY to the specified styleClass.
 		if (styleClass == null) {
-			responseWriterPortletBodyImpl.writeAttribute("class", STYLE_CLASS_PORTLET_BODY, "styleClass");
+			responseWriter.writeAttribute("class", RenderKitUtil.STYLE_CLASS_PORTLET_BODY, "styleClass");
 		}
-
-		facesContext.setResponseWriter(responseWriter);
 
 		// Render each of the head resources that were not renderable in the head section into the top of the portlet
 		// body (the outer <div> of the portlet markup). This happens when the portlet container may not support adding
@@ -94,17 +88,8 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 		// loaded before the portlet body is rendered.
 		Map<Object, Object> facesContextAttributes = facesContext.getAttributes();
 		List<UIComponent> headResourcesToRenderInBody = (List<UIComponent>) facesContextAttributes.get(
-				HeadRendererBridgeImpl.HEAD_RESOURCES_TO_RENDER_IN_BODY);
-
-		HeadManagedBean headManagedBean = HeadManagedBean.getInstance(facesContext);
-		Set<String> headResourceIds;
-
-		if (headManagedBean == null) {
-			headResourceIds = new HashSet<String>();
-		}
-		else {
-			headResourceIds = headManagedBean.getHeadResourceIds();
-		}
+				RenderKitUtil.HEAD_RESOURCES_TO_RENDER_IN_BODY);
+		Set<String> headResourceIds = RenderKitUtil.getHeadResourceIds(facesContext);
 
 		// Note: If <style> elements or <link rel="stylesheet"> elements are not able to be rendered in the head, they
 		// will be relocated to the <body>. However, because those elements are only valid in the <head> section, the
@@ -121,10 +106,12 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 			// if necessary), we do not need to track them when they are rendered to the body section. However, scripts
 			// cannot be unloaded, so relocated scripts rendered in the body section must be tracked as if they were
 			// rendered in the <head> section so that they are not loaded multiple times.
-			if (HeadRendererBridgeImpl.isScriptResource(headResource)) {
+			if (RenderKitUtil.isScriptResource(headResource)) {
 				headResourceIds.add(ResourceUtil.getResourceId(headResource));
 			}
 		}
+
+		facesContext.setResponseWriter(originalResponseWriter);
 	}
 
 	@Override
