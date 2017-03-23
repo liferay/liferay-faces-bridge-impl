@@ -3,32 +3,29 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:bridge="http://liferay.com/faces/bridge"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-	<h:form id="f1">
+	<h3>#{i18n['customers']}</h3>
+	<h:messages globalOnly="true" layout="table" />
 
-		<h3>#{i18n['customers']}</h3>
-		<h:messages globalOnly="true" layout="table" />
-
-		<h:dataTable headerClass="portlet-section-header results-header" rowClasses="portlet-section-body results-row,portlet-section-alternate results-row alt"
-			value="#{customersModelBean.customers}" var="customer">
-			<h:column>
-				<h:outputLink target="_blank" value="#{customer.exportResourceURL}">
-					<h:outputText value="#{i18n['export']}" />
-				</h:outputLink>
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="#{i18n['last-name']}" />
-				</f:facet>
-				<h:outputText value="#{customer.lastName}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="#{i18n['first-name']}" />
-				</f:facet>
-				<h:outputText value="#{customer.firstName}" />
-			</h:column>
-		</h:dataTable>
-
-	</h:form>
+	<h:dataTable headerClass="portlet-section-header results-header"
+		rowClasses="portlet-section-body results-row,portlet-section-alternate results-row alt"
+		value="#{customersModelBean.customers}" var="customer">
+		<h:column>
+			<h:outputLink target="_blank" value="#{customer.exportResourceURL}">
+				<h:outputText value="#{i18n['export']}" />
+			</h:outputLink>
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="#{i18n['last-name']}" />
+			</f:facet>
+			<h:outputText value="#{customer.lastName}" />
+		</h:column>
+		<h:column>
+			<f:facet name="header">
+				<h:outputText value="#{i18n['first-name']}" />
+			</f:facet>
+			<h:outputText value="#{customer.firstName}" />
+		</h:column>
+	</h:dataTable>
 
 </ui:composition>
