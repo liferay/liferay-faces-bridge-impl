@@ -1026,4 +1026,12 @@
 		</plugins>
 	</reporting>
 
+	<repositories>
+		<!-- Required for PrimeFaces 6.x Dependencies -->
+		<repository>
+			<id>primefaces-releases</id>
+			<url>http://repository.primefaces.org</url>
+		</repository>
+	</repositories>
+
 </project>
