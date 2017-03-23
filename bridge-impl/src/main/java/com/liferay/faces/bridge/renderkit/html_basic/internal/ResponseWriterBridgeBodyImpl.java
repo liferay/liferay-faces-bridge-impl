@@ -37,6 +37,7 @@ public class ResponseWriterBridgeBodyImpl extends ResponseWriterWrapper {
 	private static final Logger logger = LoggerFactory.getLogger(ResponseWriterBridgeBodyImpl.class);
 
 	// Private Data Members
+	private String currentElement;
 	private ResponseWriter wrapppedResponseWriter;
 
 	public ResponseWriterBridgeBodyImpl(ResponseWriter wrapppedResponseWriter) {
@@ -46,12 +47,21 @@ public class ResponseWriterBridgeBodyImpl extends ResponseWriterWrapper {
 	@Override
 	public void endElement(String name) throws IOException {
 
-		// It is forbidden for a portlet to render the <body> element, so instead, render a <div> element.
-		if ("body".equals(name)) {
-			name = "div";
-		}
+		currentElement = null;
 
-		super.endElement(name);
+		// Supress illegal elements that have been migrated from the <head> section.
+		if ("title".equals(name) || "base".equals(name) || "meta".equals(name)) {
+			logger.warn("Suppressed writing of illegal element <{0}> in the document <body>.", name);
+		}
+		else {
+
+			// It is forbidden for a portlet to render the <body> element, so instead, render a <div> element.
+			if ("body".equals(name)) {
+				name = "div";
+			}
+
+			super.endElement(name);
+		}
 	}
 
 	@Override
@@ -62,34 +72,55 @@ public class ResponseWriterBridgeBodyImpl extends ResponseWriterWrapper {
 	@Override
 	public void startElement(String name, UIComponent component) throws IOException {
 
-		// It is forbidden for a portlet to render the <body> element, so instead, render a <div> element.
-		if ("body".equals(name)) {
-			name = "div";
-		}
+		currentElement = name;
 
-		super.startElement(name, component);
+		// Supress illegal elements that have been migrated from the <head> section.
+		if ("title".equals(name) || "base".equals(name) || "meta".equals(name)) {
+			logger.warn("Suppressed writing of illegal element <{0}> in the document <body>.", name);
+		}
+		else {
+
+			// It is forbidden for a portlet to render the <body> element, so instead, render a <div> element.
+			if ("body".equals(name)) {
+				name = "div";
+			}
+
+			super.startElement(name, component);
+		}
 	}
 
 	@Override
 	public void writeAttribute(String name, Object value, String property) throws IOException {
 
-		if ("class".equals(name) && (value != null)) {
-
-			String valueAsString = value.toString();
-
-			// Add a special CSS class name, BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY, in the rendered markup
-			// in order to clue-in the developer that a <div> was rendered instead of <body> if the styleClass does not
-			// already contain BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY.
-			if (!valueAsString.contains(BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY)) {
-				valueAsString = valueAsString.concat(" ").concat(BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY);
-			}
-
-			super.writeAttribute(name, valueAsString, property);
+		if ("body".equals(currentElement) &&
+				("onload".equals(name) || "onunload".equals(name) || "role".equals(name) || "xmlns".equals(name))) {
+			logger.warn("Suppressed writing of illegal attribute \"{0}\" on portlet body <div>.", name);
 		}
-		else if ("onload".equals(name) || "onunload".equals(name) || "role".equals(name) || "xmlns".equals(name)) {
-			logger.warn("Suppressed writing of illegal attribute {0} on portlet body <div>.", name);
+
+		// Supress illegal elements that have been migrated from the <head> section.
+		else if ("title".equals(currentElement) || "base".equals(currentElement) || "meta".equals(currentElement)) {
+			logger.warn("Suppressed writing of illegal element <{0}> in the document <body>.", currentElement);
 		}
 		else {
+
+			if ("body".equals(currentElement) && "class".equals(name)) {
+
+				String valueAsString = "";
+
+				if (value != null) {
+					valueAsString = value.toString();
+				}
+
+				// Add a special CSS class name, BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY, in the rendered markup
+				// in order to clue-in the developer that a <div> was rendered instead of <body> if the styleClass does
+				// not already contain BodyRendererBridgeImpl.STYLE_CLASS_PORTLET_BODY.
+				if (!valueAsString.contains(RenderKitUtil.STYLE_CLASS_PORTLET_BODY)) {
+					valueAsString = valueAsString.concat(" ").concat(RenderKitUtil.STYLE_CLASS_PORTLET_BODY);
+				}
+
+				value = valueAsString;
+			}
+
 			super.writeAttribute(name, value, property);
 		}
 	}

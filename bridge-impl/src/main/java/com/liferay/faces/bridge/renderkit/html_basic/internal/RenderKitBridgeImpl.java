@@ -39,10 +39,6 @@ import com.liferay.faces.util.product.ProductFactory;
  */
 public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 
-	// Package-Private Constants
-	/* package-private */ static final String SCRIPT_RENDERER_TYPE = "javax.faces.resource.Script";
-	/* package-private */ static final String STYLESHEET_RENDERER_TYPE = "javax.faces.resource.Stylesheet";
-
 	// Private Constants
 	private static final boolean ICEFACES_DETECTED = ProductFactory.getProduct(Product.Name.ICEFACES).isDetected();
 	private static final String JAVAX_FACES_BODY = "javax.faces.Body";
@@ -80,7 +76,8 @@ public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 			else if (JAVAX_FACES_BODY.equals(rendererType)) {
 				renderer = new BodyRendererBridgeImpl(renderer);
 			}
-			else if (SCRIPT_RENDERER_TYPE.equals(rendererType) || STYLESHEET_RENDERER_TYPE.equals(rendererType)) {
+			else if (RenderKitUtil.SCRIPT_RENDERER_TYPE.equals(rendererType) ||
+					RenderKitUtil.STYLESHEET_RENDERER_TYPE.equals(rendererType)) {
 				renderer = new ResourceRendererBridgeImpl(renderer);
 			}
 		}
