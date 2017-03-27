@@ -22,11 +22,13 @@ import java.util.Set;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import com.liferay.faces.bridge.application.internal.ResourceRichFacesImpl;
+
 
 /**
  * @author  Kyle Stiemann
  */
-/* package private */ final class RenderKitUtil {
+/* package-private */ final class RenderKitUtil {
 
 	// Package-Private Constants
 	/* package-private */ static final String HEAD_RESOURCES_TO_RENDER_IN_BODY = "headResourcesToRenderInBody";
@@ -57,8 +59,10 @@ import javax.faces.context.FacesContext;
 
 		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
 		String resourceName = (String) componentResourceAttributes.get("name");
+		String resourceLibrary = (String) componentResourceAttributes.get("library");
 
-		return (resourceName != null) && resourceName.endsWith("js");
+		return ((resourceName != null) && resourceName.endsWith("js")) ||
+			isRichFacesReslibResource(resourceName, resourceLibrary);
 	}
 
 	/* package-private */ static boolean isStyleSheetResource(UIComponent componentResource) {
@@ -67,5 +71,10 @@ import javax.faces.context.FacesContext;
 		String resourceName = (String) componentResourceAttributes.get("name");
 
 		return (resourceName != null) && resourceName.endsWith("css");
+	}
+
+	private static boolean isRichFacesReslibResource(String resourceName, String resourceLibrary) {
+		return ((resourceName != null) && resourceName.endsWith("reslib")) &&
+			((resourceLibrary != null) && resourceLibrary.startsWith(ResourceRichFacesImpl.ORG_RICHFACES));
 	}
 }
