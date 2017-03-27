@@ -94,7 +94,8 @@ public class HeadRendererBridgeImpl extends Renderer {
 			}
 			else {
 
-				// Other kids of head resources include <base>, <meta>, <noscript>, <script>, and <style> elements.
+				// Other head resources include <base>, <meta>, and <noscript> elments as well as passthrough <link>,
+				// <style>, and <script> elements.
 				otherHeadResources.add(headComponentResource);
 			}
 		}
@@ -111,6 +112,9 @@ public class HeadRendererBridgeImpl extends Renderer {
 				scriptResources.add(child);
 			}
 			else {
+
+				// Other head resources include <base>, <meta>, and <noscript> elments as well as passthrough <link>,
+				// <style>, and <script> elements.
 				otherHeadResources.add(child);
 			}
 		}

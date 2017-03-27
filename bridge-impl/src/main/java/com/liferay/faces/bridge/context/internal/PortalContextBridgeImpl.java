@@ -22,9 +22,7 @@ import java.util.List;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
 import javax.portlet.PortalContext;
-import javax.portlet.filter.PortalContextWrapper;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
@@ -33,7 +31,7 @@ import com.liferay.faces.bridge.internal.PortletConfigParam;
 /**
  * @author  Neil Griffin
  */
-public class PortalContextBridgeImpl extends PortalContextWrapper {
+public class PortalContextBridgeImpl extends PortalContextBridgeCompatImpl {
 
 	// Private Data Members
 	private String ableToSetHttpStatusCode;
@@ -51,6 +49,7 @@ public class PortalContextBridgeImpl extends PortalContextWrapper {
 			propertyNameList.add(propertyNames.nextElement());
 		}
 
+		propertyNameList.add(BridgePortalContext.ADD_ELEMENT_TO_HEAD_SUPPORT);
 		propertyNameList.add(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT);
 		propertyNameList.add(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT);
 		propertyNameList.add(BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT);
@@ -71,22 +70,7 @@ public class PortalContextBridgeImpl extends PortalContextWrapper {
 				BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT.equals(name) ||
 				BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT.equals(name) ||
 				BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT.equals(name)) {
-
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PartialViewContext partialViewContext = facesContext.getPartialViewContext();
-
-			if ((partialViewContext == null) || !partialViewContext.isAjaxRequest()) {
-
-				if (PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT.equals(name)) {
-					return getWrapped().getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT);
-				}
-				else {
-					return "true";
-				}
-			}
-			else {
-				return null;
-			}
+			return getAddToHeadSupport(name, getWrapped());
 		}
 		else if (BridgePortalContext.CREATE_RENDER_URL_DURING_ACTION_PHASE_SUPPORT.equals(name)) {
 
