@@ -181,7 +181,7 @@ public class TckTestCase extends IntegrationTesterBase {
 		}
 
 		Enumeration<?> tests = testProps.propertyNames();
-		Pattern extractTestNamePattern = Pattern.compile("chapter[0-9_]+Tests-([a-zA-Z]+)-portlet");
+		Pattern extractTestNamePattern = Pattern.compile("chapter[0-9_]+Tests-([_a-zA-Z0-9]+)-portlet");
 		Pattern testFilterPattern = null;
 		String testFilter = TestUtil.getSystemPropertyOrDefault("integration.test.filter", null);
 
@@ -502,7 +502,6 @@ public class TckTestCase extends IntegrationTesterBase {
 
 				browser.switchTo().frame("tck-iframe");
 				browser.waitForElementVisible("//body");
-
 				testPage(browser, false);
 			}
 			else {
@@ -531,6 +530,7 @@ public class TckTestCase extends IntegrationTesterBase {
 				testName.equals("encodeActionURLWithInvalidWindowStateActionTest") ||
 				testName.equals("encodeActionURLWithInvalidWindowStateEventTest") ||
 				testName.equals("encodeActionURLWithInvalidWindowStateRenderTest") ||
-				testName.equals("encodeResourceURLWithWindowStateTest"));
+				testName.equals("encodeResourceURLWithWindowStateTest") ||
+				testName.equals("resourcesRenderedInHeadTest"));
 	}
 }

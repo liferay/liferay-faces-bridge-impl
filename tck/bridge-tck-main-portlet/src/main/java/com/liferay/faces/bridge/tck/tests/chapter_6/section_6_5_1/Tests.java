@@ -159,8 +159,8 @@ public class Tests {
 		}
 
 		// HeaderRequest / RenderRequest
-		else
-		{
+		else {
+
 			try {
 
 				// JSF Implicit Objects

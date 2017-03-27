@@ -26,7 +26,6 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.common.Constants;
-import com.liferay.faces.bridge.tck.common.util.BridgeTCKUtil;
 
 
 /**
@@ -60,7 +59,7 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 
 		// Then test to see if we are in a render and this is an encodeActionURL test that
 		// tests the render encoding -- if so add the appropriate parameters to test.
-		if (BridgeTCKUtil.isHeaderOrRenderPhase(context)) {
+		if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(context))) {
 			String testName = (String) context.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
 
 			if (testName == null)

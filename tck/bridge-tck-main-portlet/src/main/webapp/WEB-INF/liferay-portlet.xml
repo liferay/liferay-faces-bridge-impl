@@ -1101,6 +1101,11 @@
 		<portlet-name>chapter6_9Tests-usesConfiguredRenderKitTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
+	<portlet>
+		<portlet-name>chapter5_2Tests-resourcesRenderedInHeadTest-portlet</portlet-name>
+		<!-- JAVASERVERFACES-3031 -->
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>
