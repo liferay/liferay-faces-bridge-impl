@@ -75,9 +75,6 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.demo.jsf.ipc.events.customers.portlet" name="customers"/>
 			<portlet context="/com.liferay.faces.demo.jsf.ipc.events.bookings.portlet" name="bookings"/>
 		</page>
-		<page name="jsf-html5-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.demo.jsf.html5.applicant.portlet" name="1"/>
-		</page>
 		<page name="jsf-jsp-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.jsf.jsp.applicant.portlet" name="1"/>
 		</page>
@@ -755,6 +752,9 @@ limitations under the License.
 		</page>
 		<page name="TestPage211" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_9Tests-usesConfiguredRenderKitTest-portlet"/>
+		</page>
+		<page name="TestPage212" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-resourcesRenderedInHeadTest-portlet"/>
 		</page>
 
 	</render-config>

@@ -219,4 +219,5 @@ NOTE:
 	<entry key="TestPage209">chapter6_7Tests-restoredViewStateParameterTest-portlet</entry>
 	<entry key="TestPage210">chapter6_7Tests-setsIsPostbackAttributeTest-portlet</entry>
 	<entry key="TestPage211">chapter6_9Tests-usesConfiguredRenderKitTest-portlet</entry>
+	<!--<entry key="TestPage212">chapter5_2Tests-resourcesRenderedInHeadTest-portlet</entry>-->
 </properties>
