@@ -52,7 +52,6 @@ import javax.xml.namespace.QName;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
 import com.liferay.faces.bridge.tck.common.Constants;
-import com.liferay.faces.bridge.tck.common.util.BridgeTCKUtil;
 import com.liferay.faces.bridge.tck.common.util.HTTPUtils;
 
 
@@ -1315,7 +1314,8 @@ public class Tests extends Object {
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
+
+		if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(ctx))) {
 			Map<String, String> requestParameterMap = ctx.getExternalContext().getRequestParameterMap();
 
 			String testName = testRunner.getTestName();
@@ -2645,7 +2645,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
+		else if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(ctx))) {
 
 			testRunner.setTestComplete(true);
 
@@ -2794,7 +2794,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
+		else if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(ctx))) {
 
 			testRunner.setTestComplete(true);
 
@@ -3053,7 +3053,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
+		else if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(ctx))) {
 
 			testRunner.setTestComplete(true);
 
@@ -3604,7 +3604,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
+		else if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(ctx))) {
 
 			testRunner.setTestComplete(true);
 
@@ -4849,7 +4849,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
+		else if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(ctx))) {
 
 			testRunner.setTestComplete(true);
 
@@ -4996,7 +4996,7 @@ public class Tests extends Object {
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
-		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
+		else if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(ctx))) {
 
 			testRunner.setTestComplete(true);
 
