@@ -39,6 +39,7 @@ import javax.portlet.faces.BridgeUninitializedException;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeConfigFactory;
+import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.filter.BridgePortletConfigFactory;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManager;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerFactory;
@@ -65,9 +66,24 @@ public class BridgeImpl extends BridgeCompatImpl {
 		// FACES-1450: Surround with try/catch block in order to prevent hot re-deploys from failing in Liferay Portal.
 		try {
 
-			BridgeRequestScopeManager bridgeRequestScopeManager = BridgeRequestScopeManagerFactory
-				.getBridgeRequestScopeManagerInstance(portletConfig.getPortletContext());
-			bridgeRequestScopeManager.removeBridgeRequestScopesByPortlet(portletConfig);
+			BridgeRequestScopeManagerFactory bridgeRequestScopeManagerFactory = (BridgeRequestScopeManagerFactory)
+				BridgeFactoryFinder.getFactory(portletConfig.getPortletContext(),
+					BridgeRequestScopeManagerFactory.class);
+
+			// Note: If the bridge request scope manager factory is null, that means that the servlet container that
+			// underlies the portlet container already destroyed the context (including all of the context attributes
+			// such as factory instances). This condition represents a design choice by the portal vendor rather than an
+			// error.
+			if (bridgeRequestScopeManagerFactory != null) {
+
+				BridgeRequestScopeManager bridgeRequestScopeManager =
+					bridgeRequestScopeManagerFactory.getBridgeRequestScopeManager();
+				bridgeRequestScopeManager.removeBridgeRequestScopesByPortlet(portletConfig);
+			}
+			else {
+				logger.debug(
+					"The portlet container is designed to destroy the webapp context attributes prior to calling the portlet's destroy method.");
+			}
 		}
 		catch (Throwable t) {
 			logger.warn(t.getMessage());
