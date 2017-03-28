@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 
 import java.io.IOException;
-import java.lang.Boolean;
 import java.util.Map;
 
 import javax.faces.application.ViewHandler;
@@ -38,13 +37,12 @@ import javax.xml.namespace.QName;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
 import com.liferay.faces.bridge.tck.common.Constants;
-import com.liferay.faces.bridge.tck.common.util.BridgeTCKUtil;
 
 
 /**
  * @author  Michael Freedman
  */
-public class Tests extends Object implements PhaseListener {
+public class Tests extends RenderTests implements PhaseListener {
 
 	// Java 1.6+ @Override
 	public void afterPhase(PhaseEvent event) {
@@ -61,14 +59,14 @@ public class Tests extends Object implements PhaseListener {
 		String testname = (String) m.get(Constants.TEST_NAME);
 		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) m.get(Bridge.PORTLET_LIFECYCLE_PHASE);
 
-		if (testname.equals("renderPhaseListenerTest") && BridgeTCKUtil.isHeaderOrRenderPhase(portletPhase)) {
+		if (testname.equals("renderPhaseListenerTest") && (Bridge.PortletPhase.RENDER_PHASE.equals(portletPhase))) {
 			m.put("org.apache.portlet.faces.tck.lastAfterPhase", phase);
 		}
 		else if (testname.equals("eventPhaseListenerTest") && (portletPhase.equals(Bridge.PortletPhase.EVENT_PHASE))) {
 			m.put("org.apache.portlet.faces.tck.lastAfterPhase", phase);
 		}
 
-		if ((BridgeTCKUtil.isHeaderOrRenderPhase(portletPhase) &&
+		if ((Bridge.PortletPhase.RENDER_PHASE.equals(portletPhase) &&
 					(testname.equals("facesContextReleasedRenderTest") ||
 						testname.equals("portletPhaseRemovedRenderTest"))) ||
 				(portletPhase.equals(Bridge.PortletPhase.RESOURCE_PHASE) &&
@@ -95,7 +93,7 @@ public class Tests extends Object implements PhaseListener {
 		String testname = (String) m.get(Constants.TEST_NAME);
 		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) m.get(Bridge.PORTLET_LIFECYCLE_PHASE);
 
-		if (testname.equals("renderPhaseListenerTest") && (BridgeTCKUtil.isHeaderOrRenderPhase(portletPhase))) {
+		if (testname.equals("renderPhaseListenerTest") && (Bridge.PortletPhase.RENDER_PHASE.equals(portletPhase))) {
 			m.put("org.apache.portlet.faces.tck.lastBeforePhase", phase);
 		}
 		else if (testname.equals("eventPhaseListenerTest") && (portletPhase.equals(Bridge.PortletPhase.EVENT_PHASE))) {
@@ -689,7 +687,7 @@ public class Tests extends Object implements PhaseListener {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx)) {
+		if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase())) {
 			testRunner.setTestComplete(true);
 
 			PortletSession session = ((PortletRequest) extCtx.getRequest()).getPortletSession(true);
@@ -849,41 +847,6 @@ public class Tests extends Object implements PhaseListener {
 		}
 	}
 
-	// Test is SingleRequest -- Render/Action
-	// Test #5.33 --
-	@BridgeTest(test = "renderPhaseListenerTest")
-	public String renderPhaseListenerTest(TestRunnerBean testRunner) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> m = extCtx.getRequestMap();
-
-		testRunner.setTestComplete(true);
-
-		// Phase Listener (below) has set these attributes
-		PhaseId lastBeforePhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastBeforePhase");
-		PhaseId lastAfterPhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastAfterPhase");
-
-		if ((lastBeforePhaseId == null) || (lastAfterPhaseId == null)) {
-			testRunner.setTestResult(false,
-				"Render incorrectly didn't invoke either or both the RESTORE_VIEW before/after listener.");
-
-			return Constants.TEST_FAILED;
-		}
-		else if ((lastBeforePhaseId == PhaseId.RESTORE_VIEW) && (lastAfterPhaseId == PhaseId.RESTORE_VIEW)) {
-			testRunner.setTestResult(true,
-				"Render properly invoked the RESTORE_VIEW phase including calling its before/after listeners and didnt' execute any other action phases.");
-
-			return Constants.TEST_SUCCESS;
-		}
-		else {
-			testRunner.setTestResult(false,
-				"Render incorrectly executed an action phase/listener post RESTORE_VIEW: lastBeforePhase: " +
-				lastBeforePhaseId.toString() + " lastAfterPhase: " + lastAfterPhaseId.toString());
-
-			return Constants.TEST_FAILED;
-		}
-	}
-
 	// Test is MultiRequest -- Render/Action
 	// Test #5.18
 	@BridgeTest(test = "renderRedirectTest")
@@ -961,7 +924,7 @@ public class Tests extends Object implements PhaseListener {
 
 			return "";
 		}
-		else if (BridgeTCKUtil.isHeaderOrRenderPhase(ctx) &&
+		else if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase()) &&
 				(m.get("com.liferay.faces.bridge.tck.pprSubmitted") != null)) {
 			testRunner.setTestComplete(true);
 
