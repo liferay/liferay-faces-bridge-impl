@@ -42,7 +42,7 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 
 		String container = TestUtil.getContainer();
 		Assume.assumeTrue("The FACES-1635 test is only valid on Liferay Portal and Pluto 3.0+.",
-			container.startsWith("liferay") || (container.startsWith("pluto") && !container.startsWith("pluto2")));
+			container.startsWith("liferay") || BridgeTestUtil.isContainerPluto(3, container));
 
 		Browser browser = Browser.getInstance();
 		browser.get(BridgeTestUtil.getIssuePageURL("faces-1635") + "?p_p_parallel=0");
@@ -133,7 +133,7 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 		String resourceId = "";
 		String splitString = "[?]";
 
-		if (container.startsWith("pluto")) {
+		if (BridgeTestUtil.isContainerPluto(container)) {
 			splitString = "[/][_][_]rs[0-9][/].*?[_][_]rv[0-9][;]";
 		}
 
@@ -145,7 +145,7 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 			String queryString = baseURLAndQueryArray[1];
 			splitString = "[&]";
 
-			if (container.startsWith("pluto")) {
+			if (BridgeTestUtil.isContainerPluto(container)) {
 				splitString = "[/][_][_]rv[0-9][;]";
 			}
 
@@ -153,7 +153,7 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 
 			splitString = "[=]";
 
-			if (container.startsWith("pluto")) {
+			if (BridgeTestUtil.isContainerPluto(container)) {
 				splitString = "[:]";
 			}
 
