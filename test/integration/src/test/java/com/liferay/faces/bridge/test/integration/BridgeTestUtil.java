@@ -26,13 +26,14 @@ public final class BridgeTestUtil {
 	// Private Constants
 	private static final String DEFAULT_DEMO_CONTEXT;
 	private static final String DEFAULT_ISSUE_CONTEXT;
+	private static final int DEFAULT_PLUTO_MAJOR_VERSION = 2;
 
 	static {
 
 		String defaultDemoContext = "/group/bridge-demos";
 		String defaultIssueContext = "/web/bridge-issues";
 
-		if (TestUtil.getContainer().contains("pluto")) {
+		if (isContainerPluto(TestUtil.getContainer())) {
 			defaultDemoContext = TestUtil.DEFAULT_PLUTO_CONTEXT;
 			defaultIssueContext = TestUtil.DEFAULT_PLUTO_CONTEXT;
 		}
@@ -61,5 +62,20 @@ public final class BridgeTestUtil {
 
 	public static String getIssuePageURL(String portletPageName) {
 		return TestUtil.DEFAULT_BASE_URL + getIssueContext(portletPageName);
+	}
+
+	public static boolean isContainerPluto(String container) {
+		return isContainerPluto(DEFAULT_PLUTO_MAJOR_VERSION, container);
+	}
+
+	public static boolean isContainerPluto(int plutoMajorVersion, String container) {
+
+		String plutoContainer = "pluto";
+
+		if (plutoMajorVersion != DEFAULT_PLUTO_MAJOR_VERSION) {
+			plutoContainer += plutoMajorVersion;
+		}
+
+		return container.startsWith(plutoContainer);
 	}
 }

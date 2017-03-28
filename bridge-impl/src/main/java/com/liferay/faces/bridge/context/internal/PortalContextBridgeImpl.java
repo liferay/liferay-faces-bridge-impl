@@ -33,7 +33,7 @@ import com.liferay.faces.bridge.internal.PortletConfigParam;
 /**
  * @author  Neil Griffin
  */
-public class PortalContextBridgeImpl implements PortalContext {
+public class PortalContextBridgeImpl extends PortalContextBridgeCompatImpl {
 
 	// Private Data Members
 	private String ableToSetHttpStatusCode;
@@ -52,6 +52,7 @@ public class PortalContextBridgeImpl implements PortalContext {
 			propertyNameList.add(propertyNames.nextElement());
 		}
 
+		propertyNameList.add(BridgePortalContext.ADD_ELEMENT_TO_HEAD_SUPPORT);
 		propertyNameList.add(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT);
 		propertyNameList.add(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT);
 		propertyNameList.add(BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT);
@@ -71,12 +72,13 @@ public class PortalContextBridgeImpl implements PortalContext {
 	// Java 1.6+ @Override
 	public String getProperty(String name) {
 
-		if (BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT.equals(name) ||
+		if (PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT.equals(name) ||
+				BridgePortalContext.ADD_ELEMENT_TO_HEAD_SUPPORT.equals(name) ||
+				BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT.equals(name) ||
 				BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT.equals(name) ||
 				BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT.equals(name) ||
 				BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT.equals(name)) {
-
-			return wrappedPortalContext.getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT);
+			return getAddToHeadSupport(name, wrappedPortalContext);
 		}
 		else if (BridgePortalContext.CREATE_RENDER_URL_DURING_ACTION_PHASE_SUPPORT.equals(name)) {
 

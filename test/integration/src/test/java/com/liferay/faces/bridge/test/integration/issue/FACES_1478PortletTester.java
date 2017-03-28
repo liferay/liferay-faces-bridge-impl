@@ -46,7 +46,7 @@ public class FACES_1478PortletTester extends IntegrationTesterBase {
 	public void runFACES_1478PortletTest() {
 
 		String container = TestUtil.getContainer();
-		Assume.assumeTrue("The FACES-1635 test is only valid on Liferay Portal.", container.contains("liferay"));
+		Assume.assumeTrue("The FACES-1635 test is only valid on Liferay Portal.", container.startsWith("liferay"));
 
 		Browser browser = Browser.getInstance();
 		browser.get(BridgeTestUtil.getIssuePageURL("faces-1478"));
