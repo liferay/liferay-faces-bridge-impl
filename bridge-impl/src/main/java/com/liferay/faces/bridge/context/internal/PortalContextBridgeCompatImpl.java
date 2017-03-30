@@ -16,12 +16,17 @@
 package com.liferay.faces.bridge.context.internal;
 
 import javax.portlet.PortalContext;
+import javax.portlet.PortletRequest;
 
 
 /**
  * @author  Kyle Stiemann
  */
 public abstract class PortalContextBridgeCompatImpl implements PortalContext {
+
+	public PortalContextBridgeCompatImpl(PortletRequest portletRequest) {
+		// no-op
+	}
 
 	protected String getAddToHeadSupport(String addToHeadPropertyName, PortalContext wrappedPortalContext) {
 

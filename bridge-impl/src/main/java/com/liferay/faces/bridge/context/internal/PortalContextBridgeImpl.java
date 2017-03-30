@@ -24,6 +24,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletMode;
+import javax.portlet.PortletRequest;
 import javax.portlet.WindowState;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
@@ -40,8 +41,11 @@ public class PortalContextBridgeImpl extends PortalContextBridgeCompatImpl {
 	private List<String> propertyNameList;
 	private PortalContext wrappedPortalContext;
 
-	public PortalContextBridgeImpl(PortalContext portalContext) {
+	public PortalContextBridgeImpl(PortletRequest portletRequest) {
 
+		super(portletRequest);
+
+		PortalContext portalContext = portletRequest.getPortalContext();
 		this.wrappedPortalContext = portalContext;
 
 		propertyNameList = new ArrayList<String>();
