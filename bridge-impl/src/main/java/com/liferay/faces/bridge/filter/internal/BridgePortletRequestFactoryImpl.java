@@ -45,7 +45,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext = new PortalContextBridgeImpl(actionRequest.getPortalContext());
+		PortalContext portalContext = new PortalContextBridgeImpl(actionRequest);
 
 		return new ActionRequestBridgeImpl(actionRequest, portalContext);
 	}
@@ -54,7 +54,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	public EventRequest getEventRequest(EventRequest eventRequest, EventResponse eventResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext = new PortalContextBridgeImpl(eventRequest.getPortalContext());
+		PortalContext portalContext = new PortalContextBridgeImpl(eventRequest);
 
 		return new EventRequestBridgeImpl(eventRequest, portalContext);
 	}
@@ -63,7 +63,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	public RenderRequest getRenderRequest(RenderRequest renderRequest, RenderResponse renderResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext = new PortalContextBridgeImpl(renderRequest.getPortalContext());
+		PortalContext portalContext = new PortalContextBridgeImpl(renderRequest);
 
 		return new RenderRequestBridgeImpl(renderRequest, portalContext);
 	}
@@ -72,7 +72,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext = new PortalContextBridgeImpl(resourceRequest.getPortalContext());
+		PortalContext portalContext = new PortalContextBridgeImpl(resourceRequest);
 
 		return new ResourceRequestBridgeImpl(resourceRequest, portalContext);
 	}

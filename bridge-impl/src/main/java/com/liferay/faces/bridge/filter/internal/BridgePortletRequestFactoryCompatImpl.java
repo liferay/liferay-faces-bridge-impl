@@ -34,7 +34,7 @@ public abstract class BridgePortletRequestFactoryCompatImpl extends BridgePortle
 	public HeaderRequest getHeaderRequest(HeaderRequest headerRequest, HeaderResponse headerResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		PortalContext portalContext = new PortalContextBridgeImpl(headerRequest.getPortalContext());
+		PortalContext portalContext = new PortalContextBridgeImpl(headerRequest);
 
 		return new HeaderRequestBridgeImpl(headerRequest, portalContext);
 	}

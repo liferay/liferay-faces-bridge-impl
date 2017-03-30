@@ -23,6 +23,7 @@ import java.util.List;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortalContext;
+import javax.portlet.PortletRequest;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
@@ -37,10 +38,11 @@ public class PortalContextBridgeImpl extends PortalContextBridgeCompatImpl {
 	private String ableToSetHttpStatusCode;
 	private List<String> propertyNameList;
 
-	public PortalContextBridgeImpl(PortalContext portalContext) {
+	public PortalContextBridgeImpl(PortletRequest portletRequest) {
 
-		super(portalContext);
+		super(portletRequest);
 
+		PortalContext portalContext = portletRequest.getPortalContext();
 		propertyNameList = new ArrayList<String>();
 
 		Enumeration<String> propertyNames = portalContext.getPropertyNames();
