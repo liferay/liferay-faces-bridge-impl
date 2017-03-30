@@ -15,10 +15,12 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
 import javax.portlet.PortalContext;
+import javax.portlet.PortletRequest;
 import javax.portlet.filter.PortalContextWrapper;
+
+import com.liferay.faces.bridge.internal.BridgeExt;
+import com.liferay.faces.util.helper.BooleanHelper;
 
 
 /**
@@ -26,15 +28,23 @@ import javax.portlet.filter.PortalContextWrapper;
  */
 public abstract class PortalContextBridgeCompatImpl extends PortalContextWrapper {
 
+	// Private Data Members
+	private boolean ajaxRequest;
+
 	public PortalContextBridgeCompatImpl(PortalContext wrapped) {
 		super(wrapped);
 	}
 
-	protected String getAddToHeadSupport(String addToHeadPropertyName, PortalContext wrappedPortalContext) {
+	public PortalContextBridgeCompatImpl(PortletRequest portletRequest) {
 
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		PartialViewContext partialViewContext = facesContext.getPartialViewContext();
-		boolean ajaxRequest = ((partialViewContext != null) && partialViewContext.isAjaxRequest());
+		super(portletRequest.getPortalContext());
+
+		String facesAjaxParam = portletRequest.getParameter(BridgeExt.FACES_AJAX_PARAMETER);
+
+		this.ajaxRequest = BooleanHelper.isTrueToken(facesAjaxParam);
+	}
+
+	protected String getAddToHeadSupport(String addToHeadPropertyName, PortalContext wrappedPortalContext) {
 
 		if (ajaxRequest) {
 			return null;
