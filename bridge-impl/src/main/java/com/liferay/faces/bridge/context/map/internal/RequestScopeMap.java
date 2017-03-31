@@ -15,11 +15,8 @@
  */
 package com.liferay.faces.bridge.context.map.internal;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Map;
-import java.util.Set;
 
 import javax.faces.context.ExternalContext;
 import javax.portlet.PortletContext;
@@ -35,8 +32,8 @@ import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 
 
 /**
- * This class provides a {@link Map <String,Object>} abstraction over the {@link PortletRequest} attributes. Since it
- * is designed to exist and be used within the scope of a request, it is not thread-safe.
+ * This class provides a {@link Map <String,Object>} abstraction over the {@link PortletRequest} attributes. Since it is
+ * designed to exist and be used within the scope of a request, it is not thread-safe.
  *
  * @author  Neil Griffin
  */
@@ -47,18 +44,15 @@ public class RequestScopeMap extends AbstractMutablePropertyMap<Object> {
 	private PortletRequest portletRequest;
 	private PreDestroyInvoker preDestroyInvoker;
 	private boolean preferPreDestroy;
-	private Set<String> removedPropertyNames;
 
-	public RequestScopeMap(PortletContext portletContext, PortletRequest portletRequest,
-		Set<String> removedAttributeNames, boolean preferPreDestroy) {
+	public RequestScopeMap(PortletContext portletContext, PortletRequest portletRequest, boolean preferPreDestroy) {
 
 		String appConfigAttrName = ApplicationConfig.class.getName();
 		ApplicationConfig applicationConfig = (ApplicationConfig) portletContext.getAttribute(appConfigAttrName);
-		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(
-				portletContext, BeanManagerFactory.class);
+		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(portletContext,
+				BeanManagerFactory.class);
 		this.beanManager = beanManagerFactory.getBeanManager(applicationConfig.getFacesConfig());
 		this.portletRequest = portletRequest;
-		this.removedPropertyNames = removedAttributeNames;
 		this.preferPreDestroy = preferPreDestroy;
 
 		PreDestroyInvokerFactory preDestroyInvokerFactory = (PreDestroyInvokerFactory) BridgeFactoryFinder.getFactory(
@@ -96,18 +90,7 @@ public class RequestScopeMap extends AbstractMutablePropertyMap<Object> {
 
 	@Override
 	protected Enumeration<String> getMutablePropertyNames() {
-
-		if ((removedPropertyNames != null) && (removedPropertyNames.size() > 0)) {
-
-			Enumeration<String> attributeNames = portletRequest.getAttributeNames();
-			ArrayList<String> attributeNameList = Collections.list(attributeNames);
-			attributeNameList.removeAll(removedPropertyNames);
-
-			return Collections.enumeration(attributeNameList);
-		}
-		else {
-			return portletRequest.getAttributeNames();
-		}
+		return portletRequest.getAttributeNames();
 	}
 
 	@Override

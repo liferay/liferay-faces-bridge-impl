@@ -29,11 +29,8 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.portlet.MimeResponse;
-import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletMode;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.faces.Bridge;
@@ -42,7 +39,6 @@ import javax.portlet.faces.BridgeException;
 
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandler;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandlerImpl;
-import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.internal.CapturingWriter;
 import com.liferay.faces.bridge.context.internal.WriterOperation;
 import com.liferay.faces.bridge.event.internal.IPCPhaseListener;
@@ -80,13 +76,22 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 
 		init(renderRequest, mimeResponse, portletPhase);
 
-		// If the portlet mode has not changed, then restore the faces view root and messages that would
-		// have been saved during the ACTION_PHASE of the portlet lifecycle. Section 5.4.1 requires that the
-		// BridgeRequestScope must not be restored if there is a change in portlet modes detected.
+		// Determine whether or not the Faces lifecycle was already executed.
 		boolean facesLifecycleExecuted = bridgeRequestScope.isFacesLifecycleExecuted();
+
+		// Restore the faces view root and messages that would have been saved during the ACTION_PHASE.
 		bridgeRequestScope.restoreState(facesContext);
 
-		if (bridgeRequestScope.isPortletModeChanged()) {
+		// If a portlet mode change occurred, then the view associated with the new portlet mode is considered to be
+		// a different view by the bridge (even if it has the same viewId as the previous mode). Therefore, the view
+		// that caused the ACTION_PHASE is different than the view associated with the RENDER_PHASE. Since the bridge
+		// request scope is an ACTION_PHASE -> ACTION_PHASE type of scope designed to help redisplay, the values
+		// submitted in the ACTION_PHASE would be unrelated in the case of a redisplay. For that reason, the bridge
+		// request scope must be removed from the cache so that a RENDER_PHASE caused by a redisplay will not use it.
+		//
+		// PROPOSE-FOR-BRIDGE3-SPEC: Although the spec does not mention the redirect case, the bridge request
+		// scope must not be maintained if a redirect has occurred.
+		if (bridgeRequestScope.isPortletModeChanged() || bridgeRequestScope.isRedirectOccurred()) {
 			bridgeRequestScopeCache.remove(bridgeRequestScope.getId());
 		}
 
@@ -99,6 +104,16 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 			UIViewRoot uiViewRoot = viewHandler.createView(facesContext, renderRedirectViewId);
 			facesContext.setViewRoot(uiViewRoot);
 			logger.debug("Performed render-redirect to viewId=[{0}]", renderRedirectViewId);
+		}
+
+		// Otherwise, if a redirect occurred in the ACTION_PHASE or the EVENT_PHASE (possibly due to a navigation-rule
+		// firing with a <redirect/> element), then indicate that the JSF Lifecycle has not yet been executed. This
+		// will cause the RESTORE_VIEW phase to get executed below and the target viewId will be the value of the
+		// _facesViewIdRender request parameter.
+		else if (bridgeRequestScope.isRedirectOccurred()) {
+
+			// TCK TestPage177 (redirectEventTest)
+			facesLifecycleExecuted = false;
 		}
 
 		// NOTE: PROPOSE-FOR-BRIDGE3-API Actually, the proposal would be to REMOVE
@@ -251,30 +266,6 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 		}
 
 		return bridgeNavigationHandler;
-	}
-
-	@Override
-	protected void initBridgeRequestScope(PortletRequest portletRequest, PortletResponse portletResponse,
-		Bridge.PortletPhase portletPhase) {
-
-		super.initBridgeRequestScope(portletRequest, portletResponse, portletPhase);
-
-		// If the portlet container does not support the POST-REDIRECT-GET design pattern, then the ACTION_PHASE and
-		// RENDER_PHASE are both part of a single HTTP POST request. In such cases, the excluded request attributes must
-		// be pro-actively removed here in the RENDER_PHASE (providing that the bridge request scope was created in the
-		// ACTION_PHASE). Note that this must take place prior to the FacesContext getting constructed. This is because
-		// the FacesContextFactory delegation chain might consult a request attribute that is supposed to be excluded.
-		// This is indeed the case with Apache Trinidad {@link
-		// org.apache.myfaces.trinidadinternal.context.FacesContextFactoryImpl.CacheRenderKit} constructor, which
-		// consults a request attribute named "org.apache.myfaces.trinidad.util.RequestStateMap" that must first be
-		// excluded.
-		PortalContext portalContext = portletRequest.getPortalContext();
-		String postRedirectGetSupport = portalContext.getProperty(BridgePortalContext.POST_REDIRECT_GET_SUPPORT);
-
-		if ((postRedirectGetSupport == null) &&
-				(bridgeRequestScope.getBeganInPhase() == Bridge.PortletPhase.ACTION_PHASE)) {
-			bridgeRequestScope.removeExcludedAttributes(getRenderRequest());
-		}
 	}
 
 	/**

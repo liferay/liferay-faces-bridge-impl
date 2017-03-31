@@ -1309,14 +1309,8 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		applicationMap = contextMapFactory.getApplicationScopeMap(portletContext, preferPreDestroy);
 
 		// Initialize the request attribute map.
-		Set<String> removedAttributeNames = null;
-
-		if (bridgeRequestScope != null) {
-			removedAttributeNames = bridgeRequestScope.getRemovedAttributeNames();
-		}
-
 		requestAttributeMap = contextMapFactory.getRequestScopeMap(portletContext, portletRequest,
-				portletResponse.getNamespace(), removedAttributeNames, preferPreDestroy);
+				portletResponse.getNamespace(), preferPreDestroy);
 
 		// Initialize the session map.
 		sessionMap = contextMapFactory.getSessionScopeMap(portletContext, portletRequest.getPortletSession(true),
