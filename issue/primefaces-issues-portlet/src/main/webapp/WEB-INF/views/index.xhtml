@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:p="http://primefaces.org/ui" xmlns:portlet="http://xmlns.jcp.org/portlet_3_0">
+
+	<h:head>
+		<portlet:namespace var="portletNamespace" />
+		<h:outputScript>/* <![CDATA[ */
+
+			// Unfortunately, FACES-3031 causes a client-side ParseException before onerror or oncomplete events fire.
+			// To work around this, listen for onsuccess and parse the partial response for errors.
+			function renderResults(data) {
+
+				var testResultStatus = 'SUCCESS';
+				var testResultDetail = 'State successfully saved and restored.';
+				var errorNames = data.getElementsByTagName('error-name');
+
+				if (errorNames.length > 0) {
+
+					testResultStatus = 'FAILURE';
+					testResultDetail = 'Failed to restore state due to the following error:\n<code>' +
+						errorNames[0].innerHTML + ': ' +
+						data.getElementsByTagName('error-message')[0].firstChild.nodeValue +
+						'</code>. See server log for full stack trace.';
+				}
+
+				var faces3031Results = document.getElementById('FACES-3031-results');
+				faces3031Results.innerHTML =
+					'<p>Test: <span id="FACES-3031-test-name">FACES-3031</span></p>' +
+					'<p>Status: <span id="FACES-3031-result-status">' + testResultStatus + '</span></p>' +
+					'<p>Detail: <span id="FACES-3031-result-detail">' + testResultDetail + '</span></p>';
+			}
+		// ]]></h:outputScript>
+	</h:head>
+	<h:body>
+		<div id="FACES-3031-results"></div>
+		<h:form>
+			<p:commandButton styleClass="testAction" value="Save and Restore State" update="@all"
+				onsuccess="renderResults(data); /* Avoid further processing of the request since it will cause the results to be deleted. */ return true;" />
+		</h:form>
+	</h:body>
+
+</f:view>
