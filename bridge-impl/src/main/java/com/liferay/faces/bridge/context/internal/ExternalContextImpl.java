@@ -340,7 +340,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			}
 			else {
 
-				// TestPage166: getRequestContentTypeEventTest expects this condition to return null so throwing an
+				// TCK TestPage166: getRequestContentTypeEventTest expects this condition to return null so throwing an
 				// IllegalStateException is not an option.
 				return null;
 			}
@@ -698,7 +698,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 							bridgeRequestScope.setRedirectOccurred(true);
 						}
 
-						// TestPage039-requestNoScopeOnRedirectTest.
+						// TCK TestPage039: requestNoScopeOnRedirectTest
 						ActionResponse actionResponse = (ActionResponse) portletResponse;
 						actionResponse.sendRedirect(url);
 					}
@@ -718,6 +718,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 								(createRenderUrlDuringActionPhaseSupport != null)) {
 
 							// Redirect to the targeted view.
+							// TCK TestPage176: redirectActionTest (Liferay Portal)
 							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext,
 									bridgeURI.toString(), null);
 							ActionResponse actionResponse = (ActionResponse) portletResponse;
@@ -733,8 +734,8 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 						else if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) ||
 								(portletPhase == Bridge.PortletPhase.EVENT_PHASE)) {
 
-							// TCK NOTE: The TCK will invoke this condition during the
-							// TestPage039-requestNoScopeOnRedirectTest and TestPage176-redirectActionTest.
+							// TCK TestPage176: redirectActionTest (Pluto)
+							// TCK TestPage177: redirectEventTest
 							String newViewId = bridgeURI.getContextRelativePath(contextPath);
 
 							// If redirecting to a different view, then create the target view and place it into the
@@ -791,9 +792,9 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 							if (redirectURLViewId != null) {
 
-								// TCK TestPage 049: renderRedirectTest
-								// TCK TestPage 178: redirectRenderTest
-								// TCK TestPage 180: redirectRenderPRP2Test
+								// TCK TestPage049: renderRedirectTest
+								// TCK TestPage178: redirectRenderTest
+								// TCK TestPage180: redirectRenderPRP2Test
 								portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT, Boolean.TRUE);
 								portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT_VIEW_ID, redirectURLViewId);
 							}
@@ -817,7 +818,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 								if (viewIdRenderParameterValue != null) {
 
-									// TCK TestPage 179: redirectRenderPRP1Test
+									// TCK TestPage179: redirectRenderPRP1Test
 									portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT, Boolean.TRUE);
 									portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT_VIEW_ID,
 										URLDecoder.decode(viewIdRenderParameterValue, "UTF-8"));
@@ -897,7 +898,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 				clientDataRequest.setCharacterEncoding(encoding);
 			}
 			catch (IllegalStateException e) {
-				// TestPage141: setRequestCharacterEncodingActionTest -- exception is to be ignored
+				// TCK TestPage141: setRequestCharacterEncodingActionTest -- exception is to be ignored
 			}
 		}
 		else {
@@ -906,7 +907,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 				incongruityContext.setRequestCharacterEncoding(encoding);
 			}
 			else {
-				// TestPage140: setRequestCharacterEncodingRenderTest expects this to be a no-op so throwing an
+				// TCK TestPage140: setRequestCharacterEncodingRenderTest expects this to be a no-op so throwing an
 				// IllegalStateException is not an option.
 			}
 		}
@@ -987,7 +988,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 					incongruityContext.setResponseCharacterEncoding(encoding);
 				}
 				else {
-					// TestPage196: setResponseCharacterEncodingTest expects this to be a no-op so throwing
+					// TCK TestPage196: setResponseCharacterEncodingTest expects this to be a no-op so throwing
 					// IllegalStateException is not an option.
 				}
 			}
