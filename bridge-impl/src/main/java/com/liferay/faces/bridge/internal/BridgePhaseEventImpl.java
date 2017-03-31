@@ -133,9 +133,49 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 					bridgeRequestScope.setNavigationOccurred(!oldViewId.equals(newViewId));
 				}
 
+				// Process the outgoing public render parameters.
+				// TCK TestPage064 (eventControllerTest)
+				processOutgoingPublicRenderParameters(facesLifecycle);
+
 				// Save the faces view root and any messages in the faces context so that they can be restored during
 				// the RENDER_PHASE of the portlet lifecycle.
 				bridgeRequestScope.saveState(facesContext);
+
+				// In accordance with Section 5.2.5 of the Spec, if a portlet mode change has occurred, then the
+				// bridge request scope must not be maintained.
+				//
+				// NOTE: THIS REQUIREMENT IS HANDLED BY THE RENDER PHASE since the current design relies on
+				// BridgeRequestScope.restoreState(FacesContext) to detect portlet mode changes in some cases.
+				//
+				// PROPOSE-FOR-BRIDGE3-SPEC: Although the spec does not mention the redirect case, the bridge request
+				// scope must not be maintained if a redirect has occurred.
+				//
+				// REDIRECT:
+				// ---------
+				// TCK TestPage062 (eventScopeNotRestoredRedirectTest)
+				// TCK TestPage177 (redirectEventTest)
+				//
+				// PORTLET MODE CHANGED:
+				// ---------------------
+				// TCK TestPage063 (eventScopeNotRestoredModeChangedTest)
+				// TCK TestPage111 (encodeActionURLWithModeEventTest)
+				//
+				// NON-REDIRECT / SAME PORTLET MODE:
+				// ---------------------------------
+				// TCK TestPage060 (eventPhaseListenerTest)
+				// TCK TestPage061 (eventScopeRestoredTest)
+				// TCK TestPage064 (eventControllerTest)
+				// TCK TestPage109 (encodeActionURLJSFViewEventTest)
+				// TCK TestPage110 (encodeActionURLWithParamEventTest)
+				// TCK TestPage112 (encodeActionURLWithInvalidModeEventTest),
+				// TCK TestPage113 (encodeActionURLWithWindowStateEventTest)
+				// TCK TestPage114 (encodeActionURLWithInvalidWindowStateEventTest)
+				// TCK TestPage143 (getRequestHeaderMapEventTest)
+				// TCK TestPage147 (getRequestHeaderValuesMapEventTest)
+				// TCK TestPage161 (getRequestCharacterEncodingEventTest)
+				// TCK TestPage166 (getRequestContentTypeEventTest)
+				// TCK TestPage170 (getResponseCharacterEncodingEventTest)
+				// TCK TestPage174 (getResponseContentTypeEventTest)
 
 				// Assume that the bridge request scope should be maintained from the EVENT_PHASE into the
 				// RENDER_PHASE by utilizing render parameters.
@@ -158,10 +198,6 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 				}
 
 				maintainBridgeRequestScope(eventRequest, eventResponse, bridgeRequestScopeTransport);
-
-				// Process the outgoing public render parameters.
-				// TCK TestPage064: eventControllerTest
-				processOutgoingPublicRenderParameters(facesLifecycle);
 			}
 
 			// Maintain the render parameters set in the ACTION_PHASE so that they carry over to the RENDER_PHASE.

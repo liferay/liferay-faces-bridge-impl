@@ -99,13 +99,11 @@ public abstract class ContextMapFactory implements FacesWrapper<ContextMapFactor
 	 * @param  portletContext         The current portlet context.
 	 * @param  portletRequest         The current portlet request.
 	 * @param  responseNamespace      The current response namespace.
-	 * @param  removedAttributeNames  The set of attribute names that have been removed from the bridge request scope
-	 *                                due to their exclusion.
 	 * @param  preferPreDestroy       Determines whether or not methods annotated with the @PreDestroy annotation are
 	 *                                preferably invoked over the @BridgePreDestroy annotation.
 	 */
 	public abstract Map<String, Object> getRequestScopeMap(PortletContext portletContext, PortletRequest portletRequest,
-		String responseNamespace, Set<String> removedAttributeNames, boolean preferPreDestroy);
+		String responseNamespace, boolean preferPreDestroy);
 
 	/**
 	 * Returns a {@link Map} of attributes stored in the underlying {@link javax.servlet.ServletContext}.

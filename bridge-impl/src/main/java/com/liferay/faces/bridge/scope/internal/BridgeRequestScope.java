@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.scope.internal;
 
 import java.util.Map;
-import java.util.Set;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.ActionRequest;
@@ -30,11 +29,11 @@ import javax.portlet.faces.Bridge;
  * bridge the gap between the portlet lifecycle's ACTION_PHASE, EVENT_PHASE, and RENDER_PHASE. When the user invokes an
  * HTTP POST operation by clicking on a Submit button, the portlet lifecycle's ACTION_PHASE will be invoked, and the
  * bridge will execute all the phases of the JSF lifecycle except for RENDER_RESPONSE -- which is to be done later in
- * the portlet lifecycle's RENDER_PHASE. The problem is that there might be things stored as request attributes like
- * FacesMessage(s), and JSF Managed-Bean(s) during in the ACTION_PHASE, but also need to be referenced in the
- * RENDER_PHASE. Technically, the {@link ActionRequest} created for the ACTION_PHASE and the {@link RenderRequest}
- * created for the RENDER_PHASE are two different objects, and so the BridgeRequestScope exists to maintain request
- * attribute values between the two phases.
+ * the portlet lifecycle's RENDER_PHASE. The problem is that there might be FacesContext attributes or {@link
+ * javax.faces.bean.RequestScoped} managed-beans (request attributes) created during in the ACTION_PHASE that also need
+ * to be referenced in the RENDER_PHASE. Technically, the {@link ActionRequest} created for the ACTION_PHASE and the
+ * {@link RenderRequest} created for the RENDER_PHASE are two different objects, and so the BridgeRequestScope exists to
+ * maintain the existence of scoped data between the two phases.
  *
  * @author  Neil Griffin
  */
@@ -43,7 +42,7 @@ public interface BridgeRequestScope {
 	/**
 	 * @author  Neil Griffin
 	 */
-	public static enum Transport {
+	public enum Transport {
 
 		/**
 		 * Indicates that the bridge request scope should be carried from the ACTION_PHASE/EVENT_PHASE into the
@@ -73,51 +72,47 @@ public interface BridgeRequestScope {
 	public long getDateCreated();
 
 	/**
-	 * Sets the prefix of the unique identifier returned by {@link #getId()}.
+	 * Returns the unique identifier for this bridge request scope.
 	 */
-	public void setIdPrefix(String idPrefix);
+	public String getId();
 
 	/**
-	 * Returns the unique identifier, which is prefixed with the value passed to {@link #setIdPrefix(String)}.
+	 * Returns the {@link PortletMode} that was set via {@link #setPortletMode(PortletMode)}.
 	 */
-	String getId();
-
-	// PROPOSED-FOR-STANDARD: https://issues.apache.org/jira/browse/PORTLETBRIDGE-202
-	PortletMode getPortletMode();
-
-	Map<String, String> getPreservedActionParameterMap();
-
-	String getPreservedViewStateParam();
+	public PortletMode getPortletMode();
 
 	/**
-	 * This method returns a mutable set of attribute names that correspond to those that were removed by the {@link
-	 * #removeExcludedAttributes(RenderRequest)} method. Since the return value is mutable, callers of this method have
-	 * an opportunity to add names to the set when necessary.
-	 *
-	 * @return  The set of removed attribute names.
+	 * If the javax.portlet.faces.preserveActionParams init-param is set to <code>true</code> in WEB-INF/portlet.xml
+	 * then this returns the action parameters that were found in the ACTION_PHASE.
 	 */
-	Set<String> getRemovedAttributeNames();
+	public Map<String, String> getPreservedActionParameterMap();
+
+	/**
+	 * Returns the value of the {@link javax.faces.render.ResponseStateManager#VIEW_STATE_PARAM} parameter that was
+	 * found in the ACTION_PHASE.
+	 */
+	public String getPreservedViewStateParam();
 
 	/**
 	 * Returns the flag indicating whether or not the Faces Lifecycle was executed.
 	 *
 	 * @return  <code>true</code> if the Faces Lifecycle was executed, otherwise <code>false</code>.
 	 */
-	boolean isFacesLifecycleExecuted();
+	public boolean isFacesLifecycleExecuted();
 
 	/**
 	 * Returns the flag indicating whether or not a navigation-rule fired.
 	 *
 	 * @return  <code>true</code> indicates that a navigation-rule fired, otherwise <code>false</code>.
 	 */
-	boolean isNavigationOccurred();
+	public boolean isNavigationOccurred();
 
 	/**
 	 * Returns a flag indicating whether or not the PortletMode has changed.
 	 *
 	 * @return  <code>true</code> if the portlet mode has changed, otherwise <code>false</code>
 	 */
-	boolean isPortletModeChanged();
+	public boolean isPortletModeChanged();
 
 	/**
 	 * Returns a flag indicating whether or not a <redirect/> was encountered in a navigation-rule.
@@ -125,24 +120,15 @@ public interface BridgeRequestScope {
 	 * @return  <code>true</code> indicates that <redirect/> was encountered in a navigation-rule, otherwise <code>
 	 *          false</code>.
 	 */
-	boolean isRedirectOccurred();
+	public boolean isRedirectOccurred();
 
 	/**
-	 * This method removes the excluded request attributes. It is designed to be called at the beginning of the
-	 * RENDER_PHASE of the portlet lifecycle. However, it is only necessary to call this method if {@link
-	 * com.liferay.faces.bridge.context.BridgePortalContext#POST_REDIRECT_GET_SUPPORT} evaluates to <code>false</code>.
-	 * This is because portlet containers that do indeed implement the POST-REDIRECT-GET design pattern would not have
-	 * any excluded request attributes carry-over from the ActionRequest to the RenderRequest.
-	 */
-	void removeExcludedAttributes(RenderRequest renderRequest);
-
-	/**
-	 * This method should be called in order to release resources and/or scoped data that is not to be maintained
-	 * from the ACTION_PHASE to the RENDER_PHASE.
+	 * This method should be called in order to release resources and/or scoped data that is not to be maintained from
+	 * the ACTION_PHASE/EVENT_PHASE to the RENDER_PHASE.
 	 *
-	 * @param facesContext  The current {@link FacesContext}.
+	 * @param  facesContext  The current {@link FacesContext}.
 	 */
-	void release(FacesContext facesContext);
+	public void release(FacesContext facesContext);
 
 	/**
 	 * This method restores the scoped data that was preserved by the call to {@link #saveState(FacesContext)} method as
@@ -151,7 +137,7 @@ public interface BridgeRequestScope {
 	 *
 	 * @param  facesContext  The current {@link FacesContext}.
 	 */
-	void restoreState(FacesContext facesContext);
+	public void restoreState(FacesContext facesContext);
 
 	/**
 	 * This method preserves the scoped data (as defined in Section 5.1.2 of the Bridge Spec). It should only be called
@@ -160,7 +146,7 @@ public interface BridgeRequestScope {
 	 *
 	 * @param  facesContext  The current {@link FacesContext}.
 	 */
-	void saveState(FacesContext facesContext);
+	public void saveState(FacesContext facesContext);
 
 	/**
 	 * Sets the flag indicating whether or not the Faces lifecycle was executed.
@@ -168,7 +154,7 @@ public interface BridgeRequestScope {
 	 * @param  facesLifecycleExecuted  <code>true</code> indicates that the Faces lifecycle was executed, otherwise
 	 *                                 <code>false</code>.
 	 */
-	void setFacesLifecycleExecuted(boolean facesLifecycleExecuted);
+	public void setFacesLifecycleExecuted(boolean facesLifecycleExecuted);
 
 	/**
 	 * Sets the flag indicating whether or not a navigation-rule fired.
@@ -176,16 +162,18 @@ public interface BridgeRequestScope {
 	 * @param  navigationOccurred  <code>true</code> indicates that a navigation-rule fired, otherwise <code>
 	 *                             false</code>.
 	 */
-	void setNavigationOccurred(boolean navigationOccurred);
+	public void setNavigationOccurred(boolean navigationOccurred);
 
-	// PROPOSED-FOR-STANDARD: https://issues.apache.org/jira/browse/PORTLETBRIDGE-202
-	void setPortletMode(PortletMode portletMode);
+	/**
+	 * Sets the {@link PortletMode} that can be retrieved by calling {@link #getPortletMode()}.
+	 */
+	public void setPortletMode(PortletMode portletMode);
 
 	/**
 	 * Sets a flag indicating whether or not the PortletMode has changed. If <code>true</code> then request attributes
 	 * will not be preserved when the {@link #saveState(FacesContext)} method is called.
 	 */
-	void setPortletModeChanged(boolean portletModeChanged);
+	public void setPortletModeChanged(boolean portletModeChanged);
 
 	/**
 	 * Sets a flag indicating whether or not a <redirect/> was encountered in a navigation-rule.
@@ -193,5 +181,5 @@ public interface BridgeRequestScope {
 	 * @param  redirectOccurred  <code>true</code> indicates that a <redirect/> was encountered in a navigation-rule,
 	 *                           otherwise <code>false</code>.
 	 */
-	void setRedirectOccurred(boolean redirectOccurred);
+	public void setRedirectOccurred(boolean redirectOccurred);
 }
