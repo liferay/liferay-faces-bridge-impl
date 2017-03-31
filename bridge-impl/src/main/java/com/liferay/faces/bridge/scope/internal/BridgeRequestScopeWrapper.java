@@ -20,7 +20,6 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletMode;
-import javax.portlet.RenderRequest;
 import javax.portlet.faces.Bridge.PortletPhase;
 
 import com.liferay.faces.util.helper.Wrapper;
@@ -31,84 +30,95 @@ import com.liferay.faces.util.helper.Wrapper;
  */
 public abstract class BridgeRequestScopeWrapper implements BridgeRequestScope, Wrapper<BridgeRequestScope> {
 
+	@Override
 	public abstract BridgeRequestScope getWrapped();
 
+	@Override
 	public PortletPhase getBeganInPhase() {
 		return getWrapped().getBeganInPhase();
 	}
 
+	@Override
 	public long getDateCreated() {
 		return getWrapped().getDateCreated();
 	}
 
+	@Override
 	public String getId() {
 		return getWrapped().getId();
 	}
 
+	@Override
 	public PortletMode getPortletMode() {
 		return getWrapped().getPortletMode();
 	}
 
+	@Override
 	public Map<String, String> getPreservedActionParameterMap() {
 		return getWrapped().getPreservedActionParameterMap();
 	}
 
+	@Override
 	public String getPreservedViewStateParam() {
 		return getWrapped().getPreservedViewStateParam();
 	}
 
-	public Set<String> getRemovedAttributeNames() {
-		return getWrapped().getRemovedAttributeNames();
-	}
-
+	@Override
 	public boolean isFacesLifecycleExecuted() {
 		return getWrapped().isFacesLifecycleExecuted();
 	}
 
+	@Override
 	public boolean isNavigationOccurred() {
 		return getWrapped().isNavigationOccurred();
 	}
 
+	@Override
 	public boolean isPortletModeChanged() {
 		return getWrapped().isPortletModeChanged();
 	}
 
+	@Override
 	public boolean isRedirectOccurred() {
 		return getWrapped().isRedirectOccurred();
 	}
 
-	public void removeExcludedAttributes(RenderRequest renderRequest) {
-		getWrapped().removeExcludedAttributes(renderRequest);
+	@Override
+	public void release(FacesContext facesContext) {
+		getWrapped().release(facesContext);
 	}
 
+	@Override
 	public void restoreState(FacesContext facesContext) {
 		getWrapped().restoreState(facesContext);
 	}
 
+	@Override
 	public void saveState(FacesContext facesContext) {
 		getWrapped().saveState(facesContext);
 	}
 
+	@Override
 	public void setFacesLifecycleExecuted(boolean facesLifecycleExecuted) {
 		getWrapped().setFacesLifecycleExecuted(facesLifecycleExecuted);
 	}
 
-	public void setIdPrefix(String idPrefix) {
-		getWrapped().setIdPrefix(idPrefix);
-	}
-
+	@Override
 	public void setNavigationOccurred(boolean navigationOccurred) {
 		getWrapped().setNavigationOccurred(navigationOccurred);
 	}
 
+	@Override
 	public void setPortletMode(PortletMode portletMode) {
 		getWrapped().setPortletMode(portletMode);
 	}
 
+	@Override
 	public void setPortletModeChanged(boolean portletModeChanged) {
 		getWrapped().setPortletModeChanged(portletModeChanged);
 	}
 
+	@Override
 	public void setRedirectOccurred(boolean redirectOccurred) {
 		getWrapped().setRedirectOccurred(redirectOccurred);
 	}
