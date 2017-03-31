@@ -32,7 +32,6 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
-import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
@@ -40,7 +39,6 @@ import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
-import javax.portlet.RenderRequest;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
@@ -52,6 +50,7 @@ import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.internal.IncongruityContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.FacesMessageWrapper;
+import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -76,10 +75,6 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	private static final String BRIDGE_REQ_SCOPE_ATTR_REQUEST_ATTRIBUTES =
 		"com.liferay.faces.bridge.faces.request.attributes";
 
-	// Protected Constants
-	protected static final String BRIDGE_REQ_SCOPE_NON_EXCLUDED_ATTR_NAMES =
-		"com.liferay.faces.bridge.nonExcludedAttributeNames";
-
 	// Other Private Constants
 	private static final String JAVAX_FACES_ENCODED_URL_PARAM = "javax.faces.encodedURL";
 
@@ -90,11 +85,12 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	private String idPrefix;
 	private String idSuffix;
 	private boolean navigationOccurred;
+	private Set<String> nonExcludedAttributeNames;
 	private PortletMode portletMode;
 	private boolean portletModeChanged;
+	private boolean postRedirectGetSupported;
 	private boolean preserveActionParams;
-	private boolean redirect;
-	private Set<String> removedAttributeNames;
+	private boolean redirectOcurred;
 	private RequestAttributeInspector requestAttributeInspector;
 
 	public BridgeRequestScopeImpl(PortletRequest portletRequest, PortletConfig portletConfig,
@@ -111,10 +107,12 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		this.portletMode = PortletMode.VIEW;
 		this.beganInPhase = (Bridge.PortletPhase) portletRequest.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE);
 		this.preserveActionParams = PortletConfigParam.PreserveActionParams.getBooleanValue(portletConfig);
-		this.removedAttributeNames = new HashSet<String>();
-
 		this.requestAttributeInspector = RequestAttributeInspectorFactory.getRequestAttributeInspectorInstance(
 				portletRequest, portletConfig, bridgeConfig);
+
+		PortalContext portalContext = portletRequest.getPortalContext();
+		String postRedirectGetSupport = portalContext.getProperty(BridgePortalContext.POST_REDIRECT_GET_SUPPORT);
+		this.postRedirectGetSupported = BooleanHelper.isTrueToken(postRedirectGetSupport);
 	}
 
 	@Override
@@ -148,11 +146,6 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		return (String) getAttribute(ResponseStateManager.VIEW_STATE_PARAM);
 	}
 
-	@Override
-	public Set<String> getRemovedAttributeNames() {
-		return removedAttributeNames;
-	}
-
 	// The overrides for {@link #toString()} and {@link #hashCode()} are necessary because the {@link ConcurrentHashMap}
 	// parent class overrides them and causes debug logs to be difficult to interpret.
 	@Override
@@ -177,123 +170,21 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 
 	@Override
 	public boolean isRedirectOccurred() {
-		return redirect;
+		return redirectOcurred;
 	}
 
 	@Override
 	public void release(FacesContext facesContext) {
 
-		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-		PortalContext portalContext = portletRequest.getPortalContext();
-		String postRedirectGetSupport = portalContext.getProperty(BridgePortalContext.POST_REDIRECT_GET_SUPPORT);
+		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
-		if (postRedirectGetSupport == null) {
-
-			// Iterate through all of the request attributes and build up a list of those that are to be removed.
-			Set<String> attributeNamesToRemove = new HashSet<String>();
-			Enumeration<String> attributeNames = portletRequest.getAttributeNames();
-
-			while (attributeNames.hasMoreElements()) {
-
-				String attributeName = attributeNames.nextElement();
-				Object attributeValue = portletRequest.getAttribute(attributeName);
-
-				if (!requestAttributeInspector.isExcludedByPreExisting(attributeName, attributeValue)) {
-					attributeNamesToRemove.add(attributeName);
-				}
-			}
-
-			for (String attributeName : attributeNamesToRemove) {
-
-				portletRequest.removeAttribute(attributeName);
-				logger.debug(
-					"Removed request attribute name=[{0}] since it did not exist before the FacesContext was acquired.",
-					attributeName);
-			}
-		}
-	}
-
-	/**
-	 * Unlike Pluto, Liferay will preserve/copy request attributes that were originally set on an {@link ActionRequest}
-	 * into the {@link RenderRequest}. However, the Bridge Spec assumes that they will not be preserved. Therefore is
-	 * necessary to remove these request attributes when running under Liferay.
-	 */
-	@Override
-	public void removeExcludedAttributes(RenderRequest renderRequest) {
-
-		if (isRedirectOccurred() || isPortletModeChanged()) {
-
-			// TCK TestPage062: eventScopeNotRestoredRedirectTest
-			// TCK TestPage063: eventScopeNotRestoredModeChangedTest
-			@SuppressWarnings("unchecked")
-			List<String> nonExcludedAttributeNames = (List<String>) getAttribute(
-					BRIDGE_REQ_SCOPE_NON_EXCLUDED_ATTR_NAMES);
-
-			if (nonExcludedAttributeNames != null) {
-
-				for (String attributeName : nonExcludedAttributeNames) {
-
-					renderRequest.removeAttribute(attributeName);
-
-					removedAttributeNames.add(attributeName);
-
-					if (logger.isTraceEnabled()) {
-
-						if (isRedirectOccurred()) {
-							logger.trace(
-								"Due to redirect, removed request attribute name=[{0}] that had been preserved in the ACTION_PHASE or EVENT_PHASE",
-								attributeName);
-						}
-						else {
-							logger.trace(
-								"Due to PortletMode change, removed request attribute name=[{0}] that had been preserved in the ACTION_PHASE or EVENT_PHASE",
-								attributeName);
-						}
-					}
-				}
-			}
-		}
-
-		// Iterate through all of the request attributes and build up a list of those that are to be removed.
-		Enumeration<String> attributeNames = renderRequest.getAttributeNames();
-
-		// TCK TestPage037: requestScopeContentsTest
-		// TCK TestPage045: excludedAttributesTest
-		// TCK TestPage151: requestMapRequestScopeTest
-		while (attributeNames.hasMoreElements()) {
-			String attributeName = attributeNames.nextElement();
-			Object attributeValue = renderRequest.getAttribute(attributeName);
-
-			if (requestAttributeInspector.isExcludedByPreExisting(attributeName, attributeValue)) {
-
-				if (requestAttributeInspector.isExcludedByConfig(attributeName, attributeValue)) {
-
-					// TCK TestPage151 (requestMapRequestScopeTest) remove "verifyPreBridgeExclusion"
-					renderRequest.removeAttribute(attributeName);
-					logger.debug("Removed request attribute name=[{0}] since it was specified for removal.",
-						attributeName);
-				}
-				else {
-					logger.debug(
-						"Kept request attribute name=[{0}] since it existed prior to the FacesContext being created.",
-						attributeName);
-				}
-			}
-			else {
-
-				if (requestAttributeInspector.isExcludedByConfig(attributeName, attributeValue) ||
-						requestAttributeInspector.isExcludedByAnnotation(attributeName, attributeValue) ||
-						requestAttributeInspector.isExcludedByType(attributeName, attributeValue) ||
-						requestAttributeInspector.containsExcludedNamespace(attributeName)) {
-
-					renderRequest.removeAttribute(attributeName);
-
-					logger.debug(
-						"Removed request attribute name=[{0}] that had been preserved in the ACTION_PHASE or EVENT_PHASE",
-						attributeName);
-				}
-			}
+		if (!postRedirectGetSupported &&
+				((portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) ||
+					(portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE))) {
+			ExternalContext externalContext = facesContext.getExternalContext();
+			Set<String> nonExcludedAttributeNames = getNonExcludedRequestAttributes(externalContext.getRequestMap());
+			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+			simulatePostRedirectGet(portletRequest, nonExcludedAttributeNames);
 		}
 	}
 
@@ -315,13 +206,25 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
 			if (!portletMode.equals(portletRequest.getPortletMode())) {
-				setPortletModeChanged(true);
+
+				if (!portletModeChanged) {
+
+					// TCK TestPage040 (requestNoScopeOnModeChangeTest) - In this test, a navigation-rule fires in the
+					// ACTION_PHASE of the portlet lifecycle that contains a portlet mode change from VIEW to EDIT.
+					// Since the BridgeRequestScope instance created in the ACTION_PHASE is not maintained, "this" will
+					// be a new instance and the mode change that took place in the ACTION_PHASE will not be known. In
+					// this case, the BridgeRequestScope was not maintained from the ACTION_PHASE to the RENDER_PHASE
+					// but a navigation-rule. Detecting a mode change is possible though by checking the request to see
+					// if it differs from VIEW mode (the default).
+					portletModeChanged = true;
+				}
+
 				restoreNonExcludedRequestAttributes = false;
 			}
 		}
 
-		if ((beganInPhase == Bridge.PortletPhase.ACTION_PHASE) || (beganInPhase == Bridge.PortletPhase.EVENT_PHASE) ||
-				(beganInPhase == Bridge.PortletPhase.RESOURCE_PHASE)) {
+		if (((beganInPhase == Bridge.PortletPhase.ACTION_PHASE) || (beganInPhase == Bridge.PortletPhase.EVENT_PHASE) ||
+					(beganInPhase == Bridge.PortletPhase.RESOURCE_PHASE)) && !redirectOcurred) {
 
 			// Restore the view root that may have been saved during the action/event/render phase of the portlet
 			// lifecycle.
@@ -378,7 +281,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 				Map<String, Object> currentRequestAttributes = externalContext.getRequestMap();
 
 				// If a redirect did not occur, then restore the non-excluded request attributes.
-				if (!isRedirectOccurred()) {
+				if (!redirectOcurred) {
 
 					for (RequestAttribute requestAttribute : savedRequestAttributes) {
 						String name = requestAttribute.getName();
@@ -444,9 +347,10 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 
 		logger.debug("saveState(facesContext)");
 
-		// Get the ExternalContext and PortletResponse.
+		// If the bridge request scope began in the ACTION_PHASE, EVENT_PHASE, or RESOURCE_PHASE of the portlet
+		// lifecycle, then
 		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletResponse portletResponse = (PortletResponse) facesContext.getExternalContext().getResponse();
+		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
 
 		if ((beganInPhase == Bridge.PortletPhase.ACTION_PHASE) || (beganInPhase == Bridge.PortletPhase.EVENT_PHASE) ||
 				(beganInPhase == Bridge.PortletPhase.RESOURCE_PHASE)) {
@@ -455,10 +359,10 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			setAttribute(BRIDGE_REQ_SCOPE_ATTR_FACES_VIEW_ROOT, facesContext.getViewRoot());
 
 			// If the PortletMode hasn't changed, then preserve the "javax.faces.ViewState" request parameter value.
-			if (!isPortletModeChanged()) {
+			if (!portletModeChanged) {
 
 				if (portletResponse instanceof ActionResponse) {
-					String viewState = facesContext.getExternalContext().getRequestParameterMap().get(
+					String viewState = externalContext.getRequestParameterMap().get(
 							ResponseStateManager.VIEW_STATE_PARAM);
 
 					if (viewState != null) {
@@ -511,7 +415,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			boolean saveNonExcludedAttributes = true;
 
 			// If a redirect occurred, then indicate that the non-excluded request attributes are not to be preserved.
-			if (isRedirectOccurred()) {
+			if (redirectOcurred) {
 
 				// TCK TestPage062: eventScopeNotRestoredRedirectTest
 				logger.trace("Due to redirect, not saving any non-excluded request attributes");
@@ -520,40 +424,26 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 
 			// Otherwise, if the portlet mode has changed, then indicate that the non-exluded request attributes are
 			// not to be preserved.
-			else if (isPortletModeChanged()) {
+			else if (portletModeChanged) {
 				logger.trace("Due to PortletMode change, not saving any non-excluded request attributes");
 				saveNonExcludedAttributes = false;
 			}
 
 			// If appropriate, save the non-excluded request attributes. This would include, for example, managed-bean
 			// instances that may have been created during the ACTION_PHASE that need to survive to the RENDER_PHASE.
-			Map<String, Object> currentRequestAttributes = externalContext.getRequestMap();
-
-			if (currentRequestAttributes != null) {
+			if (saveNonExcludedAttributes) {
+				Map<String, Object> requestMap = externalContext.getRequestMap();
+				Set<String> nonExcludedAttributeNames = getNonExcludedRequestAttributes(requestMap);
 				List<RequestAttribute> savedRequestAttributes = new ArrayList<RequestAttribute>();
-				List<String> nonExcludedAttributeNames = new ArrayList<String>();
 
-				for (Map.Entry<String, Object> mapEntry : currentRequestAttributes.entrySet()) {
+				for (Map.Entry<String, Object> mapEntry : requestMap.entrySet()) {
 					String attributeName = mapEntry.getKey();
-					Object attributeValue = mapEntry.getValue();
 
-					if (requestAttributeInspector.isExcludedByConfig(attributeName, attributeValue) ||
-							requestAttributeInspector.isExcludedByAnnotation(attributeName, attributeValue) ||
-							requestAttributeInspector.containsExcludedNamespace(attributeName) ||
-							requestAttributeInspector.isExcludedByType(attributeName, attributeValue) ||
-							requestAttributeInspector.isExcludedByPreExisting(attributeName, attributeValue)) {
-
-						logger.trace("NOT saving EXCLUDED attribute name=[{0}]", attributeName);
-					}
-					else {
-
-						if (saveNonExcludedAttributes) {
-							logger.trace("SAVING non-excluded request attribute name=[{0}] value=[{1}]", attributeName,
-								attributeValue);
-							savedRequestAttributes.add(new RequestAttribute(attributeName, attributeValue));
-						}
-
-						nonExcludedAttributeNames.add(attributeName);
+					if (nonExcludedAttributeNames.contains(attributeName)) {
+						Object attributeValue = mapEntry.getValue();
+						logger.trace("SAVING non-excluded request attribute name=[{0}] value=[{1}]", attributeName,
+							attributeValue);
+						savedRequestAttributes.add(new RequestAttribute(attributeName, attributeValue));
 					}
 				}
 
@@ -563,11 +453,6 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 				else {
 					logger.trace("Not saving any non-excluded request attributes");
 				}
-
-				setAttribute(BRIDGE_REQ_SCOPE_NON_EXCLUDED_ATTR_NAMES, nonExcludedAttributeNames);
-			}
-			else {
-				logger.trace("Not saving any non-excluded request attributes because there are no request attributes!");
 			}
 		}
 
@@ -606,16 +491,20 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 
 			setAttribute(BRIDGE_REQ_SCOPE_ATTR_INCONGRUITY_CONTEXT_ATTRIBUTES, savedIncongruityAttributes);
 		}
+
+		if (!postRedirectGetSupported &&
+				((portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) ||
+					(portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE))) {
+			Map<String, Object> requestMap = externalContext.getRequestMap();
+			Set<String> nonExcludedAttributeNames = getNonExcludedRequestAttributes(requestMap);
+			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+			simulatePostRedirectGet(portletRequest, nonExcludedAttributeNames);
+		}
 	}
 
 	@Override
 	public void setFacesLifecycleExecuted(boolean facesLifecycleExecuted) {
 		this.facesLifecycleExecuted = facesLifecycleExecuted;
-	}
-
-	@Override
-	public void setIdPrefix(String idPrefix) {
-		this.idPrefix = idPrefix;
 	}
 
 	@Override
@@ -634,8 +523,8 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	}
 
 	@Override
-	public void setRedirectOccurred(boolean redirect) {
-		this.redirect = redirect;
+	public void setRedirectOccurred(boolean redirectOcurred) {
+		this.redirectOcurred = redirectOcurred;
 	}
 
 	// The overrides for {@link #toString()} and {@link #hashCode()} are necessary because the {@link ConcurrentHashMap}
@@ -643,5 +532,105 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	@Override
 	public String toString() {
 		return getClass().getName().concat("@").concat(Integer.toHexString(hashCode()));
+	}
+
+	private Set<String> getNonExcludedRequestAttributes(Map<String, Object> requestMap) {
+
+		if (nonExcludedAttributeNames == null) {
+
+			nonExcludedAttributeNames = new HashSet<String>();
+
+			for (Map.Entry<String, Object> mapEntry : requestMap.entrySet()) {
+
+				String attributeName = mapEntry.getKey();
+				Object attributeValue = mapEntry.getValue();
+
+				boolean excluded = requestAttributeInspector.isExcludedByConfig(attributeName, attributeValue) ||
+					requestAttributeInspector.isExcludedByAnnotation(attributeName, attributeValue) ||
+					requestAttributeInspector.containsExcludedNamespace(attributeName) ||
+					requestAttributeInspector.isExcludedByType(attributeName, attributeValue) ||
+					requestAttributeInspector.isExcludedByPreExisting(attributeName, attributeValue);
+
+				if (!excluded) {
+					nonExcludedAttributeNames.add(attributeName);
+				}
+			}
+		}
+
+		return nonExcludedAttributeNames;
+	}
+
+	/**
+	 * If the portlet container does not support the POST-REDIRECT-GET design pattern, then the ACTION_PHASE and
+	 * RENDER_PHASE are both part of a single HTTP POST request. In such cases, the excluded request attributes must be
+	 * pro-actively removed. Note that this must take place prior to the FacesContext getting constructed because the
+	 * FacesContextFactory delegation chain might consult a request attribute that is supposed to be excluded. This is
+	 * indeed the case with Apache Trinidad
+	 * org.apache.myfaces.trinidadinternal.context.FacesContextFactoryImpl.CacheRenderKit constructor, which consults a
+	 * request attribute named "org.apache.myfaces.trinidad.util.RequestStateMap" that must first be excluded.
+	 */
+	private void simulatePostRedirectGet(PortletRequest portletRequest, Set<String> nonExcludedAttributeNames) {
+
+		// TCK TestPage062: eventScopeNotRestoredRedirectTest
+		// TCK TestPage063: eventScopeNotRestoredModeChangedTest
+		for (String nonExcludedAttributeName : nonExcludedAttributeNames) {
+
+			portletRequest.removeAttribute(nonExcludedAttributeName);
+
+			if (logger.isTraceEnabled()) {
+
+				if (redirectOcurred) {
+					logger.trace(
+						"Due to redirect, removed request attribute name=[{0}] that had been preserved in the ACTION_PHASE or EVENT_PHASE",
+						nonExcludedAttributeName);
+				}
+				else {
+					logger.trace(
+						"Due to PortletMode change, removed request attribute name=[{0}] that had been preserved in the ACTION_PHASE or EVENT_PHASE",
+						nonExcludedAttributeName);
+				}
+			}
+		}
+
+		// Iterate through all of the request attributes and build up a list of those that are to be removed.
+		Enumeration<String> attributeNames = portletRequest.getAttributeNames();
+
+		// TCK TestPage037: requestScopeContentsTest
+		// TCK TestPage045: excludedAttributesTest
+		// TCK TestPage151: requestMapRequestScopeTest
+		while (attributeNames.hasMoreElements()) {
+			String attributeName = attributeNames.nextElement();
+			Object attributeValue = portletRequest.getAttribute(attributeName);
+
+			if (requestAttributeInspector.isExcludedByPreExisting(attributeName, attributeValue)) {
+
+				if (requestAttributeInspector.isExcludedByConfig(attributeName, attributeValue)) {
+
+					// TCK TestPage151 (requestMapRequestScopeTest) remove "verifyPreBridgeExclusion"
+					portletRequest.removeAttribute(attributeName);
+					logger.debug("Removed request attribute name=[{0}] since it was specified for removal.",
+						attributeName);
+				}
+				else {
+					logger.debug(
+						"Kept request attribute name=[{0}] since it existed prior to the FacesContext being created.",
+						attributeName);
+				}
+			}
+			else {
+
+				if (requestAttributeInspector.isExcludedByConfig(attributeName, attributeValue) ||
+						requestAttributeInspector.isExcludedByAnnotation(attributeName, attributeValue) ||
+						requestAttributeInspector.isExcludedByType(attributeName, attributeValue) ||
+						requestAttributeInspector.containsExcludedNamespace(attributeName)) {
+
+					portletRequest.removeAttribute(attributeName);
+
+					logger.debug(
+						"Removed request attribute name=[{0}] that had been preserved in the ACTION_PHASE or EVENT_PHASE",
+						attributeName);
+				}
+			}
+		}
 	}
 }
