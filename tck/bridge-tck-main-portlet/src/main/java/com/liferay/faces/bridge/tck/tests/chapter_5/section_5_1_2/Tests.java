@@ -170,7 +170,8 @@ public class Tests extends Object {
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
-			// Add elements that should be preserved but won't be because we are redirecting
+			// Add elements that should be preserved but won't be because we are navigating from VIEW to EDIT mode
+			// due to the presence of javax.portlet.faces.PortletMode=edit in the navigation-rule.
 			m.put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
 
 			return "requestNoScopeOnModeChangeTest"; // action Navigation result
