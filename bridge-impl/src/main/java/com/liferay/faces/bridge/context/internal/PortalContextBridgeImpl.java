@@ -84,7 +84,7 @@ public class PortalContextBridgeImpl extends PortalContextBridgeCompatImpl {
 			return null;
 		}
 		else if (BridgePortalContext.POST_REDIRECT_GET_SUPPORT.equals(name)) {
-			return null;
+			return "true";
 		}
 		else if (BridgePortalContext.SET_HTTP_STATUS_CODE_SUPPORT.equals(name)) {
 			return getSetHttpStatusCode();
