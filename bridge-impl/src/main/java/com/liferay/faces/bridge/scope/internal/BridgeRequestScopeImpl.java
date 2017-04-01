@@ -115,33 +115,33 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		this.postRedirectGetSupported = BooleanHelper.isTrueToken(postRedirectGetSupport);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public Bridge.PortletPhase getBeganInPhase() {
 		return beganInPhase;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public long getDateCreated() {
 		return dateCreated;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public String getId() {
 		return idPrefix + idSuffix;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public PortletMode getPortletMode() {
 		return portletMode;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	@SuppressWarnings("unchecked")
 	public Map<String, String> getPreservedActionParameterMap() {
 		return (Map<String, String>) getAttribute(BRIDGE_REQ_SCOPE_ATTR_ACTION_PARAMS);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public String getPreservedViewStateParam() {
 		return (String) getAttribute(ResponseStateManager.VIEW_STATE_PARAM);
 	}
@@ -153,30 +153,30 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		return System.identityHashCode(this);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public boolean isFacesLifecycleExecuted() {
 		return facesLifecycleExecuted;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public boolean isNavigationOccurred() {
 		return navigationOccurred;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public boolean isPortletModeChanged() {
 		return portletModeChanged;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public boolean isRedirectOccurred() {
 		return redirectOcurred;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void release(FacesContext facesContext) {
 
-		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
 
 		if (!postRedirectGetSupported &&
 				((portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) ||
@@ -188,7 +188,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	@SuppressWarnings("unchecked")
 	public void restoreState(FacesContext facesContext) {
 
@@ -342,7 +342,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	 *
 	 * @param  facesContext  The current faces context.
 	 */
-	@Override
+	// Java 1.6+ @Override
 	public void saveState(FacesContext facesContext) {
 
 		logger.debug("saveState(facesContext)");
@@ -502,27 +502,27 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void setFacesLifecycleExecuted(boolean facesLifecycleExecuted) {
 		this.facesLifecycleExecuted = facesLifecycleExecuted;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void setNavigationOccurred(boolean navigationOccurred) {
 		this.navigationOccurred = navigationOccurred;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void setPortletMode(PortletMode portletMode) {
 		this.portletMode = portletMode;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void setPortletModeChanged(boolean portletModeChanged) {
 		this.portletModeChanged = portletModeChanged;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void setRedirectOccurred(boolean redirectOcurred) {
 		this.redirectOcurred = redirectOcurred;
 	}
