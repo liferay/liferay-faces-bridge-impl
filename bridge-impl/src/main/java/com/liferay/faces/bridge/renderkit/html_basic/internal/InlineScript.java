@@ -28,15 +28,13 @@ import javax.faces.context.ResponseWriter;
  */
 public class InlineScript extends UIComponentBase {
 
-	// Private Data Members
-	private String script;
-
 	public InlineScript() {
 		// Zero-arg constructor is necessary to support restoration of saved state by the state manager.
 	}
 
 	public InlineScript(String script, String libraryName) {
-		this.script = script;
+
+		getStateHelper(true).put("inlineScript", script);
 
 		Map<String, Object> attributes = getAttributes();
 		attributes.put("name", libraryName + "inlinescript" + script.hashCode());
@@ -45,9 +43,12 @@ public class InlineScript extends UIComponentBase {
 
 	@Override
 	public void encodeBegin(FacesContext facesContext) throws IOException {
+
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
 		responseWriter.startElement("script", this);
 		responseWriter.writeAttribute("type", "text/javascript", null);
+
+		Object script = getStateHelper().get("inlineScript");
 		responseWriter.writeText(script, null);
 	}
 
