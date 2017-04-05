@@ -41,8 +41,7 @@ public class BridgeNavigationUtil {
 	 * StateAwareResponse#setWindowState(javax.portlet.WindowState)}, etc.
 	 */
 	public static void navigate(PortletRequest portletRequest, StateAwareResponse stateAwareResponse,
-		BridgeRequestScope bridgeRequestScope, Map<String, String[]> parameterMap) throws PortletModeException,
-		WindowStateException {
+		Map<String, String[]> parameterMap) throws PortletModeException, WindowStateException {
 
 		// For each parameter found in the encoded <to-view-id> Action-URL:
 		Set<Map.Entry<String, String[]>> entrySet = parameterMap.entrySet();
@@ -63,13 +62,9 @@ public class BridgeNavigationUtil {
 
 				PortletMode portletMode = new PortletMode(firstParameterValue);
 
-				if (bridgeRequestScope != null) {
-
-					if (!portletRequest.getPortletMode().equals(portletMode) &&
-							portletRequest.isPortletModeAllowed(portletMode)) {
-						stateAwareResponse.setPortletMode(portletMode);
-						bridgeRequestScope.setPortletModeChanged(true);
-					}
+				if (!portletRequest.getPortletMode().equals(portletMode) &&
+						portletRequest.isPortletModeAllowed(portletMode)) {
+					stateAwareResponse.setPortletMode(portletMode);
 				}
 			}
 

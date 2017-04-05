@@ -772,7 +772,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 							// Apply the PortletMode, WindowState, etc. that may be present in the URL to the response.
 							try {
 								StateAwareResponse stateAwareResponse = (StateAwareResponse) portletResponse;
-								BridgeNavigationUtil.navigate(portletRequest, stateAwareResponse, bridgeRequestScope,
+								BridgeNavigationUtil.navigate(portletRequest, stateAwareResponse,
 									bridgeURI.getParameterMap());
 							}
 							catch (PortletException e) {
