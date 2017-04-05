@@ -19,6 +19,8 @@ import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletMode;
+import javax.portlet.PortletModeException;
 
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
@@ -29,8 +31,12 @@ import com.liferay.faces.bridge.util.internal.RequestMapUtil;
  */
 public class ActionResponseBridgeImpl extends ActionResponseBridgeCompatImpl {
 
+	// Private Data Members
+	private PortletMode initialPortletMode;
+
 	public ActionResponseBridgeImpl(ActionResponse actionResponse) {
 		super(actionResponse);
+		this.initialPortletMode = actionResponse.getPortletMode();
 	}
 
 	@Override
@@ -45,6 +51,19 @@ public class ActionResponseBridgeImpl extends ActionResponseBridgeCompatImpl {
 
 		prepareForRedirect();
 		super.sendRedirect(location, renderUrlParamName);
+	}
+
+	@Override
+	public void setPortletMode(PortletMode portletMode) throws PortletModeException {
+
+		super.setPortletMode(portletMode);
+
+		if (!initialPortletMode.equals(portletMode)) {
+
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			BridgeRequestScope bridgeRequestScope = RequestMapUtil.getBridgeRequestScope(facesContext);
+			bridgeRequestScope.setPortletModeChanged(true);
+		}
 	}
 
 	protected void prepareForRedirect() {
