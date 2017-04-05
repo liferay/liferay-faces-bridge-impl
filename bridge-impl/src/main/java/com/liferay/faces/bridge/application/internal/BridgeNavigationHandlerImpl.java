@@ -134,10 +134,8 @@ public class BridgeNavigationHandlerImpl extends BridgeNavigationHandlerCompatIm
 							}
 
 							PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-							BridgeRequestScope bridgeRequestScope = (BridgeRequestScope) portletRequest.getAttribute(
-									BridgeRequestScope.class.getName());
 							BridgeNavigationUtil.navigate(portletRequest, (StateAwareResponse) portletResponse,
-								bridgeRequestScope, bridgeActionURL.getParameterMap());
+								bridgeActionURL.getParameterMap());
 						}
 						catch (Exception e) {
 							logger.error(e.getMessage());

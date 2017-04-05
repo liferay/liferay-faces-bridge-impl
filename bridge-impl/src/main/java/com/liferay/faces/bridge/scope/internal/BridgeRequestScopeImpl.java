@@ -422,7 +422,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 				saveNonExcludedAttributes = false;
 			}
 
-			// Otherwise, if the portlet mode has changed, then indicate that the non-exluded request attributes are
+			// Otherwise, if the portlet mode has changed, then indicate that the non-excluded request attributes are
 			// not to be preserved.
 			else if (portletModeChanged) {
 				logger.trace("Due to PortletMode change, not saving any non-excluded request attributes");
