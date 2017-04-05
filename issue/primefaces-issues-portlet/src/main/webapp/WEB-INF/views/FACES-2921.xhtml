@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile"
+		renderKitId="PRIMEFACES_MOBILE">
+
+	<h:head>
+		<h:outputStylesheet>
+			.ui-page-active {
+				z-index: 1000000;
+			}
+		</h:outputStylesheet>
+	</h:head>
+	<h:body>
+		<pm:page>
+			<pm:header title="FACES-2921 Page">
+				<h:outputText value="FACES-2921 Page Header Text" />
+			</pm:header>
+			<pm:content>
+				<h:form>
+					<pm:field>
+						<p:outputLabel for="text" value="Text:" />
+						<p:inputText id="text" value="#{FACES_2921Bean.text}" />
+					</pm:field>
+					<pm:field>
+						<pm:switch id="switch" value="#{FACES_2921Bean.switchValue}" />
+					</pm:field>
+					<pm:field>
+						<pm:rangeSlider>
+							<pm:inputSlider id="slider1" value="#{FACES_2921Bean.slider1Value}" />
+							<pm:inputSlider id="slider2" value="#{FACES_2921Bean.slider2Value}"/>
+						</pm:rangeSlider>
+					</pm:field>
+					<p:commandButton id="submit" value="Submit" update="@form" />
+					<p:outputPanel>
+						<p:outputLabel for="textOutput" value="Text Output:" />
+						<h:outputText id="textOutput" value="#{FACES_2921Bean.text}" />
+					</p:outputPanel>
+					<p:outputPanel>
+						<p:outputLabel for="switchOutput" value="Switch Output:" />
+						<h:outputText id="switchOutput" value="#{FACES_2921Bean.switchValue}" />
+					</p:outputPanel>
+					<p:outputPanel>
+						<p:outputLabel for="slider1Output" value="Slider 1 Output:" />
+						<h:outputText id="slider1Output" value="#{FACES_2921Bean.slider1Value}" />
+					</p:outputPanel>
+					<p:outputPanel>
+						<p:outputLabel for="slider2Output" value="Slider 2 Output:" />
+						<h:outputText id="slider2Output" value="#{FACES_2921Bean.slider2Value}" />
+					</p:outputPanel>
+				</h:form>
+			</pm:content>
+			<pm:footer title="FACES-2921 Page Footer">
+				<h:outputText value="FACES-2921 Page Footer Text" />
+			</pm:footer>
+		</pm:page>
+	</h:body>
+
+</f:view>
