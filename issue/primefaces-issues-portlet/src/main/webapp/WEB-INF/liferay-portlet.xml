@@ -2,6 +2,15 @@
 <!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 7.0.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_7_0_0.dtd">
 
 <liferay-portlet-app>
+
+	<portlet>
+		<portlet-name>FACES-2921</portlet-name>
+		<instanceable>false</instanceable>
+		<!-- JAVASERVERFACES-3031 -->
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<ajaxable>false</ajaxable>
+	</portlet>
+
 	<portlet>
 		<portlet-name>FACES-3031</portlet-name>
 		<instanceable>false</instanceable>
@@ -9,6 +18,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<ajaxable>false</ajaxable>
 	</portlet>
+
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>
