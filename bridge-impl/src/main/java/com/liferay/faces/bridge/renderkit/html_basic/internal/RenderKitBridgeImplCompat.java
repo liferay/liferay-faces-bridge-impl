@@ -22,12 +22,21 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitWrapper;
 
 import com.liferay.faces.bridge.renderkit.bridge.internal.ResponseWriterBridgeImpl;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
  * @author  Neil Griffin
  */
 public class RenderKitBridgeImplCompat extends RenderKitWrapper {
+
+	// Protected Constants
+	protected static final Product ICEFACES = ProductFactory.getProduct(Product.Name.ICEFACES);
+	protected static final boolean ICEFACES_DETECTED = ICEFACES.isDetected();
+
+	// Private Constants
+	private static final boolean ICEFACES3_OR_LOWER = (ICEFACES_DETECTED && (ICEFACES.getMajorVersion() <= 3));
 
 	// Private Data Members
 	private RenderKit wrappedRenderKit;
@@ -39,11 +48,21 @@ public class RenderKitBridgeImplCompat extends RenderKitWrapper {
 	/**
 	 * Provides the bridge with the ability to wrap the HTML_BASIC ResponseWriter provided by the JSF implementation.
 	 */
+	@Override
 	public ResponseWriter createResponseWriter(Writer writer, String contentTypeList, String characterEncoding) {
-		ResponseWriter wrappedResponseWriter = wrappedRenderKit.createResponseWriter(writer, contentTypeList,
+
+		ResponseWriter responseWriter = wrappedRenderKit.createResponseWriter(writer, contentTypeList,
 				characterEncoding);
 
-		return new ResponseWriterBridgeImpl(wrappedResponseWriter);
+		// FACES-2567 ICEfaces ice: (or compat) components require that the outermost ResponseWriter be an ICEfaces
+		// DOMResponseWriter. So if ICEfaces version 3 or lower is detected, do not add the ResponseWriterBridgeImpl to
+		// outside of the delegation chain. Instead RenderKitInnerImpl will add ResponseWriterBridgeImpl to the inside
+		// of the delegation chain.
+		if (!ICEFACES3_OR_LOWER) {
+			responseWriter = new ResponseWriterBridgeImpl(responseWriter);
+		}
+
+		return responseWriter;
 	}
 
 	@Override
