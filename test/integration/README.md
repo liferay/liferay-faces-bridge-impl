@@ -18,11 +18,9 @@ Different browsers can be activated via the `chrome`, `firefox`, `phantomjs`, `j
 
 Single tests and groups of tests can be selected via the the `it.test` property. The `it.test` property uses wildcards to select tests from their fully qualified class names. For example, to run only the issue portlet tests:
 
-	mvn verify -P selenium,liferay -Dit.test=*issue.*Test*
+	mvn verify -P selenium,liferay -Dit.test=\*issue.\*Test\*
 
-Unfortunately the bridge tests will be executed twice when run with the `it.test` property since there are multiple `maven-failsafe-plugin` `<execution>` elements. To avoid this behavior, you can temporarily comment out the `alloy-showcase-selenium-tests` `<execution>` in the `pom.xml` file.
-
-Likewise, `-Dit.test=*Applicant*` would run only the applicant portlet tests, and `-Dit.test=*demo.JSF*` would run only the non-applicant demo portlet tests.
+Likewise, `-Dit.test=\*Applicant\*` would run only the applicant portlet tests, and `-Dit.test=\*demo.JSF\*` would run only the non-applicant demo portlet tests.
 
 The tests can also be run on Pluto Portal with the `pluto` profile:
 
@@ -40,7 +38,7 @@ All of the above properties and profiles can be combined to run tests in more co
 
 - Run the issue tests with Chrome against a Pluto Portal instance running on port 4000.
  
-		mvn verify -P selenium,pluto,chrome -Dintegration.port=4000 -Dit.test=*issue.*Test*
+		mvn verify -P selenium,pluto,chrome -Dintegration.port=4000 -Dit.test=\*issue.\*Test\*
 
 - Run the tests on Firefox with more verbose logs:
 
@@ -48,4 +46,12 @@ All of the above properties and profiles can be combined to run tests in more co
 
 - Run the FACES-1635 test on Chrome:
 
-		mvn verify -P selenium,liferay,chrome -Dit.test=*FACES_1635* 
+		mvn verify -P selenium,liferay,chrome -Dit.test=\*FACES_1635\*
+
+- Run the JSF Showcase testers:
+
+        mvn verify -P selenium-jsf-showcase,liferay,chrome
+
+- Run the Alloy Showcase testers:
+
+        mvn verify -P selenium-alloy-showcase,liferay,chrome
