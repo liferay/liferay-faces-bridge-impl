@@ -15,9 +15,13 @@
  */
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
+import java.io.Writer;
+
+import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitWrapper;
 
+import com.liferay.faces.bridge.renderkit.bridge.internal.ResponseWriterBridgeImpl;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
 
@@ -41,6 +45,7 @@ public class RenderKitBridgeImplCompat extends RenderKitWrapper {
 	/**
 	 * Provides the bridge with the ability to wrap the HTML_BASIC ResponseWriter provided by the JSF implementation.
 	 */
+	@Override
 	public ResponseWriter createResponseWriter(Writer writer, String contentTypeList, String characterEncoding) {
 		ResponseWriter wrappedResponseWriter = wrappedRenderKit.createResponseWriter(writer, contentTypeList,
 				characterEncoding);
