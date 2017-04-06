@@ -62,8 +62,9 @@ public class RichFacesApplicantPortletTester extends BridgeApplicantPortletTeste
 
 		browser.click("//img[contains(@class, 'rf-cal-btn')]");
 
-		String dateElement = "//table[contains(@class, 'rf-cal-popup')]//td[contains(text(), '14')]";
-		browser.waitForElementVisible(dateElement);
-		browser.click(dateElement);
+		// FACES-3044 RichFaces tester fails during month which contains 14th week of year (April)
+		String dateCellXpath = "//table[contains(@class, 'rf-cal-popup')]//td[contains(text(), '14')][@onclick]";
+		browser.waitForElementVisible(dateCellXpath);
+		browser.click(dateCellXpath);
 	}
 }
