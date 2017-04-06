@@ -210,10 +210,241 @@
 											<value>com.liferay.faces.test.selenium.IntegrationTestSuiteListener</value>
 										</property>
 									</properties>
+									<excludes>
+										<exclude>**/showcase/**</exclude>
+									</excludes>
 									<includes>
 										<include>**/*Test.java,**/Test*.java,**/*TestCase.java,**/*Tester.java</include>
 									</includes>
 									<trimStackTrace>false</trimStackTrace>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+				<pluginManagement>
+					<plugins>
+						<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+						<plugin>
+							<groupId>org.eclipse.m2e</groupId>
+							<artifactId>lifecycle-mapping</artifactId>
+							<version>1.0.0</version>
+							<configuration>
+								<lifecycleMappingMetadata>
+									<pluginExecutions>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>org.apache.maven.plugins</groupId>
+												<artifactId>maven-antrun-plugin</artifactId>
+												<versionRange>[1.7,)</versionRange>
+												<goals>
+													<goal>run</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+									</pluginExecutions>
+								</lifecycleMappingMetadata>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+		<profile>
+			<id>selenium-jsf-showcase</id>
+			<build>
+				<plugins>
+					<!-- Ensure that the png resource is in the temporary directory for testing. -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>pre-integration-test</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<copy file="src/test/resources/liferay-jsf-jersey.png" todir="${java.io.tmpdir}" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.19.1</version>
+						<executions>
+							<execution>
+								<id>selenium-jsf-showcase-tests</id>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+								<configuration>
+									<systemPropertyVariables>
+										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
+										<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
+										<integration.browser>${integration.browser}</integration.browser>
+										<integration.browser.wait.time.out>${integration.browser.wait.time.out}</integration.browser.wait.time.out>
+										<integration.log.level>${integration.log.level}</integration.log.level>
+										<integration.container>${integration.container}</integration.container>
+										<integration.host>${integration.host}</integration.host>
+										<integration.port>${integration.port}</integration.port>
+										<integration.showcase.context>${integration.showcase.context}</integration.showcase.context>
+										<integration.sign.in.context>${integration.sign.in.context}</integration.sign.in.context>
+										<integration.login.xpath>${integration.login.xpath}</integration.login.xpath>
+										<integration.password.xpath>${integration.password.xpath}</integration.password.xpath>
+										<integration.sign.in.button.xpath>${integration.sign.in.button.xpath}</integration.sign.in.button.xpath>
+										<integration.login>${integration.login}</integration.login>
+										<integration.password>${integration.password}</integration.password>
+									</systemPropertyVariables>
+									<properties>
+										<property>
+											<name>listener</name>
+											<value>com.liferay.faces.test.selenium.IntegrationTestSuiteListener</value>
+										</property>
+									</properties>
+									<excludes>
+										<exclude>**/demo/**</exclude>
+										<exclude>**/issue/**</exclude>
+									</excludes>
+									<includes>
+										<include>**/showcase/**/*Test.java,**/showcase/**/Test*.java,**/showcase/**/*TestCase.java,**/showcase/**/*Tester.java</include>
+									</includes>
+									<trimStackTrace>false</trimStackTrace>
+									<dependenciesToScan>
+										<dependency>com.liferay.faces.demo:com.liferay.faces.demo.jsf.showcase.webapp</dependency>
+									</dependenciesToScan>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+				<pluginManagement>
+					<plugins>
+						<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+						<plugin>
+							<groupId>org.eclipse.m2e</groupId>
+							<artifactId>lifecycle-mapping</artifactId>
+							<version>1.0.0</version>
+							<configuration>
+								<lifecycleMappingMetadata>
+									<pluginExecutions>
+										<pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>org.apache.maven.plugins</groupId>
+												<artifactId>maven-antrun-plugin</artifactId>
+												<versionRange>[1.7,)</versionRange>
+												<goals>
+													<goal>run</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<ignore />
+											</action>
+										</pluginExecution>
+									</pluginExecutions>
+								</lifecycleMappingMetadata>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+		<profile>
+			<id>selenium-alloy-showcase</id>
+			<build>
+				<plugins>
+					<!-- Ensure that the png resource is in the temporary directory for testing. -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>pre-integration-test</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<copy file="src/test/resources/liferay-jsf-jersey.png" todir="${java.io.tmpdir}" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.19.1</version>
+						<executions>
+							<execution>
+								<id>selenium-alloy-showcase-tests</id>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+								<configuration>
+									<systemPropertyVariables>
+										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
+										<!--
+											Specify a property like so: -Dintegration.browser=phantomjs
+
+											When running tests from an IDE (like eclipse), you may need to set certain
+											system properties:
+
+											-Dintegration.context=/web/guest/alloy-showcase/-/alloy-tag
+											-Dintegration.default.component.prefix=alloy
+
+											Setting system properties in Eclipse:
+											http://stackoverflow.com/questions/862391/how-to-pass-the-d-system-properties-while-testing-on-eclipse
+											Setting systen properties in IntelliJ:
+											http://stackoverflow.com/questions/29454494/set-java-system-properties-in-intellij-or-eclipse
+											It is not necessary to set system properties in Netbeans since Netbeans
+											automatically uses Maven properties correctly.
+										-->
+										<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
+										<integration.browser>${integration.browser}</integration.browser>
+										<integration.browser.wait.time.out>${integration.browser.wait.time.out}</integration.browser.wait.time.out>
+										<integration.log.level>${integration.log.level}</integration.log.level>
+										<integration.container>${integration.container}</integration.container>
+										<integration.host>${integration.host}</integration.host>
+										<integration.port>${integration.port}</integration.port>
+										<integration.showcase.context>${integration.alloy.showcase.context}</integration.showcase.context>
+										<integration.default.component.prefix>alloy</integration.default.component.prefix>
+										<integration.sign.in.context>${integration.sign.in.context}</integration.sign.in.context>
+										<integration.login.xpath>${integration.login.xpath}</integration.login.xpath>
+										<integration.password.xpath>${integration.password.xpath}</integration.password.xpath>
+										<integration.sign.in.button.xpath>${integration.sign.in.button.xpath}</integration.sign.in.button.xpath>
+										<integration.login>${integration.login}</integration.login>
+										<integration.password>${integration.password}</integration.password>
+									</systemPropertyVariables>
+									<properties>
+										<property>
+											<name>listener</name>
+											<value>com.liferay.faces.test.selenium.IntegrationTestSuiteListener</value>
+										</property>
+									</properties>
+									<excludes>
+										<exclude>**/bridge/**</exclude>
+										<exclude>**/portlet/**</exclude>
+									</excludes>
+									<includes>
+										<include>**/showcase/**/*Test.java,**/showcase/**/Test*.java,**/showcase/**/*TestCase.java,**/showcase/**/*Tester.java</include>
+									</includes>
+									<trimStackTrace>false</trimStackTrace>
+									<dependenciesToScan>
+										<dependency>com.liferay.faces.demo:com.liferay.faces.demo.jsf.showcase.webapp</dependency>
+										<dependency>com.liferay.faces.demo:com.liferay.faces.demo.alloy.showcase.webapp</dependency>
+									</dependenciesToScan>
 								</configuration>
 							</execution>
 						</executions>
@@ -259,6 +490,28 @@
 			<artifactId>com.liferay.faces.test.selenium</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--
+		<dependency>
+			<groupId>com.liferay.faces.demo</groupId>
+			<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+			<version>${liferay.faces.showcase.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces.demo</groupId>
+			<artifactId>com.liferay.faces.demo.alloy.showcase.webapp</artifactId>
+			<version>${liferay.faces.alloy.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.liferay.faces.demo</groupId>
+					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		-->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
