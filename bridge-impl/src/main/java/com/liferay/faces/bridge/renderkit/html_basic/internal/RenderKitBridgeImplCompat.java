@@ -18,11 +18,18 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitWrapper;
 
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
+
 
 /**
  * @author  Neil Griffin
  */
 public class RenderKitBridgeImplCompat extends RenderKitWrapper {
+
+	// Protected Constants
+	protected static final Product ICEFACES = ProductFactory.getProduct(Product.Name.ICEFACES);
+	protected static final boolean ICEFACES_DETECTED = ICEFACES.isDetected();
 
 	// Private Data Members
 	private RenderKit wrappedRenderKit;

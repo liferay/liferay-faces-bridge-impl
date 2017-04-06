@@ -40,7 +40,6 @@ import com.liferay.faces.util.product.ProductFactory;
 public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 
 	// Private Constants
-	private static final boolean ICEFACES_DETECTED = ProductFactory.getProduct(Product.Name.ICEFACES).isDetected();
 	private static final String JAVAX_FACES_BODY = "javax.faces.Body";
 	private static final String JAVAX_FACES_FORM = "javax.faces.Form";
 	private static final String JAVAX_FACES_HEAD = "javax.faces.Head";
