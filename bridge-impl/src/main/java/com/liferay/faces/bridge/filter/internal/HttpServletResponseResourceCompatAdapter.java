@@ -15,37 +15,34 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import java.util.Locale;
-
 import javax.portlet.ResourceResponse;
 import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Provides a way to decorate an {@link HttpServletResponse} as a portlet {@link ResourceResponse}.
- *
  * @author  Neil Griffin
  */
-public class HttpServletResponseResourceAdapter extends HttpServletResponseResourceCompatAdapter {
+public abstract class HttpServletResponseResourceCompatAdapter extends HttpServletResponseMimeAdapter
+	implements ResourceResponse {
 
-	public HttpServletResponseResourceAdapter(ResourceResponse resourceResponse,
+	public HttpServletResponseResourceCompatAdapter(ResourceResponse resourceResponse,
 		HttpServletResponse httpServletResponse) {
 		super(resourceResponse, httpServletResponse);
 	}
 
 	@Override
-	public void setCharacterEncoding(String charset) {
-		getResourceResponse().setCharacterEncoding(charset);
+	public int getStatus() {
+		return getResourceResponse().getStatus();
 	}
 
 	@Override
-	public void setContentLength(int length) {
-		getResourceResponse().setContentLength(length);
+	public void setContentLengthLong(long length) {
+		getResourceResponse().setContentLengthLong(length);
 	}
 
 	@Override
-	public void setLocale(Locale locale) {
-		getResourceResponse().setLocale(locale);
+	public void setStatus(int statusCode) {
+		getResourceResponse().setStatus(statusCode);
 	}
 
 	private ResourceResponse getResourceResponse() {
