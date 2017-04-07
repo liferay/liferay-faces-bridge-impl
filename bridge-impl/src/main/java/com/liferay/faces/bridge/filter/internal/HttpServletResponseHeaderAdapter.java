@@ -15,36 +15,36 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
+import java.util.Collection;
+
 import javax.portlet.HeaderResponse;
+import javax.portlet.PortletMode;
+import javax.portlet.RenderResponse;
 import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Provides a way to decorate an {@link HttpServletResponse} as a portlet {@link HeaderResponse}. The methods signatures
- * that are unique to {@link HeaderResponse} throw {@link UnsupportedOperationException} since they are never called
- * during the HEADER_RESPONSE phase of the JSF lifecycle (the use-case for which this class was written). For more
- * information, see {@link com.liferay.faces.bridge.context.internal.ExternalContextImpl#setResponse(Object)}.
+ * Provides a way to decorate an {@link HttpServletResponse} as a portlet {@link RenderResponse}.
  *
  * @author  Neil Griffin
  */
-public class HttpServletResponseHeaderAdapter extends HttpServletResponseMimeAdapter implements HeaderResponse {
+public class HttpServletResponseHeaderAdapter extends HttpServletResponseMimeAdapter implements RenderResponse {
 
-	public HttpServletResponseHeaderAdapter(HttpServletResponse httpServletResponse, String namespace) {
-		super(httpServletResponse, namespace);
+	public HttpServletResponseHeaderAdapter(HeaderResponse headerResponse, HttpServletResponse httpServletResponse) {
+		super(headerResponse, httpServletResponse);
 	}
 
 	@Override
-	public void addDependency(String name, String scope, String version) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void addDependency(String name, String scope, String version, String markup) {
-		throw new UnsupportedOperationException();
+	public void setNextPossiblePortletModes(Collection<? extends PortletMode> portletModes) {
+		getRenderResponse().setNextPossiblePortletModes(portletModes);
 	}
 
 	@Override
 	public void setTitle(String title) {
-		throw new UnsupportedOperationException();
+		getRenderResponse().setTitle(title);
+	}
+
+	private RenderResponse getRenderResponse() {
+		return (RenderResponse) getResponse();
 	}
 }
