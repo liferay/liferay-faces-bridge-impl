@@ -22,31 +22,33 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Provides a way to decorate an {@link HttpServletResponse} as a portlet {@link ResourceResponse}. The methods
- * signatures that are unique to {@link ResourceResponse} throw {@link UnsupportedOperationException} since they are
- * never called during the RENDER_RESPONSE phase of the JSF lifecycle (the use-case for which this class was written).
- * For more information, see {@link com.liferay.faces.bridge.context.internal.ExternalContextImpl#setResponse(Object)}.
+ * Provides a way to decorate an {@link HttpServletResponse} as a portlet {@link ResourceResponse}.
  *
  * @author  Neil Griffin
  */
 public class HttpServletResponseResourceAdapter extends HttpServletResponseMimeAdapter implements ResourceResponse {
 
-	public HttpServletResponseResourceAdapter(HttpServletResponse httpServletResponse, String namespace) {
-		super(httpServletResponse, namespace);
+	public HttpServletResponseResourceAdapter(ResourceResponse resourceResponse,
+		HttpServletResponse httpServletResponse) {
+		super(resourceResponse, httpServletResponse);
 	}
 
 	@Override
 	public void setCharacterEncoding(String charset) {
-		throw new UnsupportedOperationException();
+		getResourceResponse().setCharacterEncoding(charset);
 	}
 
 	@Override
-	public void setContentLength(int len) {
-		throw new UnsupportedOperationException();
+	public void setContentLength(int length) {
+		getResourceResponse().setContentLength(length);
 	}
 
 	@Override
-	public void setLocale(Locale loc) {
-		throw new UnsupportedOperationException();
+	public void setLocale(Locale locale) {
+		getResourceResponse().setLocale(locale);
+	}
+
+	private ResourceResponse getResourceResponse() {
+		return (ResourceResponse) getResponse();
 	}
 }

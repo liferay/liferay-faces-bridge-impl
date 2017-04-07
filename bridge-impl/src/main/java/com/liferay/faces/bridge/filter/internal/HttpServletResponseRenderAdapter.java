@@ -17,33 +17,33 @@ package com.liferay.faces.bridge.filter.internal;
 
 import java.util.Collection;
 
-import javax.portlet.MimeResponse;
 import javax.portlet.PortletMode;
 import javax.portlet.RenderResponse;
 import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Provides a way to decorate an {@link HttpServletResponse} as a portlet {@link RenderResponse}. The methods signatures
- * that are unique to {@link RenderResponse} throw {@link UnsupportedOperationException} since they are never called
- * during the RENDER_RESPONSE phase of the JSF lifecycle (the use-case for which this class was written). For more
- * information, see {@link com.liferay.faces.bridge.context.internal.ExternalContextImpl#setResponse(Object)}.
+ * Provides a way to decorate an {@link HttpServletResponse} as a portlet {@link RenderResponse}.
  *
  * @author  Neil Griffin
  */
 public class HttpServletResponseRenderAdapter extends HttpServletResponseMimeAdapter implements RenderResponse {
 
-	public HttpServletResponseRenderAdapter(HttpServletResponse httpServletResponse, String namespace) {
-		super(httpServletResponse, namespace);
+	public HttpServletResponseRenderAdapter(RenderResponse renderResponse, HttpServletResponse httpServletResponse) {
+		super(renderResponse, httpServletResponse);
 	}
 
 	@Override
 	public void setNextPossiblePortletModes(Collection<PortletMode> portletModes) {
-		throw new UnsupportedOperationException();
+		getRenderResponse().setNextPossiblePortletModes(portletModes);
 	}
 
 	@Override
 	public void setTitle(String title) {
-		throw new UnsupportedOperationException();
+		getRenderResponse().setTitle(title);
+	}
+
+	private RenderResponse getRenderResponse() {
+		return (RenderResponse) getResponse();
 	}
 }

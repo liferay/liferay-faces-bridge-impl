@@ -17,21 +17,11 @@ package com.liferay.faces.bridge.filter.internal;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.Locale;
 
-import javax.portlet.CacheControl;
 import javax.portlet.MimeResponse;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletURL;
-import javax.portlet.ResourceURL;
-import javax.portlet.filter.PortletResponseWrapper;
-import javax.servlet.ServletResponse;
-import javax.servlet.ServletResponseWrapper;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
-
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Element;
 
 
 /**
@@ -42,112 +32,78 @@ import org.w3c.dom.Element;
  *
  * @author  Neil Griffin
  */
-public class HttpServletResponseMimeAdapter extends HttpServletResponseWrapper implements MimeResponse {
+public class HttpServletResponseMimeAdapter extends MimeResponseWrapper {
 
 	// Private Data Members
-	private String namespace;
-	private MimeResponse wrappedMimeResponse;
+	private HttpServletResponse httpServletResponse;
 
-	public HttpServletResponseMimeAdapter(HttpServletResponse httpServletResponse, String namespace) {
-		super(httpServletResponse);
-		this.namespace = namespace;
-		this.wrappedMimeResponse = (MimeResponse) unwrapPortletResponse(this);
+	public HttpServletResponseMimeAdapter(MimeResponse mimeResponse, HttpServletResponse httpServletResponse) {
+		super(mimeResponse);
+		this.httpServletResponse = httpServletResponse;
 	}
 
 	@Override
-	public void addProperty(Cookie cookie) {
-		wrappedMimeResponse.addProperty(cookie);
+	public String encodeURL(String path) {
+		return httpServletResponse.encodeURL(path);
 	}
 
 	@Override
-	public void addProperty(String key, String value) {
-		wrappedMimeResponse.addProperty(key, value);
+	public void flushBuffer() throws IOException {
+		httpServletResponse.flushBuffer();
 	}
 
 	@Override
-	public void addProperty(String key, Element element) {
-		wrappedMimeResponse.addProperty(key, element);
+	public int getBufferSize() {
+		return httpServletResponse.getBufferSize();
 	}
 
 	@Override
-	public PortletURL createActionURL() {
-		return wrappedMimeResponse.createActionURL();
+	public String getCharacterEncoding() {
+		return httpServletResponse.getCharacterEncoding();
 	}
 
 	@Override
-	public Element createElement(String tagName) throws DOMException {
-		return wrappedMimeResponse.createElement(tagName);
+	public String getContentType() {
+		return httpServletResponse.getContentType();
 	}
 
 	@Override
-	public PortletURL createRenderURL() {
-		return wrappedMimeResponse.createRenderURL();
-	}
-
-	@Override
-	public ResourceURL createResourceURL() {
-		return wrappedMimeResponse.createResourceURL();
-	}
-
-	@Override
-	public CacheControl getCacheControl() {
-		return wrappedMimeResponse.getCacheControl();
-	}
-
-	@Override
-	public String getNamespace() {
-		return namespace;
+	public Locale getLocale() {
+		return httpServletResponse.getLocale();
 	}
 
 	@Override
 	public OutputStream getPortletOutputStream() throws IOException {
-		return wrappedMimeResponse.getPortletOutputStream();
+		return httpServletResponse.getOutputStream();
 	}
 
 	@Override
-	public void setProperty(String key, String value) {
-		wrappedMimeResponse.setProperty(key, value);
+	public PrintWriter getWriter() throws IOException {
+		return httpServletResponse.getWriter();
 	}
 
-	protected PortletResponse unwrapPortletResponse(PortletResponse portletResponse) {
-
-		if (portletResponse instanceof ServletResponse) {
-
-			PortletResponse unwrappedServletResponse = unwrapServletResponse((ServletResponse) portletResponse);
-
-			if (unwrappedServletResponse != null) {
-				return unwrappedServletResponse;
-			}
-			else {
-				return portletResponse;
-			}
-		}
-		else if (portletResponse instanceof PortletResponseWrapper) {
-
-			PortletResponseWrapper portletResponseWrapper = (PortletResponseWrapper) portletResponse;
-			portletResponse = portletResponseWrapper.getResponse();
-
-			return unwrapPortletResponse(portletResponse);
-		}
-		else {
-			return portletResponse;
-		}
+	@Override
+	public boolean isCommitted() {
+		return httpServletResponse.isCommitted();
 	}
 
-	protected PortletResponse unwrapServletResponse(ServletResponse servletResponse) {
+	@Override
+	public void reset() {
+		httpServletResponse.reset();
+	}
 
-		if (servletResponse instanceof ServletResponseWrapper) {
+	@Override
+	public void resetBuffer() {
+		httpServletResponse.resetBuffer();
+	}
 
-			ServletResponseWrapper servletResponseWrapper = (ServletResponseWrapper) servletResponse;
-			servletResponse = servletResponseWrapper.getResponse();
+	@Override
+	public void setBufferSize(int size) {
+		httpServletResponse.setBufferSize(size);
+	}
 
-			return unwrapServletResponse(servletResponse);
-		}
-		else if (servletResponse instanceof PortletResponse) {
-			return (PortletResponse) servletResponse;
-		}
-		else {
-			return null;
-		}
+	@Override
+	public void setContentType(String type) {
+		httpServletResponse.setContentType(type);
 	}
 }
