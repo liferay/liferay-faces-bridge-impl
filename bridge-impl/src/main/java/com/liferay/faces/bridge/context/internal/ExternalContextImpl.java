@@ -46,6 +46,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletRequestDispatcher;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
+import javax.portlet.RenderResponse;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
@@ -930,7 +931,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			// the Faces runtime is attempting to capture the plain HTML markup that may appear after the closing
 			// </f:view> component tag (a.k.a. "after view markup"). For example, the Mojarra
 			// com.sun.faces.application.view.JspViewHandlingStrategy will attempt to decorate the response with an
-			// isntance of com.sun.faces.application.ViewHandlerResponseWrapper. Similarly, the MyFaces
+			// instance of com.sun.faces.application.ViewHandlerResponseWrapper. Similarly, the MyFaces
 			// org.apache.myfaces.view.jsp.JspViewDeclarationLanguage class will attempt to decorate the response with
 			// an instance of org.apache.myfaces.application.jsp.ServletViewResponseWrapper.
 			else if (response instanceof HttpServletResponse) {
@@ -940,15 +941,15 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 				HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
 				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
-					portletResponse = new HttpServletResponseRenderAdapter(httpServletResponse,
-							portletResponse.getNamespace());
+					portletResponse = new HttpServletResponseRenderAdapter((RenderResponse) portletResponse,
+							httpServletResponse);
 				}
 
 				// Otherwise, if executing the RESOURCE_PHASE of the portlet lifecycle, then decorate the specified
 				// HttpServletResponse with an adapter that implements ResourceResponse.
 				else if (portletPhase == Bridge.PortletPhase.RESOURCE_PHASE) {
-					portletResponse = new HttpServletResponseResourceAdapter(httpServletResponse,
-							portletResponse.getNamespace());
+					portletResponse = new HttpServletResponseResourceAdapter((ResourceResponse) portletResponse,
+							httpServletResponse);
 				}
 
 				// Otherwise, throw an exception since HttpServletResponse is not supported in other phases of the
