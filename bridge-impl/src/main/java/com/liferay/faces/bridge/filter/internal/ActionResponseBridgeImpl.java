@@ -36,7 +36,14 @@ public class ActionResponseBridgeImpl extends ActionResponseBridgeCompatImpl {
 
 	public ActionResponseBridgeImpl(ActionResponse actionResponse) {
 		super(actionResponse);
-		this.initialPortletMode = actionResponse.getPortletMode();
+
+		PortletMode portletMode = actionResponse.getPortletMode();
+		if (portletMode == null) {
+			this.initialPortletMode = PortletMode.VIEW;
+		}
+		else {
+			this.initialPortletMode = portletMode;
+		}
 	}
 
 	@Override
