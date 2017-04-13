@@ -6,10 +6,10 @@
 	<jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
 	<f:view>
 		<f:subview id="head">
-			<jsp:include page="styling.jspx" />
+			<jsp:include page="/WEB-INF/views/styling.jspx" />
 		</f:subview>
 		<f:subview id="applicant">
-			<jsp:include page="applicant.jspx" />
+			<jsp:include page="/WEB-INF/views/applicant.jspx" />
 		</f:subview>
 		<br />
 		<h:panelGroup layout="block" styleClass="row-fluid">
