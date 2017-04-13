@@ -243,18 +243,6 @@ public class TckTestCase extends IntegrationTesterBase {
 		browser.setWaitTimeOut(browserWaitTimeOut);
 	}
 
-	private void appendPageSourceIfNeccessary(Browser browser, StringBuilder stringBuilder) {
-
-		if (TestUtil.getLogLevel().intValue() <= Level.CONFIG.intValue()) {
-
-			stringBuilder.append("\n");
-
-			String pageSource = browser.getPageSource().replaceAll("(\\s)+", "$1");
-			stringBuilder.append(pageSource);
-			stringBuilder.append("\n");
-		}
-	}
-
 	private boolean areElementsVisible(Browser browser, String... elementXpaths) {
 
 		boolean elementVisible = false;
@@ -277,6 +265,44 @@ public class TckTestCase extends IntegrationTesterBase {
 		return elementVisible;
 	}
 
+	private void failTckTestCase(String message, Browser browser) {
+		failTckTestCase(message, null, browser);
+	}
+
+	private void failTckTestCase(String message, Exception e, Browser browser) {
+		throw new AssertionError(getTckTestCaseFailureMessage(message, e, browser));
+	}
+
+	private String getTckTestCaseFailureMessage(String message, Browser browser) {
+		return getTckTestCaseFailureMessage(message, null, browser);
+	}
+
+	private String getTckTestCaseFailureMessage(String message, Exception e, Browser browser) {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(pageName);
+		sb.append(": ");
+		sb.append(testName);
+		sb.append(":\n");
+		sb.append(message);
+
+		if (e != null) {
+			sb.append(e.getMessage());
+		}
+
+		// Append page source if the log level is CONFIG or finer.
+		if (TestUtil.getLogLevel().intValue() <= Level.CONFIG.intValue()) {
+
+			sb.append("\n");
+
+			String pageSource = browser.getPageSource().replaceAll("(\\s)+", "$1");
+			sb.append(pageSource);
+			sb.append("\n");
+		}
+
+		return sb.toString();
+	}
+
 	private void loadImagesIfNecessary(Browser browser) {
 
 		if (testName.equals("nonFacesResourceTest")) {
@@ -286,7 +312,6 @@ public class TckTestCase extends IntegrationTesterBase {
 
 	private void recordResult(Browser browser) {
 
-		String failMsg = null;
 		String details = null;
 		String testStatus = null;
 
@@ -308,17 +333,8 @@ public class TckTestCase extends IntegrationTesterBase {
 			catch (WebDriverException e) {
 
 				// Invalid result format
-				StringBuilder sb = new StringBuilder();
-				sb.append(pageName);
-				sb.append(": ");
-				sb.append(testName);
-				sb.append(": ");
-				sb.append("Test failed but no test result details found.\n");
-
-				String message = e.getMessage();
-				sb.append(message);
-				appendPageSourceIfNeccessary(browser, sb);
-				throw new WebDriverException(sb.toString());
+				String failureMessage = "Test failed but no test result details found.\n";
+				failTckTestCase(failureMessage, e, browser);
 			}
 		}
 		else {
@@ -335,16 +351,8 @@ public class TckTestCase extends IntegrationTesterBase {
 				catch (WebDriverException e) {
 
 					// Portlet contains no detail section, should never happen.
-					StringBuilder sb = new StringBuilder();
-					sb.append(pageName);
-					sb.append(": ");
-					sb.append(testName);
-					sb.append(": Test failed but no test result details found.\n");
-
-					String message = e.getMessage();
-					sb.append(message);
-					appendPageSourceIfNeccessary(browser, sb);
-					throw new WebDriverException(sb.toString());
+					String failureMessage = "Test failed but no test result details found.\n";
+					failTckTestCase(failureMessage, e, browser);
 				}
 			}
 			else if (areElementsVisible(browser, "//p[contains (.,\"SUCCESS\")]")) {
@@ -352,15 +360,9 @@ public class TckTestCase extends IntegrationTesterBase {
 			}
 		}
 
-		StringBuilder sb = new StringBuilder();
-		sb.append(pageName);
-		sb.append(": ");
-		sb.append(testName);
-		sb.append(": FAILED\n");
-		sb.append(details);
-		appendPageSourceIfNeccessary(browser, sb);
-		failMsg = sb.toString();
-		Assert.assertEquals(failMsg, "SUCCESS", testStatus);
+		String failureMessage = "FAILED: " + details;
+		failureMessage = getTckTestCaseFailureMessage(failureMessage, browser);
+		Assert.assertEquals(failureMessage, "SUCCESS", testStatus);
 	}
 
 	private void runAjaxTest(Browser browser) {
@@ -393,29 +395,16 @@ public class TckTestCase extends IntegrationTesterBase {
 
 			if (!resultObtained && !areElementsVisible(browser, RUN_AJAX_TEST_XPATHS)) {
 
-				StringBuilder sb = new StringBuilder();
-				sb.append(pageName);
-				sb.append(": ");
-				sb.append(testName);
-				sb.append(": ");
-				sb.append(i + 1);
-				sb.append(" ajax action(s) executed with no valid result.");
-				appendPageSourceIfNeccessary(browser, sb);
-				throw new WebDriverException(sb.toString());
+				String failureMessage = (i + 1) + " ajax action(s) executed with no valid result.";
+				failTckTestCase(failureMessage, browser);
 			}
 		}
 
 		if (!resultObtained) {
 
-			StringBuilder sb = new StringBuilder();
-			sb.append(pageName);
-			sb.append(": ");
-			sb.append(testName);
-			sb.append(": ");
-			sb.append(MAX_NUMBER_ACTIONS);
-			sb.append(" actions have been performed on this portlet without any final result.");
-			appendPageSourceIfNeccessary(browser, sb);
-			throw new WebDriverException(sb.toString());
+			String failureMessage = MAX_NUMBER_ACTIONS +
+				" actions have been performed on this portlet without any final result.";
+			failTckTestCase(failureMessage, browser);
 		}
 	}
 
@@ -449,30 +438,17 @@ public class TckTestCase extends IntegrationTesterBase {
 
 			if (!resultObtained && !areElementsVisible(browser, RUN_TEST_XPATHS)) {
 
-				StringBuilder sb = new StringBuilder();
-				sb.append(pageName);
-				sb.append(": ");
-				sb.append(testName);
-				sb.append("\n: ");
-				sb.append(i + 1);
-				sb.append(
-					" full page request action(s) have been performed on this portlet without any final result or test components to exercise.");
-				appendPageSourceIfNeccessary(browser, sb);
-				throw new WebDriverException(sb.toString());
+				String failureMessage = (i + 1) +
+					" full page request action(s) have been performed on this portlet without any final result or test components to exercise.";
+				failTckTestCase(failureMessage, browser);
 			}
 		}
 
 		if (!resultObtained) {
 
-			StringBuilder sb = new StringBuilder();
-			sb.append(pageName);
-			sb.append(": ");
-			sb.append(testName);
-			sb.append("\n: ");
-			sb.append(MAX_NUMBER_ACTIONS);
-			sb.append(" actions have been performed on this portlet without any final result.");
-			appendPageSourceIfNeccessary(browser, sb);
-			throw new WebDriverException(sb.toString());
+			String failureMessage = MAX_NUMBER_ACTIONS +
+				" actions have been performed on this portlet without any final result.";
+			failTckTestCase(failureMessage, browser);
 		}
 	}
 
@@ -485,7 +461,7 @@ public class TckTestCase extends IntegrationTesterBase {
 		}
 	}
 
-	private void testPage(Browser browser, boolean switchToIFrameIfNecessary) throws WebDriverException {
+	private void testPage(Browser browser, boolean switchToIFrameIfNecessary) {
 
 		try {
 
@@ -507,17 +483,11 @@ public class TckTestCase extends IntegrationTesterBase {
 			else {
 
 				// Default case, unrecognised page content.
-				StringBuilder sb = new StringBuilder();
-				sb.append(pageName);
-				sb.append(": ");
-				sb.append(testName);
-				sb.append("\n: Unexpected page content.");
-				appendPageSourceIfNeccessary(browser, sb);
-				Assert.fail(sb.toString());
+				failTckTestCase("Unexpected page content.", browser);
 			}
 		}
 		catch (WebDriverException e) {
-			throw new AssertionError("Uncaught WebDriverException: " + e.getMessage(), e);
+			failTckTestCase("Uncaught WebDriverException: ", e, browser);
 		}
 	}
 
