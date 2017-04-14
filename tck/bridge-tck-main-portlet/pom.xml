@@ -75,6 +75,7 @@
 	</dependencies>
 
 	<properties>
+		<integration.browser>htmlunit</integration.browser>
 		<integration.trim.stack.trace>true</integration.trim.stack.trace>
 		<portlet.container>liferay</portlet.container>
 		<portal.version.major>${liferay.version.major}</portal.version.major>
@@ -159,37 +160,6 @@
 				<dependency>
 					<groupId>org.seleniumhq.selenium</groupId>
 					<artifactId>selenium-chrome-driver</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>htmlunit</id>
-			<properties>
-				<integration.browser>htmlunit</integration.browser>
-			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>org.seleniumhq.selenium</groupId>
-					<artifactId>htmlunit-driver</artifactId>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>xml-apis</groupId>
-					<artifactId>xml-apis</artifactId>
-					<version>1.4.01</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.eclipse.jetty.websocket</groupId>
-					<artifactId>websocket-client</artifactId>
-					<version>9.2.18.v20160721</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.httpcomponents</groupId>
-					<artifactId>httpclient</artifactId>
-					<version>4.5.2</version>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
@@ -350,6 +320,32 @@
 					<version>${project.version}</version>
 					<scope>test</scope>
 				</dependency>
+
+				<!-- HTMLUnit dependencies. -->
+				<dependency>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>htmlunit-driver</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+					<version>1.4.01</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.eclipse.jetty.websocket</groupId>
+					<artifactId>websocket-client</artifactId>
+					<version>9.2.18.v20160721</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpclient</artifactId>
+					<version>4.5.2</version>
+					<scope>test</scope>
+				</dependency>
+				<!-- End HTMLUnit dependencies. -->
 
 				<!-- Integration test dependencies. -->
 				<dependency>

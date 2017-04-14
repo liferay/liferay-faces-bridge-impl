@@ -14,22 +14,17 @@
 	<packaging>jar</packaging>
 	<name>Liferay Faces Bridge Integration Tests</name>
 
+	<properties>
+		<integration.container>liferay</integration.container>
+		<integration.browser>phantomjs</integration.browser>
+		<integration.alloy.showcase.context>/web/guest/alloy-showcase/-/alloy-tag</integration.alloy.showcase.context>
+	</properties>
+
 	<profiles>
-		<profile>
-			<id>liferay</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<integration.container>liferay</integration.container>
-				<integration.alloy.showcase.context>/web/guest/alloy-showcase/-/alloy-tag</integration.alloy.showcase.context>
-			</properties>
-		</profile>
 		<profile>
 			<id>liferay62</id>
 			<properties>
 				<integration.container>liferay62</integration.container>
-				<integration.alloy.showcase.context>/web/guest/alloy-showcase/-/alloy-tag</integration.alloy.showcase.context>
 			</properties>
 		</profile>
 		<profile>
@@ -38,35 +33,6 @@
 				<integration.container>pluto</integration.container>
 				<integration.alloy.showcase.context>/pluto/portal/alloy-showcase</integration.alloy.showcase.context>
 			</properties>
-		</profile>
-		<profile>
-			<id>phantomjs</id>
-			<properties>
-				<integration.browser>phantomjs</integration.browser>
-			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>com.codeborne</groupId>
-					<artifactId>phantomjsdriver</artifactId>
-					<scope>test</scope>
-					<!-- Don't download the version of selenium that phantomjsdriver depends on since it is older than the
-					version we specify. -->
-					<exclusions>
-						<exclusion>
-							<artifactId>org.seleniumhq.selenium</artifactId>
-							<groupId>selenium-java</groupId>
-						</exclusion>
-						<exclusion>
-							<artifactId>org.seleniumhq.selenium</artifactId>
-							<groupId>selenium-server</groupId>
-						</exclusion>
-						<exclusion>
-							<artifactId>org.seleniumhq.selenium</artifactId>
-							<groupId>selenium-remote-driver</groupId>
-						</exclusion>
-					</exclusions>
-				</dependency>
-			</dependencies>
 		</profile>
 		<profile>
 			<id>firefox</id>
@@ -223,6 +189,13 @@
 					</plugin>
 				</plugins>
 			</build>
+			<dependencies>
+				<dependency>
+					<groupId>com.codeborne</groupId>
+					<artifactId>phantomjsdriver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>selenium-jsf-showcase</id>
@@ -299,6 +272,13 @@
 					</plugin>
 				</plugins>
 			</build>
+			<dependencies>
+				<dependency>
+					<groupId>com.codeborne</groupId>
+					<artifactId>phantomjsdriver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>selenium-alloy-showcase</id>
@@ -393,6 +373,13 @@
 					</plugin>
 				</plugins>
 			</build>
+			<dependencies>
+				<dependency>
+					<groupId>com.codeborne</groupId>
+					<artifactId>phantomjsdriver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 	</profiles>
 
