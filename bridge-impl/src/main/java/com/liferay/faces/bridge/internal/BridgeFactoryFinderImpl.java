@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletContext;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
-import com.liferay.faces.bridge.context.map.internal.AbstractImmutablePropertyMap;
+import com.liferay.faces.bridge.context.map.internal.AbstractMutablePropertyMap;
 import com.liferay.faces.bridge.context.map.internal.ApplicationScopeMapEntry;
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
@@ -60,7 +60,7 @@ public class BridgeFactoryFinderImpl extends BridgeFactoryFinder {
 		FactoryExtensionFinder.getInstance().releaseFactories(factoryExternalContext);
 	}
 
-	private static class FactoryApplicationScopeMap extends AbstractImmutablePropertyMap<Object> {
+	private static class FactoryApplicationScopeMap extends AbstractMutablePropertyMap<Object> {
 
 		// Private Data Members
 		private PortletContext portletContext;
@@ -75,13 +75,23 @@ public class BridgeFactoryFinderImpl extends BridgeFactoryFinder {
 		}
 
 		@Override
-		protected Enumeration<String> getImmutablePropertyNames() {
+		protected Object getMutableProperty(String name) {
+			return portletContext.getAttribute(name);
+		}
+
+		@Override
+		protected Enumeration<String> getMutablePropertyNames() {
 			return portletContext.getAttributeNames();
 		}
 
 		@Override
-		protected Object getProperty(String name) {
-			return portletContext.getAttribute(name);
+		protected void removeMutableProperty(String name) {
+			portletContext.removeAttribute(name);
+		}
+
+		@Override
+		protected void setMutableProperty(String name, Object value) {
+			portletContext.setAttribute(name, value);
 		}
 	}
 
