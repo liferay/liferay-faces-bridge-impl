@@ -998,22 +998,6 @@
 				<artifactId>phantomjsdriver</artifactId>
 				<version>1.3.0</version>
 				<scope>test</scope>
-				<!-- Don't download the version of selenium that phantomjsdriver depends on since it is older than the
-				version we specify. -->
-				<exclusions>
-					<exclusion>
-						<artifactId>org.seleniumhq.selenium</artifactId>
-						<groupId>selenium-java</groupId>
-					</exclusion>
-					<exclusion>
-						<artifactId>org.seleniumhq.selenium</artifactId>
-						<groupId>selenium-server</groupId>
-					</exclusion>
-					<exclusion>
-						<artifactId>org.seleniumhq.selenium</artifactId>
-						<groupId>selenium-remote-driver</groupId>
-					</exclusion>
-				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
