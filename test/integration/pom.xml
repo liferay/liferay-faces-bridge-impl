@@ -15,9 +15,9 @@
 	<name>Liferay Faces Bridge Integration Tests</name>
 
 	<properties>
-		<integration.container>liferay</integration.container>
-		<integration.browser>phantomjs</integration.browser>
 		<integration.alloy.showcase.context>/web/guest/alloy-showcase/-/alloy-tag</integration.alloy.showcase.context>
+		<integration.browser>phantomjs</integration.browser>
+		<integration.container>liferay</integration.container>
 	</properties>
 
 	<profiles>
