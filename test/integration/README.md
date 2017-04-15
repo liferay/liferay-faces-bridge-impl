@@ -1,26 +1,35 @@
 # Running the Liferay Faces Bridge Integration Tests
 
-The Liferay Faces Bridge integration tests can be run from an IDE (such as Eclipse) or the command line. The test framework expects that the tests have already been deployed to a running portal instance and have already been added to the appropriate pages.
+The Liferay Faces Bridge integration tests can be run from an IDE (such as Eclipse) or the command line. The test
+framework expects that the tests have already been deployed to a running portal instance and have already been added to
+the appropriate pages.
 
 Before running the tests from the command line, you must navigate into the `test/integration` directory:
 
 	cd test/integration
 
-The tests can be activated by using the `selenium` maven profile. To run all the tests (PhantomJS and Liferay are the default browser and container properties respectively):
+The tests can be activated by using the `selenium` maven profile. To run all the tests (PhantomJS and Liferay are the
+default browser and container properties respectively):
 
 	mvn verify -P selenium
 
-Different browsers can be activated via the `chrome`, `firefox`, `jbrowser`, and `htmlunit` maven profiles. For example, to run the tests on Firefox:
+Different browsers can be activated via the `chrome`, `firefox`, `jbrowser`, and `htmlunit` maven profiles. For example,
+to run the tests on Firefox:
 
 	mvn verify -P selenium,firefox
 
-**Note:** HTMLUnit and [JBrowser](https://github.com/MachinePublishers/jBrowserDriver) may fail to open web pages with complex JavaScript due to their experimental/buggy JavaScript support. PhantomJS is recommended for testing complex pages in a headless environment. Chrome (or the slightly slower Firefox) is recommended for testing complex pages in a normal desktop environment. See the root `pom.xml` file dependencies section for the required versions of each browser.
+**Note:** HTMLUnit and [JBrowser](https://github.com/MachinePublishers/jBrowserDriver) may fail to open web pages with
+*complex JavaScript due to their experimental/buggy JavaScript support. PhantomJS is recommended for testing complex
+*pages in a headless environment. Chrome (or the slightly slower Firefox) is recommended for testing complex pages in a
+*normal desktop environment. See the root `pom.xml` file dependencies section for the required versions of each browser.
 
-Single tests and groups of tests can be selected via the the `it.test` property. The `it.test` property uses wildcards to select tests from their fully qualified class names. For example, to run only the issue portlet tests:
+Single tests and groups of tests can be selected via the the `it.test` property. The `it.test` property uses wildcards
+to select tests from their fully qualified class names. For example, to run only the issue portlet tests:
 
 	mvn verify -P selenium -Dit.test=\*issue.\*Test\*
 
-Likewise, `-Dit.test=\*Applicant\*` would run only the applicant portlet tests, and `-Dit.test=\*demo.JSF\*` would run only the non-applicant demo portlet tests.
+Likewise, `-Dit.test=\*Applicant\*` would run only the applicant portlet tests, and `-Dit.test=\*demo.JSF\*` would run
+only the non-applicant demo portlet tests.
 
 The tests can also be run on Pluto Portal with the `pluto` profile:
 
@@ -30,7 +39,8 @@ The log level of the tests can be configured to be more or less verbose with the
 
     mvn verify -P selenium, -Dintegration.log.level=INFO
 
-The `integration.port` property controls which port the browser will navigate to in order to run the tests. For example, if the portal is running on port `4000`, then the following command would be needed to test the portlets:
+The `integration.port` property controls which port the browser will navigate to in order to run the tests. For example,
+if the portal is running on port `4000`, then the following command would be needed to test the portlets:
 
     mvn verify -P selenium -Dintegration.port=4000
 
