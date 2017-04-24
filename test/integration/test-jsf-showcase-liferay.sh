@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn verify -P selenium-jsf-showcase,liferay,chrome
+mvn verify -P selenium-jsf-showcase,liferay
