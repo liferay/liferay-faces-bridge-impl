@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn verify -P selenium,liferay,chrome -Dit.test=\*Export\*
+mvn verify -P selenium,liferay -Dit.test=\*Export\*
