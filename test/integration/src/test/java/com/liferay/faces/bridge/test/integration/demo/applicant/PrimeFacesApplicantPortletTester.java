@@ -33,6 +33,7 @@ public class PrimeFacesApplicantPortletTester extends BridgeApplicantPortletTest
 	public void runApplicantPortletTest_F_AutoPopulateCityState() {
 
 		Browser browser = Browser.getInstance();
+		browser.centerElementInView(getPostalCodeFieldXpath());
 		sendKeysTabAndWaitForAjaxRerender(browser, getPostalCodeFieldXpath(), "32801");
 		SeleniumAssert.assertElementValue(browser, getCityFieldXpath(), "Orlando");
 		SeleniumAssert.assertElementValue(browser, SELECT_PROVINCE_ID_XPATH, "3", false);
@@ -95,13 +96,11 @@ public class PrimeFacesApplicantPortletTester extends BridgeApplicantPortletTest
 	@Override
 	protected void selectDate(Browser browser) {
 
-		String datePickerTriggerXpath = "//button[contains(@class, 'ui-datepicker-trigger')]";
-		browser.centerElementInView(datePickerTriggerXpath);
-		browser.click(datePickerTriggerXpath);
+		browser.click("//button[contains(@class, 'ui-datepicker-trigger')]");
 
-		String dateElement = "//table[contains(@class, 'ui-datepicker-calendar')]//a[contains(text(), '14')]";
-		browser.waitForElementVisible(dateElement);
-		browser.click(dateElement);
+		String dateCellXpath = "//table[contains(@class, 'ui-datepicker-calendar')]//a[contains(text(), '14')]";
+		browser.waitForElementVisible(dateCellXpath);
+		browser.click(dateCellXpath);
 	}
 
 	@Override
