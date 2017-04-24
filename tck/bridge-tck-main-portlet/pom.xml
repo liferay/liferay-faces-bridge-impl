@@ -75,9 +75,9 @@
 	</dependencies>
 
 	<properties>
-		<integration.browser>htmlunit</integration.browser>
 		<integration.trim.stack.trace>true</integration.trim.stack.trace>
 		<portlet.container>liferay</portlet.container>
+		<integration.container>${portlet.container}</integration.container>
 		<portal.version.major>${liferay.version.major}</portal.version.major>
 		<webapp.descriptor>web-${portlet.container}${portal.version.major}-${app.server.type}.xml</webapp.descriptor>
 	</properties>
@@ -102,41 +102,27 @@
 			</dependencies>
 		</profile>
 		<profile>
+			<id>liferay62</id>
+			<properties>
+				<portlet.container>liferay</portlet.container>
+				<integration.container>${portlet.container}62</integration.container>
+				<portal.version.major>6</portal.version.major>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.liferay.faces</groupId>
+					<artifactId>com.liferay.faces.bridge.ext</artifactId>
+					<version>${liferay.faces.bridge.ext.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
 			<id>pluto</id>
 			<properties>
 				<portlet.container>pluto</portlet.container>
 				<integration.container>${portlet.container}</integration.container>
 				<portal.version.major>2</portal.version.major>
 			</properties>
-		</profile>
-		<profile>
-			<id>phantomjs</id>
-			<properties>
-				<integration.browser>phantomjs</integration.browser>
-			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>com.codeborne</groupId>
-					<artifactId>phantomjsdriver</artifactId>
-					<scope>test</scope>
-					<!-- Don't download the version of selenium that phantomjsdriver depends on since it is older than the
-					version we specify. -->
-					<exclusions>
-						<exclusion>
-							<artifactId>org.seleniumhq.selenium</artifactId>
-							<groupId>selenium-java</groupId>
-						</exclusion>
-						<exclusion>
-							<artifactId>org.seleniumhq.selenium</artifactId>
-							<groupId>selenium-server</groupId>
-						</exclusion>
-						<exclusion>
-							<artifactId>org.seleniumhq.selenium</artifactId>
-							<groupId>selenium-remote-driver</groupId>
-						</exclusion>
-					</exclusions>
-				</dependency>
-			</dependencies>
 		</profile>
 		<profile>
 			<id>firefox</id>
@@ -152,14 +138,45 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<id>chrome</id>
+			<id>phantomjs</id>
 			<properties>
-				<integration.browser>chrome</integration.browser>
+				<integration.browser>phantomjs</integration.browser>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.codeborne</groupId>
+					<artifactId>phantomjsdriver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>htmlunit</id>
+			<properties>
+				<integration.browser>htmlunit</integration.browser>
 			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>org.seleniumhq.selenium</groupId>
-					<artifactId>selenium-chrome-driver</artifactId>
+					<artifactId>htmlunit-driver</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+					<version>1.4.01</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.eclipse.jetty.websocket</groupId>
+					<artifactId>websocket-client</artifactId>
+					<version>9.2.18.v20160721</version>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.httpcomponents</groupId>
+					<artifactId>httpclient</artifactId>
+					<version>4.5.2</version>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
@@ -238,6 +255,7 @@
 										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
 										<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
 										<integration.browser>${integration.browser}</integration.browser>
+										<integration.browser.headless>${integration.browser.headless}</integration.browser.headless>
 										<integration.browser.wait.time.out>${integration.browser.wait.time.out}</integration.browser.wait.time.out>
 										<integration.context>${integration.context}</integration.context>
 										<integration.excluded.tests.file>${integration.excluded.tests.file}</integration.excluded.tests.file>
@@ -273,35 +291,6 @@
 						</executions>
 					</plugin>
 				</plugins>
-				<pluginManagement>
-					<plugins>
-						<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
-						<plugin>
-							<groupId>org.eclipse.m2e</groupId>
-							<artifactId>lifecycle-mapping</artifactId>
-							<version>1.0.0</version>
-							<configuration>
-								<lifecycleMappingMetadata>
-									<pluginExecutions>
-										<pluginExecution>
-											<pluginExecutionFilter>
-												<groupId>org.apache.maven.plugins</groupId>
-												<artifactId>maven-antrun-plugin</artifactId>
-												<versionRange>[1.7,)</versionRange>
-												<goals>
-													<goal>run</goal>
-												</goals>
-											</pluginExecutionFilter>
-											<action>
-												<ignore />
-											</action>
-										</pluginExecution>
-									</pluginExecutions>
-								</lifecycleMappingMetadata>
-							</configuration>
-						</plugin>
-					</plugins>
-				</pluginManagement>
 			</build>
 			<dependencies>
 				<dependency>
@@ -320,32 +309,6 @@
 					<version>${project.version}</version>
 					<scope>test</scope>
 				</dependency>
-
-				<!-- HTMLUnit dependencies. -->
-				<dependency>
-					<groupId>org.seleniumhq.selenium</groupId>
-					<artifactId>htmlunit-driver</artifactId>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>xml-apis</groupId>
-					<artifactId>xml-apis</artifactId>
-					<version>1.4.01</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.eclipse.jetty.websocket</groupId>
-					<artifactId>websocket-client</artifactId>
-					<version>9.2.18.v20160721</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.httpcomponents</groupId>
-					<artifactId>httpclient</artifactId>
-					<version>4.5.2</version>
-					<scope>test</scope>
-				</dependency>
-				<!-- End HTMLUnit dependencies. -->
 
 				<!-- Integration test dependencies. -->
 				<dependency>
