@@ -16,23 +16,22 @@
 
 	<properties>
 		<integration.alloy.showcase.context>/web/guest/alloy-showcase/-/alloy-tag</integration.alloy.showcase.context>
-		<integration.browser>phantomjs</integration.browser>
 		<integration.container>liferay</integration.container>
 	</properties>
 
 	<profiles>
 		<profile>
-			<id>chrome</id>
+			<id>liferay62</id>
 			<properties>
-				<integration.browser>chrome</integration.browser>
+				<integration.container>liferay62</integration.container>
 			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>org.seleniumhq.selenium</groupId>
-					<artifactId>selenium-chrome-driver</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
+		</profile>
+		<profile>
+			<id>pluto</id>
+			<properties>
+				<integration.container>pluto</integration.container>
+				<integration.alloy.showcase.context>/pluto/portal/alloy-showcase</integration.alloy.showcase.context>
+			</properties>
 		</profile>
 		<profile>
 			<id>firefox</id>
@@ -43,6 +42,19 @@
 				<dependency>
 					<groupId>org.seleniumhq.selenium</groupId>
 					<artifactId>selenium-firefox-driver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>phantomjs</id>
+			<properties>
+				<integration.browser>phantomjs</integration.browser>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.codeborne</groupId>
+					<artifactId>phantomjsdriver</artifactId>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
@@ -92,19 +104,6 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<id>liferay62</id>
-			<properties>
-				<integration.container>liferay62</integration.container>
-			</properties>
-		</profile>
-		<profile>
-			<id>pluto</id>
-			<properties>
-				<integration.container>pluto</integration.container>
-				<integration.alloy.showcase.context>/pluto/portal/alloy-showcase</integration.alloy.showcase.context>
-			</properties>
-		</profile>
-		<profile>
 			<id>selenium</id>
 			<build>
 				<plugins>
@@ -143,6 +142,7 @@
 										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
 										<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
 										<integration.browser>${integration.browser}</integration.browser>
+										<integration.browser.headless>${integration.browser.headless}</integration.browser.headless>
 										<integration.browser.wait.time.out>${integration.browser.wait.time.out}</integration.browser.wait.time.out>
 										<integration.log.level>${integration.log.level}</integration.log.level>
 										<integration.container>${integration.container}</integration.container>
@@ -177,13 +177,6 @@
 					</plugin>
 				</plugins>
 			</build>
-			<dependencies>
-				<dependency>
-					<groupId>com.codeborne</groupId>
-					<artifactId>phantomjsdriver</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
 		</profile>
 		<profile>
 			<id>selenium-alloy-showcase</id>
@@ -240,6 +233,7 @@
 										-->
 										<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
 										<integration.browser>${integration.browser}</integration.browser>
+										<integration.browser.headless>${integration.browser.headless}</integration.browser.headless>
 										<integration.browser.wait.time.out>${integration.browser.wait.time.out}</integration.browser.wait.time.out>
 										<integration.log.level>${integration.log.level}</integration.log.level>
 										<integration.container>${integration.container}</integration.container>
@@ -278,13 +272,6 @@
 					</plugin>
 				</plugins>
 			</build>
-			<dependencies>
-				<dependency>
-					<groupId>com.codeborne</groupId>
-					<artifactId>phantomjsdriver</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
 		</profile>
 		<profile>
 			<id>selenium-jsf-showcase</id>
@@ -325,6 +312,7 @@
 										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
 										<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
 										<integration.browser>${integration.browser}</integration.browser>
+										<integration.browser.headless>${integration.browser.headless}</integration.browser.headless>
 										<integration.browser.wait.time.out>${integration.browser.wait.time.out}</integration.browser.wait.time.out>
 										<integration.log.level>${integration.log.level}</integration.log.level>
 										<integration.container>${integration.container}</integration.container>
@@ -361,13 +349,6 @@
 					</plugin>
 				</plugins>
 			</build>
-			<dependencies>
-				<dependency>
-					<groupId>com.codeborne</groupId>
-					<artifactId>phantomjsdriver</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
 		</profile>
 		<profile>
 			<id>weblogic</id>
@@ -433,6 +414,12 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

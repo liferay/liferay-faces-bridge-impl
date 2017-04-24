@@ -38,6 +38,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
@@ -418,7 +419,9 @@ public class TckTestCase extends IntegrationTesterBase {
 
 				if (areElementsVisible(browser, xpath)) {
 
+					WebElement webElement = browser.findElementByXpath(xpath);
 					browser.click(xpath);
+					browser.waitUntil(ExpectedConditions.stalenessOf(webElement));
 					browser.waitForElementVisible("//body");
 					loadImagesIfNecessary(browser);
 					switchToIFrameIfNecessary(browser);
