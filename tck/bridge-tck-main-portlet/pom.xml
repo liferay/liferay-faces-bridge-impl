@@ -78,6 +78,7 @@
 	</properties>
 
 	<profiles>
+		<!-- containers -->
 		<profile>
 			<id>liferay</id>
 			<activation>
@@ -120,6 +121,21 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>weblogic</id>
+			<properties>
+				<integration.port>7001</integration.port>
+			</properties>
+		</profile>
+		<profile>
+			<id>websphere</id>
+			<properties>
+				<integration.host>192.168.10.110</integration.host>
+				<integration.port>9080</integration.port>
+			</properties>
+		</profile>
+		<!-- /containers -->
+		<!-- browsers -->
+		<profile>
 			<id>firefox</id>
 			<properties>
 				<integration.browser>firefox</integration.browser>
@@ -128,19 +144,6 @@
 				<dependency>
 					<groupId>org.seleniumhq.selenium</groupId>
 					<artifactId>selenium-firefox-driver</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>phantomjs</id>
-			<properties>
-				<integration.browser>phantomjs</integration.browser>
-			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>com.codeborne</groupId>
-					<artifactId>phantomjsdriver</artifactId>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
@@ -190,18 +193,19 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<id>weblogic</id>
+			<id>phantomjs</id>
 			<properties>
-				<integration.port>7001</integration.port>
+				<integration.browser>phantomjs</integration.browser>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.codeborne</groupId>
+					<artifactId>phantomjsdriver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
-		<profile>
-			<id>websphere</id>
-			<properties>
-				<integration.host>192.168.10.110</integration.host>
-				<integration.port>9080</integration.port>
-			</properties>
-		</profile>
+		<!-- /browsers -->
 		<profile>
 			<id>selenium</id>
 			<build>
