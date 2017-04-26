@@ -20,6 +20,7 @@
 	</properties>
 
 	<profiles>
+		<!-- containers -->
 		<profile>
 			<id>liferay62</id>
 			<properties>
@@ -33,6 +34,8 @@
 				<integration.alloy.showcase.context>/pluto/portal/alloy-showcase</integration.alloy.showcase.context>
 			</properties>
 		</profile>
+		<!-- /containers -->
+		<!-- browsers -->
 		<profile>
 			<id>firefox</id>
 			<properties>
@@ -42,19 +45,6 @@
 				<dependency>
 					<groupId>org.seleniumhq.selenium</groupId>
 					<artifactId>selenium-firefox-driver</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>phantomjs</id>
-			<properties>
-				<integration.browser>phantomjs</integration.browser>
-			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>com.codeborne</groupId>
-					<artifactId>phantomjsdriver</artifactId>
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
@@ -103,6 +93,20 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		<profile>
+			<id>phantomjs</id>
+			<properties>
+				<integration.browser>phantomjs</integration.browser>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.codeborne</groupId>
+					<artifactId>phantomjsdriver</artifactId>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<!-- /browsers -->
 		<profile>
 			<id>selenium</id>
 			<build>
@@ -416,12 +420,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.5</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
