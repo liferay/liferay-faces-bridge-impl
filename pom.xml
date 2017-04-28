@@ -134,7 +134,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.stage>Production</project.stage>
 		<richfaces.version>4.5.17.Final</richfaces.version>
-		<selenium.version>2.46.0</selenium.version>
+		<selenium.version>2.53.0</selenium.version>
 		<spring.version>4.2.5.RELEASE</spring.version>
 		<surefire.version>2.12</surefire.version>
 		<tck.trinidad.version>2.0.1</tck.trinidad.version>
@@ -963,32 +963,32 @@
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-java</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-api</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-remote-driver</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-support</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<!-- Firefox 46.0 is required. -->
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-firefox-driver</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -996,7 +996,7 @@
 				<!-- Chrome/Chromium 59+ is required for headless testing. -->
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-chrome-driver</artifactId>
-				<version>2.53.0</version>
+				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
