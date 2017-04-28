@@ -28,6 +28,7 @@ import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.portlet.ClientDataRequest;
+import javax.portlet.HeaderResponse;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletContext;
@@ -98,12 +99,11 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	@Override
 	public void addResponseHeader(String name, String value) {
 
-		if (portletResponse instanceof ResourceResponse) {
-			ResourceResponse resourceResponse = (ResourceResponse) portletResponse;
-			resourceResponse.addProperty(name, value);
+		if ((portletResponse instanceof HeaderResponse) || (portletResponse instanceof ResourceResponse)) {
+			portletResponse.addProperty(name, value);
 		}
 		else {
-			logger.warn("Unable to call {0} for portletResponse=[{1}] because it is not a ResourceResponse.",
+			logger.warn("Unable to call {0} for portletResponse=[{1}] (Must be a HeaderResponse or ResourceResponse)",
 				"portletResponse.addProperty(String, String)", portletResponse.getClass().getName());
 		}
 	}
@@ -572,7 +572,14 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	 */
 	@Override
 	public void setResponseHeader(String name, String value) {
-		addResponseHeader(name, value);
+
+		if ((portletResponse instanceof HeaderResponse) || (portletResponse instanceof ResourceResponse)) {
+			portletResponse.setProperty(name, value);
+		}
+		else {
+			logger.warn("Unable to call {0} for portletResponse=[{1}] (Must be a HeaderResponse or ResourceResponse)",
+				"portletResponse.setProperty(String, String)", portletResponse.getClass().getName());
+		}
 	}
 
 	/**
