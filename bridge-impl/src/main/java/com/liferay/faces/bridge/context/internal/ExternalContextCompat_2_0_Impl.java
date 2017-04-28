@@ -99,11 +99,10 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	public void addResponseHeader(String name, String value) {
 
 		if (portletResponse instanceof ResourceResponse) {
-			ResourceResponse resourceResponse = (ResourceResponse) portletResponse;
-			resourceResponse.addProperty(name, value);
+			portletResponse.addProperty(name, value);
 		}
 		else {
-			logger.warn("Unable to call {0} for portletResponse=[{1}] because it is not a ResourceResponse.",
+			logger.warn("Unable to call {0} for portletResponse=[{1}] (Must be a ResourceResponse)",
 				"portletResponse.addProperty(String, String)", portletResponse.getClass().getName());
 		}
 	}
@@ -572,7 +571,14 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	 */
 	@Override
 	public void setResponseHeader(String name, String value) {
-		addResponseHeader(name, value);
+
+		if (portletResponse instanceof ResourceResponse) {
+			portletResponse.setProperty(name, value);
+		}
+		else {
+			logger.warn("Unable to call {0} for portletResponse=[{1}] (Must be a ResourceResponse)",
+				"portletResponse.setProperty(String, String)", portletResponse.getClass().getName());
+		}
 	}
 
 	/**
