@@ -18,7 +18,6 @@ package com.liferay.faces.bridge.internal;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Map;
-import java.util.Set;
 
 import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
