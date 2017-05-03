@@ -48,11 +48,15 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 	@Override
 	public BridgeURL getBridgeActionURL(FacesContext facesContext, String uri) throws BridgeException {
 
-		ContextInfo contextInfo = new ContextInfo(facesContext);
+		ExternalContext externalContext = facesContext.getExternalContext();
+		ContextInfo contextInfo = new ContextInfo(facesContext.getViewRoot(), externalContext);
+		ClientWindowInfo clientWindowInfo = new ClientWindowInfo(externalContext);
 
 		try {
 			return new BridgeURLActionImpl(uri, contextInfo.contextPath, contextInfo.namespace,
-					contextInfo.currentFacesViewId, contextInfo.portletContext, contextInfo.bridgeConfig);
+					contextInfo.currentFacesViewId, clientWindowInfo.isRenderModeEnabled(facesContext),
+					clientWindowInfo.getId(), clientWindowInfo.getUrlParameters(facesContext),
+					contextInfo.portletContext, contextInfo.bridgeConfig);
 		}
 		catch (URISyntaxException e) {
 			throw new BridgeException(e);
@@ -63,11 +67,15 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 	public BridgeURL getBridgeBookmarkableURL(FacesContext facesContext, String uri,
 		Map<String, List<String>> parameters) throws BridgeException {
 
-		ContextInfo contextInfo = new ContextInfo(facesContext);
+		ExternalContext externalContext = facesContext.getExternalContext();
+		ContextInfo contextInfo = new ContextInfo(facesContext.getViewRoot(), externalContext);
+		ClientWindowInfo clientWindowInfo = new ClientWindowInfo(externalContext);
 
 		try {
 			return new BridgeURLBookmarkableImpl(uri, contextInfo.contextPath, contextInfo.namespace,
-					contextInfo.currentFacesViewId, parameters, contextInfo.portletContext, contextInfo.bridgeConfig);
+					contextInfo.currentFacesViewId, parameters, clientWindowInfo.isRenderModeEnabled(facesContext),
+					clientWindowInfo.getId(), clientWindowInfo.getUrlParameters(facesContext),
+					contextInfo.portletContext, contextInfo.bridgeConfig);
 		}
 		catch (URISyntaxException e) {
 			throw new BridgeException(e);
@@ -77,11 +85,17 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 	@Override
 	public BridgeURL getBridgePartialActionURL(FacesContext facesContext, String uri) throws BridgeException {
 
-		ContextInfo contextInfo = new ContextInfo(facesContext);
+		ExternalContext externalContext = facesContext.getExternalContext();
+		ContextInfo contextInfo = new ContextInfo(facesContext.getViewRoot(), externalContext);
 
 		try {
+
+			ClientWindowInfo clientWindowInfo = new ClientWindowInfo(externalContext);
+
 			return new BridgeURLPartialActionImpl(uri, contextInfo.contextPath, contextInfo.namespace,
-					contextInfo.currentFacesViewId, contextInfo.portletContext, contextInfo.bridgeConfig);
+					contextInfo.currentFacesViewId, clientWindowInfo.isRenderModeEnabled(facesContext),
+					clientWindowInfo.getId(), clientWindowInfo.getUrlParameters(facesContext),
+					contextInfo.portletContext, contextInfo.bridgeConfig);
 		}
 		catch (URISyntaxException e) {
 			throw new BridgeException(e);
@@ -92,11 +106,15 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 	public BridgeURL getBridgeRedirectURL(FacesContext facesContext, String uri, Map<String, List<String>> parameters)
 		throws BridgeException {
 
-		ContextInfo contextInfo = new ContextInfo(facesContext);
+		ExternalContext externalContext = facesContext.getExternalContext();
+		ContextInfo contextInfo = new ContextInfo(facesContext.getViewRoot(), externalContext);
+		ClientWindowInfo clientWindowInfo = new ClientWindowInfo(externalContext);
 
 		try {
 			return new BridgeURLRedirectImpl(uri, contextInfo.contextPath, contextInfo.namespace, parameters,
-					contextInfo.portletContext, contextInfo.bridgeConfig);
+					clientWindowInfo.isRenderModeEnabled(facesContext), clientWindowInfo.getId(),
+					clientWindowInfo.getUrlParameters(facesContext), contextInfo.portletContext,
+					contextInfo.bridgeConfig);
 		}
 		catch (URISyntaxException e) {
 			throw new BridgeException(e);
@@ -106,7 +124,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 	@Override
 	public BridgeURL getBridgeResourceURL(FacesContext facesContext, String uri) throws BridgeException {
 
-		ContextInfo contextInfo = new ContextInfo(facesContext);
+		ContextInfo contextInfo = new ContextInfo(facesContext.getViewRoot(), facesContext.getExternalContext());
 
 		try {
 			return new BridgeURLResourceImpl(facesContext, uri, contextInfo.contextPath, contextInfo.namespace,
@@ -133,17 +151,14 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 		public String namespace;
 		public PortletContext portletContext;
 
-		public ContextInfo(FacesContext facesContext) {
+		public ContextInfo(UIViewRoot uiViewRoot, ExternalContext externalContext) {
 
-			ExternalContext externalContext = facesContext.getExternalContext();
 			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 			this.bridgeConfig = RequestMapUtil.getBridgeConfig(portletRequest);
 			this.contextPath = externalContext.getRequestContextPath();
 
-			UIViewRoot viewRoot = facesContext.getViewRoot();
-
-			if (viewRoot != null) {
-				this.currentFacesViewId = viewRoot.getViewId();
+			if (uiViewRoot != null) {
+				this.currentFacesViewId = uiViewRoot.getViewId();
 			}
 
 			this.namespace = externalContext.encodeNamespace("");

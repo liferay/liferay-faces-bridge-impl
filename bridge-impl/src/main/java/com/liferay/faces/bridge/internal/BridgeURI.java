@@ -145,6 +145,12 @@ public interface BridgeURI {
 	public void setParameter(String name, String[] values);
 
 	/**
+	 * Sets the parameters of the underlying {@link BridgeURI#getParameterMap()} according to the specified parameter
+	 * map.
+	 */
+	public void setParameters(Map<String, String> parameters);
+
+	/**
 	 * Returns a string-based representation of the URI.
 	 */
 	@Override

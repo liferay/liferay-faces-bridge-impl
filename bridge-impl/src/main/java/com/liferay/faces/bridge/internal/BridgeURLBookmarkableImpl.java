@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.context.FacesContext;
+import javax.faces.render.ResponseStateManager;
 import javax.portlet.BaseURL;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletURL;
@@ -49,10 +50,23 @@ import com.liferay.faces.bridge.BridgeConfig;
 public class BridgeURLBookmarkableImpl extends BridgeURLBase {
 
 	public BridgeURLBookmarkableImpl(String uri, String contextPath, String namespace, String currentViewId,
-		Map<String, List<String>> bookmarkParameters, PortletContext portletContext, BridgeConfig bridgeConfig)
+		Map<String, List<String>> bookmarkParameters, boolean clientWindowEnabled, String clientWindowId,
+		Map<String, String> clientWindowParameters, PortletContext portletContext, BridgeConfig bridgeConfig)
 		throws URISyntaxException {
 
 		super(uri, contextPath, namespace, currentViewId, portletContext, bridgeConfig);
+
+		// If the client window feature is enabled and the URI does not have a "jfwid" parameter then set the
+		// "jfwid" parameter and any associated client window parameters on the URI.
+		if (clientWindowEnabled && (clientWindowId != null) && (uri != null) &&
+				!uri.contains(ResponseStateManager.CLIENT_WINDOW_URL_PARAM)) {
+
+			bridgeURI.setParameter(ResponseStateManager.CLIENT_WINDOW_URL_PARAM, clientWindowId);
+
+			if (clientWindowParameters != null) {
+				bridgeURI.setParameters(clientWindowParameters);
+			}
+		}
 
 		// Since the Bridge's version of ExternalContext.encodeActionURL(String url) needs to detect whether or not the
 		// specified URL is bookmarkable, ensure that "_jsfBridgeBookmarkable=true" appears in the query-string.
