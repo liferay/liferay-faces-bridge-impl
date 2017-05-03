@@ -74,7 +74,6 @@ public class ResponseWriterBridgeImpl extends ResponseWriterBridgeCompat_2_2_Imp
 	private static final String ELEMENT_UPDATE = "update";
 
 	// Private Data Members
-	private boolean clientWindowWritten;
 	private String currentElementName;
 	private boolean insidePartialResponse;
 	private boolean insideChanges;
@@ -135,11 +134,6 @@ public class ResponseWriterBridgeImpl extends ResponseWriterBridgeCompat_2_2_Imp
 
 			if (insidePartialResponse && insideChanges && insideUpdate && insideCData) {
 
-				if (!clientWindowWritten) {
-					writeClientWindowHiddenField();
-					clientWindowWritten = true;
-				}
-
 				if (!viewStateWritten) {
 					writeViewStateHiddenField();
 					viewStateWritten = true;
@@ -197,7 +191,6 @@ public class ResponseWriterBridgeImpl extends ResponseWriterBridgeCompat_2_2_Imp
 		// each one.
 		else if (ELEMENT_FORM.equals(elementName)) {
 
-			clientWindowWritten = false;
 			viewStateWritten = false;
 		}
 
@@ -231,10 +224,7 @@ public class ResponseWriterBridgeImpl extends ResponseWriterBridgeCompat_2_2_Imp
 				// "javax.faces.ViewState", then set a flag accordingly.
 				else if (insideInput) {
 
-					if (CLIENT_WINDOW_PARAM.equals(attributeValue)) {
-						clientWindowWritten = true;
-					}
-					else if (VIEW_STATE_MARKER.equals(attributeValue)) {
+					if (VIEW_STATE_MARKER.equals(attributeValue)) {
 						viewStateWritten = true;
 					}
 				}

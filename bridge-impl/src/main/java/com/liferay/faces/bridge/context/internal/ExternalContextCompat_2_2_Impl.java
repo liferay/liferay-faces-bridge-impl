@@ -15,15 +15,10 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.lifecycle.ClientWindow;
-import javax.faces.render.ResponseStateManager;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -50,58 +45,6 @@ public abstract class ExternalContextCompat_2_2_Impl extends ExternalContextComp
 	public ExternalContextCompat_2_2_Impl(PortletContext portletContext, PortletRequest portletRequest,
 		PortletResponse portletResponse) {
 		super(portletContext, portletRequest, portletResponse);
-	}
-
-	/**
-	 * @since  JSF 1.0
-	 */
-	@Override
-	public String encodeActionURL(String url) {
-
-		// JSF 2.2 requires that the ClientWindow ID and associated query string parameters be added to the URL.
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		url = encodeClientWindowURL(facesContext, url);
-
-		return super.encodeActionURL(url);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public String encodeBookmarkableURL(String baseUrl, Map<String, List<String>> parameters) {
-
-		// JSF 2.2 requires that the ClientWindow ID and associated query string parameters be added to the URL.
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		baseUrl = encodeClientWindowURL(facesContext, baseUrl);
-
-		return super.encodeBookmarkableURL(baseUrl, parameters);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public String encodePartialActionURL(String url) {
-
-		// JSF 2.2 requires that the ClientWindow ID and associated query string parameters be added to the URL.
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		url = encodeClientWindowURL(facesContext, url);
-
-		return super.encodePartialActionURL(url);
-	}
-
-	/**
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public String encodeRedirectURL(String baseUrl, Map<String, List<String>> parameters) {
-
-		// JSF 2.2 requires that the ClientWindow ID and associated query string parameters be added to the URL.
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		baseUrl = encodeClientWindowURL(facesContext, baseUrl);
-
-		return super.encodeRedirectURL(baseUrl, parameters);
 	}
 
 	/**
@@ -176,53 +119,5 @@ public abstract class ExternalContextCompat_2_2_Impl extends ExternalContextComp
 		}
 
 		return cookie;
-	}
-
-	/**
-	 * This method returns an encoded URL that contains the ClientWindow ID and associated query string parameters
-	 * according to the requirements specified in {@link ExternalContext#encodeActionURL(String)}.
-	 */
-	protected String encodeClientWindowURL(FacesContext facesContext, String url) {
-
-		if ((url != null) && (!url.contains(ResponseStateManager.CLIENT_WINDOW_PARAM))) {
-
-			ClientWindow clientWindow = getClientWindow();
-
-			if ((clientWindow != null) && clientWindow.isClientWindowRenderModeEnabled(facesContext)) {
-
-				StringBuilder urlBuilder = new StringBuilder(url);
-
-				int queryPos = url.indexOf("?");
-
-				if (queryPos > 0) {
-					urlBuilder.append("&");
-				}
-				else {
-					urlBuilder.append("?");
-				}
-
-				urlBuilder.append(ResponseStateManager.CLIENT_WINDOW_PARAM);
-				urlBuilder.append("=");
-				urlBuilder.append(clientWindow.getId());
-
-				Map<String, String> queryURLParameters = clientWindow.getQueryURLParameters(facesContext);
-
-				if ((queryURLParameters != null) && (queryURLParameters.size() > 0)) {
-
-					Set<Entry<String, String>> entrySet = queryURLParameters.entrySet();
-
-					for (Map.Entry<String, String> mapEntry : entrySet) {
-
-						urlBuilder.append(mapEntry.getKey());
-						urlBuilder.append("=");
-						urlBuilder.append(mapEntry.getValue());
-					}
-				}
-
-				url = urlBuilder.toString();
-			}
-		}
-
-		return url;
 	}
 }
