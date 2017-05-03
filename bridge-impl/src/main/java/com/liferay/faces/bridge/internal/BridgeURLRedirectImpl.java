@@ -50,7 +50,8 @@ import com.liferay.faces.bridge.BridgeConfig;
 public class BridgeURLRedirectImpl extends BridgeURLBase {
 
 	public BridgeURLRedirectImpl(String uri, String contextPath, String namespace,
-		Map<String, List<String>> redirectParameters, PortletContext portletContext, BridgeConfig bridgeConfig)
+		Map<String, List<String>> redirectParameters, boolean clientWindowEnabled, String clientWindowId,
+		Map<String, String> clientWindowParameters, PortletContext portletContext, BridgeConfig bridgeConfig)
 		throws URISyntaxException {
 
 		super(uri, contextPath, namespace, null, portletContext, bridgeConfig);
@@ -69,6 +70,18 @@ public class BridgeURLRedirectImpl extends BridgeURLBase {
 				List<String> valueList = mapEntry.getValue();
 				String[] values = valueList.toArray(new String[valueList.size()]);
 				bridgeURI.setParameter(mapEntry.getKey(), values);
+			}
+		}
+
+		// If the client window feature is enabled and the URI does not have a "jfwid" parameter then set the
+		// "jfwid" parameter and any associated client window parameters on the URI.
+		if (clientWindowEnabled && (clientWindowId != null) && (uri != null) &&
+				!uri.contains(BridgeURLBaseCompat.CLIENT_WINDOW_URL_PARAM)) {
+
+			bridgeURI.setParameter(BridgeURLBaseCompat.CLIENT_WINDOW_URL_PARAM, clientWindowId);
+
+			if (clientWindowParameters != null) {
+				bridgeURI.setParameters(clientWindowParameters);
 			}
 		}
 	}

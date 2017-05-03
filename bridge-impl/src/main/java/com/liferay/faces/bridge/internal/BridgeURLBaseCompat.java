@@ -23,6 +23,8 @@ import javax.portlet.faces.Bridge;
  */
 public class BridgeURLBaseCompat {
 
+	protected static final String CLIENT_WINDOW_URL_PARAM = "jfwid";
+
 	public static boolean isHeaderOrRenderOrResourcePhase(Bridge.PortletPhase portletPhase) {
 		return (Bridge.PortletPhase.RENDER_PHASE.equals(portletPhase) ||
 				Bridge.PortletPhase.RESOURCE_PHASE.equals(portletPhase));

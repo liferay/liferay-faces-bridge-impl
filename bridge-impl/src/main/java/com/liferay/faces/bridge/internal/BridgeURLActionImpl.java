@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.internal;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -43,6 +44,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 	private boolean redirect;
 
 	public BridgeURLActionImpl(String uri, String contextPath, String namespace, String currentViewId,
+		boolean clientWindowEnabled, String clientWindowId, Map<String, String> clientWindowParameters,
 		PortletContext portletContext, BridgeConfig bridgeConfig) throws URISyntaxException {
 
 		super(uri, contextPath, namespace, currentViewId, portletContext, bridgeConfig);
@@ -102,6 +104,18 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 			if (BooleanHelper.isTrueToken(redirectParam)) {
 				redirect = true;
 				bridgeURI.removeParameter(BridgeExt.REDIRECT_PARAMETER);
+			}
+
+			// If the client window feature is enabled and the URI does not have a "jfwid" parameter then set the
+			// "jfwid" parameter and any associated client window parameters on the URI.
+			if (clientWindowEnabled && (clientWindowId != null) && (uri != null) &&
+					!uri.contains(BridgeURLBaseCompat.CLIENT_WINDOW_URL_PARAM)) {
+
+				bridgeURI.setParameter(BridgeURLBaseCompat.CLIENT_WINDOW_URL_PARAM, clientWindowId);
+
+				if (clientWindowParameters != null) {
+					bridgeURI.setParameters(clientWindowParameters);
+				}
 			}
 		}
 	}
