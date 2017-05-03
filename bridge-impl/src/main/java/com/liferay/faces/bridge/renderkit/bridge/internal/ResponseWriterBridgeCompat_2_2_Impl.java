@@ -23,18 +23,11 @@ import java.io.IOException;
  */
 public abstract class ResponseWriterBridgeCompat_2_2_Impl extends ResponseWriterBridgeCompat_2_0_Impl {
 
-	// Protected Constants
-	protected static final String CLIENT_WINDOW_PARAM = "javax.faces.ClientWindow";
-
 	public ResponseWriterBridgeCompat_2_2_Impl() {
 		super();
 	}
 
 	public void writePreamble(String preamble) throws IOException {
 		// No-op for portlets: http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1069
-	}
-
-	protected void writeClientWindowHiddenField() throws IOException {
-		// No-op for JSF 2.1
 	}
 }
