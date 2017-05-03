@@ -397,6 +397,17 @@ public class BridgeURIImpl implements BridgeURI {
 	}
 
 	@Override
+	public void setParameters(Map<String, String> parameters) {
+
+		Set<Map.Entry<String, String>> entrySet = parameters.entrySet();
+		Map<String, String[]> parameterMap = getParameterMap();
+
+		for (Map.Entry<String, String> mapEntry : entrySet) {
+			parameterMap.put(mapEntry.getKey(), new String[] { mapEntry.getValue() });
+		}
+	}
+
+	@Override
 	public String toString() {
 
 		if (stringValue == null) {

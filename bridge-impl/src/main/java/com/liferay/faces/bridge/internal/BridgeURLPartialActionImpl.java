@@ -17,8 +17,11 @@ package com.liferay.faces.bridge.internal;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.util.Map;
+import java.util.Set;
 
 import javax.faces.context.FacesContext;
+import javax.faces.render.ResponseStateManager;
 import javax.portlet.BaseURL;
 import javax.portlet.PortletContext;
 import javax.portlet.faces.BridgeConfig;
@@ -36,9 +39,22 @@ public class BridgeURLPartialActionImpl extends BridgeURLBase {
 	private static final Logger logger = LoggerFactory.getLogger(BridgeURLPartialActionImpl.class);
 
 	public BridgeURLPartialActionImpl(String uri, String contextPath, String namespace, String currentViewId,
+		boolean clientWindowEnabled, String clientWindowId, Map<String, String> clientWindowParameters,
 		PortletContext portletContext, BridgeConfig bridgeConfig) throws URISyntaxException {
 
 		super(uri, contextPath, namespace, currentViewId, portletContext, bridgeConfig);
+
+		// If the client window feature is enabled and the URI does not have a "jfwid" parameter then set the
+		// "jfwid" parameter and any associated client window parameters on the URI.
+		if (clientWindowEnabled && (clientWindowId != null) && (uri != null) &&
+				!uri.contains(ResponseStateManager.CLIENT_WINDOW_URL_PARAM)) {
+
+			bridgeURI.setParameter(ResponseStateManager.CLIENT_WINDOW_URL_PARAM, clientWindowId);
+
+			if (clientWindowParameters != null) {
+				bridgeURI.setParameters(clientWindowParameters);
+			}
+		}
 
 		bridgeURI.setParameter(BridgeExt.FACES_AJAX_PARAMETER, "true");
 	}
