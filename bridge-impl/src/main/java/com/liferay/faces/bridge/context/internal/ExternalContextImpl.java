@@ -411,7 +411,12 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			PortletRequest portletRequest = (PortletRequest) getRequest();
 			PortletResponse portletResponse = (PortletResponse) getResponse();
 			String responseNamespace = portletResponse.getNamespace();
-			String facesViewQueryString = getFacesView().getQueryString();
+			String facesViewQueryString = null;
+			FacesView facesView = getFacesView();
+
+			if (facesView != null) {
+				facesViewQueryString = facesView.getQueryString();
+			}
 
 			requestParameterMap = contextMapFactory.getRequestParameterMap(portletRequest, responseNamespace,
 					portletConfig, bridgeRequestScope, defaultRenderKitId, facesViewQueryString);
@@ -1140,13 +1145,27 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 							// Try#5: Get the viewId from the init-param value in the portlet.xml descriptor according
 							// to the current portlet mode.
 							PortletMode currentPortletMode = portletRequest.getPortletMode();
-							viewIdAndQueryString = getDefaultViewIdMap(portletConfig).get(
-									currentPortletMode.toString());
-							logger.debug("portlet.xml viewId=[{0}] portletMode=[{1}]", viewIdAndQueryString,
-								currentPortletMode);
 
-							if (viewIdAndQueryString == null) {
-								throw new BridgeDefaultViewNotSpecifiedException();
+							// If the portlet mode is "undefined" then it is likely that the bridge was invoked from a
+							// ResourceURL with cacheability=FULL. In this case, the default view cannot be determined.
+							// It is not appropriate to throw BridgeDefaultViewNotSpecifiedException since this could be
+							// a JSF 2 resource URL.
+							if (PortletMode.UNDEFINED.equals(currentPortletMode)) {
+								logger.debug("Unable to get the default view for portletMode=undefined");
+							}
+
+							// Otherwise, determine the default view according to the portlet mode. If it can't be
+							// determined then throw BridgeDefaultViewNotSpecifiedException according to Section 5.2.3
+							// of the FacesBridge Spec.
+							else {
+								viewIdAndQueryString = getDefaultViewIdMap(portletConfig).get(
+										currentPortletMode.toString());
+								logger.debug("portlet.xml viewId=[{0}] portletMode=[{1}]", viewIdAndQueryString,
+									currentPortletMode);
+
+								if (viewIdAndQueryString == null) {
+									throw new BridgeDefaultViewNotSpecifiedException();
+								}
 							}
 						}
 						else {
