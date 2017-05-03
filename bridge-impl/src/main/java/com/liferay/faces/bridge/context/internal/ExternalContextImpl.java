@@ -1149,7 +1149,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 							// ResourceURL with cacheability=FULL. In this case, the default view cannot be determined.
 							// It is not appropriate to throw BridgeDefaultViewNotSpecifiedException since this could be
 							// a JSF 2 resource URL.
-							if (PortletMode.UNDEFINED.equals(currentPortletMode)) {
+							if (currentPortletMode == null) {
 								logger.debug("Unable to get the default view for portletMode=undefined");
 							}
 
