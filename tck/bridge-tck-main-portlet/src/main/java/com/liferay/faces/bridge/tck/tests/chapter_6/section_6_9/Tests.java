@@ -40,7 +40,7 @@ public class Tests extends Object {
 	// Test is MultiRequest --
 	// Test #6.135
 	@BridgeTest(test = "usesConfiguredRenderKitTest")
-	public String usesConfiguredRenderKitTest(TestBean testRunner) {
+	public String usesConfiguredRenderKitTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> m = extCtx.getRequestMap();
@@ -104,17 +104,17 @@ public class Tests extends Object {
 			return "usesConfiguredRenderKitTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			String actionResult = (String) m.get(ACTION_TEST_RESULT);
 
 			if (actionResult == null) {
-				testRunner.setTestResult(false, "Action result not available during the render");
+				testBean.setTestResult(false, "Action result not available during the render");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (!actionResult.equals(Constants.TEST_SUCCESS)) {
-				testRunner.setTestResult(false, actionResult);
+				testBean.setTestResult(false, actionResult);
 
 				return Constants.TEST_FAILED;
 			}
@@ -167,13 +167,13 @@ public class Tests extends Object {
 			}
 
 			if (detail.length() == 0) {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"The portlet configured renderkit was correctly expressed as a request parameter (via the ExternalContext apis) in both the action and header phases.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false, detail);
+				testBean.setTestResult(false, detail);
 
 				return Constants.TEST_FAILED;
 			}

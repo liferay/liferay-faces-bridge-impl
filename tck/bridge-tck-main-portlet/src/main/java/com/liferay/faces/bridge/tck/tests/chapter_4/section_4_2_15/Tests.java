@@ -29,7 +29,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
 public class Tests extends Object {
 
 	@BridgeTest(test = "getFacesBridgeMethodTest")
-	public String getFacesBridgeMethodTest(TestBean testRunner) {
+	public String getFacesBridgeMethodTest(TestBean testBean) {
 
 		// Section 4.2.12
 		// The Run Test action simply forwards to a results page.
@@ -37,9 +37,9 @@ public class Tests extends Object {
 			return "getFacesBridgeMethodTest";
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"Successfully performed an action request and a render request by means of a GenericFacesPortlet subclass using the bridge returned by GenericFacesPortlet.getFacesBridge().");
 
 			return Constants.TEST_SUCCESS;
