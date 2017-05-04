@@ -690,8 +690,8 @@ public class Tests extends HeaderTests implements PhaseListener {
 		if (Bridge.PortletPhase.HEADER_PHASE.equals(BridgeUtil.getPortletRequestPhase(facesContext))) {
 			testBean.setTestComplete(true);
 
-			PortletSession session = ((PortletRequest) externalContext.getRequest()).getPortletSession(true);
-			Boolean b = (Boolean) session.getAttribute("com.liferay.faces.bridge.tck.NonFacesResourceInvokedInForward",
+			PortletSession portletSession = ((PortletRequest) externalContext.getRequest()).getPortletSession(true);
+			Boolean b = (Boolean) portletSession.getAttribute("com.liferay.faces.bridge.tck.NonFacesResourceInvokedInForward",
 					PortletSession.APPLICATION_SCOPE);
 
 			if (b == null) {
@@ -701,7 +701,7 @@ public class Tests extends HeaderTests implements PhaseListener {
 				return Constants.TEST_FAILED;
 			}
 			else {
-				session.removeAttribute("com.liferay.faces.bridge.tck.NonFacesResourceInvokedInForward",
+				portletSession.removeAttribute("com.liferay.faces.bridge.tck.NonFacesResourceInvokedInForward",
 					PortletSession.APPLICATION_SCOPE);
 			}
 

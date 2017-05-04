@@ -348,7 +348,7 @@ public class Tests {
 	}
 
 	private void testHttpSessionScope(TestBean testBean, ELResolver resolver, FacesContext facesContext,
-									  String implicitObject, PortletSession session) {
+									  String implicitObject, PortletSession portletSession) {
 		Map<String, Object> objectFromFacesEL = (Map<String, Object>) resolver.getValue(facesContext.getELContext(), null,
 				implicitObject);
 
@@ -362,7 +362,7 @@ public class Tests {
 		// iterate over the Map and make sure each is in the portlet session app scope
 		for (Iterator<Map.Entry<String, Object>> i = objectFromFacesEL.entrySet().iterator(); i.hasNext();) {
 			Map.Entry<String, Object> e = i.next();
-			Object compareTo = session.getAttribute(e.getKey(), PortletSession.APPLICATION_SCOPE);
+			Object compareTo = portletSession.getAttribute(e.getKey(), PortletSession.APPLICATION_SCOPE);
 
 			if (compareTo == null) {
 				fail(testBean,
@@ -377,7 +377,7 @@ public class Tests {
 		}
 
 		// Now verify that the Map contained the correct number of entries
-		Enumeration en = session.getAttributeNames(PortletSession.APPLICATION_SCOPE);
+		Enumeration en = portletSession.getAttributeNames(PortletSession.APPLICATION_SCOPE);
 		int count = 0;
 
 		while (en.hasMoreElements()) {
