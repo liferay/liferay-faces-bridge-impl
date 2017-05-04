@@ -51,7 +51,7 @@ public class Tests extends Object {
 	public String excludedAttributesTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		UIViewRoot viewRoot = facesContext.getViewRoot();
+		UIViewRoot uiViewRoot = facesContext.getViewRoot();
 		Map m = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
@@ -415,7 +415,7 @@ public class Tests extends Object {
 	public String requestScopeContentsTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		UIViewRoot viewRoot = facesContext.getViewRoot();
+		UIViewRoot uiViewRoot = facesContext.getViewRoot();
 		Map m = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
@@ -483,7 +483,7 @@ public class Tests extends Object {
 			boolean found1 = false;
 			boolean found2 = false;
 
-			for (Iterator<FacesMessage> i = facesContext.getMessages(viewRoot.getClientId(facesContext)); i.hasNext();) {
+			for (Iterator<FacesMessage> i = facesContext.getMessages(uiViewRoot.getClientId(facesContext)); i.hasNext();) {
 				FacesMessage message = i.next();
 
 				if (message.getSummary().equals(MESSAGE_VALUE1) && !found2) {
