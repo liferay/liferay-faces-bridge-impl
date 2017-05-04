@@ -526,10 +526,10 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = pReq.getPortletMode();
+			PortletMode mode = portletRequest.getPortletMode();
 
 			if ((mode == null) || !mode.toString().equalsIgnoreCase("view")) {
 				testBean.setTestResult(false,
@@ -583,10 +583,10 @@ public class Tests extends Object {
 		else {
 			testBean.setTestComplete(true);
 
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = pReq.getPortletMode();
+			PortletMode mode = portletRequest.getPortletMode();
 
 			if ((mode == null) || !mode.toString().equalsIgnoreCase("view")) {
 				testBean.setTestResult(false,
@@ -629,10 +629,10 @@ public class Tests extends Object {
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = pReq.getPortletMode();
+			PortletMode mode = portletRequest.getPortletMode();
 
 			// Check that the parameter came along too
 			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
@@ -754,10 +754,10 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			if (pReq.isSecure()) {
+			if (portletRequest.isSecure()) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded an invalid portlet security state.  The resulting request wasn't in the expected 'non-secure' mode.");
 
@@ -809,10 +809,10 @@ public class Tests extends Object {
 		else {
 			testBean.setTestComplete(true);
 
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			if (pReq.isSecure()) {
+			if (portletRequest.isSecure()) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded an invalid portlet security state.  The resulting request wasn't in the expected 'non-secure' mode.");
 
@@ -853,12 +853,12 @@ public class Tests extends Object {
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Check that the parameter came along too
 			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pReq.isSecure()) {
+			if (portletRequest.isSecure()) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded an invalid portlet security state.  The resulting request wasn't in the expected 'non-secure' mode.");
 
@@ -981,10 +981,10 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = pReq.getWindowState();
+			WindowState ws = portletRequest.getWindowState();
 
 			if ((ws == null) || !ws.toString().equalsIgnoreCase("normal")) {
 				testBean.setTestResult(false,
@@ -1038,10 +1038,10 @@ public class Tests extends Object {
 		else {
 			testBean.setTestComplete(true);
 
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = pReq.getWindowState();
+			WindowState ws = portletRequest.getWindowState();
 
 			if ((ws == null) || !ws.toString().equalsIgnoreCase("normal")) {
 				testBean.setTestResult(false,
@@ -1084,10 +1084,10 @@ public class Tests extends Object {
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = pReq.getWindowState();
+			WindowState ws = portletRequest.getWindowState();
 
 			// Check that the parameter came along too
 			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
@@ -1209,10 +1209,10 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = pReq.getPortletMode();
+			PortletMode mode = portletRequest.getPortletMode();
 
 			if ((mode == null) || !mode.toString().equalsIgnoreCase("edit")) {
 				testBean.setTestResult(false,
@@ -1266,10 +1266,10 @@ public class Tests extends Object {
 		else {
 			testBean.setTestComplete(true);
 
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = pReq.getPortletMode();
+			PortletMode mode = portletRequest.getPortletMode();
 
 			if ((mode == null) || !mode.toString().equalsIgnoreCase("edit")) {
 				testBean.setTestResult(false,
@@ -1646,10 +1646,10 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Secure encoded in the faces-config.xml target
-			if (!pReq.isSecure()) {
+			if (!portletRequest.isSecure()) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the portlet security state.  The resulting request wasn't in the expected 'secure' mode.");
 
@@ -1701,10 +1701,10 @@ public class Tests extends Object {
 		else {
 			testBean.setTestComplete(true);
 
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Secure encoded in the faces-config.xml target
-			if (!pReq.isSecure()) {
+			if (!portletRequest.isSecure()) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the portlet security state.  The resulting request wasn't in the expected 'secure' mode.");
 
@@ -1745,12 +1745,12 @@ public class Tests extends Object {
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Check that the parameter came along too
 			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (!pReq.isSecure()) {
+			if (!portletRequest.isSecure()) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the portlet security state.  The resulting request wasn't in the expected 'secure' mode.");
 			}
@@ -1867,10 +1867,10 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = pReq.getWindowState();
+			WindowState ws = portletRequest.getWindowState();
 
 			if ((ws == null) || !ws.toString().equalsIgnoreCase("maximized")) {
 				testBean.setTestResult(false,
@@ -1924,10 +1924,10 @@ public class Tests extends Object {
 		else {
 			testBean.setTestComplete(true);
 
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = pReq.getWindowState();
+			WindowState ws = portletRequest.getWindowState();
 
 			if ((ws == null) || !ws.toString().equalsIgnoreCase("maximized")) {
 				testBean.setTestResult(false,
@@ -1970,10 +1970,10 @@ public class Tests extends Object {
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = pReq.getWindowState();
+			WindowState ws = portletRequest.getWindowState();
 
 			// Check that the parameter came along too
 			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
@@ -2415,10 +2415,10 @@ public class Tests extends Object {
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = pReq.getPortletMode();
+			PortletMode mode = portletRequest.getPortletMode();
 
 			// Check that the parameter came along too
 			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
@@ -2464,10 +2464,10 @@ public class Tests extends Object {
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
-			PortletRequest pReq = (PortletRequest) facesContext.getExternalContext().getRequest();
+			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = pReq.getWindowState();
+			WindowState ws = portletRequest.getWindowState();
 
 			// Check that the parameter came along too
 			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
