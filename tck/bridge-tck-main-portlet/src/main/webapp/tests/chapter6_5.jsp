@@ -285,11 +285,11 @@
 		return true;
 	}
 
-	private boolean testHttpSessionScope(Map<String, Object> implicitObject, PortletSession session) {
+	private boolean testHttpSessionScope(Map<String, Object> implicitObject, PortletSession portletSession) {
 		// iterate over the Map and make sure each is in the portlet session app scope
 		for (Iterator<Map.Entry<String, Object>> i = implicitObject.entrySet().iterator(); i.hasNext(); ) {
 			Map.Entry<String, Object> e = i.next();
-			Object compareTo = session.getAttribute(e.getKey(), PortletSession.APPLICATION_SCOPE);
+			Object compareTo = portletSession.getAttribute(e.getKey(), PortletSession.APPLICATION_SCOPE);
 			if (compareTo == null) {
 				return false;
 			} else if (!e.getValue().equals(compareTo)) {
@@ -298,7 +298,7 @@
 		}
 
 		// Now verify that the Map contained the correct number of entries
-		Enumeration en = session.getAttributeNames(PortletSession.APPLICATION_SCOPE);
+		Enumeration en = portletSession.getAttributeNames(PortletSession.APPLICATION_SCOPE);
 		int count = 0;
 		while (en.hasMoreElements()) {
 			en.nextElement();
