@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -34,7 +34,7 @@ public class HeaderTests {
 	// Test is SingleRequest -- Header/Action
 	// Test #5.33 --
 	@BridgeTest(test = "headerPhaseListenerTest")
-	public String headerPhaseListenerTest(TestRunnerBean testRunner) {
+	public String headerPhaseListenerTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> m = extCtx.getRequestMap();

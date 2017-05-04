@@ -33,7 +33,7 @@ import javax.portlet.faces.BridgePublicRenderParameterHandler;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -83,7 +83,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test is SingleRequest -- Render
 	// Test #5.43
 	@BridgeTest(test = "checkViewHistoryTest")
-	public String checkViewHistoryTest(TestRunnerBean testRunner) {
+	public String checkViewHistoryTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> m = extCtx.getSessionMap();
@@ -154,7 +154,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test is MultiRequest -- Render/Action
 	// Test #5.46
 	@BridgeTest(test = "navigateToLastViewTest")
-	public String navigateToLastViewTest(TestRunnerBean testRunner) {
+	public String navigateToLastViewTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		PortletMode mode = (PortletMode) ((PortletRequest) extCtx.getRequest()).getPortletMode();
@@ -228,7 +228,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test is MultiRequest -- Render/Action
 	// Test #5.41
 	@BridgeTest(test = "noViewStateParamOnModeChangeTest")
-	public String noViewStateParamOnModeChangeTest(TestRunnerBean testRunner) {
+	public String noViewStateParamOnModeChangeTest(TestBean testRunner) {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -259,7 +259,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test is MultiRequest -- Render/Action
 	// Test #5.69
 	@BridgeTest(test = "processPRPInRestoreViewPhaseTest")
-	public String processPRPInRestoreViewPhaseTest(TestRunnerBean testRunner) {
+	public String processPRPInRestoreViewPhaseTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -330,7 +330,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test is MultiRequest -- Render/Action
 	// Test #5.70 and 5.71
 	@BridgeTest(test = "prpModelUpdateTest")
-	public String prpModelUpdateTest(TestRunnerBean testRunner) {
+	public String prpModelUpdateTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 

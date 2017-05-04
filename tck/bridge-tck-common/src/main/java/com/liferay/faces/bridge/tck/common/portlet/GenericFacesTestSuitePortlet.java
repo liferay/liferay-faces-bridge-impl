@@ -73,7 +73,7 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 
 		// parse the portlet name to extract the testName and bean we use to during this test
 		// This information is subsequently attached to each request (as an attribute).
-		// The generic TestRunnerBean uses this information to execute the bean and properly
+		// The generic TestBean uses this information to execute the bean and properly
 		// reference the test in any result.
 
 		// portletName syntax: testGroup-testName-portlet

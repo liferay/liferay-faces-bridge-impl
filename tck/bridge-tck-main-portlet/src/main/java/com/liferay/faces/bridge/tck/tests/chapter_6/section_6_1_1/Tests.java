@@ -19,7 +19,7 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -31,7 +31,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.2
 	@BridgeTest(test = "wrappedFacesContextTest")
-	public String wrappedFacesContextTest(TestRunnerBean testRunner) {
+	public String wrappedFacesContextTest(TestBean testRunner) {
 
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
