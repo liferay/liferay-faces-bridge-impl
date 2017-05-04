@@ -134,7 +134,6 @@ public class Tests extends Object {
 			"/test.jsp?firstParam=value&javax.portlet.faces.DirectLink=false&anotherParam=value";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		ViewHandler vh = facesContext.getApplication().getViewHandler();
 
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(DIRECTLINK_FALSE_TEST_STRING)
 			.toString();
@@ -164,7 +163,6 @@ public class Tests extends Object {
 			"/test.jsp?firstParam=value&javax.portlet.faces.DirectLink=true&anotherParam=value";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		ViewHandler vh = facesContext.getApplication().getViewHandler();
 		PortletRequest r = (PortletRequest) externalContext.getRequest();
 
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(DIRECTLINK_TRUE_TEST_STRING)
@@ -2093,15 +2091,15 @@ public class Tests extends Object {
 		final String URL_BACKLINK_VERIFY_STRING = "/resources/myImage.jpg?myBackLinkParam=";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		ViewHandler vh = facesContext.getApplication().getViewHandler();
+		ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
 
 		// compute what the backLink should be
-		String actionURL = externalContext.encodeActionURL(vh.getActionURL(facesContext, facesContext.getViewRoot().getViewId()));
-		String testString = vh.getResourceURL(facesContext, URL_BACKLINK_TEST_STRING);
+		String actionURL = externalContext.encodeActionURL(viewHandler.getActionURL(facesContext, facesContext.getViewRoot().getViewId()));
+		String testString = viewHandler.getResourceURL(facesContext, URL_BACKLINK_TEST_STRING);
 		String verifyString = null;
 
 		try {
-			verifyString = vh.getResourceURL(facesContext, URL_BACKLINK_VERIFY_STRING) + HTTPUtils.encode(actionURL, "UTF-8");
+			verifyString = viewHandler.getResourceURL(facesContext, URL_BACKLINK_VERIFY_STRING) + HTTPUtils.encode(actionURL, "UTF-8");
 		}
 		catch (UnsupportedEncodingException e) {
 			testBean.setTestResult(false, "Failed because couldn't UTF-8 encode backLink parameter.");
@@ -2344,10 +2342,10 @@ public class Tests extends Object {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		ViewHandler vh = facesContext.getApplication().getViewHandler();
+		ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
 
-		String testString = vh.getResourceURL(facesContext, URL_VIEWLINK_TEST_STRING);
-		String verifyString = vh.getResourceURL(facesContext, URL_VIEWLINK_VERIFY_STRING);
+		String testString = viewHandler.getResourceURL(facesContext, URL_VIEWLINK_TEST_STRING);
+		String verifyString = viewHandler.getResourceURL(facesContext, URL_VIEWLINK_VERIFY_STRING);
 
 		if (externalContext.encodeResourceURL(testString).equals(externalContext.encodeActionURL(verifyString))) {
 			testBean.setTestResult(true, "encodeResourceURL correctly encoded a viewLink.");
@@ -2374,16 +2372,16 @@ public class Tests extends Object {
 		final String URL_VIEWLINK_BACKLINK_VERIFY_STRING = "/tests/viewLink.jsf?param1=testValue&myBackLinkParam=";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		ViewHandler vh = facesContext.getApplication().getViewHandler();
+		ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
 
 		// compute what the backLink should be
 		String actionURL = externalContext.encodeActionURL(facesContext.getApplication().getViewHandler().getActionURL(facesContext,
 					facesContext.getViewRoot().getViewId()));
-		String testString = vh.getResourceURL(facesContext, URL_VIEWLINK_BACKLINK_TEST_STRING);
+		String testString = viewHandler.getResourceURL(facesContext, URL_VIEWLINK_BACKLINK_TEST_STRING);
 		String verifyString = null;
 
 		try {
-			verifyString = vh.getResourceURL(facesContext,
+			verifyString = viewHandler.getResourceURL(facesContext,
 					URL_VIEWLINK_BACKLINK_VERIFY_STRING + HTTPUtils.encode(actionURL, "UTF-8"));
 		}
 		catch (UnsupportedEncodingException e) {
@@ -2547,10 +2545,10 @@ public class Tests extends Object {
 			return Constants.TEST_FAILED;
 		}
 
-		ViewHandler vh = facesContext.getApplication().getViewHandler();
+		ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
 
 		String nonEscapedPath = "/tests/SingleRequestTest.jsf?parm1=a&param2=b";
-		String nonEscapedResourceURL = vh.getResourceURL(facesContext, nonEscapedPath);
+		String nonEscapedResourceURL = viewHandler.getResourceURL(facesContext, nonEscapedPath);
 		String encodedNonEscapedResourceURL = externalContext.encodeResourceURL(nonEscapedResourceURL);
 
 		if (isStrictXhtmlEncoded(encodedNonEscapedResourceURL)) {
@@ -2561,7 +2559,7 @@ public class Tests extends Object {
 		}
 
 		String escapedPath = "/tests/SingleRequestTest.jsf?parm1=a&amp;param2=b";
-		String escapedResourceURL = vh.getResourceURL(facesContext, escapedPath);
+		String escapedResourceURL = viewHandler.getResourceURL(facesContext, escapedPath);
 		String encodedEscapedResourceURL = externalContext.encodeResourceURL(escapedResourceURL);
 
 		if (!isStrictXhtmlEncoded(encodedEscapedResourceURL) && encodedEscapedURL.contains("&")) {
@@ -2572,7 +2570,7 @@ public class Tests extends Object {
 		}
 
 		nonEscapedPath = "/tests/SingleRequestTest.jsf";
-		nonEscapedResourceURL = vh.getResourceURL(facesContext, nonEscapedPath);
+		nonEscapedResourceURL = viewHandler.getResourceURL(facesContext, nonEscapedPath);
 		encodedNonEscapedResourceURL = externalContext.encodeResourceURL(nonEscapedResourceURL);
 
 		if (isStrictXhtmlEncoded(encodedNonEscapedResourceURL)) {
