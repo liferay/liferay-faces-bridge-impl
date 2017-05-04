@@ -6,14 +6,14 @@
 		<h:form>
 			<h:panelGroup layout="block">
 				<h:outputLabel value="PPR Result: " />
-				<h:outputText escape="false" id="pprResult" value="#{test.testResourceResult}"/>
-				<h:commandButton id="runPPR" actionListener="#{test.runActionListener}" styleClass="run-ppr-button"
-					value="#{test.redisplayCommandName}">
+				<h:outputText escape="false" id="pprResult" value="#{testBean.testResourceResult}"/>
+				<h:commandButton id="runPPR" actionListener="#{testBean.runActionListener}" styleClass="run-ppr-button"
+					value="#{testBean.redisplayCommandName}">
 					<f:ajax render="@form"/>
 				</h:commandButton>
 				<h:outputLink id="redisplayLink" styleClass="ppr-redisplay-link"
 							  value="portlet:render?_jsfBridgeViewId=_jsfBridgeCurrentView&amp;org.apache.portlet.faces.tck.redisplay=1">
-					<h:outputText value="#{test.redisplayLinkName}" />
+					<h:outputText value="#{testBean.redisplayLinkName}" />
 				</h:outputLink>
 			</h:panelGroup>
 		</h:form>

@@ -35,7 +35,7 @@ import javax.portlet.faces.BridgeUtil;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -104,7 +104,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is Render test
 	// Test #5.29
 	@BridgeTest(test = "bridgeSetsContentTypeTest")
-	public String bridgeSetsContentTypeTest(TestRunnerBean testRunner) {
+	public String bridgeSetsContentTypeTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -132,7 +132,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.54, 5.55, 5.56, 5.57. 5.58
 	@BridgeTest(test = "eventControllerTest")
-	public String eventControllerTest(TestRunnerBean testRunner) {
+	public String eventControllerTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -221,7 +221,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.58
 	@BridgeTest(test = "eventNoHandlerPRPPreservedTest")
-	public String eventNoHandlerPRPPreservedTest(TestRunnerBean testRunner) {
+	public String eventNoHandlerPRPPreservedTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -284,7 +284,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is SingleRequest -- Render/Action
 	// Test #5.33 --
 	@BridgeTest(test = "eventPhaseListenerTest")
-	public String eventPhaseListenerTest(TestRunnerBean testRunner) {
+	public String eventPhaseListenerTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> m = extCtx.getRequestMap();
@@ -329,7 +329,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.50
 	@BridgeTest(test = "eventScopeNotRestoredModeChangedTest")
-	public String eventScopeNotRestoredModeChangedTest(TestRunnerBean testRunner) {
+	public String eventScopeNotRestoredModeChangedTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -387,7 +387,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.49
 	@BridgeTest(test = "eventScopeNotRestoredRedirectTest")
-	public String eventScopeNotRestoredRedirectTest(TestRunnerBean testRunner) {
+	public String eventScopeNotRestoredRedirectTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -444,7 +444,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.48
 	@BridgeTest(test = "eventScopeRestoredTest")
-	public String eventScopeRestoredTest(TestRunnerBean testRunner) {
+	public String eventScopeRestoredTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -502,7 +502,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.20
 	@BridgeTest(test = "exceptionThrownWhenNoDefaultViewIdTest")
-	public String exceptionThrownWhenNoDefaultViewIdTest(TestRunnerBean testRunner) {
+	public String exceptionThrownWhenNoDefaultViewIdTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -532,7 +532,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.25
 	@BridgeTest(test = "facesContextReleasedActionTest")
-	public String facesContextReleasedActionTest(TestRunnerBean testRunner) {
+	public String facesContextReleasedActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -562,7 +562,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.59
 	@BridgeTest(test = "facesContextReleasedEventTest")
-	public String facesContextReleasedEventTest(TestRunnerBean testRunner) {
+	public String facesContextReleasedEventTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -603,7 +603,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.19
 	@BridgeTest(test = "ignoreCurrentViewIdModeChangeTest")
-	public String ignoreCurrentViewIdModeChangeTest(TestRunnerBean testRunner) {
+	public String ignoreCurrentViewIdModeChangeTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -642,7 +642,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.31
 	@BridgeTest(test = "isPostbackTest")
-	public String isPostbackTest(TestRunnerBean testRunner) {
+	public String isPostbackTest(TestBean testRunner) {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -672,7 +672,7 @@ public class Tests extends RenderTests implements PhaseListener {
 
 	// Test # 5.64
 	@BridgeTest(test = "nonFacesResourceTest")
-	public String nonFacesResourceTest(TestRunnerBean testRunner) {
+	public String nonFacesResourceTest(TestBean testRunner) {
 		// Test renders a page containing an in-protocol resource (image) and a button When the image is rendered our
 		// portlet wraps the request so it can substitute its own RequestDispatcher and verify forward is called on the
 		// targeted resource -- a flag is set in the session to indicate success/fail The button is pushed -- in the
@@ -725,7 +725,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.26
 	@BridgeTest(test = "portletPhaseRemovedActionTest")
-	public String portletPhaseRemovedActionTest(TestRunnerBean testRunner) {
+	public String portletPhaseRemovedActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -755,7 +755,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.60
 	@BridgeTest(test = "portletPhaseRemovedEventTest")
-	public String portletPhaseRemovedEventTest(TestRunnerBean testRunner) {
+	public String portletPhaseRemovedEventTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -789,7 +789,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.74
 	@BridgeTest(test = "prpUpdatedFromActionTest")
-	public String prpUpdatedFromActionTest(TestRunnerBean testRunner) {
+	public String prpUpdatedFromActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> requestMap = extCtx.getRequestMap();
@@ -850,7 +850,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.18
 	@BridgeTest(test = "renderRedirectTest")
-	public String renderRedirectTest(TestRunnerBean testRunner) {
+	public String renderRedirectTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -914,7 +914,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.66
 	@BridgeTest(test = "scopeAfterRedisplayResourcePPRTest")
-	public String scopeAfterRedisplayResourcePPRTest(TestRunnerBean testRunner) {
+	public String scopeAfterRedisplayResourcePPRTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -950,7 +950,7 @@ public class Tests extends RenderTests implements PhaseListener {
 
 	// ActionListener
 	@BridgeTest(test = "scopeAfterRedisplayResourcePPRTestActionListener")
-	public void scopeAfterRedisplayResourcePPRTestListener(TestRunnerBean testRunner, ActionEvent action) {
+	public void scopeAfterRedisplayResourcePPRTestListener(TestBean testRunner, ActionEvent action) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -961,7 +961,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.65
 	@BridgeTest(test = "scopeNotRestoredResourceTest")
-	public String scopeNotRestoredResourceTest(TestRunnerBean testRunner) {
+	public String scopeNotRestoredResourceTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -997,7 +997,7 @@ public class Tests extends RenderTests implements PhaseListener {
 
 	// Test #5.13 (also by proxy verifies #5.12
 	@BridgeTest(test = "verifyPortletObjectsTest")
-	public String verifyPortletObjectsTest(TestRunnerBean testRunner) {
+	public String verifyPortletObjectsTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -1022,7 +1022,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.14
 	@BridgeTest(test = "verifyPortletPhaseTest")
-	public String verifyPortletPhaseTest(TestRunnerBean testRunner) {
+	public String verifyPortletPhaseTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -1065,7 +1065,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.63
 	@BridgeTest(test = "verifyResourcePhaseTest")
-	public String verifyResourcePhaseTest(TestRunnerBean testRunner) {
+	public String verifyResourcePhaseTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -1090,7 +1090,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.20 (first test of 2) -- viewId set directly by portlet using request attribute
 	@BridgeTest(test = "viewIdWithParam_1_Test")
-	public String viewIdWithParam_1_Test(TestRunnerBean testRunner) {
+	public String viewIdWithParam_1_Test(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
 		testRunner.setTestComplete(true);
@@ -1123,7 +1123,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.20 (second test of 2) -- viewId set in the default viewId (initparam)
 	@BridgeTest(test = "viewIdWithParam_2_Test")
-	public String viewIdWithParam_2_Test(TestRunnerBean testRunner) {
+	public String viewIdWithParam_2_Test(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
 		testRunner.setTestComplete(true);

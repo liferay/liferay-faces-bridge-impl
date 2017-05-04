@@ -19,7 +19,7 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -29,7 +29,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
 public class Tests extends Object {
 
 	@BridgeTest(test = "getFacesBridgeMethodTest")
-	public String getFacesBridgeMethodTest(TestRunnerBean testRunner) {
+	public String getFacesBridgeMethodTest(TestBean testRunner) {
 
 		// Section 4.2.12
 		// The Run Test action simply forwards to a results page.

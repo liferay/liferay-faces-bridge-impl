@@ -19,7 +19,7 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -28,7 +28,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
  */
 public class Tests extends Object {
 	@BridgeTest(test = "requestProcessingNonFacesTest")
-	public String requestProcessingNonFacesTest(TestRunnerBean testRunner) {
+	public String requestProcessingNonFacesTest(TestBean testRunner) {
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "requestProcessingNonFacesTest"; // action Navigation result
