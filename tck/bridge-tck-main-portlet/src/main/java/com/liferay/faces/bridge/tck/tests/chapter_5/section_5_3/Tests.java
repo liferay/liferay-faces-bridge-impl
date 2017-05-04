@@ -157,7 +157,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	public String navigateToLastViewTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletMode mode = (PortletMode) ((PortletRequest) externalContext.getRequest()).getPortletMode();
+		PortletMode portletMode = (PortletMode) ((PortletRequest) externalContext.getRequest()).getPortletMode();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -171,13 +171,13 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 
 			if (viewId.equals("/tests/multiRequestTest.xhtml")) {
 
-				if (mode.toString().equals("view")) {
+				if (portletMode.toString().equals("view")) {
 
 					// First page -- navigate to the second page
 					return "navigateToLastViewTest1"; // action Navigation result
 				}
 				else
-				// (mode.toString().equals("edit"))
+				// (portletMode.toString().equals("edit"))
 				{
 
 					// Third page -- mark the test as complete so can test/render the result
