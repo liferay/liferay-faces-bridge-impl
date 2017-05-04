@@ -40,8 +40,8 @@ public class Tests extends Object {
 	public String portletNamingContainerClientIdConsistentTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		UIViewRoot viewRoot = facesContext.getViewRoot();
-		String clientId = viewRoot.getContainerClientId(facesContext);
+		UIViewRoot uiViewRoot = facesContext.getViewRoot();
+		String clientId = uiViewRoot.getContainerClientId(facesContext);
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -86,14 +86,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "portletNamingContainerClientIdTest")
 	public String portletNamingContainerClientIdTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		UIViewRoot viewRoot = facesContext.getViewRoot();
+		UIViewRoot uiViewRoot = facesContext.getViewRoot();
 		String namespace = ((MimeResponse) facesContext.getExternalContext().getResponse()).getNamespace();
 
 		testBean.setTestComplete(true);
 
-		if (viewRoot.getClass().getAnnotation(PortletNamingContainer.class) != null) {
+		if (uiViewRoot.getClass().getAnnotation(PortletNamingContainer.class) != null) {
 
-			if (viewRoot.getContainerClientId(facesContext).indexOf(namespace) >= 0) {
+			if (uiViewRoot.getContainerClientId(facesContext).indexOf(namespace) >= 0) {
 				testBean.setTestResult(true, "UIViewRoot getClientContainerId includes the portlet namespace id.");
 
 				return Constants.TEST_SUCCESS;

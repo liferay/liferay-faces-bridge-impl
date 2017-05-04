@@ -94,10 +94,10 @@ public class Tests extends Object {
 	// Test #6.86
 	@BridgeTest(test = "isPortletNamingContainerTest")
 	public String isPortletNamingContainerTest(TestBean testBean) {
-		UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+		UIViewRoot uiViewRoot = FacesContext.getCurrentInstance().getViewRoot();
 		testBean.setTestComplete(true);
 
-		if (viewRoot.getClass().getAnnotation(PortletNamingContainer.class) != null) {
+		if (uiViewRoot.getClass().getAnnotation(PortletNamingContainer.class) != null) {
 			testBean.setTestResult(true,
 				"UIViewRoot is correctly annotated with javax.portlet.faces.annotation.PortletNamingContainer.");
 
