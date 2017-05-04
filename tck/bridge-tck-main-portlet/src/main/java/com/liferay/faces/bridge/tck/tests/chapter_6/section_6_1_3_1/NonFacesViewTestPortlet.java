@@ -183,17 +183,17 @@ public class NonFacesViewTestPortlet extends NonFacesViewTestCompatPortlet {
 	}
 
 	private String checkParameter(RenderRequest request, RenderResponse response) throws IOException {
-		String pVal = request.getParameter("param1");
+		String paramValue = request.getParameter("param1");
 
-		if ((pVal != null) && pVal.equals("testValue")) {
+		if ((paramValue != null) && paramValue.equals("testValue")) {
 			return "true";
 		}
-		else if (pVal == null) {
+		else if (paramValue == null) {
 			outputTestResult(false, "Expected additional parameter 'param1' is missing.");
 		}
-		else if (!pVal.equals("testValue")) {
+		else if (!paramValue.equals("testValue")) {
 			outputTestResult(false,
-				"Expected additional parameter 'param1' has unexpected value. Expected: 'param1' but received " + pVal);
+				"Expected additional parameter 'param1' has unexpected value. Expected: 'param1' but received " + paramValue);
 		}
 
 		return "false";
