@@ -54,8 +54,8 @@ public class Tests extends Object {
 	public String encodeNamespaceTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		MimeResponse response = (MimeResponse) externalContext.getResponse();
 
 		String encodedNamespace = externalContext.encodeNamespace("");
@@ -90,8 +90,8 @@ public class Tests extends Object {
 	public String getApplicationMapTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		// Test the following:
 		// 1. Map is mutable
@@ -174,8 +174,8 @@ public class Tests extends Object {
 	public String getAuthTypeTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		RenderRequest request = (RenderRequest) externalContext.getRequest();
 
 		String authType = externalContext.getAuthType();
@@ -205,8 +205,8 @@ public class Tests extends Object {
 	public String getContextTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Object portletContext = externalContext.getContext();
 
 		if ((portletContext != null) && (portletContext instanceof PortletContext)) {
@@ -233,8 +233,8 @@ public class Tests extends Object {
 	public String getInitParameterMapTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		// Test the following:
 		// 1. Map is immutable
@@ -280,8 +280,8 @@ public class Tests extends Object {
 	public String getInitParameterTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletContext portletContext = (PortletContext) externalContext.getContext();
 
 		// Get the enum of initparameter names -- then get one of the parameters
@@ -321,8 +321,8 @@ public class Tests extends Object {
 	public String getRemoteUserTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		RenderRequest request = (RenderRequest) externalContext.getRequest();
 
 		String remoteUser = externalContext.getRemoteUser();
@@ -352,8 +352,8 @@ public class Tests extends Object {
 	public String getRequestContextPathTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		RenderRequest request = (RenderRequest) externalContext.getRequest();
 
 		String contextPath = externalContext.getRequestContextPath();
@@ -386,8 +386,8 @@ public class Tests extends Object {
 	public String getRequestCookieMapTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		// Test the following:
 		// 1. Map is immutable
@@ -427,8 +427,8 @@ public class Tests extends Object {
 	public String getRequestLocalesTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		RenderRequest request = (RenderRequest) externalContext.getRequest();
 		Iterator<Locale> locales = externalContext.getRequestLocales();
@@ -467,8 +467,8 @@ public class Tests extends Object {
 	public String getRequestLocaleTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		RenderRequest request = (RenderRequest) externalContext.getRequest();
 
 		Locale locale = externalContext.getRequestLocale();
@@ -498,8 +498,8 @@ public class Tests extends Object {
 	public String getResourceAsStreamTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		PortletContext pCtx = (PortletContext) externalContext.getContext();
 
@@ -580,8 +580,8 @@ public class Tests extends Object {
 	public String getResourcePathsTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		PortletContext pCtx = (PortletContext) externalContext.getContext();
 
@@ -613,8 +613,8 @@ public class Tests extends Object {
 	public String getResourceTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		PortletContext pCtx = (PortletContext) externalContext.getContext();
 
@@ -650,8 +650,8 @@ public class Tests extends Object {
 	public String getSessionMapTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		// Test the following:
 		// 1. Map is immutable
@@ -690,8 +690,8 @@ public class Tests extends Object {
 	public String getSessionTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		PortletRequest request = (PortletRequest) externalContext.getRequest();
 
@@ -714,8 +714,8 @@ public class Tests extends Object {
 	public String getUserPrincipalTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		PortletRequest request = (PortletRequest) externalContext.getRequest();
 
@@ -742,12 +742,12 @@ public class Tests extends Object {
 	public String sessionMapPreDestroyRemoveTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
-		Application app = ctx.getApplication();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Application app = facesContext.getApplication();
 
 		// ensure the managed beans come into existence
-		Boolean isIn = (Boolean) app.evaluateExpressionGet(ctx, "#{predestroySessionBean.inBridgeRequestScope}",
+		Boolean isIn = (Boolean) app.evaluateExpressionGet(facesContext, "#{predestroySessionBean.inBridgeRequestScope}",
 				Object.class);
 		Map<String, Object> m = externalContext.getRequestMap();
 		m.remove("predestroySessionBean");
@@ -800,8 +800,8 @@ public class Tests extends Object {
 	public String setResponseCharacterEncodingTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		PortletResponse response = (PortletResponse) externalContext.getResponse();
 

@@ -35,8 +35,8 @@ public class RenderTests {
 	// Test #5.33 --
 	@BridgeTest(test = "renderPhaseListenerTest")
 	public String renderPhaseListenerTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> m = externalContext.getRequestMap();
 
 		testBean.setTestComplete(true);

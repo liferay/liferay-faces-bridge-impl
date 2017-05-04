@@ -30,8 +30,8 @@ public class PreDestroyBean1 {
 	boolean mInBridgeRequestScope = false;
 
 	public PreDestroyBean1() {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		mRequest = (PortletRequest) ctx.getExternalContext().getRequest();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		mRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 	}
 
 	@BridgeRequestScopeAttributeAdded

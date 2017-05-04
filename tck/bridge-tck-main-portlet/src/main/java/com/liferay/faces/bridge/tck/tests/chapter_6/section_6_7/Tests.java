@@ -34,18 +34,18 @@ public class Tests extends Object {
 	// Test #6.97
 	@BridgeTest(test = "restoredViewStateParameterTest")
 	public String restoredViewStateParameterTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "restoredViewStateParameterTest"; // action Navigation result
 		}
 		else {
 			testBean.setTestComplete(true);
 
 			// Now see if isPostback returns true as it should
-			String vsp = ctx.getExternalContext().getRequestParameterMap().get(ResponseStateManager.VIEW_STATE_PARAM);
+			String vsp = facesContext.getExternalContext().getRequestParameterMap().get(ResponseStateManager.VIEW_STATE_PARAM);
 
 			if (vsp != null) {
 				testBean.setTestResult(true,
@@ -66,18 +66,18 @@ public class Tests extends Object {
 	// Test #6.98
 	@BridgeTest(test = "setsIsPostbackAttributeTest")
 	public String setsIsPostbackAttributeTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "setsIsPostbackAttributeTest"; // action Navigation result
 		}
 		else {
 			testBean.setTestComplete(true);
 
 			// Now see if isPostback returns true as it should
-			Boolean isPostback = (Boolean) ctx.getExternalContext().getRequestMap().get(
+			Boolean isPostback = (Boolean) facesContext.getExternalContext().getRequestMap().get(
 					"javax.portlet.faces.isPostback");
 
 			if (isPostback == null) {

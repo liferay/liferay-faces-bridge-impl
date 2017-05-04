@@ -77,8 +77,8 @@ public class TestEventHandler implements BridgeEventHandler {
 	}
 
 	private void getRequestCharacterEncodingEventTest() {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		String charEncoding = externalContext.getRequestCharacterEncoding();
@@ -94,8 +94,8 @@ public class TestEventHandler implements BridgeEventHandler {
 	}
 
 	private void getRequestContentTypeEventTest() {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		String contentType = externalContext.getRequestContentType();
@@ -112,8 +112,8 @@ public class TestEventHandler implements BridgeEventHandler {
 
 	private void getRequestHeaderMapEventTest() {
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// Test the following:
@@ -223,8 +223,8 @@ public class TestEventHandler implements BridgeEventHandler {
 
 	private void getRequestHeaderValuesMapEventTest() {
 
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// Test the following:
@@ -370,8 +370,8 @@ public class TestEventHandler implements BridgeEventHandler {
 	}
 
 	private void getResponseCharacterEncodingEventTest() {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		try {
@@ -385,8 +385,8 @@ public class TestEventHandler implements BridgeEventHandler {
 	}
 
 	private void getResponseContentTypeEventTest() {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		try {
@@ -401,11 +401,11 @@ public class TestEventHandler implements BridgeEventHandler {
 	}
 
 	private void redirectEventTest() {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 
-		String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
+		String target = facesContext.getApplication().getViewHandler().getActionURL(facesContext,
 				"/tests/redirectTestResultRenderCheck.xhtml");
 
 		try {

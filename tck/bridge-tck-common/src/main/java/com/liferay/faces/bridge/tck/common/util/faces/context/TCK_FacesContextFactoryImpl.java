@@ -43,7 +43,7 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 	@Override
 	public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle)
 		throws FacesException {
-		FacesContext ctx = mHandler.getFacesContext(context, request, response, lifecycle);
+		FacesContext facesContext = mHandler.getFacesContext(context, request, response, lifecycle);
 
 		// Only wrap the FacesContext if running in a portlet request
 		// Purpose of this wrapping is to test the various FacesContext requirements
@@ -59,10 +59,10 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 			// Verify we are using the right lifecycle
 			verifyLifecycle((PortletContext) context, (PortletRequest) request, lifecycle);
 
-			return new TCK_FacesContextImpl(ctx);
+			return new TCK_FacesContextImpl(facesContext);
 		}
 		else {
-			return ctx;
+			return facesContext;
 		}
 	}
 
