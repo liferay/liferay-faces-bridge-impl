@@ -35,18 +35,18 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 4.20
 	@BridgeTest(test = "isAutoDispatchEventsNotSetTest")
-	public String isAutoDispatchEventsNotSetTest(TestBean testRunner) {
-		return isAutoDispatchEventsTest(testRunner);
+	public String isAutoDispatchEventsNotSetTest(TestBean testBean) {
+		return isAutoDispatchEventsTest(testBean);
 	}
 
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 4.19
 	@BridgeTest(test = "isAutoDispatchEventsSetTest")
-	public String isAutoDispatchEventsSetTest(TestBean testRunner) {
-		return isAutoDispatchEventsTest(testRunner);
+	public String isAutoDispatchEventsSetTest(TestBean testBean) {
+		return isAutoDispatchEventsTest(testBean);
 	}
 
-	public String isAutoDispatchEventsTest(TestBean testRunner) {
+	public String isAutoDispatchEventsTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -57,28 +57,28 @@ public class Tests extends Object {
 			// Create and raise the event -- this ensures isAutoDispatchEvents will get called
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
 			response.setEvent(new QName("http://liferay.com/faces/event_ns", "faces.liferay.com.tck.testEvent"),
-				testRunner.getTestName());
+				testBean.getTestName());
 
 			return "isAutoDispatchEventsTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			String failedMsg = (String) extCtx.getRequestMap().get("test.fail.");
 			String successMsg = (String) extCtx.getRequestMap().get("test.pass.");
 
 			if (successMsg != null) {
-				testRunner.setTestResult(true, successMsg);
+				testBean.setTestResult(true, successMsg);
 
 				return Constants.TEST_SUCCESS;
 			}
 			else if (failedMsg != null) {
-				testRunner.setTestResult(false, failedMsg);
+				testBean.setTestResult(false, failedMsg);
 
 				return Constants.TEST_FAILED;
 			}
 			else {
-				testRunner.setTestResult(false, "Unexpected failure: No result string set by the portlet");
+				testBean.setTestResult(false, "Unexpected failure: No result string set by the portlet");
 
 				return Constants.TEST_FAILED;
 			}

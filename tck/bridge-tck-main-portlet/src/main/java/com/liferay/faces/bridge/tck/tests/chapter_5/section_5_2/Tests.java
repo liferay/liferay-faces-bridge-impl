@@ -104,24 +104,24 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is Render test
 	// Test #5.29
 	@BridgeTest(test = "bridgeSetsContentTypeTest")
-	public String bridgeSetsContentTypeTest(TestBean testRunner) {
+	public String bridgeSetsContentTypeTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		// Parameter encoded in the faces-config.xml target
 		String responseCT = extCtx.getResponseContentType();
 		String requestedCT = ((RenderRequest) extCtx.getRequest()).getResponseContentType();
 
 		if ((responseCT != null) && (requestedCT != null) && responseCT.equals(requestedCT)) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"Bridge correctly set the proper (default) content type when not set by portlet.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Bridge didn't set the proper (default) content type when not set by portlet.  Current: " + responseCT +
 				" expected: " + requestedCT);
 
@@ -132,7 +132,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.54, 5.55, 5.56, 5.57. 5.58
 	@BridgeTest(test = "eventControllerTest")
-	public String eventControllerTest(TestBean testRunner) {
+	public String eventControllerTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -151,12 +151,12 @@ public class Tests extends RenderTests implements PhaseListener {
 
 			// Create and raise the event
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testRunner.getTestName());
+				testBean.getTestName());
 
 			return "eventControllerTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
 			Boolean eventPhaseCheck = (Boolean) extCtx.getRequestMap().get("tck.eventPhaseCheck");
@@ -167,49 +167,49 @@ public class Tests extends RenderTests implements PhaseListener {
 			String param = (String) extCtx.getRequestParameterMap().get("tck.renderParam");
 
 			if (eventPhaseCheck == null) {
-				testRunner.setTestResult(false, "Registered Event handler wasn't called to handle raised event.");
+				testBean.setTestResult(false, "Registered Event handler wasn't called to handle raised event.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (!eventPhaseCheck.booleanValue()) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Expected EVENT_PHASE request attribute not set during event processing.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (param == null) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Render parameter set in action phase not carried forward through the event phase into the render phase.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (!param.equals("value")) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"(Private) Render parameter set in action phase carried forward through the event phase into the render phase but with an unexpected value.  Received: " +
 					param + " but expected: value");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (modelPRP == null) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"(Public) Render parameter set in event phase wasn't received/value pushed to its model in the render phase.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if ((checkPRP == null) || !modelPRP.equals(checkPRP)) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"(Public) Render parameter value set in event phase isn't set in the model in the render.  PRP model value: " +
 					modelPRP + " but expected: " + checkPRP);
 
 				return Constants.TEST_FAILED;
 			}
 			else {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"Event controller tests passed.<br>Registered event handler called and its navigational result processed corectly.");
-				testRunner.appendTestDetail("EVENT_PHASE attribute correctly set during event processing.");
-				testRunner.appendTestDetail(
+				testBean.appendTestDetail("EVENT_PHASE attribute correctly set during event processing.");
+				testBean.appendTestDetail(
 					"(Private) Render parameter set during action phase was properly carried forward from the event phase.");
-				testRunner.appendTestDetail(
+				testBean.appendTestDetail(
 					"(Public) Render parameter whose underlying model value was set during event phase was properly carried forward into the render.");
 
 				return Constants.TEST_SUCCESS;
@@ -221,7 +221,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.58
 	@BridgeTest(test = "eventNoHandlerPRPPreservedTest")
-	public String eventNoHandlerPRPPreservedTest(TestBean testRunner) {
+	public String eventNoHandlerPRPPreservedTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -230,17 +230,17 @@ public class Tests extends RenderTests implements PhaseListener {
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Set the value into the model underneath the public render parameter
-			extCtx.getRequestMap().put("modelPRP", testRunner.getTestName());
+			extCtx.getRequestMap().put("modelPRP", testBean.getTestName());
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testRunner.getTestName());
+				testBean.getTestName());
 
 			return "eventNoHandlerPRPPreservedTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// ensure that both the public render paramter and the model are there and have the same value
 			RenderRequest request = (RenderRequest) extCtx.getRequest();
@@ -248,32 +248,32 @@ public class Tests extends RenderTests implements PhaseListener {
 			String modelPRP = (String) extCtx.getRequestMap().get("modelPRP");
 
 			if (prpArray == null) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"event raised without a registered handler didn't carry forward the public render parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (modelPRP == null) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"event raised without a registered handler didn't update the model from the passed public render parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (!modelPRP.equals(prpArray[0])) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"event raised without a registered handler:  passed public render parameter value doesn't match underlying one.");
 
 				return Constants.TEST_FAILED;
 			}
-			else if (!modelPRP.equals(testRunner.getTestName())) {
-				testRunner.setTestResult(false,
+			else if (!modelPRP.equals(testBean.getTestName())) {
+				testBean.setTestResult(false,
 					"event raised without a registered handler:  public render parameter didn't contain expected value.  PRP value: " +
-					modelPRP + " but expected: " + testRunner.getTestName());
+					modelPRP + " but expected: " + testBean.getTestName());
 
 				return Constants.TEST_FAILED;
 			}
 			else {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"event raised without a registered handler worked correctly as the public render parameter was maintained.");
 
 				return Constants.TEST_SUCCESS;
@@ -284,7 +284,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is SingleRequest -- Render/Action
 	// Test #5.33 --
 	@BridgeTest(test = "eventPhaseListenerTest")
-	public String eventPhaseListenerTest(TestBean testRunner) {
+	public String eventPhaseListenerTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> m = extCtx.getRequestMap();
@@ -292,32 +292,32 @@ public class Tests extends RenderTests implements PhaseListener {
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testRunner.getTestName());
+				testBean.getTestName());
 
 			return "eventPhaseListenerTest"; // action Navigation result
 		}
 		else {
 
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Phase Listener (below) has set these attributes
 			PhaseId lastBeforePhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastBeforePhase");
 			PhaseId lastAfterPhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastAfterPhase");
 
 			if ((lastBeforePhaseId == null) || (lastAfterPhaseId == null)) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Event incorrectly didn't invoke either or both the RESTORE_VIEW before/after listener.  Its also possible the event wasn't received.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if ((lastBeforePhaseId == PhaseId.RESTORE_VIEW) && (lastAfterPhaseId == PhaseId.RESTORE_VIEW)) {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"Event properly invoked the RESTORE_VIEW phase including calling its before/after listeners and didnt' execute any other action phases.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Event incorrectly executed an action phase/listener post RESTORE_VIEW: lastBeforePhase: " +
 					lastBeforePhaseId.toString() + " lastAfterPhase: " + lastAfterPhaseId.toString());
 
@@ -329,7 +329,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.50
 	@BridgeTest(test = "eventScopeNotRestoredModeChangedTest")
-	public String eventScopeNotRestoredModeChangedTest(TestBean testRunner) {
+	public String eventScopeNotRestoredModeChangedTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -342,17 +342,17 @@ public class Tests extends RenderTests implements PhaseListener {
 			extCtx.getSessionMap().put(TestEventHandler.EVENT_TEST_FAILED, null);
 
 			// Place a request attr in scope so we can make sure its not there later
-			extCtx.getRequestMap().put(TestEventHandler.EVENTATTR, testRunner.getTestName());
+			extCtx.getRequestMap().put(TestEventHandler.EVENTATTR, testBean.getTestName());
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testRunner.getTestName());
+				testBean.getTestName());
 
 			return "eventScopeNotRestoredModeChangedTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
 			Event event = (Event) extCtx.getSessionMap().get(TestEventHandler.EVENT_RECEIVED);
@@ -360,23 +360,23 @@ public class Tests extends RenderTests implements PhaseListener {
 			String payload = (String) extCtx.getRequestMap().get(TestEventHandler.EVENTATTR);
 
 			if (event == null) {
-				testRunner.setTestResult(false, "Raised event wasn't received.");
+				testBean.setTestResult(false, "Raised event wasn't received.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (failedMsg != null) {
-				testRunner.setTestResult(false, failedMsg);
+				testBean.setTestResult(false, failedMsg);
 
 				return Constants.TEST_FAILED;
 			}
 			else if (payload != null) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Event navigation indicated a mode change but the request scope was preserved.");
 
 				return Constants.TEST_FAILED;
 			}
 			else {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"Request scope not preserved after event navigation indicated a mode change.");
 
 				return Constants.TEST_SUCCESS;
@@ -387,7 +387,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.49
 	@BridgeTest(test = "eventScopeNotRestoredRedirectTest")
-	public String eventScopeNotRestoredRedirectTest(TestBean testRunner) {
+	public String eventScopeNotRestoredRedirectTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -400,17 +400,17 @@ public class Tests extends RenderTests implements PhaseListener {
 			extCtx.getSessionMap().put(TestEventHandler.EVENT_TEST_FAILED, null);
 
 			// Place a request attr in scope so we can make sure its not there later
-			extCtx.getRequestMap().put(TestEventHandler.EVENTATTR, testRunner.getTestName());
+			extCtx.getRequestMap().put(TestEventHandler.EVENTATTR, testBean.getTestName());
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testRunner.getTestName());
+				testBean.getTestName());
 
 			return "eventScopeNotRestoredRedirectTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
 			Event event = (Event) extCtx.getSessionMap().get(TestEventHandler.EVENT_RECEIVED);
@@ -418,23 +418,23 @@ public class Tests extends RenderTests implements PhaseListener {
 			String payload = (String) extCtx.getRequestMap().get(TestEventHandler.EVENTATTR);
 
 			if (event == null) {
-				testRunner.setTestResult(false, "Raised event wasn't received.");
+				testBean.setTestResult(false, "Raised event wasn't received.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (failedMsg != null) {
-				testRunner.setTestResult(false, failedMsg);
+				testBean.setTestResult(false, failedMsg);
 
 				return Constants.TEST_FAILED;
 			}
 			else if (payload != null) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Event navigation issued a redirect but the request scope was preserved.");
 
 				return Constants.TEST_FAILED;
 			}
 			else {
-				testRunner.setTestResult(true, "Request scope not preserved after event navigation issued a redirect.");
+				testBean.setTestResult(true, "Request scope not preserved after event navigation issued a redirect.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -444,7 +444,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.48
 	@BridgeTest(test = "eventScopeRestoredTest")
-	public String eventScopeRestoredTest(TestBean testRunner) {
+	public String eventScopeRestoredTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -458,17 +458,17 @@ public class Tests extends RenderTests implements PhaseListener {
 			extCtx.getSessionMap().put(TestEventHandler.EVENT_TEST_FAILED, null);
 
 			// Place a request attr in scope so we can make sure its still there later
-			extCtx.getRequestMap().put(TestEventHandler.EVENTATTR, testRunner.getTestName());
+			extCtx.getRequestMap().put(TestEventHandler.EVENTATTR, testBean.getTestName());
 
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testRunner.getTestName());
+				testBean.getTestName());
 
 			return "eventScopeRestoredTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
 			Event event = (Event) extCtx.getSessionMap().get(TestEventHandler.EVENT_RECEIVED);
@@ -476,23 +476,23 @@ public class Tests extends RenderTests implements PhaseListener {
 			String payload = (String) extCtx.getRequestMap().get(TestEventHandler.EVENTATTR);
 
 			if (event == null) {
-				testRunner.setTestResult(false, "Raised event wasn't received.");
+				testBean.setTestResult(false, "Raised event wasn't received.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (failedMsg != null) {
-				testRunner.setTestResult(false, failedMsg);
+				testBean.setTestResult(false, failedMsg);
 
 				return Constants.TEST_FAILED;
 			}
-			else if ((payload == null) || !payload.equals(testRunner.getTestName())) {
-				testRunner.setTestResult(false,
+			else if ((payload == null) || !payload.equals(testBean.getTestName())) {
+				testBean.setTestResult(false,
 					"Event received and request scope restored but that scope wasn't carried forward into the render");
 
 				return Constants.TEST_FAILED;
 			}
 			else {
-				testRunner.setTestResult(true, "Event received and request scope restored.");
+				testBean.setTestResult(true, "Event received and request scope restored.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -502,7 +502,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.20
 	@BridgeTest(test = "exceptionThrownWhenNoDefaultViewIdTest")
-	public String exceptionThrownWhenNoDefaultViewIdTest(TestBean testRunner) {
+	public String exceptionThrownWhenNoDefaultViewIdTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -520,9 +520,9 @@ public class Tests extends RenderTests implements PhaseListener {
 
 			// Note we should never get here because the default viewId isn't defined.
 			// We should now be in the default view for edit Mode
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Unexpectedly ended up in render -- should of had a BridgeDefaultViewNotSpecifiedException thrown.");
 
 			return Constants.TEST_FAILED;
@@ -532,7 +532,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.25
 	@BridgeTest(test = "facesContextReleasedActionTest")
-	public String facesContextReleasedActionTest(TestBean testRunner) {
+	public String facesContextReleasedActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -542,12 +542,12 @@ public class Tests extends RenderTests implements PhaseListener {
 			return "facesContextReleasedActionTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
 			boolean result = ((Boolean) extCtx.getSessionMap().get("org.apache.portlet.faces.tck.testResult"))
 				.booleanValue();
-			testRunner.setTestResult(result,
+			testBean.setTestResult(result,
 				(String) extCtx.getSessionMap().get("org.apache.portlet.faces.tck.testDetail"));
 
 			if (result) {
@@ -562,7 +562,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.59
 	@BridgeTest(test = "facesContextReleasedEventTest")
-	public String facesContextReleasedEventTest(TestBean testRunner) {
+	public String facesContextReleasedEventTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -573,17 +573,17 @@ public class Tests extends RenderTests implements PhaseListener {
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testRunner.getTestName());
+				testBean.getTestName());
 
 			return "facesContextReleasedEventTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
 			boolean result = ((Boolean) extCtx.getSessionMap().get("org.apache.portlet.faces.tck.testResult"))
 				.booleanValue();
-			testRunner.setTestResult(result,
+			testBean.setTestResult(result,
 				(String) extCtx.getSessionMap().get("org.apache.portlet.faces.tck.testDetail"));
 
 			if (result) {
@@ -603,7 +603,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.19
 	@BridgeTest(test = "ignoreCurrentViewIdModeChangeTest")
-	public String ignoreCurrentViewIdModeChangeTest(TestBean testRunner) {
+	public String ignoreCurrentViewIdModeChangeTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -622,16 +622,16 @@ public class Tests extends RenderTests implements PhaseListener {
 			// We should now be in the default view for edit Mode
 			String viewId = ctx.getViewRoot().getViewId();
 
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			if (viewId.equals("/tests/MultiRequestTestResultRenderCheck.jsp")) {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"Second render correctly used the default view because there was a mode change.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Second render incorrectly rerendered existing view though there was a view change.");
 
 				return Constants.TEST_FAILED;
@@ -642,7 +642,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.31
 	@BridgeTest(test = "isPostbackTest")
-	public String isPostbackTest(TestBean testRunner) {
+	public String isPostbackTest(TestBean testBean) {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -653,16 +653,16 @@ public class Tests extends RenderTests implements PhaseListener {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			ExternalContext extCtx = ctx.getExternalContext();
 
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			if (ctx.getRenderKit().getResponseStateManager().isPostback(ctx)) {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"Render after action properly encoded so ResponseStateManager.isPostback is true.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Render after action isn't properly encoded in that ResponseStateManager.isPostback is false.");
 
 				return Constants.TEST_FAILED;
@@ -672,7 +672,7 @@ public class Tests extends RenderTests implements PhaseListener {
 
 	// Test # 5.64
 	@BridgeTest(test = "nonFacesResourceTest")
-	public String nonFacesResourceTest(TestBean testRunner) {
+	public String nonFacesResourceTest(TestBean testBean) {
 		// Test renders a page containing an in-protocol resource (image) and a button When the image is rendered our
 		// portlet wraps the request so it can substitute its own RequestDispatcher and verify forward is called on the
 		// targeted resource -- a flag is set in the session to indicate success/fail The button is pushed -- in the
@@ -688,14 +688,14 @@ public class Tests extends RenderTests implements PhaseListener {
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
 		if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase())) {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			PortletSession session = ((PortletRequest) extCtx.getRequest()).getPortletSession(true);
 			Boolean b = (Boolean) session.getAttribute("com.liferay.faces.bridge.tck.NonFacesResourceInvokedInForward",
 					PortletSession.APPLICATION_SCOPE);
 
 			if (b == null) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"NonFaces resource not invoked implying the bridge didn't handle/forward as required.");
 
 				return Constants.TEST_FAILED;
@@ -706,12 +706,12 @@ public class Tests extends RenderTests implements PhaseListener {
 			}
 
 			if (b.equals(Boolean.TRUE)) {
-				testRunner.setTestResult(true, "NonFaces resource correctly dispatched to by bridge via a forward.");
+				testBean.setTestResult(true, "NonFaces resource correctly dispatched to by bridge via a forward.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false, "NonFaces resource called by bridge but not in a forward.");
+				testBean.setTestResult(false, "NonFaces resource called by bridge but not in a forward.");
 
 				return Constants.TEST_FAILED;
 			}
@@ -725,7 +725,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.26
 	@BridgeTest(test = "portletPhaseRemovedActionTest")
-	public String portletPhaseRemovedActionTest(TestBean testRunner) {
+	public String portletPhaseRemovedActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -735,12 +735,12 @@ public class Tests extends RenderTests implements PhaseListener {
 			return "portletPhaseRemovedActionTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
 			boolean result = ((Boolean) extCtx.getSessionMap().get("org.apache.portlet.faces.tck.testResult"))
 				.booleanValue();
-			testRunner.setTestResult(result,
+			testBean.setTestResult(result,
 				(String) extCtx.getSessionMap().get("org.apache.portlet.faces.tck.testDetail"));
 
 			if (result) {
@@ -755,7 +755,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.60
 	@BridgeTest(test = "portletPhaseRemovedEventTest")
-	public String portletPhaseRemovedEventTest(TestBean testRunner) {
+	public String portletPhaseRemovedEventTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -764,17 +764,17 @@ public class Tests extends RenderTests implements PhaseListener {
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testRunner.getTestName());
+				testBean.getTestName());
 
 			return "portletPhaseRemovedEventTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
 			boolean result = ((Boolean) extCtx.getSessionMap().get("org.apache.portlet.faces.tck.testResult"))
 				.booleanValue();
-			testRunner.setTestResult(result,
+			testBean.setTestResult(result,
 				(String) extCtx.getSessionMap().get("org.apache.portlet.faces.tck.testDetail"));
 
 			if (result) {
@@ -789,7 +789,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.74
 	@BridgeTest(test = "prpUpdatedFromActionTest")
-	public String prpUpdatedFromActionTest(TestBean testRunner) {
+	public String prpUpdatedFromActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> requestMap = extCtx.getRequestMap();
@@ -818,27 +818,27 @@ public class Tests extends RenderTests implements PhaseListener {
 			return "prpUpdatedFromActionTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
 			String modelPRP = (String) extCtx.getRequestMap().get("modelPRP");
 			String checkPRP = (String) extCtx.getRequestMap().get("tck.compareModelPRPValue");
 
 			if (modelPRP == null) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"(Public) Render parameter set in action phase wasn't received/value pushed to its model in the render phase.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if ((checkPRP == null) || !modelPRP.equals(checkPRP)) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"(Public) Render parameter value set in action phase isn't set in the model in the render.  PRP model value: " +
 					modelPRP + " but expected: " + checkPRP);
 
 				return Constants.TEST_FAILED;
 			}
 			else {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"(Public) Render parameter whose underlying model value was set during action phase was properly carried forward into the render.");
 
 				return Constants.TEST_SUCCESS;
@@ -850,7 +850,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.18
 	@BridgeTest(test = "renderRedirectTest")
-	public String renderRedirectTest(TestBean testRunner) {
+	public String renderRedirectTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -873,8 +873,8 @@ public class Tests extends RenderTests implements PhaseListener {
 					extCtx.redirect(viewHandler.getActionURL(ctx, "/tests/RedisplayRenderRequestTest.jsp"));
 				}
 				catch (IOException e) {
-					testRunner.setTestComplete(true);
-					testRunner.setTestResult(false, "Call to render redirect threw an IOException: " + e.getMessage());
+					testBean.setTestComplete(true);
+					testBean.setTestResult(false, "Call to render redirect threw an IOException: " + e.getMessage());
 
 					return Constants.TEST_FAILED;
 				}
@@ -894,17 +894,17 @@ public class Tests extends RenderTests implements PhaseListener {
 					return "renderRedirectTest";
 				}
 
-				testRunner.setTestComplete(true);
+				testBean.setTestComplete(true);
 				extCtx.getSessionMap().remove("org.apache.portlet.faces.tck.redisplay");
 
-				testRunner.setTestResult(true, "Redisplay after redirect correctly rendered the redirected view.");
+				testBean.setTestResult(true, "Redisplay after redirect correctly rendered the redirected view.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestComplete(true);
+				testBean.setTestComplete(true);
 				extCtx.getSessionMap().remove("org.apache.portlet.faces.tck.redisplay");
-				testRunner.setTestResult(false, "Ended up in an unexpected view during renderRedirect test:");
+				testBean.setTestResult(false, "Ended up in an unexpected view during renderRedirect test:");
 
 				return Constants.TEST_FAILED;
 			}
@@ -914,30 +914,30 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.66
 	@BridgeTest(test = "scopeAfterRedisplayResourcePPRTest")
-	public String scopeAfterRedisplayResourcePPRTest(TestBean testRunner) {
+	public String scopeAfterRedisplayResourcePPRTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
-			m.put("testAttr", testRunner.getTestName());
+			m.put("testAttr", testBean.getTestName());
 
 			return "";
 		}
 		else if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase()) &&
 				(m.get("com.liferay.faces.bridge.tck.pprSubmitted") != null)) {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			m.remove("com.liferay.faces.bridge.tck.pprSubmitted");
 
-			if ((m.get("testAttr") != null) && ((String) m.get("testAttr")).equals(testRunner.getTestName())) {
-				testRunner.setTestResult(true,
+			if ((m.get("testAttr") != null) && ((String) m.get("testAttr")).equals(testBean.getTestName())) {
+				testBean.setTestResult(true,
 					"Redisplay after resource request correctly restored scope including attr added during resource execution.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Redisplay after resource request didn't restored scope including the attr added during resource execution.");
 
 				return Constants.TEST_FAILED;
@@ -950,7 +950,7 @@ public class Tests extends RenderTests implements PhaseListener {
 
 	// ActionListener
 	@BridgeTest(test = "scopeAfterRedisplayResourcePPRTestActionListener")
-	public void scopeAfterRedisplayResourcePPRTestListener(TestBean testRunner, ActionEvent action) {
+	public void scopeAfterRedisplayResourcePPRTestListener(TestBean testBean, ActionEvent action) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -961,7 +961,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.65
 	@BridgeTest(test = "scopeNotRestoredResourceTest")
-	public String scopeNotRestoredResourceTest(TestBean testRunner) {
+	public String scopeNotRestoredResourceTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -969,7 +969,7 @@ public class Tests extends RenderTests implements PhaseListener {
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// set a request scoped attr and then continue
-			m.put("testAttr", testRunner.getTestName());
+			m.put("testAttr", testBean.getTestName());
 
 			return "scopeNotRestoredResourceTest";
 		}
@@ -980,12 +980,12 @@ public class Tests extends RenderTests implements PhaseListener {
 			String s = (String) m.get("testAttr");
 
 			if (s == null) {
-				testRunner.setTestResult(true, "Resource request correctly executed without restoring request scope.");
+				testBean.setTestResult(true, "Resource request correctly executed without restoring request scope.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false, "Resource request incorrectly has restored the request scope.");
+				testBean.setTestResult(false, "Resource request incorrectly has restored the request scope.");
 
 				return Constants.TEST_FAILED;
 			}
@@ -997,23 +997,23 @@ public class Tests extends RenderTests implements PhaseListener {
 
 	// Test #5.13 (also by proxy verifies #5.12
 	@BridgeTest(test = "verifyPortletObjectsTest")
-	public String verifyPortletObjectsTest(TestBean testRunner) {
+	public String verifyPortletObjectsTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		// Are we in the rightview???
 		String s = (String) m.get("javax.portlet.faces.tck.verifyPortletObjectsPass");
 
 		if (s != null) {
-			testRunner.setTestResult(true, s);
+			testBean.setTestResult(true, s);
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false, (String) m.get("javax.portlet.faces.tck.verifyPortletObjectsFail"));
+			testBean.setTestResult(false, (String) m.get("javax.portlet.faces.tck.verifyPortletObjectsFail"));
 
 			return Constants.TEST_FAILED;
 		}
@@ -1022,7 +1022,7 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.14
 	@BridgeTest(test = "verifyPortletPhaseTest")
-	public String verifyPortletPhaseTest(TestBean testRunner) {
+	public String verifyPortletPhaseTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -1034,7 +1034,7 @@ public class Tests extends RenderTests implements PhaseListener {
 			return "verifyPortletPhaseTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Now verify that what should have been carried forward has and what shouldn't hasn't.
 
@@ -1042,7 +1042,7 @@ public class Tests extends RenderTests implements PhaseListener {
 			String s1 = (String) m.get("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderPass");
 
 			if ((s != null) && (s1 != null)) {
-				testRunner.setTestResult(true, s + s1);
+				testBean.setTestResult(true, s + s1);
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -1055,7 +1055,7 @@ public class Tests extends RenderTests implements PhaseListener {
 				s1 = (String) m.get("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderFail");
 			}
 
-			testRunner.setTestResult(false, s + s1);
+			testBean.setTestResult(false, s + s1);
 
 			return Constants.TEST_FAILED;
 
@@ -1065,23 +1065,23 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.63
 	@BridgeTest(test = "verifyResourcePhaseTest")
-	public String verifyResourcePhaseTest(TestBean testRunner) {
+	public String verifyResourcePhaseTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 
-			testRunner.setTestResult(true, "ResourcePhase attribute correctly set during resource processing.");
+			testBean.setTestResult(true, "ResourcePhase attribute correctly set during resource processing.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false, "ResourcePhase attribute not set during resource processing.");
+			testBean.setTestResult(false, "ResourcePhase attribute not set during resource processing.");
 
 			return Constants.TEST_FAILED;
 		}
@@ -1090,16 +1090,16 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.20 (first test of 2) -- viewId set directly by portlet using request attribute
 	@BridgeTest(test = "viewIdWithParam_1_Test")
-	public String viewIdWithParam_1_Test(TestBean testRunner) {
+	public String viewIdWithParam_1_Test(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		// Parameter encoded in the faces-config.xml target
 		String pVal = ctx.getExternalContext().getRequestParameterMap().get("param1");
 
 		if ((pVal != null) && pVal.equals("testValue")) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"Bridge correctly included parameter from viewId querystring when viewId set explicitly.");
 
 			return Constants.TEST_SUCCESS;
@@ -1107,11 +1107,11 @@ public class Tests extends RenderTests implements PhaseListener {
 		else {
 
 			if (pVal == null) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Bridge didn't included parameter from viewId querystring when viewId set explicitly.");
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Bridge didn't properly include parameter from viewId querystring when viewId set explicitly.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
 					pVal);
 			}
@@ -1123,16 +1123,16 @@ public class Tests extends RenderTests implements PhaseListener {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.20 (second test of 2) -- viewId set in the default viewId (initparam)
 	@BridgeTest(test = "viewIdWithParam_2_Test")
-	public String viewIdWithParam_2_Test(TestBean testRunner) {
+	public String viewIdWithParam_2_Test(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		// Parameter encoded in the faces-config.xml target
 		String pVal = ctx.getExternalContext().getRequestParameterMap().get("param1");
 
 		if ((pVal != null) && pVal.equals("testValue")) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"Bridge correctly included parameter from viewId querystring when using default viewId.");
 
 			return Constants.TEST_SUCCESS;
@@ -1140,11 +1140,11 @@ public class Tests extends RenderTests implements PhaseListener {
 		else {
 
 			if (pVal == null) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Bridge didn't included parameter from viewId querystring when using default viewId.");
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Bridge didn't properly include parameter from viewId querystring when using default viewId.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
 					pVal);
 			}

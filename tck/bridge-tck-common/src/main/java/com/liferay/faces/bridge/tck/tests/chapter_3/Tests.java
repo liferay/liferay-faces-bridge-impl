@@ -43,7 +43,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Should never get to the render portion of this
 	@BridgeTest(test = "actionDestroyTest")
-	public String actionDestroyTest(TestBean testRunner) {
+	public String actionDestroyTest(TestBean testBean) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -51,8 +51,8 @@ public class Tests extends Object {
 			return "actionDestroyTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
-			testRunner.setTestResult(false,
+			testBean.setTestComplete(true);
+			testBean.setTestResult(false,
 				"unexpectedly got to a render JSP in this test -- should have been handled by the test portlet.");
 
 			return Constants.TEST_FAILED;
@@ -62,7 +62,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Should never get to the render portion of this
 	@BridgeTest(test = "actionNullRequestTest")
-	public String actionNullRequestTest(TestBean testRunner) {
+	public String actionNullRequestTest(TestBean testBean) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -70,8 +70,8 @@ public class Tests extends Object {
 			return "actionNullRequestTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
-			testRunner.setTestResult(false,
+			testBean.setTestComplete(true);
+			testBean.setTestResult(false,
 				"unexpectedly got to a render JSP in this test -- should have been handled by the test portlet.");
 
 			return Constants.TEST_FAILED;
@@ -80,30 +80,30 @@ public class Tests extends Object {
 
 	// Test #3.22
 	@BridgeTest(test = "defaultRenderKitIdTest")
-	public String defaultRenderKitIdTest(TestBean testRunner) {
+	public String defaultRenderKitIdTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		// Test that the defaultRenderKit parameter is set
 		String renderKitId = extCtx.getRequestParameterMap().get(ResponseStateManager.RENDER_KIT_ID_PARAM);
 
 		if (renderKitId == null) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"ResponseStateManager.RENDER_KIT_ID_PARAM request parameter isn't set though this portlet has configured a defaultRenderKitId.");
 
 			return Constants.TEST_FAILED;
 		}
 		else if (!renderKitId.equalsIgnoreCase(RenderKitFactory.HTML_BASIC_RENDER_KIT)) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"ResponseStateManager.RENDER_KIT_ID_PARAM request parameter is set but has an incorrect value.  Expected: " +
 				RenderKitFactory.HTML_BASIC_RENDER_KIT + " received: " + renderKitId);
 
 			return Constants.TEST_FAILED;
 		}
 
-		testRunner.setTestResult(true,
+		testBean.setTestResult(true,
 			"ResponseStateManager.RENDER_KIT_ID_PARAM request parameter properly set to value of defaultRenderKitId portlet initParam.");
 
 		return Constants.TEST_SUCCESS;
@@ -112,7 +112,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Should never get to the render portion of this
 	@BridgeTest(test = "eventDestroyTest")
-	public String eventDestroyTest(TestBean testRunner) {
+	public String eventDestroyTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -123,13 +123,13 @@ public class Tests extends Object {
 			// Create and raise the event
 			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testRunner.getTestName());
+				testBean.getTestName());
 
 			return "eventDestroyTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
-			testRunner.setTestResult(false,
+			testBean.setTestComplete(true);
+			testBean.setTestResult(false,
 				"unexpectedly got to a render JSP in this test -- should have been handled by the test portlet.");
 
 			return Constants.TEST_FAILED;
@@ -141,7 +141,7 @@ public class Tests extends Object {
 	 * Because of this we can test all policies in a single test method.
 	 */
 	@BridgeTest(test = "lifecycleTest")
-	public String lifecycleTest(TestBean testRunner) {
+	public String lifecycleTest(TestBean testBean) {
 		Boolean pass = false;
 		String msg;
 
@@ -163,7 +163,7 @@ public class Tests extends Object {
 		m.remove("javax.portlet.faces.tck.testLifecyclePass");
 		m.remove("javax.portlet.faces.tck.testLifecycleFail");
 
-		testRunner.setTestResult(pass, msg);
+		testBean.setTestResult(pass, msg);
 
 		if (pass) {
 			return Constants.TEST_SUCCESS;
@@ -174,18 +174,18 @@ public class Tests extends Object {
 	}
 
 	@BridgeTest(test = "modeViewIDTest")
-	public String modeViewIDTest(TestBean testRunner) {
+	public String modeViewIDTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		PortletRequest req = (PortletRequest) extCtx.getRequest();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		// Are we in the rightview???
 		String s = ctx.getViewRoot().getViewId();
 
 		if (!s.contains("ModeViewIdResult")) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"defaultViewId test failed:  entered EDIT mode at view: " + s + " but the default is: " +
 				"ModeViewIdResult.jsp");
 
@@ -194,33 +194,33 @@ public class Tests extends Object {
 
 		// Are we in edit mode???
 		if (!req.getPortletMode().equals(PortletMode.EDIT)) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"defaultViewId test failed:  though in the correct view we aren't in EDIT mode.  So why did we get here?");
 
 			return Constants.TEST_FAILED;
 		}
 
-		testRunner.setTestResult(true, "defaultViewId for EDIT mode was correctly used: " + s);
+		testBean.setTestResult(true, "defaultViewId for EDIT mode was correctly used: " + s);
 
 		return Constants.TEST_SUCCESS;
 	}
 
 	@BridgeTest(test = "portletSetsViewIdTest")
-	public String portletSetsViewIdTest(TestBean testRunner) {
+	public String portletSetsViewIdTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		// Are we in the rightview???
 		String s = ctx.getViewRoot().getViewId();
 
 		if (s.contains("Success")) {
-			testRunner.setTestResult(true, "correctly rendered the view explicitly set by the portlet: " + s);
+			testBean.setTestResult(true, "correctly rendered the view explicitly set by the portlet: " + s);
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"didn't render the view 'PorletSetsViewIdSuccess.jsp' explicitly set by the portlet, instead rendered: " +
 				s);
 
@@ -229,21 +229,21 @@ public class Tests extends Object {
 	}
 
 	@BridgeTest(test = "portletSetsViewPathTest")
-	public String portletSetsViewPathTest(TestBean testRunner) {
+	public String portletSetsViewPathTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		// Are we in the rightview???
 		String s = ctx.getViewRoot().getViewId();
 
 		if (s.contains("Success")) {
-			testRunner.setTestResult(true, "correctly rendered the view explicitly set by the portlet: " + s);
+			testBean.setTestResult(true, "correctly rendered the view explicitly set by the portlet: " + s);
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"didn't render the view 'PorletSetsViewIdSuccess.jsp' explicitly set by the portlet, instead rendered: " +
 				s);
 
@@ -256,7 +256,7 @@ public class Tests extends Object {
 	 * Because of this we can test all policies in a single test method.
 	 */
 	@BridgeTest(test = "renderPolicyTest")
-	public String renderPolicyTest(TestBean testRunner) {
+	public String renderPolicyTest(TestBean testBean) {
 		Boolean pass = false;
 		String msg = null;
 
@@ -316,7 +316,7 @@ public class Tests extends Object {
 		m.remove("javax.portlet.faces.tck.testRenderPolicyPass");
 		m.remove("javax.portlet.faces.tck.testRenderPolicyFail");
 
-		testRunner.setTestResult(pass, msg);
+		testBean.setTestResult(pass, msg);
 
 		if (pass) {
 			return Constants.TEST_SUCCESS;

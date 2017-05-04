@@ -33,7 +33,7 @@ public class Tests extends Object {
 	// Test is MultiRequest --
 	// Test #6.97
 	@BridgeTest(test = "restoredViewStateParameterTest")
-	public String restoredViewStateParameterTest(TestBean testRunner) {
+	public String restoredViewStateParameterTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
 		// This tests that we can encode a new mode in an actionURL
@@ -42,19 +42,19 @@ public class Tests extends Object {
 			return "restoredViewStateParameterTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Now see if isPostback returns true as it should
 			String vsp = ctx.getExternalContext().getRequestParameterMap().get(ResponseStateManager.VIEW_STATE_PARAM);
 
 			if (vsp != null) {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"Correctly restored VIEW_STATE parameter in render request following an action (Postback).");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Didn't restore VIEW_STATE parameter in render request following an action (Postback).");
 
 				return Constants.TEST_FAILED;
@@ -65,7 +65,7 @@ public class Tests extends Object {
 	// Test is MultiRequest --
 	// Test #6.98
 	@BridgeTest(test = "setsIsPostbackAttributeTest")
-	public String setsIsPostbackAttributeTest(TestBean testRunner) {
+	public String setsIsPostbackAttributeTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
 		// This tests that we can encode a new mode in an actionURL
@@ -74,14 +74,14 @@ public class Tests extends Object {
 			return "setsIsPostbackAttributeTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Now see if isPostback returns true as it should
 			Boolean isPostback = (Boolean) ctx.getExternalContext().getRequestMap().get(
 					"javax.portlet.faces.isPostback");
 
 			if (isPostback == null) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Didn't set the javax.portlet.faces.isPostback attribute in render request following an action (Postback).");
 
 				return Constants.TEST_FAILED;
@@ -89,13 +89,13 @@ public class Tests extends Object {
 			else {
 
 				if (isPostback.booleanValue()) {
-					testRunner.setTestResult(true,
+					testBean.setTestResult(true,
 						"Correctly set the javax.portlet.faces.isPostback attribute as TRUE in render request following an action (Postback).");
 
 					return Constants.TEST_SUCCESS;
 				}
 				else {
-					testRunner.setTestResult(false,
+					testBean.setTestResult(false,
 						"Incorrectly set the javax.portlet.faces.isPostback attribute as FALSE in render request following an action (Postback).");
 
 					return Constants.TEST_FAILED;

@@ -83,14 +83,14 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test is SingleRequest -- Render
 	// Test #5.43
 	@BridgeTest(test = "checkViewHistoryTest")
-	public String checkViewHistoryTest(TestBean testRunner) {
+	public String checkViewHistoryTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> m = extCtx.getSessionMap();
 		ELResolver facesResolver = ctx.getELContext().getELResolver();
 		PortletConfig config = (PortletConfig) facesResolver.getValue(ctx.getELContext(), null, "portletConfig");
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		String view = (String) m.get("javax.portlet.faces.viewIdHistory.view");
 		String edit = (String) m.get("javax.portlet.faces.viewIdHistory.edit");
@@ -100,25 +100,25 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 			.getAttribute(Bridge.BRIDGE_PACKAGE_PREFIX + config.getPortletName() + "." + Bridge.DEFAULT_VIEWID_MAP);
 
 		if (view == null) {
-			testRunner.setTestResult(false, "javax.portlet.faces.viewIdHistory.view session attribute doesn't exist.");
+			testBean.setTestResult(false, "javax.portlet.faces.viewIdHistory.view session attribute doesn't exist.");
 
 			return Constants.TEST_FAILED;
 		}
 
 		if (edit == null) {
-			testRunner.setTestResult(false, "javax.portlet.faces.viewIdHistory.edit session attribute doesn't exist.");
+			testBean.setTestResult(false, "javax.portlet.faces.viewIdHistory.edit session attribute doesn't exist.");
 
 			return Constants.TEST_FAILED;
 		}
 
 		if (help == null) {
-			testRunner.setTestResult(false, "javax.portlet.faces.viewIdHistory.help session attribute doesn't exist.");
+			testBean.setTestResult(false, "javax.portlet.faces.viewIdHistory.help session attribute doesn't exist.");
 
 			return Constants.TEST_FAILED;
 		}
 
 		if (!view.startsWith(defaultViewIdMap.get("view"))) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"javax.portlet.faces.viewIdHistory.view contains unexpected value. Expected: " +
 				defaultViewIdMap.get("view") + " but value was: " + view);
 
@@ -126,7 +126,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		}
 
 		if (!edit.startsWith(defaultViewIdMap.get("edit"))) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"javax.portlet.faces.viewIdHistory.edit contains unexpected value. Expected: " +
 				defaultViewIdMap.get("edit") + " but value was: " + edit);
 
@@ -134,14 +134,14 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		}
 
 		if (!help.startsWith(defaultViewIdMap.get("help"))) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"javax.portlet.faces.viewIdHistory.help contains unexpected value. Expected: " +
 				defaultViewIdMap.get("help") + " but value was: " + help);
 
 			return Constants.TEST_FAILED;
 		}
 
-		testRunner.setTestResult(true, "Correctly contained the viewId history session attributes.");
+		testBean.setTestResult(true, "Correctly contained the viewId history session attributes.");
 
 		return Constants.TEST_SUCCESS;
 	}
@@ -154,7 +154,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test is MultiRequest -- Render/Action
 	// Test #5.46
 	@BridgeTest(test = "navigateToLastViewTest")
-	public String navigateToLastViewTest(TestBean testRunner) {
+	public String navigateToLastViewTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		PortletMode mode = (PortletMode) ((PortletRequest) extCtx.getRequest()).getPortletMode();
@@ -203,17 +203,17 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 			// Should only get here from
 			if (Boolean.TRUE.equals(
 						(Boolean) extCtx.getSessionMap().get("com.liferay.faces.bridge.tck.testCompleted"))) {
-				testRunner.setTestComplete(true);
+				testBean.setTestComplete(true);
 				extCtx.getSessionMap().remove("com.liferay.faces.bridge.tck.testCompleted");
 
 				if (extCtx.getRequestParameterMap().get("com.liferay.faces.bridge.tck.testAttr") != null) {
-					testRunner.setTestResult(true,
+					testBean.setTestResult(true,
 						"Successfully returned from edit mode to last view with its existing render parameters.");
 
 					return Constants.TEST_SUCCESS;
 				}
 				else {
-					testRunner.setTestResult(false,
+					testBean.setTestResult(false,
 						"Though we returned from edit mode to last view it was without its existing render parameters.");
 
 					return Constants.TEST_FAILED;
@@ -228,7 +228,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test is MultiRequest -- Render/Action
 	// Test #5.41
 	@BridgeTest(test = "noViewStateParamOnModeChangeTest")
-	public String noViewStateParamOnModeChangeTest(TestBean testRunner) {
+	public String noViewStateParamOnModeChangeTest(TestBean testBean) {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -239,16 +239,16 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			ExternalContext extCtx = ctx.getExternalContext();
 
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			if (extCtx.getRequestParameterMap().get(ResponseStateManager.VIEW_STATE_PARAM) == null) {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"Render after mode change properly doesn't expose the ResponseStateManager.VIEW_STATE_PARAM.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Render after mode change incorrectly exposes the ResponseStateManager.VIEW_STATE_PARAM.");
 
 				return Constants.TEST_FAILED;
@@ -259,15 +259,15 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test is MultiRequest -- Render/Action
 	// Test #5.69
 	@BridgeTest(test = "processPRPInRestoreViewPhaseTest")
-	public String processPRPInRestoreViewPhaseTest(TestBean testRunner) {
+	public String processPRPInRestoreViewPhaseTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			if (extCtx.getSessionMap().get("tck.processPRPInRestoreViewPhaseTest.modelPRPSet") == null) {
-				extCtx.getRequestMap().put("modelPRP", testRunner.getTestName());
-				extCtx.getRequestMap().put("modelPRP2", testRunner.getTestName());
+				extCtx.getRequestMap().put("modelPRP", testBean.getTestName());
+				extCtx.getRequestMap().put("modelPRP2", testBean.getTestName());
 
 				// Put it on the request Map -- to carry forward to the render -- which will set it on the session --
 				// this avoids having the render that follows this action from thinking the test is done.
@@ -284,7 +284,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 
 			if (Boolean.TRUE.equals(
 						(Boolean) extCtx.getSessionMap().get("tck.processPRPInRestoreViewPhaseTest.modelPRPSet"))) {
-				testRunner.setTestComplete(true);
+				testBean.setTestComplete(true);
 
 				extCtx.getSessionMap().remove("tck.processPRPInRestoreViewPhaseTest.modelPRPSet");
 
@@ -292,19 +292,19 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 				extCtx.getSessionMap().remove("com.liferay.faces.bridge.tck.testCompleted");
 
 				if (extCtx.getRequestMap().get("tck.notSetBeforeRestoreView") == null) {
-					testRunner.setTestResult(false,
+					testBean.setTestResult(false,
 						"PRP set before RestoreView phase. It should be set after the RestoreView phase and before other phases.");
 
 					return Constants.TEST_FAILED;
 				}
 				else if (extCtx.getRequestMap().get("tck.setAfterRestoreView") == null) {
-					testRunner.setTestResult(false,
+					testBean.setTestResult(false,
 						"PRP not set in the after RestoreView phase. It wasn't set in any of the other phases before phase.");
 
 					return Constants.TEST_FAILED;
 				}
 				else {
-					testRunner.setTestResult(true,
+					testBean.setTestResult(true,
 						"PRP correctly updated the model after the RestoreView phase and before other phases.");
 
 					return Constants.TEST_SUCCESS;
@@ -330,15 +330,15 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test is MultiRequest -- Render/Action
 	// Test #5.70 and 5.71
 	@BridgeTest(test = "prpModelUpdateTest")
-	public String prpModelUpdateTest(TestBean testRunner) {
+	public String prpModelUpdateTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			if (extCtx.getSessionMap().get("tck.prpModelUpdateTest.modelPRPSet") == null) {
-				extCtx.getRequestMap().put("modelPRP", testRunner.getTestName());
-				extCtx.getRequestMap().put("modelPRP2", testRunner.getTestName());
+				extCtx.getRequestMap().put("modelPRP", testBean.getTestName());
+				extCtx.getRequestMap().put("modelPRP2", testBean.getTestName());
 
 				// Put it on the request Map -- to carry forward to the render -- which will set it on the session --
 				// this avoids having the render that follows this action from thinking the test is done.
@@ -354,7 +354,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		else {
 
 			if (Boolean.TRUE.equals((Boolean) extCtx.getSessionMap().get("tck.prpModelUpdateTest.modelPRPSet"))) {
-				testRunner.setTestComplete(true);
+				testBean.setTestComplete(true);
 
 				extCtx.getSessionMap().remove("tck.prpModelUpdateTest.modelPRPSet");
 
@@ -362,37 +362,37 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 				String modelPRP2 = (String) extCtx.getRequestMap().get("modelPRP2");
 
 				if (modelPRP == null) {
-					testRunner.setTestResult(false, "Expect 'modelPRP' PRP not set.");
+					testBean.setTestResult(false, "Expect 'modelPRP' PRP not set.");
 
 					return Constants.TEST_FAILED;
 				}
-				else if (!modelPRP.equals(testRunner.getTestName())) {
-					testRunner.setTestResult(false,
-						"Expect 'modelPRP' doesn't have expected value.  Expected: " + testRunner.getTestName() +
+				else if (!modelPRP.equals(testBean.getTestName())) {
+					testBean.setTestResult(false,
+						"Expect 'modelPRP' doesn't have expected value.  Expected: " + testBean.getTestName() +
 						" but PRP has a value of: " + modelPRP);
 
 					return Constants.TEST_FAILED;
 				}
 				else if (modelPRP2 == null) {
-					testRunner.setTestResult(false, "Expect 'modelPRP2' PRP not set.");
+					testBean.setTestResult(false, "Expect 'modelPRP2' PRP not set.");
 
 					return Constants.TEST_FAILED;
 				}
-				else if (!modelPRP2.equals(testRunner.getTestName())) {
-					testRunner.setTestResult(false,
-						"Expect 'modelPRP2' doesn't have expected value.  Expected: " + testRunner.getTestName() +
+				else if (!modelPRP2.equals(testBean.getTestName())) {
+					testBean.setTestResult(false,
+						"Expect 'modelPRP2' doesn't have expected value.  Expected: " + testBean.getTestName() +
 						" but PRP has a value of: " + modelPRP2);
 
 					return Constants.TEST_FAILED;
 				}
 				else if (extCtx.getRequestMap().get("tck.prpProcessUpdatesCalled") == null) {
-					testRunner.setTestResult(false,
+					testBean.setTestResult(false,
 						"Though incoming PRPs updated their models, the registered processUpdates handler wasn't called.");
 
 					return Constants.TEST_FAILED;
 				}
 				else {
-					testRunner.setTestResult(true,
+					testBean.setTestResult(true,
 						"Both PRPs correctly updated their models with expected values and the processUpdates handler was called.");
 
 					return Constants.TEST_SUCCESS;
