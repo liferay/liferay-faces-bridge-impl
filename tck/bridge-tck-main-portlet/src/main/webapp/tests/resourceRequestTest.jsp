@@ -18,8 +18,8 @@
 		</h:panelGrid>
 	</h:form>
 	<%
-		ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
-		String resource = extCtx.encodeActionURL("portlet:resource?_jsfBridgeViewId=/tests/singleRequestTest.xhtml");
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		String resource = externalContext.encodeActionURL("portlet:resource?_jsfBridgeViewId=/tests/singleRequestTest.xhtml");
 		out.println("<iframe src=\"" + resource + "\" width=\"100%\" height=\"400px\" name=\"tck-iframe\"/>");
 	%>
 	</body>

@@ -39,14 +39,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "portletNamingContainerClientIdConsistentTest")
 	public String portletNamingContainerClientIdConsistentTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 		UIViewRoot viewRoot = ctx.getViewRoot();
 		String clientId = viewRoot.getContainerClientId(ctx);
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
-			extCtx.getRequestMap().put("com.liferay.faces.bridge.tck.clientIdInAction", clientId);
+			externalContext.getRequestMap().put("com.liferay.faces.bridge.tck.clientIdInAction", clientId);
 
 			return "portletNamingContainerClientIdConsistentTest"; // action Navigation result
 		}
@@ -54,7 +54,7 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
-			String clientIdInAction = (String) extCtx.getRequestMap().get(
+			String clientIdInAction = (String) externalContext.getRequestMap().get(
 					"com.liferay.faces.bridge.tck.clientIdInAction");
 			String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
 
