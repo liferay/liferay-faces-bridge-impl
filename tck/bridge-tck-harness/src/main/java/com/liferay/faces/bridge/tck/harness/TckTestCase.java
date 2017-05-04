@@ -128,7 +128,7 @@ public class TckTestCase extends IntegrationTesterBase {
 
 	public static void main(String[] args) {
 
-		// junit.textui.TestRunner.run(suite());
+		// junit.textui.testBean.run(suite());
 		new org.junit.runner.JUnitCore().runClasses(TckTestCase.class);
 	}
 

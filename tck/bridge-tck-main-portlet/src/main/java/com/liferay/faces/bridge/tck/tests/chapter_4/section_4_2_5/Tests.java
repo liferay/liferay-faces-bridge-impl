@@ -28,7 +28,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
  */
 public class Tests extends Object {
 	@BridgeTest(test = "requestProcessingNonFacesTest")
-	public String requestProcessingNonFacesTest(TestBean testRunner) {
+	public String requestProcessingNonFacesTest(TestBean testBean) {
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "requestProcessingNonFacesTest"; // action Navigation result

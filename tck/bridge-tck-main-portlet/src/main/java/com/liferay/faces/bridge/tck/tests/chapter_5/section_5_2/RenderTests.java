@@ -34,31 +34,31 @@ public class RenderTests {
 	// Test is SingleRequest -- Render/Action
 	// Test #5.33 --
 	@BridgeTest(test = "renderPhaseListenerTest")
-	public String renderPhaseListenerTest(TestBean testRunner) {
+	public String renderPhaseListenerTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> m = extCtx.getRequestMap();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		// Phase Listener (below) has set these attributes
 		PhaseId lastBeforePhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastBeforePhase");
 		PhaseId lastAfterPhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastAfterPhase");
 
 		if ((lastBeforePhaseId == null) || (lastAfterPhaseId == null)) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Render incorrectly didn't invoke either or both the RESTORE_VIEW before/after listener.");
 
 			return Constants.TEST_FAILED;
 		}
 		else if ((lastBeforePhaseId == PhaseId.RESTORE_VIEW) && (lastAfterPhaseId == PhaseId.RESTORE_VIEW)) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"Render properly invoked the RESTORE_VIEW phase including calling its before/after listeners and didnt' execute any other action phases.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Render incorrectly executed an action phase/listener post RESTORE_VIEW: lastBeforePhase: " +
 				lastBeforePhaseId.toString() + " lastAfterPhase: " + lastAfterPhaseId.toString());
 
