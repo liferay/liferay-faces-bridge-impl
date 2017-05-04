@@ -539,19 +539,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid mode and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid mode and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -596,19 +596,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid mode and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid mode and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -635,20 +635,20 @@ public class Tests extends Object {
 			PortletMode mode = portletRequest.getPortletMode();
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
 			if ((mode == null) || !mode.toString().equalsIgnoreCase("view")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the invalid portlet mode.  The resulting request should have ignored the invalid mode and remained in 'view' mode.");
 			}
-			else if (pVal == null) {
+			else if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid mode and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 			}
-			else if (!pVal.equals("testValue")) {
+			else if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid mode and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 			}
 			else {
 				testBean.setTestResult(true,
@@ -765,19 +765,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid security state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid security state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -820,19 +820,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid security state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid security state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -856,7 +856,7 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
 			if (portletRequest.isSecure()) {
 				testBean.setTestResult(false,
@@ -864,16 +864,16 @@ public class Tests extends Object {
 
 				return Constants.TEST_FAILED;
 			}
-			else if (pVal == null) {
+			else if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid security state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
-			else if (!pVal.equals("testValue")) {
+			else if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid security state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -994,19 +994,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid window state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid window state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -1051,19 +1051,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid window state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid window state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -1090,20 +1090,20 @@ public class Tests extends Object {
 			WindowState ws = portletRequest.getWindowState();
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
 			if ((ws == null) || !ws.toString().equalsIgnoreCase("normal")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the invalid window state.  The resulting request should have ignored the invalid window state and remained in 'normal' mode.");
 			}
-			else if (pVal == null) {
+			else if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid window state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 			}
-			else if (!pVal.equals("testValue")) {
+			else if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing an invalid window state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 			}
 			else {
 				testBean.setTestResult(true,
@@ -1222,19 +1222,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new mode and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new mode and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -1279,19 +1279,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new mode and parameter during the event phase.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new mode and parameter during the event phase.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -1445,9 +1445,9 @@ public class Tests extends Object {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			// Parameter encoded in the faces-config.xml target
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if ((pVal != null) && pVal.equals("testValue")) {
+			if ((paramValue != null) && paramValue.equals("testValue")) {
 				testBean.setTestResult(true,
 					"encodeActionURL correctly encoded a portlet action URL containing a parameter.");
 
@@ -1455,14 +1455,14 @@ public class Tests extends Object {
 			}
 			else {
 
-				if (pVal == null) {
+				if (paramValue == null) {
 					testBean.setTestResult(false,
 						"encodeActionURL incorrectly encoded a portlet action URL containing a parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 				}
 				else {
 					testBean.setTestResult(false,
 						"encodeActionURL incorrectly encoded a portlet action URL containing a parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-						pVal);
+						paramValue);
 				}
 			}
 
@@ -1491,9 +1491,9 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			// Parameter encoded in the faces-config.xml target
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if ((pVal != null) && pVal.equals("testValue")) {
+			if ((paramValue != null) && paramValue.equals("testValue")) {
 				testBean.setTestResult(true,
 					"encodeActionURL correctly encoded a portlet action URL containing a parameter during the event phase.");
 
@@ -1501,14 +1501,14 @@ public class Tests extends Object {
 			}
 			else {
 
-				if (pVal == null) {
+				if (paramValue == null) {
 					testBean.setTestResult(false,
 						"encodeActionURL incorrectly encoded a portlet action URL containing a parameter during the event phase.  The resulting request didn't contain the expected 'param1' parameter.");
 				}
 				else {
 					testBean.setTestResult(false,
 						"encodeActionURL incorrectly encoded a portlet action URL containing a parameter during the event phase.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-						pVal);
+						paramValue);
 				}
 			}
 
@@ -1527,22 +1527,22 @@ public class Tests extends Object {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			// Parameter encoded in the faces-config.xml target
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if ((pVal != null) && pVal.equals("testValue")) {
+			if ((paramValue != null) && paramValue.equals("testValue")) {
 				testBean.setTestResult(true,
 					"encodeActionURL correctly encoded a portlet action URL containing a parameter.");
 			}
 			else {
 
-				if (pVal == null) {
+				if (paramValue == null) {
 					testBean.setTestResult(false,
 						"encodeActionURL incorrectly encoded a portlet action URL containing a parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 				}
 				else {
 					testBean.setTestResult(false,
 						"encodeActionURL incorrectly encoded a portlet action URL containing a parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-						pVal);
+						paramValue);
 				}
 			}
 
@@ -1657,19 +1657,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new security state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new security state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -1712,19 +1712,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new security state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new security state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -1748,20 +1748,20 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
 			if (!portletRequest.isSecure()) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the portlet security state.  The resulting request wasn't in the expected 'secure' mode.");
 			}
-			else if (pVal == null) {
+			else if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new security state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 			}
-			else if (!pVal.equals("testValue")) {
+			else if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new security state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 			}
 			else {
 				testBean.setTestResult(true,
@@ -1880,19 +1880,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new window state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new window state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -1937,19 +1937,19 @@ public class Tests extends Object {
 			}
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new window state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (!pVal.equals("testValue")) {
+			if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new window state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 
 				return Constants.TEST_FAILED;
 			}
@@ -1976,20 +1976,20 @@ public class Tests extends Object {
 			WindowState ws = portletRequest.getWindowState();
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
 			if ((ws == null) || !ws.toString().equalsIgnoreCase("maximized")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the new portlet window state.  The resulting request wasn't in the expected 'maximized' mode.");
 			}
-			else if (pVal == null) {
+			else if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new window state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 			}
-			else if (!pVal.equals("testValue")) {
+			else if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded a portlet action URL containing a new window state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 			}
 			else {
 				testBean.setTestResult(true,
@@ -2421,20 +2421,20 @@ public class Tests extends Object {
 			PortletMode mode = portletRequest.getPortletMode();
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
 			if ((mode == null) || !mode.toString().equalsIgnoreCase("view")) {
 				testBean.setTestResult(false,
 					"encodeResourceURL incorrectly encoded the portlet mode.  The resulting request should have ignored the mode and remained in 'view' mode.");
 			}
-			else if (pVal == null) {
+			else if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeResourceURL incorrectly encoded the mode and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 			}
-			else if (!pVal.equals("testValue")) {
+			else if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeResourceURL incorrectly encoded the mode and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 			}
 			else {
 				testBean.setTestResult(true,
@@ -2470,20 +2470,20 @@ public class Tests extends Object {
 			WindowState ws = portletRequest.getWindowState();
 
 			// Check that the parameter came along too
-			String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
 			if ((ws == null) || !ws.toString().equalsIgnoreCase("normal")) {
 				testBean.setTestResult(false,
 					"encodeResourceURL incorrectly encoded the portlet window state.  The resulting request should have ignored the invalid window state and remained in 'normal' mode.");
 			}
-			else if (pVal == null) {
+			else if (paramValue == null) {
 				testBean.setTestResult(false,
 					"encodeResourceURL incorrectly encoded the window state and parameter.  The resulting request didn't contain the expected 'param1' parameter.");
 			}
-			else if (!pVal.equals("testValue")) {
+			else if (!paramValue.equals("testValue")) {
 				testBean.setTestResult(false,
 					"encodeResourceURL incorrectly encoded the window state and parameter.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 			}
 			else {
 				testBean.setTestResult(true,
