@@ -106,9 +106,9 @@ public class Tests extends Object {
 
 		final String ABSOLUTEURL_TEST_STRING = "http://www.apache.org";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		if (extCtx.encodeActionURL(ABSOLUTEURL_TEST_STRING).equals(ABSOLUTEURL_TEST_STRING)) {
+		if (externalContext.encodeActionURL(ABSOLUTEURL_TEST_STRING).equals(ABSOLUTEURL_TEST_STRING)) {
 			testBean.setTestResult(true,
 				"encodeActionURL correctly returned an unchanged string when passed an absolute URL.");
 
@@ -118,7 +118,7 @@ public class Tests extends Object {
 			testBean.setTestResult(false,
 				"encodeActionURL didn't return an unchanged string when passed an absolute URL.  Test parameter: " +
 				ABSOLUTEURL_TEST_STRING + " and encodeActionURL returned: " +
-				extCtx.encodeActionURL(ABSOLUTEURL_TEST_STRING));
+				externalContext.encodeActionURL(ABSOLUTEURL_TEST_STRING));
 
 			return Constants.TEST_FAILED;
 		}
@@ -133,13 +133,13 @@ public class Tests extends Object {
 		final String DIRECTLINK_FALSE_TEST_STRING =
 			"/test.jsp?firstParam=value&javax.portlet.faces.DirectLink=false&anotherParam=value";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 		ViewHandler vh = ctx.getApplication().getViewHandler();
 
-		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(DIRECTLINK_FALSE_TEST_STRING)
+		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(DIRECTLINK_FALSE_TEST_STRING)
 			.toString();
 
-		if (!extCtx.encodeActionURL(testString).contains("javax.portlet.faces.DirectLink")) {
+		if (!externalContext.encodeActionURL(testString).contains("javax.portlet.faces.DirectLink")) {
 			testBean.setTestResult(true,
 				"encodeActionURL correctly returned an url string without the javax.portlet.faces.DirectLink parameter when its value was false.");
 
@@ -148,7 +148,7 @@ public class Tests extends Object {
 		else {
 			testBean.setTestResult(false,
 				"encodeActionURL didn't return an url string without the javax.portlet.faces.DirectLink parameter when its value was false.  Test parameter: " +
-				testString + " and encodeActionURL returned: " + extCtx.encodeActionURL(testString));
+				testString + " and encodeActionURL returned: " + externalContext.encodeActionURL(testString));
 
 			return Constants.TEST_FAILED;
 		}
@@ -163,17 +163,17 @@ public class Tests extends Object {
 		final String DIRECTLINK_TRUE_TEST_STRING =
 			"/test.jsp?firstParam=value&javax.portlet.faces.DirectLink=true&anotherParam=value";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 		ViewHandler vh = ctx.getApplication().getViewHandler();
-		PortletRequest r = (PortletRequest) extCtx.getRequest();
+		PortletRequest r = (PortletRequest) externalContext.getRequest();
 
-		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(DIRECTLINK_TRUE_TEST_STRING)
+		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(DIRECTLINK_TRUE_TEST_STRING)
 			.toString();
 
 		String s = new StringBuffer(testString.length() + 20).append(r.getScheme()).append("://").append(
 				r.getServerName()).append(":").append(r.getServerPort()).append(testString).toString();
 
-		if (extCtx.encodeActionURL(testString).equalsIgnoreCase(s)) {
+		if (externalContext.encodeActionURL(testString).equalsIgnoreCase(s)) {
 			testBean.setTestResult(true,
 				"encodeActionURL correctly returned an absolute URL representing the DirectLink url and it correctly contains the javax.portlet.faces.DirectLink parameter with a value of true.");
 
@@ -182,7 +182,7 @@ public class Tests extends Object {
 		else {
 			testBean.setTestResult(false,
 				"encodeActionURL didn't return an absolute URL representing the DirectLink url or it didn't contain the javax.portlet.faces.DirectLink parameter with a value of true.  Expected: " +
-				s + " and encodeActionURL returned: " + extCtx.encodeActionURL(testString));
+				s + " and encodeActionURL returned: " + externalContext.encodeActionURL(testString));
 
 			return Constants.TEST_FAILED;
 		}
@@ -211,14 +211,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "encodeActionURLJSFViewEventTest")
 	public String encodeActionURLJSFViewEventTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -265,12 +265,12 @@ public class Tests extends Object {
 		// encoding during a render/action phase.  So the presumption is if it works for render/action and you get the
 		// same url during from the encoding during a resource then all is good.
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map m = extCtx.getRequestMap();
-		Map s = extCtx.getSessionMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map m = externalContext.getRequestMap();
+		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING = "/tests/viewLink.jsf";
 
-		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
+		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
@@ -284,7 +284,7 @@ public class Tests extends Object {
 			// PortletContainers can return "URLs" with strict XML encoding -- as the bridge
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
-			String resourceEncoded = extCtx.encodeActionURL(testString);
+			String resourceEncoded = externalContext.encodeActionURL(testString);
 			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
@@ -314,7 +314,7 @@ public class Tests extends Object {
 
 		// Otherwise -- no output
 		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", extCtx.encodeActionURL(testString));
+			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -329,9 +329,9 @@ public class Tests extends Object {
 		final String PORTLET_ACTION_TEST_STRING = "portlet:action?param1=value1&param2=value2";
 		final String PORTLET_ACTION_TEST_STRING_XMLENCODED = "portlet:action?param1=value1&amp;param2=value2";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		MimeResponse response = (MimeResponse) extCtx.getResponse();
+		MimeResponse response = (MimeResponse) externalContext.getResponse();
 		PortletURL portletURL = response.createActionURL();
 		portletURL.setParameter("param1", "value1");
 		portletURL.setParameter("param2", "value2");
@@ -353,10 +353,10 @@ public class Tests extends Object {
 		String bridgeEncoded = null;
 
 		if (isStrictXhtmlEncoded(portletEncoded)) {
-			bridgeEncoded = extCtx.encodeActionURL(PORTLET_ACTION_TEST_STRING_XMLENCODED);
+			bridgeEncoded = externalContext.encodeActionURL(PORTLET_ACTION_TEST_STRING_XMLENCODED);
 		}
 		else {
-			bridgeEncoded = extCtx.encodeActionURL(PORTLET_ACTION_TEST_STRING);
+			bridgeEncoded = externalContext.encodeActionURL(PORTLET_ACTION_TEST_STRING);
 		}
 
 		if (bridgeEncoded.equals(portletEncoded)) {
@@ -384,9 +384,9 @@ public class Tests extends Object {
 		final String PORTLET_RENDER_TEST_STRING = "portlet:render?param1=value1&param2=value2";
 		final String PORTLET_RENDER_TEST_STRING_XMLENCODED = "portlet:render?param1=value1&amp;param2=value2";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		MimeResponse response = (MimeResponse) extCtx.getResponse();
+		MimeResponse response = (MimeResponse) externalContext.getResponse();
 		PortletURL portletURL = response.createRenderURL();
 		portletURL.setParameter("param1", "value1");
 		portletURL.setParameter("param2", "value2");
@@ -408,10 +408,10 @@ public class Tests extends Object {
 		String bridgeEncoded = null;
 
 		if (isStrictXhtmlEncoded(portletEncoded)) {
-			bridgeEncoded = extCtx.encodeActionURL(PORTLET_RENDER_TEST_STRING_XMLENCODED);
+			bridgeEncoded = externalContext.encodeActionURL(PORTLET_RENDER_TEST_STRING_XMLENCODED);
 		}
 		else {
-			bridgeEncoded = extCtx.encodeActionURL(PORTLET_RENDER_TEST_STRING);
+			bridgeEncoded = externalContext.encodeActionURL(PORTLET_RENDER_TEST_STRING);
 		}
 
 		if (bridgeEncoded.equals(portletEncoded)) {
@@ -441,9 +441,9 @@ public class Tests extends Object {
 		final String PORTLET_RENDER_TEST_STRING_XMLENCODED =
 			"portlet:resource?_jsfBridgeViewId=/tests/SingleRequestTest.jsp&amp;param1=value1&amp;param2=value2";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		MimeResponse response = (MimeResponse) extCtx.getResponse();
+		MimeResponse response = (MimeResponse) externalContext.getResponse();
 		ResourceURL portletURL = response.createResourceURL();
 		portletURL.setParameter("_jsfBridgeViewId", "/tests/SingleRequestTest.jsp");
 		portletURL.setParameter("param1", "value1");
@@ -466,10 +466,10 @@ public class Tests extends Object {
 		String bridgeEncoded = null;
 
 		if (isStrictXhtmlEncoded(portletEncoded)) {
-			bridgeEncoded = extCtx.encodeActionURL(PORTLET_RENDER_TEST_STRING_XMLENCODED);
+			bridgeEncoded = externalContext.encodeActionURL(PORTLET_RENDER_TEST_STRING_XMLENCODED);
 		}
 		else {
-			bridgeEncoded = extCtx.encodeActionURL(PORTLET_RENDER_TEST_STRING);
+			bridgeEncoded = externalContext.encodeActionURL(PORTLET_RENDER_TEST_STRING);
 		}
 
 		if (bridgeEncoded.equals(portletEncoded)) {
@@ -496,9 +496,9 @@ public class Tests extends Object {
 
 		final String POUNDCHAR_TEST_STRING = "#AnchorReference";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		if (extCtx.encodeActionURL(POUNDCHAR_TEST_STRING).equals(POUNDCHAR_TEST_STRING)) {
+		if (externalContext.encodeActionURL(POUNDCHAR_TEST_STRING).equals(POUNDCHAR_TEST_STRING)) {
 			testBean.setTestResult(true,
 				"encodeActionURL correctly returned an unchanged string when the string was prefixed with #.");
 
@@ -508,7 +508,7 @@ public class Tests extends Object {
 			testBean.setTestResult(false,
 				"encodeActionURL didn't return an unchanged string when the string was prefixed with #.  Test parameter: " +
 				POUNDCHAR_TEST_STRING + " and encodeActionURL returned: " +
-				extCtx.encodeActionURL(POUNDCHAR_TEST_STRING));
+				externalContext.encodeActionURL(POUNDCHAR_TEST_STRING));
 
 			return Constants.TEST_FAILED;
 		}
@@ -570,14 +570,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "encodeActionURLWithInvalidModeEventTest")
 	public String encodeActionURLWithInvalidModeEventTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -685,14 +685,14 @@ public class Tests extends Object {
 		// encoding during a render/action phase.  So the presumption is if it works for render/action and you get the
 		// same url during from the encoding during a resource then all is good.
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map m = extCtx.getRequestMap();
-		Map s = extCtx.getSessionMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map m = externalContext.getRequestMap();
+		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
+		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
@@ -706,7 +706,7 @@ public class Tests extends Object {
 			// PortletContainers can return "URLs" with strict XML encoding -- as the bridge
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
-			String resourceEncoded = extCtx.encodeActionURL(testString);
+			String resourceEncoded = externalContext.encodeActionURL(testString);
 			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
@@ -736,7 +736,7 @@ public class Tests extends Object {
 
 		// Otherwise -- no output
 		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", extCtx.encodeActionURL(testString));
+			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -796,14 +796,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "encodeActionURLWithInvalidSecurityEventTest")
 	public String encodeActionURLWithInvalidSecurityEventTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -912,14 +912,14 @@ public class Tests extends Object {
 		// encoding during a render/action phase.  So the presumption is if it works for render/action and you get the
 		// same url during from the encoding during a resource then all is good.
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map m = extCtx.getRequestMap();
-		Map s = extCtx.getSessionMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map m = externalContext.getRequestMap();
+		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
+		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
@@ -933,7 +933,7 @@ public class Tests extends Object {
 			// PortletContainers can return "URLs" with strict XML encoding -- as the bridge
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
-			String resourceEncoded = extCtx.encodeActionURL(testString);
+			String resourceEncoded = externalContext.encodeActionURL(testString);
 			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
@@ -963,7 +963,7 @@ public class Tests extends Object {
 
 		// Otherwise -- no output
 		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", extCtx.encodeActionURL(testString));
+			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -1025,14 +1025,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "encodeActionURLWithInvalidWindowStateEventTest")
 	public String encodeActionURLWithInvalidWindowStateEventTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -1140,14 +1140,14 @@ public class Tests extends Object {
 		// encoding during a render/action phase.  So the presumption is if it works for render/action and you get the
 		// same url during from the encoding during a resource then all is good.
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map m = extCtx.getRequestMap();
-		Map s = extCtx.getSessionMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map m = externalContext.getRequestMap();
+		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
+		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
@@ -1161,7 +1161,7 @@ public class Tests extends Object {
 			// PortletContainers can return "URLs" with strict XML encoding -- as the bridge
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
-			String resourceEncoded = extCtx.encodeActionURL(testString);
+			String resourceEncoded = externalContext.encodeActionURL(testString);
 			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
@@ -1191,7 +1191,7 @@ public class Tests extends Object {
 
 		// Otherwise -- no output
 		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", extCtx.encodeActionURL(testString));
+			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -1253,14 +1253,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "encodeActionURLWithModeEventTest")
 	public String encodeActionURLWithModeEventTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -1374,14 +1374,14 @@ public class Tests extends Object {
 		// encoding during a render/action phase.  So the presumption is if it works for render/action and you get the
 		// same url during from the encoding during a resource then all is good.
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map m = extCtx.getRequestMap();
-		Map s = extCtx.getSessionMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map m = externalContext.getRequestMap();
+		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=edit&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
+		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
@@ -1395,7 +1395,7 @@ public class Tests extends Object {
 			// PortletContainers can return "URLs" with strict XML encoding -- as the bridge
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
-			String resourceEncoded = extCtx.encodeActionURL(testString);
+			String resourceEncoded = externalContext.encodeActionURL(testString);
 			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
@@ -1425,7 +1425,7 @@ public class Tests extends Object {
 
 		// Otherwise -- no output
 		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", extCtx.encodeActionURL(testString));
+			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -1477,14 +1477,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "encodeActionURLWithParamEventTest")
 	public String encodeActionURLWithParamEventTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -1577,13 +1577,13 @@ public class Tests extends Object {
 		// encoding during a render/action phase.  So the presumption is if it works for render/action and you get the
 		// same url during from the encoding during a resource then all is good.
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map m = extCtx.getRequestMap();
-		Map s = extCtx.getSessionMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map m = externalContext.getRequestMap();
+		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING = "/tests/viewLink.jsf?param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
+		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
@@ -1597,7 +1597,7 @@ public class Tests extends Object {
 			// PortletContainers can return "URLs" with strict XML encoding -- as the bridge
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
-			String resourceEncoded = extCtx.encodeActionURL(testString);
+			String resourceEncoded = externalContext.encodeActionURL(testString);
 			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
@@ -1627,7 +1627,7 @@ public class Tests extends Object {
 
 		// Otherwise -- no output
 		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", extCtx.encodeActionURL(testString));
+			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -1688,14 +1688,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "encodeActionURLWithSecurityEventTest")
 	public String encodeActionURLWithSecurityEventTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -1798,14 +1798,14 @@ public class Tests extends Object {
 		// encoding during a render/action phase.  So the presumption is if it works for render/action and you get the
 		// same url during from the encoding during a resource then all is good.
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map m = extCtx.getRequestMap();
-		Map s = extCtx.getSessionMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map m = externalContext.getRequestMap();
+		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
+		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
@@ -1819,7 +1819,7 @@ public class Tests extends Object {
 			// PortletContainers can return "URLs" with strict XML encoding -- as the bridge
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
-			String resourceEncoded = extCtx.encodeActionURL(testString);
+			String resourceEncoded = externalContext.encodeActionURL(testString);
 			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
@@ -1849,7 +1849,7 @@ public class Tests extends Object {
 
 		// Otherwise -- no output
 		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", extCtx.encodeActionURL(testString));
+			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -1911,14 +1911,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "encodeActionURLWithWindowStateEventTest")
 	public String encodeActionURLWithWindowStateEventTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -2026,14 +2026,14 @@ public class Tests extends Object {
 		// encoding during a render/action phase.  So the presumption is if it works for render/action and you get the
 		// same url during from the encoding during a resource then all is good.
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map m = extCtx.getRequestMap();
-		Map s = extCtx.getSessionMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map m = externalContext.getRequestMap();
+		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(extCtx.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
+		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
 			.toString();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
@@ -2047,7 +2047,7 @@ public class Tests extends Object {
 			// PortletContainers can return "URLs" with strict XML encoding -- as the bridge
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
-			String resourceEncoded = extCtx.encodeActionURL(testString);
+			String resourceEncoded = externalContext.encodeActionURL(testString);
 			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
@@ -2077,7 +2077,7 @@ public class Tests extends Object {
 
 		// Otherwise -- no output
 		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", extCtx.encodeActionURL(testString));
+			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -2092,11 +2092,11 @@ public class Tests extends Object {
 		final String URL_BACKLINK_TEST_STRING = "/resources/myImage.jpg?javax.portlet.faces.BackLink=myBackLinkParam";
 		final String URL_BACKLINK_VERIFY_STRING = "/resources/myImage.jpg?myBackLinkParam=";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 		ViewHandler vh = ctx.getApplication().getViewHandler();
 
 		// compute what the backLink should be
-		String actionURL = extCtx.encodeActionURL(vh.getActionURL(ctx, ctx.getViewRoot().getViewId()));
+		String actionURL = externalContext.encodeActionURL(vh.getActionURL(ctx, ctx.getViewRoot().getViewId()));
 		String testString = vh.getResourceURL(ctx, URL_BACKLINK_TEST_STRING);
 		String verifyString = null;
 
@@ -2111,8 +2111,8 @@ public class Tests extends Object {
 
 		// According to bridge rules since string passed in isn't xml strict encoded the result won't be as well
 		// So ensure compares match by stripping from the one generated by the portlet container (if it exists)
-		if (extCtx.encodeResourceURL(testString).equals(
-					((PortletResponse) extCtx.getResponse()).encodeURL(verifyString).replace("&amp;", "&"))) {
+		if (externalContext.encodeResourceURL(testString).equals(
+					((PortletResponse) externalContext.getResponse()).encodeURL(verifyString).replace("&amp;", "&"))) {
 			testBean.setTestResult(true, "encodeResourceURL correctly encoded an URL with a backLink.");
 
 			return Constants.TEST_SUCCESS;
@@ -2120,8 +2120,8 @@ public class Tests extends Object {
 		else {
 			testBean.setTestResult(false,
 				"encodeResourceURL didn't correctly encoded an URL with a backLink.  Expected: " +
-				((PortletResponse) extCtx.getResponse()).encodeURL(verifyString) + " but encodeResourceURL returned: " +
-				extCtx.encodeResourceURL(testString));
+				((PortletResponse) externalContext.getResponse()).encodeURL(verifyString) + " but encodeResourceURL returned: " +
+				externalContext.encodeResourceURL(testString));
 
 			return Constants.TEST_FAILED;
 		}
@@ -2137,10 +2137,10 @@ public class Tests extends Object {
 			"http://www.apache.org?javax.portlet.faces.BackLink=myBackLinkParam";
 		final String FOREIGNEXTERNALURL_BACKLINK_VERIFY_STRING = "http://www.apache.org?myBackLinkParam=";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// compute what the backLink should be
-		String actionURL = extCtx.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx,
+		String actionURL = externalContext.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx,
 					ctx.getViewRoot().getViewId()));
 		String verifyString = null;
 
@@ -2155,8 +2155,8 @@ public class Tests extends Object {
 
 		// According to bridge rules since string passed in isn't xml strict encoded the result won't be as well
 		// So ensure compares match by stripping from the one generated by the portlet container (if it exists)
-		if (extCtx.encodeResourceURL(FOREIGNEXTERNALURL_BACKLINK_TEST_STRING).equals(
-					((PortletResponse) extCtx.getResponse()).encodeURL(verifyString).replace("&amp;", "&"))) {
+		if (externalContext.encodeResourceURL(FOREIGNEXTERNALURL_BACKLINK_TEST_STRING).equals(
+					((PortletResponse) externalContext.getResponse()).encodeURL(verifyString).replace("&amp;", "&"))) {
 			testBean.setTestResult(true,
 				"encodeResourceURL correctly encoded a foreign external URL with a backLink.");
 
@@ -2165,8 +2165,8 @@ public class Tests extends Object {
 		else {
 			testBean.setTestResult(false,
 				"encodeResourceURL didn't correctly encoded a foreign external URL with a backLink.  Expected: " +
-				((PortletResponse) extCtx.getResponse()).encodeURL(verifyString) + " but encodeResourceURL returned: " +
-				extCtx.encodeResourceURL(FOREIGNEXTERNALURL_BACKLINK_TEST_STRING));
+				((PortletResponse) externalContext.getResponse()).encodeURL(verifyString) + " but encodeResourceURL returned: " +
+				externalContext.encodeResourceURL(FOREIGNEXTERNALURL_BACKLINK_TEST_STRING));
 
 			return Constants.TEST_FAILED;
 		}
@@ -2180,10 +2180,10 @@ public class Tests extends Object {
 
 		final String FOREIGNEXTERNALURL_TEST_STRING = "http://www.apache.org";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		if (extCtx.encodeResourceURL(FOREIGNEXTERNALURL_TEST_STRING).equals(
-					((PortletResponse) extCtx.getResponse()).encodeURL(FOREIGNEXTERNALURL_TEST_STRING).replace("&amp;",
+		if (externalContext.encodeResourceURL(FOREIGNEXTERNALURL_TEST_STRING).equals(
+					((PortletResponse) externalContext.getResponse()).encodeURL(FOREIGNEXTERNALURL_TEST_STRING).replace("&amp;",
 						"&"))) {
 			testBean.setTestResult(true, "encodeResourceURL correctly encoded a foreign external URL.");
 
@@ -2192,8 +2192,8 @@ public class Tests extends Object {
 		else {
 			testBean.setTestResult(false,
 				"encodeResourceURL didn't correctly encoded a foreign external URL.  Expected: " +
-				((PortletResponse) extCtx.getResponse()).encodeURL(FOREIGNEXTERNALURL_TEST_STRING) +
-				" and encodeResourceURL returned: " + extCtx.encodeResourceURL(FOREIGNEXTERNALURL_TEST_STRING));
+				((PortletResponse) externalContext.getResponse()).encodeURL(FOREIGNEXTERNALURL_TEST_STRING) +
+				" and encodeResourceURL returned: " + externalContext.encodeResourceURL(FOREIGNEXTERNALURL_TEST_STRING));
 
 			return Constants.TEST_FAILED;
 		}
@@ -2210,9 +2210,9 @@ public class Tests extends Object {
 
 		final String OPAQUE_TEST_STRING = "mailto:jsr-301-comments@jcp.org";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		if (extCtx.encodeResourceURL(OPAQUE_TEST_STRING).equals(OPAQUE_TEST_STRING)) {
+		if (externalContext.encodeResourceURL(OPAQUE_TEST_STRING).equals(OPAQUE_TEST_STRING)) {
 			testBean.setTestResult(true,
 				"encodeResourceURL correctly returned an unchanged string when the input was an opaque URL.");
 
@@ -2222,7 +2222,7 @@ public class Tests extends Object {
 			testBean.setTestResult(false,
 				"encodeResourceURL didn't return an unchanged string when the input was an opaque URL.  Test parameter: " +
 				OPAQUE_TEST_STRING + " and encodeResourceURL returned: " +
-				extCtx.encodeResourceURL(OPAQUE_TEST_STRING));
+				externalContext.encodeResourceURL(OPAQUE_TEST_STRING));
 
 			return Constants.TEST_FAILED;
 		}
@@ -2238,15 +2238,15 @@ public class Tests extends Object {
 			"../resources/myImage.jpg?javax.portlet.faces.BackLink=myBackLinkParam";
 		final String RELATIVEURL_BACKLINK_VERIFY_STRING = "/resources/myImage.jpg?myBackLinkParam=";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// compute what the backLink should be
-		String actionURL = extCtx.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx,
+		String actionURL = externalContext.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx,
 					ctx.getViewRoot().getViewId()));
 		String verifyString = null;
 
 		try {
-			verifyString = extCtx.getRequestContextPath() + RELATIVEURL_BACKLINK_VERIFY_STRING +
+			verifyString = externalContext.getRequestContextPath() + RELATIVEURL_BACKLINK_VERIFY_STRING +
 				HTTPUtils.encode(actionURL, "UTF-8");
 		}
 		catch (UnsupportedEncodingException e) {
@@ -2257,8 +2257,8 @@ public class Tests extends Object {
 
 		// According to bridge rules since string passed in isn't xml strict encoded the result won't be as well
 		// So ensure compares match by stripping from the one generated by the portlet container (if it exists)
-		if (extCtx.encodeResourceURL(RELATIVEURL_BACKLINK_TEST_STRING).equals(
-					((PortletResponse) extCtx.getResponse()).encodeURL(verifyString).replace("&amp;", "&"))) {
+		if (externalContext.encodeResourceURL(RELATIVEURL_BACKLINK_TEST_STRING).equals(
+					((PortletResponse) externalContext.getResponse()).encodeURL(verifyString).replace("&amp;", "&"))) {
 			testBean.setTestResult(true, "encodeResourceURL correctly encoded a relative URL with a backLink.");
 
 			return Constants.TEST_SUCCESS;
@@ -2267,7 +2267,7 @@ public class Tests extends Object {
 			testBean.setTestResult(false,
 				"encodeResourceURL didn't correctly encoded a relative URL with a backLink.  Expected: " +
 				verifyString + " but encodeResourceURL returned: " +
-				extCtx.encodeResourceURL(RELATIVEURL_BACKLINK_TEST_STRING));
+				externalContext.encodeResourceURL(RELATIVEURL_BACKLINK_TEST_STRING));
 
 			return Constants.TEST_FAILED;
 		}
@@ -2282,11 +2282,11 @@ public class Tests extends Object {
 		final String RELATIVEURL_TEST_STRING = "../resources/myImage.jpg";
 		final String RELATIVEURL_VERIFY_STRING = "/resources/myImage.jpg";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		if (extCtx.encodeResourceURL(RELATIVEURL_TEST_STRING).equals(
-					((PortletResponse) extCtx.getResponse()).encodeURL(
-						extCtx.getRequestContextPath() + RELATIVEURL_VERIFY_STRING).replace("&amp;", "&"))) {
+		if (externalContext.encodeResourceURL(RELATIVEURL_TEST_STRING).equals(
+					((PortletResponse) externalContext.getResponse()).encodeURL(
+						externalContext.getRequestContextPath() + RELATIVEURL_VERIFY_STRING).replace("&amp;", "&"))) {
 			testBean.setTestResult(true,
 				"encodeResourceURL correctly encoded a resource referenced by a relative path.");
 
@@ -2295,9 +2295,9 @@ public class Tests extends Object {
 		else {
 			testBean.setTestResult(false,
 				"encodeResourceURL incorrectly encoded a resource referenced by a relative path.  Expected: " +
-				((PortletResponse) extCtx.getResponse()).encodeURL(
-					extCtx.getRequestContextPath() + RELATIVEURL_VERIFY_STRING) + " and encodeResourceURL returned: " +
-				extCtx.encodeResourceURL(RELATIVEURL_TEST_STRING));
+				((PortletResponse) externalContext.getResponse()).encodeURL(
+					externalContext.getRequestContextPath() + RELATIVEURL_VERIFY_STRING) + " and encodeResourceURL returned: " +
+				externalContext.encodeResourceURL(RELATIVEURL_TEST_STRING));
 
 			return Constants.TEST_FAILED;
 		}
@@ -2311,10 +2311,10 @@ public class Tests extends Object {
 
 		final String URL_TEST_STRING = "/myportal/resources/myImage.jpg";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		String testURL = extCtx.encodeResourceURL(URL_TEST_STRING);
-		String verifyURL = ((PortletResponse) extCtx.getResponse()).encodeURL(URL_TEST_STRING).replace("&amp;", "&");
+		String testURL = externalContext.encodeResourceURL(URL_TEST_STRING);
+		String verifyURL = ((PortletResponse) externalContext.getResponse()).encodeURL(URL_TEST_STRING).replace("&amp;", "&");
 
 		if (testURL.equals(verifyURL)) {
 			testBean.setTestResult(true,
@@ -2343,21 +2343,21 @@ public class Tests extends Object {
 		final String URL_VIEWLINK_VERIFY_STRING = "/tests/viewLink.jsf?param1=testValue";
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 		ViewHandler vh = ctx.getApplication().getViewHandler();
 
 		String testString = vh.getResourceURL(ctx, URL_VIEWLINK_TEST_STRING);
 		String verifyString = vh.getResourceURL(ctx, URL_VIEWLINK_VERIFY_STRING);
 
-		if (extCtx.encodeResourceURL(testString).equals(extCtx.encodeActionURL(verifyString))) {
+		if (externalContext.encodeResourceURL(testString).equals(externalContext.encodeActionURL(verifyString))) {
 			testBean.setTestResult(true, "encodeResourceURL correctly encoded a viewLink.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"encodeResourceURL incorrectly encoded a viewLink.  Expected: " + extCtx.encodeActionURL(verifyString) +
-				" but encodeResourceURL with the viewLink returned: " + extCtx.encodeResourceURL(testString));
+				"encodeResourceURL incorrectly encoded a viewLink.  Expected: " + externalContext.encodeActionURL(verifyString) +
+				" but encodeResourceURL with the viewLink returned: " + externalContext.encodeResourceURL(testString));
 
 			return Constants.TEST_FAILED;
 		}
@@ -2373,11 +2373,11 @@ public class Tests extends Object {
 			"/tests/viewLink.jsf?javax.portlet.faces.ViewLink=true&param1=testValue&javax.portlet.faces.BackLink=myBackLinkParam";
 		final String URL_VIEWLINK_BACKLINK_VERIFY_STRING = "/tests/viewLink.jsf?param1=testValue&myBackLinkParam=";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 		ViewHandler vh = ctx.getApplication().getViewHandler();
 
 		// compute what the backLink should be
-		String actionURL = extCtx.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx,
+		String actionURL = externalContext.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx,
 					ctx.getViewRoot().getViewId()));
 		String testString = vh.getResourceURL(ctx, URL_VIEWLINK_BACKLINK_TEST_STRING);
 		String verifyString = null;
@@ -2394,15 +2394,15 @@ public class Tests extends Object {
 
 		// Note:  as we are adding a URL as a parameter make sure its properly URLEncoded -- this causes it to be
 		// doubly encoded
-		if (extCtx.encodeResourceURL(testString).equals(extCtx.encodeActionURL(verifyString))) {
+		if (externalContext.encodeResourceURL(testString).equals(externalContext.encodeActionURL(verifyString))) {
 			testBean.setTestResult(true, "encodeResourceURL correctly encoded a viewLink with a BackLink.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"encodeResourceURL incorrectly encoded a viewLink.  Expected: " + extCtx.encodeActionURL(verifyString) +
-				" but encodeResourceURL with the viewLink returned: " + extCtx.encodeResourceURL(testString));
+				"encodeResourceURL incorrectly encoded a viewLink.  Expected: " + externalContext.encodeActionURL(verifyString) +
+				" but encodeResourceURL with the viewLink returned: " + externalContext.encodeResourceURL(testString));
 
 			return Constants.TEST_FAILED;
 		}
@@ -2514,12 +2514,12 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// test encodeActionURL preserves the xml escape encoding in the url it returns
 		if (isStrictXhtmlEncoded(
-					extCtx.encodeActionURL(
-						extCtx.getRequestContextPath() + "/tests/SingleRequestTest.jsf?parm1=a&param2=b"))) {
+					externalContext.encodeActionURL(
+						externalContext.getRequestContextPath() + "/tests/SingleRequestTest.jsf?parm1=a&param2=b"))) {
 			testBean.setTestResult(false,
 				"EncodeActionURL incorrectly returned an url including xml escaping when the input url wasn't escaped.");
 
@@ -2528,8 +2528,8 @@ public class Tests extends Object {
 
 		if (
 			!isStrictXhtmlEncoded(
-					extCtx.encodeActionURL(
-						extCtx.getRequestContextPath() + "/tests/SingleRequestTest.jsf?parm1=a&amp;param2=b"))) {
+					externalContext.encodeActionURL(
+						externalContext.getRequestContextPath() + "/tests/SingleRequestTest.jsf?parm1=a&amp;param2=b"))) {
 			testBean.setTestResult(false,
 				"EncodeActionURL incorrectly returned an url without xml escaping when the input url was escaped.");
 
@@ -2537,7 +2537,7 @@ public class Tests extends Object {
 		}
 
 		if (isStrictXhtmlEncoded(
-					extCtx.encodeActionURL(extCtx.getRequestContextPath() + "/tests/SingleRequestTest.jsf"))) {
+					externalContext.encodeActionURL(externalContext.getRequestContextPath() + "/tests/SingleRequestTest.jsf"))) {
 			testBean.setTestResult(false,
 				"EncodeActionURL incorrectly returned an url including xml escaping when the input url contained no indication (no query string).");
 
@@ -2547,7 +2547,7 @@ public class Tests extends Object {
 		ViewHandler vh = ctx.getApplication().getViewHandler();
 
 		if (isStrictXhtmlEncoded(
-					extCtx.encodeResourceURL(
+					externalContext.encodeResourceURL(
 						vh.getResourceURL(ctx, "/tests/SingleRequestTest.jsf?parm1=a&param2=b")))) {
 			testBean.setTestResult(false,
 				"EncodeResourceURL incorrectly returned an url including xml escaping when the input url wasn't escaped.");
@@ -2557,7 +2557,7 @@ public class Tests extends Object {
 
 		if (
 			!isStrictXhtmlEncoded(
-					extCtx.encodeResourceURL(
+					externalContext.encodeResourceURL(
 						vh.getResourceURL(ctx, "/tests/SingleRequestTest.jsf?parm1=a&amp;param2=b")))) {
 			testBean.setTestResult(false,
 				"EncodeResourceURL incorrectly returned an url without xml escaping when the input url was escaped.");
@@ -2565,7 +2565,7 @@ public class Tests extends Object {
 			return Constants.TEST_FAILED;
 		}
 
-		if (isStrictXhtmlEncoded(extCtx.encodeResourceURL(vh.getResourceURL(ctx, "/tests/SingleRequestTest.jsf")))) {
+		if (isStrictXhtmlEncoded(externalContext.encodeResourceURL(vh.getResourceURL(ctx, "/tests/SingleRequestTest.jsf")))) {
 			testBean.setTestResult(false,
 				"EncodeResourceURL incorrectly returned an url including xml escaping when the input url contained no indication (no query string).");
 
@@ -2585,21 +2585,21 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestCharacterEncodingActionTest")
 	public String getRequestCharacterEncodingActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			ActionRequest actionRequest = (ActionRequest) extCtx.getRequest();
-			String charEncoding = extCtx.getRequestCharacterEncoding();
+			ActionRequest actionRequest = (ActionRequest) externalContext.getRequest();
+			String charEncoding = externalContext.getRequestCharacterEncoding();
 			String actionCharEncoding = actionRequest.getCharacterEncoding();
 
 			if (((charEncoding == null) && (actionCharEncoding == null)) || charEncoding.equals(actionCharEncoding)) {
 				testBean.setTestResult(true,
-					"extCtx.getRequestCharacterEncoding() correctly returned the same value as actionRequest.getCharacterEncoding()");
+					"externalContext.getRequestCharacterEncoding() correctly returned the same value as actionRequest.getCharacterEncoding()");
 
 			}
 			else {
 				testBean.setTestResult(false,
-					"extCtx.getRequestCharacterEncoding() incorrectly returned the different value than actionRequest.getCharacterEncoding(). " +
+					"externalContext.getRequestCharacterEncoding() incorrectly returned the different value than actionRequest.getCharacterEncoding(). " +
 					"Expected: " + actionCharEncoding + " but received: " + charEncoding);
 			}
 
@@ -2624,12 +2624,12 @@ public class Tests extends Object {
 	public String getRequestCharacterEncodingEventTest(TestBean testBean) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -2638,7 +2638,7 @@ public class Tests extends Object {
 
 			testBean.setTestComplete(true);
 
-			String eventMsg = (String) extCtx.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
+			String eventMsg = (String) externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
 
 			if (eventMsg == null) {
 				testBean.setTestResult(false,
@@ -2650,7 +2650,7 @@ public class Tests extends Object {
 			else if (eventMsg.equals(Constants.TEST_SUCCESS)) {
 
 				testBean.setTestResult(true,
-					"extCtx.getRequestCharacterEncoding() correctly returned null when called during the event phase.");
+					"externalContext.getRequestCharacterEncoding() correctly returned null when called during the event phase.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -2673,19 +2673,19 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		String charEncoding = extCtx.getRequestCharacterEncoding();
+		String charEncoding = externalContext.getRequestCharacterEncoding();
 
 		if (charEncoding == null) {
 			testBean.setTestResult(true,
-				"extCtx.getRequestCharacterEncoding() correctly returned null when called during the render phase.");
+				"externalContext.getRequestCharacterEncoding() correctly returned null when called during the render phase.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"extCtx.getRequestCharacterEncoding() incorrectly returned non-null value when called during the render phase: " +
+				"externalContext.getRequestCharacterEncoding() incorrectly returned non-null value when called during the render phase: " +
 				charEncoding);
 
 			return Constants.TEST_FAILED;
@@ -2696,22 +2696,22 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestCharacterEncodingResourceTest")
 	public String getRequestCharacterEncodingResourceTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
-			ResourceRequest resourceRequest = (ResourceRequest) extCtx.getRequest();
-			String charEncoding = extCtx.getRequestCharacterEncoding();
+			ResourceRequest resourceRequest = (ResourceRequest) externalContext.getRequest();
+			String charEncoding = externalContext.getRequestCharacterEncoding();
 			String resourceCharEncoding = resourceRequest.getCharacterEncoding();
 
 			if (((charEncoding == null) && (resourceCharEncoding == null)) ||
 					charEncoding.equals(resourceCharEncoding)) {
 				testBean.setTestResult(true,
-					"extCtx.getRequestCharacterEncoding() correctly returned the same value as resourceRequest.getCharacterEncoding()");
+					"externalContext.getRequestCharacterEncoding() correctly returned the same value as resourceRequest.getCharacterEncoding()");
 
 			}
 			else {
 				testBean.setTestResult(false,
-					"extCtx.getRequestCharacterEncoding() incorrectly returned the different value than resourceRequest.getCharacterEncoding(). " +
+					"externalContext.getRequestCharacterEncoding() incorrectly returned the different value than resourceRequest.getCharacterEncoding(). " +
 					"Expected: " + resourceCharEncoding + " but received: " + charEncoding);
 			}
 
@@ -2734,21 +2734,21 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestContentTypeActionTest")
 	public String getRequestContentTypeActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			ActionRequest actionRequest = (ActionRequest) extCtx.getRequest();
-			String contentType = extCtx.getRequestContentType();
+			ActionRequest actionRequest = (ActionRequest) externalContext.getRequest();
+			String contentType = externalContext.getRequestContentType();
 			String actionContentType = actionRequest.getContentType();
 
 			if (((contentType == null) && (actionContentType == null)) || contentType.equals(actionContentType)) {
 				testBean.setTestResult(true,
-					"extCtx.getRequestContentType() correctly returned the same value as actionRequest.getContentType()");
+					"externalContext.getRequestContentType() correctly returned the same value as actionRequest.getContentType()");
 
 			}
 			else {
 				testBean.setTestResult(false,
-					"extCtx.getRequestContentType() incorrectly returned the different value than actionRequest.getContentType(). " +
+					"externalContext.getRequestContentType() incorrectly returned the different value than actionRequest.getContentType(). " +
 					"Expected: " + actionContentType + " but received: " + contentType);
 			}
 
@@ -2773,12 +2773,12 @@ public class Tests extends Object {
 	public String getRequestContentTypeEventTest(TestBean testBean) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -2787,7 +2787,7 @@ public class Tests extends Object {
 
 			testBean.setTestComplete(true);
 
-			String eventMsg = (String) extCtx.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
+			String eventMsg = (String) externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
 
 			if (eventMsg == null) {
 				testBean.setTestResult(false,
@@ -2799,7 +2799,7 @@ public class Tests extends Object {
 			else if (eventMsg.equals(Constants.TEST_SUCCESS)) {
 
 				testBean.setTestResult(true,
-					"extCtx.getRequestContentType() correctly returned null when called during the event phase.");
+					"externalContext.getRequestContentType() correctly returned null when called during the event phase.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -2820,19 +2820,19 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		String contentType = extCtx.getRequestContentType();
+		String contentType = externalContext.getRequestContentType();
 
 		if (contentType == null) {
 			testBean.setTestResult(true,
-				"extCtx.getRequestContentType() correctly returned null when called during the render phase.");
+				"externalContext.getRequestContentType() correctly returned null when called during the render phase.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"extCtx.getRequestContentType() incorrectly returned non-null value when called during the render phase: " +
+				"externalContext.getRequestContentType() incorrectly returned non-null value when called during the render phase: " +
 				contentType);
 
 			return Constants.TEST_FAILED;
@@ -2843,21 +2843,21 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestContentTypeResourceTest")
 	public String getRequestContentTypeResourceTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
-			ResourceRequest resourceRequest = (ResourceRequest) extCtx.getRequest();
-			String contentType = extCtx.getRequestContentType();
+			ResourceRequest resourceRequest = (ResourceRequest) externalContext.getRequest();
+			String contentType = externalContext.getRequestContentType();
 			String resourceContentType = resourceRequest.getContentType();
 
 			if (((contentType == null) && (resourceContentType == null)) || contentType.equals(resourceContentType)) {
 				testBean.setTestResult(true,
-					"extCtx.getRequestContentType() correctly returned the same value as resourceRequest.getContentType()");
+					"externalContext.getRequestContentType() correctly returned the same value as resourceRequest.getContentType()");
 
 			}
 			else {
 				testBean.setTestResult(false,
-					"extCtx.getRequestContentType() incorrectly returned the different value than resourceRequest.getContentType(). " +
+					"externalContext.getRequestContentType() incorrectly returned the different value than resourceRequest.getContentType(). " +
 					"Expected: " + resourceContentType + " but received: " + contentType);
 			}
 
@@ -2886,7 +2886,7 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestHeaderMapActionTest")
 	public String getRequestHeaderMapActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -2894,8 +2894,8 @@ public class Tests extends Object {
 			// Test the following: 1. Map is immutable 2. Map contains properties from the portlet request (that it
 			// should) 2. Doesn't contain the Content-Type property 3. Does include the Accept and Accept-Language
 
-			Map headerMap = extCtx.getRequestHeaderMap();
-			Enumeration propertyNames = ((PortletRequest) extCtx.getRequest()).getPropertyNames();
+			Map headerMap = externalContext.getRequestHeaderMap();
+			Enumeration propertyNames = ((PortletRequest) externalContext.getRequest()).getPropertyNames();
 
 			// Test for immutability
 			try {
@@ -2921,7 +2921,7 @@ public class Tests extends Object {
 					// parse the accept header into its parts
 					String[] accepts = trim(e.getValue().split(","));
 
-					Enumeration em = ((PortletRequest) extCtx.getRequest()).getResponseContentTypes();
+					Enumeration em = ((PortletRequest) externalContext.getRequest()).getResponseContentTypes();
 
 					// Now ensure the two match
 					while (em.hasMoreElements()) {
@@ -2951,7 +2951,7 @@ public class Tests extends Object {
 					// parse the accept header into its parts
 					String[] accepts = trim(e.getValue().split(","));
 
-					Enumeration em = ((PortletRequest) extCtx.getRequest()).getLocales();
+					Enumeration em = ((PortletRequest) externalContext.getRequest()).getLocales();
 
 					// Now ensure the two match
 					int found = 0;
@@ -2987,7 +2987,7 @@ public class Tests extends Object {
 					// Note: By spec Content-Length is only included if getContentLength() isn't -1
 					if (prop.equalsIgnoreCase("content-length")) {
 
-						if (((ActionRequest) extCtx.getRequest()).getContentLength() == -1) {
+						if (((ActionRequest) externalContext.getRequest()).getContentLength() == -1) {
 							continue;
 						}
 					}
@@ -3032,12 +3032,12 @@ public class Tests extends Object {
 	public String getRequestHeaderMapEventTest(TestBean testBean) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -3046,7 +3046,7 @@ public class Tests extends Object {
 
 			testBean.setTestComplete(true);
 
-			String eventMsg = (String) extCtx.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
+			String eventMsg = (String) externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
 
 			if (eventMsg == null) {
 				testBean.setTestResult(false,
@@ -3094,7 +3094,7 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// Test the following:
 		// 1. Map is immutable
@@ -3102,8 +3102,8 @@ public class Tests extends Object {
 		// 2. Doesn't contain the Content-Type property
 		// 3. Does include the Accept and Accept-Language
 
-		Map headerMap = extCtx.getRequestHeaderMap();
-		Enumeration propertyNames = ((PortletRequest) extCtx.getRequest()).getPropertyNames();
+		Map headerMap = externalContext.getRequestHeaderMap();
+		Enumeration propertyNames = ((PortletRequest) externalContext.getRequest()).getPropertyNames();
 
 		// Test for immutability
 		try {
@@ -3141,7 +3141,7 @@ public class Tests extends Object {
 				// parse the accept header into its parts
 				String[] accepts = trim(e.getValue().split(","));
 
-				Enumeration em = ((PortletRequest) extCtx.getRequest()).getResponseContentTypes();
+				Enumeration em = ((PortletRequest) externalContext.getRequest()).getResponseContentTypes();
 
 				// Now ensure that all entries in the getResponseContentTypes enum are in the property
 				while (em.hasMoreElements()) {
@@ -3171,7 +3171,7 @@ public class Tests extends Object {
 				// parse the accept header into its parts
 				String[] accepts = trim(e.getValue().split(","));
 
-				Enumeration em = ((PortletRequest) extCtx.getRequest()).getLocales();
+				Enumeration em = ((PortletRequest) externalContext.getRequest()).getLocales();
 
 				// Now ensure the two match
 				int found = 0;
@@ -3242,7 +3242,7 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestHeaderMapResourceTest")
 	public String getRequestHeaderMapResourceTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -3250,8 +3250,8 @@ public class Tests extends Object {
 			// Test the following: 1. Map is immutable 2. Map contains properties from the portlet request (that it
 			// should) 2. Doesn't contain the Content-Type property 3. Does include the Accept and Accept-Language
 
-			Map headerMap = extCtx.getRequestHeaderMap();
-			Enumeration propertyNames = ((PortletRequest) extCtx.getRequest()).getPropertyNames();
+			Map headerMap = externalContext.getRequestHeaderMap();
+			Enumeration propertyNames = ((PortletRequest) externalContext.getRequest()).getPropertyNames();
 
 			testBean.setTestComplete(true);
 
@@ -3280,7 +3280,7 @@ public class Tests extends Object {
 					String accept = e.getValue();
 					String[] accepts = trim(accept.split(","));
 
-					Enumeration em = ((PortletRequest) extCtx.getRequest()).getResponseContentTypes();
+					Enumeration em = ((PortletRequest) externalContext.getRequest()).getResponseContentTypes();
 
 					// Now ensure the two match -- issue here is that the Portlet spec is unclear whether
 					// getResponseContentTypes() returns the same as servlet.getHeaders("accept") or merely an
@@ -3331,7 +3331,7 @@ public class Tests extends Object {
 					// parse the accept header into its parts
 					String[] accepts = trim(e.getValue().split(","));
 
-					Enumeration em = ((PortletRequest) extCtx.getRequest()).getLocales();
+					Enumeration em = ((PortletRequest) externalContext.getRequest()).getLocales();
 
 					// Now ensure the two match
 					int found = 0;
@@ -3367,7 +3367,7 @@ public class Tests extends Object {
 					// Note: By spec Content-Length is only included if getContentLength() isn't -1
 					if (prop.equalsIgnoreCase("content-length")) {
 
-						if (((ResourceRequest) extCtx.getRequest()).getContentLength() == -1) {
+						if (((ResourceRequest) externalContext.getRequest()).getContentLength() == -1) {
 							continue;
 						}
 					}
@@ -3410,7 +3410,7 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestHeaderValuesMapActionTest")
 	public String getRequestHeaderValuesMapActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -3418,8 +3418,8 @@ public class Tests extends Object {
 			// Test the following: 1. Map is immutable 2. Map contains properties from the portlet request (that it
 			// should) 2. Doesn't contain the Content-Type property 3. Does include the Accept and Accept-Language
 
-			Map<String, String[]> headerMap = extCtx.getRequestHeaderValuesMap();
-			Enumeration propertyNames = ((PortletRequest) extCtx.getRequest()).getPropertyNames();
+			Map<String, String[]> headerMap = externalContext.getRequestHeaderValuesMap();
+			Enumeration propertyNames = ((PortletRequest) externalContext.getRequest()).getPropertyNames();
 
 			// Test for immutability
 			try {
@@ -3463,7 +3463,7 @@ public class Tests extends Object {
 						System.arraycopy(temp, 0, accepts, count, temp.length);
 					}
 
-					Enumeration em = ((PortletRequest) extCtx.getRequest()).getResponseContentTypes();
+					Enumeration em = ((PortletRequest) externalContext.getRequest()).getResponseContentTypes();
 
 					// Now ensure the two match
 					while (em.hasMoreElements()) {
@@ -3511,7 +3511,7 @@ public class Tests extends Object {
 						count += temp.length;
 					}
 
-					Enumeration em = ((PortletRequest) extCtx.getRequest()).getLocales();
+					Enumeration em = ((PortletRequest) externalContext.getRequest()).getLocales();
 
 					// Now ensure the two match
 					int found = 0;
@@ -3583,12 +3583,12 @@ public class Tests extends Object {
 	public String getRequestHeaderValuesMapEventTest(TestBean testBean) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -3597,7 +3597,7 @@ public class Tests extends Object {
 
 			testBean.setTestComplete(true);
 
-			String eventMsg = (String) extCtx.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
+			String eventMsg = (String) externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
 
 			if (eventMsg == null) {
 				testBean.setTestResult(false,
@@ -3645,7 +3645,7 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// Test the following:
 		// 1. Map is immutable
@@ -3653,8 +3653,8 @@ public class Tests extends Object {
 		// 2. Doesn't contain the Content-Type property
 		// 3. Does include the Accept and Accept-Language
 
-		Map<String, String[]> headerMap = extCtx.getRequestHeaderValuesMap();
-		Enumeration propertyNames = ((PortletRequest) extCtx.getRequest()).getPropertyNames();
+		Map<String, String[]> headerMap = externalContext.getRequestHeaderValuesMap();
+		Enumeration propertyNames = ((PortletRequest) externalContext.getRequest()).getPropertyNames();
 
 		// Test for immutability
 		try {
@@ -3710,7 +3710,7 @@ public class Tests extends Object {
 					count += temp.length;
 				}
 
-				Enumeration em = ((PortletRequest) extCtx.getRequest()).getResponseContentTypes();
+				Enumeration em = ((PortletRequest) externalContext.getRequest()).getResponseContentTypes();
 
 				// Now ensure that all entries in the getResponseContentTypes enum are in the property
 				while (em.hasMoreElements()) {
@@ -3757,7 +3757,7 @@ public class Tests extends Object {
 					System.arraycopy(temp, 0, accepts, count, temp.length);
 				}
 
-				Enumeration em = ((PortletRequest) extCtx.getRequest()).getLocales();
+				Enumeration em = ((PortletRequest) externalContext.getRequest()).getLocales();
 
 				// Now ensure the two match
 				int found = 0;
@@ -3829,7 +3829,7 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestHeaderValuesMapResourceTest")
 	public String getRequestHeaderValuesMapResourceTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -3837,8 +3837,8 @@ public class Tests extends Object {
 			// Test the following: 1. Map is immutable 2. Map contains properties from the portlet request (that it
 			// should) 2. Doesn't contain the Content-Type property 3. Does include the Accept and Accept-Language
 
-			Map<String, String[]> headerMap = extCtx.getRequestHeaderValuesMap();
-			Enumeration propertyNames = ((PortletRequest) extCtx.getRequest()).getPropertyNames();
+			Map<String, String[]> headerMap = externalContext.getRequestHeaderValuesMap();
+			Enumeration propertyNames = ((PortletRequest) externalContext.getRequest()).getPropertyNames();
 
 			testBean.setTestComplete(true);
 
@@ -3885,7 +3885,7 @@ public class Tests extends Object {
 						System.arraycopy(temp, 0, accepts, count, temp.length);
 					}
 
-					Enumeration em = ((PortletRequest) extCtx.getRequest()).getResponseContentTypes();
+					Enumeration em = ((PortletRequest) externalContext.getRequest()).getResponseContentTypes();
 
 					// Now ensure the two match -- issue here is that the Portlet spec is unclear whether
 					// getResponseContentTypes() returns the same as servlet.getHeaders("accept") or merely an
@@ -3954,7 +3954,7 @@ public class Tests extends Object {
 						count += temp.length;
 					}
 
-					Enumeration em = ((PortletRequest) extCtx.getRequest()).getLocales();
+					Enumeration em = ((PortletRequest) externalContext.getRequest()).getLocales();
 
 					// Now ensure the two match
 					int found = 0;
@@ -4021,10 +4021,10 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// Now verify we have the form params that were passed to the action
-		Map<String, String> paramMap = extCtx.getRequestParameterMap();
+		Map<String, String> paramMap = externalContext.getRequestParameterMap();
 
 		// loop through the Map and verify that 'value1' and 'value2' aren't there.
 		boolean foundField1 = false;
@@ -4044,13 +4044,13 @@ public class Tests extends Object {
 
 		if (!foundField1) {
 			testBean.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterMap() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
+				"Failed Render Phase: externalContext.getRequestParameterMap() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
 		else if (!foundField2) {
 			testBean.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterMap() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
+				"Failed Render Phase: externalContext.getRequestParameterMap() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
@@ -4075,14 +4075,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestParameterMapCoreTest")
 	public String getRequestParameterMapCoreTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			// Test the following: 1. Map is immutable 2. Map (during action) contains the parameters in the underlying
 			// request 2. Map (during render) doesn't contain any params other than the VIEW_STATE_PARAM
 
-			Map<String, String> paramMap = extCtx.getRequestParameterMap();
-			Map<String, String[]> requestParamMap = ((PortletRequest) extCtx.getRequest()).getParameterMap();
+			Map<String, String> paramMap = externalContext.getRequestParameterMap();
+			Map<String, String[]> requestParamMap = ((PortletRequest) externalContext.getRequest()).getParameterMap();
 
 			// Test for immutability
 			try {
@@ -4156,11 +4156,11 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			// Now verify we only have the VIEW_STATE_PARAM
-			Map<String, String> paramMap = extCtx.getRequestParameterMap();
+			Map<String, String> paramMap = externalContext.getRequestParameterMap();
 
 			if (paramMap.get(ResponseStateManager.VIEW_STATE_PARAM) == null) {
 				testBean.setTestResult(false,
-					"Render Phase extCtx.getRequestParameterMap() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action phase was: " +
+					"Render Phase externalContext.getRequestParameterMap() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action phase was: " +
 					testBean.getTestResult());
 
 				return Constants.TEST_FAILED;
@@ -4185,13 +4185,13 @@ public class Tests extends Object {
 
 			if (foundField1) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterMap() incorrectly contains the value for the 'field1' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterMap() incorrectly contains the value for the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (foundField2) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterMap() incorrectly contains the value for the 'field2' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterMap() incorrectly contains the value for the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
@@ -4211,13 +4211,13 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestParameterNamesCoreTest")
 	public String getRequestParameterNamesCoreTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			// Test the following: 2. Map (during action) contains the parameters in the underlying request 2. Map
 			// (during render) doesn't contain any params other than the VIEW_STATE_PARAM
 
-			Iterator<String> namesIterator = extCtx.getRequestParameterNames();
+			Iterator<String> namesIterator = externalContext.getRequestParameterNames();
 
 			boolean foundField1 = false;
 			boolean foundField2 = false;
@@ -4232,7 +4232,7 @@ public class Tests extends Object {
 				if (name.indexOf("formDataField2") > -1)
 					foundField2 = true;
 
-				Enumeration<String> requestNamesEnum = ((PortletRequest) extCtx.getRequest()).getParameterNames();
+				Enumeration<String> requestNamesEnum = ((PortletRequest) externalContext.getRequest()).getParameterNames();
 				boolean foundName = false;
 
 				// verify its in the underlying request Enumeration
@@ -4278,7 +4278,7 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			// Now verify we only have the VIEW_STATE_PARAM
-			Iterator<String> namesIterator = extCtx.getRequestParameterNames();
+			Iterator<String> namesIterator = externalContext.getRequestParameterNames();
 			boolean foundViewState = false;
 			boolean foundField1 = false;
 			boolean foundField2 = false;
@@ -4299,20 +4299,20 @@ public class Tests extends Object {
 
 			if (!foundViewState) {
 				testBean.setTestResult(false,
-					"Render phase extCtx.getRequestParameterNames() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action Phase was: " +
+					"Render phase externalContext.getRequestParameterNames() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action Phase was: " +
 					testBean.getTestResult());
 
 				return Constants.TEST_FAILED;
 			}
 			else if (foundField1) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterName() incorrectly contains the 'field1' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterName() incorrectly contains the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (foundField2) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterName() incorrectly contains the 'field2' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterName() incorrectly contains the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
@@ -4333,10 +4333,10 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// Now verify we have the form params that were passed to the action
-		Iterator<String> namesIterator = extCtx.getRequestParameterNames();
+		Iterator<String> namesIterator = externalContext.getRequestParameterNames();
 
 		// loop through the Map and verify that 'value1' and 'value2' aren't there.
 		boolean foundField1 = false;
@@ -4354,13 +4354,13 @@ public class Tests extends Object {
 
 		if (!foundField1) {
 			testBean.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterNames() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
+				"Failed Render Phase: externalContext.getRequestParameterNames() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
 		else if (!foundField2) {
 			testBean.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterNames() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
+				"Failed Render Phase: externalContext.getRequestParameterNames() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
@@ -4378,10 +4378,10 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestParameterNamesPreserveParamsTest")
 	public String getRequestParameterNamesPreserveParamsTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// Now verify we have the form params that were passed to the action
-		Iterator<String> namesIterator = extCtx.getRequestParameterNames();
+		Iterator<String> namesIterator = externalContext.getRequestParameterNames();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "getRequestParameterNamesPreserveParamsTest";
@@ -4406,13 +4406,13 @@ public class Tests extends Object {
 
 			if (!foundField1) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterNames() didn't properly preserve the value for the 'field1' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterNames() didn't properly preserve the value for the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (!foundField2) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterNames() didn't properly preserve the value for the 'field2' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterNames() didn't properly preserve the value for the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
@@ -4431,10 +4431,10 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestParameterPreserveParamsTest")
 	public String getRequestParameterPreserveParamsTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// Now verify we have the form params that were passed to the action
-		Map<String, String> paramMap = extCtx.getRequestParameterMap();
+		Map<String, String> paramMap = externalContext.getRequestParameterMap();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "getRequestParameterPreserveParamsTest";
@@ -4461,13 +4461,13 @@ public class Tests extends Object {
 
 			if (!foundField1) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterMap() didn't properly preserve the value for the 'field1' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterMap() didn't properly preserve the value for the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (!foundField2) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterMap() didn't properly preserve the value for the 'field2' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterMap() didn't properly preserve the value for the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
@@ -4493,14 +4493,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestParameterValuesMapCoreTest")
 	public String getRequestParameterValuesMapCoreTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			// Test the following: 1. Map is immutable 2. Map (during action) contains the parameters in the underlying
 			// request 2. Map (during render) doesn't contain any params other than the VIEW_STATE_PARAM
 
-			Map<String, String[]> paramMap = extCtx.getRequestParameterValuesMap();
-			Map<String, String[]> requestParamMap = ((PortletRequest) extCtx.getRequest()).getParameterMap();
+			Map<String, String[]> paramMap = externalContext.getRequestParameterValuesMap();
+			Map<String, String[]> requestParamMap = ((PortletRequest) externalContext.getRequest()).getParameterMap();
 
 			// Test for immutability
 			try {
@@ -4577,11 +4577,11 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			// Now verify we only have the VIEW_STATE_PARAM
-			Map<String, String[]> paramMap = extCtx.getRequestParameterValuesMap();
+			Map<String, String[]> paramMap = externalContext.getRequestParameterValuesMap();
 
 			if (paramMap.get(ResponseStateManager.VIEW_STATE_PARAM) == null) {
 				testBean.setTestResult(false,
-					"Render Phase extCtx.getRequestParameterValuesMap() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action phase was: " +
+					"Render Phase externalContext.getRequestParameterValuesMap() doesn't contain the ResponseStateManager.VIEW_STATE parameter. Test Result from the prior action phase was: " +
 					testBean.getTestResult());
 
 				return Constants.TEST_FAILED;
@@ -4605,13 +4605,13 @@ public class Tests extends Object {
 
 			if (foundField1) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterValuesMap() incorrectly contains the value for the 'field1' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterValuesMap() incorrectly contains the value for the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (foundField2) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterValuesMap() incorrectly contains the value for the 'field2' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterValuesMap() incorrectly contains the value for the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
@@ -4632,10 +4632,10 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// Now verify we have the form params that were passed to the action
-		Map<String, String[]> paramMap = extCtx.getRequestParameterValuesMap();
+		Map<String, String[]> paramMap = externalContext.getRequestParameterValuesMap();
 
 		// loop through the Map and verify that 'value1' and 'value2' aren't there.
 		boolean foundField1 = false;
@@ -4655,13 +4655,13 @@ public class Tests extends Object {
 
 		if (!foundField1) {
 			testBean.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterValuesMap() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
+				"Failed Render Phase: externalContext.getRequestParameterValuesMap() didn't properly expose the 'field1' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
 		else if (!foundField2) {
 			testBean.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestParameterValuesMap() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
+				"Failed Render Phase: externalContext.getRequestParameterValuesMap() didn't properly expose the 'field2' query string parameter from the defaultViewId.");
 
 			return Constants.TEST_FAILED;
 		}
@@ -4679,10 +4679,10 @@ public class Tests extends Object {
 	@BridgeTest(test = "getRequestParameterValuesMapPreserveParamsTest")
 	public String getRequestParameterValuesMapPreserveParamsTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// Now verify we have the form params that were passed to the action
-		Map<String, String[]> paramMap = extCtx.getRequestParameterValuesMap();
+		Map<String, String[]> paramMap = externalContext.getRequestParameterValuesMap();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "getRequestParameterValuesMapPreserveParamsTest";
@@ -4708,13 +4708,13 @@ public class Tests extends Object {
 
 			if (!foundField1) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterValuesMap() didn't properly preserve the value for the 'field1' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterValuesMap() didn't properly preserve the value for the 'field1' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
 			else if (!foundField2) {
 				testBean.setTestResult(false,
-					"Failed Render Phase: extCtx.getRequestParameterValuesMap() didn't properly preserve the value for the 'field2' form parameter.");
+					"Failed Render Phase: externalContext.getRequestParameterValuesMap() didn't properly preserve the value for the 'field2' form parameter.");
 
 				return Constants.TEST_FAILED;
 			}
@@ -4735,21 +4735,21 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		String pathInfo = extCtx.getRequestPathInfo();
+		String pathInfo = externalContext.getRequestPathInfo();
 
 		// As this web.xml maps the faces servlet using extension mapping
 		// the value should be null
 		if (pathInfo == null) {
 			testBean.setTestResult(true,
-				"Passed RenderPhase: extCtx.getRequestPathInfo() correctly returned a null value as the Faces servlet is extension mapped.");
+				"Passed RenderPhase: externalContext.getRequestPathInfo() correctly returned a null value as the Faces servlet is extension mapped.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestPathInfo() returned a non-null value though null was expected as the Faces servlet is extension mapped.");
+				"Failed Render Phase: externalContext.getRequestPathInfo() returned a non-null value though null was expected as the Faces servlet is extension mapped.");
 
 			return Constants.TEST_FAILED;
 		}
@@ -4763,9 +4763,9 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		String servletPath = extCtx.getRequestServletPath();
+		String servletPath = externalContext.getRequestServletPath();
 
 		// As this web.xml maps the faces servlet using extension mapping
 		// the value should be viewId.mappingext i.e. viewid.jsf
@@ -4775,14 +4775,14 @@ public class Tests extends Object {
 
 		if (servletPath.equalsIgnoreCase(viewId)) {
 			testBean.setTestResult(true,
-				"Passed RenderPhase: extCtx.getRequestServletPath() correctly returned the unmapped (extension mapped) viewId: " +
+				"Passed RenderPhase: externalContext.getRequestServletPath() correctly returned the unmapped (extension mapped) viewId: " +
 				servletPath);
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"Failed Render Phase: extCtx.getRequestServletPath() returned something other than the the unmapped (extension mapped) viewId.  Expected: " +
+				"Failed Render Phase: externalContext.getRequestServletPath() returned something other than the the unmapped (extension mapped) viewId.  Expected: " +
 				viewId + " getRequestServletPath returned: " + servletPath);
 
 			return Constants.TEST_FAILED;
@@ -4793,18 +4793,18 @@ public class Tests extends Object {
 	@BridgeTest(test = "getResponseCharacterEncodingActionTest")
 	public String getResponseCharacterEncodingActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			try {
-				String encoding = extCtx.getResponseCharacterEncoding();
+				String encoding = externalContext.getResponseCharacterEncoding();
 				testBean.setTestResult(false,
-					"extCtx.getResponseCharacterEncoding() didn't throw an IllegalStateException when called during an Action.");
+					"externalContext.getResponseCharacterEncoding() didn't throw an IllegalStateException when called during an Action.");
 			}
 			catch (IllegalStateException e) {
 				testBean.setTestResult(true,
-					"extCtx.getResponseCharacterEncoding() correctly threw an IllegalStateException when called during an Action.");
+					"externalContext.getResponseCharacterEncoding() correctly threw an IllegalStateException when called during an Action.");
 			}
 
 			return "getResponseCharacterEncodingActionTest";
@@ -4828,12 +4828,12 @@ public class Tests extends Object {
 	public String getResponseCharacterEncodingEventTest(TestBean testBean) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -4842,7 +4842,7 @@ public class Tests extends Object {
 
 			testBean.setTestComplete(true);
 
-			String eventMsg = (String) extCtx.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
+			String eventMsg = (String) externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
 
 			if (eventMsg == null) {
 				testBean.setTestResult(false,
@@ -4854,7 +4854,7 @@ public class Tests extends Object {
 			else if (eventMsg.equals(Constants.TEST_SUCCESS)) {
 
 				testBean.setTestResult(true,
-					"extCtx.getResponseCharacterEncoding() correctly threw an IllegalStateException when called during the event phase.");
+					"externalContext.getResponseCharacterEncoding() correctly threw an IllegalStateException when called during the event phase.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -4877,21 +4877,21 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		MimeResponse mimeResponse = (MimeResponse) extCtx.getResponse();
+		ExternalContext externalContext = ctx.getExternalContext();
+		MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();
 
-		String charEncoding = extCtx.getResponseCharacterEncoding();
+		String charEncoding = externalContext.getResponseCharacterEncoding();
 		String renderCharEncoding = mimeResponse.getCharacterEncoding();
 
 		if (((charEncoding == null) && (renderCharEncoding == null)) || charEncoding.equals(renderCharEncoding)) {
 			testBean.setTestResult(true,
-				"extCtx.getResponseCharacterEncoding() correctly returned the same value as renderResponse.getCharacterEncoding()");
+				"externalContext.getResponseCharacterEncoding() correctly returned the same value as renderResponse.getCharacterEncoding()");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"extCtx.getResponseCharacterEncoding() incorrectly returned a different value than renderResponse.getCharacterEncoding(). " +
+				"externalContext.getResponseCharacterEncoding() incorrectly returned a different value than renderResponse.getCharacterEncoding(). " +
 				"Expected: " + renderCharEncoding + " but received: " + charEncoding);
 
 			return Constants.TEST_FAILED;
@@ -4902,22 +4902,22 @@ public class Tests extends Object {
 	@BridgeTest(test = "getResponseCharacterEncodingResourceTest")
 	public String getResponseCharacterEncodingResourceTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
-			ResourceResponse resourceResponse = (ResourceResponse) extCtx.getResponse();
+			ResourceResponse resourceResponse = (ResourceResponse) externalContext.getResponse();
 
-			String charEncoding = extCtx.getResponseCharacterEncoding();
+			String charEncoding = externalContext.getResponseCharacterEncoding();
 			String resourceCharEncoding = resourceResponse.getCharacterEncoding();
 
 			if (((charEncoding == null) && (resourceCharEncoding == null)) ||
 					charEncoding.equals(resourceCharEncoding)) {
 				testBean.setTestResult(true,
-					"extCtx.getResponseCharacterEncoding() correctly returned the same value as resourceResponse.getCharacterEncoding()");
+					"externalContext.getResponseCharacterEncoding() correctly returned the same value as resourceResponse.getCharacterEncoding()");
 			}
 			else {
 				testBean.setTestResult(false,
-					"extCtx.getResponseCharacterEncoding() incorrectly returned a different value than resourceResponse.getCharacterEncoding(). " +
+					"externalContext.getResponseCharacterEncoding() incorrectly returned a different value than resourceResponse.getCharacterEncoding(). " +
 					"Expected: " + resourceCharEncoding + " but received: " + charEncoding);
 			}
 
@@ -4940,18 +4940,18 @@ public class Tests extends Object {
 	@BridgeTest(test = "getResponseContentTypeActionTest")
 	public String getResponseContentTypeActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			try {
-				String contentType = extCtx.getResponseContentType();
+				String contentType = externalContext.getResponseContentType();
 				testBean.setTestResult(false,
-					"extCtx.getResponseContentType() didn't throw an IllegalStateException when called during an Action.");
+					"externalContext.getResponseContentType() didn't throw an IllegalStateException when called during an Action.");
 			}
 			catch (IllegalStateException e) {
 				testBean.setTestResult(true,
-					"extCtx.getResponseContentType() correctly threw an IllegalStateException when called during an Action.");
+					"externalContext.getResponseContentType() correctly threw an IllegalStateException when called during an Action.");
 			}
 
 			return "getResponseContentTypeActionTest";
@@ -4975,12 +4975,12 @@ public class Tests extends Object {
 	public String getResponseContentTypeEventTest(TestBean testBean) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -4989,7 +4989,7 @@ public class Tests extends Object {
 
 			testBean.setTestComplete(true);
 
-			String eventMsg = (String) extCtx.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
+			String eventMsg = (String) externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.eventTestResult");
 
 			if (eventMsg == null) {
 				testBean.setTestResult(false,
@@ -5001,7 +5001,7 @@ public class Tests extends Object {
 			else if (eventMsg.equals(Constants.TEST_SUCCESS)) {
 
 				testBean.setTestResult(true,
-					"extCtx.getResponseContentType() correctly returned null when called during the event phase.");
+					"externalContext.getResponseContentType() correctly returned null when called during the event phase.");
 
 				return Constants.TEST_SUCCESS;
 			}
@@ -5022,20 +5022,20 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		MimeResponse mimeResponse = (MimeResponse) extCtx.getResponse();
-		String contentType = extCtx.getResponseContentType();
+		ExternalContext externalContext = ctx.getExternalContext();
+		MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();
+		String contentType = externalContext.getResponseContentType();
 		String renderContentType = mimeResponse.getContentType();
 
 		if (((contentType == null) && (renderContentType == null)) || contentType.equals(renderContentType)) {
 			testBean.setTestResult(true,
-				"extCtx.getResponseContentType() correctly returned the same value as renderResponse.getContentType().");
+				"externalContext.getResponseContentType() correctly returned the same value as renderResponse.getContentType().");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"extCtx.getResponseContentType() incorrectly returned a different value than renderResponse.getContentType(): expected: " +
+				"externalContext.getResponseContentType() incorrectly returned a different value than renderResponse.getContentType(): expected: " +
 				renderContentType + " but received: " + contentType);
 
 			return Constants.TEST_FAILED;
@@ -5046,21 +5046,21 @@ public class Tests extends Object {
 	@BridgeTest(test = "getResponseContentTypeResourceTest")
 	public String getResponseContentTypeResourceTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
-			ResourceResponse resourceResponse = (ResourceResponse) extCtx.getResponse();
-			String contentType = extCtx.getResponseContentType();
+			ResourceResponse resourceResponse = (ResourceResponse) externalContext.getResponse();
+			String contentType = externalContext.getResponseContentType();
 			String resourceContentType = resourceResponse.getContentType();
 
 			if (((contentType == null) && (resourceContentType == null)) || contentType.equals(resourceContentType)) {
 				testBean.setTestResult(true,
-					"extCtx.getResponseContentType() correctly returned the same value as resourceRequest.getContentType()");
+					"externalContext.getResponseContentType() correctly returned the same value as resourceRequest.getContentType()");
 
 			}
 			else {
 				testBean.setTestResult(false,
-					"extCtx.getResponseContentType() incorrectly returned the different value than resourceRequest.getContentType(). " +
+					"externalContext.getResponseContentType() incorrectly returned the different value than resourceRequest.getContentType(). " +
 					"Expected: " + resourceContentType + " but received: " + contentType);
 			}
 
@@ -5084,16 +5084,16 @@ public class Tests extends Object {
 	@BridgeTest(test = "getSetRequestObjectTest")
 	public String getSetRequestObjectTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			ActionRequest aRequest = new ActionRequestWrapper((ActionRequest) extCtx.getRequest());
+			ActionRequest aRequest = new ActionRequestWrapper((ActionRequest) externalContext.getRequest());
 
-			extCtx.setRequest(aRequest);
+			externalContext.setRequest(aRequest);
 
-			if (extCtx.getRequest() == aRequest) {
+			if (externalContext.getRequest() == aRequest) {
 				testBean.setTestResult(true,
 					"Successfully set/retrieved a new ActionRequest using ExternalContext.set/getRequest.");
 
@@ -5110,11 +5110,11 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			// Now do the same thing for render
-			RenderRequest rRequest = new RenderRequestWrapper((RenderRequest) extCtx.getRequest());
+			RenderRequest rRequest = new RenderRequestWrapper((RenderRequest) externalContext.getRequest());
 
-			extCtx.setRequest(rRequest);
+			externalContext.setRequest(rRequest);
 
-			if (extCtx.getRequest() == rRequest) {
+			if (externalContext.getRequest() == rRequest) {
 				testBean.appendTestDetail(
 					"Successfully set/retrieved a new RenderRequest using ExternalContext.set/getRequest.");
 
@@ -5133,7 +5133,7 @@ public class Tests extends Object {
 	@BridgeTest(test = "illegalRedirectRenderTest")
 	public String illegalRedirectRenderTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		testBean.setTestComplete(true);
 
@@ -5142,29 +5142,29 @@ public class Tests extends Object {
 		if (viewId.equals("/tests/SingleRequestTest.jsp")) {
 
 			try {
-				extCtx.redirect(ctx.getApplication().getViewHandler().getResourceURL(ctx, "/tests/NonJSFView.portlet"));
+				externalContext.redirect(ctx.getApplication().getViewHandler().getResourceURL(ctx, "/tests/NonJSFView.portlet"));
 			}
 			catch (IllegalStateException i) {
 				testBean.setTestResult(true,
-					"extCtx.redirect() during render correctly threw the IllegalStateException when redirecting to a nonFaces view.");
+					"externalContext.redirect() during render correctly threw the IllegalStateException when redirecting to a nonFaces view.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			catch (Exception e) {
 				testBean.setTestResult(false,
-					"Calling extCtx.redirect() threw an unexpected exception: " + e.getMessage());
+					"Calling externalContext.redirect() threw an unexpected exception: " + e.getMessage());
 
 				return Constants.TEST_FAILED;
 			}
 
 			testBean.setTestResult(false,
-				"extCtx.redirect() during render failed: it didn't throw an illegalStateException when redirecting to a nonfaces view.");
+				"externalContext.redirect() during render failed: it didn't throw an illegalStateException when redirecting to a nonfaces view.");
 
 			return Constants.TEST_FAILED;
 		}
 		else {
 			testBean.setTestResult(false,
-				"extCtx.redirect() during render failed: we started out in an unexpected view: " + viewId);
+				"externalContext.redirect() during render failed: we started out in an unexpected view: " + viewId);
 
 			return Constants.TEST_FAILED;
 		}
@@ -5174,7 +5174,7 @@ public class Tests extends Object {
 	@BridgeTest(test = "redirectActionTest")
 	public String redirectActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
@@ -5183,16 +5183,16 @@ public class Tests extends Object {
 			 * called during render -- check we are at the new view and attribute is gone   i.e. request scope isn't
 			 * preserved in case of redirect.
 			 */
-			extCtx.getRequestMap().put("myRedirectRequestObject", Boolean.TRUE);
+			externalContext.getRequestMap().put("myRedirectRequestObject", Boolean.TRUE);
 
 			String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
 					"/tests/RedirectTestResultRenderCheck.jsp");
 
 			try {
-				extCtx.redirect(target);
+				externalContext.redirect(target);
 			}
 			catch (Exception e) {
-				testBean.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
+				testBean.setTestResult(false, "Calling externalContext.redirect() threw an exception: " + e.getMessage());
 
 				return "redirectActionTest";
 			}
@@ -5210,18 +5210,18 @@ public class Tests extends Object {
 				// the redirect worked
 
 				// now verify that the scope wasn't saved.
-				if (extCtx.getRequestMap().get("myRedirectRequestObject") == null) {
+				if (externalContext.getRequestMap().get("myRedirectRequestObject") == null) {
 					testBean.setTestResult(true,
-						"extCtx.redirect() during action worked correctly as we were redirected to the new view without retaining request scoped beans.");
+						"externalContext.redirect() during action worked correctly as we were redirected to the new view without retaining request scoped beans.");
 				}
 				else {
 					testBean.setTestResult(false,
-						"extCtx.redirect() during action failed as though we were redirected to the new view the request scope was retained.");
+						"externalContext.redirect() during action failed as though we were redirected to the new view the request scope was retained.");
 				}
 			}
 			else {
 				testBean.setTestResult(false,
-					"extCtx.redirect() during action failed as we weren't redirected to the new view. The viewId should be /tests/RedirectTestResultRenderCheck.jsp but is: " +
+					"externalContext.redirect() during action failed as we weren't redirected to the new view. The viewId should be /tests/RedirectTestResultRenderCheck.jsp but is: " +
 					viewId);
 			}
 
@@ -5239,7 +5239,7 @@ public class Tests extends Object {
 	@BridgeTest(test = "redirectEventTest")
 	public String redirectEventTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
@@ -5248,10 +5248,10 @@ public class Tests extends Object {
 			 * check we are at the new view and attribute is gone   i.e. request scope isn't preserved in case of
 			 * redirect.
 			 */
-			extCtx.getRequestMap().put("myRedirectRequestObject", Boolean.TRUE);
+			externalContext.getRequestMap().put("myRedirectRequestObject", Boolean.TRUE);
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
@@ -5265,18 +5265,18 @@ public class Tests extends Object {
 				// the redirect worked
 
 				// now verify that the scope wasn't saved.
-				if (extCtx.getRequestMap().get("myRedirectRequestObject") == null) {
+				if (externalContext.getRequestMap().get("myRedirectRequestObject") == null) {
 					testBean.setTestResult(true,
-						"extCtx.redirect() during event worked correctly as we were redirected to the new view without retaining request scoped beans.");
+						"externalContext.redirect() during event worked correctly as we were redirected to the new view without retaining request scoped beans.");
 				}
 				else {
 					testBean.setTestResult(false,
-						"extCtx.redirect() during event failed as though we were redirected to the new view the request scope was retained.");
+						"externalContext.redirect() during event failed as though we were redirected to the new view the request scope was retained.");
 				}
 			}
 			else {
 				testBean.setTestResult(false,
-					"extCtx.redirect() during event failed as we weren't redirected to the new view. The viewId should be /tests/RedirectTestResultRenderCheck.jsp but is: " +
+					"externalContext.redirect() during event failed as we weren't redirected to the new view. The viewId should be /tests/RedirectTestResultRenderCheck.jsp but is: " +
 					viewId);
 			}
 
@@ -5294,7 +5294,7 @@ public class Tests extends Object {
 	@BridgeTest(test = "redirectRenderPRP1Test")
 	public String redirectRenderPRP1Test(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
@@ -5306,7 +5306,7 @@ public class Tests extends Object {
 			 * Key difference between PRP1Test and PRP2Test is that PRP1 already calls encodeActionURL on url prior to
 			 * redirect while   PRP2 does not.
 			 */
-			extCtx.getRequestMap().put("modelPRP", testBean.getTestName());
+			externalContext.getRequestMap().put("modelPRP", testBean.getTestName());
 
 			return "redirectRenderPRP1Test";
 		}
@@ -5318,11 +5318,11 @@ public class Tests extends Object {
 						"/tests/RedirectTestResultRenderCheck.jsp");
 
 				try {
-					extCtx.redirect(extCtx.encodeActionURL(target));
+					externalContext.redirect(externalContext.encodeActionURL(target));
 				}
 				catch (Exception e) {
 					testBean.setTestComplete(true);
-					testBean.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
+					testBean.setTestResult(false, "Calling externalContext.redirect() threw an exception: " + e.getMessage());
 
 					return Constants.TEST_FAILED;
 				}
@@ -5333,9 +5333,9 @@ public class Tests extends Object {
 				testBean.setTestComplete(true);
 
 				// ensure that both the public render paramter and the model are there and have the same value
-				RenderRequest request = (RenderRequest) extCtx.getRequest();
+				RenderRequest request = (RenderRequest) externalContext.getRequest();
 				String[] prpArray = request.getPublicParameterMap().get("testPRP");
-				String modelPRP = (String) extCtx.getRequestMap().get("modelPRP");
+				String modelPRP = (String) externalContext.getRequestMap().get("modelPRP");
 
 				if (prpArray == null) {
 					testBean.setTestResult(false,
@@ -5364,14 +5364,14 @@ public class Tests extends Object {
 				}
 				else {
 					testBean.setTestResult(true,
-						"extCtx.redirect() during render worked correctly as we were redirected to the new view.");
+						"externalContext.redirect() during render worked correctly as we were redirected to the new view.");
 
 					return Constants.TEST_SUCCESS;
 				}
 			}
 			else {
 				testBean.setTestResult(false,
-					"extCtx.redirect() during render failed as we ended up in an unexpected view: " + viewId);
+					"externalContext.redirect() during render failed as we ended up in an unexpected view: " + viewId);
 
 				return Constants.TEST_FAILED;
 			}
@@ -5382,7 +5382,7 @@ public class Tests extends Object {
 	@BridgeTest(test = "redirectRenderPRP2Test")
 	public String redirectRenderPRP2Test(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
@@ -5394,7 +5394,7 @@ public class Tests extends Object {
 			 * Key difference between PRP1Test and PRP2Test is that PRP1 already calls encodeActionURL on url prior to
 			 * redirect while   PRP2 does not.
 			 */
-			extCtx.getRequestMap().put("modelPRP", testBean.getTestName());
+			externalContext.getRequestMap().put("modelPRP", testBean.getTestName());
 
 			return "redirectRenderPRP2Test";
 		}
@@ -5406,11 +5406,11 @@ public class Tests extends Object {
 						"/tests/RedirectTestResultRenderCheck.jsp");
 
 				try {
-					extCtx.redirect(target);
+					externalContext.redirect(target);
 				}
 				catch (Exception e) {
 					testBean.setTestComplete(true);
-					testBean.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
+					testBean.setTestResult(false, "Calling externalContext.redirect() threw an exception: " + e.getMessage());
 
 					return Constants.TEST_FAILED;
 				}
@@ -5421,9 +5421,9 @@ public class Tests extends Object {
 				testBean.setTestComplete(true);
 
 				// ensure that both the public render paramter and the model are there and have the same value
-				RenderRequest request = (RenderRequest) extCtx.getRequest();
+				RenderRequest request = (RenderRequest) externalContext.getRequest();
 				String[] prpArray = request.getPublicParameterMap().get("testPRP");
-				String modelPRP = (String) extCtx.getRequestMap().get("modelPRP");
+				String modelPRP = (String) externalContext.getRequestMap().get("modelPRP");
 
 				if (prpArray == null) {
 					testBean.setTestResult(false,
@@ -5452,14 +5452,14 @@ public class Tests extends Object {
 				}
 				else {
 					testBean.setTestResult(true,
-						"extCtx.redirect() during render worked correctly as we were redirected to the new view.");
+						"externalContext.redirect() during render worked correctly as we were redirected to the new view.");
 
 					return Constants.TEST_SUCCESS;
 				}
 			}
 			else {
 				testBean.setTestResult(false,
-					"extCtx.redirect() during render failed as we ended up in an unexpected view: " + viewId);
+					"externalContext.redirect() during render failed as we ended up in an unexpected view: " + viewId);
 
 				return Constants.TEST_FAILED;
 			}
@@ -5470,7 +5470,7 @@ public class Tests extends Object {
 	@BridgeTest(test = "redirectRenderTest")
 	public String redirectRenderTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		String viewId = ctx.getViewRoot().getViewId();
 
@@ -5479,11 +5479,11 @@ public class Tests extends Object {
 					"/tests/RedirectTestResultRenderCheck.jsp");
 
 			try {
-				extCtx.redirect(target);
+				externalContext.redirect(target);
 			}
 			catch (Exception e) {
 				testBean.setTestComplete(true);
-				testBean.setTestResult(false, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
+				testBean.setTestResult(false, "Calling externalContext.redirect() threw an exception: " + e.getMessage());
 
 				return Constants.TEST_FAILED;
 			}
@@ -5493,13 +5493,13 @@ public class Tests extends Object {
 		else if (viewId.equals("/tests/RedirectTestResultRenderCheck.jsp")) {
 			testBean.setTestComplete(true);
 			testBean.setTestResult(true,
-				"extCtx.redirect() during render worked correctly as we were redirected to the new view.");
+				"externalContext.redirect() during render worked correctly as we were redirected to the new view.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"extCtx.redirect() during render failed as we ended up in an unexpected view: " + viewId);
+				"externalContext.redirect() during render failed as we ended up in an unexpected view: " + viewId);
 
 			return Constants.TEST_FAILED;
 		}
@@ -5515,7 +5515,7 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// Test the following:
 		// 1. Map is mutable
@@ -5525,11 +5525,11 @@ public class Tests extends Object {
 		// 3. Remove in request -- gone from Map
 		// 4. Remove from Map -- gone in request
 
-		PortletRequest request = (PortletRequest) extCtx.getRequest();
-		Map<String, Object> extCtxRequestMap = extCtx.getRequestMap();
+		PortletRequest request = (PortletRequest) externalContext.getRequest();
+		Map<String, Object> externalContextRequestMap = externalContext.getRequestMap();
 
 		// ensure they start out identical
-		if (!containsIdenticalEntries(extCtxRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
+		if (!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
 			testBean.setTestResult(false,
 				"Failed: Portlet request attributes and the externalContext requestMap entries aren't identical.");
 
@@ -5538,7 +5538,7 @@ public class Tests extends Object {
 
 		// Test for mutability
 		try {
-			extCtxRequestMap.put("Test0Key", "Test0Value");
+			externalContextRequestMap.put("Test0Key", "Test0Value");
 			request.setAttribute("Test1Key", "Test1Value");
 		}
 		catch (Exception e) {
@@ -5550,10 +5550,10 @@ public class Tests extends Object {
 		}
 
 		// test that we can read an attribute set on the portlet request via this Map
-		// and vice-versa -- as we have just written an attribute on the extCtx and
+		// and vice-versa -- as we have just written an attribute on the externalContext and
 		// the test portlet wrote one on the portlet request -- the act of verifying
 		// the Maps contain the same keys/values should do the trick.
-		if (!containsIdenticalEntries(extCtxRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
+		if (!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
 			testBean.setTestResult(false,
 				"Failed: After setting an attribute on the portlet request and the externalContext requestMap they no longer contain identical entries.");
 
@@ -5561,10 +5561,10 @@ public class Tests extends Object {
 		}
 
 		// Now remove the attribute we put in the  -- do the remove on the opposite object
-		extCtxRequestMap.remove("Test1Key");
+		externalContextRequestMap.remove("Test1Key");
 		request.removeAttribute("Test0Key");
 
-		if (!containsIdenticalEntries(extCtxRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
+		if (!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) request.getAttributeNames(), request)) {
 			testBean.setTestResult(false,
 				"Failed: After removing an attribute on the portlet request and the externalContext requestMap they no longer contain identical entries.");
 
@@ -5591,7 +5591,7 @@ public class Tests extends Object {
 	@BridgeTest(test = "requestMapPreDestroyRemoveWithinActionTest")
 	public String requestMapPreDestroyRemoveWithinActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 		Application app = ctx.getApplication();
 
 		// This tests that we can encode a new mode in an actionURL
@@ -5601,7 +5601,7 @@ public class Tests extends Object {
 			// ensure the managed beans come into existence
 			Boolean isIn = (Boolean) app.evaluateExpressionGet(ctx, "#{predestroyBean1.inBridgeRequestScope}",
 					Object.class);
-			Map<String, Object> m = extCtx.getRequestMap();
+			Map<String, Object> m = externalContext.getRequestMap();
 			m.remove("predestroyBean1");
 
 			// Now verify that things worked correctly We expect that the beans were not added to the bridge scope (yet)
@@ -5661,8 +5661,8 @@ public class Tests extends Object {
 	@BridgeTest(test = "requestMapRequestScopeTest")
 	public String requestMapRequestScopeTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> m = extCtx.getRequestMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map<String, Object> m = externalContext.getRequestMap();
 
 		// Test a bunch of things:
 		// a) attrs added in action are there in render request
@@ -5678,7 +5678,7 @@ public class Tests extends Object {
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			m.put("myRequestObject", extCtx.getRequest()); // should be excluded because of value type
+			m.put("myRequestObject", externalContext.getRequest()); // should be excluded because of value type
 			m.put("myFacesContext", ctx); // should be excluded because of value type
 			m.put("javax.faces.myKey1", Boolean.TRUE); // should be excluded because its in exlcuded namespace
 			m.put("javax.faces.myNamespace.myKey1", Boolean.TRUE); // should be retained because excluded namespaces
@@ -5816,12 +5816,12 @@ public class Tests extends Object {
 		final String utf8 = "UTF-8";
 		final String utf16 = "UTF-16";
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			String s = extCtx.getRequestCharacterEncoding();
+			String s = externalContext.getRequestCharacterEncoding();
 			String testEncoding = null;
 
 			// A number of container have trouble with this test --
@@ -5831,13 +5831,13 @@ public class Tests extends Object {
 			// Anyway -- first try to get a reader -- then to read the parameters to
 			// be most accomodative
 			try {
-				BufferedReader b = ((ClientDataRequest) extCtx.getRequest()).getReader();
+				BufferedReader b = ((ClientDataRequest) externalContext.getRequest()).getReader();
 				int i = 0;
 			}
 			catch (Exception e) {
 
 				// container likely did the right thing -- but make sure by reading the parameters
-				Map m = ((PortletRequest) extCtx.getRequest()).getParameterMap();
+				Map m = ((PortletRequest) externalContext.getRequest()).getParameterMap();
 			}
 
 			if ((s == null) || ((s != null) && !s.equalsIgnoreCase(utf8))) {
@@ -5848,9 +5848,9 @@ public class Tests extends Object {
 			}
 
 			try {
-				extCtx.setRequestCharacterEncoding(testEncoding);
+				externalContext.setRequestCharacterEncoding(testEncoding);
 
-				String v = extCtx.getRequestCharacterEncoding();
+				String v = externalContext.getRequestCharacterEncoding();
 
 				if (((v == null) && (s == null)) || ((v != null) && (s != null) && v.equalsIgnoreCase(s))) {
 					testBean.setTestResult(true,
@@ -5890,11 +5890,11 @@ public class Tests extends Object {
 		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// Call setRequestCharacterEncoding -- fail if an exception is thrown
 		try {
-			extCtx.setRequestCharacterEncoding("UTF-8");
+			externalContext.setRequestCharacterEncoding("UTF-8");
 
 			// In portlet 1.0 there is no supprt for this -- so spec says ignore
 			testBean.setTestResult(true,

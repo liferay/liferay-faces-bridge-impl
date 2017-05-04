@@ -127,11 +127,11 @@ public class Tests extends Object {
 			"com.liferay.faces.bridge.tck.tests.chapter_5.section_5_3.Tests");
 		expectedInitParams.put("defaultRenderKitId", "HTML_BASIC");
 
-		ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
 		StringBuilder notFoundMsg = new StringBuilder();
 
-		boolean pass = checkAttrs(extCtx.getApplicationMap(), PARAM_NAMESPACE, expectedInitParams, notFoundMsg);
+		boolean pass = checkAttrs(externalContext.getApplicationMap(), PARAM_NAMESPACE, expectedInitParams, notFoundMsg);
 
 		if (notFoundMsg.length() != 0) {
 			notFoundMsg.append(".  ");

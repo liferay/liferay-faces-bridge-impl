@@ -48,14 +48,14 @@ public class Tests extends Object {
 
 	public String isAutoDispatchEventsTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event -- this ensures isAutoDispatchEvents will get called
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName("http://liferay.com/faces/event_ns", "faces.liferay.com.tck.testEvent"),
 				testBean.getTestName());
 
@@ -64,8 +64,8 @@ public class Tests extends Object {
 		else {
 			testBean.setTestComplete(true);
 
-			String failedMsg = (String) extCtx.getRequestMap().get("test.fail.");
-			String successMsg = (String) extCtx.getRequestMap().get("test.pass.");
+			String failedMsg = (String) externalContext.getRequestMap().get("test.fail.");
+			String successMsg = (String) externalContext.getRequestMap().get("test.pass.");
 
 			if (successMsg != null) {
 				testBean.setTestResult(true, successMsg);
