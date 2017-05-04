@@ -34,8 +34,8 @@ import javax.faces.render.RenderKit;
 public class TCK_FacesContextImpl extends FacesContext {
 	private FacesContext mWrapped;
 
-	public TCK_FacesContextImpl(FacesContext ctx) {
-		mWrapped = ctx;
+	public TCK_FacesContextImpl(FacesContext facesContext) {
+		mWrapped = facesContext;
 
 		FacesContext.setCurrentInstance(this);
 	}

@@ -38,14 +38,14 @@ public class Tests extends Object {
 	// Test #6.92
 	@BridgeTest(test = "portletNamingContainerClientIdConsistentTest")
 	public String portletNamingContainerClientIdConsistentTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
-		UIViewRoot viewRoot = ctx.getViewRoot();
-		String clientId = viewRoot.getContainerClientId(ctx);
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		UIViewRoot viewRoot = facesContext.getViewRoot();
+		String clientId = viewRoot.getContainerClientId(facesContext);
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			externalContext.getRequestMap().put("com.liferay.faces.bridge.tck.clientIdInAction", clientId);
 
 			return "portletNamingContainerClientIdConsistentTest"; // action Navigation result
@@ -56,7 +56,7 @@ public class Tests extends Object {
 			// Values set by portlet at end of action
 			String clientIdInAction = (String) externalContext.getRequestMap().get(
 					"com.liferay.faces.bridge.tck.clientIdInAction");
-			String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
+			String namespace = ((MimeResponse) facesContext.getExternalContext().getResponse()).getNamespace();
 
 			if (clientId.indexOf(namespace) < 0) {
 				testBean.setTestResult(false,
@@ -85,15 +85,15 @@ public class Tests extends Object {
 	// Test #6.91
 	@BridgeTest(test = "portletNamingContainerClientIdTest")
 	public String portletNamingContainerClientIdTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		UIViewRoot viewRoot = ctx.getViewRoot();
-		String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		UIViewRoot viewRoot = facesContext.getViewRoot();
+		String namespace = ((MimeResponse) facesContext.getExternalContext().getResponse()).getNamespace();
 
 		testBean.setTestComplete(true);
 
 		if (viewRoot.getClass().getAnnotation(PortletNamingContainer.class) != null) {
 
-			if (viewRoot.getContainerClientId(ctx).indexOf(namespace) >= 0) {
+			if (viewRoot.getContainerClientId(facesContext).indexOf(namespace) >= 0) {
 				testBean.setTestResult(true, "UIViewRoot getClientContainerId includes the portlet namespace id.");
 
 				return Constants.TEST_SUCCESS;
@@ -117,8 +117,8 @@ public class Tests extends Object {
 	// Test #6.96
 	@BridgeTest(test = "portletNamingContainerUIViewRootClientIdTest")
 	public String portletNamingContainerUIViewRootClientIdTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		String namespace = ((MimeResponse) facesContext.getExternalContext().getResponse()).getNamespace();
 
 		testBean.setTestComplete(true);
 
@@ -128,7 +128,7 @@ public class Tests extends Object {
 			// ensure it has an id
 			vr.setId("nc");
 
-			if (vr.getContainerClientId(ctx).indexOf(namespace) >= 0) {
+			if (vr.getContainerClientId(facesContext).indexOf(namespace) >= 0) {
 
 				testBean.setTestResult(true,
 					"class PortletNamingContainerUIViewRoot correctly encodes portlet namespace id in the result from getContainerClientId");
@@ -138,7 +138,7 @@ public class Tests extends Object {
 			else {
 				testBean.setTestResult(false,
 					"class PortletNamingContainerUIViewRoot doesn't encodes portlet namespace id in the result from getContainerClientId. namespaceId: " +
-					namespace + " getContainerClientId returned: " + vr.getContainerClientId(ctx));
+					namespace + " getContainerClientId returned: " + vr.getContainerClientId(facesContext));
 
 				return Constants.TEST_FAILED;
 			}
