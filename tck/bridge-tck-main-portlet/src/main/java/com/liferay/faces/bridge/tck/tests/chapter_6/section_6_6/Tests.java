@@ -25,7 +25,7 @@ import javax.portlet.faces.annotation.PortletNamingContainer;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -37,7 +37,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Action/Render
 	// Test #6.92
 	@BridgeTest(test = "portletNamingContainerClientIdConsistentTest")
-	public String portletNamingContainerClientIdConsistentTest(TestRunnerBean testRunner) {
+	public String portletNamingContainerClientIdConsistentTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		UIViewRoot viewRoot = ctx.getViewRoot();
@@ -84,7 +84,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.91
 	@BridgeTest(test = "portletNamingContainerClientIdTest")
-	public String portletNamingContainerClientIdTest(TestRunnerBean testRunner) {
+	public String portletNamingContainerClientIdTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		UIViewRoot viewRoot = ctx.getViewRoot();
 		String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
@@ -116,7 +116,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.96
 	@BridgeTest(test = "portletNamingContainerUIViewRootClientIdTest")
-	public String portletNamingContainerUIViewRootClientIdTest(TestRunnerBean testRunner) {
+	public String portletNamingContainerUIViewRootClientIdTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
 
@@ -155,7 +155,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.94
 	@BridgeTest(test = "portletNamingContainerUIViewRootTest")
-	public String portletNamingContainerUIViewRootTest(TestRunnerBean testRunner) {
+	public String portletNamingContainerUIViewRootTest(TestBean testRunner) {
 
 		testRunner.setTestComplete(true);
 

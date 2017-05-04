@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * @author  Michael Freedman
  */
-public class TestRunnerBean extends Object {
+public class TestBean extends Object {
 
 	// The portlet's name is testGroup-testName-portlet.  For example encodeActionURL_absoluteURLTest-portlet.
 	// testGroup corresponds to the managedBean name that holds the object containing the test.
@@ -47,7 +47,7 @@ public class TestRunnerBean extends Object {
 	private Method mTestMethod;
 	private Method mTestActionListener;
 
-	public TestRunnerBean() {
+	public TestBean() {
 
 		// Get the Test information from the request (attributes)
 		// Placed into the request by the GenericFacesTestSuitePortlet
@@ -310,7 +310,7 @@ public class TestRunnerBean extends Object {
 		}
 		else {
 			setTestResult(false,
-				"Test failed: unable to determine test method to call.  Is the portletName properly encoded?  Syntax: testBean-testMethodName-portlet");
+				"Test failed: unable to determine test method to call.  Is the portletName properly encoded?  Syntax: TestBean-testMethodName-portlet");
 
 			return Constants.TEST_FAILED;
 		}

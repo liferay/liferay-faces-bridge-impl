@@ -19,7 +19,7 @@ package com.liferay.faces.bridge.tck.common;
  * @author  Michael Freedman
  */
 public class Constants extends Object {
-	public static final String TEST_BEAN_NAME = "com.liferay.faces.bridge.tck.common.testBean";
+	public static final String TEST_BEAN_NAME = "com.liferay.faces.bridge.tck.common.TestBean";
 	public static final String TEST_NAME = "com.liferay.faces.bridge.tck.common.testName";
 	public static final String PORTLET_CONFIG = "com.liferay.faces.bridge.tck.common.portletConfig";
 	public static final String TEST_FAILED = "FAILED";

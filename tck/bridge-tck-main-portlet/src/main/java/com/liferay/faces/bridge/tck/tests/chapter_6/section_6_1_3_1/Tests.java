@@ -37,7 +37,6 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.ResourceURL;
@@ -50,7 +49,7 @@ import javax.portlet.filter.RenderRequestWrapper;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 import com.liferay.faces.bridge.tck.common.util.HTTPUtils;
 
@@ -66,7 +65,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.3
 	@BridgeTest(test = "dispatchUsesForwardTest")
-	public String dispatchUsesForwardTest(TestRunnerBean testRunner) {
+	public String dispatchUsesForwardTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		// Some servlet containers wrap their request/response before invoking the dispatched servlet +
@@ -102,7 +101,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.5
 	@BridgeTest(test = "encodeActionURLAbsoluteURLTest")
-	public String encodeActionURLAbsoluteURLTest(TestRunnerBean testRunner) {
+	public String encodeActionURLAbsoluteURLTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String ABSOLUTEURL_TEST_STRING = "http://www.apache.org";
@@ -128,7 +127,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.7
 	@BridgeTest(test = "encodeActionURLDirectLinkFalseTest")
-	public String encodeActionURLDirectLinkFalseTest(TestRunnerBean testRunner) {
+	public String encodeActionURLDirectLinkFalseTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String DIRECTLINK_FALSE_TEST_STRING =
@@ -158,7 +157,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.6
 	@BridgeTest(test = "encodeActionURLDirectLinkTrueTest")
-	public String encodeActionURLDirectLinkTrueTest(TestRunnerBean testRunner) {
+	public String encodeActionURLDirectLinkTrueTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String DIRECTLINK_TRUE_TEST_STRING =
@@ -192,7 +191,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.10
 	@BridgeTest(test = "encodeActionURLJSFViewActionTest")
-	public String encodeActionURLJSFViewActionTest(TestRunnerBean testRunner) {
+	public String encodeActionURLJSFViewActionTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -210,7 +209,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.103
 	@BridgeTest(test = "encodeActionURLJSFViewEventTest")
-	public String encodeActionURLJSFViewEventTest(TestRunnerBean testRunner) {
+	public String encodeActionURLJSFViewEventTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -236,7 +235,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.18
 	@BridgeTest(test = "encodeActionURLJSFViewRenderTest")
-	public String encodeActionURLJSFViewRenderTest(TestRunnerBean testRunner) {
+	public String encodeActionURLJSFViewRenderTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -255,7 +254,7 @@ public class Tests extends Object {
 	// Test Single Render followed by resource request
 	// Test #6.111
 	@BridgeTest(test = "encodeActionURLJSFViewResourceTest")
-	public String encodeActionURLJSFViewResourceTest(TestRunnerBean testRunner) {
+	public String encodeActionURLJSFViewResourceTest(TestBean testRunner) {
 
 		// Somewhat of a weird test -- we can't test this directly in that there isn't a way to encode an JSF view
 		// actionURL into the response of the resource and have it clicked on.  We also can't generate such an url and
@@ -324,7 +323,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.9
 	@BridgeTest(test = "encodeActionURLPortletActionTest")
-	public String encodeActionURLPortletActionTest(TestRunnerBean testRunner) {
+	public String encodeActionURLPortletActionTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String PORTLET_ACTION_TEST_STRING = "portlet:action?param1=value1&param2=value2";
@@ -379,7 +378,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.8
 	@BridgeTest(test = "encodeActionURLPortletRenderTest")
-	public String encodeActionURLPortletRenderTest(TestRunnerBean testRunner) {
+	public String encodeActionURLPortletRenderTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String PORTLET_RENDER_TEST_STRING = "portlet:render?param1=value1&param2=value2";
@@ -434,7 +433,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.102
 	@BridgeTest(test = "encodeActionURLPortletResourceTest")
-	public String encodeActionURLPortletResourceTest(TestRunnerBean testRunner) {
+	public String encodeActionURLPortletResourceTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String PORTLET_RENDER_TEST_STRING =
@@ -492,7 +491,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.4
 	@BridgeTest(test = "encodeActionURLPoundCharTest")
-	public String encodeActionURLPoundCharTest(TestRunnerBean testRunner) {
+	public String encodeActionURLPoundCharTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String POUNDCHAR_TEST_STRING = "#AnchorReference";
@@ -518,7 +517,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.12
 	@BridgeTest(test = "encodeActionURLWithInvalidModeActionTest")
-	public String encodeActionURLWithInvalidModeActionTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidModeActionTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -569,7 +568,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.105
 	@BridgeTest(test = "encodeActionURLWithInvalidModeEventTest")
-	public String encodeActionURLWithInvalidModeEventTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidModeEventTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -626,7 +625,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.20
 	@BridgeTest(test = "encodeActionURLWithInvalidModeRenderTest")
-	public String encodeActionURLWithInvalidModeRenderTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidModeRenderTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -675,7 +674,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.113
 	@BridgeTest(test = "encodeActionURLWithInvalidModeResourceTest")
-	public String encodeActionURLWithInvalidModeResourceTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidModeResourceTest(TestBean testRunner) {
 
 		// Somewhat of a weird test -- we can't test this directly in that there isn't a way to encode an JSF view
 		// actionURL into the response of the resource and have it clicked on.  We also can't generate such an url and
@@ -746,7 +745,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.16
 	@BridgeTest(test = "encodeActionURLWithInvalidSecurityActionTest")
-	public String encodeActionURLWithInvalidSecurityActionTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidSecurityActionTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -795,7 +794,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.109
 	@BridgeTest(test = "encodeActionURLWithInvalidSecurityEventTest")
-	public String encodeActionURLWithInvalidSecurityEventTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidSecurityEventTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -850,7 +849,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.24
 	@BridgeTest(test = "encodeActionURLWithInvalidSecurityRenderTest")
-	public String encodeActionURLWithInvalidSecurityRenderTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidSecurityRenderTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -902,7 +901,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.117
 	@BridgeTest(test = "encodeActionURLWithInvalidSecurityResourceTest")
-	public String encodeActionURLWithInvalidSecurityResourceTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidSecurityResourceTest(TestBean testRunner) {
 
 		// Somewhat of a weird test -- we can't test this directly in that there isn't a way to encode an JSF view
 		// actionURL into the response of the resource and have it clicked on.  We also can't generate such an url and
@@ -973,7 +972,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.14
 	@BridgeTest(test = "encodeActionURLWithInvalidWindowStateActionTest")
-	public String encodeActionURLWithInvalidWindowStateActionTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidWindowStateActionTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -1024,7 +1023,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.107
 	@BridgeTest(test = "encodeActionURLWithInvalidWindowStateEventTest")
-	public String encodeActionURLWithInvalidWindowStateEventTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidWindowStateEventTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -1081,7 +1080,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.22
 	@BridgeTest(test = "encodeActionURLWithInvalidWindowStateRenderTest")
-	public String encodeActionURLWithInvalidWindowStateRenderTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidWindowStateRenderTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -1130,7 +1129,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.115
 	@BridgeTest(test = "encodeActionURLWithInvalidWindowStateResourceTest")
-	public String encodeActionURLWithInvalidWindowStateResourceTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithInvalidWindowStateResourceTest(TestBean testRunner) {
 
 		// Somewhat of a weird test -- we can't test this directly in that there isn't a way to encode an JSF view
 		// actionURL into the response of the resource and have it clicked on.  We also can't generate such an url and
@@ -1201,7 +1200,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.11
 	@BridgeTest(test = "encodeActionURLWithModeActionTest")
-	public String encodeActionURLWithModeActionTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithModeActionTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -1252,7 +1251,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.104
 	@BridgeTest(test = "encodeActionURLWithModeEventTest")
-	public String encodeActionURLWithModeEventTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithModeEventTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -1309,7 +1308,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.19
 	@BridgeTest(test = "encodeActionURLWithModeRenderTest")
-	public String encodeActionURLWithModeRenderTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithModeRenderTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -1364,7 +1363,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.112
 	@BridgeTest(test = "encodeActionURLWithModeResourceTest")
-	public String encodeActionURLWithModeResourceTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithModeResourceTest(TestBean testRunner) {
 
 		// Somewhat of a weird test -- we can't test this directly in that there isn't a way to encode an JSF view
 		// actionURL into the response of the resource and have it clicked on.  We also can't generate such an url and
@@ -1435,7 +1434,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.17
 	@BridgeTest(test = "encodeActionURLWithParamActionTest")
-	public String encodeActionURLWithParamActionTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithParamActionTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -1476,7 +1475,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.110
 	@BridgeTest(test = "encodeActionURLWithParamEventTest")
-	public String encodeActionURLWithParamEventTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithParamEventTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -1522,7 +1521,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.25
 	@BridgeTest(test = "encodeActionURLWithParamRenderTest")
-	public String encodeActionURLWithParamRenderTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithParamRenderTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -1567,7 +1566,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.118
 	@BridgeTest(test = "encodeActionURLWithParamResourceTest")
-	public String encodeActionURLWithParamResourceTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithParamResourceTest(TestBean testRunner) {
 
 		// Somewhat of a weird test -- we can't test this directly in that there isn't a way to encode an JSF view
 		// actionURL into the response of the resource and have it clicked on.  We also can't generate such an url and
@@ -1638,7 +1637,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.15
 	@BridgeTest(test = "encodeActionURLWithSecurityActionTest")
-	public String encodeActionURLWithSecurityActionTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithSecurityActionTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -1687,7 +1686,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.108
 	@BridgeTest(test = "encodeActionURLWithSecurityEventTest")
-	public String encodeActionURLWithSecurityEventTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithSecurityEventTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -1742,7 +1741,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.23
 	@BridgeTest(test = "encodeActionURLWithSecurityRenderTest")
-	public String encodeActionURLWithSecurityRenderTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithSecurityRenderTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -1788,7 +1787,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.116
 	@BridgeTest(test = "encodeActionURLWithSecurityResourceTest")
-	public String encodeActionURLWithSecurityResourceTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithSecurityResourceTest(TestBean testRunner) {
 
 		// Somewhat of a weird test -- we can't test this directly in that there isn't a way to encode an JSF view
 		// actionURL into the response of the resource and have it clicked on.  We also can't generate such an url and
@@ -1859,7 +1858,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.13
 	@BridgeTest(test = "encodeActionURLWithWindowStateActionTest")
-	public String encodeActionURLWithWindowStateActionTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithWindowStateActionTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -1910,7 +1909,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.106
 	@BridgeTest(test = "encodeActionURLWithWindowStateEventTest")
-	public String encodeActionURLWithWindowStateEventTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithWindowStateEventTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -1967,7 +1966,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.21
 	@BridgeTest(test = "encodeActionURLWithWindowStateRenderTest")
-	public String encodeActionURLWithWindowStateRenderTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithWindowStateRenderTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -2016,7 +2015,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.114
 	@BridgeTest(test = "encodeActionURLWithWindowStateResourceTest")
-	public String encodeActionURLWithWindowStateResourceTest(TestRunnerBean testRunner) {
+	public String encodeActionURLWithWindowStateResourceTest(TestBean testRunner) {
 
 		// Somewhat of a weird test -- we can't test this directly in that there isn't a way to encode an JSF view
 		// actionURL into the response of the resource and have it clicked on.  We also can't generate such an url and
@@ -2087,7 +2086,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.32
 	@BridgeTest(test = "encodeResourceURLBackLinkTest")
-	public String encodeResourceURLBackLinkTest(TestRunnerBean testRunner) {
+	public String encodeResourceURLBackLinkTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String URL_BACKLINK_TEST_STRING = "/resources/myImage.jpg?javax.portlet.faces.BackLink=myBackLinkParam";
@@ -2131,7 +2130,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.27
 	@BridgeTest(test = "encodeResourceURLForeignExternalURLBackLinkTest")
-	public String encodeResourceURLForeignExternalURLBackLinkTest(TestRunnerBean testRunner) {
+	public String encodeResourceURLForeignExternalURLBackLinkTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String FOREIGNEXTERNALURL_BACKLINK_TEST_STRING =
@@ -2176,7 +2175,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.28
 	@BridgeTest(test = "encodeResourceURLForeignExternalURLTest")
-	public String encodeResourceURLForeignExternalURLTest(TestRunnerBean testRunner) {
+	public String encodeResourceURLForeignExternalURLTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String FOREIGNEXTERNALURL_TEST_STRING = "http://www.apache.org";
@@ -2206,7 +2205,7 @@ public class Tests extends Object {
 	 * encodeResourceURLTests
 	 */
 	@BridgeTest(test = "encodeResourceURLOpaqueTest")
-	public String encodeResourceURLOpaqueTest(TestRunnerBean testRunner) {
+	public String encodeResourceURLOpaqueTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String OPAQUE_TEST_STRING = "mailto:jsr-301-comments@jcp.org";
@@ -2232,7 +2231,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.30
 	@BridgeTest(test = "encodeResourceURLRelativeURLBackLinkTest")
-	public String encodeResourceURLRelativeURLBackLinkTest(TestRunnerBean testRunner) {
+	public String encodeResourceURLRelativeURLBackLinkTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String RELATIVEURL_BACKLINK_TEST_STRING =
@@ -2277,7 +2276,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.29
 	@BridgeTest(test = "encodeResourceURLRelativeURLTest")
-	public String encodeResourceURLRelativeURLTest(TestRunnerBean testRunner) {
+	public String encodeResourceURLRelativeURLTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String RELATIVEURL_TEST_STRING = "../resources/myImage.jpg";
@@ -2307,7 +2306,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.31
 	@BridgeTest(test = "encodeResourceURLTest")
-	public String encodeResourceURLTest(TestRunnerBean testRunner) {
+	public String encodeResourceURLTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String URL_TEST_STRING = "/myportal/resources/myImage.jpg";
@@ -2335,7 +2334,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.33
 	@BridgeTest(test = "encodeResourceURLViewLinkTest")
-	public String encodeResourceURLViewLinkTest(TestRunnerBean testRunner) {
+	public String encodeResourceURLViewLinkTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		// assume web.xml does Faces suffix mapping of .jsf to .jsp
@@ -2367,7 +2366,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render only
 	// Test #6.34
 	@BridgeTest(test = "encodeResourceURLViewLinkWithBackLinkTest")
-	public String encodeResourceURLViewLinkWithBackLinkTest(TestRunnerBean testRunner) {
+	public String encodeResourceURLViewLinkWithBackLinkTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		final String URL_VIEWLINK_BACKLINK_TEST_STRING =
@@ -2412,7 +2411,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.136
 	@BridgeTest(test = "encodeResourceURLWithModeTest")
-	public String encodeResourceURLWithModeTest(TestRunnerBean testRunner) {
+	public String encodeResourceURLWithModeTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -2461,7 +2460,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.136 (b)
 	@BridgeTest(test = "encodeResourceURLWithWindowStateTest")
-	public String encodeResourceURLWithWindowStateTest(TestRunnerBean testRunner) {
+	public String encodeResourceURLWithWindowStateTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -2511,7 +2510,7 @@ public class Tests extends Object {
 	// queryString are exposed as request parameters.
 	// Test #6.99
 	@BridgeTest(test = "encodeURLEscapingTest")
-	public String encodeURLEscapingTest(TestRunnerBean testRunner) {
+	public String encodeURLEscapingTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -2594,7 +2593,7 @@ public class Tests extends Object {
 
 	// Test #6.57
 	@BridgeTest(test = "getRequestCharacterEncodingActionTest")
-	public String getRequestCharacterEncodingActionTest(TestRunnerBean testRunner) {
+	public String getRequestCharacterEncodingActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -2632,7 +2631,7 @@ public class Tests extends Object {
 	// Test is MultiRequest
 	// Test #6.124
 	@BridgeTest(test = "getRequestCharacterEncodingEventTest")
-	public String getRequestCharacterEncodingEventTest(TestRunnerBean testRunner) {
+	public String getRequestCharacterEncodingEventTest(TestBean testRunner) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -2680,7 +2679,7 @@ public class Tests extends Object {
 	// queryString are exposed as request parameters.
 	// Test #6.56
 	@BridgeTest(test = "getRequestCharacterEncodingRenderTest")
-	public String getRequestCharacterEncodingRenderTest(TestRunnerBean testRunner) {
+	public String getRequestCharacterEncodingRenderTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -2705,7 +2704,7 @@ public class Tests extends Object {
 
 	// Test #6.123
 	@BridgeTest(test = "getRequestCharacterEncodingResourceTest")
-	public String getRequestCharacterEncodingResourceTest(TestRunnerBean testRunner) {
+	public String getRequestCharacterEncodingResourceTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -2743,7 +2742,7 @@ public class Tests extends Object {
 
 	// Test #6.59
 	@BridgeTest(test = "getRequestContentTypeActionTest")
-	public String getRequestContentTypeActionTest(TestRunnerBean testRunner) {
+	public String getRequestContentTypeActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -2781,7 +2780,7 @@ public class Tests extends Object {
 	// Test is MultiRequest
 	// Test #6.126
 	@BridgeTest(test = "getRequestContentTypeEventTest")
-	public String getRequestContentTypeEventTest(TestRunnerBean testRunner) {
+	public String getRequestContentTypeEventTest(TestBean testRunner) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -2827,7 +2826,7 @@ public class Tests extends Object {
 
 	// Test #6.58
 	@BridgeTest(test = "getRequestContentTypeRenderTest")
-	public String getRequestContentTypeRenderTest(TestRunnerBean testRunner) {
+	public String getRequestContentTypeRenderTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -2852,7 +2851,7 @@ public class Tests extends Object {
 
 	// Test #6.125
 	@BridgeTest(test = "getRequestContentTypeResourceTest")
-	public String getRequestContentTypeResourceTest(TestRunnerBean testRunner) {
+	public String getRequestContentTypeResourceTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -2895,7 +2894,7 @@ public class Tests extends Object {
 	// before calling the portlet.
 	// Test #6.39
 	@BridgeTest(test = "getRequestHeaderMapActionTest")
-	public String getRequestHeaderMapActionTest(TestRunnerBean testRunner) {
+	public String getRequestHeaderMapActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -3040,7 +3039,7 @@ public class Tests extends Object {
 	// Test is MultiRequest
 	// Test #6.119
 	@BridgeTest(test = "getRequestHeaderMapEventTest")
-	public String getRequestHeaderMapEventTest(TestRunnerBean testRunner) {
+	public String getRequestHeaderMapEventTest(TestBean testRunner) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -3101,7 +3100,7 @@ public class Tests extends Object {
 	 * getRequestHeaderMap Tests
 	 */
 	@BridgeTest(test = "getRequestHeaderMapRenderTest")
-	public String getRequestHeaderMapRenderTest(TestRunnerBean testRunner) {
+	public String getRequestHeaderMapRenderTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -3251,7 +3250,7 @@ public class Tests extends Object {
 	// before calling the portlet.
 	// Test #6.120
 	@BridgeTest(test = "getRequestHeaderMapResourceTest")
-	public String getRequestHeaderMapResourceTest(TestRunnerBean testRunner) {
+	public String getRequestHeaderMapResourceTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -3419,7 +3418,7 @@ public class Tests extends Object {
 	// before calling the portlet.
 	// Test #6.41
 	@BridgeTest(test = "getRequestHeaderValuesMapActionTest")
-	public String getRequestHeaderValuesMapActionTest(TestRunnerBean testRunner) {
+	public String getRequestHeaderValuesMapActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -3591,7 +3590,7 @@ public class Tests extends Object {
 	// Test is MultiRequest
 	// Test #6.119
 	@BridgeTest(test = "getRequestHeaderValuesMapEventTest")
-	public String getRequestHeaderValuesMapEventTest(TestRunnerBean testRunner) {
+	public String getRequestHeaderValuesMapEventTest(TestBean testRunner) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -3652,7 +3651,7 @@ public class Tests extends Object {
 	 * getRequestHeaderValuesMap Tests
 	 */
 	@BridgeTest(test = "getRequestHeaderValuesMapRenderTest")
-	public String getRequestHeaderValuesMapRenderTest(TestRunnerBean testRunner) {
+	public String getRequestHeaderValuesMapRenderTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -3838,7 +3837,7 @@ public class Tests extends Object {
 	// before calling the portlet.
 	// Test #6.122
 	@BridgeTest(test = "getRequestHeaderValuesMapResourceTest")
-	public String getRequestHeaderValuesMapResourceTest(TestRunnerBean testRunner) {
+	public String getRequestHeaderValuesMapResourceTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -4028,7 +4027,7 @@ public class Tests extends Object {
 	// queryString are exposed as request parameters.
 	// Test #6.47
 	@BridgeTest(test = "getRequestParameterDefaultViewParamsTest")
-	public String getRequestParameterDefaultViewParamsTest(TestRunnerBean testRunner) {
+	public String getRequestParameterDefaultViewParamsTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -4084,7 +4083,7 @@ public class Tests extends Object {
 	 * getRequestParameterMap Tests
 	 */
 	@BridgeTest(test = "getRequestParameterMapCoreTest")
-	public String getRequestParameterMapCoreTest(TestRunnerBean testRunner) {
+	public String getRequestParameterMapCoreTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -4220,7 +4219,7 @@ public class Tests extends Object {
 	 */
 	// Test #6.48
 	@BridgeTest(test = "getRequestParameterNamesCoreTest")
-	public String getRequestParameterNamesCoreTest(TestRunnerBean testRunner) {
+	public String getRequestParameterNamesCoreTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -4340,7 +4339,7 @@ public class Tests extends Object {
 	// queryString are exposed as request parameters.
 	// Test #6.50
 	@BridgeTest(test = "getRequestParameterNamesDefaultViewParamsTest")
-	public String getRequestParameterNamesDefaultViewParamsTest(TestRunnerBean testRunner) {
+	public String getRequestParameterNamesDefaultViewParamsTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -4387,7 +4386,7 @@ public class Tests extends Object {
 	// the Render if the config value is set.
 	// Test #6.49
 	@BridgeTest(test = "getRequestParameterNamesPreserveParamsTest")
-	public String getRequestParameterNamesPreserveParamsTest(TestRunnerBean testRunner) {
+	public String getRequestParameterNamesPreserveParamsTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -4440,7 +4439,7 @@ public class Tests extends Object {
 	// the Render if the config value is set.
 	// Test #6.46
 	@BridgeTest(test = "getRequestParameterPreserveParamsTest")
-	public String getRequestParameterPreserveParamsTest(TestRunnerBean testRunner) {
+	public String getRequestParameterPreserveParamsTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -4502,7 +4501,7 @@ public class Tests extends Object {
 	 * getRequestParameterValuesMap Tests
 	 */
 	@BridgeTest(test = "getRequestParameterValuesMapCoreTest")
-	public String getRequestParameterValuesMapCoreTest(TestRunnerBean testRunner) {
+	public String getRequestParameterValuesMapCoreTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -4639,7 +4638,7 @@ public class Tests extends Object {
 	// queryString are exposed as request parameters.
 	// Test #6.53
 	@BridgeTest(test = "getRequestParameterValuesMapDefaultViewParamsTest")
-	public String getRequestParameterValuesMapDefaultViewParamsTest(TestRunnerBean testRunner) {
+	public String getRequestParameterValuesMapDefaultViewParamsTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -4688,7 +4687,7 @@ public class Tests extends Object {
 	// the Render if the config value is set.
 	// Test #6.52
 	@BridgeTest(test = "getRequestParameterValuesMapPreserveParamsTest")
-	public String getRequestParameterValuesMapPreserveParamsTest(TestRunnerBean testRunner) {
+	public String getRequestParameterValuesMapPreserveParamsTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -4742,7 +4741,7 @@ public class Tests extends Object {
 	// queryString are exposed as request parameters.
 	// Test #6.54
 	@BridgeTest(test = "getRequestPathInfoTest")
-	public String getRequestPathInfoTest(TestRunnerBean testRunner) {
+	public String getRequestPathInfoTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -4770,7 +4769,7 @@ public class Tests extends Object {
 	// queryString are exposed as request parameters.
 	// Test #6.55
 	@BridgeTest(test = "getRequestServletPathTest")
-	public String getRequestServletPathTest(TestRunnerBean testRunner) {
+	public String getRequestServletPathTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -4802,7 +4801,7 @@ public class Tests extends Object {
 
 	// Test #6.61
 	@BridgeTest(test = "getResponseCharacterEncodingActionTest")
-	public String getResponseCharacterEncodingActionTest(TestRunnerBean testRunner) {
+	public String getResponseCharacterEncodingActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -4836,7 +4835,7 @@ public class Tests extends Object {
 	// Test is MultiRequest
 	// Test #6.126
 	@BridgeTest(test = "getResponseCharacterEncodingEventTest")
-	public String getResponseCharacterEncodingEventTest(TestRunnerBean testRunner) {
+	public String getResponseCharacterEncodingEventTest(TestBean testRunner) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -4884,7 +4883,7 @@ public class Tests extends Object {
 	// queryString are exposed as request parameters.
 	// Test #6.60
 	@BridgeTest(test = "getResponseCharacterEncodingRenderTest")
-	public String getResponseCharacterEncodingRenderTest(TestRunnerBean testRunner) {
+	public String getResponseCharacterEncodingRenderTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -4911,7 +4910,7 @@ public class Tests extends Object {
 
 	// Test #6.127
 	@BridgeTest(test = "getResponseCharacterEncodingResourceTest")
-	public String getResponseCharacterEncodingResourceTest(TestRunnerBean testRunner) {
+	public String getResponseCharacterEncodingResourceTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -4949,7 +4948,7 @@ public class Tests extends Object {
 
 	// Test #6.63
 	@BridgeTest(test = "getResponseContentTypeActionTest")
-	public String getResponseContentTypeActionTest(TestRunnerBean testRunner) {
+	public String getResponseContentTypeActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -4983,7 +4982,7 @@ public class Tests extends Object {
 	// Test is MultiRequest
 	// Test #6.130
 	@BridgeTest(test = "getResponseContentTypeEventTest")
-	public String getResponseContentTypeEventTest(TestRunnerBean testRunner) {
+	public String getResponseContentTypeEventTest(TestBean testRunner) {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -5029,7 +5028,7 @@ public class Tests extends Object {
 
 	// Test #6.62
 	@BridgeTest(test = "getResponseContentTypeRenderTest")
-	public String getResponseContentTypeRenderTest(TestRunnerBean testRunner) {
+	public String getResponseContentTypeRenderTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -5055,7 +5054,7 @@ public class Tests extends Object {
 
 	// Test #6.129
 	@BridgeTest(test = "getResponseContentTypeResourceTest")
-	public String getResponseContentTypeResourceTest(TestRunnerBean testRunner) {
+	public String getResponseContentTypeResourceTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -5093,7 +5092,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- tests both setting request in action and render
 	// Test #6.35
 	@BridgeTest(test = "getSetRequestObjectTest")
-	public String getSetRequestObjectTest(TestRunnerBean testRunner) {
+	public String getSetRequestObjectTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -5142,7 +5141,7 @@ public class Tests extends Object {
 
 	// Test #6.66
 	@BridgeTest(test = "illegalRedirectRenderTest")
-	public String illegalRedirectRenderTest(TestRunnerBean testRunner) {
+	public String illegalRedirectRenderTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -5183,7 +5182,7 @@ public class Tests extends Object {
 
 	// Test #6.64
 	@BridgeTest(test = "redirectActionTest")
-	public String redirectActionTest(TestRunnerBean testRunner) {
+	public String redirectActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -5248,7 +5247,7 @@ public class Tests extends Object {
 
 	// Test #6.131
 	@BridgeTest(test = "redirectEventTest")
-	public String redirectEventTest(TestRunnerBean testRunner) {
+	public String redirectEventTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -5303,7 +5302,7 @@ public class Tests extends Object {
 
 	// Test #6.65
 	@BridgeTest(test = "redirectRenderPRP1Test")
-	public String redirectRenderPRP1Test(TestRunnerBean testRunner) {
+	public String redirectRenderPRP1Test(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -5391,7 +5390,7 @@ public class Tests extends Object {
 
 	// Test #6.65
 	@BridgeTest(test = "redirectRenderPRP2Test")
-	public String redirectRenderPRP2Test(TestRunnerBean testRunner) {
+	public String redirectRenderPRP2Test(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -5479,7 +5478,7 @@ public class Tests extends Object {
 
 	// Test #6.65
 	@BridgeTest(test = "redirectRenderTest")
-	public String redirectRenderTest(TestRunnerBean testRunner) {
+	public String redirectRenderTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -5522,7 +5521,7 @@ public class Tests extends Object {
 	 * getRequestMap Tests
 	 */
 	@BridgeTest(test = "requestMapCoreTest")
-	public String requestMapCoreTest(TestRunnerBean testRunner) {
+	public String requestMapCoreTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -5600,7 +5599,7 @@ public class Tests extends Object {
 
 	// Test #6.44
 	@BridgeTest(test = "requestMapPreDestroyRemoveWithinActionTest")
-	public String requestMapPreDestroyRemoveWithinActionTest(TestRunnerBean testRunner) {
+	public String requestMapPreDestroyRemoveWithinActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Application app = ctx.getApplication();
@@ -5670,7 +5669,7 @@ public class Tests extends Object {
 	// Test is MultiRequest --
 	// Test #6.43
 	@BridgeTest(test = "requestMapRequestScopeTest")
-	public String requestMapRequestScopeTest(TestRunnerBean testRunner) {
+	public String requestMapRequestScopeTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> m = extCtx.getRequestMap();
@@ -5823,7 +5822,7 @@ public class Tests extends Object {
 	// before calling the portlet.
 	// Test #6.37
 	@BridgeTest(test = "setRequestCharacterEncodingActionTest")
-	public String setRequestCharacterEncodingActionTest(TestRunnerBean testRunner) {
+	public String setRequestCharacterEncodingActionTest(TestBean testRunner) {
 		final String utf8 = "UTF-8";
 		final String utf16 = "UTF-16";
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -5897,7 +5896,7 @@ public class Tests extends Object {
 	 * setRequestCharacterEncoding Tests
 	 */
 	@BridgeTest(test = "setRequestCharacterEncodingRenderTest")
-	public String setRequestCharacterEncodingRenderTest(TestRunnerBean testRunner) {
+	public String setRequestCharacterEncodingRenderTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();

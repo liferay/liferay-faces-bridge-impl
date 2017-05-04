@@ -32,7 +32,7 @@ import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.AnnotatedExcludedBean;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -48,7 +48,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.10
 	@BridgeTest(test = "excludedAttributesTest")
-	public String excludedAttributesTest(TestRunnerBean testRunner) {
+	public String excludedAttributesTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		UIViewRoot viewRoot = ctx.getViewRoot();
@@ -161,7 +161,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.4
 	@BridgeTest(test = "requestNoScopeOnModeChangeTest")
-	public String requestNoScopeOnModeChangeTest(TestRunnerBean testRunner) {
+	public String requestNoScopeOnModeChangeTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -202,7 +202,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.3
 	@BridgeTest(test = "requestNoScopeOnRedirectTest")
-	public String requestNoScopeOnRedirectTest(TestRunnerBean testRunner) {
+	public String requestNoScopeOnRedirectTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map m = extCtx.getRequestMap();
@@ -239,7 +239,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.6
 	@BridgeTest(test = "requestPreserveActionParamsTest")
-	public String requestPreserveActionParamsTest(TestRunnerBean testRunner) {
+	public String requestPreserveActionParamsTest(TestBean testRunner) {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -294,7 +294,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.9
 	@BridgeTest(test = "requestRedisplayOutOfScopeTest")
-	public String requestRedisplayOutOfScopeTest(TestRunnerBean testRunner) {
+	public String requestRedisplayOutOfScopeTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -334,7 +334,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.7
 	@BridgeTest(test = "requestRenderIgnoresScopeViaCreateViewTest")
-	public String requestRenderIgnoresScopeViaCreateViewTest(TestRunnerBean testRunner) {
+	public String requestRenderIgnoresScopeViaCreateViewTest(TestBean testRunner) {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -372,7 +372,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.8
 	@BridgeTest(test = "requestRenderRedisplayTest")
-	public String requestRenderRedisplayTest(TestRunnerBean testRunner) {
+	public String requestRenderRedisplayTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -412,7 +412,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #5.1
 	@BridgeTest(test = "requestScopeContentsTest")
-	public String requestScopeContentsTest(TestRunnerBean testRunner) {
+	public String requestScopeContentsTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		UIViewRoot viewRoot = ctx.getViewRoot();
@@ -657,7 +657,7 @@ public class Tests extends Object {
 	// Test is MultiAction(2)Request -- Render/Action
 	// Test #5.2
 	@BridgeTest(test = "requestScopeRestartedOnActionTest")
-	public String requestScopeRestartedOnActionTest(TestRunnerBean testRunner) {
+	public String requestScopeRestartedOnActionTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 

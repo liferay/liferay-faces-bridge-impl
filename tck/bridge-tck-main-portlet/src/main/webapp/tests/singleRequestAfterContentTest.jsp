@@ -6,7 +6,7 @@
 <table>
 	<tbody>
 		<tr>
-			<td><span>${test.renderTestResult}</span></td>
+			<td><span>${testBean.renderTestResult}</span></td>
 		</tr>
 	</tbody>
 </table>
