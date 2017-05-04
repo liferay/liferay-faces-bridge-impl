@@ -21,7 +21,7 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -33,7 +33,7 @@ public class Tests extends Object {
 	// Test is MultiRequest --
 	// Test #6.97
 	@BridgeTest(test = "restoredViewStateParameterTest")
-	public String restoredViewStateParameterTest(TestRunnerBean testRunner) {
+	public String restoredViewStateParameterTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
 		// This tests that we can encode a new mode in an actionURL
@@ -65,7 +65,7 @@ public class Tests extends Object {
 	// Test is MultiRequest --
 	// Test #6.98
 	@BridgeTest(test = "setsIsPostbackAttributeTest")
-	public String setsIsPostbackAttributeTest(TestRunnerBean testRunner) {
+	public String setsIsPostbackAttributeTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
 		// This tests that we can encode a new mode in an actionURL

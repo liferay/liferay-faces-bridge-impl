@@ -12,7 +12,7 @@
 	<body>
 	<h:form>
 		<h:panelGrid columns="1">
-			<h:commandButton value="Run Test" action="#{test.runActionTest}"/>
+			<h:commandButton value="Run Test" action="#{testBean.runActionTest}"/>
 		</h:panelGrid>
 	</h:form>
 	</body>

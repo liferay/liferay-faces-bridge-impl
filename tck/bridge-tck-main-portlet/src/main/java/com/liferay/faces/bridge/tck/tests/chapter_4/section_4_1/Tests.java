@@ -24,7 +24,7 @@ import javax.portlet.faces.BridgeEventHandler;
 import javax.portlet.faces.BridgePublicRenderParameterHandler;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -106,7 +106,7 @@ public class Tests extends Object {
 	}
 
 	@BridgeTest(test = "portletInitializationParametersTest")
-	public String portletInitializationParametersTest(TestRunnerBean testRunner) {
+	public String portletInitializationParametersTest(TestBean testRunner) {
 
 		// Section 4.1
 		// Tests whether the GenericFacesPortlet portlet initialization

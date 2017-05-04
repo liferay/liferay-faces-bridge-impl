@@ -14,7 +14,7 @@
 		<h:panelGrid columns="1">
 			<h:graphicImage alt="Image not available"
 							value="/tck/nonFacesResource?javax.portlet.faces.InProtocolResourceLink=true"/>
-			<h:commandButton value="Run Test" action="#{test.runActionTest}"/>
+			<h:commandButton value="Run Test" action="#{testBean.runActionTest}"/>
 		</h:panelGrid>
 	</h:form>
 	</body>

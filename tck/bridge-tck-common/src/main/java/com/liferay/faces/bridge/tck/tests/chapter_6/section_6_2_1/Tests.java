@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.portlet.faces.annotation.PortletNamingContainer;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -34,7 +34,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.88
 	@BridgeTest(test = "hasRenderContentAfterViewAttributeTest")
-	public String hasRenderContentAfterViewAttributeTest(TestRunnerBean testRunner) {
+	public String hasRenderContentAfterViewAttributeTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		Boolean afterViewContent = (Boolean) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(
@@ -63,7 +63,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.132
 	@BridgeTest(test = "implementsBridgeWriteBehindResponseTest")
-	public String implementsBridgeWriteBehindResponseTest(TestRunnerBean testRunner) {
+	public String implementsBridgeWriteBehindResponseTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		// test is run/checked in the jsp which adds request attrs which we read here
@@ -93,7 +93,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.86
 	@BridgeTest(test = "isPortletNamingContainerTest")
-	public String isPortletNamingContainerTest(TestRunnerBean testRunner) {
+	public String isPortletNamingContainerTest(TestBean testRunner) {
 		UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
 		testRunner.setTestComplete(true);
 
@@ -114,7 +114,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.89
 	@BridgeTest(test = "renderContentAfterViewTest")
-	public String renderContentAfterViewTest(TestRunnerBean testRunner) {
+	public String renderContentAfterViewTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		testRunner.setTestResult(true, "Content Rendered After View.");
@@ -125,7 +125,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.133
 	@BridgeTest(test = "usesConfiguredRenderResponseWrapperTest")
-	public String usesConfiguredRenderResponseWrapperTest(TestRunnerBean testRunner) {
+	public String usesConfiguredRenderResponseWrapperTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		// test is run/checked in the jsp which adds request attrs which we read here
@@ -155,7 +155,7 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.134
 	@BridgeTest(test = "usesConfiguredResourceResponseWrapperTest")
-	public String usesConfiguredResourceResponseWrapperTest(TestRunnerBean testRunner) {
+	public String usesConfiguredResourceResponseWrapperTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		// test is run/checked in the jsp which adds request attrs which we read here

@@ -12,12 +12,12 @@
 	<body>
 	<h:form>
 		<h:panelGrid columns="1">
-			<h:outputText escape="false" value="#{test.renderTestResult}"/>
+			<h:outputText escape="false" value="#{testBean.renderTestResult}"/>
 		</h:panelGrid>
 		<h:outputLink value="portlet:render">
 			<f:param name="_jsfBridgeViewId" value="_jsfBridgeCurrentView"/>
 			<f:param name="org.apache.portlet.faces.tck.redisplay" value="1"/>
-			<h:outputText value="#{test.redisplayLinkName}"/>
+			<h:outputText value="#{testBean.redisplayLinkName}"/>
 		</h:outputLink>
 	</h:form>
 	</body>

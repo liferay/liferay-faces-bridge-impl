@@ -9,10 +9,10 @@
 					<tr:outputLabel value="PPR Result: "></tr:outputLabel>
 					<tr:outputFormatted id="pprResult"
 										partialTriggers="runPPR"
-										value="#{test.testResourceResult}"/>
-					<tr:commandButton id="runPPR" text="#{test.redisplayCommandName}" partialSubmit="true"
-									  partialTriggers="runPPR" actionListener="#{test.runActionListener}"/>
-					<tr:goLink id="pprGoLink" text="#{test.redisplayLinkName}"
+										value="#{testBean.testResourceResult}"/>
+					<tr:commandButton id="runPPR" text="#{testBean.redisplayCommandName}" partialSubmit="true"
+									  partialTriggers="runPPR" actionListener="#{testBean.runActionListener}"/>
+					<tr:goLink id="pprGoLink" text="#{testBean.redisplayLinkName}"
 							   destination="portlet:render?_jsfBridgeViewId=_jsfBridgeCurrentView&amp;org.apache.portlet.faces.tck.redisplay=1"
 							   partialTriggers="runPPR"/>
 				</tr:panelPage>

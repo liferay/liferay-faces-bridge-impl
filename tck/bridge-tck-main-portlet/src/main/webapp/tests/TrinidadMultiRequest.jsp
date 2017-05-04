@@ -6,7 +6,7 @@
 		<tr:document title="JSR 329 TCK Test(s)">
 			<tr:form>
 				<tr:panelPage>
-					<tr:commandButton id="runPPR" text="Run Test" action="#{test.runActionTest}"/>
+					<tr:commandButton id="runPPR" text="Run Test" action="#{testBean.runActionTest}"/>
 				</tr:panelPage>
 			</tr:form>
 		</tr:document>

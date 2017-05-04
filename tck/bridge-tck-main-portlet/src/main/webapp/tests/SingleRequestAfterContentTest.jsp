@@ -12,7 +12,7 @@
 	<body>
 	<h:form>
 		<h:panelGrid columns="1">
-			<h:outputText escape="false" value="#{test.renderTestResultAsAfterContent}"/>
+			<h:outputText escape="false" value="#{testBean.renderTestResultAsAfterContent}"/>
 		</h:panelGrid>
 	</h:form>
 	</body>

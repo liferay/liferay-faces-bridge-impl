@@ -32,8 +32,8 @@
 	</managed-bean>
 
 	<managed-bean>
-		<managed-bean-name>test</managed-bean-name>
-		<managed-bean-class>com.liferay.faces.bridge.tck.beans.TestRunnerBean</managed-bean-class>
+		<managed-bean-name>testBean</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.beans.TestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 

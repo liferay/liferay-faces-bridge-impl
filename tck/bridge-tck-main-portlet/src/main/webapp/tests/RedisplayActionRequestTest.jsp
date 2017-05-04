@@ -12,8 +12,8 @@
 	<body>
 	<h:form>
 		<h:panelGrid columns="1">
-			<h:outputText escape="false" value="#{test.renderTestResult}"/>
-			<h:commandButton value="#{test.redisplayLinkName}" action="#{test.runActionTest}"/>
+			<h:outputText escape="false" value="#{testBean.renderTestResult}"/>
+			<h:commandButton value="#{testBean.redisplayLinkName}" action="#{testBean.runActionTest}"/>
 		</h:panelGrid>
 	</h:form>
 

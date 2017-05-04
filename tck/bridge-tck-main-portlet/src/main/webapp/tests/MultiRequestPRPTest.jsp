@@ -12,9 +12,9 @@
 	<body>
 	<h:form>
 		<h:panelGrid columns="1">
-			<h:commandButton value="#{test.redisplayCommandName}" action="#{test.runActionTest}"/>
+			<h:commandButton value="#{testBean.redisplayCommandName}" action="#{testBean.runActionTest}"/>
 			<!-- Not a resource -- but by rendering this value we avoid the premature check for test complete -->
-			<h:outputText escape="false" value="#{test.testResourceResult}"/>
+			<h:outputText escape="false" value="#{testBean.testResourceResult}"/>
 		</h:panelGrid>
 	</h:form>
 	</body>

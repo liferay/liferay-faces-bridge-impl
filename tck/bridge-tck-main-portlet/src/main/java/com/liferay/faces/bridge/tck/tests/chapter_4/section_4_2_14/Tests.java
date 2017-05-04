@@ -23,7 +23,7 @@ import javax.portlet.faces.BridgeUtil;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -35,18 +35,18 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 4.20
 	@BridgeTest(test = "isAutoDispatchEventsNotSetTest")
-	public String isAutoDispatchEventsNotSetTest(TestRunnerBean testRunner) {
+	public String isAutoDispatchEventsNotSetTest(TestBean testRunner) {
 		return isAutoDispatchEventsTest(testRunner);
 	}
 
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 4.19
 	@BridgeTest(test = "isAutoDispatchEventsSetTest")
-	public String isAutoDispatchEventsSetTest(TestRunnerBean testRunner) {
+	public String isAutoDispatchEventsSetTest(TestBean testRunner) {
 		return isAutoDispatchEventsTest(testRunner);
 	}
 
-	public String isAutoDispatchEventsTest(TestRunnerBean testRunner) {
+	public String isAutoDispatchEventsTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 

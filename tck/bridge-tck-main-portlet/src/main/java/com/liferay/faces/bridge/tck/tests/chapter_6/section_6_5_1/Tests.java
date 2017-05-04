@@ -47,7 +47,7 @@ import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.preference.Preference;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -64,7 +64,7 @@ public class Tests {
 	 * @return
 	 */
 	@BridgeTest(test = "JSF_ELTest")
-	public String JSF_ELTest(TestRunnerBean testRunner) {
+	public String JSF_ELTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		ELResolver facesResolver = ctx.getELContext().getELResolver();
@@ -284,7 +284,7 @@ public class Tests {
 	 */
 
 	@BridgeTest(test = "JSP_ELTest")
-	public String JSP_ELTest(TestRunnerBean testRunner) {
+	public String JSP_ELTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		Map<String, Object> m = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
@@ -336,7 +336,7 @@ public class Tests {
 		extCtx.getRequestMap().put("com.liferay.faces.bridge.TCK.requestScopeAttr", Boolean.TRUE);
 	}
 
-	private void fail(TestRunnerBean testRunner, String message) {
+	private void fail(TestBean testRunner, String message) {
 
 		if (testRunner.isTestComplete()) {
 			testRunner.appendTestDetail(message);
@@ -347,8 +347,8 @@ public class Tests {
 		}
 	}
 
-	private void testHttpSessionScope(TestRunnerBean testRunner, ELResolver resolver, FacesContext ctx,
-		String implicitObject, PortletSession session) {
+	private void testHttpSessionScope(TestBean testRunner, ELResolver resolver, FacesContext ctx,
+									  String implicitObject, PortletSession session) {
 		Map<String, Object> objectFromFacesEL = (Map<String, Object>) resolver.getValue(ctx.getELContext(), null,
 				implicitObject);
 
@@ -391,8 +391,8 @@ public class Tests {
 		}
 	}
 
-	private void testImplicitObject(TestRunnerBean testRunner, ELResolver resolver, FacesContext ctx,
-		String implicitObject, Object compareTo) {
+	private void testImplicitObject(TestBean testRunner, ELResolver resolver, FacesContext ctx,
+									String implicitObject, Object compareTo) {
 		Object objectFromFacesEL = resolver.getValue(ctx.getELContext(), null, implicitObject);
 
 		if ((objectFromFacesEL == null) || !ctx.getELContext().isPropertyResolved()) {
@@ -405,8 +405,8 @@ public class Tests {
 		}
 	}
 
-	private void testImplicitObjectArrayMaps(TestRunnerBean testRunner, ELResolver resolver, FacesContext ctx,
-		String implicitObject, Map<String, String[]> compareTo) {
+	private void testImplicitObjectArrayMaps(TestBean testRunner, ELResolver resolver, FacesContext ctx,
+											 String implicitObject, Map<String, String[]> compareTo) {
 		Map<String, String[]> objectFromFacesEL = (Map<String, String[]>) resolver.getValue(ctx.getELContext(), null,
 				implicitObject);
 
@@ -420,8 +420,8 @@ public class Tests {
 		}
 	}
 
-	private void testMutablePortletPreferencesValues(TestRunnerBean testRunner, ELResolver resolver, FacesContext ctx,
-		String implicitObject, Map<String, String[]> prefMap) {
+	private void testMutablePortletPreferencesValues(TestBean testRunner, ELResolver resolver, FacesContext ctx,
+													 String implicitObject, Map<String, String[]> prefMap) {
 		Map<String, Preference> objectFromFacesEL = (Map<String, Preference>) resolver.getValue(ctx.getELContext(),
 				null, implicitObject);
 

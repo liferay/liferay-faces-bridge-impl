@@ -10,8 +10,8 @@
 					<tr:outputLabel value="PPR Result: "></tr:outputLabel>
 					<tr:outputFormatted id="pprResult"
 										partialTriggers="runPPR"
-										value="#{test.testResourceResult}"/>
-					<tr:commandButton id="runPPR" text="#{test.redisplayCommandName}" partialSubmit="true"
+										value="#{testBean.testResourceResult}"/>
+					<tr:commandButton id="runPPR" text="#{testBean.redisplayCommandName}" partialSubmit="true"
 									  partialTriggers="runPPR"/>
 					<tr:commandButton id="clearTest" text="Clear Test"/>
 				</tr:panelPage>

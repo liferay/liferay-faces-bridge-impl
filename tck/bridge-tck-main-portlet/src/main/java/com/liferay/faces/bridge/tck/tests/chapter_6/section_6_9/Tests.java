@@ -25,7 +25,7 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -39,7 +39,7 @@ public class Tests extends Object {
 	// Test is MultiRequest --
 	// Test #6.135
 	@BridgeTest(test = "usesConfiguredRenderKitTest")
-	public String usesConfiguredRenderKitTest(TestRunnerBean testRunner) {
+	public String usesConfiguredRenderKitTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Map<String, Object> m = extCtx.getRequestMap();

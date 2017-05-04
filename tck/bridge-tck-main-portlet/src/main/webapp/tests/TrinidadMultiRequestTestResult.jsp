@@ -7,7 +7,7 @@
 			<tr:form>
 				<tr:panelPage>
 					<tr:outputLabel value="Test Result: "></tr:outputLabel>
-					<tr:outputFormatted id="pprResult" value="#{test.renderTestResult}"/>
+					<tr:outputFormatted id="pprResult" value="#{testBean.renderTestResult}"/>
 				</tr:panelPage>
 			</tr:form>
 		</tr:document>
