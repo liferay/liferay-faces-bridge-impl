@@ -45,11 +45,11 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 	}
 
 	@Override
-	public UIViewRoot createView(FacesContext ctx, String viewId) throws IllegalArgumentException,
+	public UIViewRoot createView(FacesContext facesContext, String viewId) throws IllegalArgumentException,
 		NullPointerException {
-		ctx.getExternalContext().getRequestMap().put("org.apache.portlet.faces.tck.viewCreated", Boolean.TRUE);
+		facesContext.getExternalContext().getRequestMap().put("org.apache.portlet.faces.tck.viewCreated", Boolean.TRUE);
 
-		return super.createView(ctx, viewId);
+		return super.createView(facesContext, viewId);
 	}
 
 	public String getActionURL(FacesContext context, String viewId) {
@@ -109,10 +109,10 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 	}
 
 	@Override
-	public UIViewRoot restoreView(FacesContext ctx, String viewId) throws FacesException, NullPointerException {
-		ctx.getExternalContext().getRequestMap().put("org.apache.portlet.faces.tck.viewCreated", Boolean.FALSE);
+	public UIViewRoot restoreView(FacesContext facesContext, String viewId) throws FacesException, NullPointerException {
+		facesContext.getExternalContext().getRequestMap().put("org.apache.portlet.faces.tck.viewCreated", Boolean.FALSE);
 
-		return super.restoreView(ctx, viewId);
+		return super.restoreView(facesContext, viewId);
 	}
 
 	private String appendQueryString(String url, String params) {

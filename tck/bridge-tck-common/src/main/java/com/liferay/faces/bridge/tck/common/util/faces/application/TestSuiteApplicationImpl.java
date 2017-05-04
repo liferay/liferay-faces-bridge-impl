@@ -220,8 +220,8 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.getPropertyResolver();
 	}
 
-	public ResourceBundle getResourceBundle(FacesContext ctx, String name) throws FacesException, NullPointerException {
-		return mWrapped.getResourceBundle(ctx, name);
+	public ResourceBundle getResourceBundle(FacesContext facesContext, String name) throws FacesException, NullPointerException {
+		return mWrapped.getResourceBundle(facesContext, name);
 	}
 
 	public javax.faces.application.StateManager getStateManager() {
