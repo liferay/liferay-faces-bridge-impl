@@ -81,12 +81,12 @@ public class Tests extends Object {
 	@BridgeTest(test = "defaultRenderKitIdTest")
 	public String defaultRenderKitIdTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		testBean.setTestComplete(true);
 
 		// Test that the defaultRenderKit parameter is set
-		String renderKitId = extCtx.getRequestParameterMap().get(ResponseStateManager.RENDER_KIT_ID_PARAM);
+		String renderKitId = externalContext.getRequestParameterMap().get(ResponseStateManager.RENDER_KIT_ID_PARAM);
 
 		if (renderKitId == null) {
 			testBean.setTestResult(false,
@@ -113,14 +113,14 @@ public class Tests extends Object {
 	@BridgeTest(test = "eventDestroyTest")
 	public String eventDestroyTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) extCtx.getResponse();
+			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
 			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
 				testBean.getTestName());
 
@@ -145,8 +145,8 @@ public class Tests extends Object {
 		String msg;
 
 		// Get the configured render policy
-		ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
-		Map<String, Object> m = extCtx.getRequestMap();
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		Map<String, Object> m = externalContext.getRequestMap();
 
 		// Lifecycle check done in the FacesContextFactory -- so test/results set on every request
 		msg = (String) m.get("javax.portlet.faces.tck.testLifecyclePass");
@@ -175,8 +175,8 @@ public class Tests extends Object {
 	@BridgeTest(test = "modeViewIDTest")
 	public String modeViewIDTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		PortletRequest req = (PortletRequest) extCtx.getRequest();
+		ExternalContext externalContext = ctx.getExternalContext();
+		PortletRequest req = (PortletRequest) externalContext.getRequest();
 
 		testBean.setTestComplete(true);
 

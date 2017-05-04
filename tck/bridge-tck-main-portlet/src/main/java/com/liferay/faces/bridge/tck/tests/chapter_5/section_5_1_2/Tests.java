@@ -50,9 +50,9 @@ public class Tests extends Object {
 	@BridgeTest(test = "excludedAttributesTest")
 	public String excludedAttributesTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 		UIViewRoot viewRoot = ctx.getViewRoot();
-		Map m = extCtx.getRequestMap();
+		Map m = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -163,8 +163,8 @@ public class Tests extends Object {
 	@BridgeTest(test = "requestNoScopeOnModeChangeTest")
 	public String requestNoScopeOnModeChangeTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map m = extCtx.getRequestMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map m = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -204,8 +204,8 @@ public class Tests extends Object {
 	@BridgeTest(test = "requestNoScopeOnRedirectTest")
 	public String requestNoScopeOnRedirectTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map m = extCtx.getRequestMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map m = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -253,8 +253,8 @@ public class Tests extends Object {
 			// Now verify that no scope data was carried forward.
 
 			FacesContext ctx = FacesContext.getCurrentInstance();
-			ExternalContext extCtx = ctx.getExternalContext();
-			Map<String, String> paramMap = extCtx.getRequestParameterMap();
+			ExternalContext externalContext = ctx.getExternalContext();
+			Map<String, String> paramMap = externalContext.getRequestParameterMap();
 
 			// loop through the Map and verify that 'value1' and 'value2' aren't there.
 			boolean foundField1 = false;
@@ -296,25 +296,25 @@ public class Tests extends Object {
 	@BridgeTest(test = "requestRedisplayOutOfScopeTest")
 	public String requestRedisplayOutOfScopeTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
-			extCtx.getRequestMap().put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
+			externalContext.getRequestMap().put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
 
 			return "requestRedisplayOutOfScopeTest"; // action Navigation result
 		}
 		else {
 
 			// If redisplay hasn't been invoked yet -- merely return
-			if (extCtx.getRequestParameterMap().get("org.apache.portlet.faces.tck.redisplay") == null) {
+			if (externalContext.getRequestParameterMap().get("org.apache.portlet.faces.tck.redisplay") == null) {
 				return "requestRedisplayOutOfScopeTest";
 			}
 
 			testBean.setTestComplete(true);
 
-			String s = (String) extCtx.getRequestMap().get("com.liferay.faces.bridge.tck.TestRequestScope_a");
+			String s = (String) externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.TestRequestScope_a");
 
 			if (s == null) {
 				testBean.setTestResult(true,
@@ -344,17 +344,17 @@ public class Tests extends Object {
 		}
 		else {
 			FacesContext ctx = FacesContext.getCurrentInstance();
-			ExternalContext extCtx = ctx.getExternalContext();
+			ExternalContext externalContext = ctx.getExternalContext();
 
 			// If redisplay hasn't been invoked yet -- merely return
-			if (extCtx.getRequestParameterMap().get("org.apache.portlet.faces.tck.redisplay") == null) {
+			if (externalContext.getRequestParameterMap().get("org.apache.portlet.faces.tck.redisplay") == null) {
 				return "requestRenderIgnoresScopeViaCreateViewTest";
 			}
 
 			testBean.setTestComplete(true);
 
 			// Now verify create was used and not restore.
-			Boolean b = (Boolean) extCtx.getRequestMap().get("org.apache.portlet.faces.tck.viewCreated");
+			Boolean b = (Boolean) externalContext.getRequestMap().get("org.apache.portlet.faces.tck.viewCreated");
 
 			if (Boolean.TRUE.equals(b)) {
 				testBean.setTestResult(true, "CreateView used when view restored in a mismatched scope.");
@@ -374,27 +374,27 @@ public class Tests extends Object {
 	@BridgeTest(test = "requestRenderRedisplayTest")
 	public String requestRenderRedisplayTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Add elements that should be preserved but won't be because we are redirecting
-			extCtx.getRequestMap().put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
+			externalContext.getRequestMap().put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
 
 			return "requestRenderRedisplayTest"; // action Navigation result
 		}
 		else {
 
 			// If redisplay hasn't been invoked yet -- merely return
-			if (extCtx.getRequestParameterMap().get("org.apache.portlet.faces.tck.redisplay") == null) {
+			if (externalContext.getRequestParameterMap().get("org.apache.portlet.faces.tck.redisplay") == null) {
 				return "requestRenderRedisplayTest";
 			}
 
 			testBean.setTestComplete(true);
 
-			String s = (String) extCtx.getRequestMap().get("com.liferay.faces.bridge.tck.TestRequestScope_a");
+			String s = (String) externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.TestRequestScope_a");
 
 			if (s != null) {
 				testBean.setTestResult(true, "Request attribute retained as expected through a redisplay.");
@@ -414,16 +414,16 @@ public class Tests extends Object {
 	@BridgeTest(test = "requestScopeContentsTest")
 	public String requestScopeContentsTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 		UIViewRoot viewRoot = ctx.getViewRoot();
-		Map m = extCtx.getRequestMap();
+		Map m = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// mark the test as compelte -- put in session in case the bridge fails in preserving the request scope
-			extCtx.getSessionMap().put("com.liferay.faces.bridge.tck.testComplete", Boolean.TRUE);
+			externalContext.getSessionMap().put("com.liferay.faces.bridge.tck.testComplete", Boolean.TRUE);
 			// Add elements that should be preserved: Messages need to be added after InvokeApplication (i.e. once
 			// navigation has occurred -- so we attach to the right ViewRoot The lifecycleListener is in the portlet
 			// that drives this test
@@ -443,12 +443,12 @@ public class Tests extends Object {
 
 			m.put("com.liferay.faces.bridge.tck.PortletConfig", config);
 
-			m.put("com.liferay.faces.bridge.tck.PortletContext", extCtx.getContext());
-			m.put("com.liferay.faces.bridge.tck.PortletRequest", extCtx.getRequest());
-			m.put("com.liferay.faces.bridge.tck.PortletResponse", extCtx.getResponse());
-			m.put("com.liferay.faces.bridge.tck.PortletSession", extCtx.getSession(true));
+			m.put("com.liferay.faces.bridge.tck.PortletContext", externalContext.getContext());
+			m.put("com.liferay.faces.bridge.tck.PortletRequest", externalContext.getRequest());
+			m.put("com.liferay.faces.bridge.tck.PortletResponse", externalContext.getResponse());
+			m.put("com.liferay.faces.bridge.tck.PortletSession", externalContext.getSession(true));
 
-			PortletRequest r = (PortletRequest) extCtx.getRequest();
+			PortletRequest r = (PortletRequest) externalContext.getRequest();
 			PortletPreferences prefs = r.getPreferences();
 			m.put("com.liferay.faces.bridge.tck.PortletPreferences", prefs);
 
@@ -456,7 +456,7 @@ public class Tests extends Object {
 			m.put("com.liferay.faces.bridge.tck.PortalContext", pc);
 
 			m.put("com.liferay.faces.bridge.tck.FacesContext", ctx);
-			m.put("com.liferay.faces.bridge.tck.ExternalContext", extCtx);
+			m.put("com.liferay.faces.bridge.tck.ExternalContext", externalContext);
 
 			// Note:  no way to test the servlet objects
 
@@ -470,11 +470,11 @@ public class Tests extends Object {
 		}
 		else {
 
-			if (extCtx.getSessionMap().get("com.liferay.faces.bridge.tck.testComplete") == null) {
+			if (externalContext.getSessionMap().get("com.liferay.faces.bridge.tck.testComplete") == null) {
 				return "Test is still in progress ...";
 			}
 			else {
-				extCtx.getSessionMap().remove("com.liferay.faces.bridge.tck.testComplete");
+				externalContext.getSessionMap().remove("com.liferay.faces.bridge.tck.testComplete");
 				testBean.setTestComplete(true);
 			}
 			// Now verify that what should have been carried forward has and what shouldn't hasn't.
@@ -659,12 +659,12 @@ public class Tests extends Object {
 	@BridgeTest(test = "requestScopeRestartedOnActionTest")
 	public String requestScopeRestartedOnActionTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
-			Map<String, Object> m = extCtx.getSessionMap();
+			Map<String, Object> m = externalContext.getSessionMap();
 			Boolean b = (Boolean) m.get("com.liferay.faces.bridge.tck.firstActionOccurred");
 
 			if (b == null) {
