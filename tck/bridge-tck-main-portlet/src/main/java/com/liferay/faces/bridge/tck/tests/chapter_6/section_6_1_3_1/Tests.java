@@ -529,9 +529,9 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = portletRequest.getPortletMode();
+			PortletMode portletMode = portletRequest.getPortletMode();
 
-			if ((mode == null) || !mode.toString().equalsIgnoreCase("view")) {
+			if ((portletMode == null) || !portletMode.toString().equalsIgnoreCase("view")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the invalid portlet mode.  The resulting request should have ignored the invalid mode and remained in 'view' mode.");
 
@@ -586,9 +586,9 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = portletRequest.getPortletMode();
+			PortletMode portletMode = portletRequest.getPortletMode();
 
-			if ((mode == null) || !mode.toString().equalsIgnoreCase("view")) {
+			if ((portletMode == null) || !portletMode.toString().equalsIgnoreCase("view")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the invalid portlet mode.  The resulting request should have ignored the invalid mode and remained in 'view' mode.");
 
@@ -632,12 +632,12 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = portletRequest.getPortletMode();
+			PortletMode portletMode = portletRequest.getPortletMode();
 
 			// Check that the parameter came along too
 			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if ((mode == null) || !mode.toString().equalsIgnoreCase("view")) {
+			if ((portletMode == null) || !portletMode.toString().equalsIgnoreCase("view")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the invalid portlet mode.  The resulting request should have ignored the invalid mode and remained in 'view' mode.");
 			}
@@ -1212,9 +1212,9 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = portletRequest.getPortletMode();
+			PortletMode portletMode = portletRequest.getPortletMode();
 
-			if ((mode == null) || !mode.toString().equalsIgnoreCase("edit")) {
+			if ((portletMode == null) || !portletMode.toString().equalsIgnoreCase("edit")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the new portlet mode.  The resulting request wasn't in the expected 'edit' mode.");
 
@@ -1269,9 +1269,9 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = portletRequest.getPortletMode();
+			PortletMode portletMode = portletRequest.getPortletMode();
 
-			if ((mode == null) || !mode.toString().equalsIgnoreCase("edit")) {
+			if ((portletMode == null) || !portletMode.toString().equalsIgnoreCase("edit")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the new portlet mode.  The resulting request wasn't in the expected 'edit' mode.");
 
@@ -2418,12 +2418,12 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = portletRequest.getPortletMode();
+			PortletMode portletMode = portletRequest.getPortletMode();
 
 			// Check that the parameter came along too
 			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if ((mode == null) || !mode.toString().equalsIgnoreCase("view")) {
+			if ((portletMode == null) || !portletMode.toString().equalsIgnoreCase("view")) {
 				testBean.setTestResult(false,
 					"encodeResourceURL incorrectly encoded the portlet mode.  The resulting request should have ignored the mode and remained in 'view' mode.");
 			}

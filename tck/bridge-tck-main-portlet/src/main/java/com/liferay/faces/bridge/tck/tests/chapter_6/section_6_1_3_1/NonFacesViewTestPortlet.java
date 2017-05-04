@@ -95,9 +95,9 @@ public class NonFacesViewTestPortlet extends GenericFacesTestSuitePortlet {
 				testName.equals("encodeActionURLNonJSFViewWithModeResourceTest")) {
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = request.getPortletMode();
+			PortletMode portletMode = request.getPortletMode();
 
-			if ((mode == null) || !mode.toString().equalsIgnoreCase("edit")) {
+			if ((portletMode == null) || !portletMode.toString().equalsIgnoreCase("edit")) {
 				return outputTestResult(false,
 						"encodeActionURL incorrectly encoded the new portlet mode.  The resulting request wasn't in the expected 'edit' mode.");
 			}
@@ -117,9 +117,9 @@ public class NonFacesViewTestPortlet extends GenericFacesTestSuitePortlet {
 				testName.equals("encodeActionURLNonJSFViewWithInvalidModeResourceTest")) {
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			PortletMode mode = request.getPortletMode();
+			PortletMode portletMode = request.getPortletMode();
 
-			if ((mode == null) || !mode.toString().equalsIgnoreCase("view")) {
+			if ((portletMode == null) || !portletMode.toString().equalsIgnoreCase("view")) {
 				return outputTestResult(false,
 						"encodeActionURL incorrectly encoded an invalid portlet mode.  The resulting request should have ignored the invalid mode and remained in 'view' mode.");
 			}
