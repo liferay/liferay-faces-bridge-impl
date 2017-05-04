@@ -120,7 +120,7 @@ public class TCK_FacesContextImpl extends FacesContext {
 		mWrapped.setResponseWriter(responseWriter);
 	}
 
-	public void setViewRoot(UIViewRoot viewRoot) {
-		mWrapped.setViewRoot(viewRoot);
+	public void setViewRoot(UIViewRoot uiViewRoot) {
+		mWrapped.setViewRoot(uiViewRoot);
 	}
 }
