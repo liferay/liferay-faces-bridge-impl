@@ -1096,9 +1096,9 @@ public class Tests extends RenderTests implements PhaseListener {
 		testBean.setTestComplete(true);
 
 		// Parameter encoded in the faces-config.xml target
-		String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+		String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-		if ((pVal != null) && pVal.equals("testValue")) {
+		if ((paramValue != null) && paramValue.equals("testValue")) {
 			testBean.setTestResult(true,
 				"Bridge correctly included parameter from viewId querystring when viewId set explicitly.");
 
@@ -1106,14 +1106,14 @@ public class Tests extends RenderTests implements PhaseListener {
 		}
 		else {
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"Bridge didn't included parameter from viewId querystring when viewId set explicitly.");
 			}
 			else {
 				testBean.setTestResult(false,
 					"Bridge didn't properly include parameter from viewId querystring when viewId set explicitly.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 			}
 		}
 
@@ -1129,9 +1129,9 @@ public class Tests extends RenderTests implements PhaseListener {
 		testBean.setTestComplete(true);
 
 		// Parameter encoded in the faces-config.xml target
-		String pVal = facesContext.getExternalContext().getRequestParameterMap().get("param1");
+		String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-		if ((pVal != null) && pVal.equals("testValue")) {
+		if ((paramValue != null) && paramValue.equals("testValue")) {
 			testBean.setTestResult(true,
 				"Bridge correctly included parameter from viewId querystring when using default viewId.");
 
@@ -1139,14 +1139,14 @@ public class Tests extends RenderTests implements PhaseListener {
 		}
 		else {
 
-			if (pVal == null) {
+			if (paramValue == null) {
 				testBean.setTestResult(false,
 					"Bridge didn't included parameter from viewId querystring when using default viewId.");
 			}
 			else {
 				testBean.setTestResult(false,
 					"Bridge didn't properly include parameter from viewId querystring when using default viewId.  The resulting request contained the wrong parameter value. Expected: testValue  Received: " +
-					pVal);
+					paramValue);
 			}
 		}
 
