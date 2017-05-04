@@ -29,7 +29,7 @@ import javax.portlet.faces.BridgeUtil;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 import com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.TestEventHandler;
 
@@ -42,7 +42,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Should never get to the render portion of this
 	@BridgeTest(test = "actionDestroyTest")
-	public String actionDestroyTest(TestRunnerBean testRunner) {
+	public String actionDestroyTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -61,7 +61,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Should never get to the render portion of this
 	@BridgeTest(test = "actionNullRequestTest")
-	public String actionNullRequestTest(TestRunnerBean testRunner) {
+	public String actionNullRequestTest(TestBean testRunner) {
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -79,7 +79,7 @@ public class Tests extends Object {
 
 	// Test #3.22
 	@BridgeTest(test = "defaultRenderKitIdTest")
-	public String defaultRenderKitIdTest(TestRunnerBean testRunner) {
+	public String defaultRenderKitIdTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -111,7 +111,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Should never get to the render portion of this
 	@BridgeTest(test = "eventDestroyTest")
-	public String eventDestroyTest(TestRunnerBean testRunner) {
+	public String eventDestroyTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 
@@ -140,7 +140,7 @@ public class Tests extends Object {
 	 * Because of this we can test all policies in a single test method.
 	 */
 	@BridgeTest(test = "lifecycleTest")
-	public String lifecycleTest(TestRunnerBean testRunner) {
+	public String lifecycleTest(TestBean testRunner) {
 		Boolean pass = false;
 		String msg;
 
@@ -173,7 +173,7 @@ public class Tests extends Object {
 	}
 
 	@BridgeTest(test = "modeViewIDTest")
-	public String modeViewIDTest(TestRunnerBean testRunner) {
+	public String modeViewIDTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		PortletRequest req = (PortletRequest) extCtx.getRequest();
@@ -205,7 +205,7 @@ public class Tests extends Object {
 	}
 
 	@BridgeTest(test = "portletSetsViewIdTest")
-	public String portletSetsViewIdTest(TestRunnerBean testRunner) {
+	public String portletSetsViewIdTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
 		testRunner.setTestComplete(true);
@@ -228,7 +228,7 @@ public class Tests extends Object {
 	}
 
 	@BridgeTest(test = "portletSetsViewPathTest")
-	public String portletSetsViewPathTest(TestRunnerBean testRunner) {
+	public String portletSetsViewPathTest(TestBean testRunner) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 
 		testRunner.setTestComplete(true);
@@ -255,7 +255,7 @@ public class Tests extends Object {
 	 * Because of this we can test all policies in a single test method.
 	 */
 	@BridgeTest(test = "renderPolicyTest")
-	public String renderPolicyTest(TestRunnerBean testRunner) {
+	public String renderPolicyTest(TestBean testRunner) {
 
 		testRunner.setTestComplete(true);
 		testRunner.setTestResult(true,

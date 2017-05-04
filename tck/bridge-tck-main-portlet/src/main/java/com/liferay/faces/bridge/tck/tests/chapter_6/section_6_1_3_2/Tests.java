@@ -38,7 +38,7 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.beans.TestRunnerBean;
+import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 
 
@@ -51,7 +51,7 @@ public class Tests extends Object {
 
 	// Test #6.67
 	@BridgeTest(test = "encodeNamespaceTest")
-	public String encodeNamespaceTest(TestRunnerBean testRunner) {
+	public String encodeNamespaceTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -87,7 +87,7 @@ public class Tests extends Object {
 	 */
 	// Test #6.68
 	@BridgeTest(test = "getApplicationMapTest")
-	public String getApplicationMapTest(TestRunnerBean testRunner) {
+	public String getApplicationMapTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -171,7 +171,7 @@ public class Tests extends Object {
 
 	// Test #6.69
 	@BridgeTest(test = "getAuthTypeTest")
-	public String getAuthTypeTest(TestRunnerBean testRunner) {
+	public String getAuthTypeTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -202,7 +202,7 @@ public class Tests extends Object {
 
 	// Test #6.70
 	@BridgeTest(test = "getContextTest")
-	public String getContextTest(TestRunnerBean testRunner) {
+	public String getContextTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -230,7 +230,7 @@ public class Tests extends Object {
 	 */
 	// Test #6.72
 	@BridgeTest(test = "getInitParameterMapTest")
-	public String getInitParameterMapTest(TestRunnerBean testRunner) {
+	public String getInitParameterMapTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -277,7 +277,7 @@ public class Tests extends Object {
 
 	// Test #6.71
 	@BridgeTest(test = "getInitParameterTest")
-	public String getInitParameterTest(TestRunnerBean testRunner) {
+	public String getInitParameterTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -318,7 +318,7 @@ public class Tests extends Object {
 
 	// Test #6.73
 	@BridgeTest(test = "getRemoteUserTest")
-	public String getRemoteUserTest(TestRunnerBean testRunner) {
+	public String getRemoteUserTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -349,7 +349,7 @@ public class Tests extends Object {
 
 	// Test #6.74
 	@BridgeTest(test = "getRequestContextPathTest")
-	public String getRequestContextPathTest(TestRunnerBean testRunner) {
+	public String getRequestContextPathTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -383,7 +383,7 @@ public class Tests extends Object {
 	 */
 	// Test #6.75
 	@BridgeTest(test = "getRequestCookieMapTest")
-	public String getRequestCookieMapTest(TestRunnerBean testRunner) {
+	public String getRequestCookieMapTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -424,7 +424,7 @@ public class Tests extends Object {
 
 	// Test #6.77
 	@BridgeTest(test = "getRequestLocalesTest")
-	public String getRequestLocalesTest(TestRunnerBean testRunner) {
+	public String getRequestLocalesTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -464,7 +464,7 @@ public class Tests extends Object {
 
 	// Test #6.76
 	@BridgeTest(test = "getRequestLocaleTest")
-	public String getRequestLocaleTest(TestRunnerBean testRunner) {
+	public String getRequestLocaleTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -495,7 +495,7 @@ public class Tests extends Object {
 
 	// Test #6.79
 	@BridgeTest(test = "getResourceAsStreamTest")
-	public String getResourceAsStreamTest(TestRunnerBean testRunner) {
+	public String getResourceAsStreamTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -577,7 +577,7 @@ public class Tests extends Object {
 
 	// Test #6.80
 	@BridgeTest(test = "getResourcePathsTest")
-	public String getResourcePathsTest(TestRunnerBean testRunner) {
+	public String getResourcePathsTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -610,7 +610,7 @@ public class Tests extends Object {
 
 	// Test #6.78
 	@BridgeTest(test = "getResourceTest")
-	public String getResourceTest(TestRunnerBean testRunner) {
+	public String getResourceTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -647,7 +647,7 @@ public class Tests extends Object {
 
 	// Test #6.83
 	@BridgeTest(test = "getSessionMapTest")
-	public String getSessionMapTest(TestRunnerBean testRunner) {
+	public String getSessionMapTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -687,7 +687,7 @@ public class Tests extends Object {
 
 	// Test #6.82
 	@BridgeTest(test = "getSessionTest")
-	public String getSessionTest(TestRunnerBean testRunner) {
+	public String getSessionTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -711,7 +711,7 @@ public class Tests extends Object {
 
 	// Test #6.85
 	@BridgeTest(test = "getUserPrincipalTest")
-	public String getUserPrincipalTest(TestRunnerBean testRunner) {
+	public String getUserPrincipalTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -739,7 +739,7 @@ public class Tests extends Object {
 
 	// Test #6.84
 	@BridgeTest(test = "sessionMapPreDestroyRemoveTest")
-	public String sessionMapPreDestroyRemoveTest(TestRunnerBean testRunner) {
+	public String sessionMapPreDestroyRemoveTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
@@ -797,7 +797,7 @@ public class Tests extends Object {
 
 	// Test #6.81
 	@BridgeTest(test = "setResponseCharacterEncodingTest")
-	public String setResponseCharacterEncodingTest(TestRunnerBean testRunner) {
+	public String setResponseCharacterEncodingTest(TestBean testRunner) {
 		testRunner.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
