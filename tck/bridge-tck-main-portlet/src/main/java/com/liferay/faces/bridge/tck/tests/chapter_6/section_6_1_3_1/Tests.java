@@ -216,8 +216,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -575,8 +575,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -801,8 +801,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -1030,8 +1030,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -1258,8 +1258,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -1482,8 +1482,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -1693,8 +1693,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -1916,8 +1916,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -2637,8 +2637,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -2786,8 +2786,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -3045,8 +3045,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -3596,8 +3596,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -4841,8 +4841,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -4988,8 +4988,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -5259,8 +5259,8 @@ public class Tests extends Object {
 			externalContext.getRequestMap().put("myRedirectRequestObject", Boolean.TRUE);
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
