@@ -106,7 +106,7 @@ public class Tests extends Object {
 	}
 
 	@BridgeTest(test = "portletInitializationParametersTest")
-	public String portletInitializationParametersTest(TestBean testRunner) {
+	public String portletInitializationParametersTest(TestBean testBean) {
 
 		// Section 4.1
 		// Tests whether the GenericFacesPortlet portlet initialization
@@ -149,7 +149,7 @@ public class Tests extends Object {
 				notFoundMsg);
 		}
 
-		testRunner.setTestResult(pass, msg.toString());
+		testBean.setTestResult(pass, msg.toString());
 
 		if (pass) {
 			return Constants.TEST_SUCCESS;

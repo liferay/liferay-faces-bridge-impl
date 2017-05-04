@@ -37,7 +37,7 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Action/Render
 	// Test #6.92
 	@BridgeTest(test = "portletNamingContainerClientIdConsistentTest")
-	public String portletNamingContainerClientIdConsistentTest(TestBean testRunner) {
+	public String portletNamingContainerClientIdConsistentTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		UIViewRoot viewRoot = ctx.getViewRoot();
@@ -51,7 +51,7 @@ public class Tests extends Object {
 			return "portletNamingContainerClientIdConsistentTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
 			String clientIdInAction = (String) extCtx.getRequestMap().get(
@@ -59,20 +59,20 @@ public class Tests extends Object {
 			String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
 
 			if (clientId.indexOf(namespace) < 0) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"UIViewRoot getClientContainerId doesn not includes the portlet namespace id.");
 
 				return Constants.TEST_FAILED;
 			}
 
 			if (clientIdInAction.indexOf(namespace) >= 0) {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"getContainerClientId encoded the same namespace in both the action and the render.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"getContainerClientId returned a different namespace encoding between an action and the render.  ClientId action: " +
 					clientIdInAction + " while in render: " + clientId);
 
@@ -84,29 +84,29 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.91
 	@BridgeTest(test = "portletNamingContainerClientIdTest")
-	public String portletNamingContainerClientIdTest(TestBean testRunner) {
+	public String portletNamingContainerClientIdTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		UIViewRoot viewRoot = ctx.getViewRoot();
 		String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		if (viewRoot.getClass().getAnnotation(PortletNamingContainer.class) != null) {
 
 			if (viewRoot.getContainerClientId(ctx).indexOf(namespace) >= 0) {
-				testRunner.setTestResult(true, "UIViewRoot getClientContainerId includes the portlet namespace id.");
+				testBean.setTestResult(true, "UIViewRoot getClientContainerId includes the portlet namespace id.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"UIViewRoot getClientContainerId doesn not includes the portlet namespace id.");
 
 				return Constants.TEST_FAILED;
 			}
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"UIViewRoot is not annotated with javax.portlet.faces.annotation.PortletNamingContainer.");
 
 			return Constants.TEST_FAILED;
@@ -116,11 +116,11 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.96
 	@BridgeTest(test = "portletNamingContainerUIViewRootClientIdTest")
-	public String portletNamingContainerUIViewRootClientIdTest(TestBean testRunner) {
+	public String portletNamingContainerUIViewRootClientIdTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		String namespace = ((MimeResponse) ctx.getExternalContext().getResponse()).getNamespace();
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		try {
 			PortletNamingContainerUIViewRoot vr = new PortletNamingContainerUIViewRoot();
@@ -130,13 +130,13 @@ public class Tests extends Object {
 
 			if (vr.getContainerClientId(ctx).indexOf(namespace) >= 0) {
 
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"class PortletNamingContainerUIViewRoot correctly encodes portlet namespace id in the result from getContainerClientId");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"class PortletNamingContainerUIViewRoot doesn't encodes portlet namespace id in the result from getContainerClientId. namespaceId: " +
 					namespace + " getContainerClientId returned: " + vr.getContainerClientId(ctx));
 
@@ -144,7 +144,7 @@ public class Tests extends Object {
 			}
 		}
 		catch (Exception e) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"class PortletNamingContainerUIViewRoot doesn't exist or can't be instantiated. Received exception: " +
 				e.getMessage());
 
@@ -155,28 +155,28 @@ public class Tests extends Object {
 	// Test is SingleRequest -- Render
 	// Test #6.94
 	@BridgeTest(test = "portletNamingContainerUIViewRootTest")
-	public String portletNamingContainerUIViewRootTest(TestBean testRunner) {
+	public String portletNamingContainerUIViewRootTest(TestBean testBean) {
 
-		testRunner.setTestComplete(true);
+		testBean.setTestComplete(true);
 
 		try {
 			PortletNamingContainerUIViewRoot vr = new PortletNamingContainerUIViewRoot();
 
 			if (vr.getClass().getAnnotation(PortletNamingContainer.class) != null) {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"class PortletNamingContainerUIViewRoot exists and can be instantiated and is properly annotated.");
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"class PortletNamingContainerUIViewRoot exists and can be instantiated but isn't properly annotated.");
 
 				return Constants.TEST_FAILED;
 			}
 		}
 		catch (Exception e) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"class PortletNamingContainerUIViewRoot doesn't exist or can't be instantiated. Received exception: " +
 				e.getMessage());
 

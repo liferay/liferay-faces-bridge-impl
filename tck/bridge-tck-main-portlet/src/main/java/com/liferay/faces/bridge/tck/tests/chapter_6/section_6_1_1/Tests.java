@@ -31,16 +31,16 @@ public class Tests extends Object {
 	// Test is MultiRequest -- Render/Action
 	// Test #6.2
 	@BridgeTest(test = "wrappedFacesContextTest")
-	public String wrappedFacesContextTest(TestBean testRunner) {
+	public String wrappedFacesContextTest(TestBean testBean) {
 
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "wrappedFacesContextTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
+			testBean.setTestComplete(true);
 
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"Successfully rendered and performed an action with a wrapped FacesContext indicating the bridge implementation doesn't depend on casting directly to its FacesContext class.");
 
 			return Constants.TEST_SUCCESS;

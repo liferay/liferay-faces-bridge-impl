@@ -31,23 +31,23 @@ import com.liferay.faces.bridge.tck.common.Constants;
 public class SampleTests extends Object {
 
 	@BridgeTest(test = "multiRequestTest")
-	public String multiRequestTest(TestBean testRunner) {
+	public String multiRequestTest(TestBean testBean) {
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "multiRequestTest"; // action Navigation result
 		}
 		else {
-			testRunner.setTestComplete(true);
-			testRunner.setTestResult(true, "multiRequestTest ran both its action and render.");
+			testBean.setTestComplete(true);
+			testBean.setTestResult(true, "multiRequestTest ran both its action and render.");
 
 			return Constants.TEST_SUCCESS;
 		}
 	}
 
 	@BridgeTest(test = "singleRequestTest")
-	public String singleRequestTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
-		testRunner.setTestResult(true, "Correctly ran the single request test.");
+	public String singleRequestTest(TestBean testBean) {
+		testBean.setTestComplete(true);
+		testBean.setTestResult(true, "Correctly ran the single request test.");
 
 		return Constants.TEST_SUCCESS;
 	}

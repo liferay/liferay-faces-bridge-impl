@@ -51,8 +51,8 @@ public class Tests extends Object {
 
 	// Test #6.67
 	@BridgeTest(test = "encodeNamespaceTest")
-	public String encodeNamespaceTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String encodeNamespaceTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -61,19 +61,19 @@ public class Tests extends Object {
 		String encodedNamespace = extCtx.encodeNamespace("");
 
 		if (encodedNamespace == null) {
-			testRunner.setTestResult(false, "extCtx.encodeNamespace() failed:  it returned a null value");
+			testBean.setTestResult(false, "extCtx.encodeNamespace() failed:  it returned a null value");
 		}
 		else if (encodedNamespace.equals(response.getNamespace())) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"extCtx.encodeNamespace() correctly returned the same value as response.encodeNamespace when encoding the empty string.");
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"extCtx.encodeNamespace() failed:  it returned a different value than response.encodeNamespace when encoding the empty string: it returned: " +
 				encodedNamespace + " but we expected: " + response.getNamespace());
 		}
 
-		if (testRunner.getTestStatus()) {
+		if (testBean.getTestStatus()) {
 			return Constants.TEST_SUCCESS;
 		}
 		else {
@@ -87,8 +87,8 @@ public class Tests extends Object {
 	 */
 	// Test #6.68
 	@BridgeTest(test = "getApplicationMapTest")
-	public String getApplicationMapTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getApplicationMapTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -108,7 +108,7 @@ public class Tests extends Object {
 		if (
 			!containsIdenticalAttributeEntries(extCtxAppMap, (Enumeration<String>) portletCtx.getAttributeNames(),
 					portletCtx)) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Failed: Portlet context attributes and the externalContext applicationMap entries aren't identical.");
 
 			return Constants.TEST_FAILED;
@@ -120,7 +120,7 @@ public class Tests extends Object {
 			portletCtx.setAttribute("Test1Key", "Test1Value");
 		}
 		catch (Exception e) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Failed: Putting an attribute on the ExternalContext's applicationMap threw an exception: " +
 				e.toString());
 
@@ -134,7 +134,7 @@ public class Tests extends Object {
 		if (
 			!containsIdenticalAttributeEntries(extCtxAppMap, (Enumeration<String>) portletCtx.getAttributeNames(),
 					portletCtx)) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Failed: After setting an attribute on the portlet context and the externalContext applicationMap they no longer contain identical entries.");
 
 			return Constants.TEST_FAILED;
@@ -147,7 +147,7 @@ public class Tests extends Object {
 		if (
 			!containsIdenticalAttributeEntries(extCtxAppMap, (Enumeration<String>) portletCtx.getAttributeNames(),
 					portletCtx)) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Failed: After removing an attribute on the portlet context and the externalContext applicationMap they no longer contain identical entries.");
 
 			return Constants.TEST_FAILED;
@@ -155,14 +155,14 @@ public class Tests extends Object {
 
 		// Otherwise all out tests passed:
 
-		testRunner.setTestResult(true, "The Map returned from getApplicationMap is mutable.");
-		testRunner.appendTestDetail(
+		testBean.setTestResult(true, "The Map returned from getApplicationMap is mutable.");
+		testBean.appendTestDetail(
 			"The getApplicationMap Map correctly expresses attributes in the underlying portletContext that have been added there.");
-		testRunner.appendTestDetail(
+		testBean.appendTestDetail(
 			"The getApplicationMap Map correctly reflects attrbiutes into the underlying portletContext that have been added to it.");
-		testRunner.appendTestDetail(
+		testBean.appendTestDetail(
 			"The getApplicationMap Map correctly doesn't express attrbiutes that have been removed from the underlying portletContext");
-		testRunner.appendTestDetail(
+		testBean.appendTestDetail(
 			"The getApplicationMap Map correctly cause the underlying portletContext to remove any attributes removed from it");
 
 		return Constants.TEST_SUCCESS;
@@ -171,8 +171,8 @@ public class Tests extends Object {
 
 	// Test #6.69
 	@BridgeTest(test = "getAuthTypeTest")
-	public String getAuthTypeTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getAuthTypeTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -182,16 +182,16 @@ public class Tests extends Object {
 		String requestAuthType = request.getAuthType();
 
 		if (((authType == null) && (requestAuthType == null)) || authType.equals(requestAuthType)) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"extCtx.getAuthType() correctly returned the same value as request.getAuthType()");
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"extCtx.getAuthType() failed:  it returned a different value than request.getAuthType(): it returned: " +
 				authType + " but we expected: " + requestAuthType);
 		}
 
-		if (testRunner.getTestStatus()) {
+		if (testBean.getTestStatus()) {
 			return Constants.TEST_SUCCESS;
 		}
 		else {
@@ -202,21 +202,21 @@ public class Tests extends Object {
 
 	// Test #6.70
 	@BridgeTest(test = "getContextTest")
-	public String getContextTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getContextTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
 		Object portletContext = extCtx.getContext();
 
 		if ((portletContext != null) && (portletContext instanceof PortletContext)) {
-			testRunner.setTestResult(true, "extCtx.getContext() correctly returned an object of type PortletContext.");
+			testBean.setTestResult(true, "extCtx.getContext() correctly returned an object of type PortletContext.");
 		}
 		else {
-			testRunner.setTestResult(false, "extCtx.getContext() didn't return an object of type PortletContext.");
+			testBean.setTestResult(false, "extCtx.getContext() didn't return an object of type PortletContext.");
 		}
 
-		if (testRunner.getTestStatus()) {
+		if (testBean.getTestStatus()) {
 			return Constants.TEST_SUCCESS;
 		}
 		else {
@@ -230,8 +230,8 @@ public class Tests extends Object {
 	 */
 	// Test #6.72
 	@BridgeTest(test = "getInitParameterMapTest")
-	public String getInitParameterMapTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getInitParameterMapTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -247,7 +247,7 @@ public class Tests extends Object {
 		if (
 			!containsIdenticalInitParamEntries(extCtxInitParamMap,
 					(Enumeration<String>) portletCtx.getInitParameterNames(), portletCtx)) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Failed: Portlet context initParams and the externalContext initParameterMap entries aren't identical.");
 
 			return Constants.TEST_FAILED;
@@ -256,7 +256,7 @@ public class Tests extends Object {
 		// Test for immutability
 		try {
 			extCtxInitParamMap.put("Test0Key", "Test0Value");
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Failed: ExternalContext's initParameterMap isn't immutable -- a put() suceeded.");
 
 			return Constants.TEST_FAILED;
@@ -267,8 +267,8 @@ public class Tests extends Object {
 
 		// Otherwise all out tests passed:
 
-		testRunner.setTestResult(true, "The Map returned from initParameterMap is immutable.");
-		testRunner.appendTestDetail(
+		testBean.setTestResult(true, "The Map returned from initParameterMap is immutable.");
+		testBean.appendTestDetail(
 			"The initParameterMap Map correctly expresses attributes in the underlying context.");
 
 		return Constants.TEST_SUCCESS;
@@ -277,8 +277,8 @@ public class Tests extends Object {
 
 	// Test #6.71
 	@BridgeTest(test = "getInitParameterTest")
-	public String getInitParameterTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getInitParameterTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -289,7 +289,7 @@ public class Tests extends Object {
 		Enumeration<String> e = portletContext.getInitParameterNames();
 
 		if (!e.hasMoreElements()) {
-			testRunner.setTestResult(false, "extCtx.getInitParameter() failed: there are no initParameters");
+			testBean.setTestResult(false, "extCtx.getInitParameter() failed: there are no initParameters");
 		}
 		else {
 			String name = e.nextElement();
@@ -297,17 +297,17 @@ public class Tests extends Object {
 			String ctxParam = portletContext.getInitParameter(name);
 
 			if (extCtxParam.equals(ctxParam)) {
-				testRunner.setTestResult(true,
+				testBean.setTestResult(true,
 					"extCtx.getInitParameter() correctly returned the same value as PortletContext.getInitParameter.");
 			}
 			else {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"extCtx.getInitParameter() failed: it returned a different value than PortletContext.getInitParameter.  Expected: " +
 					ctxParam + " but received: " + extCtxParam);
 			}
 		}
 
-		if (testRunner.getTestStatus()) {
+		if (testBean.getTestStatus()) {
 			return Constants.TEST_SUCCESS;
 		}
 		else {
@@ -318,8 +318,8 @@ public class Tests extends Object {
 
 	// Test #6.73
 	@BridgeTest(test = "getRemoteUserTest")
-	public String getRemoteUserTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getRemoteUserTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -329,16 +329,16 @@ public class Tests extends Object {
 		String requestRemoteUser = request.getRemoteUser();
 
 		if (((remoteUser == null) && (requestRemoteUser == null)) || remoteUser.equals(requestRemoteUser)) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"extCtx.getRemoteUser() correctly returned the same value as request.getRemoteUser()");
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"extCtx.getRemoteUser() failed:  it returned a different value than request.getRemoteUser(): it returned: " +
 				remoteUser + " but we expected: " + requestRemoteUser);
 		}
 
-		if (testRunner.getTestStatus()) {
+		if (testBean.getTestStatus()) {
 			return Constants.TEST_SUCCESS;
 		}
 		else {
@@ -349,8 +349,8 @@ public class Tests extends Object {
 
 	// Test #6.74
 	@BridgeTest(test = "getRequestContextPathTest")
-	public String getRequestContextPathTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getRequestContextPathTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -360,16 +360,16 @@ public class Tests extends Object {
 		String requestContextPath = request.getContextPath();
 
 		if (contextPath.equals(requestContextPath)) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"extCtx.getRequestContextPath() correctly returned the same value as request.getRequestContextPath()");
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"extCtx.getRequestContextPath() failed:  it returned a different value than request.getRequestContextPath(): it returned: " +
 				contextPath + " but we expected: " + requestContextPath);
 		}
 
-		if (testRunner.getTestStatus()) {
+		if (testBean.getTestStatus()) {
 			return Constants.TEST_SUCCESS;
 		}
 		else {
@@ -383,8 +383,8 @@ public class Tests extends Object {
 	 */
 	// Test #6.75
 	@BridgeTest(test = "getRequestCookieMapTest")
-	public String getRequestCookieMapTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getRequestCookieMapTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -397,7 +397,7 @@ public class Tests extends Object {
 
 		// ensure they start out identical
 		if (cookieMap == null) {
-			testRunner.setTestResult(false, "Failed: extCtx.getRequestCookieMap() returned null.");
+			testBean.setTestResult(false, "Failed: extCtx.getRequestCookieMap() returned null.");
 
 			return Constants.TEST_FAILED;
 		}
@@ -405,7 +405,7 @@ public class Tests extends Object {
 		// Test for immutability
 		try {
 			cookieMap.put("Test0Key", "Test0Value");
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Failed: ExternalContext's getRequestCookieMap isn't immutable -- a put() suceeded.");
 
 			return Constants.TEST_FAILED;
@@ -416,7 +416,7 @@ public class Tests extends Object {
 
 		// Otherwise all out tests passed:
 
-		testRunner.setTestResult(true, "The Map returned from getRequestCookieMap is immutable.");
+		testBean.setTestResult(true, "The Map returned from getRequestCookieMap is immutable.");
 
 		return Constants.TEST_SUCCESS;
 
@@ -424,8 +424,8 @@ public class Tests extends Object {
 
 	// Test #6.77
 	@BridgeTest(test = "getRequestLocalesTest")
-	public String getRequestLocalesTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getRequestLocalesTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -439,7 +439,7 @@ public class Tests extends Object {
 			Locale locale = locales.next();
 
 			if (!locale.equals(requestLocale)) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Failed: Portlet request locales and the externalContext getRequestLocales entries aren't identical.");
 
 				return Constants.TEST_FAILED;
@@ -447,7 +447,7 @@ public class Tests extends Object {
 		}
 
 		if (requestLocales.hasMoreElements() || locales.hasNext()) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Failed: Size of Portlet request locales enumeration and the externalContext getRequestLocales Iterator aren't identical.");
 
 			return Constants.TEST_FAILED;
@@ -455,7 +455,7 @@ public class Tests extends Object {
 
 		// Otherwise all out tests passed:
 
-		testRunner.setTestResult(true,
+		testBean.setTestResult(true,
 			"The Iterator returned from extCtx.getRequestLocales contains identical entries as the request.getLocales.");
 
 		return Constants.TEST_SUCCESS;
@@ -464,8 +464,8 @@ public class Tests extends Object {
 
 	// Test #6.76
 	@BridgeTest(test = "getRequestLocaleTest")
-	public String getRequestLocaleTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getRequestLocaleTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -475,16 +475,16 @@ public class Tests extends Object {
 		Locale requestLocale = request.getLocale();
 
 		if (locale.equals(requestLocale)) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"extCtx.getRequestLocale() correctly returned the same Locale as request.getLocale()");
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"extCtx.getRequestLocale() failed:  it returned a different value than request.getRequestLocale(): it returned: " +
 				locale + " but we expected: " + requestLocale);
 		}
 
-		if (testRunner.getTestStatus()) {
+		if (testBean.getTestStatus()) {
 			return Constants.TEST_SUCCESS;
 		}
 		else {
@@ -495,8 +495,8 @@ public class Tests extends Object {
 
 	// Test #6.79
 	@BridgeTest(test = "getResourceAsStreamTest")
-	public String getResourceAsStreamTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getResourceAsStreamTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -507,7 +507,7 @@ public class Tests extends Object {
 		InputStream pCtxStream = pCtx.getResourceAsStream("/images/liferay-logo.png");
 
 		if ((extCtxStream == null) || (pCtxStream == null)) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Failed: extCtx.getResourceAsStream failed:  returned InputStream is unexpectedly null.");
 
 			return Constants.TEST_FAILED;
@@ -536,13 +536,13 @@ public class Tests extends Object {
 					}
 				}
 				catch (IOException e) {
-					testRunner.setTestResult(false,
+					testBean.setTestResult(false,
 						"Failed: Unexpected IOException thrown when reading stream: " + e.getMessage());
 
 					return Constants.TEST_FAILED;
 				}
 				catch (Throwable t) {
-					testRunner.setTestResult(false,
+					testBean.setTestResult(false,
 						"Failed: Unexpected Throwable thrown when reading stream: " + t.getMessage());
 
 					return Constants.TEST_FAILED;
@@ -561,13 +561,13 @@ public class Tests extends Object {
 		}
 
 		if (success) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"Stream returned from call through externalContext is the same as the one returned by the portletContext.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Stream returned from call through externalContext is different than the one returned by the portletContext.");
 
 			return Constants.TEST_FAILED;
@@ -577,8 +577,8 @@ public class Tests extends Object {
 
 	// Test #6.80
 	@BridgeTest(test = "getResourcePathsTest")
-	public String getResourcePathsTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getResourcePathsTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -589,19 +589,19 @@ public class Tests extends Object {
 		Set<String> pCtxSet = pCtx.getResourcePaths("/tests/");
 
 		if ((pCtxSet == null) || (extCtxSet == null)) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Failed: extCtx.getResourcePaths failed:  returned path Set is unexpectedly null.");
 
 			return Constants.TEST_FAILED;
 		}
 		else if (pCtxSet.equals(extCtxSet)) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"Path set returned from call through externalContext is the same as the one returned by the portletContext.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Path set returned from call through externalContext is different than the one returned by the portletContext.");
 
 			return Constants.TEST_FAILED;
@@ -610,8 +610,8 @@ public class Tests extends Object {
 
 	// Test #6.78
 	@BridgeTest(test = "getResourceTest")
-	public String getResourceTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getResourceTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -623,7 +623,7 @@ public class Tests extends Object {
 			URL pCtxURL = pCtx.getResource("/images/liferay-logo.png");
 
 			if ((extCtxURL == null) || (pCtxURL == null) || !pCtxURL.equals(extCtxURL)) {
-				testRunner.setTestResult(false,
+				testBean.setTestResult(false,
 					"Failed: extCtx.getResource failed:  URL returned from call through externalContext isn't the same as the one returned by the portletContext.");
 
 				return Constants.TEST_FAILED;
@@ -631,13 +631,13 @@ public class Tests extends Object {
 
 			// Otherwise all out tests passed:
 
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"URL returned from call through externalContext is the same as the one returned by the portletContext.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		catch (MalformedURLException e) {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"Failed: Unexpected MalformedURLException thrown when called getResource().");
 
 			return Constants.TEST_FAILED;
@@ -647,8 +647,8 @@ public class Tests extends Object {
 
 	// Test #6.83
 	@BridgeTest(test = "getSessionMapTest")
-	public String getSessionMapTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getSessionMapTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -666,19 +666,19 @@ public class Tests extends Object {
 			sessionMap.put("TestKey", "TestValue");
 		}
 		catch (Exception e) {
-			testRunner.setTestResult(false, "The Map returned from getSessionMap is immutable.");
+			testBean.setTestResult(false, "The Map returned from getSessionMap is immutable.");
 
 			return "getSessionMapTest";
 		}
 
 		if (containsIdenticalSessionEntries(sessionMap, requestSessionAttrNames, session)) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"extCtx.getSessionMap() correctly contains same attributes as the underlying portlet session.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"extCtx.getSessionMap() incorrectly contains different attributes than the underlying portlet session.");
 
 			return Constants.TEST_FAILED;
@@ -687,8 +687,8 @@ public class Tests extends Object {
 
 	// Test #6.82
 	@BridgeTest(test = "getSessionTest")
-	public String getSessionTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getSessionTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -696,13 +696,13 @@ public class Tests extends Object {
 		PortletRequest request = (PortletRequest) extCtx.getRequest();
 
 		if (request.getPortletSession(true).equals(extCtx.getSession(true))) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"extCtx.getSession() correctly returned the same session object as the underlying request.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"extCtx.getSession() incorrectly returned a different session object than the underlying request.");
 
 			return Constants.TEST_FAILED;
@@ -711,8 +711,8 @@ public class Tests extends Object {
 
 	// Test #6.85
 	@BridgeTest(test = "getUserPrincipalTest")
-	public String getUserPrincipalTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String getUserPrincipalTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -724,13 +724,13 @@ public class Tests extends Object {
 
 		if (((extCtxUP == null) && (requestUP == null)) ||
 				((extCtxUP != null) && (requestUP != null) && extCtxUP.equals(requestUP))) {
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"extCtx.getUserPrinicpal() correctly returned the same Principal as is in the underlying portlet request.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"extCtx.getUserPrinicpal() unexpectedly returned a different Principal than is in the underlying portlet request.");
 
 			return Constants.TEST_FAILED;
@@ -739,8 +739,8 @@ public class Tests extends Object {
 
 	// Test #6.84
 	@BridgeTest(test = "sessionMapPreDestroyRemoveTest")
-	public String sessionMapPreDestroyRemoveTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String sessionMapPreDestroyRemoveTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -762,31 +762,31 @@ public class Tests extends Object {
 				(notifiedPreDestroy != null) && notifiedPreDestroy.equals(Boolean.TRUE)) {
 
 			// Only the regular PreDestroy was called and so it would have cleaned itself up
-			testRunner.setTestResult(true,
+			testBean.setTestResult(true,
 				"The bridge session scope behaved correctly in handling preDestroy of a removed attribute prior to it being added to the bridge's scope in that:");
-			testRunner.appendTestDetail("     a) the bean wasn't notified it had been added to the session scope.");
-			testRunner.appendTestDetail("     b) the bean didn't have its BridgePreDestroy called.");
-			testRunner.appendTestDetail("     c) the bean did have its Predestroy called.");
+			testBean.appendTestDetail("     a) the bean wasn't notified it had been added to the session scope.");
+			testBean.appendTestDetail("     b) the bean didn't have its BridgePreDestroy called.");
+			testBean.appendTestDetail("     c) the bean did have its Predestroy called.");
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"The bridge session scope didn't behave correctly in handling preDestroy of a removed attribute:");
 
 			if (notifiedAddedToBridgeScope != null)
-				testRunner.appendTestDetail("::::: it notified the bean it was added to the bridge session scope.");
+				testBean.appendTestDetail("::::: it notified the bean it was added to the bridge session scope.");
 
 			if (notifiedBridgePreDestroy != null)
-				testRunner.appendTestDetail("::::: it notified the bean it was removed from the bridge request scope.");
+				testBean.appendTestDetail("::::: it notified the bean it was removed from the bridge request scope.");
 
 			if (notifiedPreDestroy == null)
-				testRunner.appendTestDetail("::::: it didn't notify the bean's PreDestroy.");
+				testBean.appendTestDetail("::::: it didn't notify the bean's PreDestroy.");
 
 			if ((notifiedPreDestroy != null) && notifiedPreDestroy.equals(Boolean.FALSE))
-				testRunner.appendTestDetail(
+				testBean.appendTestDetail(
 					"::::: the bean's Predestroy was called but it thought it had been added to the bridge request scope.");
 		}
 
-		if (testRunner.getTestStatus()) {
+		if (testBean.getTestStatus()) {
 			return Constants.TEST_SUCCESS;
 		}
 		else {
@@ -797,8 +797,8 @@ public class Tests extends Object {
 
 	// Test #6.81
 	@BridgeTest(test = "setResponseCharacterEncodingTest")
-	public String setResponseCharacterEncodingTest(TestBean testRunner) {
-		testRunner.setTestComplete(true);
+	public String setResponseCharacterEncodingTest(TestBean testBean) {
+		testBean.setTestComplete(true);
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		ExternalContext extCtx = ctx.getExternalContext();
@@ -815,12 +815,12 @@ public class Tests extends Object {
 		}
 
 		if (curEncoding.equalsIgnoreCase(extCtx.getResponseCharacterEncoding())) {
-			testRunner.setTestResult(true, "extCtx.setResponseCharacterEncoding() correctly had no effect.");
+			testBean.setTestResult(true, "extCtx.setResponseCharacterEncoding() correctly had no effect.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testRunner.setTestResult(false,
+			testBean.setTestResult(false,
 				"extCtx.setResponseCharacterEncoding() unexpectedly changed the response character encoding.");
 
 			return Constants.TEST_FAILED;
