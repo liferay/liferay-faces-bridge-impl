@@ -293,17 +293,17 @@ public class Tests extends Object {
 		}
 		else {
 			String name = e.nextElement();
-			String externalContextParam = externalContext.getInitParameter(name);
-			String ctxParam = portletContext.getInitParameter(name);
+			String externalContextInitParam = externalContext.getInitParameter(name);
+			String portletContextInitParam = portletContext.getInitParameter(name);
 
-			if (externalContextParam.equals(ctxParam)) {
+			if (externalContextInitParam.equals(portletContextInitParam)) {
 				testBean.setTestResult(true,
 					"externalContext.getInitParameter() correctly returned the same value as PortletContext.getInitParameter.");
 			}
 			else {
 				testBean.setTestResult(false,
 					"externalContext.getInitParameter() failed: it returned a different value than PortletContext.getInitParameter.  Expected: " +
-					ctxParam + " but received: " + externalContextParam);
+					portletContextInitParam + " but received: " + externalContextInitParam);
 			}
 		}
 
@@ -828,12 +828,12 @@ public class Tests extends Object {
 	}
 
 	private boolean containsIdenticalAttributeEntries(Map<String, Object> m, Enumeration<String> eNames,
-		PortletContext ctx) {
+		PortletContext portletContext) {
 
 		// For each entry in m ensure there is an identical one in the context
 		for (Iterator<Map.Entry<String, Object>> entries = m.entrySet().iterator(); entries.hasNext();) {
 			Map.Entry<String, Object> e = entries.next();
-			Object attrValue = ctx.getAttribute(e.getKey());
+			Object attrValue = portletContext.getAttribute(e.getKey());
 			Object mapObj = e.getValue();
 
 			if ((mapObj == null) && (attrValue == null))
@@ -847,7 +847,7 @@ public class Tests extends Object {
 		// For each entry in the context -- ensure there is an identical one in the map
 		while (eNames.hasMoreElements()) {
 			String key = eNames.nextElement();
-			Object attrValue = ctx.getAttribute(key);
+			Object attrValue = portletContext.getAttribute(key);
 			Object mapObj = m.get(key);
 
 			if ((mapObj == null) && (attrValue == null))
@@ -862,12 +862,12 @@ public class Tests extends Object {
 	}
 
 	private boolean containsIdenticalInitParamEntries(Map<String, String> m, Enumeration<String> eNames,
-		PortletContext ctx) {
+		PortletContext portletContext) {
 
 		// For each entry in m ensure there is an identical one in the context
 		for (Iterator<Map.Entry<String, String>> entries = m.entrySet().iterator(); entries.hasNext();) {
 			Map.Entry<String, String> e = entries.next();
-			String value = ctx.getInitParameter(e.getKey());
+			String value = portletContext.getInitParameter(e.getKey());
 			String mapObj = e.getValue();
 
 			if ((mapObj == null) && (value == null))
@@ -881,7 +881,7 @@ public class Tests extends Object {
 		// For each entry in the context -- ensure there is an identical one in the map
 		while (eNames.hasMoreElements()) {
 			String key = eNames.nextElement();
-			Object value = ctx.getInitParameter(key);
+			Object value = portletContext.getInitParameter(key);
 			Object mapObj = m.get(key);
 
 			if ((mapObj == null) && (value == null))
