@@ -41,13 +41,13 @@ public class Tests extends Object {
 	// Test #6.135
 	@BridgeTest(test = "usesConfiguredRenderKitTest")
 	public String usesConfiguredRenderKitTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> m = externalContext.getRequestMap();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Verify that the configured attribute is passed as a parameter
 			Map<String, String> rParams = externalContext.getRequestParameterMap();

@@ -35,8 +35,8 @@ public class HeaderTests {
 	// Test #5.33 --
 	@BridgeTest(test = "headerPhaseListenerTest")
 	public String headerPhaseListenerTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> m = externalContext.getRequestMap();
 
 		testBean.setTestComplete(true);

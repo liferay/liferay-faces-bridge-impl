@@ -49,9 +49,9 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	}
 
 	public void beforePhase(PhaseEvent event) {
-		FacesContext ctx = event.getFacesContext();
-		ExternalContext externalContext = ctx.getExternalContext();
-		Map<String, Object> m = ctx.getExternalContext().getRequestMap();
+		FacesContext facesContext = event.getFacesContext();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> m = facesContext.getExternalContext().getRequestMap();
 		String testname = (String) m.get(Constants.TEST_NAME);
 
 		PhaseId phase = event.getPhaseId();
@@ -84,11 +84,11 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test #5.43
 	@BridgeTest(test = "checkViewHistoryTest")
 	public String checkViewHistoryTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> m = externalContext.getSessionMap();
-		ELResolver facesResolver = ctx.getELContext().getELResolver();
-		PortletConfig config = (PortletConfig) facesResolver.getValue(ctx.getELContext(), null, "portletConfig");
+		ELResolver facesResolver = facesContext.getELContext().getELResolver();
+		PortletConfig config = (PortletConfig) facesResolver.getValue(facesContext.getELContext(), null, "portletConfig");
 
 		testBean.setTestComplete(true);
 
@@ -155,19 +155,19 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test #5.46
 	@BridgeTest(test = "navigateToLastViewTest")
 	public String navigateToLastViewTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletMode mode = (PortletMode) ((PortletRequest) externalContext.getRequest()).getPortletMode();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
-		String theView = ctx.getViewRoot().getViewId();
+		String theView = facesContext.getViewRoot().getViewId();
 		String theHistoryView = (String) externalContext.getSessionMap().get("javax.portlet.faces.viewIdHistory.view");
 		String theHistoryEdit = (String) externalContext.getSessionMap().get("javax.portlet.faces.viewIdHistory.view");
 		String renderParam = (String) externalContext.getRequestParameterMap().get("com.liferay.faces.bridge.tck.testAttr");
 
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
-			String viewId = ctx.getViewRoot().getViewId();
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
+			String viewId = facesContext.getViewRoot().getViewId();
 
 			if (viewId.equals("/tests/multiRequestTest.xhtml")) {
 
@@ -236,8 +236,8 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 			return "noViewStateParamOnModeChangeTest"; // action Navigation result
 		}
 		else {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = ctx.getExternalContext();
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
 
 			testBean.setTestComplete(true);
 
@@ -260,10 +260,10 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	// Test #5.69
 	@BridgeTest(test = "processPRPInRestoreViewPhaseTest")
 	public String processPRPInRestoreViewPhaseTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			if (externalContext.getSessionMap().get("tck.processPRPInRestoreViewPhaseTest.modelPRPSet") == null) {
 				externalContext.getRequestMap().put("modelPRP", testBean.getTestName());
@@ -323,18 +323,18 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		}
 	}
 
-	public void processUpdates(FacesContext ctx) {
-		ctx.getExternalContext().getRequestMap().put("tck.prpProcessUpdatesCalled", Boolean.TRUE);
+	public void processUpdates(FacesContext facesContext) {
+		facesContext.getExternalContext().getRequestMap().put("tck.prpProcessUpdatesCalled", Boolean.TRUE);
 	}
 
 	// Test is MultiRequest -- Render/Action
 	// Test #5.70 and 5.71
 	@BridgeTest(test = "prpModelUpdateTest")
 	public String prpModelUpdateTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
-		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			if (externalContext.getSessionMap().get("tck.prpModelUpdateTest.modelPRPSet") == null) {
 				externalContext.getRequestMap().put("modelPRP", testBean.getTestName());
