@@ -40,8 +40,8 @@ public class Tests extends Object {
 	// Test #6.135
 	@BridgeTest(test = "usesConfiguredRenderKitTest")
 	public String usesConfiguredRenderKitTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> m = externalContext.getRequestMap();
 
 		// This tests that we can encode a new mode in an actionURL

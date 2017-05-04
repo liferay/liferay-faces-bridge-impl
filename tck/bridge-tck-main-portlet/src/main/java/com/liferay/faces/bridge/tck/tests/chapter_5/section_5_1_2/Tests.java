@@ -49,9 +49,9 @@ public class Tests extends Object {
 	// Test #5.10
 	@BridgeTest(test = "excludedAttributesTest")
 	public String excludedAttributesTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
-		UIViewRoot viewRoot = ctx.getViewRoot();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		UIViewRoot viewRoot = facesContext.getViewRoot();
 		Map m = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
@@ -162,8 +162,8 @@ public class Tests extends Object {
 	// Test #5.4
 	@BridgeTest(test = "requestNoScopeOnModeChangeTest")
 	public String requestNoScopeOnModeChangeTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map m = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
@@ -203,8 +203,8 @@ public class Tests extends Object {
 	// Test #5.3
 	@BridgeTest(test = "requestNoScopeOnRedirectTest")
 	public String requestNoScopeOnRedirectTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		Map m = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
@@ -252,8 +252,8 @@ public class Tests extends Object {
 
 			// Now verify that no scope data was carried forward.
 
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = ctx.getExternalContext();
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
 			Map<String, String> paramMap = externalContext.getRequestParameterMap();
 
 			// loop through the Map and verify that 'value1' and 'value2' aren't there.
@@ -295,8 +295,8 @@ public class Tests extends Object {
 	// Test #5.9
 	@BridgeTest(test = "requestRedisplayOutOfScopeTest")
 	public String requestRedisplayOutOfScopeTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -343,8 +343,8 @@ public class Tests extends Object {
 			return "requestRenderIgnoresScopeViaCreateViewTest"; // action Navigation result
 		}
 		else {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = ctx.getExternalContext();
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
 
 			// If redisplay hasn't been invoked yet -- merely return
 			if (externalContext.getRequestParameterMap().get("org.apache.portlet.faces.tck.redisplay") == null) {
@@ -373,8 +373,8 @@ public class Tests extends Object {
 	// Test #5.8
 	@BridgeTest(test = "requestRenderRedisplayTest")
 	public String requestRenderRedisplayTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -413,9 +413,9 @@ public class Tests extends Object {
 	// Test #5.1
 	@BridgeTest(test = "requestScopeContentsTest")
 	public String requestScopeContentsTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
-		UIViewRoot viewRoot = ctx.getViewRoot();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		UIViewRoot viewRoot = facesContext.getViewRoot();
 		Map m = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
@@ -434,7 +434,7 @@ public class Tests extends Object {
 			m.put("com.liferay.faces.bridge.tck.TestRequestScope_b", new AnnotatedExcludedBean());
 			// Don't need to add additional excludedAttributes tests as they are covered in chapter 6 tests
 
-			PortletConfig config = (PortletConfig) ctx.getELContext().getELResolver().getValue(ctx.getELContext(), null,
+			PortletConfig config = (PortletConfig) facesContext.getELContext().getELResolver().getValue(facesContext.getELContext(), null,
 					"portletConfig");
 
 			if (config == null) {
@@ -455,7 +455,7 @@ public class Tests extends Object {
 			PortalContext pc = r.getPortalContext();
 			m.put("com.liferay.faces.bridge.tck.PortalContext", pc);
 
-			m.put("com.liferay.faces.bridge.tck.FacesContext", ctx);
+			m.put("com.liferay.faces.bridge.tck.FacesContext", facesContext);
 			m.put("com.liferay.faces.bridge.tck.ExternalContext", externalContext);
 
 			// Note:  no way to test the servlet objects
@@ -483,7 +483,7 @@ public class Tests extends Object {
 			boolean found1 = false;
 			boolean found2 = false;
 
-			for (Iterator<FacesMessage> i = ctx.getMessages(viewRoot.getClientId(ctx)); i.hasNext();) {
+			for (Iterator<FacesMessage> i = facesContext.getMessages(viewRoot.getClientId(facesContext)); i.hasNext();) {
 				FacesMessage message = i.next();
 
 				if (message.getSummary().equals(MESSAGE_VALUE1) && !found2) {
@@ -658,8 +658,8 @@ public class Tests extends Object {
 	// Test #5.2
 	@BridgeTest(test = "requestScopeRestartedOnActionTest")
 	public String requestScopeRestartedOnActionTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render

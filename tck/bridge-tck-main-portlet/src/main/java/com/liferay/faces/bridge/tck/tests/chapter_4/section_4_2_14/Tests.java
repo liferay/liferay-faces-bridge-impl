@@ -47,8 +47,8 @@ public class Tests extends Object {
 	}
 
 	public String isAutoDispatchEventsTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render

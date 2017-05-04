@@ -32,8 +32,8 @@ public class NonJSFViewBean {
 	}
 
 	public String getUrl() {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		Map<String, Object> m = externalContext.getRequestMap();
 		String testName = (String) m.get(Constants.TEST_NAME);

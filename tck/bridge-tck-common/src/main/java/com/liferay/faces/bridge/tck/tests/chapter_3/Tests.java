@@ -81,8 +81,8 @@ public class Tests extends Object {
 	// Test #3.22
 	@BridgeTest(test = "defaultRenderKitIdTest")
 	public String defaultRenderKitIdTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		testBean.setTestComplete(true);
 
@@ -113,8 +113,8 @@ public class Tests extends Object {
 	// Should never get to the render portion of this
 	@BridgeTest(test = "eventDestroyTest")
 	public String eventDestroyTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -175,14 +175,14 @@ public class Tests extends Object {
 
 	@BridgeTest(test = "modeViewIDTest")
 	public String modeViewIDTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = ctx.getExternalContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest req = (PortletRequest) externalContext.getRequest();
 
 		testBean.setTestComplete(true);
 
 		// Are we in the rightview???
-		String s = ctx.getViewRoot().getViewId();
+		String s = facesContext.getViewRoot().getViewId();
 
 		if (!s.contains("ModeViewIdResult")) {
 			testBean.setTestResult(false,
@@ -207,12 +207,12 @@ public class Tests extends Object {
 
 	@BridgeTest(test = "portletSetsViewIdTest")
 	public String portletSetsViewIdTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		testBean.setTestComplete(true);
 
 		// Are we in the rightview???
-		String s = ctx.getViewRoot().getViewId();
+		String s = facesContext.getViewRoot().getViewId();
 
 		if (s.contains("Success")) {
 			testBean.setTestResult(true, "correctly rendered the view explicitly set by the portlet: " + s);
@@ -230,12 +230,12 @@ public class Tests extends Object {
 
 	@BridgeTest(test = "portletSetsViewPathTest")
 	public String portletSetsViewPathTest(TestBean testBean) {
-		FacesContext ctx = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		testBean.setTestComplete(true);
 
 		// Are we in the rightview???
-		String s = ctx.getViewRoot().getViewId();
+		String s = facesContext.getViewRoot().getViewId();
 
 		if (s.contains("Success")) {
 			testBean.setTestResult(true, "correctly rendered the view explicitly set by the portlet: " + s);
