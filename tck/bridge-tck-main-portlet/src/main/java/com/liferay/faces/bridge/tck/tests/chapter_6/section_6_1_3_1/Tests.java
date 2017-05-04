@@ -984,9 +984,9 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = portletRequest.getWindowState();
+			WindowState windowState = portletRequest.getWindowState();
 
-			if ((ws == null) || !ws.toString().equalsIgnoreCase("normal")) {
+			if ((windowState == null) || !windowState.toString().equalsIgnoreCase("normal")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the invalid window state.  The resulting request should have ignored the invalid window state and remained in 'normal' mode.");
 
@@ -1041,9 +1041,9 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = portletRequest.getWindowState();
+			WindowState windowState = portletRequest.getWindowState();
 
-			if ((ws == null) || !ws.toString().equalsIgnoreCase("normal")) {
+			if ((windowState == null) || !windowState.toString().equalsIgnoreCase("normal")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the invalid window state.  The resulting request should have ignored the invalid window state and remained in 'normal' mode.");
 
@@ -1087,12 +1087,12 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = portletRequest.getWindowState();
+			WindowState windowState = portletRequest.getWindowState();
 
 			// Check that the parameter came along too
 			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if ((ws == null) || !ws.toString().equalsIgnoreCase("normal")) {
+			if ((windowState == null) || !windowState.toString().equalsIgnoreCase("normal")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the invalid window state.  The resulting request should have ignored the invalid window state and remained in 'normal' mode.");
 			}
@@ -1870,9 +1870,9 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = portletRequest.getWindowState();
+			WindowState windowState = portletRequest.getWindowState();
 
-			if ((ws == null) || !ws.toString().equalsIgnoreCase("maximized")) {
+			if ((windowState == null) || !windowState.toString().equalsIgnoreCase("maximized")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the new portlet window state.  The resulting request wasn't in the expected 'maximized' mode.");
 
@@ -1927,9 +1927,9 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = portletRequest.getWindowState();
+			WindowState windowState = portletRequest.getWindowState();
 
-			if ((ws == null) || !ws.toString().equalsIgnoreCase("maximized")) {
+			if ((windowState == null) || !windowState.toString().equalsIgnoreCase("maximized")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the new portlet window state.  The resulting request wasn't in the expected 'maximized' mode.");
 
@@ -1973,12 +1973,12 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = portletRequest.getWindowState();
+			WindowState windowState = portletRequest.getWindowState();
 
 			// Check that the parameter came along too
 			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if ((ws == null) || !ws.toString().equalsIgnoreCase("maximized")) {
+			if ((windowState == null) || !windowState.toString().equalsIgnoreCase("maximized")) {
 				testBean.setTestResult(false,
 					"encodeActionURL incorrectly encoded the new portlet window state.  The resulting request wasn't in the expected 'maximized' mode.");
 			}
@@ -2467,12 +2467,12 @@ public class Tests extends Object {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = portletRequest.getWindowState();
+			WindowState windowState = portletRequest.getWindowState();
 
 			// Check that the parameter came along too
 			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
 
-			if ((ws == null) || !ws.toString().equalsIgnoreCase("normal")) {
+			if ((windowState == null) || !windowState.toString().equalsIgnoreCase("normal")) {
 				testBean.setTestResult(false,
 					"encodeResourceURL incorrectly encoded the portlet window state.  The resulting request should have ignored the invalid window state and remained in 'normal' mode.");
 			}
