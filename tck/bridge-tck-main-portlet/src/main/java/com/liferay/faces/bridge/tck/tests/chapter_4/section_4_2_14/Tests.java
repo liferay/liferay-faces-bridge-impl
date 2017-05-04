@@ -55,8 +55,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event -- this ensures isAutoDispatchEvents will get called
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName("http://liferay.com/faces/event_ns", "faces.liferay.com.tck.testEvent"),
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName("http://liferay.com/faces/event_ns", "faces.liferay.com.tck.testEvent"),
 				testBean.getTestName());
 
 			return "isAutoDispatchEventsTest"; // action Navigation result
