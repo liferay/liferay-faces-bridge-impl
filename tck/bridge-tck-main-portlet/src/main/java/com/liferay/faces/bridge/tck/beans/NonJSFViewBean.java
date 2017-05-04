@@ -33,39 +33,39 @@ public class NonJSFViewBean {
 
 	public String getUrl() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
+		ExternalContext externalContext = ctx.getExternalContext();
 
-		Map<String, Object> m = extCtx.getRequestMap();
+		Map<String, Object> m = externalContext.getRequestMap();
 		String testName = (String) m.get(Constants.TEST_NAME);
 
 		if (testName.equals("encodeActionURLNonJSFViewRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewResourceTest")) {
-			return extCtx.getRequestContextPath() +
+			return externalContext.getRequestContextPath() +
 				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true";
 		}
 		else if (testName.equals("encodeActionURLNonJSFViewWithParamRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewWithParamResourceTest")) {
-			return extCtx.getRequestContextPath() +
+			return externalContext.getRequestContextPath() +
 				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;param1=testValue";
 		}
 		else if (testName.equals("encodeActionURLNonJSFViewWithModeRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewWithModeResourceTest")) {
-			return extCtx.getRequestContextPath() +
+			return externalContext.getRequestContextPath() +
 				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.PortletMode=edit&amp;param1=testValue";
 		}
 		else if (testName.equals("encodeActionURLNonJSFViewWithInvalidModeRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewWithInvalidModeResourceTest")) {
-			return extCtx.getRequestContextPath() +
+			return externalContext.getRequestContextPath() +
 				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.PortletMode=blue&amp;param1=testValue";
 		}
 		else if (testName.equals("encodeActionURLNonJSFViewWithWindowStateRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewWithWindowStateResourceTest")) {
-			return extCtx.getRequestContextPath() +
+			return externalContext.getRequestContextPath() +
 				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.WindowState=maximized&amp;param1=testValue";
 		}
 		else if (testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest")) {
-			return extCtx.getRequestContextPath() +
+			return externalContext.getRequestContextPath() +
 				"/nonFacesViewTestPortlet.ptlt?javax.portlet.faces.ViewLink=true&amp;invokeTest=true&amp;javax.portlet.faces.WindowState=blue&amp;param1=testValue";
 		}
 

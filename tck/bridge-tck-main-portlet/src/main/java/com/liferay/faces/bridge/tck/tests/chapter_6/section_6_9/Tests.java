@@ -42,17 +42,17 @@ public class Tests extends Object {
 	@BridgeTest(test = "usesConfiguredRenderKitTest")
 	public String usesConfiguredRenderKitTest(TestBean testBean) {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> m = extCtx.getRequestMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map<String, Object> m = externalContext.getRequestMap();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase(ctx) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Verify that the configured attribute is passed as a parameter
-			Map<String, String> rParams = extCtx.getRequestParameterMap();
-			Map<String, String[]> rParamValues = extCtx.getRequestParameterValuesMap();
-			Iterator<String> rParamNames = extCtx.getRequestParameterNames();
+			Map<String, String> rParams = externalContext.getRequestParameterMap();
+			Map<String, String[]> rParamValues = externalContext.getRequestParameterValuesMap();
+			Iterator<String> rParamNames = externalContext.getRequestParameterNames();
 
 			String detail = "";
 			boolean found = false;
@@ -121,9 +121,9 @@ public class Tests extends Object {
 
 			// Otherwise verify all things are set in the render
 			// Verify that the configured attribute is passed as a parameter
-			Map<String, String> rParams = extCtx.getRequestParameterMap();
-			Map<String, String[]> rParamValues = extCtx.getRequestParameterValuesMap();
-			Iterator<String> rParamNames = extCtx.getRequestParameterNames();
+			Map<String, String> rParams = externalContext.getRequestParameterMap();
+			Map<String, String[]> rParamValues = externalContext.getRequestParameterValuesMap();
+			Iterator<String> rParamNames = externalContext.getRequestParameterNames();
 
 			String detail = "";
 			boolean found = false;

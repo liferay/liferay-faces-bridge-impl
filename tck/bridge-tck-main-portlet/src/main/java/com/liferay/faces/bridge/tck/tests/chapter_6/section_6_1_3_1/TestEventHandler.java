@@ -78,14 +78,14 @@ public class TestEventHandler implements BridgeEventHandler {
 
 	private void getRequestCharacterEncodingEventTest() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> requestMap = extCtx.getRequestMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
-		String charEncoding = extCtx.getRequestCharacterEncoding();
+		String charEncoding = externalContext.getRequestCharacterEncoding();
 
 		if (charEncoding != null) {
 			requestMap.put(EVENT_TEST_RESULT,
-				"extCtx.getRequestCharacterEncoding() incorrectly returned non-null value when called during the event phase: " +
+				"externalContext.getRequestCharacterEncoding() incorrectly returned non-null value when called during the event phase: " +
 				charEncoding);
 		}
 		else {
@@ -95,14 +95,14 @@ public class TestEventHandler implements BridgeEventHandler {
 
 	private void getRequestContentTypeEventTest() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> requestMap = extCtx.getRequestMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
-		String contentType = extCtx.getRequestContentType();
+		String contentType = externalContext.getRequestContentType();
 
 		if (contentType != null) {
 			requestMap.put(EVENT_TEST_RESULT,
-				"extCtx.getRequestContentType() incorrectly returned non-null value when called during the event phase: " +
+				"externalContext.getRequestContentType() incorrectly returned non-null value when called during the event phase: " +
 				contentType);
 		}
 		else {
@@ -113,8 +113,8 @@ public class TestEventHandler implements BridgeEventHandler {
 	private void getRequestHeaderMapEventTest() {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> requestMap = extCtx.getRequestMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// Test the following:
 		// 1. Map is immutable
@@ -122,8 +122,8 @@ public class TestEventHandler implements BridgeEventHandler {
 		// 2. Doesn't contain the Content-Type property
 		// 3. Does include the Accept and Accept-Language
 
-		Map headerMap = extCtx.getRequestHeaderMap();
-		Enumeration propertyNames = ((PortletRequest) extCtx.getRequest()).getPropertyNames();
+		Map headerMap = externalContext.getRequestHeaderMap();
+		Enumeration propertyNames = ((PortletRequest) externalContext.getRequest()).getPropertyNames();
 
 		// Test for immutability
 		try {
@@ -161,7 +161,7 @@ public class TestEventHandler implements BridgeEventHandler {
 				// parse the accept header into its parts
 				String[] accepts = trim(e.getValue().split(","));
 
-				Enumeration em = ((PortletRequest) extCtx.getRequest()).getResponseContentTypes();
+				Enumeration em = ((PortletRequest) externalContext.getRequest()).getResponseContentTypes();
 
 				// Now ensure that all entries in the getResponseContentTypes enum are in the property
 				while (em.hasMoreElements()) {
@@ -191,7 +191,7 @@ public class TestEventHandler implements BridgeEventHandler {
 				// parse the accept header into its parts
 				String[] accepts = trim(e.getValue().split(","));
 
-				Enumeration em = ((PortletRequest) extCtx.getRequest()).getLocales();
+				Enumeration em = ((PortletRequest) externalContext.getRequest()).getLocales();
 
 				// Now ensure the two match
 				int found = 0;
@@ -224,8 +224,8 @@ public class TestEventHandler implements BridgeEventHandler {
 	private void getRequestHeaderValuesMapEventTest() {
 
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> requestMap = extCtx.getRequestMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// Test the following:
 		// 1. Map is immutable
@@ -233,8 +233,8 @@ public class TestEventHandler implements BridgeEventHandler {
 		// 2. Doesn't contain the Content-Type property
 		// 3. Does include the Accept and Accept-Language
 
-		Map<String, String[]> headerMap = extCtx.getRequestHeaderValuesMap();
-		Enumeration propertyNames = ((PortletRequest) extCtx.getRequest()).getPropertyNames();
+		Map<String, String[]> headerMap = externalContext.getRequestHeaderValuesMap();
+		Enumeration propertyNames = ((PortletRequest) externalContext.getRequest()).getPropertyNames();
 
 		// Test for immutability
 		try {
@@ -292,7 +292,7 @@ public class TestEventHandler implements BridgeEventHandler {
 					count += temp.length;
 				}
 
-				Enumeration em = ((PortletRequest) extCtx.getRequest()).getResponseContentTypes();
+				Enumeration em = ((PortletRequest) externalContext.getRequest()).getResponseContentTypes();
 
 				// Now ensure that all entries in the getResponseContentTypes enum are in the property
 				while (em.hasMoreElements()) {
@@ -339,7 +339,7 @@ public class TestEventHandler implements BridgeEventHandler {
 					System.arraycopy(temp, 0, accepts, count, temp.length);
 				}
 
-				Enumeration em = ((PortletRequest) extCtx.getRequest()).getLocales();
+				Enumeration em = ((PortletRequest) externalContext.getRequest()).getLocales();
 
 				// Now ensure the two match
 				int found = 0;
@@ -371,13 +371,13 @@ public class TestEventHandler implements BridgeEventHandler {
 
 	private void getResponseCharacterEncodingEventTest() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> requestMap = extCtx.getRequestMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		try {
-			String encoding = extCtx.getResponseCharacterEncoding();
+			String encoding = externalContext.getResponseCharacterEncoding();
 			requestMap.put(EVENT_TEST_RESULT,
-				"extCtx.getResponseCharacterEncoding() didn't throw an IllegalStateException when called during an Event.");
+				"externalContext.getResponseCharacterEncoding() didn't throw an IllegalStateException when called during an Event.");
 		}
 		catch (IllegalStateException e) {
 			requestMap.put(EVENT_TEST_RESULT, Constants.TEST_SUCCESS);
@@ -386,13 +386,13 @@ public class TestEventHandler implements BridgeEventHandler {
 
 	private void getResponseContentTypeEventTest() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> requestMap = extCtx.getRequestMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		try {
-			String encoding = extCtx.getResponseContentType();
+			String encoding = externalContext.getResponseContentType();
 			requestMap.put(EVENT_TEST_RESULT,
-				"extCtx.getResponseContentType() didn't throw an IllegalStateException when called during an Event.");
+				"externalContext.getResponseContentType() didn't throw an IllegalStateException when called during an Event.");
 		}
 		catch (IllegalStateException e) {
 			requestMap.put(EVENT_TEST_RESULT, Constants.TEST_SUCCESS);
@@ -402,18 +402,18 @@ public class TestEventHandler implements BridgeEventHandler {
 
 	private void redirectEventTest() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
-		ExternalContext extCtx = ctx.getExternalContext();
-		Map<String, Object> requestMap = extCtx.getRequestMap();
+		ExternalContext externalContext = ctx.getExternalContext();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		String target = ctx.getApplication().getViewHandler().getActionURL(ctx,
 				"/tests/redirectTestResultRenderCheck.xhtml");
 
 		try {
-			extCtx.redirect(target);
+			externalContext.redirect(target);
 			requestMap.put(EVENT_TEST_RESULT, Constants.TEST_SUCCESS);
 		}
 		catch (Exception e) {
-			requestMap.put(EVENT_TEST_RESULT, "Calling extCtx.redirect() threw an exception: " + e.getMessage());
+			requestMap.put(EVENT_TEST_RESULT, "Calling externalContext.redirect() threw an exception: " + e.getMessage());
 		}
 	}
 
