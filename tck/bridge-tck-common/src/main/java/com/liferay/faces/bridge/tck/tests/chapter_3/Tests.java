@@ -120,8 +120,8 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
-			StateAwareResponse response = (StateAwareResponse) externalContext.getResponse();
-			response.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
+			stateAwareResponse.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
 				testBean.getTestName());
 
 			return "eventDestroyTest"; // action Navigation result
