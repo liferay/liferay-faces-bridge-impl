@@ -137,9 +137,9 @@ public class NonFacesViewTestPortlet extends NonFacesViewTestCompatPortlet {
 				testName.equals("encodeActionURLNonJSFViewWithWindowStateResourceTest")) {
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = request.getWindowState();
+			WindowState windowState = request.getWindowState();
 
-			if ((ws == null) || !ws.toString().equalsIgnoreCase("maximized")) {
+			if ((windowState == null) || !windowState.toString().equalsIgnoreCase("maximized")) {
 				return outputTestResult(false,
 						"encodeActionURL incorrectly encoded the new portlet window state.  The resulting request wasn't in the expected 'maximized' mode.");
 			}
@@ -159,9 +159,9 @@ public class NonFacesViewTestPortlet extends NonFacesViewTestCompatPortlet {
 				testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest")) {
 
 			// Parameter/Mode encoded in the faces-config.xml target
-			WindowState ws = request.getWindowState();
+			WindowState windowState = request.getWindowState();
 
-			if ((ws == null) || !ws.toString().equalsIgnoreCase("normal")) {
+			if ((windowState == null) || !windowState.toString().equalsIgnoreCase("normal")) {
 				return outputTestResult(false,
 						"encodeActionURL incorrectly encoded an invalid window state.  The resulting request should have ignored the invalid window state and remained in 'normal' mode.");
 			}
