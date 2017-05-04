@@ -658,8 +658,8 @@ public class Tests extends Object {
 		// 2. Map contains the same entries as in the underlying session
 
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
-		PortletSession session = ((PortletRequest) externalContext.getRequest()).getPortletSession();
-		Enumeration<String> requestSessionAttrNames = session.getAttributeNames();
+		PortletSession portletSession = ((PortletRequest) externalContext.getRequest()).getPortletSession();
+		Enumeration<String> requestSessionAttrNames = portletSession.getAttributeNames();
 
 		// Test for mutability
 		try {
@@ -671,7 +671,7 @@ public class Tests extends Object {
 			return "getSessionMapTest";
 		}
 
-		if (containsIdenticalSessionEntries(sessionMap, requestSessionAttrNames, session)) {
+		if (containsIdenticalSessionEntries(sessionMap, requestSessionAttrNames, portletSession)) {
 			testBean.setTestResult(true,
 				"externalContext.getSessionMap() correctly contains same attributes as the underlying portlet session.");
 
