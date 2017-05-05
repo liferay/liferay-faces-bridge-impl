@@ -264,7 +264,7 @@ public class Tests extends Object {
 		// same url during from the encoding during a resource then all is good.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING = "/tests/viewLink.jsf";
 
@@ -274,7 +274,7 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
-			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
+			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
 
 			// Now run the test
 			testBean.setTestComplete(true);
@@ -684,7 +684,7 @@ public class Tests extends Object {
 		// same url during from the encoding during a resource then all is good.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
@@ -696,7 +696,7 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
-			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
+			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
 
 			// Now run the test
 			testBean.setTestComplete(true);
@@ -911,7 +911,7 @@ public class Tests extends Object {
 		// same url during from the encoding during a resource then all is good.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
@@ -923,7 +923,7 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
-			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
+			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
 
 			// Now run the test
 			testBean.setTestComplete(true);
@@ -1139,7 +1139,7 @@ public class Tests extends Object {
 		// same url during from the encoding during a resource then all is good.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
@@ -1151,7 +1151,7 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
-			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
+			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
 
 			// Now run the test
 			testBean.setTestComplete(true);
@@ -1373,7 +1373,7 @@ public class Tests extends Object {
 		// same url during from the encoding during a resource then all is good.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=edit&param1=testValue";
@@ -1385,7 +1385,7 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
-			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
+			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
 
 			// Now run the test
 			testBean.setTestComplete(true);
@@ -1576,7 +1576,7 @@ public class Tests extends Object {
 		// same url during from the encoding during a resource then all is good.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING = "/tests/viewLink.jsf?param1=testValue";
 
@@ -1587,7 +1587,7 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
-			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
+			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
 
 			// Now run the test
 			testBean.setTestComplete(true);
@@ -1797,7 +1797,7 @@ public class Tests extends Object {
 		// same url during from the encoding during a resource then all is good.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
@@ -1809,7 +1809,7 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
-			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
+			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
 
 			// Now run the test
 			testBean.setTestComplete(true);
@@ -2025,7 +2025,7 @@ public class Tests extends Object {
 		// same url during from the encoding during a resource then all is good.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 		Map s = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
@@ -2037,7 +2037,7 @@ public class Tests extends Object {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
-			m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
+			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
 
 			// Now run the test
 			testBean.setTestComplete(true);

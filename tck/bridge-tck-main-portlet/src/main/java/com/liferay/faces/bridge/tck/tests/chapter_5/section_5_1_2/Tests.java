@@ -52,7 +52,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		UIViewRoot uiViewRoot = facesContext.getViewRoot();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -61,16 +61,16 @@ public class Tests extends Object {
 			// navigation has occurred -- so we attach to the right ViewRoot The lifecycleListener is in the portlet
 			// that drives this test
 
-			m.put("com.liferay.faces.bridge.tck.IncludedAttr", REQUEST_ATTR_VALUE);
-			m.put("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.include.IncludedAttr", REQUEST_ATTR_VALUE);
-			m.put("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.include.IncludedAttr", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.IncludedAttr", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.include.IncludedAttr", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.include.IncludedAttr", REQUEST_ATTR_VALUE);
 
 			// Add elements that should be excluded
-			m.put("com.liferay.faces.bridge.tck.ExcludeByAnnotation", new AnnotatedExcludedBean());
-			m.put("com.liferay.faces.bridge.tck.ExcludeByFacesConfigRef", REQUEST_ATTR_VALUE);
-			m.put("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.ExcludeByFacesConfigRef", REQUEST_ATTR_VALUE);
-			m.put("com.liferay.faces.bridge.tck.ExcludeByPortletXmlRef", REQUEST_ATTR_VALUE);
-			m.put("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.ExcludeByPortletXmlRef", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.ExcludeByAnnotation", new AnnotatedExcludedBean());
+			requestMap.put("com.liferay.faces.bridge.tck.ExcludeByFacesConfigRef", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.ExcludeByFacesConfigRef", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.ExcludeByPortletXmlRef", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.ExcludeByPortletXmlRef", REQUEST_ATTR_VALUE);
 
 			return "excludedAttributesTest"; // action Navigation result
 		}
@@ -79,7 +79,7 @@ public class Tests extends Object {
 
 			// Now verify that what should have been carried forward has and what shouldn't hasn't.
 
-			String s = (String) m.get("com.liferay.faces.bridge.tck.IncludedAttr");
+			String s = (String) requestMap.get("com.liferay.faces.bridge.tck.IncludedAttr");
 
 			if ((s == null) || !s.equals(REQUEST_ATTR_VALUE)) {
 				testBean.setTestResult(false,
@@ -88,7 +88,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			s = (String) m.get("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.include.IncludedAttr");
+			s = (String) requestMap.get("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.include.IncludedAttr");
 
 			if ((s == null) || !s.equals(REQUEST_ATTR_VALUE)) {
 				testBean.setTestResult(false,
@@ -97,7 +97,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			s = (String) m.get("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.include.IncludedAttr");
+			s = (String) requestMap.get("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.include.IncludedAttr");
 
 			if ((s == null) || !s.equals(REQUEST_ATTR_VALUE)) {
 				testBean.setTestResult(false,
@@ -107,7 +107,7 @@ public class Tests extends Object {
 			}
 
 			// Check elements that should be excluded
-			Object o = m.get("com.liferay.faces.bridge.tck.ExcludeByAnnotation");
+			Object o = requestMap.get("com.liferay.faces.bridge.tck.ExcludeByAnnotation");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -116,7 +116,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.ExcludeByFacesConfigRef");
+			o = requestMap.get("com.liferay.faces.bridge.tck.ExcludeByFacesConfigRef");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -125,7 +125,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.ExcludeByFacesConfigRef");
+			o = requestMap.get("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.ExcludeByFacesConfigRef");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -134,7 +134,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.ExcludeByPortletXmlRef");
+			o = requestMap.get("com.liferay.faces.bridge.tck.ExcludeByPortletXmlRef");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -143,7 +143,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.ExcludeByPortletXmlRef");
+			o = requestMap.get("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.ExcludeByPortletXmlRef");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -164,7 +164,7 @@ public class Tests extends Object {
 	public String requestNoScopeOnModeChangeTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -172,7 +172,7 @@ public class Tests extends Object {
 
 			// Add elements that should be preserved but won't be because we are navigating from VIEW to EDIT mode
 			// due to the presence of javax.portlet.faces.PortletMode=edit in the navigation-rule.
-			m.put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
 
 			return "requestNoScopeOnModeChangeTest"; // action Navigation result
 		}
@@ -181,7 +181,7 @@ public class Tests extends Object {
 
 			// Now verify that no scope data was carried forward.
 
-			String s = (String) m.get("com.liferay.faces.bridge.tck.TestRequestScope_a");
+			String s = (String) requestMap.get("com.liferay.faces.bridge.tck.TestRequestScope_a");
 
 			if (s == null) {
 				testBean.setTestResult(true, "Request attribute not retained as expected.");
@@ -205,14 +205,14 @@ public class Tests extends Object {
 	public String requestNoScopeOnRedirectTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Add elements that should be preserved but won't be because we are redirecting
-			m.put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
 
 			return "requestNoScopeOnRedirectTest"; // action Navigation result
 		}
@@ -221,7 +221,7 @@ public class Tests extends Object {
 
 			// Now verify that no scope data was carried forward.
 
-			String s = (String) m.get("com.liferay.faces.bridge.tck.TestRequestScope_a");
+			String s = (String) requestMap.get("com.liferay.faces.bridge.tck.TestRequestScope_a");
 
 			if (s == null) {
 				testBean.setTestResult(true, "Request attribute not retained as expected.");
@@ -416,7 +416,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		UIViewRoot uiViewRoot = facesContext.getViewRoot();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -428,10 +428,10 @@ public class Tests extends Object {
 			// navigation has occurred -- so we attach to the right ViewRoot The lifecycleListener is in the portlet
 			// that drives this test
 
-			m.put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
 
 			// Add elements that should be excluded
-			m.put("com.liferay.faces.bridge.tck.TestRequestScope_b", new AnnotatedExcludedBean());
+			requestMap.put("com.liferay.faces.bridge.tck.TestRequestScope_b", new AnnotatedExcludedBean());
 			// Don't need to add additional excludedAttributes tests as they are covered in chapter 6 tests
 
 			PortletConfig config = (PortletConfig) facesContext.getELContext().getELResolver().getValue(facesContext.getELContext(), null,
@@ -441,30 +441,30 @@ public class Tests extends Object {
 				throw new IllegalStateException("Unable to acquire the portletConfig!");
 			}
 
-			m.put("com.liferay.faces.bridge.tck.PortletConfig", config);
+			requestMap.put("com.liferay.faces.bridge.tck.PortletConfig", config);
 
-			m.put("com.liferay.faces.bridge.tck.PortletContext", externalContext.getContext());
-			m.put("com.liferay.faces.bridge.tck.PortletRequest", externalContext.getRequest());
-			m.put("com.liferay.faces.bridge.tck.PortletResponse", externalContext.getResponse());
-			m.put("com.liferay.faces.bridge.tck.PortletSession", externalContext.getSession(true));
+			requestMap.put("com.liferay.faces.bridge.tck.PortletContext", externalContext.getContext());
+			requestMap.put("com.liferay.faces.bridge.tck.PortletRequest", externalContext.getRequest());
+			requestMap.put("com.liferay.faces.bridge.tck.PortletResponse", externalContext.getResponse());
+			requestMap.put("com.liferay.faces.bridge.tck.PortletSession", externalContext.getSession(true));
 
 			PortletRequest r = (PortletRequest) externalContext.getRequest();
 			PortletPreferences prefs = r.getPreferences();
-			m.put("com.liferay.faces.bridge.tck.PortletPreferences", prefs);
+			requestMap.put("com.liferay.faces.bridge.tck.PortletPreferences", prefs);
 
 			PortalContext pc = r.getPortalContext();
-			m.put("com.liferay.faces.bridge.tck.PortalContext", pc);
+			requestMap.put("com.liferay.faces.bridge.tck.PortalContext", pc);
 
-			m.put("com.liferay.faces.bridge.tck.FacesContext", facesContext);
-			m.put("com.liferay.faces.bridge.tck.ExternalContext", externalContext);
+			requestMap.put("com.liferay.faces.bridge.tck.FacesContext", facesContext);
+			requestMap.put("com.liferay.faces.bridge.tck.ExternalContext", externalContext);
 
 			// Note:  no way to test the servlet objects
 
-			m.put("javax.portlet.TestRequestScope", REQUEST_ATTR_VALUE);
-			m.put("javax.portlet.faces.TestRequestScope", REQUEST_ATTR_VALUE);
-			m.put("javax.faces.TestRequestScope", REQUEST_ATTR_VALUE);
-			m.put("javax.servlet.TestRequestScope", REQUEST_ATTR_VALUE);
-			m.put("javax.servlet.include.TestRequestScope", REQUEST_ATTR_VALUE);
+			requestMap.put("javax.portlet.TestRequestScope", REQUEST_ATTR_VALUE);
+			requestMap.put("javax.portlet.faces.TestRequestScope", REQUEST_ATTR_VALUE);
+			requestMap.put("javax.faces.TestRequestScope", REQUEST_ATTR_VALUE);
+			requestMap.put("javax.servlet.TestRequestScope", REQUEST_ATTR_VALUE);
+			requestMap.put("javax.servlet.include.TestRequestScope", REQUEST_ATTR_VALUE);
 
 			return "requestScopeContentsTest"; // action Navigation result
 		}
@@ -501,7 +501,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			String s = (String) m.get("com.liferay.faces.bridge.tck.TestRequestScope_a");
+			String s = (String) requestMap.get("com.liferay.faces.bridge.tck.TestRequestScope_a");
 
 			if ((s == null) || !s.equals(REQUEST_ATTR_VALUE)) {
 				testBean.setTestResult(false,
@@ -511,7 +511,7 @@ public class Tests extends Object {
 			}
 
 			// Add elements that should be excluded
-			Object o = m.get("com.liferay.faces.bridge.tck.TestRequestScope_b");
+			Object o = requestMap.get("com.liferay.faces.bridge.tck.TestRequestScope_b");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -520,7 +520,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.PortletConfig");
+			o = requestMap.get("com.liferay.faces.bridge.tck.PortletConfig");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -529,7 +529,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.PortletContext");
+			o = requestMap.get("com.liferay.faces.bridge.tck.PortletContext");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -538,7 +538,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.PortletRequest");
+			o = requestMap.get("com.liferay.faces.bridge.tck.PortletRequest");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -547,7 +547,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.PortletResponse");
+			o = requestMap.get("com.liferay.faces.bridge.tck.PortletResponse");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -556,7 +556,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.PortletSession");
+			o = requestMap.get("com.liferay.faces.bridge.tck.PortletSession");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -565,7 +565,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.PortletPreferences");
+			o = requestMap.get("com.liferay.faces.bridge.tck.PortletPreferences");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -574,7 +574,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.PortalContext");
+			o = requestMap.get("com.liferay.faces.bridge.tck.PortalContext");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -583,7 +583,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.FacesContext");
+			o = requestMap.get("com.liferay.faces.bridge.tck.FacesContext");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -592,7 +592,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("com.liferay.faces.bridge.tck.ExternalContext");
+			o = requestMap.get("com.liferay.faces.bridge.tck.ExternalContext");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -603,7 +603,7 @@ public class Tests extends Object {
 
 			// Note:  no way to test the servlet objects
 
-			o = m.get("javax.portlet.TestRequestScope");
+			o = requestMap.get("javax.portlet.TestRequestScope");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -612,7 +612,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("javax.portlet.faces.TestRequestScope");
+			o = requestMap.get("javax.portlet.faces.TestRequestScope");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -621,7 +621,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("javax.faces.TestRequestScope");
+			o = requestMap.get("javax.faces.TestRequestScope");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -630,7 +630,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("javax.servlet.TestRequestScope");
+			o = requestMap.get("javax.servlet.TestRequestScope");
 
 			if (o != null) {
 				testBean.setTestResult(false,
@@ -639,7 +639,7 @@ public class Tests extends Object {
 				return Constants.TEST_FAILED;
 			}
 
-			o = m.get("javax.servlet.include.TestRequestScope");
+			o = requestMap.get("javax.servlet.include.TestRequestScope");
 
 			if (o != null) {
 				testBean.setTestResult(false,
