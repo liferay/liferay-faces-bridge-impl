@@ -265,7 +265,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String,Object> requestMap = externalContext.getRequestMap();
-		Map s = externalContext.getSessionMap();
+		Map<String,Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING = "/tests/viewLink.jsf";
 
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(ENCODE_ACTIONURL_TEST_STRING)
@@ -283,10 +283,10 @@ public class Tests extends Object {
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
 			String resourceEncoded = externalContext.encodeActionURL(testString);
-			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
+			String otherPhaseEncoded = (String) sessionMap.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
-			s.remove("com.liferay.faces.bridge.tck.encodedURL");
+			sessionMap.remove("com.liferay.faces.bridge.tck.encodedURL");
 
 			if (otherPhaseEncoded == null) {
 				testBean.setTestResult(false,
@@ -311,8 +311,8 @@ public class Tests extends Object {
 		}
 
 		// Otherwise -- no output
-		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
+		if (sessionMap.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
+			sessionMap.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -685,7 +685,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String,Object> requestMap = externalContext.getRequestMap();
-		Map s = externalContext.getSessionMap();
+		Map<String,Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
@@ -705,10 +705,10 @@ public class Tests extends Object {
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
 			String resourceEncoded = externalContext.encodeActionURL(testString);
-			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
+			String otherPhaseEncoded = (String) sessionMap.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
-			s.remove("com.liferay.faces.bridge.tck.encodedURL");
+			sessionMap.remove("com.liferay.faces.bridge.tck.encodedURL");
 
 			if (otherPhaseEncoded == null) {
 				testBean.setTestResult(false,
@@ -733,8 +733,8 @@ public class Tests extends Object {
 		}
 
 		// Otherwise -- no output
-		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
+		if (sessionMap.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
+			sessionMap.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -912,7 +912,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String,Object> requestMap = externalContext.getRequestMap();
-		Map s = externalContext.getSessionMap();
+		Map<String,Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
@@ -932,10 +932,10 @@ public class Tests extends Object {
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
 			String resourceEncoded = externalContext.encodeActionURL(testString);
-			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
+			String otherPhaseEncoded = (String) sessionMap.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
-			s.remove("com.liferay.faces.bridge.tck.encodedURL");
+			sessionMap.remove("com.liferay.faces.bridge.tck.encodedURL");
 
 			if (otherPhaseEncoded == null) {
 				testBean.setTestResult(false,
@@ -960,8 +960,8 @@ public class Tests extends Object {
 		}
 
 		// Otherwise -- no output
-		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
+		if (sessionMap.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
+			sessionMap.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -1140,7 +1140,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String,Object> requestMap = externalContext.getRequestMap();
-		Map s = externalContext.getSessionMap();
+		Map<String,Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
@@ -1160,10 +1160,10 @@ public class Tests extends Object {
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
 			String resourceEncoded = externalContext.encodeActionURL(testString);
-			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
+			String otherPhaseEncoded = (String) sessionMap.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
-			s.remove("com.liferay.faces.bridge.tck.encodedURL");
+			sessionMap.remove("com.liferay.faces.bridge.tck.encodedURL");
 
 			if (otherPhaseEncoded == null) {
 				testBean.setTestResult(false,
@@ -1188,8 +1188,8 @@ public class Tests extends Object {
 		}
 
 		// Otherwise -- no output
-		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
+		if (sessionMap.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
+			sessionMap.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -1374,7 +1374,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String,Object> requestMap = externalContext.getRequestMap();
-		Map s = externalContext.getSessionMap();
+		Map<String,Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=edit&param1=testValue";
 
@@ -1394,10 +1394,10 @@ public class Tests extends Object {
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
 			String resourceEncoded = externalContext.encodeActionURL(testString);
-			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
+			String otherPhaseEncoded = (String) sessionMap.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
-			s.remove("com.liferay.faces.bridge.tck.encodedURL");
+			sessionMap.remove("com.liferay.faces.bridge.tck.encodedURL");
 
 			if (otherPhaseEncoded == null) {
 				testBean.setTestResult(false,
@@ -1422,8 +1422,8 @@ public class Tests extends Object {
 		}
 
 		// Otherwise -- no output
-		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
+		if (sessionMap.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
+			sessionMap.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -1577,7 +1577,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String,Object> requestMap = externalContext.getRequestMap();
-		Map s = externalContext.getSessionMap();
+		Map<String,Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING = "/tests/viewLink.jsf?param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
@@ -1596,10 +1596,10 @@ public class Tests extends Object {
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
 			String resourceEncoded = externalContext.encodeActionURL(testString);
-			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
+			String otherPhaseEncoded = (String) sessionMap.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
-			s.remove("com.liferay.faces.bridge.tck.encodedURL");
+			sessionMap.remove("com.liferay.faces.bridge.tck.encodedURL");
 
 			if (otherPhaseEncoded == null) {
 				testBean.setTestResult(false,
@@ -1624,8 +1624,8 @@ public class Tests extends Object {
 		}
 
 		// Otherwise -- no output
-		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
+		if (sessionMap.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
+			sessionMap.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -1798,7 +1798,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String,Object> requestMap = externalContext.getRequestMap();
-		Map s = externalContext.getSessionMap();
+		Map<String,Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
@@ -1818,10 +1818,10 @@ public class Tests extends Object {
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
 			String resourceEncoded = externalContext.encodeActionURL(testString);
-			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
+			String otherPhaseEncoded = (String) sessionMap.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
-			s.remove("com.liferay.faces.bridge.tck.encodedURL");
+			sessionMap.remove("com.liferay.faces.bridge.tck.encodedURL");
 
 			if (otherPhaseEncoded == null) {
 				testBean.setTestResult(false,
@@ -1846,8 +1846,8 @@ public class Tests extends Object {
 		}
 
 		// Otherwise -- no output
-		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
+		if (sessionMap.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
+			sessionMap.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
@@ -2026,7 +2026,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String,Object> requestMap = externalContext.getRequestMap();
-		Map s = externalContext.getSessionMap();
+		Map<String,Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
@@ -2046,10 +2046,10 @@ public class Tests extends Object {
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
 			String resourceEncoded = externalContext.encodeActionURL(testString);
-			String otherPhaseEncoded = (String) s.get("com.liferay.faces.bridge.tck.encodedURL");
+			String otherPhaseEncoded = (String) sessionMap.get("com.liferay.faces.bridge.tck.encodedURL");
 
 			// remove it for future/other tests
-			s.remove("com.liferay.faces.bridge.tck.encodedURL");
+			sessionMap.remove("com.liferay.faces.bridge.tck.encodedURL");
 
 			if (otherPhaseEncoded == null) {
 				testBean.setTestResult(false,
@@ -2074,8 +2074,8 @@ public class Tests extends Object {
 		}
 
 		// Otherwise -- no output
-		if (s.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
-			s.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
+		if (sessionMap.get("com.liferay.faces.bridge.tck.encodedURL") == null) {
+			sessionMap.put("com.liferay.faces.bridge.tck.encodedURL", externalContext.encodeActionURL(testString));
 		}
 
 		return "";
