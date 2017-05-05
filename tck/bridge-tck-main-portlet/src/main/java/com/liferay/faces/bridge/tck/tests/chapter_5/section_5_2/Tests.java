@@ -853,7 +853,7 @@ public class Tests extends HeaderTests implements PhaseListener {
 	public String renderRedirectTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -917,20 +917,20 @@ public class Tests extends HeaderTests implements PhaseListener {
 	public String scopeAfterRedisplayResourcePPRTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
-			m.put("testAttr", testBean.getTestName());
+			requestMap.put("testAttr", testBean.getTestName());
 
 			return "";
 		}
 		else if (Bridge.PortletPhase.HEADER_PHASE.equals(BridgeUtil.getPortletRequestPhase(facesContext)) &&
-				(m.get("com.liferay.faces.bridge.tck.pprSubmitted") != null)) {
+				(requestMap.get("com.liferay.faces.bridge.tck.pprSubmitted") != null)) {
 			testBean.setTestComplete(true);
 
-			m.remove("com.liferay.faces.bridge.tck.pprSubmitted");
+			requestMap.remove("com.liferay.faces.bridge.tck.pprSubmitted");
 
-			if ((m.get("testAttr") != null) && ((String) m.get("testAttr")).equals(testBean.getTestName())) {
+			if ((requestMap.get("testAttr") != null) && ((String) requestMap.get("testAttr")).equals(testBean.getTestName())) {
 				testBean.setTestResult(true,
 					"Redisplay after resource request correctly restored scope including attr added during resource execution.");
 
@@ -953,9 +953,9 @@ public class Tests extends HeaderTests implements PhaseListener {
 	public void scopeAfterRedisplayResourcePPRTestListener(TestBean testBean, ActionEvent action) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 
-		m.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
+		requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
 	}
 
 	// Test is MultiRequest -- Render/Action
@@ -964,12 +964,12 @@ public class Tests extends HeaderTests implements PhaseListener {
 	public String scopeNotRestoredResourceTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// set a request scoped attr and then continue
-			m.put("testAttr", testBean.getTestName());
+			requestMap.put("testAttr", testBean.getTestName());
 
 			return "scopeNotRestoredResourceTest";
 		}
@@ -977,7 +977,7 @@ public class Tests extends HeaderTests implements PhaseListener {
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
-			String s = (String) m.get("testAttr");
+			String s = (String) requestMap.get("testAttr");
 
 			if (s == null) {
 				testBean.setTestResult(true, "Resource request correctly executed without restoring request scope.");
@@ -1000,12 +1000,12 @@ public class Tests extends HeaderTests implements PhaseListener {
 	public String verifyPortletObjectsTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 
 		testBean.setTestComplete(true);
 
 		// Are we in the rightview???
-		String s = (String) m.get("javax.portlet.faces.tck.verifyPortletObjectsPass");
+		String s = (String) requestMap.get("javax.portlet.faces.tck.verifyPortletObjectsPass");
 
 		if (s != null) {
 			testBean.setTestResult(true, s);
@@ -1013,7 +1013,7 @@ public class Tests extends HeaderTests implements PhaseListener {
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testBean.setTestResult(false, (String) m.get("javax.portlet.faces.tck.verifyPortletObjectsFail"));
+			testBean.setTestResult(false, (String) requestMap.get("javax.portlet.faces.tck.verifyPortletObjectsFail"));
 
 			return Constants.TEST_FAILED;
 		}
@@ -1025,7 +1025,7 @@ public class Tests extends HeaderTests implements PhaseListener {
 	public String verifyPortletPhaseTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -1038,8 +1038,8 @@ public class Tests extends HeaderTests implements PhaseListener {
 
 			// Now verify that what should have been carried forward has and what shouldn't hasn't.
 
-			String s = (String) m.get("javax.portlet.faces.tck.verifyPortletPhaseDuringActionPass");
-			String s1 = (String) m.get("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderPass");
+			String s = (String) requestMap.get("javax.portlet.faces.tck.verifyPortletPhaseDuringActionPass");
+			String s1 = (String) requestMap.get("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderPass");
 
 			if ((s != null) && (s1 != null)) {
 				testBean.setTestResult(true, s + s1);
@@ -1048,11 +1048,11 @@ public class Tests extends HeaderTests implements PhaseListener {
 			}
 
 			if (s == null) {
-				s = (String) m.get("javax.portlet.faces.tck.verifyPortletPhaseDuringActionFail");
+				s = (String) requestMap.get("javax.portlet.faces.tck.verifyPortletPhaseDuringActionFail");
 			}
 
 			if (s1 == null) {
-				s1 = (String) m.get("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderFail");
+				s1 = (String) requestMap.get("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderFail");
 			}
 
 			testBean.setTestResult(false, s + s1);
@@ -1068,7 +1068,7 @@ public class Tests extends HeaderTests implements PhaseListener {
 	public String verifyResourcePhaseTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map m = externalContext.getRequestMap();
+		Map<String,Object> requestMap = externalContext.getRequestMap();
 
 		testBean.setTestComplete(true);
 
