@@ -130,8 +130,8 @@ public class Tests extends Object {
 
 		// test is run/checked in the jsp which adds request attrs which we read here
 
-		Map m = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
-		Boolean b = (Boolean) m.get("com.liferay.faces.bridge.TCK.status");
+		Map<String,Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+		Boolean b = (Boolean) requestMap.get("com.liferay.faces.bridge.TCK.status");
 
 		if (b == null) {
 			testBean.setTestResult(false,
@@ -140,13 +140,13 @@ public class Tests extends Object {
 			return Constants.TEST_FAILED;
 		}
 		else if (b.equals(Boolean.TRUE)) {
-			testBean.setTestResult(true, (String) m.get("com.liferay.faces.bridge.TCK.detail"));
+			testBean.setTestResult(true, (String) requestMap.get("com.liferay.faces.bridge.TCK.detail"));
 
 			return Constants.TEST_SUCCESS;
 
 		}
 		else {
-			testBean.setTestResult(false, (String) m.get("com.liferay.faces.bridge.TCK.detail"));
+			testBean.setTestResult(false, (String) requestMap.get("com.liferay.faces.bridge.TCK.detail"));
 
 			return Constants.TEST_FAILED;
 		}
@@ -160,8 +160,8 @@ public class Tests extends Object {
 
 		// test is run/checked in the jsp which adds request attrs which we read here
 
-		Map m = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
-		Boolean b = (Boolean) m.get("com.liferay.faces.bridge.TCK.status");
+		Map<String,Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+		Boolean b = (Boolean) requestMap.get("com.liferay.faces.bridge.TCK.status");
 
 		if (b == null) {
 			testBean.setTestResult(false,
@@ -170,13 +170,13 @@ public class Tests extends Object {
 			return Constants.TEST_FAILED;
 		}
 		else if (b.equals(Boolean.TRUE)) {
-			testBean.setTestResult(true, (String) m.get("com.liferay.faces.bridge.TCK.detail"));
+			testBean.setTestResult(true, (String) requestMap.get("com.liferay.faces.bridge.TCK.detail"));
 
 			return Constants.TEST_SUCCESS;
 
 		}
 		else {
-			testBean.setTestResult(false, (String) m.get("com.liferay.faces.bridge.TCK.detail"));
+			testBean.setTestResult(false, (String) requestMap.get("com.liferay.faces.bridge.TCK.detail"));
 
 			return Constants.TEST_FAILED;
 		}
