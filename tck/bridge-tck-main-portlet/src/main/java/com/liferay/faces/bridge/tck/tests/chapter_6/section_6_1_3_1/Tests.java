@@ -5835,7 +5835,7 @@ public class Tests extends Object {
 			catch (Exception e) {
 
 				// container likely did the right thing -- but make sure by reading the parameters
-				Map m = ((PortletRequest) externalContext.getRequest()).getParameterMap();
+				Map<String,String[]> requestParameterMap = ((PortletRequest) externalContext.getRequest()).getParameterMap();
 			}
 
 			if ((s == null) || ((s != null) && !s.equalsIgnoreCase(utf8))) {
