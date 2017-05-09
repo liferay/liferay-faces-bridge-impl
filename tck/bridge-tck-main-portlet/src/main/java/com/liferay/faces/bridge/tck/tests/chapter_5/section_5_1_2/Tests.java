@@ -664,13 +664,13 @@ public class Tests extends Object {
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
-			Map<String, Object> m = externalContext.getSessionMap();
-			Boolean b = (Boolean) m.get("com.liferay.faces.bridge.tck.firstActionOccurred");
+			Map<String, Object> sessionMap = externalContext.getSessionMap();
+			Boolean b = (Boolean) sessionMap.get("com.liferay.faces.bridge.tck.firstActionOccurred");
 
 			if (b == null) {
 
 				// This is the first action
-				m.put("com.liferay.faces.bridge.tck.firstActionOccurred", new Boolean(true));
+				sessionMap.put("com.liferay.faces.bridge.tck.firstActionOccurred", new Boolean(true));
 
 				// push a new request attribute that we can test later doesn't exist
 				FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(
