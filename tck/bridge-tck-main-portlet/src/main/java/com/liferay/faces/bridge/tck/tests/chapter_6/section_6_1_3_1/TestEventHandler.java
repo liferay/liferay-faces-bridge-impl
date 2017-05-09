@@ -42,8 +42,8 @@ public class TestEventHandler implements BridgeEventHandler {
 	}
 
 	public EventNavigationResult handleEvent(FacesContext context, Event event) {
-		Map<String, Object> m = context.getExternalContext().getRequestMap();
-		String portletTestName = (String) m.get(Constants.TEST_NAME);
+		Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+		String portletTestName = (String) requestMap.get(Constants.TEST_NAME);
 		String testName = (String) event.getValue();
 
 		// Not our test so ignore this event (since we pass the same event to many portlets/test

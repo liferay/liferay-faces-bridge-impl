@@ -52,9 +52,9 @@ public class TestBean extends Object {
 		// Get the Test information from the request (attributes)
 		// Placed into the request by the GenericFacesTestSuitePortlet
 		FacesContext context = FacesContext.getCurrentInstance();
-		Map<String, Object> m = context.getExternalContext().getRequestMap();
-		mTestGroup = (String) m.get(Constants.TEST_BEAN_NAME);
-		mTestName = (String) m.get(Constants.TEST_NAME);
+		Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+		mTestGroup = (String) requestMap.get(Constants.TEST_BEAN_NAME);
+		mTestName = (String) requestMap.get(Constants.TEST_NAME);
 
 		if ((mTestGroup == null) || (mTestName == null)) {
 			throw new IllegalStateException(
