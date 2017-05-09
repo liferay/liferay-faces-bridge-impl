@@ -45,16 +45,16 @@ import com.liferay.faces.bridge.tck.common.Constants;
 public class Tests extends HeaderTests implements PhaseListener {
 
 	@Override
-	public void afterPhase(PhaseEvent event) {
+	public void afterPhase(PhaseEvent phaseEvent) {
 
-		PhaseId phase = event.getPhaseId();
+		PhaseId phase = phaseEvent.getPhaseId();
 
 		// Do nothing if in render phase
 		if (phase == PhaseId.RENDER_RESPONSE) {
 			return;
 		}
 
-		FacesContext facesContext = event.getFacesContext();
+		FacesContext facesContext = phaseEvent.getFacesContext();
 		Map<String, Object> m = facesContext.getExternalContext().getRequestMap();
 		String testname = (String) m.get(Constants.TEST_NAME);
 		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) m.get(Bridge.PORTLET_LIFECYCLE_PHASE);
@@ -80,15 +80,15 @@ public class Tests extends HeaderTests implements PhaseListener {
 	}
 
 	@Override
-	public void beforePhase(PhaseEvent event) {
-		PhaseId phase = event.getPhaseId();
+	public void beforePhase(PhaseEvent phaseEvent) {
+		PhaseId phase = phaseEvent.getPhaseId();
 
 		// Do nothing if in render phase
 		if (phase == PhaseId.RENDER_RESPONSE) {
 			return;
 		}
 
-		FacesContext facesContext = event.getFacesContext();
+		FacesContext facesContext = phaseEvent.getFacesContext();
 		Map<String, Object> m = facesContext.getExternalContext().getRequestMap();
 		String testname = (String) m.get(Constants.TEST_NAME);
 		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) m.get(Bridge.PORTLET_LIFECYCLE_PHASE);
