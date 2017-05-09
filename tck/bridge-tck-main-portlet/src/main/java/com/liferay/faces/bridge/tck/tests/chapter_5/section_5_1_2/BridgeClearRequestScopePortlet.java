@@ -46,16 +46,16 @@ public class BridgeClearRequestScopePortlet extends GenericFacesTestSuitePortlet
 	private static final String MESSAGE_VALUE1 = "Test Message1 Retention.";
 	private static final String MESSAGE_VALUE2 = "Test Message2 Retention.";
 
-	public void afterPhase(PhaseEvent e) {
+	public void afterPhase(PhaseEvent phaseEvent) {
 
 		// Now that we are after the navigation and have the new view tree -- add the message
-		e.getFacesContext().addMessage(e.getFacesContext().getViewRoot().getClientId(e.getFacesContext()),
+		phaseEvent.getFacesContext().addMessage(phaseEvent.getFacesContext().getViewRoot().getClientId(phaseEvent.getFacesContext()),
 			new FacesMessage(MESSAGE_VALUE1));
-		e.getFacesContext().addMessage(e.getFacesContext().getViewRoot().getClientId(e.getFacesContext()),
+		phaseEvent.getFacesContext().addMessage(phaseEvent.getFacesContext().getViewRoot().getClientId(phaseEvent.getFacesContext()),
 			new FacesMessage(MESSAGE_VALUE2));
 	}
 
-	public void beforePhase(PhaseEvent e) {
+	public void beforePhase(PhaseEvent phaseEvent) {
 	}
 
 	public void doDispatch(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
