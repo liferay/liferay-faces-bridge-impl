@@ -95,7 +95,7 @@ public class Tests extends Object {
 
 		// test is run/checked in the jsp which adds request attrs which we read here
 
-		Map<String,Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+		Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
 		Boolean b = (Boolean) requestMap.get("com.liferay.faces.bridge.TCK.status");
 
 		if (b == null) {
@@ -125,7 +125,7 @@ public class Tests extends Object {
 
 		// test is run/checked in the jsp which adds request attrs which we read here
 
-		Map<String,Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+		Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
 		Boolean b = (Boolean) requestMap.get("com.liferay.faces.bridge.TCK.status");
 
 		if (b == null) {

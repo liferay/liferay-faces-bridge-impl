@@ -56,8 +56,8 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 			runDoubleDestroyTest(renderRequest, renderResponse);
 		}
 		else if ((mActionResult != null) &&
-			(getTestName().equals(DESTROY_ACTION_TEST) || getTestName().equals(DESTROY_EVENT_TEST) ||
-				getTestName().equals(DESTROY_RESOURCE_TEST))) {
+				(getTestName().equals(DESTROY_ACTION_TEST) || getTestName().equals(DESTROY_EVENT_TEST) ||
+					getTestName().equals(DESTROY_RESOURCE_TEST))) {
 			outputActionResult(renderRequest, renderResponse);
 
 			// This test can't be rerun until the portlet is reloaded
@@ -136,7 +136,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 		resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
 		resultWriter.setDetail(
 			"Test result has already been rendered. This can can only be rendered once prior to portlet or app reload.  To rerun this test reload.  The result that has previously been rendered is: " +
-				mActionResult);
+			mActionResult);
 
 		mActionResult = resultWriter.toString();
 	}
@@ -172,7 +172,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
 			resultWriter.setDetail(
 				"Didn't throw the BridgeUninitializedException from doFacesRequest(action) when passed a destroyed bridge. Instead it threw: " +
-					e.toString());
+				e.toString());
 		}
 
 		mActionResult = resultWriter.toString();
@@ -226,7 +226,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
 			resultWriter.setDetail(
 				"Didn't throw the BridgeUninitializedException from doFacesRequest(event) when passed a destroyed bridge. Instead it threw: " +
-					e.toString());
+				e.toString());
 		}
 
 		mActionResult = resultWriter.toString();
@@ -253,7 +253,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
 			resultWriter.setDetail(
 				"Didn't throw the NullPointerException from doFacesRequest(action) when passed a null request/response. Instead it threw: " +
-					e.toString());
+				e.toString());
 		}
 
 		mActionResult = resultWriter.toString();
@@ -283,7 +283,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
 			resultWriter.setDetail(
 				"Didn't throw the NullPointerException from doFacesRequest(render) when passed a null request/response. Instead it threw: " +
-					e.toString());
+				e.toString());
 		}
 
 		responsePrintWriter.println(resultWriter.toString());
@@ -315,7 +315,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
 			resultWriter.setDetail(
 				"Didn't throw the BridgeUninitializedException from doFacesRequest(render) when passed a destroyed bridge. Instead it threw: " +
-					e.toString());
+				e.toString());
 		}
 
 		responsePrintWriter.println(resultWriter.toString());
@@ -344,7 +344,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
 			resultWriter.setDetail(
 				"Didn't throw the BridgeUninitializedException from doFacesRequest(resource) when passed a destroyed bridge. Instead it threw: " +
-					e.toString());
+				e.toString());
 		}
 
 		mActionResult = resultWriter.toString();
