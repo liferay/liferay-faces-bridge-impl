@@ -94,8 +94,8 @@ public class PortletSetsViewTestPortlet extends RenderViewDispatchCompatPortlet 
 			if (response instanceof RenderResponse) {
 				response.setContentType("text/html");
 
-				PrintWriter out = response.getWriter();
-				out.println(resultWriter.toString());
+				PrintWriter responsePrintWriter = response.getWriter();
+				responsePrintWriter.println(resultWriter.toString());
 			}
 			else {
 				portletRequest.setAttribute(BridgeTCKResultWriter.class.getName(), resultWriter);
