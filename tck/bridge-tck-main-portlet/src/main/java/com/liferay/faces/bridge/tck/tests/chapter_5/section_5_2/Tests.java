@@ -55,15 +55,15 @@ public class Tests extends HeaderTests implements PhaseListener {
 		}
 
 		FacesContext facesContext = phaseEvent.getFacesContext();
-		Map<String, Object> m = facesContext.getExternalContext().getRequestMap();
-		String testname = (String) m.get(Constants.TEST_NAME);
-		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) m.get(Bridge.PORTLET_LIFECYCLE_PHASE);
+		Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+		String testname = (String) requestMap.get(Constants.TEST_NAME);
+		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) requestMap.get(Bridge.PORTLET_LIFECYCLE_PHASE);
 
 		if (testname.equals("headerPhaseListenerTest") && (Bridge.PortletPhase.HEADER_PHASE.equals(portletPhase))) {
-			m.put("org.apache.portlet.faces.tck.lastAfterPhase", phase);
+			requestMap.put("org.apache.portlet.faces.tck.lastAfterPhase", phase);
 		}
 		else if (testname.equals("eventPhaseListenerTest") && (portletPhase.equals(Bridge.PortletPhase.EVENT_PHASE))) {
-			m.put("org.apache.portlet.faces.tck.lastAfterPhase", phase);
+			requestMap.put("org.apache.portlet.faces.tck.lastAfterPhase", phase);
 		}
 
 		if ((Bridge.PortletPhase.HEADER_PHASE.equals(portletPhase) &&
@@ -89,15 +89,15 @@ public class Tests extends HeaderTests implements PhaseListener {
 		}
 
 		FacesContext facesContext = phaseEvent.getFacesContext();
-		Map<String, Object> m = facesContext.getExternalContext().getRequestMap();
-		String testname = (String) m.get(Constants.TEST_NAME);
-		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) m.get(Bridge.PORTLET_LIFECYCLE_PHASE);
+		Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+		String testname = (String) requestMap.get(Constants.TEST_NAME);
+		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) requestMap.get(Bridge.PORTLET_LIFECYCLE_PHASE);
 
 		if (testname.equals("headerPhaseListenerTest") && (Bridge.PortletPhase.HEADER_PHASE.equals(portletPhase))) {
-			m.put("org.apache.portlet.faces.tck.lastBeforePhase", phase);
+			requestMap.put("org.apache.portlet.faces.tck.lastBeforePhase", phase);
 		}
 		else if (testname.equals("eventPhaseListenerTest") && (portletPhase.equals(Bridge.PortletPhase.EVENT_PHASE))) {
-			m.put("org.apache.portlet.faces.tck.lastBeforePhase", phase);
+			requestMap.put("org.apache.portlet.faces.tck.lastBeforePhase", phase);
 		}
 	}
 
@@ -287,7 +287,7 @@ public class Tests extends HeaderTests implements PhaseListener {
 	public String eventPhaseListenerTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map<String, Object> m = externalContext.getRequestMap();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
@@ -301,8 +301,8 @@ public class Tests extends HeaderTests implements PhaseListener {
 			testBean.setTestComplete(true);
 
 			// Phase Listener (below) has set these attributes
-			PhaseId lastBeforePhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastBeforePhase");
-			PhaseId lastAfterPhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastAfterPhase");
+			PhaseId lastBeforePhaseId = (PhaseId) requestMap.get("org.apache.portlet.faces.tck.lastBeforePhase");
+			PhaseId lastAfterPhaseId = (PhaseId) requestMap.get("org.apache.portlet.faces.tck.lastAfterPhase");
 
 			if ((lastBeforePhaseId == null) || (lastAfterPhaseId == null)) {
 				testBean.setTestResult(false,

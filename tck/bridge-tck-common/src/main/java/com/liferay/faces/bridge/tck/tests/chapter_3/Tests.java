@@ -146,21 +146,21 @@ public class Tests extends Object {
 
 		// Get the configured render policy
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		Map<String, Object> m = externalContext.getRequestMap();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// Lifecycle check done in the FacesContextFactory -- so test/results set on every request
-		msg = (String) m.get("javax.portlet.faces.tck.testLifecyclePass");
+		msg = (String) requestMap.get("javax.portlet.faces.tck.testLifecyclePass");
 
 		if (msg != null) {
 			pass = true;
 		}
 		else {
-			msg = (String) m.get("javax.portlet.faces.tck.testLifecycleFail");
+			msg = (String) requestMap.get("javax.portlet.faces.tck.testLifecycleFail");
 		}
 
 		// remove them in case we are called to render more than once
-		m.remove("javax.portlet.faces.tck.testLifecyclePass");
-		m.remove("javax.portlet.faces.tck.testLifecycleFail");
+		requestMap.remove("javax.portlet.faces.tck.testLifecyclePass");
+		requestMap.remove("javax.portlet.faces.tck.testLifecycleFail");
 
 		testBean.setTestResult(pass, msg);
 

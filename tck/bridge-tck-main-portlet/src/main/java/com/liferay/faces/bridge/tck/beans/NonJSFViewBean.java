@@ -35,8 +35,8 @@ public class NonJSFViewBean {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		Map<String, Object> m = externalContext.getRequestMap();
-		String testName = (String) m.get(Constants.TEST_NAME);
+		Map<String, Object> requestMap = externalContext.getRequestMap();
+		String testName = (String) requestMap.get(Constants.TEST_NAME);
 
 		if (testName.equals("encodeActionURLNonJSFViewRenderTest") ||
 				testName.equals("encodeActionURLNonJSFViewResourceTest")) {
