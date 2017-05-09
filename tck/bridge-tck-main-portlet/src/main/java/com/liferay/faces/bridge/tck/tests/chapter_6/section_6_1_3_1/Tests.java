@@ -5609,14 +5609,14 @@ public class Tests extends Object {
 			// ensure the managed beans come into existence
 			Boolean isIn = (Boolean) app.evaluateExpressionGet(facesContext, "#{predestroyBean1.inBridgeRequestScope}",
 					Object.class);
-			Map<String, Object> m = externalContext.getRequestMap();
-			m.remove("predestroyBean1");
+			Map<String, Object> requestMap = externalContext.getRequestMap();
+			requestMap.remove("predestroyBean1");
 
 			// Now verify that things worked correctly We expect that the beans were not added to the bridge scope (yet)
 			// and hence only the Predestroy was called
-			Boolean notifiedAddedToBridgeScope = (Boolean) m.get("PreDestroyBean1.attributeAdded");
-			Boolean notifiedPreDestroy = (Boolean) m.get("PreDestroyBean1.servletPreDestroy");
-			Boolean notifiedBridgePreDestroy = (Boolean) m.get("PreDestroyBean1.bridgePreDestroy");
+			Boolean notifiedAddedToBridgeScope = (Boolean) requestMap.get("PreDestroyBean1.attributeAdded");
+			Boolean notifiedPreDestroy = (Boolean) requestMap.get("PreDestroyBean1.servletPreDestroy");
+			Boolean notifiedBridgePreDestroy = (Boolean) requestMap.get("PreDestroyBean1.bridgePreDestroy");
 
 			if ((notifiedAddedToBridgeScope == null) && (notifiedBridgePreDestroy == null) &&
 					(notifiedPreDestroy != null) && notifiedPreDestroy.equals(Boolean.TRUE)) {
@@ -5670,7 +5670,7 @@ public class Tests extends Object {
 	public String requestMapRequestScopeTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map<String, Object> m = externalContext.getRequestMap();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// Test a bunch of things:
 		// a) attrs added in action are there in render request
@@ -5686,20 +5686,20 @@ public class Tests extends Object {
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			m.put("myRequestObject", externalContext.getRequest()); // should be excluded because of value type
-			m.put("myFacesContext", facesContext); // should be excluded because of value type
-			m.put("javax.faces.myKey1", Boolean.TRUE); // should be excluded because its in exlcuded namespace
-			m.put("javax.faces.myNamespace.myKey1", Boolean.TRUE); // should be retained because excluded namespaces
+			requestMap.put("myRequestObject", externalContext.getRequest()); // should be excluded because of value type
+			requestMap.put("myFacesContext", facesContext); // should be excluded because of value type
+			requestMap.put("javax.faces.myKey1", Boolean.TRUE); // should be excluded because its in exlcuded namespace
+			requestMap.put("javax.faces.myNamespace.myKey1", Boolean.TRUE); // should be retained because excluded namespaces
 																   // don't recurse
-			m.put("myKey1", Boolean.TRUE); // should be retained
-			m.put("myExcludedNamespace.myKey1", Boolean.TRUE); // should be excluded as defined in portlet.xml
-			m.put("myExcludedKey", Boolean.TRUE); // defined as excluded in the portlet.xml
-			m.put("myExcludedNamespace.myIncludedNamespace.myKey1", Boolean.TRUE); // should be retained as excluded
+			requestMap.put("myKey1", Boolean.TRUE); // should be retained
+			requestMap.put("myExcludedNamespace.myKey1", Boolean.TRUE); // should be excluded as defined in portlet.xml
+			requestMap.put("myExcludedKey", Boolean.TRUE); // defined as excluded in the portlet.xml
+			requestMap.put("myExcludedNamespace.myIncludedNamespace.myKey1", Boolean.TRUE); // should be retained as excluded
 																				   // namespaces don't recurse
-			m.put("myFacesConfigExcludedNamespace.myKey1", Boolean.TRUE); // should be excluded as defined in
+			requestMap.put("myFacesConfigExcludedNamespace.myKey1", Boolean.TRUE); // should be excluded as defined in
 																		  // faces-config.xml
-			m.put("myFacesConfigExcludedKey", Boolean.TRUE); // defined as excluded in the faces-config.xml
-			m.put("myFacesConfigExcludedNamespace.myIncludedNamespace.myKey1", Boolean.TRUE); // should be retained as
+			requestMap.put("myFacesConfigExcludedKey", Boolean.TRUE); // defined as excluded in the faces-config.xml
+			requestMap.put("myFacesConfigExcludedNamespace.myIncludedNamespace.myKey1", Boolean.TRUE); // should be retained as
 																							  // excluded namespaces
 																							  // don't recurse
 
@@ -5710,84 +5710,84 @@ public class Tests extends Object {
 
 			// make sure that the attrbiute added before ExternalContext acquired is missing (set in the TestPortlet's
 			// action handler)
-			if (m.get("verifyPreBridgeExclusion") != null) {
+			if (requestMap.get("verifyPreBridgeExclusion") != null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly preserved an attribute that existed prior to FacesContext being acquired.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (m.get("myRequestObject") != null) {
+			if (requestMap.get("myRequestObject") != null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly preserved an attribute whose value is the PortletRequest object.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (m.get("myFacesContext") != null) {
+			if (requestMap.get("myFacesContext") != null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly preserved an attribute whose value is the FacesContext object.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (m.get("javax.faces.myKey1") != null) {
+			if (requestMap.get("javax.faces.myKey1") != null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly preserved an attribute in the predefined exlcuded namespace javax.faces.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (m.get("javax.faces.myNamespace.myKey1") == null) {
+			if (requestMap.get("javax.faces.myNamespace.myKey1") == null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of the javax.faces namespace.  Exclusion rules aren't recursive.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (m.get("myKey1") == null) {
+			if (requestMap.get("myKey1") == null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly excluded an attribute that wasn't defined as excluded.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (m.get("myExcludedNamespace.myKey1") != null) {
+			if (requestMap.get("myExcludedNamespace.myKey1") != null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly preserved an attribute whose key is in a portlet defined excluded namespace.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (m.get("myExcludedKey") != null) {
+			if (requestMap.get("myExcludedKey") != null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly preserved an attribute whose key matches a portlet defined excluded attribute");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (m.get("myExcludedNamespace.myIncludedNamespace.myKey1") == null) {
+			if (requestMap.get("myExcludedNamespace.myIncludedNamespace.myKey1") == null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of a portlet excluded namespace.  Exclusion rules aren't recursive.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (m.get("myFacesConfigExcludedNamespace.myKey1") != null) {
+			if (requestMap.get("myFacesConfigExcludedNamespace.myKey1") != null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly preserved an attribute whose key is in a faces-config.xml defined excluded namespace.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (m.get("myFacesConfigExcludedKey") != null) {
+			if (requestMap.get("myFacesConfigExcludedKey") != null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly preserved an attribute whose key matches a faces-config.xml defined excluded attribute");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (m.get("myFacesConfigExcludedNamespace.myIncludedNamespace.myKey1") == null) {
+			if (requestMap.get("myFacesConfigExcludedNamespace.myIncludedNamespace.myKey1") == null) {
 				testBean.setTestResult(false,
 					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of a faces-config.xml excluded namespace.  Exclusion rules aren't recursive.");
 
