@@ -42,7 +42,7 @@ public class Tests extends Object {
 	public String usesConfiguredRenderKitTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map<String, Object> m = externalContext.getRequestMap();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// This tests that we can encode a new mode in an actionURL
 		// done by navigation rule.
@@ -98,14 +98,14 @@ public class Tests extends Object {
 				detail = Constants.TEST_SUCCESS;
 			}
 
-			m.put(ACTION_TEST_RESULT, detail);
+			requestMap.put(ACTION_TEST_RESULT, detail);
 
 			return "usesConfiguredRenderKitTest"; // action Navigation result
 		}
 		else {
 			testBean.setTestComplete(true);
 
-			String actionResult = (String) m.get(ACTION_TEST_RESULT);
+			String actionResult = (String) requestMap.get(ACTION_TEST_RESULT);
 
 			if (actionResult == null) {
 				testBean.setTestResult(false, "Action result not available during the render");

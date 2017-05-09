@@ -51,8 +51,8 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	public void beforePhase(PhaseEvent phaseEvent) {
 		FacesContext facesContext = phaseEvent.getFacesContext();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map<String, Object> m = facesContext.getExternalContext().getRequestMap();
-		String testname = (String) m.get(Constants.TEST_NAME);
+		Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+		String testname = (String) requestMap.get(Constants.TEST_NAME);
 
 		PhaseId phase = phaseEvent.getPhaseId();
 
@@ -67,13 +67,13 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		// verify not set in RestoreView
 		if (phase == PhaseId.RESTORE_VIEW) {
 
-			if (m.get("modelPRP") == null) {
+			if (requestMap.get("modelPRP") == null) {
 				externalContext.getRequestMap().put("tck.notSetBeforeRestoreView", Boolean.TRUE);
 			}
 		}
 		else {
 
-			if (m.get("modelPRP") != null) {
+			if (requestMap.get("modelPRP") != null) {
 				externalContext.getRequestMap().put("tck.setAfterRestoreView", Boolean.TRUE);
 			}
 		}
