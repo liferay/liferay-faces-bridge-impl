@@ -86,15 +86,15 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	public String checkViewHistoryTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map<String, Object> m = externalContext.getSessionMap();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		ELResolver facesResolver = facesContext.getELContext().getELResolver();
 		PortletConfig config = (PortletConfig) facesResolver.getValue(facesContext.getELContext(), null, "portletConfig");
 
 		testBean.setTestComplete(true);
 
-		String view = (String) m.get("javax.portlet.faces.viewIdHistory.view");
-		String edit = (String) m.get("javax.portlet.faces.viewIdHistory.edit");
-		String help = (String) m.get("javax.portlet.faces.viewIdHistory.help");
+		String view = (String) sessionMap.get("javax.portlet.faces.viewIdHistory.view");
+		String edit = (String) sessionMap.get("javax.portlet.faces.viewIdHistory.edit");
+		String help = (String) sessionMap.get("javax.portlet.faces.viewIdHistory.help");
 
 		Map<String, String> defaultViewIdMap = (Map<String, String>) ((PortletContext) externalContext.getContext())
 			.getAttribute(Bridge.BRIDGE_PACKAGE_PREFIX + config.getPortletName() + "." + Bridge.DEFAULT_VIEWID_MAP);
