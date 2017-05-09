@@ -145,8 +145,8 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 		IOException {
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
-		out.println(mActionResult);
+		PrintWriter responsePrintWriter = response.getWriter();
+		responsePrintWriter.println(mActionResult);
 	}
 
 	private void runActionDestroyTest(ActionRequest request, ActionResponse response) throws PortletException,
@@ -182,7 +182,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 		IOException {
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
+		PrintWriter responsePrintWriter = response.getWriter();
 		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(DESTROY_DOUBLE_TEST);
 
 		// Run test
@@ -200,7 +200,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 				e.toString());
 		}
 
-		out.println(resultWriter.toString());
+		responsePrintWriter.println(resultWriter.toString());
 	}
 
 	private void runEventDestroyTest(EventRequest request, EventResponse response) throws PortletException,
@@ -263,7 +263,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 		IOException {
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
+		PrintWriter responsePrintWriter = response.getWriter();
 		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(NULLREQUEST_RENDER_TEST);
 
 		// Run test
@@ -286,14 +286,14 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 					e.toString());
 		}
 
-		out.println(resultWriter.toString());
+		responsePrintWriter.println(resultWriter.toString());
 	}
 
 	private void runRenderDestroyTest(RenderRequest request, RenderResponse response) throws PortletException,
 		IOException {
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
+		PrintWriter responsePrintWriter = response.getWriter();
 		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(DESTROY_RENDER_TEST);
 
 		// Run test
@@ -318,7 +318,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 					e.toString());
 		}
 
-		out.println(resultWriter.toString());
+		responsePrintWriter.println(resultWriter.toString());
 	}
 
 	private void runResourceDestroyTest(ResourceRequest request, ResourceResponse response) throws PortletException,

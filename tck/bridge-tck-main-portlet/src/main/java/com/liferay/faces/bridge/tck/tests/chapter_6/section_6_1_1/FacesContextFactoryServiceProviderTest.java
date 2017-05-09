@@ -46,7 +46,7 @@ public class FacesContextFactoryServiceProviderTest extends GenericPortlet {
 
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
+		PrintWriter responsePrintWriter = response.getWriter();
 		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(TEST_NAME);
 
 		String className = getFromServicesPath(this.getPortletContext(),
@@ -71,7 +71,7 @@ public class FacesContextFactoryServiceProviderTest extends GenericPortlet {
 			resultWriter.setDetail("Located but unable to load the Bridge's FacesContextFactory class: " + className);
 		}
 
-		out.println(resultWriter.toString());
+		responsePrintWriter.println(resultWriter.toString());
 	}
 
 	private String getFromServicesPath(PortletContext context, String resourceName) {

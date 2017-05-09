@@ -40,7 +40,7 @@ public class BridgeClassDefaultTestPortlet extends GenericFacesPortlet {
 		boolean pass = (className != null) && !(className.length() <= 0);
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
+		PrintWriter responsePrintWriter = response.getWriter();
 		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(TEST_NAME);
 
 		if (pass) {
@@ -52,6 +52,6 @@ public class BridgeClassDefaultTestPortlet extends GenericFacesPortlet {
 			resultWriter.setDetail("No bridge class name found.");
 		}
 
-		out.println(resultWriter.toString());
+		responsePrintWriter.println(resultWriter.toString());
 	}
 }
