@@ -58,7 +58,8 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 
 		if ((!testname.equals("processPRPInRestoreViewPhaseTest")) ||
 				(!Boolean.TRUE.equals(
-						(Boolean) externalContext.getSessionMap().get("tck.processPRPInRestoreViewPhaseTest.modelPRPSet"))))
+						(Boolean) externalContext.getSessionMap().get(
+							"tck.processPRPInRestoreViewPhaseTest.modelPRPSet"))))
 			return;
 
 		// Marked as true  so command link name would change.
@@ -88,7 +89,8 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		ELResolver facesResolver = facesContext.getELContext().getELResolver();
-		PortletConfig config = (PortletConfig) facesResolver.getValue(facesContext.getELContext(), null, "portletConfig");
+		PortletConfig config = (PortletConfig) facesResolver.getValue(facesContext.getELContext(), null,
+				"portletConfig");
 
 		testBean.setTestComplete(true);
 
@@ -164,7 +166,8 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		String theView = facesContext.getViewRoot().getViewId();
 		String theHistoryView = (String) externalContext.getSessionMap().get("javax.portlet.faces.viewIdHistory.view");
 		String theHistoryEdit = (String) externalContext.getSessionMap().get("javax.portlet.faces.viewIdHistory.view");
-		String renderParam = (String) externalContext.getRequestParameterMap().get("com.liferay.faces.bridge.tck.testAttr");
+		String renderParam = (String) externalContext.getRequestParameterMap().get(
+				"com.liferay.faces.bridge.tck.testAttr");
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			String viewId = facesContext.getViewRoot().getViewId();
@@ -283,7 +286,8 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		else {
 
 			if (Boolean.TRUE.equals(
-						(Boolean) externalContext.getSessionMap().get("tck.processPRPInRestoreViewPhaseTest.modelPRPSet"))) {
+						(Boolean) externalContext.getSessionMap().get(
+							"tck.processPRPInRestoreViewPhaseTest.modelPRPSet"))) {
 				testBean.setTestComplete(true);
 
 				externalContext.getSessionMap().remove("tck.processPRPInRestoreViewPhaseTest.modelPRPSet");
@@ -315,7 +319,8 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 				if (externalContext.getRequestMap().get("tck.processPRPInRestoreViewPhaseTest.modelPRPSet") != null) {
 
 					// Place on session so next action triggers running the test.
-					externalContext.getSessionMap().put("tck.processPRPInRestoreViewPhaseTest.modelPRPSet", Boolean.TRUE);
+					externalContext.getSessionMap().put("tck.processPRPInRestoreViewPhaseTest.modelPRPSet",
+						Boolean.TRUE);
 				}
 
 				return "Test is still being run.";
@@ -353,7 +358,8 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		}
 		else {
 
-			if (Boolean.TRUE.equals((Boolean) externalContext.getSessionMap().get("tck.prpModelUpdateTest.modelPRPSet"))) {
+			if (Boolean.TRUE.equals(
+						(Boolean) externalContext.getSessionMap().get("tck.prpModelUpdateTest.modelPRPSet"))) {
 				testBean.setTestComplete(true);
 
 				externalContext.getSessionMap().remove("tck.prpModelUpdateTest.modelPRPSet");

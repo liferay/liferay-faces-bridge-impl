@@ -15,16 +15,17 @@
  */
 package com.liferay.faces.bridge.tck.beans;
 
-import com.liferay.faces.bridge.tck.annotation.BridgeTest;
-import com.liferay.faces.bridge.tck.common.Constants;
-import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.Map;
+
+import com.liferay.faces.bridge.tck.annotation.BridgeTest;
+import com.liferay.faces.bridge.tck.common.Constants;
+import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
 /**
@@ -96,7 +97,8 @@ public class TestBean extends Object {
 
 		// Still running test is test is neither marked complete in the bean itself or in the session attribute
 		// Later exists for tests that span mode changes/scope changes where the test bean is lost.
-		if (!isTestComplete() && (externalContext.getSessionMap().get("com.liferay.faces.bridge.tck.testCompleted") == null)) {
+		if (!isTestComplete() &&
+				(externalContext.getSessionMap().get("com.liferay.faces.bridge.tck.testCompleted") == null)) {
 
 			// For tests that use partial page refresh technology -- disable the button after its invoked
 			if (mTestName.contains("PPR") &&
@@ -117,7 +119,8 @@ public class TestBean extends Object {
 
 		// Still running test is test is neither marked complete in the bean itself or in the session attribute
 		// Later exists for tests that span mode changes/scope changes where the test bean is lost.
-		if (!isTestComplete() && (externalContext.getSessionMap().get("com.liferay.faces.bridge.tck.testCompleted") == null)) {
+		if (!isTestComplete() &&
+				(externalContext.getSessionMap().get("com.liferay.faces.bridge.tck.testCompleted") == null)) {
 
 			// For tests that use partial page refresh technology with a follow on render redisplay -- disable the
 			// link until PPR invoked
