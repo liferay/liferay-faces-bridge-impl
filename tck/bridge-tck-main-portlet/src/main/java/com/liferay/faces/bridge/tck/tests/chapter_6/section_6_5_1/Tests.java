@@ -287,11 +287,11 @@ public class Tests {
 	public String JSP_ELTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		Map<String, Object> m = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+		Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
 
-		Boolean status = (Boolean) m.get("com.liferay.faces.bridge.TCK.status");
+		Boolean status = (Boolean) requestMap.get("com.liferay.faces.bridge.TCK.status");
 
-		testBean.setTestResult(status.booleanValue(), (String) m.get("com.liferay.faces.bridge.TCK.detail"));
+		testBean.setTestResult(status.booleanValue(), (String) requestMap.get("com.liferay.faces.bridge.TCK.detail"));
 
 		if (status.booleanValue()) {
 			return Constants.TEST_SUCCESS;
