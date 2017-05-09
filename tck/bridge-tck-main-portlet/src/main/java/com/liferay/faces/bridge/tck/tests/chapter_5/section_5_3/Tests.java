@@ -42,19 +42,19 @@ import com.liferay.faces.bridge.tck.common.Constants;
  */
 public class Tests extends Object implements PhaseListener, BridgePublicRenderParameterHandler {
 
-	public void afterPhase(PhaseEvent event) {
+	public void afterPhase(PhaseEvent phaseEvent) {
 
 		// Do nothing
 		return;
 	}
 
-	public void beforePhase(PhaseEvent event) {
-		FacesContext facesContext = event.getFacesContext();
+	public void beforePhase(PhaseEvent phaseEvent) {
+		FacesContext facesContext = phaseEvent.getFacesContext();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> m = facesContext.getExternalContext().getRequestMap();
 		String testname = (String) m.get(Constants.TEST_NAME);
 
-		PhaseId phase = event.getPhaseId();
+		PhaseId phase = phaseEvent.getPhaseId();
 
 		if ((!testname.equals("processPRPInRestoreViewPhaseTest")) ||
 				(!Boolean.TRUE.equals(
