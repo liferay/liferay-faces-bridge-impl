@@ -37,13 +37,13 @@ public class RenderTests {
 	public String renderPhaseListenerTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map<String, Object> m = externalContext.getRequestMap();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		testBean.setTestComplete(true);
 
 		// Phase Listener (below) has set these attributes
-		PhaseId lastBeforePhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastBeforePhase");
-		PhaseId lastAfterPhaseId = (PhaseId) m.get("org.apache.portlet.faces.tck.lastAfterPhase");
+		PhaseId lastBeforePhaseId = (PhaseId) requestMap.get("org.apache.portlet.faces.tck.lastBeforePhase");
+		PhaseId lastAfterPhaseId = (PhaseId) requestMap.get("org.apache.portlet.faces.tck.lastAfterPhase");
 
 		if ((lastBeforePhaseId == null) || (lastAfterPhaseId == null)) {
 			testBean.setTestResult(false,
