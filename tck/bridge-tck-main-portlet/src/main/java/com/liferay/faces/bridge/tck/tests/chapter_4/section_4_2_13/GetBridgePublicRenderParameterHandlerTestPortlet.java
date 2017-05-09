@@ -46,7 +46,7 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
+		PrintWriter responsePrintWriter = response.getWriter();
 
 		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
 
@@ -59,7 +59,7 @@ public class GetBridgePublicRenderParameterHandlerTestPortlet extends GenericFac
 			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
 		}
 
-		out.println(resultWriter.toString());
+		responsePrintWriter.println(resultWriter.toString());
 	}
 
 	private void executeText(BridgePublicRenderParameterHandler prpHandler) {
