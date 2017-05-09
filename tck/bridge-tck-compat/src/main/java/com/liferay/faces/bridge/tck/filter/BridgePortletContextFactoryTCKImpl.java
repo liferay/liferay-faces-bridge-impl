@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.tck.filter;
 
 import javax.portlet.PortletContext;
-
 import javax.portlet.faces.filter.BridgePortletContextFactory;
 
 

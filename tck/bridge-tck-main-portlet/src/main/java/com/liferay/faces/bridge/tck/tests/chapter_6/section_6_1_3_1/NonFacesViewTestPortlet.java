@@ -193,7 +193,8 @@ public class NonFacesViewTestPortlet extends NonFacesViewTestCompatPortlet {
 		}
 		else if (!paramValue.equals("testValue")) {
 			outputTestResult(false,
-				"Expected additional parameter 'param1' has unexpected value. Expected: 'param1' but received " + paramValue);
+				"Expected additional parameter 'param1' has unexpected value. Expected: 'param1' but received " +
+				paramValue);
 		}
 
 		return "false";
