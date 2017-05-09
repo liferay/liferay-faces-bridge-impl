@@ -111,7 +111,7 @@ public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompat
 		// Check for a services definition
 		String result = null;
 		BufferedReader reader = null;
-		InputStream stream = null;
+		InputStream inputStream = null;
 
 		try {
 			ClassLoader cl = Thread.currentThread().getContextClassLoader();
@@ -120,17 +120,17 @@ public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompat
 				return null;
 			}
 
-			stream = cl.getResourceAsStream(resourceName);
+			inputStream = cl.getResourceAsStream(resourceName);
 
-			if (stream != null) {
+			if (inputStream != null) {
 
 				// Deal with systems whose native encoding is possibly
 				// different from the way that the services entry was created
 				try {
-					reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"));
+					reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
 				}
 				catch (UnsupportedEncodingException e) {
-					reader = new BufferedReader(new InputStreamReader(stream));
+					reader = new BufferedReader(new InputStreamReader(inputStream));
 				}
 
 				result = reader.readLine();
@@ -141,7 +141,7 @@ public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompat
 
 				reader.close();
 				reader = null;
-				stream = null;
+				inputStream = null;
 			}
 		}
 		catch (IOException e) {
@@ -154,7 +154,7 @@ public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompat
 
 				try {
 					reader.close();
-					stream = null;
+					inputStream = null;
 				}
 				catch (Throwable t) {
 					;
@@ -163,16 +163,16 @@ public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompat
 				reader = null;
 			}
 
-			if (stream != null) {
+			if (inputStream != null) {
 
 				try {
-					stream.close();
+					inputStream.close();
 				}
 				catch (Throwable t) {
 					;
 				}
 
-				stream = null;
+				inputStream = null;
 			}
 		}
 
