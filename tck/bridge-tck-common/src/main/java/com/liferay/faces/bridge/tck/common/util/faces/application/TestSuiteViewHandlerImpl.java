@@ -109,8 +109,10 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 	}
 
 	@Override
-	public UIViewRoot restoreView(FacesContext facesContext, String viewId) throws FacesException, NullPointerException {
-		facesContext.getExternalContext().getRequestMap().put("org.apache.portlet.faces.tck.viewCreated", Boolean.FALSE);
+	public UIViewRoot restoreView(FacesContext facesContext, String viewId) throws FacesException,
+		NullPointerException {
+		facesContext.getExternalContext().getRequestMap().put("org.apache.portlet.faces.tck.viewCreated",
+			Boolean.FALSE);
 
 		return super.restoreView(facesContext, viewId);
 	}

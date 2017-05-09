@@ -45,7 +45,8 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			// Now see if isPostback returns true as it should
-			String vsp = facesContext.getExternalContext().getRequestParameterMap().get(ResponseStateManager.VIEW_STATE_PARAM);
+			String vsp = facesContext.getExternalContext().getRequestParameterMap().get(
+					ResponseStateManager.VIEW_STATE_PARAM);
 
 			if (vsp != null) {
 				testBean.setTestResult(true,

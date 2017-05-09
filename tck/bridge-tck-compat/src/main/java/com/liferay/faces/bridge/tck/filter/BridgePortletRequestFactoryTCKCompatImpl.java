@@ -15,14 +15,15 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
+import javax.portlet.PortletConfig;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
 
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.PortletConfig;
 
 /**
  * @author  Neil Griffin

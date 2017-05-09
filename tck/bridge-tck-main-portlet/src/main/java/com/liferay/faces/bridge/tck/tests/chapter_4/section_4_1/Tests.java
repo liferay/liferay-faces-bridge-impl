@@ -131,7 +131,8 @@ public class Tests extends Object {
 
 		StringBuilder notFoundMsg = new StringBuilder();
 
-		boolean pass = checkAttrs(externalContext.getApplicationMap(), PARAM_NAMESPACE, expectedInitParams, notFoundMsg);
+		boolean pass = checkAttrs(externalContext.getApplicationMap(), PARAM_NAMESPACE, expectedInitParams,
+				notFoundMsg);
 
 		if (notFoundMsg.length() != 0) {
 			notFoundMsg.append(".  ");

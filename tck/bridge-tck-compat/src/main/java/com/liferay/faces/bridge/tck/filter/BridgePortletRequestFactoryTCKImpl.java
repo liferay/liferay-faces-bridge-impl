@@ -15,9 +15,6 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
-import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
@@ -29,6 +26,9 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.filter.PortletRequestWrapper;
+
+import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
 
 
 /**

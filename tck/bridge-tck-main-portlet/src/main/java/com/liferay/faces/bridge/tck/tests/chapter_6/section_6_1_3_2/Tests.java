@@ -106,8 +106,8 @@ public class Tests extends Object {
 
 		// ensure they start out identical
 		if (
-			!containsIdenticalAttributeEntries(externalContextAppMap, (Enumeration<String>) portletCtx.getAttributeNames(),
-					portletCtx)) {
+			!containsIdenticalAttributeEntries(externalContextAppMap,
+					(Enumeration<String>) portletCtx.getAttributeNames(), portletCtx)) {
 			testBean.setTestResult(false,
 				"Failed: Portlet context attributes and the externalContext applicationMap entries aren't identical.");
 
@@ -132,8 +132,8 @@ public class Tests extends Object {
 		// the test portlet wrote one on the portlet request -- the act of verifying
 		// the Maps contain the same keys/values should do the trick.
 		if (
-			!containsIdenticalAttributeEntries(externalContextAppMap, (Enumeration<String>) portletCtx.getAttributeNames(),
-					portletCtx)) {
+			!containsIdenticalAttributeEntries(externalContextAppMap,
+					(Enumeration<String>) portletCtx.getAttributeNames(), portletCtx)) {
 			testBean.setTestResult(false,
 				"Failed: After setting an attribute on the portlet context and the externalContext applicationMap they no longer contain identical entries.");
 
@@ -145,8 +145,8 @@ public class Tests extends Object {
 		portletCtx.removeAttribute("Test0Key");
 
 		if (
-			!containsIdenticalAttributeEntries(externalContextAppMap, (Enumeration<String>) portletCtx.getAttributeNames(),
-					portletCtx)) {
+			!containsIdenticalAttributeEntries(externalContextAppMap,
+					(Enumeration<String>) portletCtx.getAttributeNames(), portletCtx)) {
 			testBean.setTestResult(false,
 				"Failed: After removing an attribute on the portlet context and the externalContext applicationMap they no longer contain identical entries.");
 
@@ -210,10 +210,12 @@ public class Tests extends Object {
 		Object portletContext = externalContext.getContext();
 
 		if ((portletContext != null) && (portletContext instanceof PortletContext)) {
-			testBean.setTestResult(true, "externalContext.getContext() correctly returned an object of type PortletContext.");
+			testBean.setTestResult(true,
+				"externalContext.getContext() correctly returned an object of type PortletContext.");
 		}
 		else {
-			testBean.setTestResult(false, "externalContext.getContext() didn't return an object of type PortletContext.");
+			testBean.setTestResult(false,
+				"externalContext.getContext() didn't return an object of type PortletContext.");
 		}
 
 		if (testBean.getTestStatus()) {
@@ -268,8 +270,7 @@ public class Tests extends Object {
 		// Otherwise all out tests passed:
 
 		testBean.setTestResult(true, "The Map returned from initParameterMap is immutable.");
-		testBean.appendTestDetail(
-			"The initParameterMap Map correctly expresses attributes in the underlying context.");
+		testBean.appendTestDetail("The initParameterMap Map correctly expresses attributes in the underlying context.");
 
 		return Constants.TEST_SUCCESS;
 
@@ -637,8 +638,7 @@ public class Tests extends Object {
 			return Constants.TEST_SUCCESS;
 		}
 		catch (MalformedURLException e) {
-			testBean.setTestResult(false,
-				"Failed: Unexpected MalformedURLException thrown when called getResource().");
+			testBean.setTestResult(false, "Failed: Unexpected MalformedURLException thrown when called getResource().");
 
 			return Constants.TEST_FAILED;
 		}
@@ -747,8 +747,8 @@ public class Tests extends Object {
 		Application app = facesContext.getApplication();
 
 		// ensure the managed beans come into existence
-		Boolean isIn = (Boolean) app.evaluateExpressionGet(facesContext, "#{predestroySessionBean.inBridgeRequestScope}",
-				Object.class);
+		Boolean isIn = (Boolean) app.evaluateExpressionGet(facesContext,
+				"#{predestroySessionBean.inBridgeRequestScope}", Object.class);
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 		requestMap.remove("predestroySessionBean");
 

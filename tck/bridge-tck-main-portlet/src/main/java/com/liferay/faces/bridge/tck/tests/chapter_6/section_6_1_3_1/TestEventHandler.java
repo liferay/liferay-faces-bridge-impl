@@ -413,7 +413,8 @@ public class TestEventHandler implements BridgeEventHandler {
 			requestMap.put(EVENT_TEST_RESULT, Constants.TEST_SUCCESS);
 		}
 		catch (Exception e) {
-			requestMap.put(EVENT_TEST_RESULT, "Calling externalContext.redirect() threw an exception: " + e.getMessage());
+			requestMap.put(EVENT_TEST_RESULT,
+				"Calling externalContext.redirect() threw an exception: " + e.getMessage());
 		}
 	}
 

@@ -52,7 +52,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		UIViewRoot uiViewRoot = facesContext.getViewRoot();
-		Map<String,Object> requestMap = externalContext.getRequestMap();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -62,15 +62,19 @@ public class Tests extends Object {
 			// that drives this test
 
 			requestMap.put("com.liferay.faces.bridge.tck.IncludedAttr", REQUEST_ATTR_VALUE);
-			requestMap.put("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.include.IncludedAttr", REQUEST_ATTR_VALUE);
-			requestMap.put("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.include.IncludedAttr", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.include.IncludedAttr",
+				REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.include.IncludedAttr",
+				REQUEST_ATTR_VALUE);
 
 			// Add elements that should be excluded
 			requestMap.put("com.liferay.faces.bridge.tck.ExcludeByAnnotation", new AnnotatedExcludedBean());
 			requestMap.put("com.liferay.faces.bridge.tck.ExcludeByFacesConfigRef", REQUEST_ATTR_VALUE);
-			requestMap.put("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.ExcludeByFacesConfigRef", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.WildcardFacesConfigTest.ExcludeByFacesConfigRef",
+				REQUEST_ATTR_VALUE);
 			requestMap.put("com.liferay.faces.bridge.tck.ExcludeByPortletXmlRef", REQUEST_ATTR_VALUE);
-			requestMap.put("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.ExcludeByPortletXmlRef", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.bridge.tck.WildcardPortletXmlTest.ExcludeByPortletXmlRef",
+				REQUEST_ATTR_VALUE);
 
 			return "excludedAttributesTest"; // action Navigation result
 		}
@@ -164,7 +168,7 @@ public class Tests extends Object {
 	public String requestNoScopeOnModeChangeTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map<String,Object> requestMap = externalContext.getRequestMap();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -205,7 +209,7 @@ public class Tests extends Object {
 	public String requestNoScopeOnRedirectTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		Map<String,Object> requestMap = externalContext.getRequestMap();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -416,7 +420,7 @@ public class Tests extends Object {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		UIViewRoot uiViewRoot = facesContext.getViewRoot();
-		Map<String,Object> requestMap = externalContext.getRequestMap();
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
@@ -434,8 +438,8 @@ public class Tests extends Object {
 			requestMap.put("com.liferay.faces.bridge.tck.TestRequestScope_b", new AnnotatedExcludedBean());
 			// Don't need to add additional excludedAttributes tests as they are covered in chapter 6 tests
 
-			PortletConfig config = (PortletConfig) facesContext.getELContext().getELResolver().getValue(facesContext.getELContext(), null,
-					"portletConfig");
+			PortletConfig config = (PortletConfig) facesContext.getELContext().getELResolver().getValue(
+					facesContext.getELContext(), null, "portletConfig");
 
 			if (config == null) {
 				throw new IllegalStateException("Unable to acquire the portletConfig!");
@@ -483,7 +487,8 @@ public class Tests extends Object {
 			boolean found1 = false;
 			boolean found2 = false;
 
-			for (Iterator<FacesMessage> i = facesContext.getMessages(uiViewRoot.getClientId(facesContext)); i.hasNext();) {
+			for (Iterator<FacesMessage> i = facesContext.getMessages(uiViewRoot.getClientId(facesContext));
+					i.hasNext();) {
 				FacesMessage message = i.next();
 
 				if (message.getSummary().equals(MESSAGE_VALUE1) && !found2) {
