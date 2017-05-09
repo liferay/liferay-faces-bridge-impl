@@ -220,7 +220,8 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.getPropertyResolver();
 	}
 
-	public ResourceBundle getResourceBundle(FacesContext facesContext, String name) throws FacesException, NullPointerException {
+	public ResourceBundle getResourceBundle(FacesContext facesContext, String name) throws FacesException,
+		NullPointerException {
 		return mWrapped.getResourceBundle(facesContext, name);
 	}
 
