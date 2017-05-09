@@ -41,7 +41,7 @@ public class BridgeVersionTestPortlet extends GenericPortlet {
 
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
+		PrintWriter responsePrintWriter = response.getWriter();
 		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(TEST_NAME);
 
 		// Get the version info from the Bridge class
@@ -71,6 +71,6 @@ public class BridgeVersionTestPortlet extends GenericPortlet {
 			resultWriter.setDetail("javax.portlet.faces.Bridge class not found.");
 		}
 
-		out.println(resultWriter.toString());
+		responsePrintWriter.println(resultWriter.toString());
 	}
 }

@@ -289,7 +289,7 @@ public class InitMethodTestPortlet extends NonRenderResponseCompatPortlet {
 	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
+		PrintWriter responsePrintWriter = response.getWriter();
 		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(getTestName());
 
 		if ((String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()) != null) {
@@ -301,6 +301,6 @@ public class InitMethodTestPortlet extends NonRenderResponseCompatPortlet {
 			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
 		}
 
-		out.println(resultWriter.toString());
+		responsePrintWriter.println(resultWriter.toString());
 	}
 }

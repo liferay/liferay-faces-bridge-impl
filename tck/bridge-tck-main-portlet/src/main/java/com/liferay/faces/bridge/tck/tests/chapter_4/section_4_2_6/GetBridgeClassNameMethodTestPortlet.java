@@ -90,7 +90,7 @@ public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompat
 
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
+		PrintWriter responsePrintWriter = response.getWriter();
 		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(TEST_NAME);
 
 		if (passMsg != null) {
@@ -103,7 +103,7 @@ public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompat
 					TEST_ATTR_PREFIX + TEST_FAIL));
 		}
 
-		out.println(resultWriter.toString());
+		responsePrintWriter.println(resultWriter.toString());
 	}
 
 	private String getFromServicesPath(PortletContext context, String resourceName) {

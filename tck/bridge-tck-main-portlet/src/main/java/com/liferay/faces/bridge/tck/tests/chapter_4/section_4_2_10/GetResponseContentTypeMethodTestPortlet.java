@@ -66,7 +66,7 @@ public class GetResponseContentTypeMethodTestPortlet extends NonRenderResponseCo
 		// an invalid value.
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
+		PrintWriter responsePrintWriter = response.getWriter();
 
 		boolean pass = getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()) == null;
 
@@ -81,6 +81,6 @@ public class GetResponseContentTypeMethodTestPortlet extends NonRenderResponseCo
 			resultWriter.setDetail((String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName()));
 		}
 
-		out.println(resultWriter.toString());
+		responsePrintWriter.println(resultWriter.toString());
 	}
 }

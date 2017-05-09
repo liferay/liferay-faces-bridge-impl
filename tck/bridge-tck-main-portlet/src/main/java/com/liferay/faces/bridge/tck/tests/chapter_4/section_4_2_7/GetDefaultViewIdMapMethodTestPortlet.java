@@ -68,7 +68,7 @@ public class GetDefaultViewIdMapMethodTestPortlet extends NonRenderResponseCompa
 	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 		response.setContentType("text/html");
 
-		PrintWriter out = response.getWriter();
+		PrintWriter responsePrintWriter = response.getWriter();
 
 		boolean pass = getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName()) != null;
 
@@ -81,7 +81,7 @@ public class GetDefaultViewIdMapMethodTestPortlet extends NonRenderResponseCompa
 
 			while (names.hasMoreElements()) {
 				String name = names.nextElement();
-				out.println("--- " + name + " ---");
+				responsePrintWriter.println("--- " + name + " ---");
 
 				int idx = name.indexOf(TEST_FAIL_PREFIX + getPortletName() + ".");
 
@@ -103,6 +103,6 @@ public class GetDefaultViewIdMapMethodTestPortlet extends NonRenderResponseCompa
 			resultWriter.setDetail(failMsg.toString());
 		}
 
-		out.println(resultWriter.toString());
+		responsePrintWriter.println(resultWriter.toString());
 	}
 }
