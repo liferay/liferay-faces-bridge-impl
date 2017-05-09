@@ -49,10 +49,10 @@ public class BridgeClearRequestScopePortlet extends GenericFacesTestSuitePortlet
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		// Now that we are after the navigation and have the new view tree -- add the message
-		phaseEvent.getFacesContext().addMessage(phaseEvent.getFacesContext().getViewRoot().getClientId(phaseEvent.getFacesContext()),
-			new FacesMessage(MESSAGE_VALUE1));
-		phaseEvent.getFacesContext().addMessage(phaseEvent.getFacesContext().getViewRoot().getClientId(phaseEvent.getFacesContext()),
-			new FacesMessage(MESSAGE_VALUE2));
+		phaseEvent.getFacesContext().addMessage(phaseEvent.getFacesContext().getViewRoot().getClientId(
+				phaseEvent.getFacesContext()), new FacesMessage(MESSAGE_VALUE1));
+		phaseEvent.getFacesContext().addMessage(phaseEvent.getFacesContext().getViewRoot().getClientId(
+				phaseEvent.getFacesContext()), new FacesMessage(MESSAGE_VALUE2));
 	}
 
 	public void beforePhase(PhaseEvent phaseEvent) {
