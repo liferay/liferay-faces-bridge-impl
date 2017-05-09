@@ -92,15 +92,15 @@ public class TestBean extends Object {
 		// For use with resource redisplay tests -- to kick off the PPR -- The button starts with Run Test which causes
 		// the PPR -- it then changes its name to "" so the GoLink can be invoked
 
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
 		// Still running test is test is neither marked complete in the bean itself or in the session attribute
 		// Later exists for tests that span mode changes/scope changes where the test bean is lost.
-		if (!isTestComplete() && (ec.getSessionMap().get("com.liferay.faces.bridge.tck.testCompleted") == null)) {
+		if (!isTestComplete() && (externalContext.getSessionMap().get("com.liferay.faces.bridge.tck.testCompleted") == null)) {
 
 			// For tests that use partial page refresh technology -- disable the button after its invoked
 			if (mTestName.contains("PPR") &&
-					(ec.getRequestMap().get("com.liferay.faces.bridge.tck.pprSubmitted") != null)) {
+					(externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.pprSubmitted") != null)) {
 				return "";
 			}
 			else {
@@ -113,16 +113,16 @@ public class TestBean extends Object {
 	}
 
 	public String getRedisplayLinkName() {
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
 		// Still running test is test is neither marked complete in the bean itself or in the session attribute
 		// Later exists for tests that span mode changes/scope changes where the test bean is lost.
-		if (!isTestComplete() && (ec.getSessionMap().get("com.liferay.faces.bridge.tck.testCompleted") == null)) {
+		if (!isTestComplete() && (externalContext.getSessionMap().get("com.liferay.faces.bridge.tck.testCompleted") == null)) {
 
 			// For tests that use partial page refresh technology with a follow on render redisplay -- disable the
 			// link until PPR invoked
 			if (mTestName.contains("PPR") &&
-					(ec.getRequestMap().get("com.liferay.faces.bridge.tck.pprSubmitted") == null)) {
+					(externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.pprSubmitted") == null)) {
 				return "";
 			}
 			else {
