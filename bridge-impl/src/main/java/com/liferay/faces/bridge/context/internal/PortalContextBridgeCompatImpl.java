@@ -17,9 +17,9 @@ package com.liferay.faces.bridge.context.internal;
 
 import javax.portlet.PortalContext;
 import javax.portlet.PortletRequest;
+import javax.portlet.faces.Bridge;
 import javax.portlet.filter.PortalContextWrapper;
 
-import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.util.helper.BooleanHelper;
 
 
@@ -39,7 +39,7 @@ public abstract class PortalContextBridgeCompatImpl extends PortalContextWrapper
 
 		super(portletRequest.getPortalContext());
 
-		String facesAjaxParam = portletRequest.getParameter(BridgeExt.FACES_AJAX_PARAMETER);
+		String facesAjaxParam = portletRequest.getParameter(Bridge.FACES_AJAX_PARAMETER);
 
 		this.ajaxRequest = BooleanHelper.isTrueToken(facesAjaxParam);
 	}

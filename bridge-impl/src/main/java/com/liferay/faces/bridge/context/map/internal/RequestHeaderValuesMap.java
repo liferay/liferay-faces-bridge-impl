@@ -25,7 +25,6 @@ import javax.portlet.PortletRequest;
 import javax.portlet.ResourceRequest;
 import javax.portlet.faces.Bridge;
 
-import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -163,7 +162,7 @@ public class RequestHeaderValuesMap extends RequestHeaderValuesMapCompat {
 				// real (non-parital) ResponseWriter that renders HTML.
 				FacesContext facesContext = FacesContext.getCurrentInstance();
 				ExternalContext externalContext = facesContext.getExternalContext();
-				String facesAjaxParam = externalContext.getRequestParameterMap().get(BridgeExt.FACES_AJAX_PARAMETER);
+				String facesAjaxParam = externalContext.getRequestParameterMap().get(Bridge.FACES_AJAX_PARAMETER);
 
 				if ((facesAjaxParam != null) && BooleanHelper.isTrueToken(facesAjaxParam)) {
 					put(HEADER_FACES_REQUEST, new String[] { PARTIAL_AJAX });
