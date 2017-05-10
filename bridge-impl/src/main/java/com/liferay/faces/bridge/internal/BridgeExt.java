@@ -25,7 +25,6 @@ public interface BridgeExt {
 	public static final String BRIDGE_CONTEXT_ATTRIBUTE = "javax.portlet.faces.bridgeContext";
 
 	public static final String BOOKMARKABLE_PARAMETER = "_jsfBridgeBookmarkable";
-	public static final String FACES_AJAX_PARAMETER = "_jsfBridgeAjax";
 	public static final String REDIRECT_PARAMETER = "_jsfBridgeRedirect";
 	public static final String RENDER_REDIRECT = "com.liferay.faces.bridge.renderRedirect";
 	public static final String RENDER_REDIRECT_AFTER_DISPATCH = "com.liferay.faces.bridge.renderRedirectAfterDispatch";

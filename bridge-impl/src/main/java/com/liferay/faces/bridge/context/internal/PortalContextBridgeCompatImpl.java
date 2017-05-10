@@ -15,12 +15,10 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletRequest;
+import javax.portlet.faces.Bridge;
 
-import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.util.helper.BooleanHelper;
 
 
@@ -34,7 +32,7 @@ public abstract class PortalContextBridgeCompatImpl implements PortalContext {
 
 	public PortalContextBridgeCompatImpl(PortletRequest portletRequest) {
 
-		String facesAjaxParam = portletRequest.getParameter(BridgeExt.FACES_AJAX_PARAMETER);
+		String facesAjaxParam = portletRequest.getParameter(Bridge.FACES_AJAX_PARAMETER);
 
 		this.ajaxRequest = BooleanHelper.isTrueToken(facesAjaxParam);
 	}
