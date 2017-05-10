@@ -30,13 +30,13 @@ import javax.faces.event.ActionListener;
 import javax.faces.render.Renderer;
 import javax.faces.render.RendererWrapper;
 import javax.portlet.PortletContext;
+import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeURL;
 import javax.portlet.faces.BridgeURLFactory;
 
 import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
-import com.liferay.faces.bridge.internal.BridgeExt;
 
 
 /**
@@ -104,12 +104,12 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 			String facesActionURL = viewHandler.getActionURL(facesContext, viewId);
 			ExternalContext externalContext = facesContext.getExternalContext();
 			PortletContext portletContext = (PortletContext) externalContext.getContext();
-			BridgeURLFactory bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(
-					portletContext, BridgeURLFactory.class);
+			BridgeURLFactory bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(portletContext,
+					BridgeURLFactory.class);
 
 			try {
 				BridgeURL partialActionURL = bridgeURLFactory.getBridgePartialActionURL(facesContext, facesActionURL);
-				partialActionURL.getParameterMap().remove(BridgeExt.FACES_AJAX_PARAMETER);
+				partialActionURL.getParameterMap().remove(Bridge.FACES_AJAX_PARAMETER);
 
 				String nonAjaxPartialActionURL = partialActionURL.toString();
 				ResponseWriter responseWriter = facesContext.getResponseWriter();

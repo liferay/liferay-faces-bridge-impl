@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
 import javax.portlet.BaseURL;
 import javax.portlet.PortletContext;
+import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeConfig;
 
 import com.liferay.faces.util.logging.Logger;
@@ -55,7 +56,7 @@ public class BridgeURLPartialActionImpl extends BridgeURLBase {
 			}
 		}
 
-		bridgeURI.setParameter(BridgeExt.FACES_AJAX_PARAMETER, "true");
+		bridgeURI.setParameter(Bridge.FACES_AJAX_PARAMETER, "true");
 	}
 
 	@Override

@@ -250,7 +250,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 				if (logger.isDebugEnabled()) {
 
 					String facesAjaxParameter = externalContext.getRequestParameterMap().get(
-							BridgeExt.FACES_AJAX_PARAMETER);
+							Bridge.FACES_AJAX_PARAMETER);
 
 					if (BooleanHelper.isTrueToken(facesAjaxParameter)) {
 						logger.debug("Detected Ajax ResourceRequest");

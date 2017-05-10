@@ -25,8 +25,8 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.render.ResponseStateManager;
+import javax.portlet.faces.Bridge;
 
-import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.logging.Logger;
@@ -406,7 +406,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 			}
 		}
 		else if (nonPrefixedParameterName.startsWith(COM_LIFERAY_FACES_BRIDGE) ||
-				BridgeExt.FACES_AJAX_PARAMETER.equals(nonPrefixedParameterName) ||
+				Bridge.FACES_AJAX_PARAMETER.equals(nonPrefixedParameterName) ||
 				PRIMEFACES_DYNAMIC_CONTENT_PARAM.equals(nonPrefixedParameterName)) {
 
 			// For the sake of performance, this case is a no-op. If the value wasn't found in the PortletRequest, then
