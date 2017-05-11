@@ -15,10 +15,7 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
