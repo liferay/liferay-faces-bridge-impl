@@ -118,7 +118,7 @@
 	<!--
 	  In this demo application, I chose to use suffix mapping.  I did this because it makes urls
 	  in the portlet world look nicer in the source.  The portlet url should be the same
-	  reguardless.
+	  regardless.
 	-->
 	<servlet-mapping>
 		<servlet-name>faces</servlet-name>
