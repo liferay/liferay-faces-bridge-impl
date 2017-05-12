@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+	<!-- The following test beans cannot be defined with an @ManagedBean annotation since they are also present in the JSF 1.2 branch -->
+	<managed-bean>
+		<managed-bean-name>chapter6_1_3_1EncodeActionURLTests</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.EncodeActionURLTests</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>chapter6_1_3_1EncodeResourceURLTests</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.EncodeResourceURLTests</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>chapter6_1_3_1EncodeURLEscapingTests</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.EncodeURLEscapingTests</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+</faces-config>
