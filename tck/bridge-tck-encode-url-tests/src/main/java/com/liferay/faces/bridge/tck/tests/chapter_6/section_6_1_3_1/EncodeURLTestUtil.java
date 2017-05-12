@@ -17,7 +17,6 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.lifecycle.ClientWindow;
 
 
 /**
@@ -28,22 +27,11 @@ import javax.faces.lifecycle.ClientWindow;
 class EncodeURLTestUtil {
 
 	static String getClientWindowId(ExternalContext externalContext) {
-
-		ClientWindow clientWindow = externalContext.getClientWindow();
-
-		if (clientWindow != null) {
-			return clientWindow.getId();
-		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	static boolean isClientWindowEnabled(FacesContext facesContext, ExternalContext externalContext) {
-
-		ClientWindow clientWindow = externalContext.getClientWindow();
-
-		return ((clientWindow != null) && (clientWindow.isClientWindowRenderModeEnabled(facesContext)));
+		return false;
 	}
 
 	static boolean isStrictXhtmlEncoded(String url) {
