@@ -31,6 +31,7 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeEventHandler;
 import javax.portlet.faces.BridgeUtil;
 import javax.xml.namespace.QName;
 
@@ -150,8 +151,7 @@ public class Tests extends RenderTests implements PhaseListener {
 			stateAwareResponse.setRenderParameter("tck.renderParam", "value");
 
 			// Create and raise the event
-			stateAwareResponse.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return "eventControllerTest"; // action Navigation result
 		}
@@ -234,8 +234,7 @@ public class Tests extends RenderTests implements PhaseListener {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return "eventNoHandlerPRPPreservedTest"; // action Navigation result
 		}
@@ -291,8 +290,7 @@ public class Tests extends RenderTests implements PhaseListener {
 
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return "eventPhaseListenerTest"; // action Navigation result
 		}
@@ -346,8 +344,7 @@ public class Tests extends RenderTests implements PhaseListener {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return "eventScopeNotRestoredModeChangedTest"; // action Navigation result
 		}
@@ -404,8 +401,7 @@ public class Tests extends RenderTests implements PhaseListener {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return "eventScopeNotRestoredRedirectTest"; // action Navigation result
 		}
@@ -462,8 +458,7 @@ public class Tests extends RenderTests implements PhaseListener {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return "eventScopeRestoredTest"; // action Navigation result
 		}
@@ -572,8 +567,7 @@ public class Tests extends RenderTests implements PhaseListener {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return "facesContextReleasedEventTest"; // action Navigation result
 		}
@@ -763,8 +757,7 @@ public class Tests extends RenderTests implements PhaseListener {
 		// are explicitly excluded -- test for presence/absence in render
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
-				testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return "portletPhaseRemovedEventTest"; // action Navigation result
 		}
