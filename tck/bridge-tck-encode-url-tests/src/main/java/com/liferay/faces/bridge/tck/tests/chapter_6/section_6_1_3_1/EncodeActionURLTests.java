@@ -34,8 +34,6 @@ import javax.xml.namespace.QName;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
-import static com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.TestEventHandler.EVENT_NAME;
-import static com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.TestEventHandler.EVENT_QNAME;
 
 
 /**
@@ -162,7 +160,7 @@ public class EncodeActionURLTests {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -521,7 +519,7 @@ public class EncodeActionURLTests {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -747,7 +745,7 @@ public class EncodeActionURLTests {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -976,7 +974,7 @@ public class EncodeActionURLTests {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -1204,7 +1202,7 @@ public class EncodeActionURLTests {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -1428,7 +1426,7 @@ public class EncodeActionURLTests {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -1639,7 +1637,7 @@ public class EncodeActionURLTests {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -1862,7 +1860,7 @@ public class EncodeActionURLTests {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
