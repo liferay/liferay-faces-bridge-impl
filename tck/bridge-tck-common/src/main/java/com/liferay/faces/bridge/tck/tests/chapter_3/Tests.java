@@ -32,7 +32,6 @@ import javax.xml.namespace.QName;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
-import com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.TestEventHandler;
 
 
 /**
@@ -122,7 +121,7 @@ public class Tests extends Object {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(TestEventHandler.EVENT_QNAME, TestEventHandler.EVENT_NAME),
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME),
 				testBean.getTestName());
 
 			return "eventDestroyTest"; // action Navigation result
