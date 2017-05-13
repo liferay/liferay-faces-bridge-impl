@@ -30,16 +30,15 @@ import com.liferay.faces.bridge.tck.common.Constants;
  * @author  Michael Freedman
  */
 public class TestEventHandler implements BridgeEventHandler {
+
 	public static final String EVENT_RECEIVED = "com.liferay.faces.bridge.tck.eventReceived";
 	public static final String EVENT_TEST_FAILED = "com.liferay.faces.bridge.tck.eventTestFailed";
 	public static final String EVENTATTR = "portlet.bridge.tck.testAttr";
-	public static final String EVENT_QNAME = "http://liferay.com/faces/event_ns";
-	public static final String EVENT_NAME = "faces.liferay.com.tck.testEvent";
 
 	public TestEventHandler() {
-
 	}
 
+	@Override
 	public EventNavigationResult handleEvent(FacesContext context, Event event) {
 
 		Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
