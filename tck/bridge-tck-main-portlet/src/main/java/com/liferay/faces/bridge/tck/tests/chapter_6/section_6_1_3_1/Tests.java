@@ -50,9 +50,6 @@ import com.liferay.faces.bridge.tck.common.Constants;
  */
 public class Tests extends Object {
 
-	public static final String EVENT_QNAME = "http://liferay.com/faces/event_ns";
-	public static final String EVENT_NAME = "faces.liferay.com.tck.testEvent";
-
 	// Test is SingleRequest -- Render only
 	// Test #6.3
 	@BridgeTest(test = "dispatchUsesForwardTest")
@@ -138,7 +135,7 @@ public class Tests extends Object {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -288,7 +285,7 @@ public class Tests extends Object {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -548,7 +545,7 @@ public class Tests extends Object {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -1099,7 +1096,7 @@ public class Tests extends Object {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -2346,7 +2343,7 @@ public class Tests extends Object {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -2494,7 +2491,7 @@ public class Tests extends Object {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
@@ -2768,7 +2765,7 @@ public class Tests extends Object {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(EVENT_QNAME, EVENT_NAME), testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
