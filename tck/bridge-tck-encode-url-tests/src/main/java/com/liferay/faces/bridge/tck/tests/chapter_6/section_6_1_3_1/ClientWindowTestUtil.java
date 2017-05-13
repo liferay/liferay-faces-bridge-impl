@@ -15,35 +15,34 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.lifecycle.ClientWindow;
+
+
 /**
  * This is a utility class that acts as a compatibility layer in order to minimize diffs across branches.
  *
  * @author  Neil Griffin
  */
-class EncodeURLTestUtil {
+class ClientWindowTestUtil {
 
-	static boolean isStrictXhtmlEncoded(String url) {
+	static String getClientWindowId(ExternalContext externalContext) {
 
-		// check for use of &amp; in query string
-		int currentPos = 0;
-		boolean isStrict = false;
+		ClientWindow clientWindow = externalContext.getClientWindow();
 
-		while (true) {
-			int ampPos = url.indexOf('&', currentPos);
-			int xhtmlAmpPos = url.indexOf("&amp;", currentPos);
-
-			// no more & to process -- so return current value of isStrict
-			if (ampPos == -1) {
-				return isStrict;
-			}
-
-			// if the amp we found doesn't start an &amp; then its not strict
-			if (ampPos != xhtmlAmpPos) {
-				return false;
-			}
-
-			isStrict = true;
-			currentPos = ampPos + 1;
+		if (clientWindow != null) {
+			return clientWindow.getId();
 		}
+		else {
+			return null;
+		}
+	}
+
+	static boolean isClientWindowEnabled(FacesContext facesContext, ExternalContext externalContext) {
+
+		ClientWindow clientWindow = externalContext.getClientWindow();
+
+		return ((clientWindow != null) && (clientWindow.isClientWindowRenderModeEnabled(facesContext)));
 	}
 }
