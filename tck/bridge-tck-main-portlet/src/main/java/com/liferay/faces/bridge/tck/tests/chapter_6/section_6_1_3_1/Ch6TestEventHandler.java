@@ -34,11 +34,11 @@ import com.liferay.faces.bridge.tck.common.Constants;
 /**
  * @author  Michael Freedman
  */
-public class TestEventHandler implements BridgeEventHandler {
+public class Ch6TestEventHandler implements BridgeEventHandler {
 
 	public static final String EVENT_TEST_RESULT = "com.liferay.faces.bridge.tck.eventTestResult";
 
-	public TestEventHandler() {
+	public Ch6TestEventHandler() {
 	}
 
 	public EventNavigationResult handleEvent(FacesContext context, Event event) {

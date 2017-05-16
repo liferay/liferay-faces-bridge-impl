@@ -31,7 +31,6 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeEventHandler;
 import javax.portlet.faces.BridgeUtil;
 import javax.xml.namespace.QName;
 
@@ -143,8 +142,8 @@ public class Tests extends HeaderTests implements PhaseListener {
 
 			// Clear settings from previous run of the test: Done here because this render doesn't happen in scope so
 			// second rendition doesn't keep the test result -- rather rerenders
-			externalContext.getSessionMap().put(TestEventHandler.EVENT_RECEIVED, null);
-			externalContext.getSessionMap().put(TestEventHandler.EVENT_TEST_FAILED, null);
+			externalContext.getSessionMap().put(Ch5TestEventHandler.EVENT_RECEIVED, null);
+			externalContext.getSessionMap().put(Ch5TestEventHandler.EVENT_TEST_FAILED, null);
 
 			// Set a render parameter so we can verify its there after the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
@@ -336,11 +335,11 @@ public class Tests extends HeaderTests implements PhaseListener {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Clear settings from previous run of the test
-			externalContext.getSessionMap().put(TestEventHandler.EVENT_RECEIVED, null);
-			externalContext.getSessionMap().put(TestEventHandler.EVENT_TEST_FAILED, null);
+			externalContext.getSessionMap().put(Ch5TestEventHandler.EVENT_RECEIVED, null);
+			externalContext.getSessionMap().put(Ch5TestEventHandler.EVENT_TEST_FAILED, null);
 
 			// Place a request attr in scope so we can make sure its not there later
-			externalContext.getRequestMap().put(TestEventHandler.EVENTATTR, testBean.getTestName());
+			externalContext.getRequestMap().put(Ch5TestEventHandler.EVENTATTR, testBean.getTestName());
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
@@ -352,9 +351,9 @@ public class Tests extends HeaderTests implements PhaseListener {
 			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
-			Event event = (Event) externalContext.getSessionMap().get(TestEventHandler.EVENT_RECEIVED);
-			String failedMsg = (String) externalContext.getSessionMap().get(TestEventHandler.EVENT_TEST_FAILED);
-			String payload = (String) externalContext.getRequestMap().get(TestEventHandler.EVENTATTR);
+			Event event = (Event) externalContext.getSessionMap().get(Ch5TestEventHandler.EVENT_RECEIVED);
+			String failedMsg = (String) externalContext.getSessionMap().get(Ch5TestEventHandler.EVENT_TEST_FAILED);
+			String payload = (String) externalContext.getRequestMap().get(Ch5TestEventHandler.EVENTATTR);
 
 			if (event == null) {
 				testBean.setTestResult(false, "Raised event wasn't received.");
@@ -393,11 +392,11 @@ public class Tests extends HeaderTests implements PhaseListener {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Clear settings from previous run of the test
-			externalContext.getSessionMap().put(TestEventHandler.EVENT_RECEIVED, null);
-			externalContext.getSessionMap().put(TestEventHandler.EVENT_TEST_FAILED, null);
+			externalContext.getSessionMap().put(Ch5TestEventHandler.EVENT_RECEIVED, null);
+			externalContext.getSessionMap().put(Ch5TestEventHandler.EVENT_TEST_FAILED, null);
 
 			// Place a request attr in scope so we can make sure its not there later
-			externalContext.getRequestMap().put(TestEventHandler.EVENTATTR, testBean.getTestName());
+			externalContext.getRequestMap().put(Ch5TestEventHandler.EVENTATTR, testBean.getTestName());
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
@@ -409,9 +408,9 @@ public class Tests extends HeaderTests implements PhaseListener {
 			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
-			Event event = (Event) externalContext.getSessionMap().get(TestEventHandler.EVENT_RECEIVED);
-			String failedMsg = (String) externalContext.getSessionMap().get(TestEventHandler.EVENT_TEST_FAILED);
-			String payload = (String) externalContext.getRequestMap().get(TestEventHandler.EVENTATTR);
+			Event event = (Event) externalContext.getSessionMap().get(Ch5TestEventHandler.EVENT_RECEIVED);
+			String failedMsg = (String) externalContext.getSessionMap().get(Ch5TestEventHandler.EVENT_TEST_FAILED);
+			String payload = (String) externalContext.getRequestMap().get(Ch5TestEventHandler.EVENTATTR);
 
 			if (event == null) {
 				testBean.setTestResult(false, "Raised event wasn't received.");
@@ -450,11 +449,11 @@ public class Tests extends HeaderTests implements PhaseListener {
 
 			// Clear settings from previous run of the test: Done here because this render doesn't happen in scope so
 			// second rendition doesn't keep the test result -- rather rerenders
-			externalContext.getSessionMap().put(TestEventHandler.EVENT_RECEIVED, null);
-			externalContext.getSessionMap().put(TestEventHandler.EVENT_TEST_FAILED, null);
+			externalContext.getSessionMap().put(Ch5TestEventHandler.EVENT_RECEIVED, null);
+			externalContext.getSessionMap().put(Ch5TestEventHandler.EVENT_TEST_FAILED, null);
 
 			// Place a request attr in scope so we can make sure its still there later
-			externalContext.getRequestMap().put(TestEventHandler.EVENTATTR, testBean.getTestName());
+			externalContext.getRequestMap().put(Ch5TestEventHandler.EVENTATTR, testBean.getTestName());
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
@@ -466,9 +465,9 @@ public class Tests extends HeaderTests implements PhaseListener {
 			testBean.setTestComplete(true);
 
 			// Values set by portlet at end of action
-			Event event = (Event) externalContext.getSessionMap().get(TestEventHandler.EVENT_RECEIVED);
-			String failedMsg = (String) externalContext.getSessionMap().get(TestEventHandler.EVENT_TEST_FAILED);
-			String payload = (String) externalContext.getRequestMap().get(TestEventHandler.EVENTATTR);
+			Event event = (Event) externalContext.getSessionMap().get(Ch5TestEventHandler.EVENT_RECEIVED);
+			String failedMsg = (String) externalContext.getSessionMap().get(Ch5TestEventHandler.EVENT_TEST_FAILED);
+			String payload = (String) externalContext.getRequestMap().get(Ch5TestEventHandler.EVENTATTR);
 
 			if (event == null) {
 				testBean.setTestResult(false, "Raised event wasn't received.");
