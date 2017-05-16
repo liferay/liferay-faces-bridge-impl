@@ -122,7 +122,7 @@ public class Tests extends Object {
 		expectedInitParams.put("excludedRequestAttributes", "exclude1,exclude2");
 		expectedInitParams.put("preserveActionParams", Boolean.TRUE);
 		expectedInitParams.put("bridgeEventHandler",
-			"com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.TestEventHandler");
+			"com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.Ch5TestEventHandler");
 		expectedInitParams.put("bridgePublicRenderParameterHandler",
 			"com.liferay.faces.bridge.tck.tests.chapter_5.section_5_3.Tests");
 		expectedInitParams.put("defaultRenderKitId", "HTML_BASIC");
