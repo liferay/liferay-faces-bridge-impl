@@ -29,13 +29,13 @@ import com.liferay.faces.bridge.tck.common.Constants;
 /**
  * @author  Michael Freedman
  */
-public class TestEventHandler implements BridgeEventHandler {
+public class Ch5TestEventHandler implements BridgeEventHandler {
 
 	public static final String EVENT_RECEIVED = "com.liferay.faces.bridge.tck.eventReceived";
 	public static final String EVENT_TEST_FAILED = "com.liferay.faces.bridge.tck.eventTestFailed";
 	public static final String EVENTATTR = "portlet.bridge.tck.testAttr";
 
-	public TestEventHandler() {
+	public Ch5TestEventHandler() {
 	}
 
 	@Override
