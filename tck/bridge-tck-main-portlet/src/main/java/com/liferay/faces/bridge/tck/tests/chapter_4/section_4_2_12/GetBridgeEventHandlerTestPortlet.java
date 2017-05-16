@@ -73,13 +73,13 @@ public class GetBridgeEventHandlerTestPortlet extends GenericFacesTestSuitePortl
 						"getBridgeEventHandler returned null but an EventHandler was configured.");
 				}
 				else if (isClassNameInDelegationChain(eventHandler,
-							"com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.TestEventHandler")) {
+							"com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.Ch5TestEventHandler")) {
 					getPortletContext().setAttribute(TEST_PASS_PREFIX + getPortletName(),
 						"getBridgeEventHandler correctly returned the configured EventHandler instance.");
 				}
 				else {
 					getPortletContext().setAttribute(TEST_FAIL_PREFIX + getPortletName(),
-						"getBridgeEventHandler incorrectly returned a different EventHandler instance than expected.  Expected: and instanceof TestEventHandler but received: " +
+						"getBridgeEventHandler incorrectly returned a different EventHandler instance than expected.  Expected: and instanceof Ch5TestEventHandler but received: " +
 						eventHandler.getClass().getName());
 				}
 			}
