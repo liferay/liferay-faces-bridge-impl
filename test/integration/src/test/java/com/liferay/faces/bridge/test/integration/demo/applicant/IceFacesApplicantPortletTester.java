@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
-import com.liferay.faces.test.selenium.Browser;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
 
 
 /**
@@ -53,12 +53,12 @@ public class IceFacesApplicantPortletTester extends BridgeApplicantPortletTester
 	}
 
 	@Override
-	protected void selectDate(Browser browser) {
+	protected void selectDate(BrowserDriver browserDriver) {
 
-		browser.click(getDateOfBirthFieldXpath());
+		browserDriver.clickElement(getDateOfBirthFieldXpath());
 
 		String dateElement = "//table[contains(@class, 'ui-datepicker-calendar')]//a[contains(text(), '14')]";
-		browser.waitForElementVisible(dateElement);
-		browser.click(dateElement);
+		browserDriver.waitForElementEnabled(dateElement);
+		browserDriver.clickElement(dateElement);
 	}
 }

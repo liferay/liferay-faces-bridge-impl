@@ -15,18 +15,20 @@
  */
 package com.liferay.faces.bridge.test.integration.demo;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.TestUtil;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -35,167 +37,173 @@ import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
  */
 public class JSFFlowsPortletTester extends IntegrationTesterBase {
 
-	@BeforeClass
-	public static void setUpJSFFlowsPortletTester() {
-		Browser.getInstance().setWaitTimeOut(TestUtil.getBrowserWaitTimeOut(10));
-	}
-
-	@AfterClass
-	public static void tearDownJSFFlowsPortletTester() {
-		Browser.getInstance().setWaitTimeOut(TestUtil.getBrowserWaitTimeOut());
-	}
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(JSFFlowsPortletTester.class);
 
 	@Test
 	public void runJSFFlowsPortletTest() {
 
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getDemoPageURL("jsf-flows"));
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getDemoPageURL("jsf-flows"));
 
-		// Test that libraries are visible.
-		SeleniumAssert.assertLibraryVisible(browser, "Mojarra");
-		SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Alloy");
-		SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Bridge Impl");
+		// Test that libraries are displayed.
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		assertLibraryElementDisplayed(browserStateAsserter, "Mojarra", browserDriver);
+		assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Alloy", browserDriver);
+		assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Bridge Impl", browserDriver);
 
 		if (TestUtil.getContainer().contains("liferay")) {
-			SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Bridge Ext");
+			assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Bridge Ext", browserDriver);
 		}
 
-		SeleniumAssert.assertLibraryVisible(browser, "Weld");
+		assertLibraryElementDisplayed(browserStateAsserter, "Weld", browserDriver);
 
 		// Test that exiting the bookings flow scope causes beans to go out of scope.
 		String enterBookingFlowButtonXpath = "//input[@value='Enter Booking Flow']";
-		browser.click(enterBookingFlowButtonXpath);
+		browserDriver.clickElement(enterBookingFlowButtonXpath);
 
 		String exitBookingFlowButtonXpath = "//input[@value='Exit Booking Flow']";
-		browser.waitForElementVisible(exitBookingFlowButtonXpath);
-		browser.click(exitBookingFlowButtonXpath);
-		browser.waitForElementVisible(enterBookingFlowButtonXpath);
-		assertFlowBeansOutOfScope(browser);
-		SeleniumAssert.assertElementVisible(browser, enterBookingFlowButtonXpath);
+		browserDriver.waitForElementEnabled(exitBookingFlowButtonXpath);
+		browserDriver.clickElement(exitBookingFlowButtonXpath);
+		browserStateAsserter.assertElementDisplayed(enterBookingFlowButtonXpath);
+		assertFlowBeansOutOfScope(browserStateAsserter);
 
 		// Test that a flight can be found.
-		browser.click(enterBookingFlowButtonXpath);
+		browserDriver.clickElement(enterBookingFlowButtonXpath);
 
 		String bookingTypeXpath = "//select[contains(@id,':bookingTypeId')]";
-		browser.waitForElementVisible(bookingTypeXpath);
-		createSelect(browser, bookingTypeXpath).selectByVisibleText("Flight");
+		browserDriver.waitForElementEnabled(bookingTypeXpath);
+		createSelect(browserDriver, bookingTypeXpath).selectByVisibleText("Flight");
 
 		String departureXpath = "//select[contains(@id,':departureId')]";
-		browser.waitForElementVisible(departureXpath);
-		selectOptionContainingText(browser, departureXpath, "LAX");
+		browserDriver.waitForElementEnabled(departureXpath);
+		selectOptionContainingText(browserDriver, departureXpath, "LAX");
 
 		String arrivalXpath = "//select[contains(@id,':arrivalId')]";
-		selectOptionContainingText(browser, arrivalXpath, "SDF");
-		browser.sendKeys("//input[contains(@id,':departureDate')]", "2015-08-12");
+		selectOptionContainingText(browserDriver, arrivalXpath, "SDF");
+		browserDriver.sendKeysToElement("//input[contains(@id,':departureDate')]", "2015-08-12");
 
 		String searchFlightsButtonXpath = "//input[@value='Search Flights']";
-		browser.click(searchFlightsButtonXpath);
+		browserDriver.clickElement(searchFlightsButtonXpath);
 
 		String addToCartButtonXpath = "(//input[@value='Add To Cart'])[1]";
-		browser.waitForElementVisible(addToCartButtonXpath);
-		SeleniumAssert.assertElementVisible(browser, addToCartButtonXpath);
+		browserStateAsserter.assertElementDisplayed(addToCartButtonXpath);
 
 		// Test that a flight can be added to the cart.
-		browser.click(addToCartButtonXpath);
+		browserDriver.clickElement(addToCartButtonXpath);
 
 		String bookAdditionalTravelButtonXpath = "//input[@value='Book Additional Travel']";
 		String removeButtonXpath = "(//input[@value='Remove'])[1]";
-		browser.waitForElementVisible(removeButtonXpath);
-		SeleniumAssert.assertElementVisible(browser, removeButtonXpath);
+		browserStateAsserter.assertElementDisplayed(removeButtonXpath);
 
 		// Test that non-flight options are not implemented.
-		browser.click(bookAdditionalTravelButtonXpath);
-		browser.waitForElementVisible(bookingTypeXpath);
+		browserDriver.clickElement(bookAdditionalTravelButtonXpath);
+		browserDriver.waitForElementEnabled(bookingTypeXpath);
 
-		createSelect(browser, bookingTypeXpath).selectByVisibleText("Cruise");
-
-		String bookingTypeFieldSetXpath = "//fieldset[contains(@id,':bookingTypeFieldSet')]/p";
-		browser.waitForElementVisible(bookingTypeFieldSetXpath);
-		SeleniumAssert.assertElementTextVisible(browser, bookingTypeFieldSetXpath,
-			"'Flight' is currently the only type of booking that is implemented in this demo.");
+		createSelect(browserDriver, bookingTypeXpath).selectByVisibleText("Cruise");
+		browserStateAsserter.assertTextPresentInElement(
+			"'Flight' is currently the only type of booking that is implemented in this demo.",
+			"//fieldset[contains(@id,':bookingTypeFieldSet')]/p");
 
 		// Test that flights can be purchased.
-		createSelect(browser, bookingTypeXpath).selectByVisibleText("Flight");
-		browser.waitForElementVisible(departureXpath);
-		selectOptionContainingText(browser, departureXpath, "SDF");
-		selectOptionContainingText(browser, arrivalXpath, "MCO");
-		browser.sendKeys("//input[contains(@id,':departureDate')]", "2015-08-12");
-		browser.click(searchFlightsButtonXpath);
-		browser.waitForElementVisible(addToCartButtonXpath);
-		browser.click(addToCartButtonXpath);
-		browser.waitForElementVisible(removeButtonXpath);
-		browser.click("//input[@value='Checkout']");
+		createSelect(browserDriver, bookingTypeXpath).selectByVisibleText("Flight");
+		browserDriver.waitForElementEnabled(departureXpath);
+		selectOptionContainingText(browserDriver, departureXpath, "SDF");
+		selectOptionContainingText(browserDriver, arrivalXpath, "MCO");
+		browserDriver.sendKeysToElement("//input[contains(@id,':departureDate')]", "2015-08-12");
+		browserDriver.clickElement(searchFlightsButtonXpath);
+		browserDriver.waitForElementEnabled(addToCartButtonXpath);
+		browserDriver.clickElement(addToCartButtonXpath);
+		browserDriver.waitForElementEnabled(removeButtonXpath);
+		browserDriver.clickElement("//input[@value='Checkout']");
 
 		String titleFieldXpath = "//select[contains(@id,':titleId')]";
-		browser.waitForElementVisible(titleFieldXpath);
-		createSelect(browser, titleFieldXpath).selectByVisibleText("Mr.");
-		browser.sendKeys("//input[contains(@id,':firstName')]", "John");
-		browser.sendKeys("//input[contains(@id,':lastName')]", "Adams");
-		browser.sendKeys("//input[contains(@id,':emailAddress')]", "John@Adams.org");
-		browser.sendKeys("//input[contains(@id,':phoneNumber')]", "1234567890");
-		browser.sendKeys("//input[contains(@id,':addressLine1')]", "123 Gilgod Ave");
-		browser.sendKeys("//input[contains(@id,':city')]", "Hollywood");
-		createSelect(browser, "//select[contains(@id,':provinceId')]").selectByVisibleText("California");
-		createSelect(browser, "//select[contains(@id,':paymentTypeId')]").selectByVisibleText("Visa");
-		browser.sendKeys("//input[contains(@id,':accountNumber')]", "12345678901234567890");
-		browser.sendKeys("//input[contains(@id,':expirationMonth')]", "01/35");
-		browser.click("//input[@value='Purchase']");
+		browserDriver.waitForElementEnabled(titleFieldXpath);
+		createSelect(browserDriver, titleFieldXpath).selectByVisibleText("Mr.");
+		browserDriver.sendKeysToElement("//input[contains(@id,':firstName')]", "John");
+		browserDriver.sendKeysToElement("//input[contains(@id,':lastName')]", "Adams");
+		browserDriver.sendKeysToElement("//input[contains(@id,':emailAddress')]", "John@Adams.org");
+		browserDriver.sendKeysToElement("//input[contains(@id,':phoneNumber')]", "1234567890");
+		browserDriver.sendKeysToElement("//input[contains(@id,':addressLine1')]", "123 Gilgod Ave");
+		browserDriver.sendKeysToElement("//input[contains(@id,':city')]", "Hollywood");
+		createSelect(browserDriver, "//select[contains(@id,':provinceId')]").selectByVisibleText("California");
+		createSelect(browserDriver, "//select[contains(@id,':paymentTypeId')]").selectByVisibleText("Visa");
+		browserDriver.sendKeysToElement("//input[contains(@id,':accountNumber')]", "12345678901234567890");
+		browserDriver.sendKeysToElement("//input[contains(@id,':expirationMonth')]", "01/35");
+		browserDriver.clickElement("//input[@value='Purchase']");
 
 		String cvvFieldXpath = "//input[contains(@id,':cvv')]";
 		String cvvFieldErrorXpath = cvvFieldXpath + "/../span[@class='portlet-msg-error']";
-		browser.waitForElementVisible(cvvFieldErrorXpath);
-		SeleniumAssert.assertElementTextVisible(browser, cvvFieldErrorXpath, "Value is required");
-		browser.sendKeys(cvvFieldXpath, "123");
-		browser.click("//input[@value='Purchase']");
+		browserStateAsserter.assertTextPresentInElement("Value is required", cvvFieldErrorXpath);
+		browserDriver.sendKeysToElement(cvvFieldXpath, "123");
+		browserDriver.clickElement("//input[@value='Purchase']");
 
 		String callSurveyFlowButtonXpath = "//input[@value='Call Survey Flow']";
-		browser.waitForElementVisible(callSurveyFlowButtonXpath);
-		SeleniumAssert.assertElementTextVisible(browser, "//div[contains(@class,'liferay-faces-bridge-body')]//form",
-			"Thank you John for your purchase.");
+		browserStateAsserter.assertTextPresentInElement("Thank you John for your purchase.",
+			"//div[contains(@class,'liferay-faces-bridge-body')]//form");
 
 		// Test the survey flow scope.
-		browser.click(callSurveyFlowButtonXpath);
+		browserDriver.clickElement(callSurveyFlowButtonXpath);
 
 		String finishButtonXpath = "//input[@value='Finish']";
-		browser.waitForElementVisible(finishButtonXpath);
-		browser.sendKeys("//div[contains(@id,':question1')]/input", "Liferay");
-		browser.sendKeys("//div[contains(@id,':question2')]/input", "Cockpit");
-		browser.click(finishButtonXpath);
-
-		String returnFromSurveyFlowButtonXpath = "//input[@value='Return From Survey Flow']";
-		browser.waitForElementVisible(returnFromSurveyFlowButtonXpath);
-		SeleniumAssert.assertElementTextVisible(browser, "//div[contains(@class,'liferay-faces-bridge-body')]//form",
-			"Thank you John for participating in our survey.");
+		browserDriver.waitForElementEnabled(finishButtonXpath);
+		browserDriver.sendKeysToElement("//div[contains(@id,':question1')]/input", "Liferay");
+		browserDriver.sendKeysToElement("//div[contains(@id,':question2')]/input", "Cockpit");
+		browserDriver.clickElement(finishButtonXpath);
+		browserStateAsserter.assertTextPresentInElement("Thank you John for participating in our survey.",
+			"//div[contains(@class,'liferay-faces-bridge-body')]//form");
 
 		// Test that exiting the survey flow scope causes beans to go out of scope.
-		browser.click(returnFromSurveyFlowButtonXpath);
-		browser.waitForElementVisible(enterBookingFlowButtonXpath);
-		assertFlowBeansOutOfScope(browser);
+		browserDriver.clickElement("//input[@value='Return From Survey Flow']");
+		assertFlowBeansOutOfScope(browserStateAsserter);
 	}
 
-	private void assertFlowBeansOutOfScope(Browser browser) {
-
-		SeleniumAssert.assertElementTextVisible(browser, "//li/em[contains(text(),'bookingFlowModelBeanInScope')]",
-			"bookingFlowModelBeanInScope=false");
-		SeleniumAssert.assertElementTextVisible(browser, "//li/em[contains(text(),'cartModelBeanInScope')]",
-			"cartModelBeanInScope=false");
-		SeleniumAssert.assertElementTextVisible(browser, "//li/em[contains(text(),'flightSearchModelBeanInScope')]",
-			"flightSearchModelBeanInScope=false");
-		SeleniumAssert.assertElementTextVisible(browser, "//li/em[contains(text(),'surveyFlowModelBeanInScope')]",
-			"surveyFlowModelBeanInScope=false");
+	@Before
+	public void setUpJSFFlowsPortletTester() {
+		getBrowserDriver().setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut(10));
 	}
 
-	private Select createSelect(Browser browser, String selectXpath) {
+	@After
+	public void tearDownJSFFlowsPortletTester() {
+		getBrowserDriver().setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut());
+	}
 
-		WebElement element = browser.findElementByXpath(selectXpath);
+	protected void assertLibraryElementDisplayed(BrowserStateAsserter browserStateAsserter, String libraryName,
+		BrowserDriver browserDriver) {
+
+		String libraryVersionXpath = "//li[contains(.,'" + libraryName + "')]";
+		browserStateAsserter.assertElementDisplayed(libraryVersionXpath);
+
+		if (logger.isInfoEnabled()) {
+
+			WebElement libraryVersionElement = browserDriver.findElementByXpath(libraryVersionXpath);
+			logger.info(libraryVersionElement.getText());
+		}
+	}
+
+	private void assertFlowBeansOutOfScope(BrowserStateAsserter browserStateAsserter) {
+
+		browserStateAsserter.assertTextPresentInElement("bookingFlowModelBeanInScope=false",
+			"//li/em[contains(text(),'bookingFlowModelBeanInScope')]");
+		browserStateAsserter.assertTextPresentInElement("cartModelBeanInScope=false",
+			"//li/em[contains(text(),'cartModelBeanInScope')]");
+		browserStateAsserter.assertTextPresentInElement("flightSearchModelBeanInScope=false",
+			"//li/em[contains(text(),'flightSearchModelBeanInScope')]");
+		browserStateAsserter.assertTextPresentInElement("surveyFlowModelBeanInScope=false",
+			"//li/em[contains(text(),'surveyFlowModelBeanInScope')]");
+	}
+
+	private Select createSelect(BrowserDriver browserDriver, String selectXpath) {
+
+		WebElement element = browserDriver.findElementByXpath(selectXpath);
 
 		return new Select(element);
 	}
 
-	private void selectOptionContainingText(Browser browser, String selectXpath, String text) {
+	private void selectOptionContainingText(BrowserDriver browserDriver, String selectXpath, String text) {
 
-		WebElement option = browser.findElementByXpath(selectXpath + "/option[contains(text(),'" + text + "')]");
+		WebElement option = browserDriver.findElementByXpath(selectXpath + "/option[contains(text(),'" + text + "')]");
 		String value = option.getAttribute("value");
-		createSelect(browser, selectXpath).selectByValue(value);
+		createSelect(browserDriver, selectXpath).selectByValue(value);
 	}
 }

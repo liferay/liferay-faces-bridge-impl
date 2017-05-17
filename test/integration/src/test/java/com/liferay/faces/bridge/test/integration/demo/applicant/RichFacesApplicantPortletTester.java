@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
-import com.liferay.faces.test.selenium.Browser;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 
 
 /**
@@ -25,8 +25,9 @@ import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
 public class RichFacesApplicantPortletTester extends BridgeApplicantPortletTester {
 
 	@Override
-	protected void assertFileUploadChooserVisible(Browser browser) {
-		SeleniumAssert.assertElementVisible(browser, getFileUploadChooserXpath() + "/..");
+	protected void assertFileUploadChooserDisplayed(BrowserDriver browserDriver,
+		BrowserStateAsserter browserStateAsserter) {
+		browserStateAsserter.assertElementDisplayed(getFileUploadChooserXpath() + "/..");
 	}
 
 	@Override
@@ -58,13 +59,13 @@ public class RichFacesApplicantPortletTester extends BridgeApplicantPortletTeste
 	}
 
 	@Override
-	protected void selectDate(Browser browser) {
+	protected void selectDate(BrowserDriver browserDriver) {
 
-		browser.click("//img[contains(@class, 'rf-cal-btn')]");
+		browserDriver.clickElement("//img[contains(@class, 'rf-cal-btn')]");
 
 		// FACES-3044 RichFaces tester fails during month which contains 14th week of year (April)
 		String dateCellXpath = "//table[contains(@class, 'rf-cal-popup')]//td[contains(text(), '14')][@onclick]";
-		browser.waitForElementVisible(dateCellXpath);
-		browser.click(dateCellXpath);
+		browserDriver.waitForElementEnabled(dateCellXpath);
+		browserDriver.clickElement(dateCellXpath);
 	}
 }
