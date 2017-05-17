@@ -134,14 +134,31 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLJSFViewActionTest")
 	public String encodeActionURLJSFViewActionTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// If this method is reached in the ACTION_PHASE of the portlet lifecycle then the initial render of TestPage091
+		// must have rendered a form with a postback URL that correctly caused the RESTORE_VIEW phase to restore
+		// viewId=multiRequestTest.xhtml (meaning, the viewId must have been encoded in a BridgeURL found in the form's
+		// "action" attribute).
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+
+			// Here in the ACTION_PHASE, return an action outcome that will cause the FacesBridge navigation-handler to
+			// execute a navigation-rule in order to navigate to a different view (in the ACTION_PHASE) by:
+			//
+			// 1) Creating an action BridgeURL that encodes target viewId=multiRequestTestResultRenderCheck.xhtml (in
+			// the RI, see the BridgeNavigationHandlerImpl.handleNavigation(FacesContext,String,String) method).
+			//
+			// 2) Extracting portlet mode, window state, and render parameters (a.k.a. Portlet 3.0 "render state") from
+			// the action BridgeURL and setting them on the StateAwareResponse (in the RI, see the
+			// BridgeNavigationUtil.navigate(PortletRequest,StateAwareResponse,Map<String,String[]> method).
 			return "encodeActionURLJSFViewActionTest"; // action Navigation result
 		}
+
+		// Otherwise, if this method is reached in the RENDER_PHASE of the portlet lifecycle then the bridge executed a
+		// navigation-rule to viewId=multiRequestTestResultRenderCheck.xhtml in order to display the test results. This
+		// verifies that the action BridgeURL created in the ACTION_PHASE correctly encoded the viewId.
 		else {
 			testBean.setTestComplete(true);
-			testBean.setTestResult(true, "encodeActionURL correctly encoded a portlet action URL.");
+			testBean.setTestResult(true,
+				"encodeActionURL correctly encoded the viewId in the ACTION_PHASE of the portlet lifecycle.");
 
 			return Constants.TEST_SUCCESS;
 		}
@@ -151,23 +168,40 @@ public class EncodeActionURLTests {
 	// Test #6.103
 	@BridgeTest(test = "encodeActionURLJSFViewEventTest")
 	public String encodeActionURLJSFViewEventTest(TestBean testBean) {
+
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// If this method is reached in the ACTION_PHASE of the portlet lifecycle then the initial render of TestPage109
+		// must have rendered a form with a postback URL that correctly caused the RESTORE_VIEW phase to restore
+		// viewId=multiRequestTest.xhtml (meaning, the viewId must have been encoded in a BridgeURL found in the form's
+		// "action" attribute).
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
-			// Create and raise the event
+			// Here in the ACTION_PHASE, publish an event so that in the EVENT_PHASE,
+			// Ch6TestEventHander.handleEvent(FacesContext,Event) will return an EventNavigationResult with
+			// action="encodeActionURLJSFViewEventTest". This will cause the FacesBridge navigation-handler to execute a
+			// navigation-rule in order to navigate to a different view (in the EVENT_PHASE) by:
+			//
+			// 1) Creating an action BridgeURL that encodes target viewId=multiRequestTestResultRenderCheck.xhtml (in
+			// the RI, see the BridgeNavigationHandlerImpl.handleNavigation(FacesContext,String,String) method).
+			//
+			// 2) Extracting portlet mode, window state, and render parameters (a.k.a. Portlet 3.0 "render state") from
+			// the action BridgeURL and setting them on the StateAwareResponse (in the RI, see the
+			// BridgeNavigationUtil.navigate(PortletRequest,StateAwareResponse,Map<String,String[]> method).
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
 			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
+
+		// Otherwise, if this method is reached in the RENDER_PHASE of the portlet lifecycle then the bridge executed a
+		// navigation-rule to viewId=multiRequestTestResultRenderCheck.xhtml in order to display the test results. This
+		// verifies that the action BridgeURL created in the EVENT_PHASE correctly encoded the viewId.
 		else {
 			testBean.setTestComplete(true);
 			testBean.setTestResult(true,
-				"encodeActionURL correctly encoded a portlet action URL encoded during the event phase.");
+				"encodeActionURL correctly encoded the viewId in the EVENT_PHASE of the portlet lifecycle.");
 
 			return Constants.TEST_SUCCESS;
 		}
@@ -175,18 +209,35 @@ public class EncodeActionURLTests {
 
 	// Test is MultiRequest -- Render/Action
 	// Test #6.18
+	// As mentioned in tck-tests.md, this is basically the same test as #6.10.
 	@BridgeTest(test = "encodeActionURLJSFViewRenderTest")
 	public String encodeActionURLJSFViewRenderTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// If this method is reached in the ACTION_PHASE of the portlet lifecycle then the initial render of TestPage115
+		// must have rendered a form with a postback URL that correctly caused the RESTORE_VIEW phase to restore
+		// viewId=multiRequestTest.xhtml (meaning, the viewId must have been encoded in a BridgeURL found in the form's
+		// "action" attribute).
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			testBean.setTestResult(true, "encodeActionURL correctly encoded a portlet action URL.");
 
+			// Here in the ACTION_PHASE, return an action outcome that will cause the FacesBridge navigation-handler to
+			// execute a navigation-rule in order to navigate to a different view (in the ACTION_PHASE) by:
+			//
+			// 1) Creating an action BridgeURL that encodes target viewId=multiRequestTestResultRenderCheck.xhtml (in
+			// the RI, see the BridgeNavigationHandlerImpl.handleNavigation(FacesContext,String,String) method).
+			//
+			// 2) Extracting portlet mode, window state, and render parameters (a.k.a. Portlet 3.0 "render state") from
+			// the action BridgeURL and setting them on the StateAwareResponse (in the RI, see the
+			// BridgeNavigationUtil.navigate(PortletRequest,StateAwareResponse,Map<String,String[]> method).
 			return "encodeActionURLJSFViewRenderTest"; // action Navigation result
 		}
+
+		// Otherwise, if this method is reached in the RENDER_PHASE of the portlet lifecycle then the bridge executed a
+		// navigation-rule to viewId=multiRequestTestResultRenderCheck.xhtml in order to display the test results. This
+		// verifies that the action BridgeURL created in the ACTION_PHASE correctly encoded the viewId.
 		else {
 			testBean.setTestComplete(true);
+			testBean.setTestResult(true,
+				"encodeActionURL correctly encoded the viewId in the RENDER_PHASE of the portlet lifecycle.");
 
 			return Constants.TEST_SUCCESS;
 		}
@@ -460,8 +511,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithInvalidModeActionTest")
 	public String encodeActionURLWithInvalidModeActionTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode an invalid mode in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithInvalidModeActionTest"; // action Navigation result
 		}
@@ -513,8 +563,7 @@ public class EncodeActionURLTests {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode an invalid mode in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
@@ -568,8 +617,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithInvalidModeRenderTest")
 	public String encodeActionURLWithInvalidModeRenderTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode an invalid mode in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
@@ -688,8 +736,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithInvalidSecurityActionTest")
 	public String encodeActionURLWithInvalidSecurityActionTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode invalid security state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithInvalidSecurityActionTest"; // action Navigation result
 		}
@@ -739,8 +786,7 @@ public class EncodeActionURLTests {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode an invalid security state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
@@ -792,8 +838,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithInvalidSecurityRenderTest")
 	public String encodeActionURLWithInvalidSecurityRenderTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode an invalid security state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
@@ -915,8 +960,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithInvalidWindowStateActionTest")
 	public String encodeActionURLWithInvalidWindowStateActionTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode an invalid window state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithInvalidWindowStateActionTest"; // action Navigation result
 		}
@@ -968,8 +1012,7 @@ public class EncodeActionURLTests {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode an invalid window state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
@@ -1023,8 +1066,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithInvalidWindowStateRenderTest")
 	public String encodeActionURLWithInvalidWindowStateRenderTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode an invalid window state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
@@ -1143,8 +1185,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithModeActionTest")
 	public String encodeActionURLWithModeActionTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new mode in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithModeActionTest"; // action Navigation result
 		}
@@ -1196,8 +1237,7 @@ public class EncodeActionURLTests {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new mode in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
@@ -1251,8 +1291,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithModeRenderTest")
 	public String encodeActionURLWithModeRenderTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new mode in an actionURL done by navigation rule.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		if (Bridge.PortletPhase.HEADER_PHASE.equals(BridgeUtil.getPortletRequestPhase(facesContext))) {
@@ -1377,8 +1416,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithParamActionTest")
 	public String encodeActionURLWithParamActionTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new name=value parameter in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithParamActionTest"; // action Navigation result
 		}
@@ -1420,8 +1458,7 @@ public class EncodeActionURLTests {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new name=value parameter in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
@@ -1464,8 +1501,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithParamRenderTest")
 	public String encodeActionURLWithParamRenderTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new name=value parameter in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 
@@ -1580,8 +1616,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithSecurityActionTest")
 	public String encodeActionURLWithSecurityActionTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new security state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithSecurityActionTest"; // action Navigation result
 		}
@@ -1631,8 +1666,7 @@ public class EncodeActionURLTests {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new security state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
@@ -1684,8 +1718,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithSecurityRenderTest")
 	public String encodeActionURLWithSecurityRenderTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new security state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
@@ -1801,8 +1834,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithWindowStateActionTest")
 	public String encodeActionURLWithWindowStateActionTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new window state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithWindowStateActionTest"; // action Navigation result
 		}
@@ -1854,8 +1886,7 @@ public class EncodeActionURLTests {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new window state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Create and raise the event
@@ -1909,8 +1940,7 @@ public class EncodeActionURLTests {
 	@BridgeTest(test = "encodeActionURLWithWindowStateRenderTest")
 	public String encodeActionURLWithWindowStateRenderTest(TestBean testBean) {
 
-		// This tests that we can encode a new mode in an actionURL
-		// done by navigation rule.
+		// This tests that we can encode a new window state in an actionURL done by navigation rule.
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
