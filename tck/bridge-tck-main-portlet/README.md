@@ -24,10 +24,6 @@ The tests can also be run on Pluto Portal with the `pluto` profile:
 
     mvn verify -P selenium,pluto
 
-The log level of the tests can be configured to be more or less verbose with the `integration.log.level` property:
-
-    mvn verify -P selenium -Dintegration.log.level=INFO
-
 The `integration.port` property controls which port the browser will navigate to in order to run the tests. For example, if the portal is running on port `4000`, then the following command would be needed to test the portlets:
 
     mvn verify -P selenium -Dintegration.port=4000
@@ -38,9 +34,9 @@ All of the above properties and profiles can be combined to run tests in more co
 
 		mvn verify -P selenium,pluto,chrome -Dintegration.port=4000 -Dintegration.test.filter=.*Destroy.*
 
-- Run the tests on Firefox against a Liferay 6.2 Portal instance with more verbose logs:
+- Run the tests on Firefox against a Liferay 6.2 Portal instance:
 
-		mvn verify -P selenium,liferay62,firefox -Dintegration.log.level=INFO
+		mvn verify -P selenium,liferay62,firefox
 
 - Run the getRequestParameterNamesCoreTest test on PhantomJS against a Liferay Portal 7 instance:
 

@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.test.integration.demo.applicant;
 
 import org.openqa.selenium.WebElement;
 
-import com.liferay.faces.test.selenium.Browser;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 
 
 /**
@@ -32,21 +32,23 @@ public class PrimeFacesApplicantPortletTester extends BridgeApplicantPortletTest
 	@Override
 	public void runApplicantPortletTest_F_AutoPopulateCityState() {
 
-		Browser browser = Browser.getInstance();
-		browser.centerElementInView(getPostalCodeFieldXpath());
-		sendKeysTabAndWaitForAjaxRerender(browser, getPostalCodeFieldXpath(), "32801");
-		SeleniumAssert.assertElementValue(browser, getCityFieldXpath(), "Orlando");
-		SeleniumAssert.assertElementValue(browser, SELECT_PROVINCE_ID_XPATH, "3", false);
+		BrowserDriver browserDriver = getBrowserDriver();
+		sendKeysTabAndWaitForRerender(browserDriver, getPostalCodeFieldXpath(), "32801");
+
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		browserStateAsserter.assertTextPresentInElementValue("Orlando", getCityFieldXpath());
+		browserStateAsserter.assertTextPresentInElementValue("3", SELECT_PROVINCE_ID_XPATH, false);
 	}
 
 	@Override
-	protected void assertFileUploadChooserVisible(Browser browser) {
-		SeleniumAssert.assertElementVisible(browser, getFileUploadChooserXpath() + "/..");
+	protected void assertFileUploadChooserDisplayed(BrowserDriver browserDriver,
+		BrowserStateAsserter browserStateAsserter) {
+		browserStateAsserter.assertElementDisplayed(getFileUploadChooserXpath() + "/..");
 	}
 
 	@Override
-	protected void clearProvince(Browser browser) {
-		selectProvinceOption(browser, "0");
+	protected void clearProvince(BrowserDriver browserDriver) {
+		selectProvinceOption(browserDriver, "0");
 	}
 
 	@Override
@@ -94,32 +96,32 @@ public class PrimeFacesApplicantPortletTester extends BridgeApplicantPortletTest
 	}
 
 	@Override
-	protected void selectDate(Browser browser) {
+	protected void selectDate(BrowserDriver browserDriver) {
 
-		browser.click("//button[contains(@class, 'ui-datepicker-trigger')]");
+		browserDriver.clickElement("//button[contains(@class, 'ui-datepicker-trigger')]");
 
 		String dateCellXpath = "//table[contains(@class, 'ui-datepicker-calendar')]//a[contains(text(), '14')]";
-		browser.waitForElementVisible(dateCellXpath);
-		browser.click(dateCellXpath);
+		browserDriver.waitForElementEnabled(dateCellXpath);
+		browserDriver.clickElement(dateCellXpath);
 	}
 
 	@Override
-	protected void selectProvince(Browser browser) {
-		selectProvinceOption(browser, "3");
+	protected void selectProvince(BrowserDriver browserDriver) {
+		selectProvinceOption(browserDriver, "3");
 	}
 
 	@Override
-	protected void submitFile(Browser browser) {
+	protected void submitFile(BrowserDriver browserDriver) {
 
-		super.submitFile(browser);
-		browser.waitForElementNotPresent("//table[contains(@class, 'ui-fileupload-files')]/tbody/tr");
+		super.submitFile(browserDriver);
+		browserDriver.waitForElementNotDisplayed("//table[contains(@class, 'ui-fileupload-files')]/tbody/tr");
 	}
 
-	private void selectProvinceOption(Browser browser, String optionValue) {
+	private void selectProvinceOption(BrowserDriver browserDriver, String optionValue) {
 
-		// p:selectOneMenu becomes invisible to selenium after interacting with it once, so use JavaScript to set the
+		// p:selectOneMenu becomes indisplayed to selenium after interacting with it once, so use JavaScript to set the
 		// value.
-		WebElement provinceIdField = browser.findElementByXpath(SELECT_PROVINCE_ID_XPATH);
-		browser.executeScript("arguments[0].value=" + optionValue, provinceIdField);
+		WebElement provinceIdField = browserDriver.findElementByXpath(SELECT_PROVINCE_ID_XPATH);
+		browserDriver.executeScriptInCurrentWindow("arguments[0].value=" + optionValue, provinceIdField);
 	}
 }
