@@ -17,8 +17,8 @@ package com.liferay.faces.test.showcase.portlet;
 
 import org.junit.Test;
 
-import com.liferay.faces.test.selenium.Browser;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 import com.liferay.faces.test.showcase.TesterBase;
 
 
@@ -31,18 +31,15 @@ public class RenderURLGeneralTester extends TesterBase {
 	@Test
 	public void runPortletRenderURLGeneralTest() {
 
-		Browser browser = Browser.getInstance();
-		navigateToUseCase(browser, "portlet", "renderURL", "general");
+		BrowserDriver browserDriver = getBrowserDriver();
+		navigateToUseCase(browserDriver, "portlet", "renderURL", "general");
 
 		// Click the home page link and test that the browser navigated to the home page.
 		String hyperlinkTargetingTheShowcasePortletXpath =
 			"(//div[@class='showcase-example-usage'])/a[text()='Hyperlink targeting the Showcase portlet']";
-		browser.click(hyperlinkTargetingTheShowcasePortletXpath);
+		browserDriver.clickElement(hyperlinkTargetingTheShowcasePortletXpath);
 
-		String jsr378Xpath = "(//div[@class='showcase-home'])//a[text()='JSR 378']";
-
-		// Due to SennaJS/SPA race condition, we cannot use waitForShowcasePageReady() in this case.
-		browser.waitForElementVisible(jsr378Xpath);
-		SeleniumAssert.assertElementVisible(browser, jsr378Xpath);
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		browserStateAsserter.assertElementDisplayed("(//div[@class='showcase-home'])//a[text()='JSR 378']");
 	}
 }

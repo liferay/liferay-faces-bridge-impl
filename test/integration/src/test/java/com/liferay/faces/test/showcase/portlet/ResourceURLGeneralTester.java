@@ -17,7 +17,8 @@ package com.liferay.faces.test.showcase.portlet;
 
 import org.junit.Test;
 
-import com.liferay.faces.test.selenium.Browser;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 import com.liferay.faces.test.showcase.TesterBase;
 
 
@@ -30,11 +31,12 @@ public class ResourceURLGeneralTester extends TesterBase {
 	@Test
 	public void runPortletResourceURLGeneralTest() {
 
-		Browser browser = Browser.getInstance();
-		navigateToUseCase(browser, "portlet", "resourceURL", "general");
+		BrowserDriver browserDriver = getBrowserDriver();
+		navigateToUseCase(browserDriver, "portlet", "resourceURL", "general");
 
 		// Test that the image resource is rendered.
-		assertImageRendered(browser,
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		assertImageRendered(browserDriver, browserStateAsserter,
 			"//div[@class='showcase-example']//img[contains(@src,'javax.faces.resource')][contains(@src,'ln=images') or contains(@src,'ln:images')]");
 	}
 }

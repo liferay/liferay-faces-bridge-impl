@@ -18,9 +18,9 @@ package com.liferay.faces.bridge.test.integration.issue;
 import org.junit.Test;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 
 
 /**
@@ -31,17 +31,18 @@ public class FACES_2921PortletTester extends IntegrationTesterBase {
 	@Test
 	public void runFACES_2921PortletTest() {
 
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getIssuePageURL("faces-2921"));
-		browser.sendKeys("//input[contains(@id,':text')]", "text");
-		browser.click("//div[contains(@id,':switch')]");
-		browser.sendKeys("//input[contains(@id,':slider2')]", "10");
-		browser.sendKeys("//input[contains(@id,':slider1')]", "5");
-		browser.clickAndWaitForAjaxRerender("//button[contains(@id,'submit')]");
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL("faces-2921"));
+		browserDriver.sendKeysToElement("//input[contains(@id,':text')]", "text");
+		browserDriver.clickElement("//div[contains(@id,':switch')]");
+		browserDriver.sendKeysToElement("//input[contains(@id,':slider2')]", "10");
+		browserDriver.sendKeysToElement("//input[contains(@id,':slider1')]", "5");
+		browserDriver.clickElementAndWaitForRerender("//button[contains(@id,'submit')]");
 
-		SeleniumAssert.assertElementTextVisible(browser, "//span[contains(@id,':textOutput')]", "text");
-		SeleniumAssert.assertElementTextVisible(browser, "//span[contains(@id,':switchOutput')]", "true");
-		SeleniumAssert.assertElementTextVisible(browser, "//span[contains(@id,':slider1Output')]", "5");
-		SeleniumAssert.assertElementTextVisible(browser, "//span[contains(@id,':slider2Output')]", "10");
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		browserStateAsserter.assertTextPresentInElement("text", "//span[contains(@id,':textOutput')]");
+		browserStateAsserter.assertTextPresentInElement("true", "//span[contains(@id,':switchOutput')]");
+		browserStateAsserter.assertTextPresentInElement("5", "//span[contains(@id,':slider1Output')]");
+		browserStateAsserter.assertTextPresentInElement("10", "//span[contains(@id,':slider2Output')]");
 	}
 }
