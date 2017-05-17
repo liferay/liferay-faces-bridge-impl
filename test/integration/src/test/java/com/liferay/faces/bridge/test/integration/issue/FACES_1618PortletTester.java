@@ -17,8 +17,6 @@ package com.liferay.faces.bridge.test.integration.issue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,9 +25,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.TestUtil;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -38,26 +38,22 @@ import com.liferay.faces.test.selenium.TestUtil;
 public class FACES_1618PortletTester extends IntegrationTesterBase {
 
 	// Logger
-	private static final Logger logger = Logger.getLogger(FACES_1618PortletTester.class.getName());
-
-	static {
-		logger.setLevel(TestUtil.getLogLevel());
-	}
+	private static final Logger logger = LoggerFactory.getLogger(FACES_1618PortletTester.class);
 
 	@Test
 	public void runFACES_1618PortletTest() {
 
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getIssuePageURL("faces-1618"));
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL("faces-1618"));
 
 		String componentResourcesSizeXpath = "//span[@id='component_resources_size']";
-		browser.waitForElementVisible(componentResourcesSizeXpath);
+		browserDriver.waitForElementDisplayed(componentResourcesSizeXpath);
 
 		String resourcesXpath = "//ul[@id='FACES_1618_resources']/li";
-		waitForAllResources(browser, componentResourcesSizeXpath, resourcesXpath);
+		waitForAllResources(browserDriver, componentResourcesSizeXpath, resourcesXpath);
 
 		// Test that the resources are rendered.
-		List<WebElement> resources = browser.findElements(By.xpath(resourcesXpath));
+		List<WebElement> resources = browserDriver.findElementsByXpath(resourcesXpath);
 		List<String> loadedResourceIds = new ArrayList<String>();
 		String childSpanXpath = ".//span";
 
@@ -66,21 +62,21 @@ public class FACES_1618PortletTester extends IntegrationTesterBase {
 			WebElement resourceIdElement = resource.findElement(By.xpath(childSpanXpath));
 			String resourceId = resourceIdElement.getText();
 			String resourceText = resource.getText();
-			logger.log(Level.INFO, resourceText);
+			logger.info(resourceText);
 			assertRendered(resourceId, resourceText);
 			loadedResourceIds.add(resourceId);
 		}
 
 		String immediateNavButtonXpath = "//input[contains(@value,'immediate=\"true\"')]";
-		browser.click(immediateNavButtonXpath);
+		browserDriver.clickElement(immediateNavButtonXpath);
 
 		String navButtonXpath = "//input[contains(@value,'immediate=\"false\"')]";
-		browser.waitForElementVisible(navButtonXpath);
-		waitForAllResources(browser, componentResourcesSizeXpath, resourcesXpath);
+		browserDriver.waitForElementEnabled(navButtonXpath);
+		waitForAllResources(browserDriver, componentResourcesSizeXpath, resourcesXpath);
 
 		// Test that the resources loaded in the previous view are suppressed and not rendered/loaded a second time in
 		// the current view. Also test that the resources new to this view are rendered and not suppressed.
-		resources = browser.findElements(By.xpath(resourcesXpath));
+		resources = browserDriver.findElementsByXpath(resourcesXpath);
 
 		String container = TestUtil.getContainer();
 
@@ -89,7 +85,7 @@ public class FACES_1618PortletTester extends IntegrationTesterBase {
 			WebElement resourceIdElement = resource.findElement(By.xpath(childSpanXpath));
 			String resourceId = resourceIdElement.getText();
 			String resourceText = resource.getText();
-			logger.log(Level.INFO, resourceText);
+			logger.info(resourceText);
 
 			if (resourceShouldBeSuppressed(loadedResourceIds, resourceId, container)) {
 				assertSuppressed(resourceId, resourceText);
@@ -101,19 +97,19 @@ public class FACES_1618PortletTester extends IntegrationTesterBase {
 			}
 		}
 
-		browser.click(navButtonXpath);
-		browser.waitForElementVisible(immediateNavButtonXpath);
-		waitForAllResources(browser, componentResourcesSizeXpath, resourcesXpath);
+		browserDriver.clickElement(navButtonXpath);
+		browserDriver.waitForElementEnabled(immediateNavButtonXpath);
+		waitForAllResources(browserDriver, componentResourcesSizeXpath, resourcesXpath);
 
 		// Test that the resources loaded in the previous views are still suppressed.
-		resources = browser.findElements(By.xpath(resourcesXpath));
+		resources = browserDriver.findElementsByXpath(resourcesXpath);
 
 		for (WebElement resource : resources) {
 
 			WebElement resourceIdElement = resource.findElement(By.xpath(childSpanXpath));
 			String resourceId = resourceIdElement.getText();
 			String resourceText = resource.getText();
-			logger.log(Level.INFO, resourceText);
+			logger.info(resourceText);
 
 			if (resourceShouldBeSuppressed(loadedResourceIds, resourceId, container)) {
 				assertSuppressed(resourceId, resourceText);
@@ -125,19 +121,19 @@ public class FACES_1618PortletTester extends IntegrationTesterBase {
 			}
 		}
 
-		browser.click(immediateNavButtonXpath);
-		browser.waitForElementVisible(navButtonXpath);
-		waitForAllResources(browser, componentResourcesSizeXpath, resourcesXpath);
+		browserDriver.clickElement(immediateNavButtonXpath);
+		browserDriver.waitForElementEnabled(navButtonXpath);
+		waitForAllResources(browserDriver, componentResourcesSizeXpath, resourcesXpath);
 
 		// Test that the resources loaded in the previous views are still suppressed.
-		resources = browser.findElements(By.xpath(resourcesXpath));
+		resources = browserDriver.findElementsByXpath(resourcesXpath);
 
 		for (WebElement resource : resources) {
 
 			WebElement resourceIdElement = resource.findElement(By.xpath(childSpanXpath));
 			String resourceId = resourceIdElement.getText();
 			String resourceText = resource.getText();
-			logger.log(Level.INFO, resourceText);
+			logger.info(resourceText);
 
 			if (resourceShouldBeSuppressed(loadedResourceIds, resourceId, container)) {
 				assertSuppressed(resourceId, resourceText);
@@ -165,10 +161,11 @@ public class FACES_1618PortletTester extends IntegrationTesterBase {
 			!(BridgeTestUtil.isContainerPluto(2, container) && resourceId.endsWith(".css"));
 	}
 
-	private void waitForAllResources(Browser browser, String componentResourcesSizeXpath, String resourcesXpath) {
+	private void waitForAllResources(BrowserDriver browserDriver, String componentResourcesSizeXpath,
+		String resourcesXpath) {
 
-		WebElement componentResourcesSizeElement = browser.findElementByXpath(componentResourcesSizeXpath);
+		WebElement componentResourcesSizeElement = browserDriver.findElementByXpath(componentResourcesSizeXpath);
 		String componentResourcesSize = componentResourcesSizeElement.getText();
-		browser.waitForElementVisible(resourcesXpath + "[" + componentResourcesSize + "]");
+		browserDriver.waitForElementDisplayed(resourcesXpath + "[" + componentResourcesSize + "]");
 	}
 }
