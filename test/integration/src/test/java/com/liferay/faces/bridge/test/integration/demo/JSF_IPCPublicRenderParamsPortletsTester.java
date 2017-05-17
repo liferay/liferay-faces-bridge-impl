@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.test.integration.demo;
 import org.junit.Test;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
 
 
 /**
@@ -29,8 +29,8 @@ public class JSF_IPCPublicRenderParamsPortletsTester extends JSF_IPCPortletsTest
 	@Test
 	public void runJSF_IPCPublicRenderParamsPortletsTest() {
 
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getDemoPageURL("jsf-prp"));
-		runJSF_IPCPortletsTest(browser);
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getDemoPageURL("jsf-prp"));
+		runJSF_IPCPortletsTest(browserDriver);
 	}
 }

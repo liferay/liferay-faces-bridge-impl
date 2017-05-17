@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.test.integration.demo;
 import org.junit.Test;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
 
 
 /**
@@ -29,8 +29,8 @@ public class JSF_IPCEventsPortletsTester extends JSF_IPCPortletsTesterBase {
 	@Test
 	public void runJSF_IPCEventsPortletsTest() {
 
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getDemoPageURL("jsf-events"));
-		runJSF_IPCPortletsTest(browser);
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getDemoPageURL("jsf-events"));
+		runJSF_IPCPortletsTest(browserDriver);
 	}
 }
