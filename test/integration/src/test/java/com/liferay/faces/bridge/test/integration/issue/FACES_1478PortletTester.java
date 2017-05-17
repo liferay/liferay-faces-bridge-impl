@@ -15,9 +15,6 @@
  */
 package com.liferay.faces.bridge.test.integration.issue;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
@@ -25,9 +22,11 @@ import org.junit.Test;
 import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.TestUtil;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -36,11 +35,7 @@ import com.liferay.faces.test.selenium.TestUtil;
 public class FACES_1478PortletTester extends IntegrationTesterBase {
 
 	// Logger
-	private static final Logger logger = Logger.getLogger(FACES_1478PortletTester.class.getName());
-
-	static {
-		logger.setLevel(TestUtil.getLogLevel());
-	}
+	private static final Logger logger = LoggerFactory.getLogger(FACES_1478PortletTester.class);
 
 	@Test
 	public void runFACES_1478PortletTest() {
@@ -48,24 +43,24 @@ public class FACES_1478PortletTester extends IntegrationTesterBase {
 		String container = TestUtil.getContainer();
 		Assume.assumeTrue("The FACES-1635 test is only valid on Liferay Portal.", container.startsWith("liferay"));
 
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getIssuePageURL("faces-1478"));
-		browser.waitForElementVisible("//a[contains(text(),'FACES-1478')]");
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL("faces-1478"));
+		browserDriver.waitForElementEnabled("//a[contains(text(),'FACES-1478')]");
 
-		// Test that the visible url is the same as the link's href url.
-		WebElement urlSpan = browser.findElementByXpath("//span[contains(@id,':url')]");
+		// Test that the displayed url is the same as the link's href url.
+		WebElement urlSpan = browserDriver.findElementByXpath("//span[contains(@id,':url')]");
 		String url = urlSpan.getText();
-		WebElement link = browser.findElementByXpath("//a[contains(text(),'should be the same as the href')]");
+		WebElement link = browserDriver.findElementByXpath("//a[contains(text(),'should be the same as the href')]");
 		String href = link.getAttribute("href");
-		logger.log(Level.INFO, "URL:\n\n{0}\nLink href value:\n\n{1}", new String[] { url, href });
+		logger.info("URL:\n\n{0}\nLink href value:\n\n{1}", url, href);
 		Assert.assertEquals("The URL value does not equal the value of the link's href attribute", url, href);
 
 		// Test that the url contains both parameters.
-		WebElement parameter1Span = browser.findElementByXpath("//span[contains(@id,':parameter1')]");
+		WebElement parameter1Span = browserDriver.findElementByXpath("//span[contains(@id,':parameter1')]");
 		String parameter1 = parameter1Span.getText();
 		Assert.assertTrue("The URL does not contain the first parameter: " + parameter1, url.contains(parameter1));
 
-		WebElement parameter2Span = browser.findElementByXpath("//span[contains(@id,':parameter2')]");
+		WebElement parameter2Span = browserDriver.findElementByXpath("//span[contains(@id,':parameter2')]");
 		String parameter2 = parameter2Span.getText();
 		Assert.assertTrue("The URL does not contain the second parameter: " + parameter2, url.contains(parameter2));
 	}
