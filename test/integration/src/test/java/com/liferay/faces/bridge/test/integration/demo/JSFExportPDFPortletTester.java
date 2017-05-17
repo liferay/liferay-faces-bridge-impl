@@ -25,8 +25,6 @@ import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -38,11 +36,12 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.TestUtil;
-import com.liferay.faces.test.selenium.applicant.ApplicantTesterBase;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -50,42 +49,39 @@ import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
  */
 public class JSFExportPDFPortletTester extends IntegrationTesterBase {
 
-	private static final Logger logger = Logger.getLogger(ApplicantTesterBase.class.getName());
-
-	static {
-		logger.setLevel(TestUtil.getLogLevel());
-	}
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(JSFExportPDFPortletTester.class);
 
 	@Test
 	public void runJSFExportPDFPortletTest() {
 
 		// Test that the view contains links to all three pdfs.
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getDemoPageURL("jsf-pdf"));
-		browser.waitForElementVisible(
-			"//div[contains(@id,'export')][contains(@id,'pdf')][contains(@class,'liferay-faces-bridge-body')]");
-		SeleniumAssert.assertElementVisible(browser,
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getDemoPageURL("jsf-pdf"));
+
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		browserStateAsserter.assertElementDisplayed(
 			"//td[contains(text(),'Green')]/preceding-sibling::td/a[contains(text(),'Export')]");
-		SeleniumAssert.assertElementVisible(browser,
+		browserStateAsserter.assertElementDisplayed(
 			"//td[contains(text(),'Kessler')]/preceding-sibling::td/a[contains(text(),'Export')]");
 
 		String shearerPDFLinkXpath =
 			"//td[contains(text(),'Shearer')]/preceding-sibling::td/a[contains(text(),'Export')]";
 
-		SeleniumAssert.assertElementVisible(browser, shearerPDFLinkXpath);
+		browserStateAsserter.assertElementDisplayed(shearerPDFLinkXpath);
 
 		try {
 
 			// Test that the "Rich Shearer" link generates a PDF with the correct test. Note: since different browsers
 			// and WebDriver implementations handle downloading files differently, download the file using a Java URL
 			// connection.
-			WebElement shearerPDFLinkElement = browser.findElementByXpath(shearerPDFLinkXpath);
+			WebElement shearerPDFLinkElement = browserDriver.findElementByXpath(shearerPDFLinkXpath);
 			String shearerPDFLink = shearerPDFLinkElement.getAttribute("href");
 			URL shearerPDFURL = new URL(shearerPDFLink);
 			HttpURLConnection httpURLConnection = (HttpURLConnection) shearerPDFURL.openConnection();
 			httpURLConnection.setRequestMethod("GET");
 
-			Set<Cookie> cookies = browser.manage().getCookies();
+			Set<Cookie> cookies = browserDriver.getBrowserCookies();
 			String cookieString = "";
 
 			for (Cookie cookie : cookies) {
@@ -110,8 +106,8 @@ public class JSFExportPDFPortletTester extends IntegrationTesterBase {
 			String expectedShearerRichPDFFilePath = expectedShearerRichPDFURL.getFile();
 			File expectedShearerRichPDFFile = new File(expectedShearerRichPDFFilePath);
 			String expectedShearerRichPDFText = getPDFText(expectedShearerRichPDFFile);
-			logger.log(Level.INFO, "Expected Shearer-Rich.pdf text:\n\n{0}\nDownloaded Shearer-Rich.pdf text:\n\n{1}",
-				new String[] { expectedShearerRichPDFText, shearerRichPDFText });
+			logger.info("Expected Shearer-Rich.pdf text:\n\n{0}\nDownloaded Shearer-Rich.pdf text:\n\n{1}",
+				expectedShearerRichPDFText, shearerRichPDFText);
 			Assert.assertTrue(
 				"The downloaded Shearer-Rich.pdf file's text does not match the expected Shearer-Rich.pdf file's text.",
 				expectedShearerRichPDFText.equals(shearerRichPDFText));

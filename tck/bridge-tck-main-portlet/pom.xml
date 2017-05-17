@@ -143,7 +143,7 @@
 		<profile>
 			<id>firefox</id>
 			<properties>
-				<integration.browser>firefox</integration.browser>
+				<integration.browser.name>firefox</integration.browser.name>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -156,7 +156,7 @@
 		<profile>
 			<id>htmlunit</id>
 			<properties>
-				<integration.browser>htmlunit</integration.browser>
+				<integration.browser.name>htmlunit</integration.browser.name>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -187,7 +187,7 @@
 		<profile>
 			<id>jbrowser</id>
 			<properties>
-				<integration.browser>jbrowser</integration.browser>
+				<integration.browser.name>jbrowser</integration.browser.name>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -200,7 +200,7 @@
 		<profile>
 			<id>phantomjs</id>
 			<properties>
-				<integration.browser>phantomjs</integration.browser>
+				<integration.browser.name>phantomjs</integration.browser.name>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -248,13 +248,13 @@
 								<configuration>
 									<systemPropertyVariables>
 										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
-										<!-- Specify a property like so: -Dintegration.browser=phantomjs -->
-										<integration.browser>${integration.browser}</integration.browser>
+										<!-- Specify a property like so: -Dintegration.browser.name=phantomjs -->
+										<integration.browser.name>${integration.browser.name}</integration.browser.name>
 										<integration.browser.headless>${integration.browser.headless}</integration.browser.headless>
-										<integration.browser.wait.time.out>${integration.browser.wait.time.out}</integration.browser.wait.time.out>
+										<integration.browser.simulate.mobile>${integration.browser.simulate.mobile}</integration.browser.simulate.mobile>
+										<integration.browser.driver.wait.time.out>${integration.browser.driver.wait.time.out}</integration.browser.driver.wait.time.out>
 										<integration.context>${integration.context}</integration.context>
 										<integration.excluded.tests.file>${integration.excluded.tests.file}</integration.excluded.tests.file>
-										<integration.log.level>${integration.log.level}</integration.log.level>
 										<integration.container>${integration.container}</integration.container>
 										<integration.host>${integration.host}</integration.host>
 										<integration.port>${integration.port}</integration.port>

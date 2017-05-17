@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
-import com.liferay.faces.test.selenium.Browser;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
 
 
 /**
@@ -71,16 +71,15 @@ public class AlloyApplicantPortletTester extends BridgeApplicantPortletTester {
 	}
 
 	@Override
-	protected void selectDate(Browser browser) {
+	protected void selectDate(BrowserDriver browserDriver) {
 
 		String calendarButtonXpath =
 			"//button[contains(@id,'dateOfBirth')]/span[contains(@class,'calendar')][not(text())]";
-		browser.centerElementInView(calendarButtonXpath);
-		browser.click(calendarButtonXpath);
+		browserDriver.clickElement(calendarButtonXpath);
 
 		String dateElementXpath =
 			"//table[contains(@class, 'yui3-calendar-grid')]//td[contains(text(),'14')][not(contains(@class,'yui3-calendar-column-hidden'))]";
-		browser.waitForElementVisible(dateElementXpath);
-		browser.click(dateElementXpath);
+		browserDriver.waitForElementEnabled(dateElementXpath);
+		browserDriver.clickElement(dateElementXpath);
 	}
 }

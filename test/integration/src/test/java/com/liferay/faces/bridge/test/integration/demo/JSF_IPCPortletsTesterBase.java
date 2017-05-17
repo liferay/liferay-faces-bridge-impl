@@ -22,9 +22,9 @@ import java.util.TimeZone;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 
 
 /**
@@ -37,67 +37,67 @@ public class JSF_IPCPortletsTesterBase extends IntegrationTesterBase {
 	protected static final String lastNameInputXpath = "//input[contains(@id, ':lastName')]";
 	protected static final String submitButtonXpath = "//input[@value='Submit']";
 
-	public void runJSF_IPCPortletsTest(Browser browser) {
+	public void runJSF_IPCPortletsTest(BrowserDriver browserDriver) {
 
-		testEditName(browser, "1", false);
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		testEditName(browserDriver, browserStateAsserter, "1", false);
 
 		// Test that start date is today.
-		String startDate1Xpath = "//input[contains(@id, ':0:startDate')]";
-		browser.waitForElementVisible(startDate1Xpath);
-
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		TimeZone gmtTimeZone = TimeZone.getTimeZone("Greenwich");
 		simpleDateFormat.setTimeZone(gmtTimeZone);
 
 		Date today = new Date();
 		String todayString = simpleDateFormat.format(today);
-		SeleniumAssert.assertElementValue(browser, startDate1Xpath, todayString);
+		String startDate1Xpath = "//input[contains(@id, ':0:startDate')]";
+		browserStateAsserter.assertTextPresentInElementValue(todayString, startDate1Xpath);
 
 		// Test that the start date can be set.
-		browser.clear(startDate1Xpath);
+		browserDriver.clearElement(startDate1Xpath);
 
 		String startDate = "12/25/2999";
-		browser.sendKeys(startDate1Xpath, startDate);
-		browser.click(submitButtonXpath);
+		browserDriver.sendKeysToElement(startDate1Xpath, startDate);
+		browserDriver.clickElement(submitButtonXpath);
 
-		testEditButton(browser, "2");
-		testEditButton(browser, "3");
+		testEditButton(browserDriver, browserStateAsserter, "2");
+		testEditButton(browserDriver, browserStateAsserter, "3");
 
 		// Check that the start date has not changed.
 		String customer1EditButtonXpath = "//td[text()='1']/..//input";
-		browser.waitForElementVisible(customer1EditButtonXpath);
-		browser.click(customer1EditButtonXpath);
-		browser.waitForElementVisible(startDate1Xpath);
-		SeleniumAssert.assertElementValue(browser, startDate1Xpath, startDate);
+		browserDriver.waitForElementEnabled(customer1EditButtonXpath);
+		browserDriver.clickElement(customer1EditButtonXpath);
+		browserStateAsserter.assertTextPresentInElementValue(startDate, startDate1Xpath);
 
 		// Reset the start date.
-		browser.clear(startDate1Xpath);
-		browser.sendKeys(startDate1Xpath, todayString);
-		browser.click(submitButtonXpath);
+		browserDriver.clearElement(startDate1Xpath);
+		browserDriver.sendKeysToElement(startDate1Xpath, todayString);
+		browserDriver.clickElement(submitButtonXpath);
 	}
 
-	private void testEditButton(Browser browser, String customerId) {
-		testEditName(browser, customerId, true);
+	private void testEditButton(BrowserDriver browserDriver, BrowserStateAsserter browserStateAsserter,
+		String customerId) {
+		testEditName(browserDriver, browserStateAsserter, customerId, true);
 	}
 
-	private void testEditName(Browser browser, String customerId, boolean editFirstName) {
+	private void testEditName(BrowserDriver browserDriver, BrowserStateAsserter browserStateAsserter, String customerId,
+		boolean editFirstName) {
 
 		// Test that the first and last names are the same in both portlets.
 		String customerIdXpath = "//td[text()='" + customerId + "']";
 		String customerEditButtonXpath = customerIdXpath + "/..//input";
-		browser.waitForElementVisible(customerEditButtonXpath);
-		browser.click(customerEditButtonXpath);
-		browser.waitForElementVisible(firstNameInputXpath);
+		browserDriver.waitForElementEnabled(customerEditButtonXpath);
+		browserDriver.clickElement(customerEditButtonXpath);
+		browserDriver.waitForElementEnabled(firstNameInputXpath);
 
 		String customerFirstNameXpath = customerIdXpath + "/following-sibling::td[1]";
-		WebElement firstNameElement = browser.findElementByXpath(customerFirstNameXpath);
+		WebElement firstNameElement = browserDriver.findElementByXpath(customerFirstNameXpath);
 		String customerLastNameXpath = customerIdXpath + "/following-sibling::td[2]";
-		WebElement lastNameElement = browser.findElementByXpath(customerLastNameXpath);
+		WebElement lastNameElement = browserDriver.findElementByXpath(customerLastNameXpath);
 		String firstName = firstNameElement.getText();
-		SeleniumAssert.assertElementValue(browser, firstNameInputXpath, firstName);
+		browserStateAsserter.assertTextPresentInElementValue(firstName, firstNameInputXpath);
 
 		String lastName = lastNameElement.getText();
-		SeleniumAssert.assertElementValue(browser, lastNameInputXpath, lastName);
+		browserStateAsserter.assertTextPresentInElementValue(lastName, lastNameInputXpath);
 
 		// Test that editing the name changes it in the customers portlet.
 		String inputXpath = firstNameInputXpath;
@@ -111,16 +111,15 @@ public class JSF_IPCPortletsTesterBase extends IntegrationTesterBase {
 			customerNameXpath = customerLastNameXpath;
 		}
 
-		browser.clear(inputXpath);
+		browserDriver.clearElement(inputXpath);
 
 		String editedName = name + "y";
-		browser.sendKeys(inputXpath, editedName);
-		browser.click(submitButtonXpath);
-		browser.waitForElementVisible(customerEditButtonXpath);
-		SeleniumAssert.assertElementTextVisible(browser, customerNameXpath, editedName);
+		browserDriver.sendKeysToElement(inputXpath, editedName);
+		browserDriver.clickElement(submitButtonXpath);
+		browserStateAsserter.assertTextPresentInElement(editedName, customerNameXpath);
 
 		// Reset the name.
-		browser.sendKeys(inputXpath, Keys.BACK_SPACE);
-		browser.click(submitButtonXpath);
+		browserDriver.sendKeysToElement(inputXpath, Keys.BACK_SPACE);
+		browserDriver.clickElement(submitButtonXpath);
 	}
 }

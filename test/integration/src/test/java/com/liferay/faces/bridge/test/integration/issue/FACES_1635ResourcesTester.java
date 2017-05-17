@@ -23,13 +23,12 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.TestUtil;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
 
 
 /**
@@ -44,16 +43,16 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 		Assume.assumeTrue("The FACES-1635 test is only valid on Liferay Portal and Pluto 3.0+.",
 			container.startsWith("liferay") || BridgeTestUtil.isContainerPluto(3, container));
 
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getIssuePageURL("faces-1635") + "?p_p_parallel=0");
-		browser.waitForElementVisible(
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL("faces-1635") + "?p_p_parallel=0");
+		browserDriver.waitForElementDisplayed(
 			"//div[contains(@id,'jsf')][contains(@id,'applicant')][contains(@class,'liferay-faces-bridge-body')]//img[contains(@src, 'liferay-logo.png')]");
-		browser.waitForElementVisible(
+		browserDriver.waitForElementDisplayed(
 			"//div[contains(@id,'prime')][contains(@id,'applicant')][contains(@class,'liferay-faces-bridge-body')]//img[contains(@src, 'liferay-logo.png')]");
 
 		// Test that the head does not contain duplicate scripts.
 		Set<String> resourceIds = new HashSet<String>();
-		List<WebElement> headScripts = browser.findElements(By.xpath("//head//script"));
+		List<WebElement> headScripts = browserDriver.findElementsByXpath("//head//script");
 
 		for (WebElement headScript : headScripts) {
 
@@ -71,7 +70,7 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 		}
 
 		// Test that the head does not contain duplicate stylesheets.
-		List<WebElement> headLinks = browser.findElements(By.xpath("//head//link"));
+		List<WebElement> headLinks = browserDriver.findElementsByXpath("//head//link");
 
 		for (WebElement headLink : headLinks) {
 
@@ -91,7 +90,7 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 		Assert.assertTrue("No head resources found.", !resourceIds.isEmpty());
 
 		// Test that the entire document does not contain duplicate scripts.
-		List<WebElement> bodyScripts = browser.findElements(By.xpath("//body//script"));
+		List<WebElement> bodyScripts = browserDriver.findElementsByXpath("//body//script");
 
 		for (WebElement bodyScript : bodyScripts) {
 			String scriptSrc = bodyScript.getAttribute("src");
@@ -108,7 +107,7 @@ public class FACES_1635ResourcesTester extends IntegrationTesterBase {
 		}
 
 		// Test that the entire document does not contain duplicate stylesheets.
-		List<WebElement> bodyLinks = browser.findElements(By.xpath("//body//link"));
+		List<WebElement> bodyLinks = browserDriver.findElementsByXpath("//body//link");
 
 		for (WebElement bodyLink : bodyLinks) {
 
