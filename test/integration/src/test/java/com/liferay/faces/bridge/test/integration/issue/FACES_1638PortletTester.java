@@ -16,8 +16,6 @@
 package com.liferay.faces.bridge.test.integration.issue;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.junit.Assert;
 import org.junit.Assume;
@@ -27,9 +25,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.TestUtil;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -38,11 +38,7 @@ import com.liferay.faces.test.selenium.TestUtil;
 public class FACES_1638PortletTester extends IntegrationTesterBase {
 
 	// Logger
-	private static final Logger logger = Logger.getLogger(FACES_1638PortletTester.class.getName());
-
-	static {
-		logger.setLevel(TestUtil.getLogLevel());
-	}
+	private static final Logger logger = LoggerFactory.getLogger(FACES_1638PortletTester.class);
 
 	@Test
 	public void runFACES_1638PortletTest() {
@@ -50,11 +46,11 @@ public class FACES_1638PortletTester extends IntegrationTesterBase {
 		String container = TestUtil.getContainer();
 		Assume.assumeTrue("The FACES-1635 test is only valid on Liferay Portal.", container.startsWith("liferay"));
 
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getIssuePageURL("faces-1638"));
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL("faces-1638"));
 
-		List<WebElement> listItems = browser.findElements(By.xpath(
-					"//div[contains(@class,'liferay-faces-bridge-body')]//ul/li"));
+		List<WebElement> listItems = browserDriver.findElementsByXpath(
+				"//div[contains(@class,'liferay-faces-bridge-body')]//ul/li");
 		int expectedNumberOfListItems = 6;
 		Assert.assertEquals("There are not " + expectedNumberOfListItems + " links on the page.",
 			expectedNumberOfListItems, listItems.size());
@@ -73,7 +69,7 @@ public class FACES_1638PortletTester extends IntegrationTesterBase {
 			WebElement link = listItem.findElement(By.xpath(".//a[contains(text(),'-Item')][@href]"));
 			String url = link.getAttribute("href");
 
-			logger.log(Level.INFO, "URL:\n\n{0}", new String[] { url });
+			logger.info("URL:\n\n{0}", url);
 			Assert.assertTrue("The link does not contain the parameter.", url.contains(param));
 
 			int expectedOccurencesOfParamName = 1;

@@ -17,22 +17,18 @@ package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.PreRenderComponentEvent;
-import javax.portlet.PortletResponse;
-import javax.portlet.filter.PortletResponseWrapper;
 
 
 /**

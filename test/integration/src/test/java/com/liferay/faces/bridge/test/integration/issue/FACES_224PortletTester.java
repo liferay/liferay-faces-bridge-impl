@@ -19,29 +19,32 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
+import com.liferay.faces.test.selenium.IntegrationTesterBase;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class FACES_224PortletTester {
+public class FACES_224PortletTester extends IntegrationTesterBase {
 
 	@Test
 	public void runFACES_224PortletTest() {
 
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getIssuePageURL("faces-224"));
-		browser.waitForElementTextVisible("//div[contains(@class, 'liferay-faces-bridge')]", "This is view1.xhtml");
-		browser.click("//input[contains(@value,'view2.xhtml')]");
-		browser.waitForElementTextVisible("//div[contains(@class, 'liferay-faces-bridge')]", "This is view2.xhtml");
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL("faces-224"));
+		browserDriver.waitForTextPresentInElement("This is view1.xhtml",
+			"//div[contains(@class, 'liferay-faces-bridge')]");
+		browserDriver.clickElement("//input[contains(@value,'view2.xhtml')]");
+		browserDriver.waitForTextPresentInElement("This is view2.xhtml",
+			"//div[contains(@class, 'liferay-faces-bridge')]");
 
-		String viewParamValue1 = browser.findElementByXpath("//span[contains(@id,':viewParamValue1')]").getText();
-		String viewParam1 = browser.findElementByXpath("//span[contains(@id,':viewParam1')]").getText();
+		String viewParamValue1 = browserDriver.findElementByXpath("//span[contains(@id,':viewParamValue1')]").getText();
+		String viewParam1 = browserDriver.findElementByXpath("//span[contains(@id,':viewParam1')]").getText();
 		Assert.assertTrue("View ", viewParam1.endsWith(viewParamValue1));
 
-		String viewParamValue2 = browser.findElementByXpath("//span[contains(@id,':viewParamValue2')]").getText();
-		String viewParam2 = browser.findElementByXpath("//span[contains(@id,':viewParam2')]").getText();
+		String viewParamValue2 = browserDriver.findElementByXpath("//span[contains(@id,':viewParamValue2')]").getText();
+		String viewParam2 = browserDriver.findElementByXpath("//span[contains(@id,':viewParam2')]").getText();
 		Assert.assertTrue("", viewParam2.endsWith(viewParamValue2));
 	}
 }
