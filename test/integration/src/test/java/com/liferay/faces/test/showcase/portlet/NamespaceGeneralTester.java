@@ -20,8 +20,8 @@ import org.junit.Test;
 
 import org.openqa.selenium.WebElement;
 
-import com.liferay.faces.test.selenium.Browser;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 import com.liferay.faces.test.showcase.TesterBase;
 
 
@@ -37,24 +37,26 @@ public class NamespaceGeneralTester extends TesterBase {
 	@Test
 	public void runPortletNamespaceGeneralTest() {
 
-		Browser browser = Browser.getInstance();
-		navigateToUseCase(browser, "portlet", "namespace", "general");
+		BrowserDriver browserDriver = getBrowserDriver();
+		navigateToUseCase(browserDriver, "portlet", "namespace", "general");
 
 		// Test that the portlet namespace is rendered for both examples on the page.
-		WebElement liferayFacesBridgeBody = browser.findElementByXpath(
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		WebElement liferayFacesBridgeBody = browserDriver.findElementByXpath(
 				"//div[contains(@class,'liferay-faces-bridge-body')]");
 		String portletNamespace = liferayFacesBridgeBody.getAttribute("id");
-		testPortletNamespaceRendered(browser, portletNamespace,
+		testPortletNamespaceRendered(browserDriver, browserStateAsserter, portletNamespace,
 			"//label[contains(.,'Example')][contains(.,'Introducing a var into the EL')]/ancestor::div[@class='showcase-example']//pre");
-		testPortletNamespaceRendered(browser, portletNamespace,
+		testPortletNamespaceRendered(browserDriver, browserStateAsserter, portletNamespace,
 			"//label[contains(.,'Example')][contains(.,'Output directly to the response')]/ancestor::div[@class='showcase-example']//pre");
 	}
 
-	private void testPortletNamespaceRendered(Browser browser, String portletNamespace, String preXpath) {
+	private void testPortletNamespaceRendered(BrowserDriver browserDriver, BrowserStateAsserter browserStateAsserter,
+		String portletNamespace, String preXpath) {
 
-		SeleniumAssert.assertElementTextVisible(browser, preXpath, PORTLET_NAMESPACE_EQUALS);
+		browserStateAsserter.assertTextPresentInElement(PORTLET_NAMESPACE_EQUALS, preXpath);
 
-		WebElement pre = browser.findElementByXpath(preXpath);
+		WebElement pre = browserDriver.findElementByXpath(preXpath);
 		Assert.assertEquals(PORTLET_NAMESPACE_EQUALS + portletNamespace, pre.getText().trim());
 	}
 }

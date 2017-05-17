@@ -17,8 +17,8 @@ package com.liferay.faces.test.showcase.portlet;
 
 import org.junit.Test;
 
-import com.liferay.faces.test.selenium.Browser;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 import com.liferay.faces.test.showcase.TesterBase;
 
 
@@ -31,27 +31,24 @@ public class ActionURLGeneralTester extends TesterBase {
 	@Test
 	public void runPortletActionURLGeneralTest() {
 
-		Browser browser = Browser.getInstance();
-		navigateToUseCase(browser, "portlet", "actionURL", "general");
+		BrowserDriver browserDriver = getBrowserDriver();
+		navigateToUseCase(browserDriver, "portlet", "actionURL", "general");
 
 		// Submit the form and test that the browser navigated to the Non-Faces Postback page which displays the
 		// submitted value for the "foo" parameter.
 		String toActionParamPageXpath =
 			"//div[@class='showcase-example-usage']//input[@value='Submit Non-Faces Postback']";
-		browser.click(toActionParamPageXpath);
+		browserDriver.clickElement(toActionParamPageXpath);
 
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
 		String returnToPortletActionURLXpath =
 			"//div[contains(@class,'portlet-body') or contains(@class,'body')]//a[contains(text(),'Return to portlet:actionURL')]";
-		browser.waitForElementVisible(returnToPortletActionURLXpath);
-		SeleniumAssert.assertElementVisible(browser,
+		browserStateAsserter.assertElementDisplayed(
 			"//div[@class='portlet-body' or contains(@class,'body')]//pre[text()='foo=1234']");
-		SeleniumAssert.assertElementVisible(browser, returnToPortletActionURLXpath);
+		browserStateAsserter.assertElementDisplayed(returnToPortletActionURLXpath);
 
 		// Click the return link and test that the browser returned to the correct page.
-		browser.click(returnToPortletActionURLXpath);
-
-		// Due to SennaJS/SPA race condition, we cannot use waitForShowcasePageReady() in this case.
-		browser.waitForElementVisible(toActionParamPageXpath);
-		SeleniumAssert.assertElementVisible(browser, toActionParamPageXpath);
+		browserDriver.clickElement(returnToPortletActionURLXpath);
+		browserStateAsserter.assertElementDisplayed(toActionParamPageXpath);
 	}
 }

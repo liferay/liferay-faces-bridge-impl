@@ -17,18 +17,16 @@ package com.liferay.faces.bridge.test.integration.issue;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.junit.Assert;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.TestUtil;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -41,43 +39,40 @@ import com.liferay.faces.test.selenium.TestUtil;
 public abstract class SimpleFACESPortletTester extends IntegrationTesterBase {
 
 	// Logger
-	private static final Logger logger = Logger.getLogger(SimpleFACESPortletTester.class.getName());
-
-	static {
-		logger.setLevel(TestUtil.getLogLevel());
-	}
+	private static final Logger logger = LoggerFactory.getLogger(SimpleFACESPortletTester.class);
 
 	public void runSimpleFACESPortletTest(String testPage) {
 
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getIssuePageURL(testPage));
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL(testPage));
 
 		String testPageUpperCase = testPage.toUpperCase(Locale.ENGLISH);
 		String resultStatusXpath = "//*[@id='" + testPageUpperCase + "-result-status']";
-		List<WebElement> resultStatusElements = browser.findElements(By.xpath(resultStatusXpath));
+		List<WebElement> resultStatusElements = browserDriver.findElementsByXpath(resultStatusXpath);
 
 		if (resultStatusElements.isEmpty()) {
 
-			List<WebElement> testActionElements = browser.findElements(By.xpath("//*[contains(@class,'testAction')]"));
+			List<WebElement> testActionElements = browserDriver.findElementsByXpath(
+					"//*[contains(@class,'testAction')]");
 
 			if (!testActionElements.isEmpty()) {
 
 				testActionElements.get(0).click();
-				browser.waitForElementVisible(resultStatusXpath);
+				browserDriver.waitForElementDisplayed(resultStatusXpath);
 			}
 		}
 
 		String resultStatus = "FAILURE";
 		String resultDetail = "No test results appeared on the page.";
-		resultStatusElements = browser.findElements(By.xpath(resultStatusXpath));
+		resultStatusElements = browserDriver.findElementsByXpath(resultStatusXpath);
 
 		if (!resultStatusElements.isEmpty()) {
 
 			resultDetail = "No test result details appeared on the page.";
 			resultStatus = resultStatusElements.get(0).getText();
 
-			List<WebElement> resultDetailElements = browser.findElements(By.xpath(
-						"//*[@id='" + testPageUpperCase + "-result-detail']"));
+			List<WebElement> resultDetailElements = browserDriver.findElementsByXpath("//*[@id='" + testPageUpperCase +
+					"-result-detail']");
 
 			if (!resultDetailElements.isEmpty()) {
 				resultDetail = resultDetailElements.get(0).getText();
@@ -85,6 +80,6 @@ public abstract class SimpleFACESPortletTester extends IntegrationTesterBase {
 		}
 
 		Assert.assertEquals(resultDetail, "SUCCESS", resultStatus);
-		logger.log(Level.INFO, "{0} test passed: {1}", new Object[] { testPage, resultDetail });
+		logger.info("{0} test passed: {1}", testPage, resultDetail);
 	}
 }
