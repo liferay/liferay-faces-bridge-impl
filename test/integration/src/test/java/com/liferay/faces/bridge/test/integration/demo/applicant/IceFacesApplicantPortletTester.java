@@ -31,10 +31,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.applicant.ApplicantTesterBase;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 
 
 /**
@@ -47,40 +47,38 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 	@Override
 	public void runApplicantPortletTest_A_ApplicantViewRendered() throws Exception {
 
-		Browser browser = Browser.getInstance();
-		browser.get(TestUtil.DEFAULT_BASE_URL + getContext());
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + getContext());
 
-		// Wait to begin the test until the logo is rendered.
-		browser.waitForElementVisible(getLogoXpath());
-
-		SeleniumAssert.assertElementVisible(browser, getFirstNameFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getLastNameFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getEmailAddressFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getPhoneNumberFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getDateOfBirthFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getCityFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getProvinceIdFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getPostalCodeFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getShowHideCommentsLinkXpath());
-		assertFileUploadChooserVisible(browser);
-		SeleniumAssert.assertLibraryVisible(browser, "Mojarra");
-		SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Alloy");
-		SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Bridge for ICEfaces");
-		SeleniumAssert.assertLibraryVisible(browser, "ICEfaces");
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		browserStateAsserter.assertElementDisplayed(getFirstNameFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getLastNameFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getEmailAddressFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getPhoneNumberFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getDateOfBirthFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getCityFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getProvinceIdFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getPostalCodeFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getShowHideCommentsLinkXpath());
+		assertFileUploadChooserDisplayed(browserDriver, browserStateAsserter);
+		assertLibraryElementDisplayed(browserStateAsserter, "Mojarra", browserDriver);
+		assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Alloy", browserDriver);
+		assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Bridge for ICEfaces", browserDriver);
+		assertLibraryElementDisplayed(browserStateAsserter, "ICEfaces", browserDriver);
 	}
 
 	@Override
 	public void runApplicantPortletTest_B_EditMode() {
 
 		// Test that changing the date pattern via preferences changes the Birthday value in the portlet.
-		Browser browser = Browser.getInstance();
+		BrowserDriver browserDriver = getBrowserDriver();
 		String editModeXpath = getEditModeXpath();
-		browser.click(editModeXpath);
+		browserDriver.clickElement(editModeXpath);
 
 		String datePatternPreferencesXpath = getDatePatternPreferencesXpath();
 
 		try {
-			browser.waitForElementVisible(datePatternPreferencesXpath);
+			browserDriver.waitForElementEnabled(datePatternPreferencesXpath);
 		}
 		catch (TimeoutException e) {
 
@@ -88,26 +86,26 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 			throw (e);
 		}
 
-		browser.clear(datePatternPreferencesXpath);
+		browserDriver.clearElement(datePatternPreferencesXpath);
 
 		String newDatePattern = "MM/dd/yy";
-		browser.sendKeys(datePatternPreferencesXpath, newDatePattern);
+		browserDriver.sendKeysToElement(datePatternPreferencesXpath, newDatePattern);
 
 		String preferencesSubmitButtonXpath = getPreferencesSubmitButtonXpath();
-		browser.click(preferencesSubmitButtonXpath);
+		browserDriver.clickElement(preferencesSubmitButtonXpath);
 
 		String requestProcessedSuccessfullyTextXpath =
 			"//ul//li//span[contains(text(), 'Your request processed successfully.')]";
-		browser.waitForElementPresent(requestProcessedSuccessfullyTextXpath);
+		browserDriver.waitForElementEnabled(requestProcessedSuccessfullyTextXpath);
 
 		String returnToFullPageToolbarLinkXpath =
 			"//menu[contains(@type,'toolbar')]//a[contains(text(), 'Return to Full Page')]";
-		browser.click(returnToFullPageToolbarLinkXpath);
+		browserDriver.clickElement(returnToFullPageToolbarLinkXpath);
 
 		String dateOfBirthFieldXpath = getDateOfBirthFieldXpath();
 
 		try {
-			browser.waitForElementVisible(dateOfBirthFieldXpath);
+			browserDriver.waitForElementEnabled(dateOfBirthFieldXpath);
 		}
 		catch (TimeoutException e) {
 
@@ -121,13 +119,14 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 		simpleDateFormat.setTimeZone(gmtTimeZone);
 
 		String todayString = simpleDateFormat.format(today);
-		SeleniumAssert.assertElementValue(browser, dateOfBirthFieldXpath, todayString);
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		browserStateAsserter.assertTextPresentInElementValue(todayString, dateOfBirthFieldXpath);
 
 		// Test that resetting the date pattern via preferences changes the Birthday year back to the long version.
-		browser.click(editModeXpath);
+		browserDriver.clickElement(editModeXpath);
 
 		try {
-			browser.waitForElementVisible(datePatternPreferencesXpath);
+			browserDriver.waitForElementEnabled(datePatternPreferencesXpath);
 		}
 		catch (TimeoutException e) {
 
@@ -136,13 +135,13 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 		}
 
 		String preferencesResetButtonXpath = getPreferencesResetButtonXpath();
-		browser.click(preferencesResetButtonXpath);
-		browser.waitForElementPresent(requestProcessedSuccessfullyTextXpath);
+		browserDriver.clickElement(preferencesResetButtonXpath);
+		browserDriver.waitForElementEnabled(requestProcessedSuccessfullyTextXpath);
 
-		browser.click(returnToFullPageToolbarLinkXpath);
+		browserDriver.clickElement(returnToFullPageToolbarLinkXpath);
 
 		try {
-			browser.waitForElementVisible(dateOfBirthFieldXpath);
+			browserDriver.waitForElementEnabled(dateOfBirthFieldXpath);
 		}
 		catch (TimeoutException e) {
 
@@ -153,29 +152,29 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 		String oldDatePattern = "MM/dd/yyyy";
 		simpleDateFormat.applyPattern(oldDatePattern);
 		todayString = simpleDateFormat.format(today);
-		SeleniumAssert.assertElementValue(browser, dateOfBirthFieldXpath, todayString);
+		browserStateAsserter.assertTextPresentInElementValue(todayString, dateOfBirthFieldXpath);
 	}
 
 	@Override
 	public void runApplicantPortletTest_C_FirstNameField() {
 
-		Browser browser = Browser.getInstance();
+		BrowserDriver browserDriver = getBrowserDriver();
 		String firstNameFieldXpath = getFirstNameFieldXpath();
-		browser.sendKeys(firstNameFieldXpath, "asdf");
-		browser.createActions().sendKeys(Keys.TAB).perform();
+		browserDriver.sendKeysToElement(firstNameFieldXpath, "asdf");
+		browserDriver.createActions().sendKeys(Keys.TAB).perform();
 
-		browser.clear(firstNameFieldXpath);
-		browser.createActions().sendKeys(Keys.TAB).perform();
+		browserDriver.clearElement(firstNameFieldXpath);
+		browserDriver.createActions().sendKeys(Keys.TAB).perform();
 
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
 		String firstNameFieldErrorXpath = getFieldErrorXpath(firstNameFieldXpath);
-		browser.waitForElementVisible(firstNameFieldErrorXpath);
-		SeleniumAssert.assertElementTextVisible(browser, firstNameFieldErrorXpath, "Value is required");
+		browserStateAsserter.assertTextPresentInElement("Value is required", firstNameFieldErrorXpath);
 
-		browser.sendKeys(firstNameFieldXpath, "asdf");
-		browser.createActions().sendKeys(Keys.TAB).perform();
-		browser.waitForElementNotPresent(firstNameFieldErrorXpath);
-		SeleniumAssert.assertElementNotPresent(browser, firstNameFieldErrorXpath);
-		browser.clear(firstNameFieldXpath);
+		browserDriver.sendKeysToElement(firstNameFieldXpath, "asdf");
+		browserDriver.createActions().sendKeys(Keys.TAB).perform();
+		browserDriver.waitForElementNotDisplayed(firstNameFieldErrorXpath);
+		browserStateAsserter.assertElementNotDisplayed(firstNameFieldErrorXpath);
+		browserDriver.clearElement(firstNameFieldXpath);
 	}
 
 	/**
@@ -190,26 +189,26 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 	@Override
 	public void runApplicantPortletTest_E_AllFieldsRequired() {
 
-		Browser browser = Browser.getInstance();
-		clearAllFields(browser);
-		browser.click(getSubmitButtonXpath());
+		BrowserDriver browserDriver = getBrowserDriver();
+		clearAllFields(browserDriver);
+		browserDriver.clickElement(getSubmitButtonXpath());
 
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
 		String firstNameFieldErrorXpath = getFieldErrorXpath(getFirstNameFieldXpath());
-		browser.waitForElementPresent(firstNameFieldErrorXpath);
-		SeleniumAssert.assertElementTextVisible(browser, firstNameFieldErrorXpath, "Value is required");
-		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getLastNameFieldXpath()),
-			"Value is required");
-		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getEmailAddressFieldXpath()),
-			"Value is required");
-		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getPhoneNumberFieldXpath()),
-			"Value is required");
-		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getDateOfBirthFieldXpath()),
-			"Value is required");
-		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getCityFieldXpath()), "Value is required");
-		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getProvinceIdFieldXpath()),
-			"Value is required");
-		SeleniumAssert.assertElementTextVisible(browser, getFieldErrorXpath(getPostalCodeFieldXpath()),
-			"Value is required");
+		browserStateAsserter.assertTextPresentInElement("Value is required", firstNameFieldErrorXpath);
+		browserStateAsserter.assertTextPresentInElement("Value is required",
+			getFieldErrorXpath(getLastNameFieldXpath()));
+		browserStateAsserter.assertTextPresentInElement("Value is required",
+			getFieldErrorXpath(getEmailAddressFieldXpath()));
+		browserStateAsserter.assertTextPresentInElement("Value is required",
+			getFieldErrorXpath(getPhoneNumberFieldXpath()));
+		browserStateAsserter.assertTextPresentInElement("Value is required",
+			getFieldErrorXpath(getDateOfBirthFieldXpath()));
+		browserStateAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getCityFieldXpath()));
+		browserStateAsserter.assertTextPresentInElement("Value is required",
+			getFieldErrorXpath(getProvinceIdFieldXpath()));
+		browserStateAsserter.assertTextPresentInElement("Value is required",
+			getFieldErrorXpath(getPostalCodeFieldXpath()));
 	}
 
 	/**
@@ -224,28 +223,27 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 	@Override
 	public void runApplicantPortletTest_H_DateValidation() {
 
-		Browser browser = Browser.getInstance();
+		BrowserDriver browserDriver = getBrowserDriver();
 		String dateOfBirthFieldXpath = getDateOfBirthFieldXpath();
-		browser.clear(dateOfBirthFieldXpath);
-		browser.centerElementInView(dateOfBirthFieldXpath);
-		browser.sendKeys(dateOfBirthFieldXpath, "12/34/5678");
-		browser.createActions().sendKeys(Keys.TAB).perform();
+		browserDriver.clearElement(dateOfBirthFieldXpath);
+		browserDriver.sendKeysToElement(dateOfBirthFieldXpath, "12/34/5678");
+		browserDriver.createActions().sendKeys(Keys.TAB).perform();
 
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
 		String dateOfBirthFieldErrorXpath = getFieldErrorXpath(dateOfBirthFieldXpath);
-		browser.waitForElementVisible(dateOfBirthFieldErrorXpath);
-		SeleniumAssert.assertElementTextVisible(browser, dateOfBirthFieldErrorXpath, "Invalid date format");
-		browser.clear(dateOfBirthFieldXpath);
-		browser.sendKeys(dateOfBirthFieldXpath, "01/02/3456");
-		browser.createActions().sendKeys(Keys.TAB).perform();
-		browser.waitForElementNotPresent(dateOfBirthFieldErrorXpath);
-		SeleniumAssert.assertElementNotPresent(browser, dateOfBirthFieldErrorXpath);
+		browserStateAsserter.assertTextPresentInElement("Invalid date format", dateOfBirthFieldErrorXpath);
+		browserDriver.clearElement(dateOfBirthFieldXpath);
+		browserDriver.sendKeysToElement(dateOfBirthFieldXpath, "01/02/3456");
+		browserDriver.createActions().sendKeys(Keys.TAB).perform();
+		browserDriver.waitForElementNotDisplayed(dateOfBirthFieldErrorXpath);
+		browserStateAsserter.assertElementNotDisplayed(dateOfBirthFieldErrorXpath);
 	}
 
 	@Override
 	public void runApplicantPortletTest_I_FileUpload() {
 
-		Browser browser = Browser.getInstance();
-		switchToFileUploadIframe(browser);
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.switchToFrame("//iframe[contains(@id,':uploadFrame')]");
 
 		try {
 			super.runApplicantPortletTest_I_FileUpload();
@@ -253,18 +251,19 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 		finally {
 
 			// Workaround for https://github.com/ariya/phantomjs/issues/13647
-			browser.switchTo().window(browser.getWindowHandle());
+			browserDriver.switchToWindow(browserDriver.getCurrentWindowId());
 		}
 	}
 
 	@Override
-	protected void assertFileUploadChooserVisible(Browser browser) {
+	protected void assertFileUploadChooserDisplayed(BrowserDriver browserDriver,
+		BrowserStateAsserter browserStateAsserter) {
 
-		switchToFileUploadIframe(browser);
-		super.assertFileUploadChooserVisible(browser);
+		browserDriver.switchToFrame("//iframe[contains(@id,':uploadFrame')]");
+		super.assertFileUploadChooserDisplayed(browserDriver, browserStateAsserter);
 
 		// Workaround for https://github.com/ariya/phantomjs/issues/13647
-		browser.switchTo().window(browser.getWindowHandle());
+		browserDriver.switchToWindow(browserDriver.getCurrentWindowId());
 	}
 
 	protected String getContext() {
@@ -287,41 +286,32 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 		return "//tr[contains(@class,'portlet-section-body results-row')]/td[2]";
 	}
 
-	protected void selectDate(Browser browser) {
+	protected void selectDate(BrowserDriver browserDriver) {
 
 		String datePickerPopupButtonXpath = "//input[contains(@id,':dateOfBirth')][@class='iceSelInpDateOpenPopup']";
-		browser.centerElementInView(datePickerPopupButtonXpath);
-		browser.click(datePickerPopupButtonXpath);
+		browserDriver.clickElement(datePickerPopupButtonXpath);
 
 		String dateElement = "//table[contains(@class, 'iceSelInpDate')]//span[contains(text(), '14')]";
-		browser.waitForElementVisible(dateElement);
-		browser.click(dateElement);
+		browserDriver.waitForElementEnabled(dateElement);
+		browserDriver.clickElement(dateElement);
 	}
 
-	protected final void submitAndWaitForPostback(Browser browser) {
+	protected final void submitAndWaitForPostback(BrowserDriver browserDriver) {
 
 		String submitButtonXpath = getSubmitButtonXpath();
-		WebElement submitButton = browser.findElementByXpath(submitButtonXpath);
+		WebElement submitButton = browserDriver.findElementByXpath(submitButtonXpath);
 		submitButton.click();
-		browser.waitUntil(ExpectedConditions.stalenessOf(submitButton));
-		browser.waitForElementVisible(submitButtonXpath);
+		browserDriver.waitFor(ExpectedConditions.stalenessOf(submitButton));
+		browserDriver.waitForElementEnabled(submitButtonXpath);
 	}
 
 	@Override
-	protected void submitFile(Browser browser) {
+	protected void submitFile(BrowserDriver browserDriver) {
 
-		browser.click(getSubmitFileButtonXpath());
+		browserDriver.clickElement(getSubmitFileButtonXpath());
 
 		// Workaround for https://github.com/ariya/phantomjs/issues/13647
-		browser.switchTo().window(browser.getWindowHandle());
-		browser.waitForElementVisible(getUploadedFileXpath());
-	}
-
-	private void switchToFileUploadIframe(Browser browser) {
-
-		String fileUploadIframeXpath = "//iframe[contains(@id,':uploadFrame')]";
-		WebElement fileUploadIframe = browser.findElementByXpath(fileUploadIframeXpath);
-		String fileUploadIframeId = fileUploadIframe.getAttribute("id");
-		browser.switchTo().frame(fileUploadIframeId);
+		browserDriver.switchToWindow(browserDriver.getCurrentWindowId());
+		browserDriver.waitForElementDisplayed(getUploadedFileXpath());
 	}
 }

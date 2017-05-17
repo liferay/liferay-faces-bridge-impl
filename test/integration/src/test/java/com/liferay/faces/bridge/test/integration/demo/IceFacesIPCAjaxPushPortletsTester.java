@@ -15,16 +15,18 @@
  */
 package com.liferay.faces.bridge.test.integration.demo;
 
-import org.junit.Test;
-
-import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
+
+import org.junit.Test;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+
+import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 
 
 /**
@@ -39,18 +41,17 @@ public class IceFacesIPCAjaxPushPortletsTester extends JSF_IPCPortletsTesterBase
 	@Test
 	public void runIceFacesIPCAjaxPushPortletsTest() {
 
-		Browser browser = Browser.getInstance();
-		browser.get(BridgeTestUtil.getDemoPageURL("icefaces-ipc"));
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getDemoPageURL("icefaces-ipc"));
 
 		// Reset the start date.
 		String customer1IdXpath = getCustomerIdXpath("1");
-		String customer1FirstName = getCustomerFirstName(browser, customer1IdXpath);
+		String customer1FirstName = getCustomerFirstName(browserDriver, customer1IdXpath);
 		String customer1EditButtonXpath = getCustomerEditButtonXpath(customer1IdXpath);
-		browser.waitForElementVisible(customer1EditButtonXpath);
-		browser.click(customer1EditButtonXpath);
+		browserDriver.clickElement(customer1EditButtonXpath);
 
 		String startDate1Xpath = "//input[contains(@id,':0:startDate')]";
-		browser.waitForElementVisible(startDate1Xpath);
+		browserDriver.waitForElementEnabled(startDate1Xpath);
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		TimeZone gmtTimeZone = TimeZone.getTimeZone("Greenwich");
@@ -58,73 +59,72 @@ public class IceFacesIPCAjaxPushPortletsTester extends JSF_IPCPortletsTesterBase
 
 		Date today = new Date();
 		String todayString = simpleDateFormat.format(today);
-		browser.clear(startDate1Xpath);
-		browser.sendKeys(startDate1Xpath, todayString, Keys.ENTER);
-		browser.get(BridgeTestUtil.getDemoPageURL("icefaces-ipc"));
+		browserDriver.clearElement(startDate1Xpath);
+		browserDriver.sendKeysToElement(startDate1Xpath, todayString, Keys.ENTER);
+		browserDriver.navigateWindowTo(BridgeTestUtil.getDemoPageURL("icefaces-ipc"));
 
 		// Test that the first and last names are the same in both portlets.
 		String customer2IdXpath = getCustomerIdXpath("2");
-		String customer2FirstName = getCustomerFirstName(browser, customer2IdXpath);
+		String customer2FirstName = getCustomerFirstName(browserDriver, customer2IdXpath);
 
-		browser.waitForElementVisible(customer1EditButtonXpath);
-		browser.click(customer1EditButtonXpath);
-		browser.waitForElementVisible(firstNameInputXpath + "[@value='" + customer1FirstName + "']");
-		SeleniumAssert.assertElementValue(browser, firstNameInputXpath, customer1FirstName);
+		browserDriver.waitForElementEnabled(customer1EditButtonXpath);
+		browserDriver.clickElement(customer1EditButtonXpath);
+
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		browserStateAsserter.assertTextPresentInElementValue(customer1FirstName, firstNameInputXpath);
 
 		String customerLastNameXpath = customer1IdXpath + "/following-sibling::td[2]/span";
-		WebElement lastNameElement = browser.findElementByXpath(customerLastNameXpath);
+		WebElement lastNameElement = browserDriver.findElementByXpath(customerLastNameXpath);
 		String lastName = lastNameElement.getText();
-		SeleniumAssert.assertElementValue(browser, lastNameInputXpath, lastName);
+		browserStateAsserter.assertTextPresentInElementValue(lastName, lastNameInputXpath);
 
 		// Test that editing the name changes it in the customers portlet.
-		browser.clear(lastNameInputXpath);
+		browserDriver.clearElement(lastNameInputXpath);
 
 		String editedName = lastName + "y";
-		browser.sendKeys(lastNameInputXpath, editedName, Keys.ENTER);
-		browser.waitForElementVisible(customerLastNameXpath + "[text()='" + editedName + "']");
-		SeleniumAssert.assertElementTextVisible(browser, customerLastNameXpath, editedName);
+		browserDriver.sendKeysToElement(lastNameInputXpath, editedName, Keys.ENTER);
+		browserDriver.waitForElementEnabled(customerLastNameXpath + "[text()='" + editedName + "']");
+		browserStateAsserter.assertTextPresentInElement(editedName, customerLastNameXpath);
 
 		// Reset the name.
-		browser.sendKeys(lastNameInputXpath, Keys.BACK_SPACE, Keys.ENTER);
-		browser.waitForElementVisible(customerLastNameXpath + "[text()='" + lastName + "']");
+		browserDriver.sendKeysToElement(lastNameInputXpath, Keys.BACK_SPACE, Keys.ENTER);
 
 		// Test that start date is today.
-		browser.waitForElementVisible(startDate1Xpath);
-		SeleniumAssert.assertElementValue(browser, startDate1Xpath, todayString);
+		browserStateAsserter.assertTextPresentInElementValue(todayString, startDate1Xpath);
 
 		// Test that the start date can be set.
-		browser.clear(startDate1Xpath);
+		browserDriver.clearElement(startDate1Xpath);
 
 		String startDate = "12/25/2999";
-		browser.sendKeys(startDate1Xpath, startDate, Keys.ENTER);
+		browserDriver.sendKeysToElement(startDate1Xpath, startDate, Keys.ENTER);
 
-		browser.get(BridgeTestUtil.getDemoPageURL("icefaces-ipc"));
+		browserDriver.navigateWindowTo(BridgeTestUtil.getDemoPageURL("icefaces-ipc"));
+
 		String customer2EditButtonXpath = getCustomerEditButtonXpath(customer2IdXpath);
-		browser.waitForElementVisible(customer2EditButtonXpath);
-		browser.click(customer2EditButtonXpath);
-		browser.waitForElementVisible(firstNameInputXpath + "[@value='" + customer2FirstName + "']");
+		browserDriver.waitForElementEnabled(customer2EditButtonXpath);
+		browserDriver.clickElement(customer2EditButtonXpath);
+		browserDriver.waitForElementEnabled(firstNameInputXpath + "[@value='" + customer2FirstName + "']");
 
 		// Check that the start date has not changed.
-		browser.get(BridgeTestUtil.getDemoPageURL("icefaces-ipc"));
-		browser.waitForElementVisible(customer1EditButtonXpath);
-		browser.click(customer1EditButtonXpath);
-		browser.waitForElementVisible(firstNameInputXpath + "[@value='" + customer1FirstName + "']");
-		browser.waitForElementVisible(startDate1Xpath);
-		SeleniumAssert.assertElementValue(browser, startDate1Xpath, startDate);
+		browserDriver.navigateWindowTo(BridgeTestUtil.getDemoPageURL("icefaces-ipc"));
+		browserDriver.waitForElementEnabled(customer1EditButtonXpath);
+		browserDriver.clickElement(customer1EditButtonXpath);
+		browserStateAsserter.assertTextPresentInElementValue(startDate, startDate1Xpath);
 	}
 
-	private String getCustomerFirstName(Browser browser, String customerIdXpath) {
+	private String getCustomerEditButtonXpath(String customerIdXpath) {
+		return customerIdXpath + "/..//input";
+	}
+
+	private String getCustomerFirstName(BrowserDriver browserDriver, String customerIdXpath) {
 
 		String customerFirstNameXpath = customerIdXpath + "/following-sibling::td[1]/span";
-		WebElement firstNameElement = browser.findElementByXpath(customerFirstNameXpath);
+		WebElement firstNameElement = browserDriver.findElementByXpath(customerFirstNameXpath);
+
 		return firstNameElement.getText();
 	}
 
 	private String getCustomerIdXpath(String customerId) {
 		return "//td/span[text()='" + customerId + "']/..";
-	}
-
-	private String getCustomerEditButtonXpath(String customerIdXpath) {
-		return customerIdXpath + "/..//input";
 	}
 }

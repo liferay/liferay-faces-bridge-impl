@@ -22,8 +22,6 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import org.junit.Assert;
@@ -34,15 +32,16 @@ import org.junit.runner.RunWith;
 
 import org.junit.runners.Parameterized.Parameters;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.TestUtil;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -53,7 +52,7 @@ import com.liferay.faces.test.selenium.TestUtil;
 public class TckTestCase extends IntegrationTesterBase {
 
 	// Logger
-	private static final Logger logger = Logger.getLogger(TckTestCase.class.getName());
+	private static final Logger logger = LoggerFactory.getLogger(TckTestCase.class);
 
 	// XPath
 	private static final String TEST_RESULT_STATUS_XPATH_TEMPLATE = "//span[@id=\"{0}-result-status\"]";
@@ -97,8 +96,6 @@ public class TckTestCase extends IntegrationTesterBase {
 
 	static {
 
-		logger.setLevel(TestUtil.getLogLevel());
-
 		String tckContext = "/";
 		int defaultBrowserWaitTimeout = 5;
 
@@ -134,7 +131,7 @@ public class TckTestCase extends IntegrationTesterBase {
 	@Parameters
 	public static Collection testData() {
 
-		logger.log(Level.INFO, "testData()");
+		logger.info("testData()");
 
 		List<String[]> testList = new ArrayList<String[]>(200);
 		InputStream excludedTestsInputStream = null;
@@ -144,8 +141,9 @@ public class TckTestCase extends IntegrationTesterBase {
 			excludedTestsInputStream = TckTestCase.class.getResourceAsStream(EXCLUDED_TESTS_FILE_PATH);
 		}
 		catch (Exception e) {
-			logger.log(Level.SEVERE, "Unable to acccess test exclusions file, {0} Exception thrown: {1}",
-				new String[] { EXCLUDED_TESTS_FILE_PATH, e.getMessage() });
+
+			logger.error("Unable to acccess test exclusions file, {0} Exception thrown: {1}", EXCLUDED_TESTS_FILE_PATH,
+				e.getMessage());
 			System.exit(1);
 		}
 
@@ -155,8 +153,9 @@ public class TckTestCase extends IntegrationTesterBase {
 			exProps.loadFromXML(excludedTestsInputStream);
 		}
 		catch (Exception e) {
-			logger.log(Level.SEVERE, "Unable to parse test exclusions file, {0} Exception thrown: {1}",
-				new String[] { EXCLUDED_TESTS_FILE_PATH, e.getMessage() });
+
+			logger.error("Unable to parse test exclusions file, {0} Exception thrown: {1}", EXCLUDED_TESTS_FILE_PATH,
+				e.getMessage());
 			System.exit(1);
 		}
 
@@ -164,8 +163,9 @@ public class TckTestCase extends IntegrationTesterBase {
 			testsInputStream = TckTestCase.class.getResourceAsStream(TESTS_FILE_PATH);
 		}
 		catch (Exception e) {
-			logger.log(Level.SEVERE, "Unable to acccess test description file, {0} Exception thrown: {1}",
-				new String[] { TESTS_FILE_PATH, e.getMessage() });
+
+			logger.error("Unable to acccess test description file, {0} Exception thrown: {1}", TESTS_FILE_PATH,
+				e.getMessage());
 			System.exit(1);
 		}
 
@@ -175,8 +175,9 @@ public class TckTestCase extends IntegrationTesterBase {
 			testProps.loadFromXML(testsInputStream);
 		}
 		catch (Exception e) {
-			logger.log(Level.SEVERE, "Unable to parse test description file, {0} Exception thrown: {1}",
-				new String[] { TESTS_FILE_PATH, e.getMessage() });
+
+			logger.error("Unable to parse test description file, {0} Exception thrown: {1}", TESTS_FILE_PATH,
+				e.getMessage());
 			System.exit(1);
 		}
 
@@ -211,7 +212,7 @@ public class TckTestCase extends IntegrationTesterBase {
 	@Before
 	public void runBeforeEachTest() throws Exception {
 
-		Browser browser = Browser.getInstance();
+		BrowserDriver browserDriver = getBrowserDriver();
 		String query = "";
 
 		if (useDefaultLiferayWindowState(DEFAULT_LIFERAY_WINDOW_STATE)) {
@@ -219,18 +220,18 @@ public class TckTestCase extends IntegrationTesterBase {
 				"_WAR_comliferayfacestestbridgetckmainportlet";
 		}
 
-		browser.get(TestUtil.DEFAULT_BASE_URL + TCK_CONTEXT + pageName + query);
+		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + TCK_CONTEXT + pageName + query);
 
 		if (useDefaultLiferayWindowState(DEFAULT_LIFERAY_WINDOW_STATE)) {
-			browser.executeScript(USE_DEFAULT_LIFERAY_WINDOW_STATE_SCRIPT);
+			browserDriver.executeScriptInCurrentWindow(USE_DEFAULT_LIFERAY_WINDOW_STATE_SCRIPT);
 		}
 	}
 
 	@Test
 	public void testPage() {
 
-		Browser browser = Browser.getInstance();
-		testPage(browser, true);
+		BrowserDriver browserDriver = getBrowserDriver();
+		testPage(browserDriver, true);
 	}
 
 	@Override
@@ -238,46 +239,46 @@ public class TckTestCase extends IntegrationTesterBase {
 
 		super.doSetUp();
 
-		Browser browser = Browser.getInstance();
-		int browserWaitTimeOut = TestUtil.getBrowserWaitTimeOut(DEFAULT_BROWSER_WAIT_TIMEOUT);
-		browser.setWaitTimeOut(browserWaitTimeOut);
+		BrowserDriver browserDriver = getBrowserDriver();
+		int browserDriverWaitTimeOut = TestUtil.getBrowserDriverWaitTimeOut(DEFAULT_BROWSER_WAIT_TIMEOUT);
+		browserDriver.setWaitTimeOut(browserDriverWaitTimeOut);
 	}
 
-	private boolean areElementsVisible(Browser browser, String... elementXpaths) {
+	private boolean areElementsDisplayed(BrowserDriver browserDriver, String... elementXpaths) {
 
-		boolean elementVisible = false;
+		boolean elementDisplayed = false;
 
 		for (String elementXpath : elementXpaths) {
 
-			List<WebElement> elements = browser.findElements(By.xpath(elementXpath));
+			List<WebElement> elements = browserDriver.findElementsByXpath(elementXpath);
 
 			if (elements.size() > 0) {
 
 				if (elements.get(0).isDisplayed()) {
 
-					elementVisible = true;
+					elementDisplayed = true;
 
 					break;
 				}
 			}
 		}
 
-		return elementVisible;
+		return elementDisplayed;
 	}
 
-	private void failTckTestCase(String message, Browser browser) {
-		failTckTestCase(message, null, browser);
+	private void failTckTestCase(String message, BrowserDriver browserDriver) {
+		failTckTestCase(message, null, browserDriver);
 	}
 
-	private void failTckTestCase(String message, Exception e, Browser browser) {
-		throw new AssertionError(getTckTestCaseFailureMessage(message, e, browser));
+	private void failTckTestCase(String message, Exception e, BrowserDriver browserDriver) {
+		throw new AssertionError(getTckTestCaseFailureMessage(message, e, browserDriver));
 	}
 
-	private String getTckTestCaseFailureMessage(String message, Browser browser) {
-		return getTckTestCaseFailureMessage(message, null, browser);
+	private String getTckTestCaseFailureMessage(String message, BrowserDriver browserDriver) {
+		return getTckTestCaseFailureMessage(message, null, browserDriver);
 	}
 
-	private String getTckTestCaseFailureMessage(String message, Exception e, Browser browser) {
+	private String getTckTestCaseFailureMessage(String message, Exception e, BrowserDriver browserDriver) {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(pageName);
@@ -290,12 +291,11 @@ public class TckTestCase extends IntegrationTesterBase {
 			sb.append(e.getMessage());
 		}
 
-		// Append page source if the log level is CONFIG or finer.
-		if (TestUtil.getLogLevel().intValue() <= Level.CONFIG.intValue()) {
+		if (logger.isDebugEnabled()) {
 
 			sb.append("\n");
 
-			String pageSource = browser.getPageSource().replaceAll("(\\s)+", "$1");
+			String pageSource = browserDriver.getCurrentDocumentMarkup().replaceAll("(\\s)+", "$1");
 			sb.append(pageSource);
 			sb.append("\n");
 		}
@@ -303,14 +303,14 @@ public class TckTestCase extends IntegrationTesterBase {
 		return sb.toString();
 	}
 
-	private void loadImagesIfNecessary(Browser browser) {
+	private void loadImagesIfNecessary(BrowserDriver browserDriver) {
 
 		if (testName.equals("nonFacesResourceTest")) {
-			browser.loadImages();
+			browserDriver.loadCurrentWindowImages();
 		}
 	}
 
-	private void recordResult(Browser browser) {
+	private void recordResult(BrowserDriver browserDriver) {
 
 		String details = null;
 		String testStatus = null;
@@ -318,54 +318,54 @@ public class TckTestCase extends IntegrationTesterBase {
 		// Look for results that use the tck span ids
 		String tckResultXPath = MessageFormat.format(TEST_RESULT_STATUS_XPATH_TEMPLATE, new Object[] { testName });
 
-		if (areElementsVisible(browser, tckResultXPath)) {
+		if (areElementsDisplayed(browserDriver, tckResultXPath)) {
 
 			try {
 
-				WebElement resultElement = browser.findElementByXpath(tckResultXPath);
+				WebElement resultElement = browserDriver.findElementByXpath(tckResultXPath);
 				testStatus = resultElement.getText();
 
 				String tckDetailsXPath = MessageFormat.format(TEST_RESULT_DETAIL_XPATH_TEMPLATE,
 						new Object[] { testName });
-				WebElement detailsElement = browser.findElementByXpath(tckDetailsXPath);
+				WebElement detailsElement = browserDriver.findElementByXpath(tckDetailsXPath);
 				details = detailsElement.getText();
 			}
 			catch (WebDriverException e) {
 
 				// Invalid result format
 				String failureMessage = "Test failed but no test result details found.\n";
-				failTckTestCase(failureMessage, e, browser);
+				failTckTestCase(failureMessage, e, browserDriver);
 			}
 		}
 		else {
 
 			// Ajax test content with no TCK span ids.
-			if ((areElementsVisible(browser, "//p[contains (.,\"FAILED\")]"))) {
+			if ((areElementsDisplayed(browserDriver, "//p[contains (.,\"FAILED\")]"))) {
 
 				// Portlet shows a failure result so display details
 				try {
 
-					WebElement detailsElement = browser.findElementByXpath("//p[contains(.,\"Detail\")]//p[1]");
+					WebElement detailsElement = browserDriver.findElementByXpath("//p[contains(.,\"Detail\")]//p[1]");
 					details = detailsElement.getText();
 				}
 				catch (WebDriverException e) {
 
 					// Portlet contains no detail section, should never happen.
 					String failureMessage = "Test failed but no test result details found.\n";
-					failTckTestCase(failureMessage, e, browser);
+					failTckTestCase(failureMessage, e, browserDriver);
 				}
 			}
-			else if (areElementsVisible(browser, "//p[contains (.,\"SUCCESS\")]")) {
+			else if (areElementsDisplayed(browserDriver, "//p[contains (.,\"SUCCESS\")]")) {
 				testStatus = "SUCCESS";
 			}
 		}
 
 		String failureMessage = "FAILED: " + details;
-		failureMessage = getTckTestCaseFailureMessage(failureMessage, browser);
+		failureMessage = getTckTestCaseFailureMessage(failureMessage, browserDriver);
 		Assert.assertEquals(failureMessage, "SUCCESS", testStatus);
 	}
 
-	private void runAjaxTest(Browser browser) {
+	private void runAjaxTest(BrowserDriver browserDriver) {
 
 		boolean resultObtained = false;
 
@@ -374,17 +374,17 @@ public class TckTestCase extends IntegrationTesterBase {
 
 			for (String xpath : RUN_AJAX_TEST_XPATHS) {
 
-				if (areElementsVisible(browser, xpath)) {
+				if (areElementsDisplayed(browserDriver, xpath)) {
 
-					browser.click(xpath);
-					switchToIFrameIfNecessary(browser);
+					browserDriver.clickElement(xpath);
+					switchToIFrameIfNecessary(browserDriver);
 
 					try {
 
 						String resultXpath = MessageFormat.format(TEST_RESULT_AJAX_STATUS_XPATH,
 								new Object[] { testName });
-						browser.waitForElementVisible(resultXpath);
-						recordResult(browser);
+						browserDriver.waitForElementDisplayed(resultXpath);
+						recordResult(browserDriver);
 						resultObtained = true;
 					}
 					catch (TimeoutException e) {
@@ -393,10 +393,10 @@ public class TckTestCase extends IntegrationTesterBase {
 				}
 			}
 
-			if (!resultObtained && !areElementsVisible(browser, RUN_AJAX_TEST_XPATHS)) {
+			if (!resultObtained && !areElementsDisplayed(browserDriver, RUN_AJAX_TEST_XPATHS)) {
 
 				String failureMessage = (i + 1) + " ajax action(s) executed with no valid result.";
-				failTckTestCase(failureMessage, browser);
+				failTckTestCase(failureMessage, browserDriver);
 			}
 		}
 
@@ -404,11 +404,11 @@ public class TckTestCase extends IntegrationTesterBase {
 
 			String failureMessage = MAX_NUMBER_ACTIONS +
 				" actions have been performed on this portlet without any final result.";
-			failTckTestCase(failureMessage, browser);
+			failTckTestCase(failureMessage, browserDriver);
 		}
 	}
 
-	private void runTest(Browser browser) {
+	private void runTest(BrowserDriver browserDriver) {
 
 		boolean resultObtained = false;
 
@@ -416,33 +416,33 @@ public class TckTestCase extends IntegrationTesterBase {
 
 			for (String xpath : RUN_TEST_XPATHS) {
 
-				if (areElementsVisible(browser, xpath)) {
+				if (areElementsDisplayed(browserDriver, xpath)) {
 
-					WebElement webElement = browser.findElementByXpath(xpath);
-					browser.click(xpath);
-					browser.waitUntil(ExpectedConditions.stalenessOf(webElement));
-					browser.waitForElementVisible("//body");
-					loadImagesIfNecessary(browser);
-					switchToIFrameIfNecessary(browser);
+					WebElement webElement = browserDriver.findElementByXpath(xpath);
+					browserDriver.clickElement(xpath);
+					browserDriver.waitFor(ExpectedConditions.stalenessOf(webElement));
+					browserDriver.waitForElementDisplayed("//body");
+					loadImagesIfNecessary(browserDriver);
+					switchToIFrameIfNecessary(browserDriver);
 
 					// If results page shows record result.
-					if (areElementsVisible(browser, TEST_RESULT_STATUS_XPATH)) {
+					if (areElementsDisplayed(browserDriver, TEST_RESULT_STATUS_XPATH)) {
 
-						recordResult(browser);
+						recordResult(browserDriver);
 						resultObtained = true;
 					}
 					else if (useDefaultLiferayWindowState(DEFAULT_LIFERAY_WINDOW_STATE)) {
-						browser.executeScript(USE_DEFAULT_LIFERAY_WINDOW_STATE_SCRIPT);
+						browserDriver.executeScriptInCurrentWindow(USE_DEFAULT_LIFERAY_WINDOW_STATE_SCRIPT);
 					}
 					// Otherwise continue clicking on elements.
 				}
 			}
 
-			if (!resultObtained && !areElementsVisible(browser, RUN_TEST_XPATHS)) {
+			if (!resultObtained && !areElementsDisplayed(browserDriver, RUN_TEST_XPATHS)) {
 
 				String failureMessage = (i + 1) +
 					" full page request action(s) have been performed on this portlet without any final result or test components to exercise.";
-				failTckTestCase(failureMessage, browser);
+				failTckTestCase(failureMessage, browserDriver);
 			}
 		}
 
@@ -450,46 +450,46 @@ public class TckTestCase extends IntegrationTesterBase {
 
 			String failureMessage = MAX_NUMBER_ACTIONS +
 				" actions have been performed on this portlet without any final result.";
-			failTckTestCase(failureMessage, browser);
+			failTckTestCase(failureMessage, browserDriver);
 		}
 	}
 
-	private void switchToIFrameIfNecessary(Browser browser) {
+	private void switchToIFrameIfNecessary(BrowserDriver browserDriver) {
 
-		if (areElementsVisible(browser, TEST_IFRAME_XPATH)) {
+		if (areElementsDisplayed(browserDriver, TEST_IFRAME_XPATH)) {
 
-			browser.switchTo().frame("tck-iframe");
-			browser.waitForElementVisible("//body");
+			browserDriver.switchToFrame(TEST_IFRAME_XPATH);
+			browserDriver.waitForElementDisplayed("//body");
 		}
 	}
 
-	private void testPage(Browser browser, boolean switchToIFrameIfNecessary) {
+	private void testPage(BrowserDriver browserDriver, boolean switchToIFrameIfNecessary) {
 
 		try {
 
-			if (areElementsVisible(browser, TEST_RESULT_STATUS_XPATH)) {
-				recordResult(browser);
+			if (areElementsDisplayed(browserDriver, TEST_RESULT_STATUS_XPATH)) {
+				recordResult(browserDriver);
 			}
-			else if (areElementsVisible(browser, RUN_TEST_XPATHS)) {
-				runTest(browser);
+			else if (areElementsDisplayed(browserDriver, RUN_TEST_XPATHS)) {
+				runTest(browserDriver);
 			}
-			else if (areElementsVisible(browser, RUN_AJAX_TEST_XPATHS)) {
-				runAjaxTest(browser);
+			else if (areElementsDisplayed(browserDriver, RUN_AJAX_TEST_XPATHS)) {
+				runAjaxTest(browserDriver);
 			}
-			else if (switchToIFrameIfNecessary && areElementsVisible(browser, TEST_IFRAME_XPATH)) {
+			else if (switchToIFrameIfNecessary && areElementsDisplayed(browserDriver, TEST_IFRAME_XPATH)) {
 
-				browser.switchTo().frame("tck-iframe");
-				browser.waitForElementVisible("//body");
-				testPage(browser, false);
+				browserDriver.switchToFrame(TEST_IFRAME_XPATH);
+				browserDriver.waitForElementDisplayed("//body");
+				testPage(browserDriver, false);
 			}
 			else {
 
 				// Default case, unrecognised page content.
-				failTckTestCase("Unexpected page content.", browser);
+				failTckTestCase("Unexpected page content.", browserDriver);
 			}
 		}
 		catch (WebDriverException e) {
-			failTckTestCase("Uncaught WebDriverException: ", e, browser);
+			failTckTestCase("Uncaught WebDriverException: ", e, browserDriver);
 		}
 	}
 

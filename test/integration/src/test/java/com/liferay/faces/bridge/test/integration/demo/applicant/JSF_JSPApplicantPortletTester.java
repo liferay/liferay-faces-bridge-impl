@@ -20,9 +20,9 @@ import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.Browser;
 import com.liferay.faces.test.selenium.TestUtil;
-import com.liferay.faces.test.selenium.assertion.SeleniumAssert;
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 
 
 /**
@@ -35,37 +35,35 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 	@Override
 	public void runApplicantPortletTest_A_ApplicantViewRendered() throws Exception {
 
-		Browser browser = Browser.getInstance();
-		browser.get(TestUtil.DEFAULT_BASE_URL + getContext());
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + getContext());
 
-		// Wait to begin the test until the first name field is rendered.
-		String firstNameFieldXpath = getFirstNameFieldXpath();
-		browser.waitForElementVisible(firstNameFieldXpath);
-		SeleniumAssert.assertElementVisible(browser, firstNameFieldXpath);
-		SeleniumAssert.assertElementVisible(browser, getLastNameFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getEmailAddressFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getPhoneNumberFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getDateOfBirthFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getCityFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getProvinceIdFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getPostalCodeFieldXpath());
-		SeleniumAssert.assertElementVisible(browser, getAddAttachmentXpath());
-		SeleniumAssert.assertLibraryVisible(browser, "Mojarra");
-		SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Bridge Impl");
+		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		browserStateAsserter.assertElementDisplayed(getFirstNameFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getLastNameFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getEmailAddressFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getPhoneNumberFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getDateOfBirthFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getCityFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getProvinceIdFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getPostalCodeFieldXpath());
+		browserStateAsserter.assertElementDisplayed(getAddAttachmentXpath());
+		assertLibraryElementDisplayed(browserStateAsserter, "Mojarra", browserDriver);
+		assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Bridge Impl", browserDriver);
 
 		if (TestUtil.getContainer().contains("liferay")) {
-			SeleniumAssert.assertLibraryVisible(browser, "Liferay Faces Bridge Ext");
+			assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Bridge Ext", browserDriver);
 		}
 	}
 
 	@Override
 	public void runApplicantPortletTest_I_FileUpload() {
 
-		Browser browser = Browser.getInstance();
+		BrowserDriver browserDriver = getBrowserDriver();
 		String addAttachmentXpath = getAddAttachmentXpath();
-		browser.waitForElementVisible(addAttachmentXpath);
-		browser.click(addAttachmentXpath);
-		browser.waitForElementVisible(getFileUploadChooserXpath());
+		browserDriver.waitForElementEnabled(addAttachmentXpath);
+		browserDriver.clickElement(addAttachmentXpath);
+		browserDriver.waitForElementEnabled(getFileUploadChooserXpath());
 		super.runApplicantPortletTest_I_FileUpload();
 	}
 
