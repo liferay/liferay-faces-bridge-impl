@@ -421,309 +421,309 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLAbsoluteURLTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLAbsoluteURLTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLDirectLinkFalseTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLDirectLinkFalseTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLDirectLinkTrueTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLDirectLinkTrueTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLJSFViewActionTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewActionTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLJSFViewEventTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewEventTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLJSFViewRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLJSFViewResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewWithInvalidModeRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidModeRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewWithModeRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithModeRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewWithModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithModeResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewWithParamRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithParamRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewWithParamResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithParamResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewWithWindowStateRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithWindowStateRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLPortletActionTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletActionTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLPortletRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLPortletResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLPoundCharTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLPoundCharTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidModeActionTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeActionTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidModeEventTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeEventTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidModeRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidSecurityActionTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityActionTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidSecurityEventTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityEventTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidSecurityRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidSecurityResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidWindowStateActionTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateActionTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidWindowStateEventTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateEventTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidWindowStateRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithInvalidWindowStateResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithModeActionTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeActionTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithModeEventTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeEventTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithModeRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithParamActionTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamActionTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithParamEventTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamEventTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithParamRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithParamResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithSecurityActionTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityActionTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithSecurityEventTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityEventTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithSecurityRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithSecurityResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithWindowStateActionTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateActionTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithWindowStateEventTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateEventTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithWindowStateRenderTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateRenderTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeActionURLWithWindowStateResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeResourceURLBackLinkTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLBackLinkTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeResourceURLForeignExternalURLBackLinkTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLForeignExternalURLBackLinkTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeResourceURLForeignExternalURLTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLForeignExternalURLTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeResourceURLOpaqueTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLOpaqueTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeResourceURLRelativeURLBackLinkTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLRelativeURLBackLinkTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeResourceURLRelativeURLTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLRelativeURLTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeResourceURLTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeResourceURLViewLinkTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLViewLinkTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeResourceURLViewLinkWithBackLinkTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLViewLinkWithBackLinkTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeResourceURLWithModeTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLWithModeTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeResourceURLWithWindowStateTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLWithWindowStateTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1Tests-encodeURLEscapingTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeURLEscapingTests-encodeURLEscapingTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
