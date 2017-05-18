@@ -181,7 +181,7 @@ public class TckTestCase extends IntegrationTesterBase {
 		}
 
 		Enumeration<?> tests = testProps.propertyNames();
-		Pattern extractTestNamePattern = Pattern.compile("chapter[0-9_]+Tests-([_a-zA-Z0-9]+)-portlet");
+		Pattern extractTestNamePattern = Pattern.compile("chapter[0-9_]+[a-zA-Z]*Tests-([_a-zA-Z0-9]+)-portlet");
 		Pattern testFilterPattern = null;
 		String testFilter = TestUtil.getSystemPropertyOrDefault("integration.test.filter", null);
 
