@@ -66,23 +66,23 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 				portletConfig, bridgeConfig);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void execute() throws BridgeDefaultViewNotSpecifiedException, BridgeException {
 
 		logger.debug(Logger.SEPARATOR);
 		logger.debug("execute(EventRequest, EventResponse) portletName=[{0}]", portletName);
 
+		String bridgeEventHandlerAttributeName = Bridge.BRIDGE_PACKAGE_PREFIX + portletName + "." +
+			Bridge.BRIDGE_EVENT_HANDLER;
+		BridgeEventHandler bridgeEventHandler = (BridgeEventHandler) portletContext.getAttribute(
+				bridgeEventHandlerAttributeName);
+
 		try {
 
 			// If there is a bridgeEventHandler registered in portlet.xml, then
-			String bridgeEventHandlerAttributeName = Bridge.BRIDGE_PACKAGE_PREFIX + portletName + "." +
-				Bridge.BRIDGE_EVENT_HANDLER;
-			BridgeEventHandler bridgeEventHandler = (BridgeEventHandler) portletContext.getAttribute(
-					bridgeEventHandlerAttributeName);
-
-			init(eventRequest, eventResponse, Bridge.PortletPhase.EVENT_PHASE);
-
 			if (bridgeEventHandler != null) {
+
+				init(eventRequest, eventResponse, Bridge.PortletPhase.EVENT_PHASE);
 
 				// Restore the BridgeRequestScope that may have started during the ACTION_PHASE.
 				bridgeRequestScope.restoreState(facesContext);
@@ -204,13 +204,18 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 			maintainRenderParameters(eventRequest, eventResponse);
 
 			// Spec 6.6 (Namespacing)
-			indicateNamespacingToConsumers(facesContext.getViewRoot(), eventResponse);
+			if (bridgeEventHandler != null) {
+				indicateNamespacingToConsumers(facesContext.getViewRoot(), eventResponse);
+			}
 		}
 		catch (Throwable t) {
 			throw new BridgeException(t);
 		}
 		finally {
-			cleanup(eventRequest);
+
+			if (bridgeEventHandler != null) {
+				cleanup(eventRequest);
+			}
 		}
 	}
 
