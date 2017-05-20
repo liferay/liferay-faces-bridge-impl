@@ -2033,7 +2033,7 @@
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLPortletResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
 		<init-param>
@@ -2047,7 +2047,7 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLPortletResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
@@ -2344,7 +2344,7 @@
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 
@@ -2359,12 +2359,12 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithParamResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithParamResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 
@@ -2379,12 +2379,12 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithParamResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithParamResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithModeResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 
@@ -2406,12 +2406,12 @@
 			<portlet-mode>EDIT</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithModeResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithModeResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 
@@ -2426,12 +2426,12 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 
@@ -2446,12 +2446,12 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet
 		</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
@@ -2467,7 +2467,7 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
@@ -2902,7 +2902,7 @@
 -->
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
 		<init-param>
@@ -2916,12 +2916,12 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithParamResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
 		<init-param>
@@ -2935,12 +2935,12 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithParamResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithModeResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
 		<init-param>
@@ -2954,12 +2954,12 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithModeResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidModeResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
 		<init-param>
@@ -2973,12 +2973,12 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidModeResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithWindowStateResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
 		<init-param>
@@ -2992,12 +2992,12 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithWindowStateResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
 		<init-param>
@@ -3011,7 +3011,7 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet</title>
+			<title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
@@ -3019,7 +3019,7 @@
 	<!--   This relies on a feature that isn't required in the portlet containers - if your container supports
        uncomment to check to see if the bridge is behaving as expected.        
     <portlet>
-        <portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityResourceTest-portlet</portlet-name>
+        <portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithSecurityResourceTest-portlet</portlet-name>
         <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
         
         <init-param>
@@ -3033,12 +3033,12 @@
          <mime-type>text/html</mime-type>
        </supports>
         <portlet-info>
-                <title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityResourceTest-portlet</title>
+                <title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithSecurityResourceTest-portlet</title>
         </portlet-info>
     </portlet>
     
     <portlet>
-        <portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityResourceTest-portlet</portlet-name>
+        <portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidSecurityResourceTest-portlet</portlet-name>
         <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
         
         <init-param>
@@ -3052,7 +3052,7 @@
          <mime-type>text/html</mime-type>
        </supports>
         <portlet-info>
-                <title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityResourceTest-portlet</title>
+                <title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidSecurityResourceTest-portlet</title>
         </portlet-info>
     </portlet>
 -->

@@ -451,7 +451,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
@@ -460,7 +460,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
@@ -470,7 +470,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
@@ -480,7 +480,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
@@ -490,7 +490,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithModeResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
@@ -500,7 +500,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithParamResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithParamResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
@@ -510,7 +510,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
@@ -525,7 +525,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLPortletResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
@@ -550,7 +550,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidModeResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
@@ -569,7 +569,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidSecurityResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
@@ -589,7 +589,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
@@ -608,7 +608,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithModeResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
@@ -627,7 +627,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithParamResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
@@ -646,7 +646,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithSecurityResourceTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
@@ -666,7 +666,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateResourceTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithWindowStateResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
