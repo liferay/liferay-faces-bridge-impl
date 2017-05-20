@@ -567,7 +567,7 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletActionTest-portlet"/>
 		</page>
 		<page name="TestPage090" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLPortletResourceTest-portlet"/>
 		</page>
 		<page name="TestPage091" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewActionTest-portlet"/>
@@ -606,22 +606,22 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest-portlet"/>
 		</page>
 		<page name="TestPage103" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewResourceTest-portlet"/>
 		</page>
 		<page name="TestPage104" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithParamResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithParamResourceTest-portlet"/>
 		</page>
 		<page name="TestPage105" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithModeResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithModeResourceTest-portlet"/>
 		</page>
 		<page name="TestPage106" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet"/>
 		</page>
 		<page name="TestPage107" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet"/>
 		</page>
 		<page name="TestPage108" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet"/>
 		</page>
 		<page name="TestPage109" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewEventTest-portlet"/>
@@ -660,22 +660,22 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateRenderTest-portlet"/>
 		</page>
 		<page name="TestPage121" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet"/>
 		</page>
 		<page name="TestPage122" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithParamResourceTest-portlet"/>
 		</page>
 		<page name="TestPage123" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithModeResourceTest-portlet"/>
 		</page>
 		<page name="TestPage124" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidModeResourceTest-portlet"/>
 		</page>
 		<page name="TestPage125" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithWindowStateResourceTest-portlet"/>
 		</page>
 		<page name="TestPage126" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet"/>
 		</page>
 		<page name="TestPage127" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_1EncodeURLEscapingTests-encodeURLEscapingTest-portlet"/>
