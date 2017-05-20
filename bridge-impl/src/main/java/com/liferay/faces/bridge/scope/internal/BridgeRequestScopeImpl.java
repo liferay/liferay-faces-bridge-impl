@@ -224,7 +224,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		}
 
 		if (((beganInPhase == Bridge.PortletPhase.ACTION_PHASE) || (beganInPhase == Bridge.PortletPhase.EVENT_PHASE) ||
-					(beganInPhase == Bridge.PortletPhase.RESOURCE_PHASE)) && !redirectOcurred) {
+					(beganInPhase == Bridge.PortletPhase.RESOURCE_PHASE))) {
 
 			// Restore the view root that may have been saved during the action/event/render phase of the portlet
 			// lifecycle.
@@ -238,34 +238,37 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 				logger.debug("Did not restore uiViewRoot");
 			}
 
-			// Restore the faces messages that may have been saved during the action/event/render phase of the portlet
-			// lifecycle.
-			List<FacesMessageWrapper> facesMessages = (List<FacesMessageWrapper>) getAttribute(
-					BRIDGE_REQ_SCOPE_ATTR_FACES_MESSAGES);
+			if (!redirectOcurred) {
 
-			boolean restoredFacesMessages = false;
+				// Restore the faces messages that may have been saved during the action/event/render phase of the
+				// portlet lifecycle.
+				List<FacesMessageWrapper> facesMessages = (List<FacesMessageWrapper>) getAttribute(
+						BRIDGE_REQ_SCOPE_ATTR_FACES_MESSAGES);
 
-			if (facesMessages != null) {
+				boolean restoredFacesMessages = false;
 
-				for (FacesMessageWrapper facesMessageWrapper : facesMessages) {
-					String clientId = facesMessageWrapper.getClientId();
-					FacesMessage facesMessage = facesMessageWrapper.getFacesMessage();
-					facesContext.addMessage(clientId, facesMessage);
-					logger.trace("Restored facesMessage=[{0}]", facesMessage.getSummary());
-					restoredFacesMessages = true;
+				if (facesMessages != null) {
+
+					for (FacesMessageWrapper facesMessageWrapper : facesMessages) {
+						String clientId = facesMessageWrapper.getClientId();
+						FacesMessage facesMessage = facesMessageWrapper.getFacesMessage();
+						facesContext.addMessage(clientId, facesMessage);
+						logger.trace("Restored facesMessage=[{0}]", facesMessage.getSummary());
+						restoredFacesMessages = true;
+					}
 				}
-			}
 
-			if (restoredFacesMessages) {
-				logger.debug("Restored facesMessages");
-			}
-			else {
-				logger.debug("Did not restore any facesMessages");
-			}
+				if (restoredFacesMessages) {
+					logger.debug("Restored facesMessages");
+				}
+				else {
+					logger.debug("Did not restore any facesMessages");
+				}
 
-			// NOTE: PROPOSE-FOR-BRIDGE3-API: https://issues.apache.org/jira/browse/PORTLETBRIDGE-203 Restore the
-			// FacesContext attributes that may have been saved during the ACTION_PHASE of the portlet lifecycle.
-			restoreJSF2FacesContextAttributes(facesContext);
+				// NOTE: PROPOSE-FOR-BRIDGE3-API: https://issues.apache.org/jira/browse/PORTLETBRIDGE-203 Restore the
+				// FacesContext attributes that may have been saved during the ACTION_PHASE of the portlet lifecycle.
+				restoreJSF2FacesContextAttributes(facesContext);
+			}
 		}
 
 		if (restoreNonExcludedRequestAttributes) {
