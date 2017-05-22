@@ -23,9 +23,6 @@ import javax.faces.context.FacesContext;
 import javax.portlet.MimeResponse;
 import javax.portlet.ResourceURL;
 import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeURL;
-import javax.portlet.faces.BridgeURLFactory;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
