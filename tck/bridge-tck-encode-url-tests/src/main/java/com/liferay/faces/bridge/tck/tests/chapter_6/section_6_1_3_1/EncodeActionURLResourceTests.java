@@ -25,9 +25,6 @@ import javax.portlet.ResourceURL;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
-import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.BridgeURL;
-import com.liferay.faces.bridge.BridgeURLFactory;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
@@ -71,12 +68,6 @@ public class EncodeActionURLResourceTests {
 			// PortletContainers can return "URLs" with strict XML encoding -- as the bridge
 			// encoding depends on what is past in to it -- make sure we send in a string
 			// with the same encoding as compare string.
-			BridgeURL bridgeActionURL = BridgeURLFactory.getBridgeActionURLInstance(facesContext, testString);
-			BridgeConfig bridgeConfig = (BridgeConfig) externalContext.getRequestMap().get(BridgeConfig.class
-					.getName());
-			System.err.println("bridgeActionURL viewId=" +
-				bridgeActionURL.getParameter(bridgeConfig.getViewIdRenderParameterName()));
-
 			String resourceEncoded = externalContext.encodeActionURL(testString);
 			String otherPhaseEncoded = (String) sessionMap.get("com.liferay.faces.bridge.tck.encodedURL");
 
@@ -90,7 +81,6 @@ public class EncodeActionURLResourceTests {
 				return Constants.TEST_FAILED;
 			}
 			else if (resourceEncoded.equals(otherPhaseEncoded)) {
-				System.err.println("!@#$ resourceEncoded=" + resourceEncoded);
 				testBean.setTestResult(true,
 					"encodeActionURL correctly encoded a JSF View url with params as an actionURL during a resource request.");
 
