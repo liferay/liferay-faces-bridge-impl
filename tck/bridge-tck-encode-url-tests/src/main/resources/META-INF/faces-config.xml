@@ -9,6 +9,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>chapter6_1_3_1EncodeActionURLResourceTests</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.EncodeActionURLResourceTests</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>chapter6_1_3_1EncodeResourceURLTests</managed-bean-name>
 		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.EncodeResourceURLTests</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
