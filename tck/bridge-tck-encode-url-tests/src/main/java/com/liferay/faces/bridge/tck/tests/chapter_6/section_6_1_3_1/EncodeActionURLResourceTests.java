@@ -60,7 +60,7 @@ public class EncodeActionURLResourceTests {
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
 				ENCODE_ACTIONURL_TEST_STRING).toString();
 
-		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -196,7 +196,7 @@ public class EncodeActionURLResourceTests {
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
 				ENCODE_ACTIONURL_TEST_STRING).toString();
 
-		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -267,7 +267,7 @@ public class EncodeActionURLResourceTests {
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
 				ENCODE_ACTIONURL_TEST_STRING).toString();
 
-		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -338,7 +338,7 @@ public class EncodeActionURLResourceTests {
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
 				ENCODE_ACTIONURL_TEST_STRING).toString();
 
-		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -409,7 +409,7 @@ public class EncodeActionURLResourceTests {
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
 				ENCODE_ACTIONURL_TEST_STRING).toString();
 
-		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -479,7 +479,7 @@ public class EncodeActionURLResourceTests {
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
 				ENCODE_ACTIONURL_TEST_STRING).toString();
 
-		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -551,7 +551,7 @@ public class EncodeActionURLResourceTests {
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
 				ENCODE_ACTIONURL_TEST_STRING).toString();
 
-		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
@@ -622,7 +622,7 @@ public class EncodeActionURLResourceTests {
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
 				ENCODE_ACTIONURL_TEST_STRING).toString();
 
-		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RESOURCE_PHASE) {
 
 			// mark the resource request as having occurred so the button changes names appropriately
 			requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
