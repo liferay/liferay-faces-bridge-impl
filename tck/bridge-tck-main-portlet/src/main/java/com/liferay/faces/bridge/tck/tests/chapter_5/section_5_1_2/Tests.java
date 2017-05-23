@@ -247,6 +247,8 @@ public class Tests extends Object {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			return "requestPreserveActionParamsTest"; // action Navigation result
@@ -256,7 +258,6 @@ public class Tests extends Object {
 
 			// Now verify that no scope data was carried forward.
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 			Map<String, String> paramMap = externalContext.getRequestParameterMap();
 
@@ -342,12 +343,13 @@ public class Tests extends Object {
 
 		// In the action portion create/attach things to request scope that should either be preserved or
 		// are explicitly excluded -- test for presence/absence in render
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
 		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
 
 			return "requestRenderIgnoresScopeViaCreateViewTest"; // action Navigation result
 		}
 		else {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
 
 			// If redisplay hasn't been invoked yet -- merely return
