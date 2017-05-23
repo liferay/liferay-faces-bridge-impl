@@ -138,7 +138,9 @@ public class EncodeActionURLTests {
 		// must have rendered a form with a postback URL that correctly caused the RESTORE_VIEW phase to restore
 		// viewId=multiRequestTest.xhtml (meaning, the viewId must have been encoded in a BridgeURL found in the form's
 		// "action" attribute).
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Here in the ACTION_PHASE, return an action outcome that will cause the FacesBridge navigation-handler to
 			// execute a navigation-rule in order to navigate to a different view (in the ACTION_PHASE) by:
@@ -217,7 +219,9 @@ public class EncodeActionURLTests {
 		// must have rendered a form with a postback URL that correctly caused the RESTORE_VIEW phase to restore
 		// viewId=multiRequestTest.xhtml (meaning, the viewId must have been encoded in a BridgeURL found in the form's
 		// "action" attribute).
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Here in the ACTION_PHASE, return an action outcome that will cause the FacesBridge navigation-handler to
 			// execute a navigation-rule in order to navigate to a different view (in the ACTION_PHASE) by:
@@ -385,13 +389,14 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithInvalidModeActionTest(TestBean testBean) {
 
 		// This tests that we can encode an invalid mode in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithInvalidModeActionTest"; // action Navigation result
 		}
 		else {
 			testBean.setTestComplete(true);
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
@@ -491,8 +496,9 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithInvalidModeRenderTest(TestBean testBean) {
 
 		// This tests that we can encode an invalid mode in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
@@ -539,13 +545,14 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithInvalidSecurityActionTest(TestBean testBean) {
 
 		// This tests that we can encode invalid security state in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithInvalidSecurityActionTest"; // action Navigation result
 		}
 		else {
 			testBean.setTestComplete(true);
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
@@ -641,8 +648,9 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithInvalidSecurityRenderTest(TestBean testBean) {
 
 		// This tests that we can encode an invalid security state in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Check that the parameter came along too
@@ -692,13 +700,14 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithInvalidWindowStateActionTest(TestBean testBean) {
 
 		// This tests that we can encode an invalid window state in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithInvalidWindowStateActionTest"; // action Navigation result
 		}
 		else {
 			testBean.setTestComplete(true);
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
@@ -798,8 +807,9 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithInvalidWindowStateRenderTest(TestBean testBean) {
 
 		// This tests that we can encode an invalid window state in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
@@ -846,13 +856,14 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithModeActionTest(TestBean testBean) {
 
 		// This tests that we can encode a new mode in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithModeActionTest"; // action Navigation result
 		}
 		else {
 			testBean.setTestComplete(true);
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
@@ -953,8 +964,9 @@ public class EncodeActionURLTests {
 
 		// This tests that we can encode a new mode in an actionURL done by navigation rule.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
-		if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(facesContext))) {
+		if (Bridge.PortletPhase.RENDER_PHASE.equals(portletRequestPhase)) {
 			Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
 
 			String testName = testBean.getTestName();
@@ -992,7 +1004,7 @@ public class EncodeActionURLTests {
 				return Constants.TEST_FAILED;
 			}
 		}
-		else if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		else if (portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithModeRenderTest"; // action Navigation result
 		}
 		else {
@@ -1006,13 +1018,13 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithParamActionTest(TestBean testBean) {
 
 		// This tests that we can encode a new name=value parameter in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithParamActionTest"; // action Navigation result
 		}
 		else {
 			testBean.setTestComplete(true);
-
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 
 			// Parameter encoded in the faces-config.xml target
 			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
@@ -1091,8 +1103,9 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithParamRenderTest(TestBean testBean) {
 
 		// This tests that we can encode a new name=value parameter in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Parameter encoded in the faces-config.xml target
 			String paramValue = facesContext.getExternalContext().getRequestParameterMap().get("param1");
@@ -1135,13 +1148,14 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithSecurityActionTest(TestBean testBean) {
 
 		// This tests that we can encode a new security state in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithSecurityActionTest"; // action Navigation result
 		}
 		else {
 			testBean.setTestComplete(true);
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Secure encoded in the faces-config.xml target
@@ -1237,8 +1251,9 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithSecurityRenderTest(TestBean testBean) {
 
 		// This tests that we can encode a new security state in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Check that the parameter came along too
@@ -1282,13 +1297,14 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithWindowStateActionTest(TestBean testBean) {
 
 		// This tests that we can encode a new window state in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			return "encodeActionURLWithWindowStateActionTest"; // action Navigation result
 		}
 		else {
 			testBean.setTestComplete(true);
 
-			FacesContext facesContext = FacesContext.getCurrentInstance();
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
@@ -1388,8 +1404,9 @@ public class EncodeActionURLTests {
 	public String encodeActionURLWithWindowStateRenderTest(TestBean testBean) {
 
 		// This tests that we can encode a new window state in an actionURL done by navigation rule.
-		if (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.ACTION_PHASE) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			PortletRequest portletRequest = (PortletRequest) facesContext.getExternalContext().getRequest();
 
 			// Parameter/Mode encoded in the faces-config.xml target
@@ -1419,6 +1436,7 @@ public class EncodeActionURLTests {
 			return "encodeActionURLWithWindowStateRenderTest"; // action Navigation result
 		}
 		else {
+
 			testBean.setTestComplete(true);
 
 			if (testBean.getTestStatus()) {
