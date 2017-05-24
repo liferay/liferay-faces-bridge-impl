@@ -360,7 +360,7 @@ public class Tests extends Object {
 			testBean.setTestComplete(true);
 
 			// Now verify create was used and not restore.
-			Boolean b = (Boolean) externalContext.getRequestMap().get("org.apache.portlet.faces.tck.viewCreated");
+			Boolean b = (Boolean) externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.viewCreated");
 
 			if (Boolean.TRUE.equals(b)) {
 				testBean.setTestResult(true, "CreateView used when view restored in a mismatched scope.");
