@@ -47,7 +47,7 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 	@Override
 	public UIViewRoot createView(FacesContext facesContext, String viewId) throws IllegalArgumentException,
 		NullPointerException {
-		facesContext.getExternalContext().getRequestMap().put("org.apache.portlet.faces.tck.viewCreated", Boolean.TRUE);
+		facesContext.getExternalContext().getRequestMap().put("com.liferay.faces.bridge.tck.viewCreated", Boolean.TRUE);
 
 		return super.createView(facesContext, viewId);
 	}
@@ -111,7 +111,7 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 	@Override
 	public UIViewRoot restoreView(FacesContext facesContext, String viewId) throws FacesException,
 		NullPointerException {
-		facesContext.getExternalContext().getRequestMap().put("org.apache.portlet.faces.tck.viewCreated",
+		facesContext.getExternalContext().getRequestMap().put("com.liferay.faces.bridge.tck.viewCreated",
 			Boolean.FALSE);
 
 		return super.restoreView(facesContext, viewId);
