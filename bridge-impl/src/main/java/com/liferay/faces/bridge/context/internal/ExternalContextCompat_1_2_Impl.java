@@ -41,4 +41,12 @@ public abstract class ExternalContextCompat_1_2_Impl extends ExternalContextBrid
 		// http://jsfatwork.irian.at/book_de/trinidad.html
 		portletContext.setAttribute(TRINIDAD_DISABLE_DIALOG_OUTCOMES, Boolean.TRUE);
 	}
+
+	protected String encodePartialActionURL(String url) {
+		throw new UnsupportedOperationException();
+	}
+
+	protected boolean isEncodingFormWithPrimeFacesAjaxFileUpload() {
+		return false;
+	}
 }
