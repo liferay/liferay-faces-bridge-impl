@@ -304,6 +304,14 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			}
 		}
 
+		// If running in the EVENT_PHASE or HEADER_PHASE, then the client window must be restored.
+		if ((portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE) ||
+				(portletRequestPhase == Bridge.PortletPhase.HEADER_PHASE)) {
+
+			// PROPOSE-FOR-BRIDGE3-API
+			restoreClientWindow(facesContext.getExternalContext());
+		}
+
 		// If running in the HEADER_PHASE, then the Flash scope must be restored.
 		if (portletRequestPhase == Bridge.PortletPhase.HEADER_PHASE) {
 
@@ -311,9 +319,6 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			// Restore the flash scope.
 			ExternalContext externalContext = facesContext.getExternalContext();
 			restoreFlashState(externalContext);
-
-			// PROPOSE-FOR-BRIDGE3-API
-			restoreClientWindow(facesContext.getExternalContext());
 		}
 
 		// If running in the HEADER_PHASE, then the incongruity context must be restored.
@@ -432,6 +437,17 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 				saveNonExcludedAttributes = false;
 			}
 
+			// If running in the ACTION_PHASE or EVENT_PHASE, then the client window must be saved as well so that it
+			// can be restored.
+			Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+
+			if ((portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) ||
+					(portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE)) {
+
+				// PROPOSE-FOR-BRIDGE3-API
+				saveClientWindow(externalContext);
+			}
+
 			// If appropriate, save the non-excluded request attributes. This would include, for example, managed-bean
 			// instances that may have been created during the ACTION_PHASE that need to survive to the RENDER_PHASE.
 			if (saveNonExcludedAttributes) {
@@ -469,9 +485,6 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			// PROPOSED-FOR-JSR344-API: http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1070
 			// PROPOSED-FOR-BRIDGE3-API: https://issues.apache.org/jira/browse/PORTLETBRIDGE-201
 			saveFlashState(externalContext);
-
-			// PROPOSE-FOR-BRIDGE3-API
-			saveClientWindow(externalContext);
 		}
 
 		// If running in the ACTION_PHASE or EVENT_PHASE, then the incongruity context must be saved as well so that it
