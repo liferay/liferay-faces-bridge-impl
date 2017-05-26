@@ -439,7 +439,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 
 			// If running in the ACTION_PHASE or EVENT_PHASE, then the client window must be saved as well so that it
 			// can be restored.
-			Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+			Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase();
 
 			if ((portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) ||
 					(portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE)) {
