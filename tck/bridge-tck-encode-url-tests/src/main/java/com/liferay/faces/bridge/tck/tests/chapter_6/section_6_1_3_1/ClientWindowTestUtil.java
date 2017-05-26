@@ -39,10 +39,7 @@ class ClientWindowTestUtil {
 		}
 	}
 
-	static boolean isClientWindowEnabled(FacesContext facesContext, ExternalContext externalContext) {
-
-		ClientWindow clientWindow = externalContext.getClientWindow();
-
-		return ((clientWindow != null) && (clientWindow.isClientWindowRenderModeEnabled(facesContext)));
+	static boolean isClientWindowEnabled(ExternalContext externalContext) {
+		return "url".equals(externalContext.getInitParameter(ClientWindow.CLIENT_WINDOW_MODE_PARAM_NAME));
 	}
 }
