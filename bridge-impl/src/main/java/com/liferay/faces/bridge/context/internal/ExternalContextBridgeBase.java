@@ -17,18 +17,14 @@ package com.liferay.faces.bridge.context.internal;
 
 import java.util.List;
 
-import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
-import javax.portlet.faces.BridgeException;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeFactoryFinder;
-import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.BridgeURLFactory;
 import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.internal.BridgeURIFactory;
@@ -76,25 +72,5 @@ public abstract class ExternalContextBridgeBase extends ExternalContext {
 				BridgeConfigAttributeMap.CONFIGURED_FACES_SERVLET_MAPPINGS);
 		this.configuredSuffixes = (List<String>) bridgeConfig.getAttributes().get(
 				BridgeConfigAttributeMap.CONFIGURED_SUFFIXES);
-	}
-
-	@Override
-	public String encodeActionURL(String url) {
-
-		if (url == null) {
-			throw new NullPointerException();
-		}
-		else {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-
-			try {
-				BridgeURL bridgeActionURL = bridgeURLFactory.getBridgeActionURL(facesContext, url);
-
-				return bridgeActionURL.toString();
-			}
-			catch (BridgeException e) {
-				throw new FacesException(e);
-			}
-		}
 	}
 }

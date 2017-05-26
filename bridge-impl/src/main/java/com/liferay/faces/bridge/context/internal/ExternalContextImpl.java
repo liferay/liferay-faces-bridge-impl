@@ -181,6 +181,35 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	}
 
 	/**
+	 * @see  {@link ExternalContext#encodeActionURL(String)}
+	 */
+	@Override
+	public String encodeActionURL(String url) {
+
+		if (isEncodingFormWithPrimeFacesAjaxFileUpload()) {
+			return encodePartialActionURL(url);
+		}
+		else {
+
+			if (url == null) {
+				throw new NullPointerException();
+			}
+			else {
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+
+				try {
+					BridgeURL bridgeActionURL = bridgeURLFactory.getBridgeActionURL(facesContext, url);
+
+					return bridgeActionURL.toString();
+				}
+				catch (BridgeException e) {
+					throw new FacesException(e);
+				}
+			}
+		}
+	}
+
+	/**
 	 * @see  ExternalContext#encodeNamespace(String)
 	 */
 	// Java 1.6+ @Override

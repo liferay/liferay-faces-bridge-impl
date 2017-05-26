@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.faces.context.ExternalContext;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -33,8 +32,6 @@ public abstract class ExternalContextCompat_1_2_Impl extends ExternalContextBrid
 	private static final String TRINIDAD_DISABLE_DIALOG_OUTCOMES =
 		"org.apache.myfaces.trinidad.DISABLE_DIALOG_OUTCOMES";
 
-	// Protected Data Members
-
 	public ExternalContextCompat_1_2_Impl(PortletContext portletContext, PortletRequest portletRequest,
 		PortletResponse portletResponse) {
 		super(portletContext, portletRequest, portletResponse);
@@ -43,18 +40,5 @@ public abstract class ExternalContextCompat_1_2_Impl extends ExternalContextBrid
 		// EVENT_PHASE of the portlet lifecycle. For more information on the feature, see:
 		// http://jsfatwork.irian.at/book_de/trinidad.html
 		portletContext.setAttribute(TRINIDAD_DISABLE_DIALOG_OUTCOMES, Boolean.TRUE);
-	}
-
-	/**
-	 * Note: The reason why this method appears here in {@link ExternalContextCompat_1_2_Impl} is because the method was
-	 * first introduced with JSF 1.0 and and also because it needs to be overridden by {@link
-	 * ExternalContextCompat_2_2_Impl} since it has special requirements for JSF 2.2.
-	 *
-	 * @see    {@link ExternalContext#encodeActionURL(String)}
-	 * @since  JSF 1.0
-	 */
-	@Override
-	public String encodeActionURL(String url) {
-		return super.encodeActionURL(url);
 	}
 }
