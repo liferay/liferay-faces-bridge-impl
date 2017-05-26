@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.scope.internal;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.lifecycle.ClientWindow;
+import java.util.Map;
 
 
 /**
@@ -27,12 +28,14 @@ public abstract class BridgeRequestScopeCompat_2_2_Impl extends BridgeRequestSco
 	private static final String BRIDGE_REQ_SCOPE_ATTR_CLIENT_WINDOW = "com.liferay.faces.bridge.clientWindow";
 
 	protected void restoreClientWindow(ExternalContext externalContext) {
-		ClientWindow clientWindow = (ClientWindow) getAttribute(BRIDGE_REQ_SCOPE_ATTR_CLIENT_WINDOW);
+		Map<String, Object> requestMap = externalContext.getRequestMap();
+		ClientWindow clientWindow = (ClientWindow) requestMap.remove(BRIDGE_REQ_SCOPE_ATTR_CLIENT_WINDOW);
 		externalContext.setClientWindow(clientWindow);
 	}
 
 	protected void saveClientWindow(ExternalContext externalContext) {
 		ClientWindow clientWindow = externalContext.getClientWindow();
-		setAttribute(BRIDGE_REQ_SCOPE_ATTR_CLIENT_WINDOW, clientWindow);
+		Map<String, Object> requestMap = externalContext.getRequestMap();
+		requestMap.put(BRIDGE_REQ_SCOPE_ATTR_CLIENT_WINDOW, clientWindow);
 	}
 }
