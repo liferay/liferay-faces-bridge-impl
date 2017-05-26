@@ -30,7 +30,7 @@ class ClientWindowTestUtil {
 		return null;
 	}
 
-	static boolean isClientWindowEnabled(FacesContext facesContext, ExternalContext externalContext) {
+	static boolean isClientWindowEnabled(ExternalContext externalContext) {
 		return false;
 	}
 }
