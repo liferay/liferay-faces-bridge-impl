@@ -15,9 +15,7 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -38,25 +36,6 @@ public abstract class ExternalContextCompat_1_2_Impl extends ExternalContextBrid
 	public ExternalContextCompat_1_2_Impl(PortletContext portletContext, PortletRequest portletRequest,
 		PortletResponse portletResponse) {
 		super(portletContext, portletRequest, portletResponse);
-	}
-
-	/**
-	 * Note: The reason why this method appears here in {@link ExternalContextCompat_1_2_Impl} is because the method was
-	 * first introduced with JSF 1.0 and and also because it needs to be overridden by {@link
-	 * ExternalContextCompat_2_2_Impl} since it has special requirements for JSF 2.2.
-	 *
-	 * @see    {@link ExternalContext#encodeActionURL(String)}
-	 * @since  JSF 1.0
-	 */
-	@Override
-	public String encodeActionURL(String url) {
-
-		if (isEncodingFormWithPrimeFacesAjaxFileUpload()) {
-			return encodePartialActionURL(url);
-		}
-		else {
-			return super.encodeActionURL(url);
-		}
 	}
 
 	protected boolean isEncodingFormWithPrimeFacesAjaxFileUpload() {
