@@ -94,6 +94,9 @@ limitations under the License.
 		<page name="primefaces-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.primefaces.applicant.portlet" name="1"/>
 		</page>
+		<page name="primepush-cdi-counter" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.demo.primepush.cdi.counter.portlet" name="1"/>
+		</page>
 		<page name="richfaces-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.richfaces.applicant.portlet" name="1"/>
 		</page>
