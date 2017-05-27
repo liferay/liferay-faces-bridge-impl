@@ -175,11 +175,6 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>testBean</managed-bean-name>
-		<managed-bean-class>com.liferay.faces.bridge.tck.beans.TestBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>nonJSFView</managed-bean-name>
 		<managed-bean-class>com.liferay.faces.bridge.tck.beans.NonJSFViewBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
