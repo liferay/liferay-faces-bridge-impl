@@ -228,7 +228,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 		if (portletPhase == Bridge.PortletPhase.RESOURCE_PHASE) {
 
-			String facesAjaxParameter = portletRequest.getParameter(Bridge.FACES_AJAX_PARAMETER);
+			String facesAjaxParameter = portletRequest.getParameter(BridgeExt.FACES_AJAX_PARAMETER);
 
 			if (BooleanHelper.isTrueToken(facesAjaxParameter)) {
 				bridgeRequestScopeEnabled = PortletConfigParam.BridgeRequestScopeAjaxEnabled.getBooleanValue(
