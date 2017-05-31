@@ -44,6 +44,7 @@ import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeCache;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeCacheFactory;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeFactory;
 import com.liferay.faces.bridge.util.internal.ViewUtil;
+import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -226,7 +227,17 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		boolean bridgeRequestScopeEnabled = true;
 
 		if (portletPhase == Bridge.PortletPhase.RESOURCE_PHASE) {
-			bridgeRequestScopeEnabled = PortletConfigParam.BridgeRequestScopeAjaxEnabled.getBooleanValue(portletConfig);
+
+			String facesAjaxParameter = portletRequest.getParameter(Bridge.FACES_AJAX_PARAMETER);
+
+			if (BooleanHelper.isTrueToken(facesAjaxParameter)) {
+				bridgeRequestScopeEnabled = PortletConfigParam.BridgeRequestScopeAjaxEnabled.getBooleanValue(
+						portletConfig);
+			}
+			else {
+				bridgeRequestScopeEnabled = PortletConfigParam.BridgeRequestScopeResourceEnabled.getBooleanValue(
+						portletConfig);
+			}
 		}
 
 		if (bridgeRequestScopeEnabled) {

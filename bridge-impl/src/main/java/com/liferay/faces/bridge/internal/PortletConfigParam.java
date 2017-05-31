@@ -31,16 +31,25 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 
 	/**
 	 * Flag indicating whether or not the bridge should manage BridgeRequestScope during the RESOURCE_PHASE of the
+	 * portlet lifecycle when the {@link javax.portlet.faces.Bridge#FACES_AJAX_PARAMETER} resource request parameter is
+	 * "true". Default value is false.
+	 */
+	BridgeRequestScopeAjaxEnabled("javax.portlet.faces.bridgeRequestScopeAjaxEnabled",
+		"com.liferay.faces.bridge.bridgeRequestScopeAjaxEnabled", false),
+
+	/**
+	 * Flag indicating whether or not the bridge should manage BridgeRequestScope during the RESOURCE_PHASE of the
 	 * portlet lifecycle. Default value is false. Set value to true in order to enable JSR 329 default behavior.
 	 */
-	BridgeRequestScopeAjaxEnabled("com.liferay.faces.bridge.bridgeRequestScopeAjaxEnabled", false),
+	BridgeRequestScopeResourceEnabled("javax.portlet.faces.bridgeRequestScopeResourceEnabled",
+		"com.liferay.faces.bridge.bridgeRequestScopeResourceEnabled", false),
 
 	/**
 	 * Flag indicating whether or not the bridge request scope is preserved after the RENDER_PHASE completes. Default
 	 * value is false. Set value to true in order to enable JSR 329 default behavior.
 	 */
-	BridgeRequestScopePreserved("com.liferay.faces.bridge.bridgeRequestScopePreserved",
-		"org.portletfaces.bridgeRequestScopePreserved", false),
+	BridgeRequestScopePreserved("javax.portlet.faces.bridgeRequestScopePreserved",
+		"com.liferay.faces.bridge.bridgeRequestScopePreserved", false),
 
 	/**
 	 * Flag indicating whether or not the portlet container has the ability to set the HTTP status code for resources.
@@ -103,15 +112,15 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	private long defaultLongValue;
 	private String name;
 
-	private PortletConfigParam(String name, String defaultStringValue) {
+	PortletConfigParam(String name, String defaultStringValue) {
 		this(name, null, defaultStringValue);
 	}
 
-	private PortletConfigParam(String name, boolean defaultBooleanValue) {
+	PortletConfigParam(String name, boolean defaultBooleanValue) {
 		this(name, null, defaultBooleanValue);
 	}
 
-	private PortletConfigParam(String name, String alternateName, int defaultIntegerValue) {
+	PortletConfigParam(String name, String alternateName, int defaultIntegerValue) {
 		this.name = name;
 		this.alternateName = alternateName;
 		this.defaultBooleanValue = (defaultIntegerValue != 0);
@@ -120,7 +129,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		this.defaultStringValue = Integer.toString(defaultIntegerValue);
 	}
 
-	private PortletConfigParam(String name, String alternateName, long defaultLongValue) {
+	PortletConfigParam(String name, String alternateName, long defaultLongValue) {
 		this.name = name;
 		this.alternateName = alternateName;
 		this.defaultBooleanValue = (defaultLongValue != 0);
@@ -139,7 +148,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		this.defaultStringValue = Long.toString(defaultLongValue);
 	}
 
-	private PortletConfigParam(String name, String alternateName, String defaultStringValue) {
+	PortletConfigParam(String name, String alternateName, String defaultStringValue) {
 		this.name = name;
 		this.alternateName = alternateName;
 
@@ -157,7 +166,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		this.defaultStringValue = defaultStringValue;
 	}
 
-	private PortletConfigParam(String name, String alternateName, boolean defaultBooleanValue) {
+	PortletConfigParam(String name, String alternateName, boolean defaultBooleanValue) {
 		this.name = name;
 		this.alternateName = alternateName;
 		this.defaultBooleanValue = defaultBooleanValue;
@@ -174,6 +183,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		}
 	}
 
+	@Override
 	public String getAlternateName() {
 		return alternateName;
 	}
@@ -188,10 +198,12 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		return PortletConfigParamUtil.getConfiguredValue(portletConfig, name, alternateName);
 	}
 
+	@Override
 	public boolean getDefaultBooleanValue() {
 		return defaultBooleanValue;
 	}
 
+	@Override
 	public int getDefaultIntegerValue() {
 		return defaultIntegerValue;
 	}
@@ -201,6 +213,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		return defaultLongValue;
 	}
 
+	@Override
 	public String getDefaultStringValue() {
 		return defaultStringValue;
 	}
@@ -215,6 +228,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		return PortletConfigParamUtil.getLongValue(portletConfig, name, alternateName, defaultLongValue);
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
