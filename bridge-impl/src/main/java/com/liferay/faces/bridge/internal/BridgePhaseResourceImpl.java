@@ -275,7 +275,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 
 				// The default behavior of Liferay Faces Bridge is to not manage the BridgeRequestScope during the
 				// RESOURCE_PHASE of the portlet lifecycle. But if the developer has enabled it via the
-				// "com.liferay.faces.bridge.bridgeRequestScopeAjaxEnabled" configuration parameter, then
+				// "javax.portlet.faces.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED" configuration parameter, then
 				if (bridgeRequestScope != null) {
 
 					// PROPOSED-FOR-BRIDGE3-API: https://issues.apache.org/jira/browse/PORTLETBRIDGE-202

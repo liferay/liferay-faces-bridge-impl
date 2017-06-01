@@ -64,7 +64,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 	protected BridgeConfig bridgeConfig;
 	protected BridgeRequestScope bridgeRequestScope;
 	protected BridgeRequestScopeCache bridgeRequestScopeCache;
-	protected boolean bridgeRequestScopePreserved;
+	protected boolean bridgeRequestScopeActionEnabled;
 	protected FacesContext facesContext;
 	protected IncongruityContext incongruityContext;
 	protected Lifecycle facesLifecycle;
@@ -80,7 +80,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		this.portletConfig = portletConfig;
 		this.bridgeConfig = bridgeConfig;
 		this.portletName = portletConfig.getPortletName();
-		this.bridgeRequestScopePreserved = PortletConfigParam.BridgeRequestScopePreserved.getBooleanValue(
+		this.bridgeRequestScopeActionEnabled = PortletConfigParam.BridgeRequestScopeActionEnabled.getBooleanValue(
 				portletConfig);
 
 		this.portletContext = BridgePortletContextFactory.getPortletContextInstance(portletConfig.getPortletContext());
@@ -262,7 +262,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 				}
 				else {
 
-					if (bridgeRequestScopePreserved) {
+					if (bridgeRequestScopeActionEnabled) {
 						logger.error(
 							"Found render parameter name=[{0}] value=[{1}] BUT bridgeRequestScope is NOT in the cache",
 							bridgeRequestScopeKey, bridgeRequestScopeId);
