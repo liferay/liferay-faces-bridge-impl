@@ -945,6 +945,10 @@
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
+		<init-param>
+			<name>javax.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED</name>
+			<value>true</value>
+		</init-param>
 
 		<expiration-cache>0</expiration-cache>
 
@@ -1656,6 +1660,10 @@
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/tests/redisplayResourceAjaxResult.xhtml</value>
+		</init-param>
+		<init-param>
+			<name>javax.portlet.faces.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED</name>
+			<value>true</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>

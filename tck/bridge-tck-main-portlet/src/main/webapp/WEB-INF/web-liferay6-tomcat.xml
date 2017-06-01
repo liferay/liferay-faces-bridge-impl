@@ -36,18 +36,6 @@
 	<!-- END: LIFERAY PORTAL -->
 	<!-- BEGIN: LIFERAY FACES BRIDGE -->
 	<context-param>
-		<param-name>com.liferay.faces.bridge.bridgeRequestScopeAjaxEnabled</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
-		<param-name>com.liferay.faces.bridge.bridgeRequestScopeResourceEnabled</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
-		<param-name>com.liferay.faces.bridge.bridgeRequestScopePreserved</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
 		<param-name>com.liferay.faces.bridge.renderRedirectEnabled</param-name>
 		<param-value>true</param-value>
 	</context-param>

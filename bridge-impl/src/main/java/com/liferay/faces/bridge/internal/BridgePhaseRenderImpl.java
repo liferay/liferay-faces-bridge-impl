@@ -74,7 +74,7 @@ public class BridgePhaseRenderImpl extends BridgePhaseRenderCompatImpl {
 	protected void cleanup(PortletRequest portletRequest) {
 
 		// If required, cause the BridgeRequestScope to go out-of-scope.
-		if (!bridgeRequestScopePreserved) {
+		if (!bridgeRequestScopeActionEnabled) {
 			bridgeRequestScopeCache.remove(bridgeRequestScope.getId());
 		}
 
