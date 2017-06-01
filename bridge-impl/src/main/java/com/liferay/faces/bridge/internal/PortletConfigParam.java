@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.internal;
 
 import javax.portlet.PortletConfig;
+import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.util.config.ConfigParam;
 import com.liferay.faces.util.helper.BooleanHelper;
@@ -30,26 +31,26 @@ import com.liferay.faces.util.helper.BooleanHelper;
 public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 
 	/**
+	 * Flag indicating whether or not the bridge request scope is preserved after the RENDER_PHASE completes. Default
+	 * value is false. Set value to true in order to enable JSR 329 default behavior.
+	 */
+	BridgeRequestScopeActionEnabled(Bridge.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED,
+		"com.liferay.faces.bridge.bridgeRequestScopePreserved", false),
+
+	/**
 	 * Flag indicating whether or not the bridge should manage BridgeRequestScope during the RESOURCE_PHASE of the
 	 * portlet lifecycle when the {@link javax.portlet.faces.Bridge#FACES_AJAX_PARAMETER} resource request parameter is
 	 * "true". Default value is false.
 	 */
-	BridgeRequestScopeAjaxEnabled("javax.portlet.faces.bridgeRequestScopeAjaxEnabled",
+	BridgeRequestScopeAjaxEnabled(Bridge.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED,
 		"com.liferay.faces.bridge.bridgeRequestScopeAjaxEnabled", false),
 
 	/**
 	 * Flag indicating whether or not the bridge should manage BridgeRequestScope during the RESOURCE_PHASE of the
 	 * portlet lifecycle. Default value is false. Set value to true in order to enable JSR 329 default behavior.
 	 */
-	BridgeRequestScopeResourceEnabled("javax.portlet.faces.bridgeRequestScopeResourceEnabled",
+	BridgeRequestScopeResourceEnabled(Bridge.BRIDGE_REQUEST_SCOPE_RESOURCE_ENABLED,
 		"com.liferay.faces.bridge.bridgeRequestScopeResourceEnabled", false),
-
-	/**
-	 * Flag indicating whether or not the bridge request scope is preserved after the RENDER_PHASE completes. Default
-	 * value is false. Set value to true in order to enable JSR 329 default behavior.
-	 */
-	BridgeRequestScopePreserved("javax.portlet.faces.bridgeRequestScopePreserved",
-		"com.liferay.faces.bridge.bridgeRequestScopePreserved", false),
 
 	/**
 	 * Flag indicating whether or not the portlet container has the ability to set the HTTP status code for resources.
