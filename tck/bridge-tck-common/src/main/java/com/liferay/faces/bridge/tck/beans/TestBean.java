@@ -31,22 +31,20 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 /**
  * @author  Michael Freedman
  */
-public class TestBean extends Object {
+public class TestBean {
 
 	// The portlet's name is testGroup-testName-portlet.  For example encodeActionURL_absoluteURLTest-portlet.
 	// testGroup corresponds to the managedBean name that holds the object containing the test.
 	// testName corresponds to the name of the Test that is the value of the
 	// test method annotation we look for to determine which method is called to run the test.
-	private String mTestGroup;
-	private String mTestName;
-
-	private Object mTest;
-
 	private BridgeTCKResultWriter mResultWriter;
 	private boolean mStatus = false;
-	private boolean mTestComplete = false;
-	private Method mTestMethod;
+	private Object mTest;
 	private Method mTestActionListener;
+	private boolean mTestComplete = false;
+	private String mTestGroup;
+	private Method mTestMethod;
+	private String mTestName;
 
 	public TestBean() {
 
@@ -223,7 +221,8 @@ public class TestBean extends Object {
 			}
 			catch (Exception e) {
 
-				// do nothing
+				e.printStackTrace();
+
 				return;
 			}
 		}
@@ -321,6 +320,7 @@ public class TestBean extends Object {
 				return (String) mTestMethod.invoke(mTest, this);
 			}
 			catch (Exception e) {
+				e.printStackTrace();
 				setTestResult(false, "Test failed: " + e.toString() + " thrown during invocation");
 
 				return Constants.TEST_FAILED;
