@@ -16,9 +16,12 @@
 package com.liferay.faces.bridge.i18n.internal;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -108,9 +111,43 @@ public class I18nBridgeImpl extends I18nWrapper implements Serializable {
 		PortletConfig portletConfig = (PortletConfig) requestMap.get(PortletConfig.class.getName());
 
 		if (portletConfig != null) {
-			return portletConfig.getResourceBundle(locale);
+
+			ResourceBundle resourceBundle = portletConfig.getResourceBundle(locale);
+
+			try {
+
+				// https://issues.liferay.com/browse/FACES-2819
+				// https://issues.liferay.com/browse/FACES-3097
+				resourceBundle.containsKey("testNullPointerException");
+			}
+			catch (NullPointerException e) {
+				resourceBundle = new EmptyResourceBundle();
+			}
+
+			return resourceBundle;
 		}
 		else {
+			return null;
+		}
+	}
+
+	private static final class EmptyResourceBundle extends ResourceBundle {
+
+		// Private Data Members
+		private Set<String> keys = Collections.emptySet();
+
+		@Override
+		public boolean containsKey(String key) {
+			return false;
+		}
+
+		@Override
+		public Enumeration<String> getKeys() {
+			return Collections.enumeration(keys);
+		}
+
+		@Override
+		protected Object handleGetObject(String key) {
 			return null;
 		}
 	}
