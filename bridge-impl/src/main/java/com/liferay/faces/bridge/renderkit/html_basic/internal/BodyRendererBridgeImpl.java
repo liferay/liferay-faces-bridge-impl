@@ -96,18 +96,18 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 		// generated HTML will be invalid. Despite the invalidness of the generated HTML, all popular browsers will
 		// correctly load and render the CSS. For more details about valid HTML markup, see:
 		// https://html.spec.whatwg.org/multipage/semantics.html#the-style-element
-		// https://html.spec.whatwg.org/multipage/semantics.html#the-link-element 
-    
-		if(headResourcesToRenderInBody != null) {
+		// https://html.spec.whatwg.org/multipage/semantics.html#the-link-element
+		if (headResourcesToRenderInBody != null) {
+
 			for (UIComponent headResource : headResourcesToRenderInBody) {
 
 				headResource.encodeAll(facesContext);
 
-				// If the portlet's body (<div>) section is reloaded during an Ajax request, stylesheet resources included
-				// in the <div> will be removed and unloaded. Since the stylesheet resources will be unloaded (and reloaded
-				// if necessary), we do not need to track them when they are rendered to the body section. However, scripts
-				// cannot be unloaded, so relocated scripts rendered in the body section must be tracked as if they were
-				// rendered in the <head> section so that they are not loaded multiple times.
+				// If the portlet's body (<div>) section is reloaded during an Ajax request, stylesheet resources
+				// included in the <div> will be removed and unloaded. Since the stylesheet resources will be unloaded
+				// (and reloaded if necessary), we do not need to track them when they are rendered to the body section.
+				// However, scripts cannot be unloaded, so relocated scripts rendered in the body section must be
+				// tracked as if they were rendered in the <head> section so that they are not loaded multiple times.
 				if (RenderKitUtil.isScriptResource(headResource)) {
 					headResourceIds.add(ResourceUtil.getResourceId(headResource));
 				}
