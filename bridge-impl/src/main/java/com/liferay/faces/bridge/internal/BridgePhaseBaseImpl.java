@@ -78,12 +78,11 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 	public BridgePhaseBaseImpl(PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		this.portletConfig = portletConfig;
-		this.bridgeConfig = bridgeConfig;
+		this.portletContext = portletConfig.getPortletContext();
 		this.portletName = portletConfig.getPortletName();
+		this.bridgeConfig = bridgeConfig;
 		this.bridgeRequestScopeActionEnabled = PortletConfigParam.BridgeRequestScopeActionEnabled.getBooleanValue(
 				portletConfig);
-
-		this.portletContext = BridgePortletContextFactory.getPortletContextInstance(portletConfig.getPortletContext());
 
 		// Initialize the incongruity context implementation.
 		this.incongruityContext = IncongruityContextFactory.getIncongruityContextInstance(portletContext);
