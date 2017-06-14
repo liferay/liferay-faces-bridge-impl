@@ -56,7 +56,6 @@
 			<bridge:bridge-event-handler-factory>com.liferay.faces.bridge.internal.BridgeEventHandlerFactoryImpl</bridge:bridge-event-handler-factory>
 			<bridge:bridge-flash-factory>com.liferay.faces.bridge.context.flash.internal.BridgeFlashFactoryImpl</bridge:bridge-flash-factory>
 			<bridge:bridge-portlet-config-factory>com.liferay.faces.bridge.filter.internal.BridgePortletConfigFactoryImpl</bridge:bridge-portlet-config-factory>
-			<bridge:bridge-portlet-context-factory>com.liferay.faces.bridge.filter.internal.BridgePortletContextFactoryImpl</bridge:bridge-portlet-context-factory>
 			<bridge:bridge-portlet-request-factory>com.liferay.faces.bridge.filter.internal.BridgePortletRequestFactoryImpl</bridge:bridge-portlet-request-factory>
 			<bridge:bridge-portlet-response-factory>com.liferay.faces.bridge.filter.internal.BridgePortletResponseFactoryImpl</bridge:bridge-portlet-response-factory>
 			<bridge:bridge-public-render-parameter-handler-factory>com.liferay.faces.bridge.internal.BridgePublicRenderParameterHandlerFactoryImpl</bridge:bridge-public-render-parameter-handler-factory>

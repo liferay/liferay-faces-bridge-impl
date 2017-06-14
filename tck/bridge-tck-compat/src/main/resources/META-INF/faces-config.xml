@@ -15,7 +15,7 @@
 		<!-- TestPage082 (facesContextFactoryServiceProviderTest) loads factory from META-INF/services/javax.faces.context.FacesContextFactory 
 			<faces-context-factory>com.liferay.faces.bridge.tck.context.FacesContextFactoryTCKImpl</faces-context-factory> -->
 		<factory-extension>
-			<bridge:bridge-portlet-context-factory>com.liferay.faces.bridge.tck.filter.BridgePortletContextFactoryTCKImpl</bridge:bridge-portlet-context-factory>
+			<bridge:bridge-portlet-config-factory>com.liferay.faces.bridge.tck.filter.BridgePortletConfigFactoryTCKImpl</bridge:bridge-portlet-config-factory>
 			<bridge:bridge-portlet-request-factory>com.liferay.faces.bridge.tck.filter.BridgePortletRequestFactoryTCKImpl</bridge:bridge-portlet-request-factory>
 		</factory-extension>
 	</factory>
