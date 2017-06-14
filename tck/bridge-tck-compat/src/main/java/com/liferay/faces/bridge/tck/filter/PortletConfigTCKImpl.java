@@ -15,25 +15,83 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
+import java.util.Enumeration;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
+
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
-import javax.portlet.filter.PortletConfigWrapper;
+import javax.xml.namespace.QName;
 
 
 /**
  * @author  Neil Griffin
  */
-public class PortletConfigTCKImpl extends PortletConfigWrapper {
+public class PortletConfigTCKImpl implements PortletConfig {
+
+	// Private Data Members
+	private PortletConfig portletConfig;
 
 	public PortletConfigTCKImpl(PortletConfig portletConfig) {
-		super(portletConfig);
+		this.portletConfig = portletConfig;
+	}
+
+	@Override
+	public Map<String, String[]> getContainerRuntimeOptions() {
+		return portletConfig.getContainerRuntimeOptions();
+	}
+
+	@Override
+	public String getDefaultNamespace() {
+		return portletConfig.getDefaultNamespace();
+	}
+
+	@Override
+	public String getInitParameter(String name) {
+		return portletConfig.getInitParameter(name);
+	}
+
+	@Override
+	public Enumeration<String> getInitParameterNames() {
+		return portletConfig.getInitParameterNames();
 	}
 
 	@Override
 	public PortletContext getPortletContext() {
 
-		PortletContext wrappedPortletContext = getWrapped().getPortletContext();
+		PortletContext wrappedPortletContext = portletConfig.getPortletContext();
 
 		return new PortletContextTCKImpl(wrappedPortletContext);
+	}
+
+	@Override
+	public String getPortletName() {
+		return portletConfig.getPortletName();
+	}
+
+	@Override
+	public Enumeration<QName> getProcessingEventQNames() {
+		return portletConfig.getProcessingEventQNames();
+	}
+
+	@Override
+	public Enumeration<String> getPublicRenderParameterNames() {
+		return portletConfig.getPublicRenderParameterNames();
+	}
+
+	@Override
+	public Enumeration<QName> getPublishingEventQNames() {
+		return portletConfig.getPublishingEventQNames();
+	}
+
+	@Override
+	public ResourceBundle getResourceBundle(Locale locale) {
+		return portletConfig.getResourceBundle(locale);
+	}
+
+	@Override
+	public Enumeration<Locale> getSupportedLocales() {
+		return portletConfig.getSupportedLocales();
 	}
 }
