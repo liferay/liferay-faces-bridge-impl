@@ -20,16 +20,17 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javax.faces.FacesWrapper;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.xml.namespace.QName;
+
+import com.liferay.faces.util.helper.Wrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public class PortletConfigTCKImpl implements PortletConfig, FacesWrapper<PortletConfig> {
+public class PortletConfigTCKImpl implements PortletConfig, Wrapper<PortletConfig> {
 
 	// Private Data Members
 	private PortletConfig wrappedPortletConfig;
@@ -38,27 +39,27 @@ public class PortletConfigTCKImpl implements PortletConfig, FacesWrapper<Portlet
 		this.wrappedPortletConfig = portletConfig;
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public Map<String, String[]> getContainerRuntimeOptions() {
 		return wrappedPortletConfig.getContainerRuntimeOptions();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public String getDefaultNamespace() {
 		return wrappedPortletConfig.getDefaultNamespace();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public String getInitParameter(String name) {
 		return wrappedPortletConfig.getInitParameter(name);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public Enumeration<String> getInitParameterNames() {
 		return wrappedPortletConfig.getInitParameterNames();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public PortletContext getPortletContext() {
 
 		PortletContext wrappedPortletContext = wrappedPortletConfig.getPortletContext();
@@ -66,37 +67,37 @@ public class PortletConfigTCKImpl implements PortletConfig, FacesWrapper<Portlet
 		return new PortletContextTCKImpl(wrappedPortletContext);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public String getPortletName() {
 		return wrappedPortletConfig.getPortletName();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public Enumeration<QName> getProcessingEventQNames() {
 		return wrappedPortletConfig.getProcessingEventQNames();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public Enumeration<String> getPublicRenderParameterNames() {
 		return wrappedPortletConfig.getPublicRenderParameterNames();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public Enumeration<QName> getPublishingEventQNames() {
 		return wrappedPortletConfig.getPublishingEventQNames();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public ResourceBundle getResourceBundle(Locale locale) {
 		return wrappedPortletConfig.getResourceBundle(locale);
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public Enumeration<Locale> getSupportedLocales() {
 		return wrappedPortletConfig.getSupportedLocales();
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public PortletConfig getWrapped() {
 		return wrappedPortletConfig;
 	}
