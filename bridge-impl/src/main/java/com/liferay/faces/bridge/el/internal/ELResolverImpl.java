@@ -36,7 +36,6 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeUtil;
-import javax.portlet.filter.PortletConfigWrapper;
 import javax.servlet.jsp.JspContext;
 
 import com.liferay.faces.bridge.context.internal.LegacyBridgeContext;
@@ -332,14 +331,7 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 					value = bridgeConfig;
 				}
 				else if (varName.equals(PORTLET_CONFIG)) {
-
-					value = RequestMapUtil.getPortletConfig(portletRequest);
-
-					// Unwrap the PortletConfigWrapper to conform to the TCK's expectations.
-					while (value instanceof PortletConfigWrapper) {
-						PortletConfigWrapper portletConfigWrapper = (PortletConfigWrapper) value;
-						value = portletConfigWrapper.getWrapped();
-					}
+					value = unwrapPortletConfig(RequestMapUtil.getPortletConfig(portletRequest));
 				}
 				else {
 					value = new LegacyBridgeContext(bridgeConfig);
@@ -382,8 +374,8 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				PortletConfig portletConfig = RequestMapUtil.getPortletConfig(portletRequest);
 				PortletContext portletContext = portletConfig.getPortletContext();
 				boolean preferPreDestroy = PortletConfigParam.PreferPreDestroy.getBooleanValue(portletConfig);
-				ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
-						portletContext, ContextMapFactory.class);
+				ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
+						ContextMapFactory.class);
 				value = contextMapFactory.getSessionScopeMap(portletContext, portletSession,
 						PortletSession.APPLICATION_SCOPE, preferPreDestroy);
 			}
