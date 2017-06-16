@@ -21,7 +21,9 @@ import java.util.List;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
+import javax.faces.FacesWrapper;
 import javax.faces.context.FacesContext;
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
@@ -72,5 +74,18 @@ public abstract class ELResolverCompatImpl extends ELResolver {
 
 	protected Object resolveVariable(ELContext elContext, String varName) {
 		return null;
+	}
+
+	protected PortletConfig unwrapPortletConfig(PortletConfig portletConfig) {
+
+		// Unwrap the PortletConfigWrapper to conform to the TCK's expectations. Note that this is not necessary with
+		// JSR 378 since the TCK was modified to take BridgePortletConifigFactory into account. For more information,
+		// see: https://issues.liferay.com/browse/FACES-3108
+		while ((portletConfig instanceof FacesWrapper) && (portletConfig instanceof PortletConfig)) {
+			FacesWrapper<PortletConfig> portletConfigWrapper = (FacesWrapper<PortletConfig>) portletConfig;
+			portletConfig = portletConfigWrapper.getWrapped();
+		}
+
+		return portletConfig;
 	}
 }

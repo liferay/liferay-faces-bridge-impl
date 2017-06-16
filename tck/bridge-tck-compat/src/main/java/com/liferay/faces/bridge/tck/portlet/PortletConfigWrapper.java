@@ -28,70 +28,68 @@ import com.liferay.faces.util.helper.Wrapper;
 
 
 /**
+ * NOTE: This class intentionally does NOT implement FacesWrapper<PortletConfig> in order to prevent
+ * ELResolverImpl.resolveVariable(ELContext,String) from unwrapping the PortletConfig too much, which would cause a TCK
+ * failure in TestPage201 (JSF_ELTest). This will not be necessary with JSR 378. For more information, see:
+ * https://issues.liferay.com/browse/FACES-3108
+ *
  * @author  Neil Griffin
  */
+public abstract class PortletConfigWrapper implements PortletConfig {
 
-public class PortletConfigWrapper implements PortletConfig, Wrapper<PortletConfig> {
-
-	private PortletConfig wrappedPortletConfig;
+	protected PortletConfig wrappedPortletConfig;
 
 	public PortletConfigWrapper(PortletConfig portletConfig) {
 		this.wrappedPortletConfig = portletConfig;
 	}
 
+	// Java 1.6+ @Override
 	public Map<String, String[]> getContainerRuntimeOptions() {
 		return wrappedPortletConfig.getContainerRuntimeOptions();
 	}
 
+	// Java 1.6+ @Override
 	public String getDefaultNamespace() {
 		return wrappedPortletConfig.getDefaultNamespace();
 	}
 
+	// Java 1.6+ @Override
 	public String getInitParameter(String arg0) {
 		return wrappedPortletConfig.getInitParameter(arg0);
 	}
 
+	// Java 1.6+ @Override
 	public Enumeration<String> getInitParameterNames() {
 		return wrappedPortletConfig.getInitParameterNames();
 	}
 
+	// Java 1.6+ @Override
 	public PortletContext getPortletContext() {
 		return wrappedPortletConfig.getPortletContext();
 	}
 
-	public String getPortletName() {
-
-		String portletName = wrappedPortletConfig.getPortletName();
-
-		// Example: Transform "chapter5_2TestsisPostbackTestportlet" to "chapter5_2Tests-isPostbackTest-portlet"
-		portletName = portletName.replaceFirst("Tests", "Tests-");
-		portletName = portletName.replaceAll("portlet$", "-portlet");
-
-		return portletName;
-	}
-
+	// Java 1.6+ @Override
 	public Enumeration<QName> getProcessingEventQNames() {
 		return wrappedPortletConfig.getProcessingEventQNames();
 	}
 
+	// Java 1.6+ @Override
 	public Enumeration<String> getPublicRenderParameterNames() {
 		return wrappedPortletConfig.getPublicRenderParameterNames();
 	}
 
+	// Java 1.6+ @Override
 	public Enumeration<QName> getPublishingEventQNames() {
 		return wrappedPortletConfig.getPublishingEventQNames();
 	}
 
+	// Java 1.6+ @Override
 	public ResourceBundle getResourceBundle(Locale arg0) {
 		return wrappedPortletConfig.getResourceBundle(arg0);
 	}
 
+	// Java 1.6+ @Override
 	public Enumeration<Locale> getSupportedLocales() {
 		return wrappedPortletConfig.getSupportedLocales();
-	}
-
-	// Java 1.6+ @Override
-	public PortletConfig getWrapped() {
-		return wrappedPortletConfig;
 	}
 }

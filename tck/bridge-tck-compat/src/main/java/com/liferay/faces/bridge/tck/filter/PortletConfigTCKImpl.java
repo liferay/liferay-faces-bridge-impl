@@ -20,6 +20,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.faces.FacesWrapper;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.xml.namespace.QName;
@@ -28,70 +29,75 @@ import javax.xml.namespace.QName;
 /**
  * @author  Neil Griffin
  */
-public class PortletConfigTCKImpl implements PortletConfig {
+public class PortletConfigTCKImpl implements PortletConfig, FacesWrapper<PortletConfig> {
 
 	// Private Data Members
-	private PortletConfig portletConfig;
+	private PortletConfig wrappedPortletConfig;
 
 	public PortletConfigTCKImpl(PortletConfig portletConfig) {
-		this.portletConfig = portletConfig;
+		this.wrappedPortletConfig = portletConfig;
 	}
 
 	@Override
 	public Map<String, String[]> getContainerRuntimeOptions() {
-		return portletConfig.getContainerRuntimeOptions();
+		return wrappedPortletConfig.getContainerRuntimeOptions();
 	}
 
 	@Override
 	public String getDefaultNamespace() {
-		return portletConfig.getDefaultNamespace();
+		return wrappedPortletConfig.getDefaultNamespace();
 	}
 
 	@Override
 	public String getInitParameter(String name) {
-		return portletConfig.getInitParameter(name);
+		return wrappedPortletConfig.getInitParameter(name);
 	}
 
 	@Override
 	public Enumeration<String> getInitParameterNames() {
-		return portletConfig.getInitParameterNames();
+		return wrappedPortletConfig.getInitParameterNames();
 	}
 
 	@Override
 	public PortletContext getPortletContext() {
 
-		PortletContext wrappedPortletContext = portletConfig.getPortletContext();
+		PortletContext wrappedPortletContext = wrappedPortletConfig.getPortletContext();
 
 		return new PortletContextTCKImpl(wrappedPortletContext);
 	}
 
 	@Override
 	public String getPortletName() {
-		return portletConfig.getPortletName();
+		return wrappedPortletConfig.getPortletName();
 	}
 
 	@Override
 	public Enumeration<QName> getProcessingEventQNames() {
-		return portletConfig.getProcessingEventQNames();
+		return wrappedPortletConfig.getProcessingEventQNames();
 	}
 
 	@Override
 	public Enumeration<String> getPublicRenderParameterNames() {
-		return portletConfig.getPublicRenderParameterNames();
+		return wrappedPortletConfig.getPublicRenderParameterNames();
 	}
 
 	@Override
 	public Enumeration<QName> getPublishingEventQNames() {
-		return portletConfig.getPublishingEventQNames();
+		return wrappedPortletConfig.getPublishingEventQNames();
 	}
 
 	@Override
 	public ResourceBundle getResourceBundle(Locale locale) {
-		return portletConfig.getResourceBundle(locale);
+		return wrappedPortletConfig.getResourceBundle(locale);
 	}
 
 	@Override
 	public Enumeration<Locale> getSupportedLocales() {
-		return portletConfig.getSupportedLocales();
+		return wrappedPortletConfig.getSupportedLocales();
+	}
+
+	@Override
+	public PortletConfig getWrapped() {
+		return wrappedPortletConfig;
 	}
 }

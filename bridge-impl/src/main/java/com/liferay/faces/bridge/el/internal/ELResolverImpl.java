@@ -41,7 +41,6 @@ import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.context.internal.LegacyBridgeContext;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
-import com.liferay.faces.bridge.internal.PortletConfigWrapper;
 import com.liferay.faces.bridge.preference.internal.MutablePreferenceMap;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
@@ -332,14 +331,7 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 					value = bridgeConfig;
 				}
 				else if (varName.equals(PORTLET_CONFIG)) {
-
-					value = RequestMapUtil.getPortletConfig(portletRequest);
-
-					// Unwrap the PortletConfigWrapper to conform to the TCK's expectations.
-					while (value instanceof PortletConfigWrapper) {
-						PortletConfigWrapper portletConfigWrapper = (PortletConfigWrapper) value;
-						value = portletConfigWrapper.getWrapped();
-					}
+					value = unwrapPortletConfig(RequestMapUtil.getPortletConfig(portletRequest));
 				}
 				else {
 					value = new LegacyBridgeContext(bridgeConfig);
