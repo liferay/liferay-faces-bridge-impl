@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.tck.portlet;
 
 import javax.portlet.PortletConfig;
-import javax.portlet.filter.PortletConfigWrapper;
 
 
 /**
@@ -32,7 +31,7 @@ public class PortletConfigTCKCompat extends PortletConfigWrapper {
 	@Override
 	public String getPortletName() {
 
-		String portletName = getWrapped().getPortletName();
+		String portletName = wrappedPortletConfig.getPortletName();
 
 		// Example: Transform "chapter5_2TestsisPostbackTestportlet" to "chapter5_2Tests-isPostbackTest-portlet"
 		portletName = portletName.replaceFirst("Tests", "Tests-");
