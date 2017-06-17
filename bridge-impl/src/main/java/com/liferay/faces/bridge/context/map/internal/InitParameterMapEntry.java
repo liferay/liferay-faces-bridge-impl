@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.context.map.internal;
 
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
@@ -25,17 +26,29 @@ import com.liferay.faces.util.map.AbstractPropertyMapEntry;
  */
 public class InitParameterMapEntry extends AbstractPropertyMapEntry<String> {
 
+	// Private Data Members
+	private PortletConfig portletConfig;
 	private PortletContext portletContext;
 
-	public InitParameterMapEntry(PortletContext portletContext, String key) {
+	public InitParameterMapEntry(PortletConfig portletConfig, String key) {
 		super(key);
-		this.portletContext = portletContext;
+		this.portletConfig = portletConfig;
+		this.portletContext = portletConfig.getPortletContext();
 	}
 
+	@Override
 	public String getValue() {
-		return portletContext.getInitParameter(getKey());
+
+		String value = portletConfig.getInitParameter(getKey());
+
+		if (value == null) {
+			value = portletContext.getInitParameter(getKey());
+		}
+
+		return value;
 	}
 
+	@Override
 	public String setValue(String value) {
 		throw new UnsupportedOperationException();
 	}
