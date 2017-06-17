@@ -193,8 +193,8 @@ NOTE:
 	<entry key="TestPage183">chapter6_1_3_2Tests-getApplicationMapTest-portlet</entry>
 	<entry key="TestPage184">chapter6_1_3_2Tests-getAuthTypeTest-portlet</entry>
 	<entry key="TestPage185">chapter6_1_3_2Tests-getContextTest-portlet</entry>
-	<entry key="TestPage186">chapter6_1_3_2Tests-getInitParameterTest-portlet</entry>
-	<entry key="TestPage187">chapter6_1_3_2Tests-getInitParameterMapTest-portlet</entry>
+	<entry key="TestPage186">chapter6_1_3_2InitParameterTests-getInitParameterTest-portlet</entry>
+	<entry key="TestPage187">chapter6_1_3_2InitParameterTests-getInitParameterMapTest-portlet</entry>
 	<entry key="TestPage188">chapter6_1_3_2Tests-getRemoteUserTest-portlet</entry>
 	<entry key="TestPage189">chapter6_1_3_2Tests-getRequestContextPathTest-portlet</entry>
 	<entry key="TestPage190">chapter6_1_3_2Tests-getRequestCookieMapTest-portlet</entry>

@@ -643,10 +643,10 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_2Tests-getContextTest-portlet"/>
 		</page>
 		<page name="TestPage186" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_2Tests-getInitParameterTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_2InitParameterTests-getInitParameterTest-portlet"/>
 		</page>
 		<page name="TestPage187" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_2Tests-getInitParameterMapTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_2InitParameterTests-getInitParameterMapTest-portlet"/>
 		</page>
 		<page name="TestPage188" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_2Tests-getRemoteUserTest-portlet"/>

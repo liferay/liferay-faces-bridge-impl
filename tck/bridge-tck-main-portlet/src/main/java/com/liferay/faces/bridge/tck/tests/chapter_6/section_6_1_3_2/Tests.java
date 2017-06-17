@@ -227,96 +227,6 @@ public class Tests extends Object {
 		}
 	}
 
-	/**
-	 * getInitParameterMap Tests
-	 */
-	// Test #6.72
-	@BridgeTest(test = "getInitParameterMapTest")
-	public String getInitParameterMapTest(TestBean testBean) {
-		testBean.setTestComplete(true);
-
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-
-		// Test the following:
-		// 1. Map is immutable
-		// 2. Map contains attributes in the underlying portlet context
-
-		PortletContext portletCtx = (PortletContext) externalContext.getContext();
-		Map<String, String> externalContextInitParamMap = externalContext.getInitParameterMap();
-
-		// ensure they start out identical
-		if (
-			!containsIdenticalInitParamEntries(externalContextInitParamMap,
-					(Enumeration<String>) portletCtx.getInitParameterNames(), portletCtx)) {
-			testBean.setTestResult(false,
-				"Failed: Portlet context initParams and the externalContext initParameterMap entries aren't identical.");
-
-			return Constants.TEST_FAILED;
-		}
-
-		// Test for immutability
-		try {
-			externalContextInitParamMap.put("Test0Key", "Test0Value");
-			testBean.setTestResult(false,
-				"Failed: ExternalContext's initParameterMap isn't immutable -- a put() suceeded.");
-
-			return Constants.TEST_FAILED;
-		}
-		catch (Exception e) {
-			// this is what we expect -- just forge ahead;
-		}
-
-		// Otherwise all out tests passed:
-
-		testBean.setTestResult(true, "The Map returned from initParameterMap is immutable.");
-		testBean.appendTestDetail("The initParameterMap Map correctly expresses attributes in the underlying context.");
-
-		return Constants.TEST_SUCCESS;
-
-	}
-
-	// Test #6.71
-	@BridgeTest(test = "getInitParameterTest")
-	public String getInitParameterTest(TestBean testBean) {
-		testBean.setTestComplete(true);
-
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletContext portletContext = (PortletContext) externalContext.getContext();
-
-		// Get the enum of initparameter names -- then get one of the parameters
-		// and make sure the same object is returned.
-		Enumeration<String> e = portletContext.getInitParameterNames();
-
-		if (!e.hasMoreElements()) {
-			testBean.setTestResult(false, "externalContext.getInitParameter() failed: there are no initParameters");
-		}
-		else {
-			String name = e.nextElement();
-			String externalContextInitParam = externalContext.getInitParameter(name);
-			String portletContextInitParam = portletContext.getInitParameter(name);
-
-			if (externalContextInitParam.equals(portletContextInitParam)) {
-				testBean.setTestResult(true,
-					"externalContext.getInitParameter() correctly returned the same value as PortletContext.getInitParameter.");
-			}
-			else {
-				testBean.setTestResult(false,
-					"externalContext.getInitParameter() failed: it returned a different value than PortletContext.getInitParameter.  Expected: " +
-					portletContextInitParam + " but received: " + externalContextInitParam);
-			}
-		}
-
-		if (testBean.getTestStatus()) {
-			return Constants.TEST_SUCCESS;
-		}
-		else {
-			return Constants.TEST_FAILED;
-
-		}
-	}
-
 	// Test #6.73
 	@BridgeTest(test = "getRemoteUserTest")
 	public String getRemoteUserTest(TestBean testBean) {
@@ -854,40 +764,6 @@ public class Tests extends Object {
 				continue; // technically shouldn't have this but some container do
 
 			if ((mapObj == null) || (attrValue == null) || !mapObj.equals(attrValue)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	private boolean containsIdenticalInitParamEntries(Map<String, String> m, Enumeration<String> eNames,
-		PortletContext portletContext) {
-
-		// For each entry in m ensure there is an identical one in the context
-		for (Iterator<Map.Entry<String, String>> entries = m.entrySet().iterator(); entries.hasNext();) {
-			Map.Entry<String, String> e = entries.next();
-			String value = portletContext.getInitParameter(e.getKey());
-			String mapObj = e.getValue();
-
-			if ((mapObj == null) && (value == null))
-				continue; // technically shouldn't have this but some container do
-
-			if ((mapObj == null) || (value == null) || !mapObj.equals(value)) {
-				return false;
-			}
-		}
-
-		// For each entry in the context -- ensure there is an identical one in the map
-		while (eNames.hasMoreElements()) {
-			String key = eNames.nextElement();
-			Object value = portletContext.getInitParameter(key);
-			Object mapObj = m.get(key);
-
-			if ((mapObj == null) && (value == null))
-				continue; // technically shouldn't have this but some container do
-
-			if ((mapObj == null) || (value == null) || !mapObj.equals(value)) {
 				return false;
 			}
 		}
