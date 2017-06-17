@@ -124,6 +124,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>chapter6_1_3_2InitParameterTests</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_2.InitParameterTests</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>chapter6_1_3_2Tests</managed-bean-name>
 		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_2.Tests</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
