@@ -4391,12 +4391,16 @@
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_2Tests-getInitParameterTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_2InitParameterTests-getInitParameterTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
+		</init-param>
+		<init-param>
+			<name>tckParam2</name>
+			<value>portlet-xml-tck-param2-value</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4405,17 +4409,21 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_2Tests-getInitParameterTest-portlet</title>
+			<title>chapter6_1_3_2InitParameterTests-getInitParameterTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
 	<portlet>
-		<portlet-name>chapter6_1_3_2Tests-getInitParameterMapTest-portlet</portlet-name>
+		<portlet-name>chapter6_1_3_2InitParameterTests-getInitParameterMapTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
+		</init-param>
+		<init-param>
+			<name>tckParam2</name>
+			<value>portlet-xml-tck-param2-value</value>
 		</init-param>
 
 		<expiration-cache>0</expiration-cache>
@@ -4424,7 +4432,7 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter6_1_3_2Tests-getInitParameterMapTest-portlet</title>
+			<title>chapter6_1_3_2InitParameterTests-getInitParameterMapTest-portlet</title>
 		</portlet-info>
 	</portlet>
 
