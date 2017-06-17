@@ -1366,7 +1366,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 				PortletSession.PORTLET_SCOPE, preferPreDestroy);
 
 		// Initialize the init parameter map.
-		initParameterMap = contextMapFactory.getInitParameterMap(portletContext);
+		initParameterMap = contextMapFactory.getInitParameterMap(portletConfig);
 
 		// Initialize the request context path.
 		requestContextPath = portletRequest.getContextPath();

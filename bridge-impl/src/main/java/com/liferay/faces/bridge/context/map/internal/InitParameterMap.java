@@ -15,8 +15,13 @@
  */
 package com.liferay.faces.bridge.context.map.internal;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.Set;
 
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
@@ -31,24 +36,46 @@ import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 public class InitParameterMap extends AbstractImmutablePropertyMap<String> {
 
 	// Private Data Members
+	private PortletConfig portletConfig;
 	private PortletContext portletContext;
 
-	public InitParameterMap(PortletContext portletContext) {
-		this.portletContext = portletContext;
+	public InitParameterMap(PortletConfig portletConfig) {
+		this.portletConfig = portletConfig;
+		this.portletContext = portletConfig.getPortletContext();
 	}
 
 	@Override
 	protected AbstractPropertyMapEntry<String> createPropertyMapEntry(String name) {
-		return new InitParameterMapEntry(portletContext, name);
+		return new InitParameterMapEntry(portletConfig, name);
 	}
 
 	@Override
 	protected Enumeration<String> getImmutablePropertyNames() {
-		return portletContext.getInitParameterNames();
+
+		Enumeration<String> portletConfigInitParameterNames = portletConfig.getInitParameterNames();
+		List<String> propertyNameList = Collections.list(portletConfigInitParameterNames);
+		Enumeration<String> portletContextInitParameterNames = portletContext.getInitParameterNames();
+
+		while (portletContextInitParameterNames.hasMoreElements()) {
+			String portletContextInitParameterName = portletContextInitParameterNames.nextElement();
+
+			if (!propertyNameList.contains(portletContextInitParameterName)) {
+				propertyNameList.add(portletContextInitParameterName);
+			}
+		}
+
+		return Collections.enumeration(propertyNameList);
 	}
 
 	@Override
 	protected String getProperty(String name) {
-		return portletContext.getInitParameter(name);
+
+		String value = portletConfig.getInitParameter(name);
+
+		if (value == null) {
+			value = portletContext.getInitParameter(name);
+		}
+
+		return value;
 	}
 }

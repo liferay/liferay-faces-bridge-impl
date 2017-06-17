@@ -61,8 +61,8 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 	}
 
 	@Override
-	public Map<String, String> getInitParameterMap(PortletContext portletContext) {
-		return Collections.unmodifiableMap(new InitParameterMap(portletContext));
+	public Map<String, String> getInitParameterMap(PortletConfig portletConfig) {
+		return Collections.unmodifiableMap(new InitParameterMap(portletConfig));
 	}
 
 	@Override
@@ -189,7 +189,8 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 
 				if (multiPartFormData == null) {
 					facesRequestParameterMap = new FacesRequestParameterMapImpl(responseNamespace, bridgeRequestScope,
-							facesViewParameterMap, defaultRenderKitId, getSeparatorChar(), strictParameterNamespacing, namespaceViewState);
+							facesViewParameterMap, defaultRenderKitId, getSeparatorChar(), strictParameterNamespacing,
+							namespaceViewState);
 
 					MultiPartFormDataProcessor multiPartFormDataProcessor = new MultiPartFormDataProcessorImpl();
 					Map<String, List<com.liferay.faces.util.model.UploadedFile>> uploadedFileMap =
