@@ -47,8 +47,7 @@ public class InitParameterTests {
 
 		testBean.setTestComplete(true);
 
-		// Verify that the init parameters are a combination of init-params from portlet.xml and context-params from
-		// web.xml
+		// Verify that the init parameters are the union of init-params from portlet.xml and context-params from web.xml.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletContext portletContext = (PortletContext) externalContext.getContext();
@@ -89,7 +88,7 @@ public class InitParameterTests {
 			// Expected condition
 		}
 
-		// Verify that the param tckParam1 has the same value found in web.xml
+		// Verify that the param tckParam1 has the same value found in web.xml.
 		String tckParam1Value = externalContextInitParamMap.get("tckParam1");
 
 		if (!"web-xml-tck-param1-value".equals(tckParam1Value)) {
@@ -100,7 +99,7 @@ public class InitParameterTests {
 			return Constants.TEST_FAILED;
 		}
 
-		// Verify that the param tckParam2 has the same value as the overridden one in portlet.xml
+		// Verify that the param tckParam2 has the same value as the overridden one in portlet.xml.
 		String tckParam2Value = externalContextInitParamMap.get("tckParam2");
 
 		if (!"portlet-xml-tck-param2-value".equals(tckParam2Value)) {
