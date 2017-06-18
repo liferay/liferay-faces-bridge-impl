@@ -178,6 +178,8 @@ public class InitParameterTests {
 			}
 		}
 
+		// Verify that the init parameter value for "tckParam1" from ExternalContext is equal to the context-param
+		// value from web.xml.
 		String tckParam1Value = externalContext.getInitParameter("tckParam1");
 		String nonOverriddenValue = portletContext.getInitParameter("tckParam1");
 
@@ -190,6 +192,9 @@ public class InitParameterTests {
 			return Constants.TEST_FAILED;
 		}
 
+		// Verify that the init parameter value for "tckParam2" from ExternalContext is equal to the init-param value
+		// from portlet.xml (which verifies that the init-param value from portlet.xml overrides the context-param value
+		// from web.xml).
 		String tckParam2Value = externalContext.getInitParameter("tckParam2");
 		String overriddenParam2Value = portletConfig.getInitParameter("tckParam2");
 
