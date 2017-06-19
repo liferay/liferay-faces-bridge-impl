@@ -19,16 +19,6 @@
 			<short-title>primepush-cdi-counter</short-title>
 			<keywords>primepush-cdi-counter</keywords>
 		</portlet-info>
-		<portlet-preferences>
-			<preference>
-				<name>datePattern</name>
-				<value>MM/dd/yyyy</value>
-			</preference>
-			<preference>
-				<name>recipientEmailAddress</name>
-				<value>humanresources@some-company-domain.com</value>
-			</preference>
-		</portlet-preferences>
 		<security-role-ref>
 			<role-name>administrator</role-name>
 		</security-role-ref>
