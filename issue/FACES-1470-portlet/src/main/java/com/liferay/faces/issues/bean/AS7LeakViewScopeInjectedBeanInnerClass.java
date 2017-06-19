@@ -33,8 +33,10 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class AS7LeakViewScopeInjectedBeanInnerClass implements Serializable {
 
+	// Private Constants
 	private static final String AS7LEAK_ATTRIBUTE_MAP = "com.liferay.faces.support.as7LeakAttributeMap";
 
+	// serialVersionUID
 	private static final long serialVersionUID = 3854382137975349082L;
 
 	// Injections
@@ -51,6 +53,7 @@ public class AS7LeakViewScopeInjectedBeanInnerClass implements Serializable {
 		AS7LeakAttribute as7LeakAttribute = new AS7LeakAttribute("as7LeakAttributeName", "as7LeakAttributeValue");
 		savedAttributes.add(as7LeakAttribute);
 		attributeMap.put(AS7LEAK_ATTRIBUTE_MAP, savedAttributes);
+		InstanceTrackerBean.trackAS7LeakInstance(this);
 	}
 
 	public String getFoo() {
@@ -71,7 +74,9 @@ public class AS7LeakViewScopeInjectedBeanInnerClass implements Serializable {
 		private static final long serialVersionUID = 6818500149051763226L;
 
 		public AS7LeakAttribute(Object name, Object value) {
+
 			super(name, value);
+			InstanceTrackerBean.trackAS7LeakInstance(this);
 		}
 	}
 

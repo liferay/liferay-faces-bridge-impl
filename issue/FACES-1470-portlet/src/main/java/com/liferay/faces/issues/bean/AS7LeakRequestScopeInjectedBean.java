@@ -34,6 +34,10 @@ public class AS7LeakRequestScopeInjectedBean {
 	// Private Data Members
 	private String foo = this.toString();
 
+	public AS7LeakRequestScopeInjectedBean() {
+		InstanceTrackerBean.trackAS7LeakInstance(this);
+	}
+
 	public String getFoo() {
 		return foo;
 	}
