@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:alloy="http://liferay.com/faces/alloy"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	<h:head />
+	<h:body>
+		<h2>as7LeakTracker.xhtml</h2>
+		<h:form id="f1">
+			<h:link outcome="view1.xhtml" target="_blank" value="Navigate to view1.xhtml" />
+			<br />
+			<h:button outcome="as7LeakTracker.xhtml" value="Refresh AS7Leak List" />
+			<h:commandButton actionListener="#{instanceTrackerBean.performGarbageCollection}"
+				value="Perform Garbage Collection" />
+			<hr />
+			<h:panelGroup id="as7LeakInstances">
+				<h3>AS7LeakInstances</h3>
+				<ul>
+					<ui:repeat value="#{instanceTrackerBean.AS7LeakInstances}" var="as7LeakInstance">
+						<li><code>#{as7LeakInstance.get()}</code></li>
+					</ui:repeat>
+				</ul>
+			</h:panelGroup>
+			<hr />
+			<h:panelGroup>
+				<ol>
+					<li>Sign in to the portal.</li>
+					<li>
+						Open the <h:link outcome="view1.xhtml" target="_blank" value="Navigate to view1.xhtml" /> link
+						in a new tab.
+					</li>
+					<li>
+						Switch back to the first tab (<strong>as7LeakTracker.xhtml</strong>) and click the
+						<em>Refresh AS7Leak List</em> button and confirm that several AS7Leak class instances appear.
+					</li>
+					<li>
+						Switch back to the tab with <strong>view1.xhtml</strong> and click the
+						<em>Click me to navigate to view2.xhtml via Ajax</em> button.
+					</li>
+					<li>Click the <em>Click me to navigate to view1.xhtml via Ajax</em> button.</li>
+					<li>
+						Switch back to the first tab (<strong>as7LeakTracker.xhtml</strong>) and click the
+						<em>Refresh AS7Leak List</em> button and confirm that several AS7Leak class instances appear.
+					</li>
+					<li>
+						Switch back to the tab with <strong>view1.xhtml</strong> and click the
+						<em>Click me to navigate to view2.xhtml via non-Ajax (full postback)</em> button.
+					</li>
+					<li>Click the <em>Click me to navigate to view1.xhtml via non-Ajax (full postback)</em> button.</li>
+					<li>
+						Switch back to the first tab (<strong>as7LeakTracker.xhtml</strong>) and click the
+						<em>Refresh AS7Leak List</em> button and confirm that several AS7Leak class instances appear.
+					</li>
+					<li>
+						Switch back to the tab with <strong>view1.xhtml</strong> and click the
+						<em>Click me to navigate to view2.xhtml via Ajax</em> button.
+					</li>
+					<li>Click the <em>Click me to navigate to view1.xhtml via non-Ajax (full postback)</em> button.</li>
+					<li>
+						Switch back to the first tab (<strong>as7LeakTracker.xhtml</strong>) and click the
+						<em>Refresh AS7Leak List</em> button and confirm that several AS7Leak class instances appear.
+					</li>
+					<li>
+						Switch back to the tab with <strong>view1.xhtml</strong> and click the
+						<em>Click me to navigate to view2.xhtml via non-Ajax (full postback)</em> button.
+					</li>
+					<li>Click the <em>Click me to navigate to view1.xhtml via Ajax</em> button.</li>
+					<li>
+						Switch back to the first tab (<strong>as7LeakTracker.xhtml</strong>) and click the
+						<em>Refresh AS7Leak List</em> button and confirm that several AS7Leak class instances appear.
+					</li>
+					<li>
+						Switch back to the tab with view1.xhtml,
+						<strong>navigate to the as7LeakTracker.xhtml portlet page</strong> (to avoid loading any AS7Leak
+						instances as an unauthenticated user), and sign out of the portal.
+					</li>
+					<li>
+						Switch back to the first tab (<strong>as7LeakTracker.xhtml</strong>) and click the
+						<em>Refresh AS7Leak List</em> button and confirm that several AS7Leak class instances appear.
+					</li>
+					<li>
+						Click the <em>Perform Garbage Collection</em> button and confirm that no AS7Leak class instances
+						appear. <strong>Note:</strong> since this portlet uses <code>System.gc()</code> to initiate
+						garbage collection, it may be necessary to click the <em>Perform Garbage Collection</em>
+						multiple times before the garbage is actually collected. For more details see here:
+						<a target="_blank" href="http://docs.oracle.com/javase/6/docs/api/java/lang/System.html#gc()">
+							http://docs.oracle.com/javase/6/docs/api/java/lang/System.html#gc()
+						</a>.
+					</li>
+				</ol>
+			</h:panelGroup>
+		</h:form>
+	</h:body>
+</f:view>

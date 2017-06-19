@@ -29,6 +29,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class AS7LeakSessionScopeInjectedBean implements Serializable {
 
+	// serialVersionUID
 	private static final long serialVersionUID = 7840946974464938467L;
 
 	// Injections
@@ -37,6 +38,10 @@ public class AS7LeakSessionScopeInjectedBean implements Serializable {
 
 	// Private Data Members
 	private String foo = this.toString();
+
+	public AS7LeakSessionScopeInjectedBean() {
+		InstanceTrackerBean.trackAS7LeakInstance(this);
+	}
 
 	public String getFoo() {
 		return foo;
@@ -49,5 +54,4 @@ public class AS7LeakSessionScopeInjectedBean implements Serializable {
 	public void setFoo(String foo) {
 		this.foo = foo;
 	}
-
 }
