@@ -28,9 +28,15 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class AS7LeakViewScopeBean implements Serializable {
 
+	// serialVersionUID
 	private static final long serialVersionUID = 7865206730196546771L;
 
+	// Private Data Members
 	private String foo = this.toString();
+
+	public AS7LeakViewScopeBean() {
+		InstanceTrackerBean.trackAS7LeakInstance(this);
+	}
 
 	public String getFoo() {
 		return foo;
@@ -39,5 +45,4 @@ public class AS7LeakViewScopeBean implements Serializable {
 	public void setFoo(String foo) {
 		this.foo = foo;
 	}
-
 }

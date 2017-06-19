@@ -26,7 +26,12 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class AS7LeakRequestScopeBean {
 
+	// Private Data Members
 	private String foo = this.toString();
+
+	public AS7LeakRequestScopeBean() {
+		InstanceTrackerBean.trackAS7LeakInstance(this);
+	}
 
 	public String getFoo() {
 		return foo;
@@ -35,5 +40,4 @@ public class AS7LeakRequestScopeBean {
 	public void setFoo(String foo) {
 		this.foo = foo;
 	}
-
 }
