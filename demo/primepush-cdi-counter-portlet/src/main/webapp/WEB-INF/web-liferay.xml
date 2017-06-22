@@ -69,7 +69,7 @@
 		</init-param>
 		<init-param>
 			<param-name>org.atmosphere.cpr.AnnotationProcessor</param-name>
-			<param-value>com.liferay.faces.bridge.ext.atmosphere.internal.AnnotationProcessorLiferayImpl</param-value>
+			<param-value>com.liferay.faces.bridge.atmosphere.LiferayAnnotationProcessor</param-value>
 		</init-param>
 		<init-param>
 			<param-name>org.atmosphere.cpr.packages</param-name>
