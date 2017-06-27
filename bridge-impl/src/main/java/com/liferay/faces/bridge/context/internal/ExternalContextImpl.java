@@ -1366,9 +1366,14 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		// Initialize the request context path.
 		requestContextPath = portletRequest.getContextPath();
 
+		// Determine the configured default render kit.
 		String attributeName = Bridge.BRIDGE_PACKAGE_PREFIX + portletConfig.getPortletName() + "." +
 			Bridge.DEFAULT_RENDERKIT_ID;
 		defaultRenderKitId = (String) portletContext.getAttribute(attributeName);
+
+		if (defaultRenderKitId == null) {
+			defaultRenderKitId = PortletConfigParam.DefaultRenderKitId.getStringValue(portletConfig);
+		}
 	}
 
 	private static class StringWrapper {

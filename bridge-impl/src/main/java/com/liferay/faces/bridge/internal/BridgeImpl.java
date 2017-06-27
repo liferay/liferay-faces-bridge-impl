@@ -56,7 +56,7 @@ public class BridgeImpl extends BridgeCompatImpl {
 	private static final Logger logger = LoggerFactory.getLogger(BridgeImpl.class);
 
 	// Private Data Members
-	private boolean initialized = false;
+	private boolean initialized;
 	private PortletConfig portletConfig;
 
 	@Override
