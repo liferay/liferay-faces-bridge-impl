@@ -46,18 +46,20 @@ public class BridgePublicRenderParameterHandlerFactoryImpl extends BridgePublicR
 		// TCK TestPage016: initMethodTest
 		String initParamName = Bridge.BRIDGE_PACKAGE_PREFIX + Bridge.BRIDGE_PUBLIC_RENDER_PARAMETER_HANDLER;
 
-		// GenericFacesPortlet.getBridgePublicRenderParameterHandler() only consults this factory if the
-		// BridgePublicRenderParameterHandler initParam is not null.
 		String bridgePublicRenderParameterHandlerClass = portletConfig.getInitParameter(initParamName);
-		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 
-		try {
+		if (bridgePublicRenderParameterHandlerClass != null) {
 
-			Class<?> clazz = contextClassLoader.loadClass(bridgePublicRenderParameterHandlerClass);
-			bridgePublicRenderParameterHandler = (BridgePublicRenderParameterHandler) clazz.newInstance();
-		}
-		catch (Exception e) {
-			logger.error(e);
+			ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+
+			try {
+
+				Class<?> clazz = contextClassLoader.loadClass(bridgePublicRenderParameterHandlerClass);
+				bridgePublicRenderParameterHandler = (BridgePublicRenderParameterHandler) clazz.newInstance();
+			}
+			catch (Exception e) {
+				logger.error(e);
+			}
 		}
 
 		return bridgePublicRenderParameterHandler;

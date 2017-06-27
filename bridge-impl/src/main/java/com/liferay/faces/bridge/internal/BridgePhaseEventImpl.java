@@ -29,6 +29,7 @@ import javax.portlet.PortletConfig;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeEventHandler;
+import javax.portlet.faces.BridgeEventHandlerFactory;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.event.EventNavigationResult;
 
@@ -67,6 +68,7 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 	}
 
 	// Java 1.6+ @Override
+	@Override
 	public void execute() throws BridgeDefaultViewNotSpecifiedException, BridgeException {
 
 		logger.debug(Logger.SEPARATOR);
@@ -76,6 +78,10 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 			Bridge.BRIDGE_EVENT_HANDLER;
 		BridgeEventHandler bridgeEventHandler = (BridgeEventHandler) portletContext.getAttribute(
 				bridgeEventHandlerAttributeName);
+
+		if (bridgeEventHandler == null) {
+			bridgeEventHandler = BridgeEventHandlerFactory.getBridgeEventHandlerInstance(portletConfig);
+		}
 
 		try {
 
