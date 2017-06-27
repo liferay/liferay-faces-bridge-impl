@@ -29,7 +29,6 @@ import javax.portlet.PortletConfig;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeEventHandler;
-import javax.portlet.faces.BridgeEventHandlerFactory;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.event.EventNavigationResult;
 
