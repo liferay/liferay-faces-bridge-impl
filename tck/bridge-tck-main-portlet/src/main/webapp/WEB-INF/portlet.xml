@@ -338,6 +338,10 @@
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
+			<name>javax.portlet.faces.initializeNamespacedContextAttributes</name>
+			<value>true</value>
+		</init-param>
+		<init-param>
 			<name>javax.portlet.faces.excludedRequestAttributes</name>
 			<value>exclude1,exclude2</value>
 		</init-param>
@@ -384,6 +388,10 @@
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.help</name>
 			<value>/tests/multiRequestTest.xhtml</value>
+		</init-param>
+		<init-param>
+			<name>javax.portlet.faces.initializeNamespacedContextAttributes</name>
+			<value>true</value>
 		</init-param>
 		<init-param>
 			<name>javax.portlet.faces.excludedRequestAttributes</name>
@@ -466,6 +474,10 @@
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.help</name>
 			<value>/tests/multiRequestTest.xhtml</value>
+		</init-param>
+		<init-param>
+			<name>javax.portlet.faces.initializeNamespacedContextAttributes</name>
+			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>

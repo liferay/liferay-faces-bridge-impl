@@ -31,6 +31,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgePublicRenderParameterHandler;
 import javax.portlet.faces.BridgeUtil;
+import javax.portlet.faces.GenericFacesPortlet;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
@@ -42,12 +43,14 @@ import com.liferay.faces.bridge.tck.common.Constants;
  */
 public class Tests extends Object implements PhaseListener, BridgePublicRenderParameterHandler {
 
+	@Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		// Do nothing
 		return;
 	}
 
+	@Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 		FacesContext facesContext = phaseEvent.getFacesContext();
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -89,7 +92,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		ELResolver facesResolver = facesContext.getELContext().getELResolver();
-		PortletConfig config = (PortletConfig) facesResolver.getValue(facesContext.getELContext(), null,
+		PortletConfig portletConfig = (PortletConfig) facesResolver.getValue(facesContext.getELContext(), null,
 				"portletConfig");
 
 		testBean.setTestComplete(true);
@@ -97,9 +100,6 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		String view = (String) sessionMap.get("javax.portlet.faces.viewIdHistory.view");
 		String edit = (String) sessionMap.get("javax.portlet.faces.viewIdHistory.edit");
 		String help = (String) sessionMap.get("javax.portlet.faces.viewIdHistory.help");
-
-		Map<String, String> defaultViewIdMap = (Map<String, String>) ((PortletContext) externalContext.getContext())
-			.getAttribute(Bridge.BRIDGE_PACKAGE_PREFIX + config.getPortletName() + "." + Bridge.DEFAULT_VIEWID_MAP);
 
 		if (view == null) {
 			testBean.setTestResult(false, "javax.portlet.faces.viewIdHistory.view session attribute doesn't exist.");
@@ -119,26 +119,32 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 			return Constants.TEST_FAILED;
 		}
 
-		if (!view.startsWith(defaultViewIdMap.get("view"))) {
+		String defaultViewIdViewMode = portletConfig.getInitParameter(GenericFacesPortlet.DEFAULT_VIEWID + ".view");
+
+		if (!view.startsWith(defaultViewIdViewMode)) {
 			testBean.setTestResult(false,
-				"javax.portlet.faces.viewIdHistory.view contains unexpected value. Expected: " +
-				defaultViewIdMap.get("view") + " but value was: " + view);
+				"javax.portlet.faces.viewIdHistory.view contains unexpected value. Expected: " + defaultViewIdViewMode +
+				" but value was: " + view);
 
 			return Constants.TEST_FAILED;
 		}
 
-		if (!edit.startsWith(defaultViewIdMap.get("edit"))) {
+		String defaultViewIdEditMode = portletConfig.getInitParameter(GenericFacesPortlet.DEFAULT_VIEWID + ".edit");
+
+		if (!edit.startsWith(defaultViewIdEditMode)) {
 			testBean.setTestResult(false,
-				"javax.portlet.faces.viewIdHistory.edit contains unexpected value. Expected: " +
-				defaultViewIdMap.get("edit") + " but value was: " + edit);
+				"javax.portlet.faces.viewIdHistory.edit contains unexpected value. Expected: " + defaultViewIdEditMode +
+				" but value was: " + edit);
 
 			return Constants.TEST_FAILED;
 		}
 
-		if (!help.startsWith(defaultViewIdMap.get("help"))) {
+		String defaultViewIdHelpMode = portletConfig.getInitParameter(GenericFacesPortlet.DEFAULT_VIEWID + ".help");
+
+		if (!help.startsWith(defaultViewIdHelpMode)) {
 			testBean.setTestResult(false,
-				"javax.portlet.faces.viewIdHistory.help contains unexpected value. Expected: " +
-				defaultViewIdMap.get("help") + " but value was: " + help);
+				"javax.portlet.faces.viewIdHistory.help contains unexpected value. Expected: " + defaultViewIdHelpMode +
+				" but value was: " + help);
 
 			return Constants.TEST_FAILED;
 		}
@@ -149,6 +155,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	}
 
 	// PhaseListener tests
+	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.ANY_PHASE;
 	}
@@ -329,6 +336,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		}
 	}
 
+	@Override
 	public void processUpdates(FacesContext facesContext) {
 		facesContext.getExternalContext().getRequestMap().put("tck.prpProcessUpdatesCalled", Boolean.TRUE);
 	}
