@@ -53,7 +53,7 @@ public class IPCPhaseListener implements PhaseListener {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(IPCPhaseListener.class);
 
-	@Override
+	// Java 1.6+ @Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		FacesContext facesContext = phaseEvent.getFacesContext();
@@ -91,12 +91,12 @@ public class IPCPhaseListener implements PhaseListener {
 		}
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 		// This method is required by the PhaseListener interface but is not used.
 	}
 
-	@Override
+	// Java 1.6+ @Override
 	public PhaseId getPhaseId() {
 		return PhaseId.ANY_PHASE;
 	}
@@ -209,6 +209,11 @@ public class IPCPhaseListener implements PhaseListener {
 						BridgePublicRenderParameterHandler bridgePublicRenderParameterHandler =
 							(BridgePublicRenderParameterHandler) externalContext.getApplicationMap().get(
 								bridgePublicRenderParameterHandlerAttributeName);
+
+						if (bridgePublicRenderParameterHandler == null) {
+							bridgePublicRenderParameterHandler = BridgePublicRenderParameterHandlerFactory
+								.getBridgePublicRenderParameterHandlerInstance(portletConfig);
+						}
 
 						if (bridgePublicRenderParameterHandler != null) {
 							logger.debug("Invoking {0} for class=[{1}]", bridgePublicRenderParameterHandler,

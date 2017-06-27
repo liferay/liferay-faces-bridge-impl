@@ -55,6 +55,13 @@ public class ViewUtil {
 		String attrNameDefaultViewIdMap = Bridge.BRIDGE_PACKAGE_PREFIX + portletName + "." + Bridge.DEFAULT_VIEWID_MAP;
 		PortletContext portletContext = portletConfig.getPortletContext();
 
-		return (Map<String, String>) portletContext.getAttribute(attrNameDefaultViewIdMap);
+		Map<String, String> defaultViewIdMap = (Map<String, String>) portletContext.getAttribute(
+				attrNameDefaultViewIdMap);
+
+		if (defaultViewIdMap == null) {
+			defaultViewIdMap = new DefaultViewIdMap(portletConfig);
+		}
+
+		return defaultViewIdMap;
 	}
 }

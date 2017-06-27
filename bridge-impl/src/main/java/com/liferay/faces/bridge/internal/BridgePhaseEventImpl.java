@@ -78,6 +78,10 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 		BridgeEventHandler bridgeEventHandler = (BridgeEventHandler) portletContext.getAttribute(
 				bridgeEventHandlerAttributeName);
 
+		if (bridgeEventHandler == null) {
+			bridgeEventHandler = BridgeEventHandlerFactory.getBridgeEventHandlerInstance(portletConfig);
+		}
+
 		try {
 
 			// If there is a bridgeEventHandler registered in portlet.xml, then

@@ -42,12 +42,14 @@ import com.liferay.faces.bridge.tck.common.Constants;
  */
 public class Tests extends Object implements PhaseListener, BridgePublicRenderParameterHandler {
 
+	// Java 1.6+ @Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		// Do nothing
 		return;
 	}
 
+	// Java 1.6+ @Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 		FacesContext facesContext = phaseEvent.getFacesContext();
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -89,7 +91,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		ELResolver facesResolver = facesContext.getELContext().getELResolver();
-		PortletConfig config = (PortletConfig) facesResolver.getValue(facesContext.getELContext(), null,
+		PortletConfig portletConfig = (PortletConfig) facesResolver.getValue(facesContext.getELContext(), null,
 				"portletConfig");
 
 		testBean.setTestComplete(true);
@@ -99,7 +101,8 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		String help = (String) sessionMap.get("javax.portlet.faces.viewIdHistory.help");
 
 		Map<String, String> defaultViewIdMap = (Map<String, String>) ((PortletContext) externalContext.getContext())
-			.getAttribute(Bridge.BRIDGE_PACKAGE_PREFIX + config.getPortletName() + "." + Bridge.DEFAULT_VIEWID_MAP);
+			.getAttribute(Bridge.BRIDGE_PACKAGE_PREFIX + portletConfig.getPortletName() + "." +
+				Bridge.DEFAULT_VIEWID_MAP);
 
 		if (view == null) {
 			testBean.setTestResult(false, "javax.portlet.faces.viewIdHistory.view session attribute doesn't exist.");
@@ -149,6 +152,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 	}
 
 	// PhaseListener tests
+	// Java 1.6+ @Override
 	public PhaseId getPhaseId() {
 		return PhaseId.ANY_PHASE;
 	}
@@ -329,6 +333,7 @@ public class Tests extends Object implements PhaseListener, BridgePublicRenderPa
 		}
 	}
 
+	// Java 1.6+ @Override
 	public void processUpdates(FacesContext facesContext) {
 		facesContext.getExternalContext().getRequestMap().put("tck.prpProcessUpdatesCalled", Boolean.TRUE);
 	}

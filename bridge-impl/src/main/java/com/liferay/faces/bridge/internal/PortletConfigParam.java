@@ -58,6 +58,8 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	ContainerAbleToSetHttpStatusCode("com.liferay.faces.bridge.containerAbleToSetHttpStatusCode",
 		"org.portletfaces.bridge.containerAbleToSetHttpStatusCode", false),
 
+	DefaultRenderKitId("javax.portlet.faces.defaultRenderKitId", null),
+
 	/**
 	 * Flag indicating whether or not the bridge should manage incongruities between the JSF lifecycle and the Portlet
 	 * lifecycle. The default is true.

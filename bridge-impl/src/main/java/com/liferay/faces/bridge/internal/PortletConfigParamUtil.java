@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.internal;
 
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
+import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.helper.IntegerHelper;
@@ -36,21 +37,35 @@ public class PortletConfigParamUtil {
 
 		boolean booleanValue = defaultBooleanValue;
 
-		String portletName = portletConfig.getPortletName();
+		if (name.startsWith(Bridge.BRIDGE_PACKAGE_PREFIX)) {
 
-		if (portletName == null) {
-			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
+			String portletName = portletConfig.getPortletName();
 
-			if (configuredValue != null) {
-				booleanValue = BooleanHelper.isTrueToken(configuredValue);
+			if (portletName != null) {
+				String namespacedContextAttributeName = Bridge.BRIDGE_PACKAGE_PREFIX + portletName + "." +
+					name.substring(Bridge.BRIDGE_PACKAGE_PREFIX.length());
+				PortletContext portletContext = portletConfig.getPortletContext();
+				Object namespacedContextAttributeValue = portletContext.getAttribute(namespacedContextAttributeName);
+
+				if (namespacedContextAttributeValue != null) {
+
+					if (namespacedContextAttributeValue instanceof Boolean) {
+						booleanValue = (Boolean) namespacedContextAttributeValue;
+					}
+					else {
+						booleanValue = BooleanHelper.isTrueToken(namespacedContextAttributeValue.toString());
+					}
+
+
+					return booleanValue;
+				}
 			}
 		}
-		else {
-			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
 
-			if (configuredValue != null) {
-				booleanValue = BooleanHelper.isTrueToken(configuredValue);
-			}
+		String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
+
+		if (configuredValue != null) {
+			booleanValue = BooleanHelper.isTrueToken(configuredValue);
 		}
 
 		return booleanValue;
@@ -58,9 +73,9 @@ public class PortletConfigParamUtil {
 
 	public static String getConfiguredValue(PortletConfig portletConfig, String name, String alternateName) {
 
-		String configuredValue = portletConfig.getInitParameter(name);
+		PortletContext portletContext = portletConfig.getPortletContext();
 
-		PortletContext portletContext = null;
+		String configuredValue = portletConfig.getInitParameter(name);
 
 		if (configuredValue == null) {
 			portletContext = portletConfig.getPortletContext();
