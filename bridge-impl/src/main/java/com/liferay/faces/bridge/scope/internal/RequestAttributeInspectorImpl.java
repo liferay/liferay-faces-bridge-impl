@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.scope.internal;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
@@ -73,11 +74,7 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 		this.excludedAttributeNames = new ArrayList<String>();
 
 		// Get the list of excluded BridgeRequestScope attributes from the WEB-INF/portlet.xml descriptor.
-		PortletContext portletContext = portletConfig.getPortletContext();
-		String portletName = portletConfig.getPortletName();
-		@SuppressWarnings("unchecked")
-		List<String> portletContextExcludedAttributeNames = (List<String>) portletContext.getAttribute(
-				Bridge.BRIDGE_PACKAGE_PREFIX + portletName + "." + Bridge.EXCLUDED_REQUEST_ATTRIBUTES);
+		List<String> portletContextExcludedAttributeNames = getExcludedRequestAttributes(portletConfig);
 
 		// Combine the two lists into a single list of excluded BridgeRequestScope attributes.
 		Set<String> facesConfigExcludedAttributeNames = bridgeConfig.getExcludedRequestAttributes();
@@ -106,6 +103,27 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 		else {
 			return false;
 		}
+	}
+
+	public List<String> getExcludedRequestAttributes(PortletConfig portletConfig) {
+
+		PortletContext portletContext = portletConfig.getPortletContext();
+		List<String> excludedRequestAttributes = (List<String>) portletContext.getAttribute(
+				Bridge.BRIDGE_PACKAGE_PREFIX + portletConfig.getPortletName() + "." +
+				Bridge.EXCLUDED_REQUEST_ATTRIBUTES);
+
+		if (excludedRequestAttributes == null) {
+
+			String initParamName = Bridge.BRIDGE_PACKAGE_PREFIX + Bridge.EXCLUDED_REQUEST_ATTRIBUTES;
+			String initParamValue = portletConfig.getInitParameter(initParamName);
+
+			// TCK TestPage016: initMethodTest
+			if (initParamValue != null) {
+				excludedRequestAttributes = Arrays.asList(initParamValue.split("\\s*,\\s*"));
+			}
+		}
+
+		return excludedRequestAttributes;
 	}
 
 	@Override
