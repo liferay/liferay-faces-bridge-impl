@@ -33,10 +33,13 @@ NOTE:
 	<entry key="TestPage023">chapter4_2_9Tests-isPreserveActionParametersMethodSetTrueTest-portlet</entry>
 	<entry key="TestPage024">chapter4_2_9Tests-isPreserveActionParametersMethodSetFalseTest-portlet</entry>
 	<entry key="TestPage025">chapter4_2_9Tests-isPreserveActionParametersMethodNotSetTest-portlet</entry>
-	<entry key="TestPage026">chapter4_2_10Tests-getResponseContentTypeMethodSetTest-portlet</entry>
-	<entry key="TestPage027">chapter4_2_10Tests-getResponseContentTypeMethodNotSetTest-portlet</entry>
-	<entry key="TestPage028">chapter4_2_11Tests-getResponseCharacterSetEncodingMethodSetTest-portlet</entry>
-	<entry key="TestPage029">chapter4_2_11Tests-getResponseCharacterSetEncodingMethodNotSetTest-portlet</entry>
+	<!--
+	AVAILABLE TEST SLOTS
+	<entry key="TestPage026"></entry>
+	<entry key="TestPage027"></entry>
+	<entry key="TestPage028"></entry>
+	<entry key="TestPage029"></entry>
+	-->
 	<entry key="TestPage030">chapter4_2_12Tests-getBridgeEventHandlerMethodSetTest-portlet</entry>
 	<entry key="TestPage031">chapter4_2_12Tests-getBridgeEventHandlerMethodNotSetTest-portlet</entry>
 	<entry key="TestPage032">chapter4_2_13Tests-getBridgePublicRenderParameterHandlerMethodSetTest-portlet</entry>

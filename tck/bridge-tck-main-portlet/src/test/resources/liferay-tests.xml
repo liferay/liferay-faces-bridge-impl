@@ -26,10 +26,13 @@
 	<entry key="testpage023">chapter4_2_9Tests-isPreserveActionParametersMethodSetTrueTest-portlet</entry>
 	<entry key="testpage024">chapter4_2_9Tests-isPreserveActionParametersMethodSetFalseTest-portlet</entry>
 	<entry key="testpage025">chapter4_2_9Tests-isPreserveActionParametersMethodNotSetTest-portlet</entry>
-	<entry key="testpage026">chapter4_2_10Tests-getResponseContentTypeMethodSetTest-portlet</entry>
-	<entry key="testpage027">chapter4_2_10Tests-getResponseContentTypeMethodNotSetTest-portlet</entry>
-	<entry key="testpage028">chapter4_2_11Tests-getResponseCharacterSetEncodingMethodSetTest-portlet</entry>
-	<entry key="testpage029">chapter4_2_11Tests-getResponseCharacterSetEncodingMethodNotSetTest-portlet</entry>
+	<!--
+	AVAILABLE TEST SLOTS
+	<entry key="testpage026"></entry>
+	<entry key="testpage027"></entry>
+	<entry key="testpage028"></entry>
+	<entry key="testpage029"></entry>
+	-->
 	<entry key="testpage030">chapter4_2_12Tests-getBridgeEventHandlerMethodSetTest-portlet</entry>
 	<entry key="testpage031">chapter4_2_12Tests-getBridgeEventHandlerMethodNotSetTest-portlet</entry>
 	<entry key="testpage032">chapter4_2_13Tests-getBridgePublicRenderParameterHandlerMethodSetTest-portlet</entry>
@@ -43,7 +46,7 @@
 	<entry key="testpage040">chapter5_1_2Tests-requestNoScopeOnModeChangeTest-portlet</entry>
 	<entry key="testpage041">chapter5_1_2Tests-requestPreserveActionParamsTest-portlet</entry>
 	<entry key="testpage042">chapter5_1_2Tests-requestRenderIgnoresScopeViaCreateViewTest-portlet</entry>
-	<entry key="testpage043">chapter5_1_2Tests-requestRenderRedisplayTest-portlet</entry>
+	<entry key="testpage043">chapter5_1_2ScopeCommonTests-requestRenderRedisplayTest-portlet</entry>
 	<entry key="testpage044">chapter5_1_2Tests-requestRedisplayOutOfScopeTest-portlet</entry>
 	<entry key="testpage045">chapter5_1_2Tests-excludedAttributesTest-portlet</entry>
 	<entry key="testpage046">chapter5_2Tests-verifyPortletObjectsTest-portlet</entry>
@@ -73,7 +76,7 @@
 	<entry key="testpage070">chapter5_2Tests-verifyResourcePhaseTest-portlet</entry>
 	<entry key="testpage071">chapter5_2Tests-nonFacesResourceTest-portlet</entry>
 	<entry key="testpage072">chapter5_2Tests-scopeNotRestoredResourceTest-portlet</entry>
-	<entry key="testpage073">chapter5_2Tests-scopeAfterRedisplayResourcePPRTest-portlet</entry>
+	<entry key="testpage073">chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest-portlet</entry>
 	<entry key="testpage074">chapter5_2Tests-facesContextReleasedResourceTest-portlet</entry>
 	<entry key="testpage075">chapter5_2Tests-portletPhaseRemovedResourceTest-portlet</entry>
 	<entry key="testpage076">chapter5_3Tests-noViewStateParamOnModeChangeTest-portlet</entry>

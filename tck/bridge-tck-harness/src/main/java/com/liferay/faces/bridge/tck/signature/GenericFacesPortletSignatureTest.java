@@ -68,28 +68,6 @@ public class GenericFacesPortletSignatureTest {
 	}
 
 	@Test
-	public void getResponseCharacterSetEncoding() {
-
-		try {
-			testSignature("getResponseCharacterSetEncoding", Class.forName("java.lang.String"),
-				Class.forName("javax.portlet.PortletRequest"));
-		}
-		catch (ClassNotFoundException cnfe) {
-		}
-	}
-
-	@Test
-	public void getResponseContentType() {
-
-		try {
-			testSignature("getResponseContentType", Class.forName("java.lang.String"),
-				Class.forName("javax.portlet.PortletRequest"));
-		}
-		catch (ClassNotFoundException cnfe) {
-		}
-	}
-
-	@Test
 	public void isPreserveActionParameters() {
 		testSignature("isPreserveActionParameters", Boolean.TYPE);
 	}
