@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.test.integration.issue;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +23,7 @@ import java.util.Set;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 
 import org.openqa.selenium.By;
@@ -66,6 +66,7 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 
 		signOut(browserDriver);
 		super.doSetUp();
+		browserDriver.setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut());
 	}
 
 	@Test
@@ -211,6 +212,11 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 		}
 
 		browserStateAsserter.assertElementNotPresent(as7LeakInstanceXpath);
+	}
+
+	@Before
+	public void setUpFACES_1470PortletTester() {
+		getBrowserDriver().setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut(10));
 	}
 
 	private void clickButton(BrowserDriver browserDriver, String buttonXpath) {
