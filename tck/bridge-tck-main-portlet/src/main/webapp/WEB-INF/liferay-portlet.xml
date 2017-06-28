@@ -82,26 +82,6 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter4_2_10Tests-getResponseContentTypeMethodNotSetTest-portlet</portlet-name>
-		<!-- JAVASERVERFACES-3031 -->
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-	</portlet>
-	<portlet>
-		<portlet-name>chapter4_2_10Tests-getResponseContentTypeMethodSetTest-portlet</portlet-name>
-		<!-- JAVASERVERFACES-3031 -->
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-	</portlet>
-	<portlet>
-		<portlet-name>chapter4_2_11Tests-getResponseCharacterSetEncodingMethodNotSetTest-portlet</portlet-name>
-		<!-- JAVASERVERFACES-3031 -->
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-	</portlet>
-	<portlet>
-		<portlet-name>chapter4_2_11Tests-getResponseCharacterSetEncodingMethodSetTest-portlet</portlet-name>
-		<!-- JAVASERVERFACES-3031 -->
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-	</portlet>
-	<portlet>
 		<portlet-name>chapter4_2_12Tests-getBridgeEventHandlerMethodNotSetTest-portlet</portlet-name>
 		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>

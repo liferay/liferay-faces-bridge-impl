@@ -26,10 +26,13 @@
 <entry key="pluto/portal/TestPage023">isPreserveActionParametersMethodSetTrueTest</entry>
 <entry key="pluto/portal/TestPage024">isPreserveActionParametersMethodSetFalseTest</entry>
 <entry key="pluto/portal/TestPage025">isPreserveActionParametersMethodNotSetTest</entry>
-<entry key="pluto/portal/TestPage026">getResponseContentTypeMethodSetTest</entry>
-<entry key="pluto/portal/TestPage027">getResponseContentTypeMethodNotSetTest</entry>
-<entry key="pluto/portal/TestPage028">getResponseCharacterSetEncodingMethodSetTest</entry>
-<entry key="pluto/portal/TestPage029">getResponseCharacterSetEncodingMethodNotSetTest</entry>
+<!--
+AVAILABLE TEST SLOTS
+<entry key="pluto/portal/TestPage026"></entry>
+<entry key="pluto/portal/TestPage027"></entry>
+<entry key="pluto/portal/TestPage028"></entry>
+<entry key="pluto/portal/TestPage029"></entry>
+-->
 <entry key="pluto/portal/TestPage030">getBridgeEventHandlerMethodSetTest</entry>
 <entry key="pluto/portal/TestPage031">getBridgeEventHandlerMethodNotSetTest</entry>
 <entry key="pluto/portal/TestPage032">getBridgePublicRenderParameterHandlerMethodSetTest</entry>

@@ -38,22 +38,6 @@ public class GetFacesBridgeMethodTestPortlet extends GenericFacesTestSuitePortle
 	@Override
 	public void doDispatch(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 
-		String contentType = getResponseContentType(request);
-
-		if (contentType != null) {
-			String charSetEncoding = getResponseCharacterSetEncoding(request);
-
-			if (charSetEncoding != null) {
-				StringBuilder buf = new StringBuilder(contentType);
-				buf.append(";");
-				buf.append(charSetEncoding);
-				response.setContentType(buf.toString());
-			}
-			else {
-				response.setContentType(contentType);
-			}
-		}
-
 		try {
 			getFacesBridge(request, response).doFacesRequest(request, response);
 		}
