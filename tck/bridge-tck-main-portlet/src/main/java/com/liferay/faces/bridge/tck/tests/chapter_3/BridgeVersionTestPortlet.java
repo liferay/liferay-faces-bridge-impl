@@ -56,9 +56,9 @@ public class BridgeVersionTestPortlet extends GenericPortlet {
 				resultWriter.setDetail("Incorrect Specification Title: " + name +
 					" should be 'Portlet 2.0 Bridge for JavaServer Faces 1.2'");
 			}
-			else if ((version == null) || !version.equals("1.0")) {
+			else if ((version == null) || !version.equals("2.0.0")) {
 				resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
-				resultWriter.setDetail("Incorrect Specification Version: " + version + " should be '2.0'");
+				resultWriter.setDetail("Incorrect Specification Version: " + version + " should be '2.0.0'");
 			}
 			else {
 				resultWriter.setStatus(BridgeTCKResultWriter.PASS);
