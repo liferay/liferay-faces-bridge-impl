@@ -429,7 +429,7 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_1_2Tests-requestRenderIgnoresScopeViaCreateViewTest-portlet"/>
 		</page>
 		<page name="TestPage043" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_1_2ScopeCommonTests-requestRenderRedisplayTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_1_2Tests-requestRenderRedisplayTest-portlet"/>
 		</page>
 		<page name="TestPage044" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_1_2Tests-requestRedisplayOutOfScopeTest-portlet"/>
@@ -519,7 +519,7 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-scopeNotRestoredResourceTest-portlet"/>
 		</page>
 		<page name="TestPage073" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-scopeAfterRedisplayResourcePPRTest-portlet"/>
 		</page>
 		<page name="TestPage074" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-facesContextReleasedResourceTest-portlet"/>
