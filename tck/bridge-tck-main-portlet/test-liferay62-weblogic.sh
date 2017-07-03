@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn surefire-report:report -P tck,liferay,liferay62,weblogic
+mvn verify -P selenium,liferay62,chrome,weblogic "$@"
