@@ -108,6 +108,7 @@
 				<portlet.container>liferay</portlet.container>
 				<integration.container>${portlet.container}62</integration.container>
 				<portal.version.major>6</portal.version.major>
+				<integration.tests.file>/${portlet.container}-tests.xml</integration.tests.file>
 			</properties>
 			<dependencies>
 				<dependency>
