@@ -50,7 +50,8 @@
 			<type><![CDATA[java.lang.String]]></type>
 		</attribute>
 		<tag-extension>
-			<delegate-renderer-type>"javax.faces.File"</delegate-renderer-type>
+			<delegate-component-family><![CDATA[javax.faces.component.html.HtmlInputText.COMPONENT_FAMILY]]></delegate-component-family>
+			<delegate-renderer-type>"javax.faces.Text"</delegate-renderer-type>
 			<extends-tags>altInherited autocompleteInherited disabledInherited facesMessageLabelInherited htmlAccessibilityEventsInherited htmlInputEventsInherited sizeInherited</extends-tags>
 			<generate-component>false</generate-component>
 			<parent-class><![CDATA[javax.faces.component.html.HtmlInputFile]]></parent-class>
