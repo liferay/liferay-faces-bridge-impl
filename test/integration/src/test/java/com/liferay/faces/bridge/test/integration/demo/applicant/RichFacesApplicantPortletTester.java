@@ -16,7 +16,7 @@
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
@@ -25,9 +25,8 @@ import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
 public class RichFacesApplicantPortletTester extends BridgeApplicantPortletTester {
 
 	@Override
-	protected void assertFileUploadChooserDisplayed(BrowserDriver browserDriver,
-		BrowserStateAsserter browserStateAsserter) {
-		browserStateAsserter.assertElementDisplayed(getFileUploadChooserXpath() + "/..");
+	protected void assertFileUploadChooserDisplayed(BrowserDriver browserDriver, WaitingAsserter waitingAsserter) {
+		waitingAsserter.assertElementDisplayed(getFileUploadChooserXpath() + "/..");
 	}
 
 	@Override

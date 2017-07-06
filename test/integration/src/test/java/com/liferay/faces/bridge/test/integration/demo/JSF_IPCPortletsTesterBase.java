@@ -22,15 +22,15 @@ import java.util.TimeZone;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class JSF_IPCPortletsTesterBase extends IntegrationTesterBase {
+public class JSF_IPCPortletsTesterBase extends BrowserDriverManagingTesterBase {
 
 	// Private Xpaths
 	protected static final String firstNameInputXpath = "//input[contains(@id, ':firstName')]";
@@ -39,8 +39,8 @@ public class JSF_IPCPortletsTesterBase extends IntegrationTesterBase {
 
 	public void runJSF_IPCPortletsTest(BrowserDriver browserDriver) {
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		testEditName(browserDriver, browserStateAsserter, "1", false);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		testEditName(browserDriver, waitingAsserter, "1", false);
 
 		// Test that start date is today.
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -50,7 +50,7 @@ public class JSF_IPCPortletsTesterBase extends IntegrationTesterBase {
 		Date today = new Date();
 		String todayString = simpleDateFormat.format(today);
 		String startDate1Xpath = "//input[contains(@id, ':0:startDate')]";
-		browserStateAsserter.assertTextPresentInElementValue(todayString, startDate1Xpath);
+		waitingAsserter.assertTextPresentInElementValue(todayString, startDate1Xpath);
 
 		// Test that the start date can be set.
 		browserDriver.clearElement(startDate1Xpath);
@@ -59,14 +59,14 @@ public class JSF_IPCPortletsTesterBase extends IntegrationTesterBase {
 		browserDriver.sendKeysToElement(startDate1Xpath, startDate);
 		browserDriver.clickElement(submitButtonXpath);
 
-		testEditButton(browserDriver, browserStateAsserter, "2");
-		testEditButton(browserDriver, browserStateAsserter, "3");
+		testEditButton(browserDriver, waitingAsserter, "2");
+		testEditButton(browserDriver, waitingAsserter, "3");
 
 		// Check that the start date has not changed.
 		String customer1EditButtonXpath = "//td[text()='1']/..//input";
 		browserDriver.waitForElementEnabled(customer1EditButtonXpath);
 		browserDriver.clickElement(customer1EditButtonXpath);
-		browserStateAsserter.assertTextPresentInElementValue(startDate, startDate1Xpath);
+		waitingAsserter.assertTextPresentInElementValue(startDate, startDate1Xpath);
 
 		// Reset the start date.
 		browserDriver.clearElement(startDate1Xpath);
@@ -74,12 +74,11 @@ public class JSF_IPCPortletsTesterBase extends IntegrationTesterBase {
 		browserDriver.clickElement(submitButtonXpath);
 	}
 
-	private void testEditButton(BrowserDriver browserDriver, BrowserStateAsserter browserStateAsserter,
-		String customerId) {
-		testEditName(browserDriver, browserStateAsserter, customerId, true);
+	private void testEditButton(BrowserDriver browserDriver, WaitingAsserter waitingAsserter, String customerId) {
+		testEditName(browserDriver, waitingAsserter, customerId, true);
 	}
 
-	private void testEditName(BrowserDriver browserDriver, BrowserStateAsserter browserStateAsserter, String customerId,
+	private void testEditName(BrowserDriver browserDriver, WaitingAsserter waitingAsserter, String customerId,
 		boolean editFirstName) {
 
 		// Test that the first and last names are the same in both portlets.
@@ -94,10 +93,10 @@ public class JSF_IPCPortletsTesterBase extends IntegrationTesterBase {
 		String customerLastNameXpath = customerIdXpath + "/following-sibling::td[2]";
 		WebElement lastNameElement = browserDriver.findElementByXpath(customerLastNameXpath);
 		String firstName = firstNameElement.getText();
-		browserStateAsserter.assertTextPresentInElementValue(firstName, firstNameInputXpath);
+		waitingAsserter.assertTextPresentInElementValue(firstName, firstNameInputXpath);
 
 		String lastName = lastNameElement.getText();
-		browserStateAsserter.assertTextPresentInElementValue(lastName, lastNameInputXpath);
+		waitingAsserter.assertTextPresentInElementValue(lastName, lastNameInputXpath);
 
 		// Test that editing the name changes it in the customers portlet.
 		String inputXpath = firstNameInputXpath;
@@ -116,7 +115,7 @@ public class JSF_IPCPortletsTesterBase extends IntegrationTesterBase {
 		String editedName = name + "y";
 		browserDriver.sendKeysToElement(inputXpath, editedName);
 		browserDriver.clickElement(submitButtonXpath);
-		browserStateAsserter.assertTextPresentInElement(editedName, customerNameXpath);
+		waitingAsserter.assertTextPresentInElement(editedName, customerNameXpath);
 
 		// Reset the name.
 		browserDriver.sendKeysToElement(inputXpath, Keys.BACK_SPACE);

@@ -26,15 +26,15 @@ import org.junit.Test;
 import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.TestUtil;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class FACES_1635ResourcesTester extends IntegrationTesterBase {
+public class FACES_1635ResourcesTester extends BrowserDriverManagingTesterBase {
 
 	@Test
 	public void runFACES_1635ResourcesTest() {

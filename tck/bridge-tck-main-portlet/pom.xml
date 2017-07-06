@@ -272,7 +272,7 @@
 									<properties>
 										<property>
 											<name>listener</name>
-											<value>com.liferay.faces.test.selenium.IntegrationTestSuiteListener</value>
+											<value>com.liferay.faces.test.selenium.browser.BrowserDriverManagingTestSuiteListener</value>
 										</property>
 									</properties>
 									<includes>
@@ -330,6 +330,16 @@
 				<dependency>
 					<groupId>org.seleniumhq.selenium</groupId>
 					<artifactId>selenium-support</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
 					<scope>test</scope>
 				</dependency>
 				<dependency>

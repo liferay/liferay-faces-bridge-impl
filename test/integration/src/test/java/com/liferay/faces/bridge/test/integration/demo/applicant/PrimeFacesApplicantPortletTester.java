@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.test.integration.demo.applicant;
 import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
@@ -35,15 +35,14 @@ public class PrimeFacesApplicantPortletTester extends BridgeApplicantPortletTest
 		BrowserDriver browserDriver = getBrowserDriver();
 		sendKeysTabAndWaitForRerender(browserDriver, getPostalCodeFieldXpath(), "32801");
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertTextPresentInElementValue("Orlando", getCityFieldXpath());
-		browserStateAsserter.assertTextPresentInElementValue("3", SELECT_PROVINCE_ID_XPATH, false);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertTextPresentInElementValue("Orlando", getCityFieldXpath());
+		waitingAsserter.assertTextPresentInElementValue("3", SELECT_PROVINCE_ID_XPATH, false);
 	}
 
 	@Override
-	protected void assertFileUploadChooserDisplayed(BrowserDriver browserDriver,
-		BrowserStateAsserter browserStateAsserter) {
-		browserStateAsserter.assertElementDisplayed(getFileUploadChooserXpath() + "/..");
+	protected void assertFileUploadChooserDisplayed(BrowserDriver browserDriver, WaitingAsserter waitingAsserter) {
+		waitingAsserter.assertElementDisplayed(getFileUploadChooserXpath() + "/..");
 	}
 
 	@Override

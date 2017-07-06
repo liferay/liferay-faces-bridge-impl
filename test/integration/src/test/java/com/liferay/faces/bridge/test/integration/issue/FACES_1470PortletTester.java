@@ -34,17 +34,17 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.TestUtil;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 import com.liferay.faces.test.selenium.expectedconditions.WindowOpened;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class FACES_1470PortletTester extends IntegrationTesterBase {
+public class FACES_1470PortletTester extends BrowserDriverManagingTesterBase {
 
 	// Xpaths
 	private static final String as7LeakInstanceXpath = "//span[contains(@id,'as7LeakInstances')]//ul/li";
@@ -111,9 +111,9 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 			throw new IllegalStateException("No new tab opened when *Navigate to view1.xhtml* was clicked.");
 		}
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		List<WebElement> as7LeakInstanceElements = new ArrayList<WebElement>();
-		testAS7LeakIntancesCreated(browserDriver, browserStateAsserter, as7LeakInstanceTrackerWindowId,
+		testAS7LeakIntancesCreated(browserDriver, waitingAsserter, as7LeakInstanceTrackerWindowId,
 			as7LeakInstanceElements);
 
 		// 4. Switch back to the tab with view1.xhtml and click the *Click me to navigate to view2.xhtml via Ajax*
@@ -129,7 +129,7 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 
 		// 6. Switch back to the first tab (as7LeakTracker.xhtml) and click the Refresh AS7Leak List button and confirm
 		// that several AS7Leak class instances appear.
-		testAS7LeakIntancesCreated(browserDriver, browserStateAsserter, as7LeakInstanceTrackerWindowId,
+		testAS7LeakIntancesCreated(browserDriver, waitingAsserter, as7LeakInstanceTrackerWindowId,
 			as7LeakInstanceElements);
 
 		// 7. Switch back to the tab with view1.xhtml and click the *Click me to navigate to view2.xhtml via non-Ajax
@@ -147,7 +147,7 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 
 		// 9. Switch back to the first tab (as7LeakTracker.xhtml) and click the *Refresh AS7Leak List* button and
 		// confirm that several AS7Leak class instances appear.
-		testAS7LeakIntancesCreated(browserDriver, browserStateAsserter, as7LeakInstanceTrackerWindowId,
+		testAS7LeakIntancesCreated(browserDriver, waitingAsserter, as7LeakInstanceTrackerWindowId,
 			as7LeakInstanceElements);
 
 		// 10. Switch back to the tab with view1.xhtml and click the *Click me to navigate to view2.xhtml via Ajax*
@@ -160,7 +160,7 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 
 		// 12. Switch back to the first tab (as7LeakTracker.xhtml) and click the *Refresh AS7Leak List* button and
 		// confirm that several AS7Leak class instances appear.
-		testAS7LeakIntancesCreated(browserDriver, browserStateAsserter, as7LeakInstanceTrackerWindowId,
+		testAS7LeakIntancesCreated(browserDriver, waitingAsserter, as7LeakInstanceTrackerWindowId,
 			as7LeakInstanceElements);
 
 		// 13. Switch back to the tab with view1.xhtml and click the *Click me to navigate to view2.xhtml via non-Ajax
@@ -173,7 +173,7 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 
 		// 15. Switch back to the first tab (as7LeakTracker.xhtml) and click the *Refresh AS7Leak List* button and
 		// confirm that several AS7Leak class instances appear.
-		testAS7LeakIntancesCreated(browserDriver, browserStateAsserter, as7LeakInstanceTrackerWindowId,
+		testAS7LeakIntancesCreated(browserDriver, waitingAsserter, as7LeakInstanceTrackerWindowId,
 			as7LeakInstanceElements);
 
 		// 16. Switch back to the tab with view1.xhtml, navigate to the as7LeakTracker.xhtml portlet page (to avoid
@@ -185,7 +185,7 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 
 		// 17. Switch back to the first tab (as7LeakTracker.xhtml) and click the *Refresh AS7Leak List* button and
 		// confirm that several AS7Leak class instances appear.
-		testAS7LeakIntancesCreated(browserDriver, browserStateAsserter, as7LeakInstanceTrackerWindowId,
+		testAS7LeakIntancesCreated(browserDriver, waitingAsserter, as7LeakInstanceTrackerWindowId,
 			as7LeakInstanceElements);
 
 		// 18. Click the *Perform Garbage Collection* button and confirm that no AS7Leak class instances appear. Note:
@@ -211,7 +211,7 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 			}
 		}
 
-		browserStateAsserter.assertElementNotPresent(as7LeakInstanceXpath);
+		waitingAsserter.assertElementNotPresent(as7LeakInstanceXpath);
 	}
 
 	@Before
@@ -248,7 +248,7 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 		browserDriver.waitFor(new SwitchedToWindow(windowId));
 	}
 
-	private void testAS7LeakIntancesCreated(BrowserDriver browserDriver, BrowserStateAsserter browserStateAsserter,
+	private void testAS7LeakIntancesCreated(BrowserDriver browserDriver, WaitingAsserter waitingAsserter,
 		String as7LeakInstanceTrackerWindowId, List<WebElement> previousAS7LeakInstanceElements) {
 
 		switchToWindow(browserDriver, as7LeakInstanceTrackerWindowId);
@@ -271,7 +271,7 @@ public class FACES_1470PortletTester extends IntegrationTesterBase {
 		// Test that at least one non-garbage collected AS7Leak instance is displayed. Non-garbage collected instances
 		// will be rendered as an <li> with <code> tags containing the text "AS7Leak". Garbage collected instances will
 		// be displayed as an empty <li>.
-		browserStateAsserter.assertElementDisplayed(as7LeakInstanceXpath + "/code[contains(text(),'AS7Leak')]");
+		waitingAsserter.assertElementDisplayed(as7LeakInstanceXpath + "/code[contains(text(),'AS7Leak')]");
 	}
 
 	private static class SwitchedToWindow implements ExpectedCondition<Boolean> {

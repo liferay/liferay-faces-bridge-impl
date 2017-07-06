@@ -22,20 +22,21 @@ import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.TestUtil;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
  * @author  Kyle Stiemann
  * @author  Philip White
  */
-public class JSFFlowsPortletTester extends IntegrationTesterBase {
+public class JSFFlowsPortletTester extends BrowserDriverManagingTesterBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(JSFFlowsPortletTester.class);
@@ -47,16 +48,16 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		browserDriver.navigateWindowTo(BridgeTestUtil.getDemoPageURL("jsf-flows"));
 
 		// Test that libraries are displayed.
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		assertLibraryElementDisplayed(browserStateAsserter, "Mojarra", browserDriver);
-		assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Alloy", browserDriver);
-		assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Bridge Impl", browserDriver);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		assertLibraryElementDisplayed(waitingAsserter, "Mojarra", browserDriver);
+		assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Alloy", browserDriver);
+		assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Bridge Impl", browserDriver);
 
 		if (TestUtil.getContainer().contains("liferay")) {
-			assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Bridge Ext", browserDriver);
+			assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Bridge Ext", browserDriver);
 		}
 
-		assertLibraryElementDisplayed(browserStateAsserter, "Weld", browserDriver);
+		assertLibraryElementDisplayed(waitingAsserter, "Weld", browserDriver);
 
 		// Test that exiting the bookings flow scope causes beans to go out of scope.
 		String enterBookingFlowButtonXpath = "//input[@value='Enter Booking Flow']";
@@ -65,8 +66,8 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		String exitBookingFlowButtonXpath = "//input[@value='Exit Booking Flow']";
 		browserDriver.waitForElementEnabled(exitBookingFlowButtonXpath);
 		browserDriver.clickElement(exitBookingFlowButtonXpath);
-		browserStateAsserter.assertElementDisplayed(enterBookingFlowButtonXpath);
-		assertFlowBeansOutOfScope(browserStateAsserter);
+		waitingAsserter.assertElementDisplayed(enterBookingFlowButtonXpath);
+		assertFlowBeansOutOfScope(waitingAsserter);
 
 		// Test that a flight can be found.
 		browserDriver.clickElement(enterBookingFlowButtonXpath);
@@ -87,21 +88,21 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		browserDriver.clickElement(searchFlightsButtonXpath);
 
 		String addToCartButtonXpath = "(//input[@value='Add To Cart'])[1]";
-		browserStateAsserter.assertElementDisplayed(addToCartButtonXpath);
+		waitingAsserter.assertElementDisplayed(addToCartButtonXpath);
 
 		// Test that a flight can be added to the cart.
 		browserDriver.clickElement(addToCartButtonXpath);
 
 		String bookAdditionalTravelButtonXpath = "//input[@value='Book Additional Travel']";
 		String removeButtonXpath = "(//input[@value='Remove'])[1]";
-		browserStateAsserter.assertElementDisplayed(removeButtonXpath);
+		waitingAsserter.assertElementDisplayed(removeButtonXpath);
 
 		// Test that non-flight options are not implemented.
 		browserDriver.clickElement(bookAdditionalTravelButtonXpath);
 		browserDriver.waitForElementEnabled(bookingTypeXpath);
 
 		createSelect(browserDriver, bookingTypeXpath).selectByVisibleText("Cruise");
-		browserStateAsserter.assertTextPresentInElement(
+		waitingAsserter.assertTextPresentInElement(
 			"'Flight' is currently the only type of booking that is implemented in this demo.",
 			"//fieldset[contains(@id,':bookingTypeFieldSet')]/p");
 
@@ -134,12 +135,12 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 
 		String cvvFieldXpath = "//input[contains(@id,':cvv')]";
 		String cvvFieldErrorXpath = cvvFieldXpath + "/../span[@class='portlet-msg-error']";
-		browserStateAsserter.assertTextPresentInElement("Value is required", cvvFieldErrorXpath);
+		waitingAsserter.assertTextPresentInElement("Value is required", cvvFieldErrorXpath);
 		browserDriver.sendKeysToElement(cvvFieldXpath, "123");
 		browserDriver.clickElement("//input[@value='Purchase']");
 
 		String callSurveyFlowButtonXpath = "//input[@value='Call Survey Flow']";
-		browserStateAsserter.assertTextPresentInElement("Thank you John for your purchase.",
+		waitingAsserter.assertTextPresentInElement("Thank you John for your purchase.",
 			"//div[contains(@class,'liferay-faces-bridge-body')]//form");
 
 		// Test the survey flow scope.
@@ -150,12 +151,12 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		browserDriver.sendKeysToElement("//div[contains(@id,':question1')]/input", "Liferay");
 		browserDriver.sendKeysToElement("//div[contains(@id,':question2')]/input", "Cockpit");
 		browserDriver.clickElement(finishButtonXpath);
-		browserStateAsserter.assertTextPresentInElement("Thank you John for participating in our survey.",
+		waitingAsserter.assertTextPresentInElement("Thank you John for participating in our survey.",
 			"//div[contains(@class,'liferay-faces-bridge-body')]//form");
 
 		// Test that exiting the survey flow scope causes beans to go out of scope.
 		browserDriver.clickElement("//input[@value='Return From Survey Flow']");
-		assertFlowBeansOutOfScope(browserStateAsserter);
+		assertFlowBeansOutOfScope(waitingAsserter);
 	}
 
 	@Before
@@ -168,11 +169,11 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		getBrowserDriver().setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut());
 	}
 
-	protected void assertLibraryElementDisplayed(BrowserStateAsserter browserStateAsserter, String libraryName,
+	protected void assertLibraryElementDisplayed(WaitingAsserter waitingAsserter, String libraryName,
 		BrowserDriver browserDriver) {
 
 		String libraryVersionXpath = "//li[contains(.,'" + libraryName + "')]";
-		browserStateAsserter.assertElementDisplayed(libraryVersionXpath);
+		waitingAsserter.assertElementDisplayed(libraryVersionXpath);
 
 		if (logger.isInfoEnabled()) {
 
@@ -181,15 +182,15 @@ public class JSFFlowsPortletTester extends IntegrationTesterBase {
 		}
 	}
 
-	private void assertFlowBeansOutOfScope(BrowserStateAsserter browserStateAsserter) {
+	private void assertFlowBeansOutOfScope(WaitingAsserter waitingAsserter) {
 
-		browserStateAsserter.assertTextPresentInElement("bookingFlowModelBeanInScope=false",
+		waitingAsserter.assertTextPresentInElement("bookingFlowModelBeanInScope=false",
 			"//li/em[contains(text(),'bookingFlowModelBeanInScope')]");
-		browserStateAsserter.assertTextPresentInElement("cartModelBeanInScope=false",
+		waitingAsserter.assertTextPresentInElement("cartModelBeanInScope=false",
 			"//li/em[contains(text(),'cartModelBeanInScope')]");
-		browserStateAsserter.assertTextPresentInElement("flightSearchModelBeanInScope=false",
+		waitingAsserter.assertTextPresentInElement("flightSearchModelBeanInScope=false",
 			"//li/em[contains(text(),'flightSearchModelBeanInScope')]");
-		browserStateAsserter.assertTextPresentInElement("surveyFlowModelBeanInScope=false",
+		waitingAsserter.assertTextPresentInElement("surveyFlowModelBeanInScope=false",
 			"//li/em[contains(text(),'surveyFlowModelBeanInScope')]");
 	}
 
