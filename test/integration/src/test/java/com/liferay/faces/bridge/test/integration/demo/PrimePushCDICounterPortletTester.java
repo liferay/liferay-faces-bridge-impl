@@ -19,21 +19,21 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
-import com.liferay.faces.test.selenium.webdriver.WebDriverFactory;
+import com.liferay.faces.test.selenium.browser.BrowserDriverFactory;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.TestUtil;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
+import com.liferay.faces.test.selenium.browser.WaitingAsserterFactory;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class PrimePushCDICounterPortletTester extends IntegrationTesterBase {
+public class PrimePushCDICounterPortletTester extends BrowserDriverManagingTesterBase {
 
 	// Private Data Members
 	private BrowserDriver browserDriver2;
@@ -50,8 +50,8 @@ public class PrimePushCDICounterPortletTester extends IntegrationTesterBase {
 		String countDisplayXpath = "//span[contains(@id,':countDisplay')]";
 		WebElement countDisplayElement = browserDriver1.findElementByXpath(countDisplayXpath);
 		String countString = countDisplayElement.getText().trim();
-		BrowserStateAsserter browserStateAsserter2 = newBrowserStateAsserter(browserDriver2);
-		browserStateAsserter2.assertTextPresentInElement(countString, countDisplayXpath);
+		WaitingAsserter waitingAsserter2 = WaitingAsserterFactory.getWaitingAsserter(browserDriver2);
+		waitingAsserter2.assertTextPresentInElement(countString, countDisplayXpath);
 
 		int count = Integer.parseInt(countString);
 
@@ -61,18 +61,18 @@ public class PrimePushCDICounterPortletTester extends IntegrationTesterBase {
 		browserDriver1.clickElement(incrementCounterButtonXpath);
 		count++;
 
-		BrowserStateAsserter browserStateAsserter1 = getBrowserStateAsserter();
+		WaitingAsserter waitingAsserter1 = getWaitingAsserter();
 		countString = Integer.toString(count);
-		browserStateAsserter1.assertTextPresentInElement(countString, countDisplayXpath);
-		browserStateAsserter2.assertTextPresentInElement(countString, countDisplayXpath);
+		waitingAsserter1.assertTextPresentInElement(countString, countDisplayXpath);
+		waitingAsserter2.assertTextPresentInElement(countString, countDisplayXpath);
 
 		// Click the increment button in the second browser and test that the count has been incremented in both
 		// browsers.
 		browserDriver2.clickElement(incrementCounterButtonXpath);
 		count++;
 		countString = Integer.toString(count);
-		browserStateAsserter1.assertTextPresentInElement(countString, countDisplayXpath);
-		browserStateAsserter2.assertTextPresentInElement(countString, countDisplayXpath);
+		waitingAsserter1.assertTextPresentInElement(countString, countDisplayXpath);
+		waitingAsserter2.assertTextPresentInElement(countString, countDisplayXpath);
 
 		// Click the increment button 10 times in the first browser and test that the count is accurate in both
 		// browsers.
@@ -83,29 +83,15 @@ public class PrimePushCDICounterPortletTester extends IntegrationTesterBase {
 		}
 
 		countString = Integer.toString(count);
-		browserStateAsserter1.assertTextPresentInElement(countString, countDisplayXpath);
-		browserStateAsserter2.assertTextPresentInElement(countString, countDisplayXpath);
+		waitingAsserter1.assertTextPresentInElement(countString, countDisplayXpath);
+		waitingAsserter2.assertTextPresentInElement(countString, countDisplayXpath);
 	}
 
 	@Before
 	public void setUpBrowserDriver2() {
 
-		String browserName = TestUtil.getSystemPropertyOrDefault("integration.browser.name", "chrome");
-		String defaultBrowserHeadlessString = "true";
-
-		if ("firefox".equals(browserName)) {
-			defaultBrowserHeadlessString = "false";
-		}
-
-		String browserHeadlessString = TestUtil.getSystemPropertyOrDefault("integration.browser.headless",
-				defaultBrowserHeadlessString);
-		boolean browserHeadless = Boolean.parseBoolean(browserHeadlessString);
-		String browserSimulateMobileString = TestUtil.getSystemPropertyOrDefault("integration.browser.simulate.mobile",
-				"false");
-		boolean browserSimulateMobile = Boolean.parseBoolean(browserSimulateMobileString);
-		WebDriver webDriver = WebDriverFactory.getWebDriver(browserName, browserHeadless, browserSimulateMobile);
-		browserDriver2 = newBrowserDriver(webDriver, browserHeadless, browserSimulateMobile);
-		signIn(browserDriver2);
+		browserDriver2 = BrowserDriverFactory.getBrowserDriver();
+		TestUtil.signIn(browserDriver2);
 	}
 
 	@After

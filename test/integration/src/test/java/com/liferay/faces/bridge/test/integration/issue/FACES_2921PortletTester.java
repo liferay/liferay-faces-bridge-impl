@@ -18,15 +18,15 @@ package com.liferay.faces.bridge.test.integration.issue;
 import org.junit.Test;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class FACES_2921PortletTester extends IntegrationTesterBase {
+public class FACES_2921PortletTester extends BrowserDriverManagingTesterBase {
 
 	@Test
 	public void runFACES_2921PortletTest() {
@@ -39,10 +39,10 @@ public class FACES_2921PortletTester extends IntegrationTesterBase {
 		browserDriver.sendKeysToElement("//input[contains(@id,':slider1')]", "5");
 		browserDriver.clickElementAndWaitForRerender("//button[contains(@id,'submit')]");
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertTextPresentInElement("text", "//span[contains(@id,':textOutput')]");
-		browserStateAsserter.assertTextPresentInElement("true", "//span[contains(@id,':switchOutput')]");
-		browserStateAsserter.assertTextPresentInElement("5", "//span[contains(@id,':slider1Output')]");
-		browserStateAsserter.assertTextPresentInElement("10", "//span[contains(@id,':slider2Output')]");
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertTextPresentInElement("text", "//span[contains(@id,':textOutput')]");
+		waitingAsserter.assertTextPresentInElement("true", "//span[contains(@id,':switchOutput')]");
+		waitingAsserter.assertTextPresentInElement("5", "//span[contains(@id,':slider1Output')]");
+		waitingAsserter.assertTextPresentInElement("10", "//span[contains(@id,':slider2Output')]");
 	}
 }

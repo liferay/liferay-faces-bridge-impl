@@ -26,9 +26,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.TestUtil;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
@@ -45,21 +45,21 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + getContext());
 
 		// Wait to begin the test until the first name field is rendered.
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertElementDisplayed(getFirstNameFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getLastNameFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getEmailAddressFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getPhoneNumberFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getDateOfBirthFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getCityFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getProvinceIdFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getPostalCodeFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getAddAttachmentXpath());
-		assertLibraryElementDisplayed(browserStateAsserter, "Mojarra", browserDriver);
-		assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Bridge Impl", browserDriver);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertElementDisplayed(getFirstNameFieldXpath());
+		waitingAsserter.assertElementDisplayed(getLastNameFieldXpath());
+		waitingAsserter.assertElementDisplayed(getEmailAddressFieldXpath());
+		waitingAsserter.assertElementDisplayed(getPhoneNumberFieldXpath());
+		waitingAsserter.assertElementDisplayed(getDateOfBirthFieldXpath());
+		waitingAsserter.assertElementDisplayed(getCityFieldXpath());
+		waitingAsserter.assertElementDisplayed(getProvinceIdFieldXpath());
+		waitingAsserter.assertElementDisplayed(getPostalCodeFieldXpath());
+		waitingAsserter.assertElementDisplayed(getAddAttachmentXpath());
+		assertLibraryElementDisplayed(waitingAsserter, "Mojarra", browserDriver);
+		assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Bridge Impl", browserDriver);
 
 		if (TestUtil.getContainer().contains("liferay")) {
-			assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Bridge Ext", browserDriver);
+			assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Bridge Ext", browserDriver);
 		}
 	}
 
@@ -75,12 +75,12 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 		String submitButtonXpath = getSubmitButtonXpath();
 		browserDriver.clickElement(submitButtonXpath);
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		String firstNameFieldErrorXpath = getFieldErrorXpath(firstNameFieldXpath);
-		browserStateAsserter.assertElementNotDisplayed(firstNameFieldErrorXpath);
+		waitingAsserter.assertElementNotDisplayed(firstNameFieldErrorXpath);
 		browserDriver.clearElement(firstNameFieldXpath);
 		browserDriver.clickElement(submitButtonXpath);
-		browserStateAsserter.assertTextPresentInElement("Value is required", firstNameFieldErrorXpath);
+		waitingAsserter.assertTextPresentInElement("Value is required", firstNameFieldErrorXpath);
 	}
 
 	@Override
@@ -93,13 +93,13 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 		String submitButtonXpath = getSubmitButtonXpath();
 		browserDriver.clickElementAndWaitForRerender(submitButtonXpath);
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		String emailAddressFieldErrorXpath = getFieldErrorXpath(emailAddressFieldXpath);
-		browserStateAsserter.assertTextPresentInElement("Invalid e-mail address", emailAddressFieldErrorXpath);
+		waitingAsserter.assertTextPresentInElement("Invalid e-mail address", emailAddressFieldErrorXpath);
 		browserDriver.clearElement(emailAddressFieldXpath);
 		browserDriver.sendKeysToElement(emailAddressFieldXpath, "test@liferay.com");
 		browserDriver.clickElementAndWaitForRerender(submitButtonXpath);
-		browserStateAsserter.assertElementNotDisplayed(emailAddressFieldErrorXpath);
+		waitingAsserter.assertElementNotDisplayed(emailAddressFieldErrorXpath);
 	}
 
 	@Override
@@ -111,24 +111,19 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 		String submitButtonXpath = getSubmitButtonXpath();
 		browserDriver.clickElement(submitButtonXpath);
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		String postalCodeFieldXpath = getPostalCodeFieldXpath();
-		browserStateAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(postalCodeFieldXpath));
+		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(postalCodeFieldXpath));
 		submitPostalCodeAndWaitForPostback(browserDriver, "32802");
 		browserDriver.clickElementAndWaitForRerender(submitButtonXpath);
-		browserStateAsserter.assertTextPresentInElement("Value is required",
-			getFieldErrorXpath(getFirstNameFieldXpath()));
-		browserStateAsserter.assertTextPresentInElement("Value is required",
-			getFieldErrorXpath(getLastNameFieldXpath()));
-		browserStateAsserter.assertTextPresentInElement("Value is required",
+		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getFirstNameFieldXpath()));
+		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getLastNameFieldXpath()));
+		waitingAsserter.assertTextPresentInElement("Value is required",
 			getFieldErrorXpath(getEmailAddressFieldXpath()));
-		browserStateAsserter.assertTextPresentInElement("Value is required",
-			getFieldErrorXpath(getPhoneNumberFieldXpath()));
-		browserStateAsserter.assertTextPresentInElement("Value is required",
-			getFieldErrorXpath(getDateOfBirthFieldXpath()));
-		browserStateAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getCityFieldXpath()));
-		browserStateAsserter.assertTextPresentInElement("Value is required",
-			getFieldErrorXpath(getProvinceIdFieldXpath()));
+		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getPhoneNumberFieldXpath()));
+		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getDateOfBirthFieldXpath()));
+		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getCityFieldXpath()));
+		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getProvinceIdFieldXpath()));
 		clearAllFields(browserDriver);
 	}
 
@@ -163,13 +158,13 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 		String submitButtonXpath = getSubmitButtonXpath();
 		browserDriver.clickElementAndWaitForRerender(submitButtonXpath);
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		String dateOfBirthFieldErrorXpath = getFieldErrorXpath(dateOfBirthFieldXpath);
-		browserStateAsserter.assertTextPresentInElement("Invalid date format", dateOfBirthFieldErrorXpath);
+		waitingAsserter.assertTextPresentInElement("Invalid date format", dateOfBirthFieldErrorXpath);
 		browserDriver.clearElement(dateOfBirthFieldXpath);
 		browserDriver.sendKeysToElement(dateOfBirthFieldXpath, "01/02/3456");
 		browserDriver.clickElementAndWaitForRerender(submitButtonXpath);
-		browserStateAsserter.assertElementNotDisplayed(dateOfBirthFieldErrorXpath);
+		waitingAsserter.assertElementNotDisplayed(dateOfBirthFieldErrorXpath);
 	}
 
 	@Override
@@ -205,8 +200,8 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 		submitPostalCodeAndWaitForPostback(browserDriver, "32802");
 		browserDriver.clickElement(submitButtonXpath);
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertTextPresentInElement("Dear David,", getConfimationFormXpath());
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertTextPresentInElement("Dear David,", getConfimationFormXpath());
 	}
 
 	@Override

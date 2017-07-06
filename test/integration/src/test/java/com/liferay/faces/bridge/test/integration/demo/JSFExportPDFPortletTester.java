@@ -35,19 +35,20 @@ import org.junit.Test;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.TestUtil;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class JSFExportPDFPortletTester extends IntegrationTesterBase {
+public class JSFExportPDFPortletTester extends BrowserDriverManagingTesterBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(JSFExportPDFPortletTester.class);
@@ -59,16 +60,16 @@ public class JSFExportPDFPortletTester extends IntegrationTesterBase {
 		BrowserDriver browserDriver = getBrowserDriver();
 		browserDriver.navigateWindowTo(BridgeTestUtil.getDemoPageURL("jsf-pdf"));
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertElementDisplayed(
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertElementDisplayed(
 			"//td[contains(text(),'Green')]/preceding-sibling::td/a[contains(text(),'Export')]");
-		browserStateAsserter.assertElementDisplayed(
+		waitingAsserter.assertElementDisplayed(
 			"//td[contains(text(),'Kessler')]/preceding-sibling::td/a[contains(text(),'Export')]");
 
 		String shearerPDFLinkXpath =
 			"//td[contains(text(),'Shearer')]/preceding-sibling::td/a[contains(text(),'Export')]";
 
-		browserStateAsserter.assertElementDisplayed(shearerPDFLinkXpath);
+		waitingAsserter.assertElementDisplayed(shearerPDFLinkXpath);
 
 		try {
 
@@ -106,7 +107,7 @@ public class JSFExportPDFPortletTester extends IntegrationTesterBase {
 			String expectedShearerRichPDFFilePath = expectedShearerRichPDFURL.getFile();
 			File expectedShearerRichPDFFile = new File(expectedShearerRichPDFFilePath);
 			String expectedShearerRichPDFText = getPDFText(expectedShearerRichPDFFile);
-			logger.info("Expected Shearer-Rich.pdf text:\n\n{0}\nDownloaded Shearer-Rich.pdf text:\n\n{1}",
+			logger.info("Expected Shearer-Rich.pdf text:\n\n{}\nDownloaded Shearer-Rich.pdf text:\n\n{}",
 				expectedShearerRichPDFText, shearerRichPDFText);
 			Assert.assertTrue(
 				"The downloaded Shearer-Rich.pdf file's text does not match the expected Shearer-Rich.pdf file's text.",
