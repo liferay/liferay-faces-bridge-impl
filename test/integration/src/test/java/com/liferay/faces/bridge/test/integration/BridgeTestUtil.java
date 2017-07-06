@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.test.integration;
 
-import com.liferay.faces.test.selenium.TestUtil;
+import com.liferay.faces.test.selenium.browser.TestUtil;
 
 
 /**

@@ -24,18 +24,19 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.TestUtil;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class FACES_1638PortletTester extends IntegrationTesterBase {
+public class FACES_1638PortletTester extends BrowserDriverManagingTesterBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(FACES_1638PortletTester.class);
@@ -69,7 +70,7 @@ public class FACES_1638PortletTester extends IntegrationTesterBase {
 			WebElement link = listItem.findElement(By.xpath(".//a[contains(text(),'-Item')][@href]"));
 			String url = link.getAttribute("href");
 
-			logger.info("URL:\n\n{0}", url);
+			logger.info("URL:\n\n{}", url);
 			Assert.assertTrue("The link does not contain the parameter.", url.contains(param));
 
 			int expectedOccurencesOfParamName = 1;

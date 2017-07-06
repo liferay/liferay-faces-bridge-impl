@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 import com.liferay.faces.test.showcase.TesterBase;
 
 
@@ -41,20 +41,20 @@ public class NamespaceGeneralTester extends TesterBase {
 		navigateToUseCase(browserDriver, "portlet", "namespace", "general");
 
 		// Test that the portlet namespace is rendered for both examples on the page.
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		WebElement liferayFacesBridgeBody = browserDriver.findElementByXpath(
 				"//div[contains(@class,'liferay-faces-bridge-body')]");
 		String portletNamespace = liferayFacesBridgeBody.getAttribute("id");
-		testPortletNamespaceRendered(browserDriver, browserStateAsserter, portletNamespace,
+		testPortletNamespaceRendered(browserDriver, waitingAsserter, portletNamespace,
 			"//label[contains(.,'Example')][contains(.,'Introducing a var into the EL')]/ancestor::div[@class='showcase-example']//pre");
-		testPortletNamespaceRendered(browserDriver, browserStateAsserter, portletNamespace,
+		testPortletNamespaceRendered(browserDriver, waitingAsserter, portletNamespace,
 			"//label[contains(.,'Example')][contains(.,'Output directly to the response')]/ancestor::div[@class='showcase-example']//pre");
 	}
 
-	private void testPortletNamespaceRendered(BrowserDriver browserDriver, BrowserStateAsserter browserStateAsserter,
+	private void testPortletNamespaceRendered(BrowserDriver browserDriver, WaitingAsserter waitingAsserter,
 		String portletNamespace, String preXpath) {
 
-		browserStateAsserter.assertTextPresentInElement(PORTLET_NAMESPACE_EQUALS, preXpath);
+		waitingAsserter.assertTextPresentInElement(PORTLET_NAMESPACE_EQUALS, preXpath);
 
 		WebElement pre = browserDriver.findElementByXpath(preXpath);
 		Assert.assertEquals(PORTLET_NAMESPACE_EQUALS + portletNamespace, pre.getText().trim());

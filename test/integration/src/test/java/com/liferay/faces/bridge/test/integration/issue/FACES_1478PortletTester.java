@@ -21,18 +21,19 @@ import org.junit.Test;
 
 import org.openqa.selenium.WebElement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.TestUtil;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class FACES_1478PortletTester extends IntegrationTesterBase {
+public class FACES_1478PortletTester extends BrowserDriverManagingTesterBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(FACES_1478PortletTester.class);
@@ -52,7 +53,7 @@ public class FACES_1478PortletTester extends IntegrationTesterBase {
 		String url = urlSpan.getText();
 		WebElement link = browserDriver.findElementByXpath("//a[contains(text(),'should be the same as the href')]");
 		String href = link.getAttribute("href");
-		logger.info("URL:\n\n{0}\nLink href value:\n\n{1}", url, href);
+		logger.info("URL:\n\n{}\nLink href value:\n\n{}", url, href);
 		Assert.assertEquals("The URL value does not equal the value of the link's href attribute", url, href);
 
 		// Test that the url contains both parameters.
