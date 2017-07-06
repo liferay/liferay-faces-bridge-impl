@@ -37,11 +37,12 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
-import com.liferay.faces.test.selenium.TestUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.TestUtil;
 
 
 /**
@@ -49,7 +50,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
  * @author  Kyle Stiemann
  */
 @RunWith(TckParameterized.class)
-public class TckTestCase extends IntegrationTesterBase {
+public class TckTestCase extends BrowserDriverManagingTesterBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(TckTestCase.class);
@@ -142,7 +143,7 @@ public class TckTestCase extends IntegrationTesterBase {
 		}
 		catch (Exception e) {
 
-			logger.error("Unable to acccess test exclusions file, {0} Exception thrown: {1}", EXCLUDED_TESTS_FILE_PATH,
+			logger.error("Unable to acccess test exclusions file, {} Exception thrown: {}", EXCLUDED_TESTS_FILE_PATH,
 				e.getMessage());
 			System.exit(1);
 		}
@@ -154,7 +155,7 @@ public class TckTestCase extends IntegrationTesterBase {
 		}
 		catch (Exception e) {
 
-			logger.error("Unable to parse test exclusions file, {0} Exception thrown: {1}", EXCLUDED_TESTS_FILE_PATH,
+			logger.error("Unable to parse test exclusions file, {} Exception thrown: {}", EXCLUDED_TESTS_FILE_PATH,
 				e.getMessage());
 			System.exit(1);
 		}
@@ -164,7 +165,7 @@ public class TckTestCase extends IntegrationTesterBase {
 		}
 		catch (Exception e) {
 
-			logger.error("Unable to acccess test description file, {0} Exception thrown: {1}", TESTS_FILE_PATH,
+			logger.error("Unable to acccess test description file, {} Exception thrown: {}", TESTS_FILE_PATH,
 				e.getMessage());
 			System.exit(1);
 		}
@@ -176,7 +177,7 @@ public class TckTestCase extends IntegrationTesterBase {
 		}
 		catch (Exception e) {
 
-			logger.error("Unable to parse test description file, {0} Exception thrown: {1}", TESTS_FILE_PATH,
+			logger.error("Unable to parse test description file, {} Exception thrown: {}", TESTS_FILE_PATH,
 				e.getMessage());
 			System.exit(1);
 		}

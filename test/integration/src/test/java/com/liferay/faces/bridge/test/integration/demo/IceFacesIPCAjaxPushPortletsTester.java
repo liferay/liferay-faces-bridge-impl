@@ -26,7 +26,7 @@ import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
@@ -70,13 +70,13 @@ public class IceFacesIPCAjaxPushPortletsTester extends JSF_IPCPortletsTesterBase
 		browserDriver.waitForElementEnabled(customer1EditButtonXpath);
 		browserDriver.clickElement(customer1EditButtonXpath);
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertTextPresentInElementValue(customer1FirstName, firstNameInputXpath);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertTextPresentInElementValue(customer1FirstName, firstNameInputXpath);
 
 		String customerLastNameXpath = customer1IdXpath + "/following-sibling::td[2]/span";
 		WebElement lastNameElement = browserDriver.findElementByXpath(customerLastNameXpath);
 		String lastName = lastNameElement.getText();
-		browserStateAsserter.assertTextPresentInElementValue(lastName, lastNameInputXpath);
+		waitingAsserter.assertTextPresentInElementValue(lastName, lastNameInputXpath);
 
 		// Test that editing the name changes it in the customers portlet.
 		browserDriver.clearElement(lastNameInputXpath);
@@ -84,13 +84,13 @@ public class IceFacesIPCAjaxPushPortletsTester extends JSF_IPCPortletsTesterBase
 		String editedName = lastName + "y";
 		browserDriver.sendKeysToElement(lastNameInputXpath, editedName, Keys.ENTER);
 		browserDriver.waitForElementEnabled(customerLastNameXpath + "[text()='" + editedName + "']");
-		browserStateAsserter.assertTextPresentInElement(editedName, customerLastNameXpath);
+		waitingAsserter.assertTextPresentInElement(editedName, customerLastNameXpath);
 
 		// Reset the name.
 		browserDriver.sendKeysToElement(lastNameInputXpath, Keys.BACK_SPACE, Keys.ENTER);
 
 		// Test that start date is today.
-		browserStateAsserter.assertTextPresentInElementValue(todayString, startDate1Xpath);
+		waitingAsserter.assertTextPresentInElementValue(todayString, startDate1Xpath);
 
 		// Test that the start date can be set.
 		browserDriver.clearElement(startDate1Xpath);
@@ -109,7 +109,7 @@ public class IceFacesIPCAjaxPushPortletsTester extends JSF_IPCPortletsTesterBase
 		browserDriver.navigateWindowTo(BridgeTestUtil.getDemoPageURL("icefaces-ipc"));
 		browserDriver.waitForElementEnabled(customer1EditButtonXpath);
 		browserDriver.clickElement(customer1EditButtonXpath);
-		browserStateAsserter.assertTextPresentInElementValue(startDate, startDate1Xpath);
+		waitingAsserter.assertTextPresentInElementValue(startDate, startDate1Xpath);
 	}
 
 	private String getCustomerEditButtonXpath(String customerIdXpath) {

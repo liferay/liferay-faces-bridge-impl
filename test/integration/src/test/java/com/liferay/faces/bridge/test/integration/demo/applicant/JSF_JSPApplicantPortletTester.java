@@ -20,9 +20,9 @@ import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.TestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.TestUtil;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
@@ -38,21 +38,21 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 		BrowserDriver browserDriver = getBrowserDriver();
 		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + getContext());
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertElementDisplayed(getFirstNameFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getLastNameFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getEmailAddressFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getPhoneNumberFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getDateOfBirthFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getCityFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getProvinceIdFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getPostalCodeFieldXpath());
-		browserStateAsserter.assertElementDisplayed(getAddAttachmentXpath());
-		assertLibraryElementDisplayed(browserStateAsserter, "Mojarra", browserDriver);
-		assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Bridge Impl", browserDriver);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertElementDisplayed(getFirstNameFieldXpath());
+		waitingAsserter.assertElementDisplayed(getLastNameFieldXpath());
+		waitingAsserter.assertElementDisplayed(getEmailAddressFieldXpath());
+		waitingAsserter.assertElementDisplayed(getPhoneNumberFieldXpath());
+		waitingAsserter.assertElementDisplayed(getDateOfBirthFieldXpath());
+		waitingAsserter.assertElementDisplayed(getCityFieldXpath());
+		waitingAsserter.assertElementDisplayed(getProvinceIdFieldXpath());
+		waitingAsserter.assertElementDisplayed(getPostalCodeFieldXpath());
+		waitingAsserter.assertElementDisplayed(getAddAttachmentXpath());
+		assertLibraryElementDisplayed(waitingAsserter, "Mojarra", browserDriver);
+		assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Bridge Impl", browserDriver);
 
 		if (TestUtil.getContainer().contains("liferay")) {
-			assertLibraryElementDisplayed(browserStateAsserter, "Liferay Faces Bridge Ext", browserDriver);
+			assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Bridge Ext", browserDriver);
 		}
 	}
 
