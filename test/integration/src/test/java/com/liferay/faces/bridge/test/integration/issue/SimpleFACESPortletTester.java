@@ -22,11 +22,12 @@ import org.junit.Assert;
 
 import org.openqa.selenium.WebElement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.util.logging.Logger;
-import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
 
 
 /**
@@ -36,7 +37,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
  *
  * @author  Kyle Stiemann
  */
-public abstract class SimpleFACESPortletTester extends IntegrationTesterBase {
+public abstract class SimpleFACESPortletTester extends BrowserDriverManagingTesterBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(SimpleFACESPortletTester.class);
@@ -80,6 +81,6 @@ public abstract class SimpleFACESPortletTester extends IntegrationTesterBase {
 		}
 
 		Assert.assertEquals(resultDetail, "SUCCESS", resultStatus);
-		logger.info("{0} test passed: {1}", testPage, resultDetail);
+		logger.info("{} test passed: {}", testPage, resultDetail);
 	}
 }

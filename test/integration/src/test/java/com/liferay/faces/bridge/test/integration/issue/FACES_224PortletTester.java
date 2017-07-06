@@ -19,14 +19,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.IntegrationTesterBase;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class FACES_224PortletTester extends IntegrationTesterBase {
+public class FACES_224PortletTester extends BrowserDriverManagingTesterBase {
 
 	@Test
 	public void runFACES_224PortletTest() {

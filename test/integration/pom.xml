@@ -165,7 +165,7 @@
 									<properties>
 										<property>
 											<name>listener</name>
-											<value>com.liferay.faces.test.selenium.IntegrationTestSuiteListener</value>
+											<value>com.liferay.faces.test.selenium.browser.BrowserDriverManagingTestSuiteListener</value>
 										</property>
 									</properties>
 									<excludes>
@@ -255,7 +255,7 @@
 									<properties>
 										<property>
 											<name>listener</name>
-											<value>com.liferay.faces.test.selenium.IntegrationTestSuiteListener</value>
+											<value>com.liferay.faces.test.selenium.browser.BrowserDriverManagingTestSuiteListener</value>
 										</property>
 									</properties>
 									<excludes>
@@ -333,7 +333,7 @@
 									<properties>
 										<property>
 											<name>listener</name>
-											<value>com.liferay.faces.test.selenium.IntegrationTestSuiteListener</value>
+											<value>com.liferay.faces.test.selenium.browser.BrowserDriverManagingTestSuiteListener</value>
 										</property>
 									</properties>
 									<excludes>
@@ -424,6 +424,16 @@
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
 			<version>2.0.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<!-- End integration test dependencies. -->

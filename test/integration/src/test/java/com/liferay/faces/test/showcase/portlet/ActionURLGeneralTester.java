@@ -18,7 +18,7 @@ package com.liferay.faces.test.showcase.portlet;
 import org.junit.Test;
 
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 import com.liferay.faces.test.showcase.TesterBase;
 
 
@@ -40,15 +40,15 @@ public class ActionURLGeneralTester extends TesterBase {
 			"//div[@class='showcase-example-usage']//input[@value='Submit Non-Faces Postback']";
 		browserDriver.clickElement(toActionParamPageXpath);
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		String returnToPortletActionURLXpath =
 			"//div[contains(@class,'portlet-body') or contains(@class,'body')]//a[contains(text(),'Return to portlet:actionURL')]";
-		browserStateAsserter.assertElementDisplayed(
+		waitingAsserter.assertElementDisplayed(
 			"//div[@class='portlet-body' or contains(@class,'body')]//pre[text()='foo=1234']");
-		browserStateAsserter.assertElementDisplayed(returnToPortletActionURLXpath);
+		waitingAsserter.assertElementDisplayed(returnToPortletActionURLXpath);
 
 		// Click the return link and test that the browser returned to the correct page.
 		browserDriver.clickElement(returnToPortletActionURLXpath);
-		browserStateAsserter.assertElementDisplayed(toActionParamPageXpath);
+		waitingAsserter.assertElementDisplayed(toActionParamPageXpath);
 	}
 }

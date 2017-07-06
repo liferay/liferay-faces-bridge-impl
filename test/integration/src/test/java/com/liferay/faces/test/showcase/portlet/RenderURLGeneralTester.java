@@ -18,7 +18,7 @@ package com.liferay.faces.test.showcase.portlet;
 import org.junit.Test;
 
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserStateAsserter;
+import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 import com.liferay.faces.test.showcase.TesterBase;
 
 
@@ -39,7 +39,7 @@ public class RenderURLGeneralTester extends TesterBase {
 			"(//div[@class='showcase-example-usage'])/a[text()='Hyperlink targeting the Showcase portlet']";
 		browserDriver.clickElement(hyperlinkTargetingTheShowcasePortletXpath);
 
-		BrowserStateAsserter browserStateAsserter = getBrowserStateAsserter();
-		browserStateAsserter.assertElementDisplayed("(//div[@class='showcase-home'])//a[text()='JSR 378']");
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertElementDisplayed("(//div[@class='showcase-home'])//a[text()='JSR 378']");
 	}
 }
