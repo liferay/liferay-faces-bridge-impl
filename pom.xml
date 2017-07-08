@@ -131,6 +131,7 @@
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
 		<primefaces.version>UNSUPPORTED</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.stage>Production</project.stage>
 		<richfaces.version>UNSUPPORTED</richfaces.version>
 		<selenium.version>2.53.0</selenium.version>
