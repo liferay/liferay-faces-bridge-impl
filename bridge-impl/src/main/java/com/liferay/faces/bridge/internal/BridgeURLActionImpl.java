@@ -22,7 +22,7 @@ import java.util.Map;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
-import javax.portlet.PortletContext;
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.faces.Bridge;
@@ -45,9 +45,9 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 
 	public BridgeURLActionImpl(String uri, String contextPath, String namespace, String currentViewId,
 		boolean clientWindowEnabled, String clientWindowId, Map<String, String> clientWindowParameters,
-		PortletContext portletContext, BridgeConfig bridgeConfig) throws URISyntaxException {
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) throws URISyntaxException {
 
-		super(uri, contextPath, namespace, currentViewId, portletContext, bridgeConfig);
+		super(uri, contextPath, namespace, currentViewId, portletConfig, bridgeConfig);
 
 		// If the URI starts with "portlet:", then
 		if (bridgeURI.isPortletScheme()) {
