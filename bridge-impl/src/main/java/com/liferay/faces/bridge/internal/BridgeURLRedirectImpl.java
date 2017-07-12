@@ -25,7 +25,7 @@ import java.util.Set;
 import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
 import javax.portlet.BaseURL;
-import javax.portlet.PortletContext;
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletURL;
 import javax.portlet.faces.BridgeConfig;
 
@@ -51,10 +51,10 @@ public class BridgeURLRedirectImpl extends BridgeURLBase {
 
 	public BridgeURLRedirectImpl(String uri, String contextPath, String namespace,
 		Map<String, List<String>> redirectParameters, boolean clientWindowEnabled, String clientWindowId,
-		Map<String, String> clientWindowParameters, PortletContext portletContext, BridgeConfig bridgeConfig)
+		Map<String, String> clientWindowParameters, PortletConfig portletConfig, BridgeConfig bridgeConfig)
 		throws URISyntaxException {
 
-		super(uri, contextPath, namespace, null, portletContext, bridgeConfig);
+		super(uri, contextPath, namespace, null, portletConfig, bridgeConfig);
 
 		// Since the Bridge's version of ExternalContext.encodeActionURL(String url) needs to detect whether or not the
 		// specified URL is for a redirect, ensure that "_jsfBridgeRedirect=true" appears in the query-string.
