@@ -21,7 +21,7 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
-import javax.portlet.PortletContext;
+import javax.portlet.PortletConfig;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.logging.Logger;
@@ -38,9 +38,9 @@ public class BridgeURLPartialActionImpl extends BridgeURLBase {
 
 	public BridgeURLPartialActionImpl(String uri, String contextPath, String namespace, String currentViewId,
 		boolean clientWindowEnabled, String clientWindowId, Map<String, String> clientWindowParameters,
-		PortletContext portletContext, BridgeConfig bridgeConfig) throws URISyntaxException {
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) throws URISyntaxException {
 
-		super(uri, contextPath, namespace, currentViewId, portletContext, bridgeConfig);
+		super(uri, contextPath, namespace, currentViewId, portletConfig, bridgeConfig);
 
 		// If the client window feature is enabled and the URI does not have a "jfwid" parameter then set the
 		// "jfwid" parameter and any associated client window parameters on the URI.

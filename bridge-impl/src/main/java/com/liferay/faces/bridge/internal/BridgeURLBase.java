@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
 import javax.portlet.BaseURL;
 import javax.portlet.MimeResponse;
-import javax.portlet.PortletContext;
+import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 import javax.portlet.ResourceURL;
@@ -67,9 +67,9 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 
 	@SuppressWarnings("unchecked")
 	public BridgeURLBase(String uri, String contextPath, String namespace, String currentViewId,
-		PortletContext portletContext, BridgeConfig bridgeConfig) throws URISyntaxException {
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) throws URISyntaxException {
 
-		this.bridgeURI = BridgeURIFactory.getBridgeURIInstance(portletContext, namespace, uri);
+		this.bridgeURI = BridgeURIFactory.getBridgeURIInstance(portletConfig.getPortletContext(), namespace, uri);
 		this.configuredFacesServletMappings = (List<ConfiguredServletMapping>) bridgeConfig.getAttributes().get(
 				BridgeConfigAttributeMap.CONFIGURED_FACES_SERVLET_MAPPINGS);
 		this.contextPath = contextPath;
