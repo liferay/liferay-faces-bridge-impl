@@ -112,8 +112,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 
 						// Simulate Liferay Portal's behavior for containers like Pluto
 						logger.warn("Invalid request for resource with banned path: resourceId=[{0}]", resourceId);
-						resourceResponse.setProperty(ResourceResponse.HTTP_STATUS_CODE,
-							Integer.toString(HttpServletResponse.SC_OK));
+						externalContext.setResponseStatus(HttpServletResponse.SC_OK);
 					}
 
 					// Otherwise, if the resourceId contains a banned sequence like double slashes, etc. then do not
@@ -121,15 +120,13 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 					else if (resourceValidator.isBannedSequence(resourceId)) {
 
 						logger.warn("Invalid request for resource with banned sequence: resourceId=[{0}]", resourceId);
-						resourceResponse.setProperty(ResourceResponse.HTTP_STATUS_CODE,
-							Integer.toString(HttpServletResponse.SC_NOT_FOUND));
+						externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
 					}
 
 					// Otherwise, if the resourceId targets a Facelet document, then do not serve the resource.
 					else if (resourceValidator.isFaceletDocument(facesContext, resourceId)) {
 						logger.warn("Invalid request for Facelet document: resourceId=[{0}]", resourceId);
-						resourceResponse.setProperty(ResourceResponse.HTTP_STATUS_CODE,
-							Integer.toString(HttpServletResponse.SC_NOT_FOUND));
+						externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
 					}
 
 					// Otherwise,
@@ -160,8 +157,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 							}
 							else {
 								logger.warn("Invalid request for resourceId=[].");
-								resourceResponse.setProperty(ResourceResponse.HTTP_STATUS_CODE,
-									Integer.toString(HttpServletResponse.SC_NOT_FOUND));
+								externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
 							}
 						}
 
@@ -174,8 +170,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 
 								logger.warn("Invalid request for resource that is self-referencing: resourceId=[{0}]",
 									resourceId);
-								resourceResponse.setProperty(ResourceResponse.HTTP_STATUS_CODE,
-									Integer.toString(HttpServletResponse.SC_NOT_FOUND));
+								externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
 							}
 
 							// Otherwise,
@@ -193,8 +188,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 										resourceId, resourcePath, explicitFacesServletExtensionMapping.getExtension());
 									mappedToFacesServlet = true;
 
-									resourceResponse.setProperty(ResourceResponse.HTTP_STATUS_CODE,
-										Integer.toString(HttpServletResponse.SC_NOT_FOUND));
+									externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
 								}
 								else {
 									ConfiguredServletMapping facesServletPathMapping = getFacesServletPathMapping(
@@ -208,8 +202,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 
 										mappedToFacesServlet = true;
 
-										resourceResponse.setProperty(ResourceResponse.HTTP_STATUS_CODE,
-											Integer.toString(HttpServletResponse.SC_NOT_FOUND));
+										externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
 									}
 								}
 
@@ -225,8 +218,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 										logger.warn(
 											"Request for non-Faces resource=[{0}] but request dispatcher was null.",
 											resourceId);
-										resourceResponse.setProperty(ResourceResponse.HTTP_STATUS_CODE,
-											Integer.toString(HttpServletResponse.SC_NOT_FOUND));
+										externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
 									}
 								}
 							}
