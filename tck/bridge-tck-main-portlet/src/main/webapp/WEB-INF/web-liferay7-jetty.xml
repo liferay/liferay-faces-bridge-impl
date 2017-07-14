@@ -22,10 +22,6 @@
 		<param-value>true</param-value>
 	</context-param>
 	<context-param>
-		<param-name>com.liferay.faces.bridge.bridgeRequestScopeResourceEnabled</param-name>
-		<param-value>true</param-value>
-	</context-param>
-	<context-param>
 		<param-name>com.liferay.faces.bridge.bridgeRequestScopePreserved</param-name>
 		<param-value>true</param-value>
 	</context-param>

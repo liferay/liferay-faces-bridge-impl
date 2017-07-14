@@ -45,13 +45,6 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		"com.liferay.faces.bridge.bridgeRequestScopeAjaxEnabled", false),
 
 	/**
-	 * Flag indicating whether or not the bridge should manage BridgeRequestScope during the RESOURCE_PHASE of the
-	 * portlet lifecycle. Default value is false. Set value to true in order to enable JSR 329 default behavior.
-	 */
-	BridgeRequestScopeResourceEnabled("javax.portlet.faces.BRIDGE_REQUEST_SCOPE_RESOURCE_ENABLED",
-		"com.liferay.faces.bridge.bridgeRequestScopeResourceEnabled", false),
-
-	/**
 	 * Flag indicating whether or not the portlet container has the ability to set the HTTP status code for resources.
 	 * Default value is false.
 	 */

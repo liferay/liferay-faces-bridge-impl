@@ -233,10 +233,6 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 				bridgeRequestScopeEnabled = PortletConfigParam.BridgeRequestScopeAjaxEnabled.getBooleanValue(
 						portletConfig);
 			}
-			else {
-				bridgeRequestScopeEnabled = PortletConfigParam.BridgeRequestScopeResourceEnabled.getBooleanValue(
-						portletConfig);
-			}
 		}
 
 		if (bridgeRequestScopeEnabled) {
