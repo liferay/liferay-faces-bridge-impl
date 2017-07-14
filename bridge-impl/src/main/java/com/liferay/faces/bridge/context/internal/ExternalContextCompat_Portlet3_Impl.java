@@ -18,6 +18,7 @@ package com.liferay.faces.bridge.context.internal;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 
 
@@ -31,6 +32,34 @@ public abstract class ExternalContextCompat_Portlet3_Impl extends ExternalContex
 	public ExternalContextCompat_Portlet3_Impl(PortletContext portletContext, PortletRequest portletRequest,
 		PortletResponse portletResponse) {
 		super(portletContext, portletRequest, portletResponse);
+	}
+
+	/**
+	 * Sets the status of the portlet response to the specified status code. Note that this is only possible for a
+	 * portlet request of type PortletResponse because that is the only type of portlet response that is delivered
+	 * directly back to the client (without additional markup added by the portlet container).
+	 *
+	 * @see    {@link ExternalContext#setResponseStatus(int)}
+	 * @since  JSF 2.0
+	 */
+	@Override
+	public void setResponseStatus(int statusCode) {
+
+		if (portletResponse instanceof ResourceResponse) {
+
+			ResourceResponse resourceResponse = (ResourceResponse) portletResponse;
+			resourceResponse.setStatus(statusCode);
+		}
+		else {
+
+			if (manageIncongruities) {
+				incongruityContext.setResponseStatus(statusCode);
+			}
+			else {
+				// Mojarra will call this method if a runtime exception occurs during execution of the JSF lifecycle, so
+				// must not throw an IllegalStateException.
+			}
+		}
 	}
 
 	@Override
