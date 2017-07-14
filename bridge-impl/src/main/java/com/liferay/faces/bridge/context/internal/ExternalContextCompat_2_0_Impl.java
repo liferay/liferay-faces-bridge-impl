@@ -581,34 +581,6 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 		}
 	}
 
-	/**
-	 * Sets the status of the portlet response to the specified status code. Note that this is only possible for a
-	 * portlet request of type PortletResponse because that is the only type of portlet response that is delivered
-	 * directly back to the client (without additional markup added by the portlet container).
-	 *
-	 * @see    {@link ExternalContext#setResponseStatus(int)}
-	 * @since  JSF 2.0
-	 */
-	@Override
-	public void setResponseStatus(int statusCode) {
-
-		if (portletResponse instanceof ResourceResponse) {
-
-			ResourceResponse resourceResponse = (ResourceResponse) portletResponse;
-			resourceResponse.setProperty(ResourceResponse.HTTP_STATUS_CODE, Integer.toString(statusCode));
-		}
-		else {
-
-			if (manageIncongruities) {
-				incongruityContext.setResponseStatus(statusCode);
-			}
-			else {
-				// Mojarra will call this method if a runtime exception occurs during execution of the JSF lifecycle, so
-				// must not throw an IllegalStateException.
-			}
-		}
-	}
-
 	protected abstract boolean isHeaderPhase(Bridge.PortletPhase portletPhase);
 
 	protected abstract boolean isHeaderPhaseSupported();
