@@ -34,7 +34,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	 * Flag indicating whether or not the bridge request scope is preserved after the RENDER_PHASE completes. Default
 	 * value is false. Set value to true in order to enable JSR 329 default behavior.
 	 */
-	BridgeRequestScopeActionEnabled(Bridge.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED,
+	BridgeRequestScopeActionEnabled("javax.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED",
 		"com.liferay.faces.bridge.bridgeRequestScopePreserved", false),
 
 	/**
@@ -42,7 +42,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	 * portlet lifecycle when the {@link com.liferay.faces.bridge.internal.BridgeExt#FACES_AJAX_PARAMETER} resource
 	 * request parameter is "true". Default value is false.
 	 */
-	BridgeRequestScopeAjaxEnabled(Bridge.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED,
+	BridgeRequestScopeAjaxEnabled("javax.portlet.faces.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED",
 		"com.liferay.faces.bridge.bridgeRequestScopeAjaxEnabled", false),
 
 	/**
