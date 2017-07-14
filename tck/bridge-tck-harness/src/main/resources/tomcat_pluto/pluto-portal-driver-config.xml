@@ -301,6 +301,26 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.issue.primefaces.portlet" name="FACES-3031"/>
 		</page>
 
+		<!-- Liferay Faces LSV Portlets -->
+		<page name="lsv-5" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.5.portlet" name="1"/>
+		</page>
+		<page name="lsv-71-auto-dispatch" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.71.portlet" name="1"/>
+		</page>
+		<page name="lsv-71-non-dispatch" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.71.portlet" name="2"/>
+		</page>
+		<page name="lsv-71-resource-handler" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.71.portlet" name="3"/>
+		</page>
+		<page name="lsv-158-auto-dispatch" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.158.portlet" name="1"/>
+		</page>
+		<page name="lsv-158-non-dispatch" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.158.portlet" name="2"/>
+		</page>
+
 		<!-- Bridge TCK -->
 		<page name="TestPage001" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter3Tests-bridgeVersionTest-portlet"/>
