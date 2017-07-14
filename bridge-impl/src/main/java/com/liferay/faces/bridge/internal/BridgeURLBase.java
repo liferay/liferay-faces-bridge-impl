@@ -63,6 +63,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 
 	// Private Data Members
 	private String namespace;
+	private PortletConfig portletConfig;
 	private String viewId;
 
 	@SuppressWarnings("unchecked")
@@ -75,6 +76,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		this.contextPath = contextPath;
 		this.namespace = namespace;
 		this.currentViewId = currentViewId;
+		this.portletConfig = portletConfig;
 		this.viewIdRenderParameterName = bridgeConfig.getViewIdRenderParameterName();
 		this.viewIdResourceParameterName = bridgeConfig.getViewIdResourceParameterName();
 	}
@@ -591,9 +593,38 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 
 		// If the "_jsfBridgeViewId" and "_jsfBridgeViewPath" parameters are not present in the URL, then add a
 		// parameter that indicates the target Faces viewId.
-		if (!foundFacesViewIdParam && !foundFacesViewPathParam && (getViewId() != null)) {
+		String viewId = getViewId();
 
-			if (!bridgeURI.isPortletScheme()) {
+		if (!foundFacesViewIdParam && !foundFacesViewPathParam && (viewId != null)) {
+
+			// If the URI starts with the "portlet:" prefix, then
+			if (bridgeURI.isPortletScheme()) {
+
+				// TestPage220 (requestRenderRedisplayTest) - bridge-tck-scope-portlet
+				//
+				// If the bridge request scope goes from ACTION_PHASE -> RENDER_PHASE (rather than ACTION_PHASE ->
+				// ACTION_PHASE), then the current view id needs to be added as a parameter on the URL.
+				//
+				// Detailed Explanation:
+				//
+				// The JSR 329 behavior for the bridge request scope was ACTION_PHASE -> ACTION_PHASE. That means that
+				// re-renders of the portlet (for example, those invoked via RenderURL) in between action phases are
+				// able to determine current view id (without explicitly adding it to the URL) because the bridge
+				// request scope is responsible for restoring the last known UIViewRoot in the RENDER_PHASE.
+				//
+				// The JSR 378 behavior for the bridge request scope is ACTION_PHASE -> RENDER_PHASE. Since the bridge
+				// request scope goes away at the end of the RENDER_PHASE, there is no way for RenderURL re-renders
+				// to know the current view id without specifying it as a parameter on the RenderURL itself.
+				boolean bridgeRequestScopeActionEnabled = PortletConfigParam.BridgeRequestScopeActionEnabled
+					.getBooleanValue(portletConfig);
+
+				if (!bridgeRequestScopeActionEnabled) {
+					toStringParameters.add(new URIParameter(getViewIdParameterName(), viewId));
+				}
+			}
+
+			// Otherwise,
+			else {
 
 				// Note that if the "javax.portlet.faces.PortletMode" parameter is specified, then a mode change is
 				// being requested and the target Faces viewId parameter must NOT be added.
