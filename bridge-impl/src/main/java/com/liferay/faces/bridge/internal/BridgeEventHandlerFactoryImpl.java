@@ -43,20 +43,19 @@ public class BridgeEventHandlerFactoryImpl extends BridgeEventHandlerFactory imp
 		BridgeEventHandler bridgeEventHandler = null;
 
 		// TCK TestPage016: initMethodTest
-		String initParamName = Bridge.BRIDGE_PACKAGE_PREFIX + Bridge.BRIDGE_EVENT_HANDLER;
+		String bridgeEventHandlerClass = portletConfig.getInitParameter("javax.portlet.faces.bridgeEventHandler");
 
-		// GenericFacesPortlet.getBridgeEventHandler() only consults this factory if the BridgeEventHandler initParam
-		// is not null.
-		String bridgeEventHandlerClass = portletConfig.getInitParameter(initParamName);
-		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+		if (bridgeEventHandlerClass != null) {
 
-		try {
+			ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 
-			Class<?> clazz = contextClassLoader.loadClass(bridgeEventHandlerClass);
-			bridgeEventHandler = (BridgeEventHandler) clazz.newInstance();
-		}
-		catch (Exception e) {
-			logger.error(e);
+			try {
+				Class<?> clazz = contextClassLoader.loadClass(bridgeEventHandlerClass);
+				bridgeEventHandler = (BridgeEventHandler) clazz.newInstance();
+			}
+			catch (Exception e) {
+				logger.error(e);
+			}
 		}
 
 		return bridgeEventHandler;
