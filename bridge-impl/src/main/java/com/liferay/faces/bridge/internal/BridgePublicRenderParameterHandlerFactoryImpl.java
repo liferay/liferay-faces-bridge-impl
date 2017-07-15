@@ -18,7 +18,6 @@ package com.liferay.faces.bridge.internal;
 import java.io.Serializable;
 
 import javax.portlet.PortletConfig;
-import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgePublicRenderParameterHandler;
 import javax.portlet.faces.BridgePublicRenderParameterHandlerFactory;
 
@@ -44,9 +43,8 @@ public class BridgePublicRenderParameterHandlerFactoryImpl extends BridgePublicR
 		BridgePublicRenderParameterHandler bridgePublicRenderParameterHandler = null;
 
 		// TCK TestPage016: initMethodTest
-		String initParamName = Bridge.BRIDGE_PACKAGE_PREFIX + Bridge.BRIDGE_PUBLIC_RENDER_PARAMETER_HANDLER;
-
-		String bridgePublicRenderParameterHandlerClass = portletConfig.getInitParameter(initParamName);
+		String bridgePublicRenderParameterHandlerClass = portletConfig.getInitParameter(
+				"javax.portlet.faces.bridgePublicRenderParameterHandler");
 
 		if (bridgePublicRenderParameterHandlerClass != null) {
 
