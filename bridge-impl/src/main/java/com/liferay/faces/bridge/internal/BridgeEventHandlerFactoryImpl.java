@@ -18,7 +18,6 @@ package com.liferay.faces.bridge.internal;
 import java.io.Serializable;
 
 import javax.portlet.PortletConfig;
-import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeEventHandler;
 
 import com.liferay.faces.bridge.BridgeEventHandlerFactory;
