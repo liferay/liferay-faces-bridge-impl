@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.demos.bean;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -42,10 +41,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 
 @Named
 @RequestScoped
-public class ApplicantBackingBean implements Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 2947548873495692163L;
+public class ApplicantBackingBean {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ApplicantBackingBean.class);
