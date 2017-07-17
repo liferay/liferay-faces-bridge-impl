@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.issues.bean;
 
-import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -30,10 +29,8 @@ import javax.portlet.PortletURL;
  */
 @ManagedBean
 @RequestScoped
-public class TestBean implements Serializable {
+public class TestBean {
 
-	// serialVersionUID
-	private static final long serialVersionUID = -591128176912990631L;
 
 	public String getRenderUrl() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();

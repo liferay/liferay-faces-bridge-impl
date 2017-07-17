@@ -16,7 +16,6 @@
 package com.liferay.faces.demos.bean;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -41,21 +40,18 @@ import com.liferay.faces.util.logging.LoggerFactory;
  */
 @ManagedBean(name = "applicantBackingBean")
 @RequestScoped
-public class ApplicantBackingBean implements Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 2947548873495692163L;
+public class ApplicantBackingBean {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ApplicantBackingBean.class);
 
 	// Injections
 	@ManagedProperty(value = "#{applicantModelBean}")
-	private transient ApplicantModelBean applicantModelBean;
+	private ApplicantModelBean applicantModelBean;
 	@ManagedProperty(value = "#{applicantViewBean}")
-	private transient ApplicantViewBean applicantViewBean;
+	private ApplicantViewBean applicantViewBean;
 	@ManagedProperty(value = "#{listModelBean}")
-	private transient ListModelBean listModelBean;
+	private ListModelBean listModelBean;
 
 	// Private Data Members
 	private transient InputFile attachment1;
