@@ -7,4 +7,3 @@ Lists of 8 third-party dependencies.
      (CDDL + GPLv2 with classpath exception) JavaServer Pages(TM) Standard Tag Library (javax.servlet.jsp.jstl:jstl-api:1.2 - http://jcp.org/en/jsr/detail?id=52)
      (The Apache Software License, Version 2.0) Log4j (log4j:log4j:1.2.14 - http://logging.apache.org/log4j/docs/)
      (CDDL + GPLv2 with classpath exception) JavaServer Pages (TM) TagLib Implementation (org.glassfish.web:jstl-impl:1.2 - http://jstl.java.net/jstl-impl)
-     (The Apache Software License, Version 2.0) jboss-el (org.jboss.seam:jboss-el:2.0.0.GA - no url defined)
