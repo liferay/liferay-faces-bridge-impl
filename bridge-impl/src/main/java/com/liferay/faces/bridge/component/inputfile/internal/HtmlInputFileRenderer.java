@@ -87,6 +87,16 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 				htmlInputFile.setTransient(true);
 				htmlInputFile.setSubmittedValue(part);
 			}
+
+			// FACES-3136 inputFile components' required attribute has no effect
+			else {
+				htmlInputFile.setSubmittedValue("");
+			}
+		}
+
+		// FACES-3136 inputFile components' required attribute has no effect
+		else {
+			htmlInputFile.setSubmittedValue("");
 		}
 
 		RendererUtil.decodeClientBehaviors(facesContext, uiComponent);
