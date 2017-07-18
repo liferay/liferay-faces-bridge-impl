@@ -52,6 +52,19 @@
 		</dependency>
 	</dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-baseline-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
 	<profiles>
 		<profile>
 			<!--
