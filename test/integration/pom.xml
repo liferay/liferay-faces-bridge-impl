@@ -15,6 +15,7 @@
 	<name>Liferay Faces Bridge Integration Tests</name>
 
 	<properties>
+		<faces.impl.name>Mojarra</faces.impl.name>
 		<integration.alloy.showcase.context>/web/guest/alloy-showcase/-/alloy-tag</integration.alloy.showcase.context>
 		<integration.container>liferay</integration.container>
 	</properties>
@@ -145,6 +146,7 @@
 									<systemPropertyVariables>
 										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
 										<!-- Specify a property like so: -Dintegration.browser.name=phantomjs -->
+										<faces.impl.name>${faces.impl.name}</faces.impl.name>
 										<integration.browser.name>${integration.browser.name}</integration.browser.name>
 										<integration.browser.headless>${integration.browser.headless}</integration.browser.headless>
 										<integration.browser.simulate.mobile>${integration.browser.simulate.mobile}</integration.browser.simulate.mobile>
@@ -358,6 +360,7 @@
 			<id>weblogic</id>
 			<properties>
 				<integration.port>7001</integration.port>
+				<faces.impl.name>JavaServer Faces Reference Implementation</faces.impl.name>
 			</properties>
 		</profile>
 		<profile>
