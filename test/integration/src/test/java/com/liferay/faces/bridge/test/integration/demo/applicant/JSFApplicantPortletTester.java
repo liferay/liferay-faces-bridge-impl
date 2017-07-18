@@ -176,7 +176,7 @@ public class JSFApplicantPortletTester extends ApplicantTesterBase {
 		browserDriver.clickElement(submitButtonXpath);
 
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
-		waitingAsserter.assertTextPresentInElement("Dear David,", getConfimationFormXpath());
+		waitingAsserter.assertTextPresentInElement("Thank you David", getConfimationFormXpath());
 	}
 
 	@Override

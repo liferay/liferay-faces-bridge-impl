@@ -6,9 +6,7 @@
 		<ui:include src="styling.xhtml" />
 		<h:messages />
 		<h:form>
-			<h:outputText value="#{i18n['dear']} #{bridgeFlash['firstName']}," />
-			<br />
-			<h:outputText value="#{i18n['thank-you-for-applying-for-a-job-with-our-organization']}" />
+			<h:outputText value="#{i18n.replace('thank-you-for-applying-for-a-job-with-our-organization', bridgeFlash['firstName'])}" />
 			<hr />
 			<h:commandButton action="submit-another-application" value="#{i18n['submit-another-application']}" />
 		</h:form>
