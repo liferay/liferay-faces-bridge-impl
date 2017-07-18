@@ -75,6 +75,16 @@ public class InputFileRenderer extends InputFileRendererCompat {
 					uiComponent.queueEvent(fileUploadEvent);
 				}
 			}
+
+			// FACES-3136 inputFile components' required attribute has no effect
+			else {
+				inputFile.setSubmittedValue("");
+			}
+		}
+
+		// FACES-3136 inputFile components' required attribute has no effect
+		else {
+			inputFile.setSubmittedValue("");
 		}
 	}
 
