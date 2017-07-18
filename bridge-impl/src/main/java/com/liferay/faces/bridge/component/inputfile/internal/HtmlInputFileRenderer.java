@@ -88,13 +88,13 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 				htmlInputFile.setSubmittedValue(part);
 			}
 
-			// FACES-3136 inputFile components' required attribute has no effect
+			// FACES-3136: Ensure that the required attribute is enforced.
 			else {
 				htmlInputFile.setSubmittedValue("");
 			}
 		}
 
-		// FACES-3136 inputFile components' required attribute has no effect
+		// FACES-3136: Ensure that the required attribute is enforced.
 		else {
 			htmlInputFile.setSubmittedValue("");
 		}

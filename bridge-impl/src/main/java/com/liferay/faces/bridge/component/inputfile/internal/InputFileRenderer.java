@@ -76,13 +76,13 @@ public class InputFileRenderer extends InputFileRendererCompat {
 				}
 			}
 
-			// FACES-3136 inputFile components' required attribute has no effect
+			// FACES-3136: Ensure that the required attribute is enforced.
 			else {
 				inputFile.setSubmittedValue("");
 			}
 		}
 
-		// FACES-3136 inputFile components' required attribute has no effect
+		// FACES-3136: Ensure that the required attribute is enforced.
 		else {
 			inputFile.setSubmittedValue("");
 		}
