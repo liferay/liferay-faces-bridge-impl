@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.demos.bean;
 
+import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
