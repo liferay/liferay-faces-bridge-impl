@@ -102,6 +102,9 @@ limitations under the License.
 		<page name="lsv-158-non-dispatch" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.lsv.158.portlet" name="2"/>
 		</page>
+		<page name="lsv-169" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.169.portlet" name="1"/>
+		</page>
 
 		<!-- Bridge TCK -->
 		<page name="TestPage001" uri="/WEB-INF/themes/pluto-default-theme.jsp">
