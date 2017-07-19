@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.demos.bean;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
@@ -42,12 +41,9 @@ import com.liferay.faces.util.logging.LoggerFactory;
  *
  * @author  Neil Griffin
  */
-public class BookingsModelBean implements Serializable {
+public class BookingsModelBean {
 
-	// serialVersionUID
-	private static final long serialVersionUID = 4157873171538093433L;
 
-	// Private Constants
 	private static final Logger logger = LoggerFactory.getLogger(BookingsModelBean.class);
 
 	// Private Bean Properties

@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.demos.bean;
 
-import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -30,10 +29,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class CustomersBackingBean implements Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 2920712441012786321L;
+public class CustomersBackingBean {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(CustomersBackingBean.class);

@@ -16,7 +16,6 @@
 package com.liferay.faces.demos.bean;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -39,19 +38,16 @@ import com.liferay.faces.util.logging.LoggerFactory;
  *
  * @author  "Neil Griffin"
  */
-public class ApplicantBackingBean implements Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 3047548873495692163L;
+public class ApplicantBackingBean {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ApplicantBackingBean.class);
 
 	// Injections
-	private transient ApplicantModelBean applicantModelBean;
-	private transient ApplicantViewBean applicantViewBean;
-	private transient BridgeFlash bridgeFlash;
-	private transient ListModelBean listModelBean;
+	private ApplicantModelBean applicantModelBean;
+	private ApplicantViewBean applicantViewBean;
+	private BridgeFlash bridgeFlash;
+	private ListModelBean listModelBean;
 
 	public void deleteUploadedFile(ActionEvent actionEvent) {
 
