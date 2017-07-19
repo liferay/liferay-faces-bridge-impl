@@ -12,19 +12,6 @@
 	<artifactId>com.liferay.faces.test.bridge.tck.compat</artifactId>
 	<name>Bridge TCK Compat</name>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>biz.aQute.bnd</groupId>
-				<artifactId>bnd-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>biz.aQute.bnd</groupId>
-				<artifactId>bnd-baseline-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>javax.el</groupId>
