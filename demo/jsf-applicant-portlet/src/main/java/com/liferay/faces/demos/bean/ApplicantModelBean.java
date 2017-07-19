@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.demos.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,8 +30,10 @@ import com.liferay.faces.bridge.model.UploadedFile;
  *
  * @author  "Neil Griffin"
  */
-public class ApplicantModelBean {
+public class ApplicantModelBean implements Serializable {
 
+	// serialVersionUID
+	private static final long serialVersionUID = 7459628254337818761L;
 
 	// Private Data Members
 	private List<UploadedFile> uploadedFiles;
