@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.demos.bean;
 
-import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -35,10 +34,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class PortletPreferencesBackingBean implements Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 8416378305977838647L;
+public class PortletPreferencesBackingBean {
 
 	// Logger
 	Logger logger = LoggerFactory.getLogger(PortletPreferencesBackingBean.class);

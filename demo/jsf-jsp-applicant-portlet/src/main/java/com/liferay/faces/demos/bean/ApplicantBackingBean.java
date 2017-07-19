@@ -16,7 +16,6 @@
 package com.liferay.faces.demos.bean;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -38,23 +37,20 @@ import com.liferay.faces.util.product.ProductFactory;
  *
  * @author  "Neil Griffin"
  */
-public class ApplicantBackingBean implements Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 2947548873495692163L;
+public class ApplicantBackingBean {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ApplicantBackingBean.class);
 
 	// Injections
-	private transient ApplicantModelBean applicantModelBean;
-	private transient ApplicantViewBean applicantViewBean;
-	private transient BridgeFlash bridgeFlash;
+	private ApplicantModelBean applicantModelBean;
+	private ApplicantViewBean applicantViewBean;
+	private BridgeFlash bridgeFlash;
 
 	// Private Data Members
-	private transient InputFile attachment1;
-	private transient InputFile attachment2;
-	private transient InputFile attachment3;
+	private InputFile attachment1;
+	private InputFile attachment2;
+	private InputFile attachment3;
 
 	public void addAttachment(ActionEvent actionEvent) {
 		applicantViewBean.setFileUploaderRendered(true);

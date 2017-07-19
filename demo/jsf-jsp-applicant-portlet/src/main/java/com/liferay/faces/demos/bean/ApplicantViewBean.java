@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.demos.bean;
 
-import java.io.Serializable;
 
 
 /**
@@ -23,10 +22,8 @@ import java.io.Serializable;
  *
  * @author  Kyle Stiemann
  */
-public class ApplicantViewBean implements Serializable {
+public class ApplicantViewBean {
 
-	// serialVersionUID
-	private static final long serialVersionUID = 5456293483676149659L;
 
 	// JavaBean Properties for UI
 	private boolean fileUploaderRendered;

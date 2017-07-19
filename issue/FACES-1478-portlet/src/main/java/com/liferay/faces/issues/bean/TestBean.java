@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.issues.bean;
 
-import java.io.Serializable;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -26,10 +25,8 @@ import javax.portlet.PortletURL;
 /**
  * @author  Neil Griffin
  */
-public class TestBean implements Serializable {
+public class TestBean {
 
-	// serialVersionUID
-	private static final long serialVersionUID = -591128176912990631L;
 
 	public String getRenderUrl() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
