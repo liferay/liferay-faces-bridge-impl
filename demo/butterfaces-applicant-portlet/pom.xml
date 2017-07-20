@@ -24,12 +24,6 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<id>liferay62</id>
-			<properties>
-				<provide.bootstrap>true</provide.bootstrap>
-			</properties>
-		</profile>
-		<profile>
 			<id>pluto</id>
 			<dependencies>
 				<dependency>
