@@ -10,11 +10,14 @@
 	</parent>
 	<artifactId>com.liferay.faces.demo.butterfaces.applicant.portlet</artifactId>
 	<packaging>war</packaging>
-	<name>butterfaces-applicant Portlet</name>
+	<name>ButterFaces Applicant Portlet</name>
 
 	<profiles>
 		<profile>
 			<id>liferay</id>
+			<properties>
+				<provide.bootstrap>false</provide.bootstrap>
+			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
@@ -25,6 +28,9 @@
 		</profile>
 		<profile>
 			<id>pluto</id>
+			<properties>
+				<provide.bootstrap>true</provide.bootstrap>
+			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
