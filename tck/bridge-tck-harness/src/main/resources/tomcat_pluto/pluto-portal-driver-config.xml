@@ -229,6 +229,9 @@ limitations under the License.
 		<page name="alloy-showcase" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.alloy.showcase.portlet" name="1"/>
 		</page>
+		<page name="butterfaces-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.demo.butterfaces.applicant.portlet" name="1"/>
+		</page>
 		<page name="icefaces-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.icefaces.applicant.portlet" name="1"/>
 		</page>
