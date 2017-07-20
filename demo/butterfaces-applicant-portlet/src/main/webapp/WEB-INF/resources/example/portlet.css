@@ -10,3 +10,9 @@
 .jsf-applicant-portlet .hasDatepicker {
 	width: 165px;
 }
+
+.jsf-applicant-portlet .date-picker .butter-input-component  {
+	width: 130px;
+	-webkit-box-flex: none;
+	flex: none;
+}

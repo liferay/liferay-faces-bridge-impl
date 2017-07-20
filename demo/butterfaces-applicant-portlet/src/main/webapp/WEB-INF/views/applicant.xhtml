@@ -10,7 +10,7 @@
 	<alloy:row>
 		<alloy:column id="c1" width="66">
 			<h:form id="f1">
-				<h:messages autoUpdate="true" />
+				<h:messages />
 				<alloy:fieldset id="fs1">
 					<alloy:row>
 						<alloy:column id="c1a" width="50">
@@ -21,7 +21,7 @@
 							<b:text id="lastName" label="#{i18n['last-name']}" required="true" value="#{applicantModelBean.lastName}">
 								<f:ajax event="blur" render="lastName" />
 							</b:text>
-							<b:text id="emailAddress" label="#{i18n['email-address']}" required="true"
+							<b:text id="emailAddress" label="#{i18n['email-address']}" required="true" 
 								validatorMessage="#{i18n['invalid-email-address']}" value="#{applicantModelBean.emailAddress}">
 								<f:validateRegex pattern=".+[@].+[.].+" />
 								<f:ajax event="blur" render="emailAddress" />
@@ -34,14 +34,14 @@
 						<alloy:column id="c1b" width="50">
 							<b:calendar id="dateOfBirth" label="#{i18n['birthday']}"
 								format="#{portletPreferencesBackingBean.dateFormat}" pickTime="false" required="true"
-								value="#{applicantModelBean.dateOfBirth}">
+								styleClass="date-picker" value="#{applicantModelBean.dateOfBirth}">
 								<f:convertDateTime pattern="#{portletPreferencesValues['datePattern'][0]}" />
 								<f:ajax event="blur" render="dateOfBirth" />
 							</b:calendar>
 							<b:text id="city" label="#{i18n['city']}" required="true" value="#{applicantModelBean.city}">
 								<f:ajax event="blur" render="city" />
 							</b:text>
-							<b:labeledContainer id="provinceIdField" label="#{i18n['state-province']}" required="true">
+							<b:labeledContainer id="provinceIdField" label="#{i18n['state-province']}">
 								<h:selectOneMenu id="provinceId" label="#{i18n['state-province']}" required="true"
 										value="#{applicantModelBean.provinceId}">
 									<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
@@ -92,7 +92,7 @@
 		<alloy:column id="c2" width="33">
 			<alloy:row>
 				<alloy:column id="c2a" styleClass="uploaded-files">
-					<h:form id="f2" enctype="multipart/form-data">
+					<h:form id="f2" enctype="multipart/form-data" prependId="false">
 						<h3>#{i18n['attachments']}</h3>
 						<h:dataTable headerClass="portlet-section-header results-header"
 									 rowClasses="portlet-section-body results-row, portlet-section-alternate results-row alt"
@@ -121,14 +121,9 @@
 						<h:panelGrid columns="1">
 							<h:inputFile value="#{applicantBackingBean.uploadedPart}" />
 						</h:panelGrid>
-						<ui:remove>
-							<b:commandLink styleClass="btn btn-primary" value="#{i18n['submit']}">
-								<f:ajax execute="@form" render="@form" />
-							</b:commandLink>
-						</ui:remove>
-						<h:commandButton styleClass="btn btn-primary" value="#{i18n['submit']}">
+						<b:commandLink styleClass="btn btn-primary" value="#{i18n['submit']}" >
 							<f:ajax execute="@form" render="@form" />
-						</h:commandButton>
+						</b:commandLink>
 					</h:form>
 				</alloy:column>
 			</alloy:row>
