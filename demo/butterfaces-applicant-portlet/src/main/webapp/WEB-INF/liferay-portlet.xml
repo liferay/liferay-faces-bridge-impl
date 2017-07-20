@@ -6,7 +6,7 @@
 		<portlet-name>1</portlet-name>
 		<instanceable>true</instanceable>
 		<remoteable>true</remoteable>
-		<requires-namespaced-parameters>true</requires-namespaced-parameters>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<role-mapper>
