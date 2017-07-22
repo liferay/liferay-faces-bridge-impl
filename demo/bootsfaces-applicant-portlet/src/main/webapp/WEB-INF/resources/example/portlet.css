@@ -1,0 +1,23 @@
+.jsf-applicant-portlet label {
+	/* Override Apache Pluto text-align: right for ButterFaces labels */
+	text-align: left;
+}
+
+.jsf-applicant-portlet .uploaded-files table {
+    width: 100%;
+}
+
+.jsf-applicant-portlet .uploaded-files th, .uploaded-files td {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.jsf-applicant-portlet .hasDatepicker {
+	width: 165px;
+}
+
+.jsf-applicant-portlet .date-picker .butter-input-component  {
+	width: 130px;
+	-webkit-box-flex: none;
+	flex: none;
+}
