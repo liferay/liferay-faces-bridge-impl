@@ -24,13 +24,14 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
-import com.liferay.faces.bridge.event.FileUploadEvent;
-import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.demos.dto.City;
+import com.liferay.faces.demos.dto.UploadedFilePart;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.model.UploadedFile;
 
 
 /**
@@ -51,6 +52,9 @@ public class ApplicantBackingBean {
 	private transient ApplicantModelBean applicantModelBean;
 	@Inject
 	private transient ListModelBean listModelBean;
+
+	// Private Data Members
+	private Part uploadedPart;
 
 	public void deleteUploadedFile(ActionEvent actionEvent) {
 
@@ -82,23 +86,8 @@ public class ApplicantBackingBean {
 		}
 	}
 
-	public void handleFileUpload(FileUploadEvent fileUploadEvent) throws Exception {
-		List<UploadedFile> uploadedFiles = applicantModelBean.getUploadedFiles();
-		UploadedFile uploadedFile = fileUploadEvent.getUploadedFile();
-
-		if (uploadedFile != null) {
-
-			if (uploadedFile.getStatus() == UploadedFile.Status.FILE_SAVED) {
-				uploadedFiles.add(uploadedFile);
-				logger.debug("Received fileName=[{0}] absolutePath=[{1}]", uploadedFile.getName(),
-					uploadedFile.getAbsolutePath());
-			}
-			else {
-				logger.error("Uploaded file status=[" + uploadedFile.getStatus().toString() + "] " +
-					uploadedFile.getMessage());
-				FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
-			}
-		}
+	public Part getUploadedPart() {
+		return uploadedPart;
 	}
 
 	public void postalCodeListener(ValueChangeEvent valueChangeEvent) {
@@ -116,6 +105,14 @@ public class ApplicantBackingBean {
 			logger.error(e.getMessage(), e);
 			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 		}
+	}
+
+	public void setUploadedPart(Part uploadedPart) {
+		this.uploadedPart = uploadedPart;
+
+		String id = Long.toString(((long) hashCode()) + System.currentTimeMillis());
+		UploadedFile uploadedFile = new UploadedFilePart(uploadedPart, id, UploadedFile.Status.FILE_SAVED);
+		applicantModelBean.getUploadedFiles().add(uploadedFile);
 	}
 
 	public String submit() {
