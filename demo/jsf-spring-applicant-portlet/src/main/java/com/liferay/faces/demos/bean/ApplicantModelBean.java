@@ -26,7 +26,7 @@ import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
 
-import com.liferay.faces.bridge.model.UploadedFile;
+import com.liferay.faces.util.model.UploadedFile;
 
 
 /**
