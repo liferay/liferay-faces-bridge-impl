@@ -17,6 +17,8 @@ package com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_14;
 
 import java.io.IOException;
 
+import javax.portlet.HeaderRequest;
+import javax.portlet.HeaderResponse;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -75,22 +77,24 @@ public class IsAutoDispatchEventsTestPortlet extends GenericFacesTestSuitePortle
 		return isAutoDispatchEvents;
 	}
 
-	public void render(RenderRequest request, RenderResponse response) throws PortletException, IOException {
+	@Override
+	public void renderHeaders(
+		HeaderRequest headerRequest, HeaderResponse headerResponse) throws PortletException, IOException {
 
 		// Move messages to the request to renderer can get at them
 
 		String attr = (String) getPortletContext().getAttribute(TEST_FAIL_PREFIX + getPortletName());
 
 		if (attr != null) {
-			request.setAttribute(TEST_FAIL_PREFIX, attr);
+			headerRequest.setAttribute(TEST_FAIL_PREFIX, attr);
 		}
 
 		attr = (String) getPortletContext().getAttribute(TEST_PASS_PREFIX + getPortletName());
 
 		if (attr != null) {
-			request.setAttribute(TEST_PASS_PREFIX, attr);
+			headerRequest.setAttribute(TEST_PASS_PREFIX, attr);
 		}
 
-		super.render(request, response);
+		super.renderHeaders(headerRequest, headerResponse);
 	}
 }
