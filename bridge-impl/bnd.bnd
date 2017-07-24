@@ -1,1 +1,0 @@
-Export-Package: !com.liferay.faces.*.internal, com.liferay.faces.bridge.*, com.liferay.faces.portlet.*

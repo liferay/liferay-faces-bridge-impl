@@ -85,7 +85,6 @@
 
 	<properties>
 		<app.server.type>tomcat</app.server.type>
-		<bnd.version>3.3.0</bnd.version>
 		<cdi.version>1.2</cdi.version>
 		<component.namespace>none</component.namespace>
 		<faces.api.group.id>javax.faces</faces.api.group.id>
@@ -196,41 +195,12 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.5.1</version>
+					<version>3.1</version>
 					<configuration>
 						<source>1.6</source>
 						<target>1.6</target>
 						<encoding>UTF-8</encoding>
 					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>biz.aQute.bnd</groupId>
-					<artifactId>bnd-maven-plugin</artifactId>
-					<version>${bnd.version}</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>bnd-process</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>biz.aQute.bnd</groupId>
-					<artifactId>bnd-baseline-maven-plugin</artifactId>
-					<version>${bnd.version}</version>
-					<configuration>
-						<includeDistributionManagement>false</includeDistributionManagement>
-						<fullReport>true</fullReport>
-					</configuration>
-					<executions>
-						<execution>
-							<id>baseline</id>
-							<goals>
-								<goal>baseline</goal>
-							</goals>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -240,10 +210,9 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.0.2</version>
+					<version>2.4</version>
 					<configuration>
 						<archive>
-							<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
 							<manifestEntries>
 								<Built-By>Release Manager</Built-By>
 								<Implementation-Title>${project.name}</Implementation-Title>
