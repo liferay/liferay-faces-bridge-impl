@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:alloy="http://liferay.com/faces/alloy"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:bridge="http://liferay.com/faces/bridge" xmlns:example-cc="http://xmlns.jcp.org/jsf/composite/example-cc"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:example-cc="http://xmlns.jcp.org/jsf/composite/example-cc" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 	<example-cc:html5 label="#{i18n['job-application']}" />
 	<example-cc:sponsorButton />
@@ -140,7 +137,7 @@
 					<hr />
 					<form jsf:id="f3" jsf:enctype="multipart/form-data">
 						<h:panelGrid columns="1">
-							<bridge:inputFile fileUploadListener="#{applicantBackingBean.handleFileUpload}" multiple="multiple" />
+							<h:inputFile value="#{applicantBackingBean.uploadedPart}" />
 						</h:panelGrid>
 						<input jsf:value="#{i18n['submit']}" type="submit" />
 					</form>
