@@ -118,7 +118,7 @@ public class PrimeFacesApplicantPortletTester extends BridgeApplicantPortletTest
 
 	private void selectProvinceOption(BrowserDriver browserDriver, String optionValue) {
 
-		// p:selectOneMenu becomes indisplayed to selenium after interacting with it once, so use JavaScript to set the
+		// p:selectOneMenu becomes undisplayed to selenium after interacting with it once, so use JavaScript to set the
 		// value.
 		WebElement provinceIdField = browserDriver.findElementByXpath(SELECT_PROVINCE_ID_XPATH);
 		browserDriver.executeScriptInCurrentWindow("arguments[0].value=" + optionValue, provinceIdField);
