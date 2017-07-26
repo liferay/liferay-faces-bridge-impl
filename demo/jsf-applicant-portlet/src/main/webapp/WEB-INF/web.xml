@@ -12,6 +12,10 @@
 		<param-name>facelets.LIBRARIES</param-name>
 		<param-value>/WEB-INF/example-cc.taglib.xml</param-value>
 	</context-param>
+	<context-param>
+		<param-name>javax.faces.component.UIInput.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE</param-name>
+		<param-value>true</param-value>
+	</context-param>
 	<!-- Instruct Mojarra/MyFaces to use .xhtml instead of .jsp as the default suffix. -->
 	<context-param>
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
