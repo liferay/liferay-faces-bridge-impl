@@ -24,25 +24,38 @@
 			</dependencies>
 		</profile>
 		<profile>
+			<id>liferay62</id>
+			<dependencies>
+				<dependency>
+					<groupId>commons-fileupload</groupId>
+					<artifactId>commons-fileupload</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
 			<id>pluto</id>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
 					<artifactId>com.liferay.faces.alloy.reslib</artifactId>
 				</dependency>
+				<dependency>
+					<groupId>commons-fileupload</groupId>
+					<artifactId>commons-fileupload</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</dependency>
 			</dependencies>
 		</profile>
 	</profiles>
 
 	<dependencies>
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>javax.el-api</artifactId>
