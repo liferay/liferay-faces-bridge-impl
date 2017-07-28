@@ -40,26 +40,6 @@ import com.liferay.faces.util.context.FacesContextHelperUtil;
 @RequestScoped
 public class PortletPreferencesBackingBean {
 
-	// Private Data Members
-	private String dateFormat;
-
-	public String getDateFormat() {
-
-		if (dateFormat == null) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = facesContext.getExternalContext();
-			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-			PortletPreferences portletPreferences = portletRequest.getPreferences();
-			dateFormat = portletPreferences.getValue("datePattern", "MM/dd/yyyy");
-
-			if (dateFormat != null) {
-				dateFormat = dateFormat.toUpperCase();
-			}
-		}
-
-		return dateFormat;
-	}
-
 	/**
 	 * Resets/restores the values in the portletPreferences.xhtml Facelet composition with portlet preference default
 	 * values.

@@ -33,8 +33,8 @@
 						</alloy:column>
 						<alloy:column id="c1b" width="50">
 							<b:calendar id="dateOfBirth" label="#{i18n['birthday']}"
-								format="#{portletPreferencesBackingBean.dateFormat}" pickTime="false" required="true"
-								styleClass="date-picker" value="#{applicantModelBean.dateOfBirth}">
+								format="#{portletPreferencesValues['datePattern'][0].toUpperCase()}" pickTime="false"
+								required="true" styleClass="date-picker" value="#{applicantModelBean.dateOfBirth}">
 								<f:convertDateTime pattern="#{portletPreferencesValues['datePattern'][0]}" />
 								<f:ajax event="change" render="dateOfBirth globalMessages" />
 							</b:calendar>
