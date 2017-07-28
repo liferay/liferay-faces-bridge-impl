@@ -142,9 +142,9 @@ public class ResourceInnerImpl extends ResourceWrapper implements Serializable {
 								String token = extension + "?";
 								int pos = wrappedRequestPath.indexOf(token);
 
-								// If the servlet-mapping extension is found, then remove it since this is an implicit
-								// Servlet-API dependency on the FacesServlet that has no meaning in a portlet
-								// environment.
+								// If the servlet-mapping extension is found before the query string, then remove it
+								// since this is an implicit Servlet-API dependency on the FacesServlet that has no
+								// meaning in a portlet environment.
 								if (pos > 0) {
 
 									wrappedRequestPath = wrappedRequestPath.substring(0, pos) +
@@ -154,10 +154,14 @@ public class ResourceInnerImpl extends ResourceWrapper implements Serializable {
 
 									break;
 								}
+
+								// Otherwise, if the servlet-mapping extension is found at the end of the request
+								// path, then
 								else if (wrappedRequestPath.endsWith(extension)) {
 
 									if (extension.equals(EXTENSION_FACES) &&
 											wrappedRequestPath.endsWith(LIBRARY_NAME_JAVAX_FACES)) {
+
 										// Special case: Don't remove ".faces" if request path ends with "javax.faces"
 										// http://issues.liferay.com/browse/FACES-1202
 									}
