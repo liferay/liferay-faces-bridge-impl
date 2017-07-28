@@ -151,6 +151,8 @@ public class ResourceInnerImpl extends ResourceWrapper implements Serializable {
 										wrappedRequestPath.substring(pos + extension.length());
 									logger.debug("Removed extension=[{0}] from requestPath=[{1}]", extension,
 										wrappedRequestPath);
+
+									break;
 								}
 								else if (wrappedRequestPath.endsWith(extension)) {
 
@@ -168,6 +170,8 @@ public class ResourceInnerImpl extends ResourceWrapper implements Serializable {
 												wrappedRequestPath.lastIndexOf(extension));
 										logger.debug("Removed extension=[{0}] from requestPath=[{1}]", extension,
 											wrappedRequestPath);
+
+										break;
 									}
 								}
 							}
