@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.filter.internal;
 
 import javax.portlet.PortletURL;
+import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
 
@@ -24,8 +25,12 @@ import javax.portlet.RenderResponse;
  */
 public class RenderResponseBridgePlutoImpl extends RenderResponseBridgePlutoCompatImpl {
 
-	public RenderResponseBridgePlutoImpl(RenderResponse renderResponse) {
+	// Private Data Members
+	private RenderRequest renderRequest;
+
+	public RenderResponseBridgePlutoImpl(RenderRequest renderRequest, RenderResponse renderResponse) {
 		super(renderResponse);
+		this.renderRequest = renderRequest;
 	}
 
 	@Override
@@ -36,6 +41,18 @@ public class RenderResponseBridgePlutoImpl extends RenderResponseBridgePlutoComp
 	@Override
 	public PortletURL createRenderURL() {
 		return new RenderURLBridgePlutoImpl(super.createRenderURL());
+	}
+
+	@Override
+	public String getContentType() {
+
+		String contentType = super.getContentType();
+
+		if (contentType == null) {
+			contentType = renderRequest.getResponseContentType();
+		}
+
+		return contentType;
 	}
 
 	@Override
