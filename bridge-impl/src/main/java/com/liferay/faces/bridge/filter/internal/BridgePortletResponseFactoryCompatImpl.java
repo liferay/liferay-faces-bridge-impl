@@ -32,7 +32,7 @@ public abstract class BridgePortletResponseFactoryCompatImpl extends BridgePortl
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		if (PortletContainerDetector.isPlutoPortletResponse(headerResponse)) {
-			return new HeaderResponseBridgePlutoImpl(headerResponse);
+			return new HeaderResponseBridgePlutoImpl(headerRequest, headerResponse);
 		}
 		else {
 			return headerResponse;
