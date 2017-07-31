@@ -18,3 +18,7 @@
 .sponsor-button {
     float: right;
 }
+
+.modal.hiddenModal {
+	display: none;
+}
