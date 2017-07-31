@@ -20,57 +20,46 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.servlet.http.Part;
-
 
 /**
  * This is a marker class used by {@link HtmlInputFileRenderer} to signify that an empty file was submitted.
  *
  * @author  Kyle Stiemann
  */
-public class PartEmptyImpl implements Part {
+public class PartEmptyImpl {
 
-	@Override
 	public void delete() throws IOException {
 		// no-op
 	}
 
-	@Override
 	public String getContentType() {
 		return null;
 	}
 
-	@Override
 	public String getHeader(String name) {
 		return null;
 	}
 
-	@Override
 	public Collection<String> getHeaderNames() {
 		return Collections.emptyList();
 	}
 
-	@Override
 	public Collection<String> getHeaders(String name) {
 		return Collections.emptyList();
 	}
 
-	@Override
 	public InputStream getInputStream() throws IOException {
 		throw new IOException("File does not exist.");
 	}
 
-	@Override
 	public String getName() {
 		return null;
 	}
 
-	@Override
 	public long getSize() {
 		return 0;
 	}
 
-	@Override
 	public void write(String fileName) throws IOException {
 		throw new IOException("File does not exist.");
 	}
