@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.component.inputfile.internal;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -77,13 +78,13 @@ public class InputFileRenderer extends InputFileRendererCompat {
 
 			// FACES-3136: Ensure that the required attribute is enforced.
 			else {
-				inputFile.setSubmittedValue("");
+				inputFile.setSubmittedValue(Collections.emptyList());
 			}
 		}
 
 		// FACES-3136: Ensure that the required attribute is enforced.
 		else {
-			inputFile.setSubmittedValue("");
+			inputFile.setSubmittedValue(Collections.emptyList());
 		}
 	}
 

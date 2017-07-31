@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -132,6 +133,7 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 
 			if (fileItemIterator != null) {
 
+				List<String> fileUploadFieldNames = new ArrayList<String>();
 				int totalFiles = 0;
 
 				// For each field found in the request:
@@ -181,6 +183,8 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 							facesRequestParameterMap.addValue(fieldName, requestParameterValue);
 						}
 						else {
+
+							fileUploadFieldNames.add(fieldName);
 
 							File tempFile = diskFileItem.getStoreLocation();
 
@@ -267,6 +271,16 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 						com.liferay.faces.util.model.UploadedFile uploadedFile = uploadedFileFactory.getUploadedFile(e);
 						String fieldName = Integer.toString(totalFiles);
 						addUploadedFile(uploadedFileMap, fieldName, uploadedFile);
+					}
+				}
+
+				for (String fileUploadFieldName : fileUploadFieldNames) {
+
+					// Ensure that fields submitted without a file are present in the uploadedFileMap so that
+					// HtmlInputFileRenderer.decode() can determine whether or not the field was submitted with an empty
+					// value.
+					if (!uploadedFileMap.containsKey(fileUploadFieldName)) {
+						uploadedFileMap.put(fileUploadFieldName, Collections.<UploadedFile>emptyList());
 					}
 				}
 			}
