@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.component.inputfile.internal;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputFile;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
@@ -79,27 +81,36 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 		if (uploadedFileMap != null) {
 
 			String clientId = uiComponent.getClientId(facesContext);
-			List<UploadedFile> uploadedFiles = uploadedFileMap.get(clientId);
 
-			if ((uploadedFiles != null) && (uploadedFiles.size() > 0)) {
+			if (uploadedFileMap.containsKey(clientId)) {
 
-				Part part = new HtmlInputFilePartImpl(uploadedFiles.get(0), clientId);
-				htmlInputFile.setTransient(true);
-				htmlInputFile.setSubmittedValue(part);
+				List<UploadedFile> uploadedFiles = uploadedFileMap.get(clientId);
+
+				if ((uploadedFiles != null) && (uploadedFiles.size() > 0)) {
+
+					Part part = new HtmlInputFilePartImpl(uploadedFiles.get(0), clientId);
+					htmlInputFile.setTransient(true);
+					htmlInputFile.setSubmittedValue(part);
+				}
+				else {
+					htmlInputFile.setSubmittedValue(new PartEmptyImpl());
+				}
 			}
-
-			// FACES-3136: Ensure that the required attribute is enforced.
-			else {
-				htmlInputFile.setSubmittedValue("");
-			}
-		}
-
-		// FACES-3136: Ensure that the required attribute is enforced.
-		else {
-			htmlInputFile.setSubmittedValue("");
 		}
 
 		RendererUtil.decodeClientBehaviors(facesContext, uiComponent);
+	}
+
+	@Override
+	public Object getConvertedValue(FacesContext facesContext, UIComponent uiComponent, Object submittedValue)
+		throws ConverterException {
+
+		if (submittedValue instanceof PartEmptyImpl) {
+			return null;
+		}
+		else {
+			return submittedValue;
+		}
 	}
 
 	@Override
