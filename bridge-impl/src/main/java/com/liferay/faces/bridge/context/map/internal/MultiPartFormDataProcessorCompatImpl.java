@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,13 +74,16 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 		PortletParameters portletParameters;
 
 		boolean actionPhase;
+
 		if (clientDataRequest instanceof ActionRequest) {
 			actionPhase = true;
+
 			ActionRequest actionRequest = (ActionRequest) clientDataRequest;
 			portletParameters = actionRequest.getActionParameters();
 		}
 		else {
 			actionPhase = false;
+
 			ResourceRequest resourceRequest = (ResourceRequest) clientDataRequest;
 			portletParameters = resourceRequest.getResourceParameters();
 		}
@@ -94,6 +98,7 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 
 				for (String parameterValue : parameterValues) {
 					facesRequestParameterMap.addValue(parameterName, parameterValue);
+
 					if (actionPhase) {
 						logger.debug("Added action parameter name={0} value={1}", parameterName, parameterValue);
 					}
@@ -111,10 +116,14 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 		try {
 			Collection<Part> parts = clientDataRequest.getParts();
 
+			List<String> fileUploadFieldNames = new ArrayList<String>();
 			int totalFiles = 0;
 
 			// For each field found in the request:
 			for (Part part : parts) {
+
+				String fieldName = part.getName();
+				fileUploadFieldNames.add(fieldName);
 
 				try {
 					totalFiles++;
@@ -126,7 +135,6 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 					// If the current field is a simple form-field, then save the form field value in the map.
 					if ((fileName != null) && (fileName.length() > 0)) {
 
-						String fieldName = part.getName();
 						File uploadedFilePath = new File(uploadedFilesPath, fileName);
 						String uploadedFilePathAbsolutePath = uploadedFilePath.getAbsolutePath();
 						part.write(uploadedFilePathAbsolutePath);
@@ -182,8 +190,18 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 					logger.error(e);
 
 					com.liferay.faces.util.model.UploadedFile uploadedFile = uploadedFileFactory.getUploadedFile(e);
-					String fieldName = Integer.toString(totalFiles);
-					addUploadedFile(uploadedFileMap, fieldName, uploadedFile);
+					String totalFilesfieldName = Integer.toString(totalFiles);
+					addUploadedFile(uploadedFileMap, totalFilesfieldName, uploadedFile);
+				}
+			}
+
+			for (String fileUploadFieldName : fileUploadFieldNames) {
+
+				// Ensure that fields submitted without a file are present in the uploadedFileMap so that
+				// HtmlInputFileRenderer.decode() can determine whether or not the field was submitted with an empty
+				// value.
+				if (!uploadedFileMap.containsKey(fileUploadFieldName)) {
+					uploadedFileMap.put(fileUploadFieldName, Collections.<UploadedFile>emptyList());
 				}
 			}
 		}
