@@ -18,6 +18,10 @@ package com.liferay.faces.bridge.test.integration.demo.applicant;
 import org.junit.Assume;
 import org.junit.Before;
 
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.TestUtil;
 import com.liferay.faces.test.selenium.browser.WaitingAsserter;
@@ -28,6 +32,49 @@ import com.liferay.faces.test.selenium.browser.WaitingAsserter;
  */
 public class ButterFacesApplicantPortletTester extends BridgeApplicantPortletTester {
 
+	// Private Constants
+	private static final String TOOLTIP_XPATH_FRAGMENT =
+		"/following-sibling::div[@role='tooltip']//*[contains(@class,'butter-component-tooltip')][contains(@class,'error')]";
+
+	@Override
+	public void runApplicantPortletTest_C_FirstNameField() {
+
+		BrowserDriver browserDriver = getBrowserDriver();
+		String firstNameFieldXpath = getFirstNameFieldXpath();
+		browserDriver.createActions().sendKeys(Keys.TAB).perform();
+		browserDriver.sendKeysToElement(firstNameFieldXpath, "asdf");
+
+		String lastNameFieldXpath = getLastNameFieldXpath();
+		Action lastNameFieldClick = browserDriver.createClickElementAction(lastNameFieldXpath);
+		browserDriver.performAndWaitForRerender(lastNameFieldClick, firstNameFieldXpath);
+
+		String firstNameFieldErrorXpath = getFieldErrorXpath(firstNameFieldXpath);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertElementNotDisplayed(firstNameFieldErrorXpath);
+		browserDriver.clearElement(firstNameFieldXpath);
+		lastNameFieldClick = browserDriver.createClickElementAction(lastNameFieldXpath);
+		browserDriver.performAndWaitForRerender(lastNameFieldClick, firstNameFieldXpath);
+		mouseOverElement(browserDriver, firstNameFieldXpath);
+		waitingAsserter.assertTextPresentInElement("Value is required", firstNameFieldErrorXpath);
+	}
+
+	@Override
+	public void runApplicantPortletTest_D_EmailValidation() {
+
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.createActions().sendKeys(Keys.TAB).perform();
+
+		String emailAddressFieldXpath = getEmailAddressFieldXpath();
+		sendKeysTabAndWaitForRerender(browserDriver, emailAddressFieldXpath, "test");
+		mouseOverElement(browserDriver, emailAddressFieldXpath);
+
+		String emailAddressFieldErrorXpath = getFieldErrorXpath(emailAddressFieldXpath);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertTextPresentInElement("Invalid e-mail address", emailAddressFieldErrorXpath);
+		sendKeysTabAndWaitForRerender(browserDriver, emailAddressFieldXpath, "@liferay.com");
+		waitingAsserter.assertElementNotDisplayed(emailAddressFieldErrorXpath);
+	}
+
 	@Override
 	public void runApplicantPortletTest_E_AllFieldsRequired() {
 
@@ -35,10 +82,35 @@ public class ButterFacesApplicantPortletTester extends BridgeApplicantPortletTes
 		clearAllFields(browserDriver);
 		browserDriver.clickElementAndWaitForRerender(getSubmitButtonXpath());
 
-		// Verify that 8 "Value is required" messages appear.
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
-		waitingAsserter.assertElementDisplayed(getFieldErrorXpath(getFirstNameFieldXpath()) +
-			"[contains(text(),'Value is required')][8]");
+		assertFieldRequired(browserDriver, waitingAsserter, getPostalCodeFieldXpath());
+		assertFieldRequired(browserDriver, waitingAsserter, getProvinceIdFieldXpath());
+		assertFieldRequired(browserDriver, waitingAsserter, getCityFieldXpath());
+		assertFieldRequired(browserDriver, waitingAsserter, getDateOfBirthFieldXpath());
+		assertFieldRequired(browserDriver, waitingAsserter, getPhoneNumberFieldXpath());
+		assertFieldRequired(browserDriver, waitingAsserter, getEmailAddressFieldXpath());
+		assertFieldRequired(browserDriver, waitingAsserter, getLastNameFieldXpath());
+		assertFieldRequired(browserDriver, waitingAsserter, getFirstNameFieldXpath());
+		mouseOverElement(browserDriver, getShowHideCommentsLinkXpath());
+		browserDriver.waitForElementNotDisplayed(getFieldErrorXpath("//*"));
+	}
+
+	@Override
+	public void runApplicantPortletTest_H_DateValidation() {
+
+		BrowserDriver browserDriver = getBrowserDriver();
+		String dateOfBirthFieldXpath = getDateOfBirthFieldXpath();
+		browserDriver.centerElementInCurrentWindow(dateOfBirthFieldXpath);
+		browserDriver.clearElement(dateOfBirthFieldXpath);
+		sendKeysTabAndWaitForRerender(browserDriver, dateOfBirthFieldXpath, "12/34/5678");
+		mouseOverElement(browserDriver, dateOfBirthFieldXpath);
+
+		String dateOfBirthFieldErrorXpath = getFieldErrorXpath(dateOfBirthFieldXpath);
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		waitingAsserter.assertTextPresentInElement("Invalid date format", dateOfBirthFieldErrorXpath);
+		browserDriver.clearElement(dateOfBirthFieldXpath);
+		sendKeysTabAndWaitForRerender(browserDriver, dateOfBirthFieldXpath, "01/02/3456");
+		waitingAsserter.assertElementNotDisplayed(dateOfBirthFieldErrorXpath);
 	}
 
 	@Before
@@ -50,8 +122,7 @@ public class ButterFacesApplicantPortletTester extends BridgeApplicantPortletTes
 
 	@Override
 	protected String getFieldErrorXpath(String fieldXpath) {
-		return fieldXpath +
-			"/../../../../../preceding-sibling::ul[contains(@id,'globalMessages')]/li[contains(@class,'portlet-msg-error')]";
+		return "(" + fieldXpath + "/../.." + TOOLTIP_XPATH_FRAGMENT + "|" + fieldXpath + TOOLTIP_XPATH_FRAGMENT + ")";
 	}
 
 	@Override
@@ -69,10 +140,22 @@ public class ButterFacesApplicantPortletTester extends BridgeApplicantPortletTes
 
 		String dateOfBirthFieldXpath = getDateOfBirthFieldXpath();
 		sendKeysTabAndWaitForRerender(browserDriver, dateOfBirthFieldXpath, "01/02/3456");
-		browserDriver.clickElement("//span[contains(@class, 'icon-calendar')]");
+		browserDriver.clickElement("//span[contains(@class,'icon-calendar')]");
 
 		String dateCellXpath = "//div[contains(@class, 'datepicker-days')]//td[contains(text(), '14')]";
 		browserDriver.waitForElementEnabled(dateCellXpath);
 		browserDriver.clickElement(dateCellXpath);
+	}
+
+	private void assertFieldRequired(BrowserDriver browserDriver, WaitingAsserter waitingAsserter, String fieldXpath) {
+
+		mouseOverElement(browserDriver, fieldXpath);
+		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(fieldXpath));
+	}
+
+	private void mouseOverElement(BrowserDriver browserDriver, String elementXpath) {
+
+		WebElement webElement = browserDriver.findElementByXpath(elementXpath);
+		browserDriver.createActions().moveToElement(webElement).perform();
 	}
 }
