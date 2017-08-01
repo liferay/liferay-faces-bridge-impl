@@ -14,55 +14,67 @@
 				<alloy:fieldset id="fs1">
 					<alloy:row>
 						<alloy:column id="c1a" width="50">
-							<b:text id="firstName" label="#{i18n['first-name']}" required="true"
-								value="#{applicantModelBean.firstName}">
-								<f:ajax event="change" render="firstName globalMessages" />
-							</b:text>
-							<b:text id="lastName" label="#{i18n['last-name']}" required="true" value="#{applicantModelBean.lastName}">
-								<f:ajax event="change" render="lastName globalMessages" />
-							</b:text>
-							<b:text id="emailAddress" label="#{i18n['email-address']}" required="true" 
-								validatorMessage="#{i18n['invalid-email-address']}" value="#{applicantModelBean.emailAddress}">
-								<f:validateRegex pattern=".+[@].+[.].+" />
-								<f:ajax event="change" render="emailAddress globalMessages" />
-							</b:text>
-							<b:text id="phoneNumber" label="#{i18n['phone-number']}" required="true"
-								value="#{applicantModelBean.phoneNumber}">
-								<f:ajax event="change" render="phoneNumber globalMessages" />
-							</b:text>
+							<alloy:field id="firstNameField">
+								<b:text id="firstName" label="#{i18n['first-name']}" required="true"
+									value="#{applicantModelBean.firstName}">
+									<f:ajax event="change" render="firstNameField" />
+								</b:text>
+							</alloy:field>
+							<alloy:field id="lastNameField">
+								<b:text id="lastName" label="#{i18n['last-name']}" required="true" value="#{applicantModelBean.lastName}">
+									<f:ajax event="change" render="lastNameField" />
+								</b:text>
+							</alloy:field>
+							<alloy:field id="emailAddressField">
+								<b:text id="emailAddress" label="#{i18n['email-address']}" required="true" 
+									validatorMessage="#{i18n['invalid-email-address']}" value="#{applicantModelBean.emailAddress}">
+									<f:validateRegex pattern=".+[@].+[.].+" />
+									<f:ajax event="change" render="emailAddressField" />
+								</b:text>
+							</alloy:field>
+							<alloy:field id="phoneNumberField">
+								<b:text id="phoneNumber" label="#{i18n['phone-number']}" required="true"
+									value="#{applicantModelBean.phoneNumber}">
+									<f:ajax event="change" render="phoneNumberField" />
+								</b:text>
+							</alloy:field>
 						</alloy:column>
 						<alloy:column id="c1b" width="50">
-							<b:calendar id="dateOfBirth" label="#{i18n['birthday']}"
-								format="#{portletPreferencesValues['datePattern'][0].toUpperCase()}" pickTime="false"
-								required="true" styleClass="date-picker" value="#{applicantModelBean.dateOfBirth}">
-								<f:convertDateTime pattern="#{portletPreferencesValues['datePattern'][0]}" />
-								<f:ajax event="change" render="dateOfBirth globalMessages" />
-							</b:calendar>
-							<h:panelGroup id="locationFields">
+							<alloy:field id="dateOfBirthField">
+								<b:calendar id="dateOfBirth" label="#{i18n['birthday']}"
+									format="#{portletPreferencesValues['datePattern'][0].toUpperCase()}" pickTime="false"
+									required="true" styleClass="date-picker" value="#{applicantModelBean.dateOfBirth}">
+									<f:convertDateTime pattern="#{portletPreferencesValues['datePattern'][0]}" />
+									<f:ajax event="change" render="dateOfBirthField" />
+								</b:calendar>
+							</alloy:field>
+							<alloy:field id="cityField">
 								<b:text id="city" label="#{i18n['city']}" required="true" value="#{applicantModelBean.city}">
-									<f:ajax event="change" render="city globalMessages" />
+									<f:ajax event="change" render="cityField" />
 								</b:text>
-								<alloy:field id="provinceIdField">
-									<b:labeledContainer label="#{i18n['state-province']}">
-										<h:selectOneMenu id="provinceId" binding="#{provinceId}" label="#{i18n['state-province']}"
-												required="true" styleClass="province-id" value="#{applicantModelBean.provinceId}">
-											<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
-											<f:selectItems itemValue="#{province.provinceId}" itemLabel="#{province.provinceName}"
-														   value="#{listModelBean.provinces}" var="province" />
-											<f:ajax render="provinceIdField globalMessages" />
-										</h:selectOneMenu>
-										<b:tooltip for=".province-id" rendered="#{!provinceId.valid}">
-											<h:message id="provinceIdMessage" for="provinceId"
-												styleClass="butter-component-tooltip-validation-error" />
-										</b:tooltip>
-									</b:labeledContainer>
-								</alloy:field>
+							</alloy:field>
+							<alloy:field id="provinceIdField">
+								<b:labeledContainer label="#{i18n['state-province']}">
+									<h:selectOneMenu id="provinceId" binding="#{provinceId}" label="#{i18n['state-province']}"
+											required="true" styleClass="province-id" value="#{applicantModelBean.provinceId}">
+										<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
+										<f:selectItems itemValue="#{province.provinceId}" itemLabel="#{province.provinceName}"
+													   value="#{listModelBean.provinces}" var="province" />
+										<f:ajax render="provinceIdField" />
+									</h:selectOneMenu>
+									<b:tooltip for=".province-id" rendered="#{!provinceId.valid}">
+										<h:message id="provinceIdMessage" for="provinceId"
+											styleClass="butter-component-tooltip-validation-error" />
+									</b:tooltip>
+								</b:labeledContainer>
+							</alloy:field>
+							<alloy:field id="postalCodeField">
 								<b:text id="postalCode" label="#{i18n['zip-postal']}" required="true" style="width: 100px;"
 									value="#{applicantModelBean.postalCode}" valueChangeListener="#{applicantBackingBean.postalCodeListener}">
-									<f:ajax event="change" render="locationFields globalMessages" />
+									<f:ajax event="change" render="cityField provinceIdField postalCodeField" />
 								</b:text>
-							</h:panelGroup>
-							<img src="#{resource['example:icon-help.png']}" title="#{i18n['postal-code-hint']}" />
+								<img src="#{resource['example:icon-help.png']}" title="#{i18n['postal-code-hint']}" />
+							</alloy:field>
 						</alloy:column>
 					</alloy:row>
 				</alloy:fieldset>
