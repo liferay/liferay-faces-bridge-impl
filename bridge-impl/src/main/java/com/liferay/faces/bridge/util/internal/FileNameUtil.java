@@ -66,11 +66,16 @@ public class FileNameUtil {
 	}
 
 	public static String getFileNameExtension(String fileName) {
-		String fileNameExtension = null;
-		int pos = fileName.lastIndexOf('.');
 
-		if ((pos > 0) && (pos < fileName.length())) {
-			fileNameExtension = fileName.substring(pos + 1);
+		String fileNameExtension = null;
+
+		if (fileName != null) {
+
+			int pos = fileName.lastIndexOf('.');
+
+			if ((pos > 0) && (pos < fileName.length())) {
+				fileNameExtension = fileName.substring(pos + 1);
+			}
 		}
 
 		return fileNameExtension;
