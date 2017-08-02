@@ -241,15 +241,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			baseURL = createResourceURL(facesContext, bridgeURI.getParameterMap());
 		}
 
-		// Otherwise, if the URL is external, then return an encoded BaseURL string representation of the URL.
-		else if (bridgeURI.isExternal(contextPath)) {
-
-			// TCK TestPage130: encodeResourceURLForeignExternalURLBackLinkTest
-			ExternalContext externalContext = facesContext.getExternalContext();
-			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
-			baseURL = new BaseURLEncodedImpl(bridgeURI, portletResponse);
-		}
-
 		// Otherwise, if the URL is relative, in that it starts with "../", then return a BaseURL string representation
 		// of the URL that contains the context-path.
 		else if (bridgeURI.isPathRelative()) {
@@ -259,6 +250,15 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			ExternalContext externalContext = facesContext.getExternalContext();
 			String contextPath = externalContext.getRequestContextPath();
 			baseURL = new BaseURLNonEncodedRelativeImpl(bridgeURI, contextPath);
+		}
+
+		// Otherwise, if the URL is external, then return an encoded BaseURL string representation of the URL.
+		else if (bridgeURI.isExternal(contextPath)) {
+
+			// TCK TestPage130: encodeResourceURLForeignExternalURLBackLinkTest
+			ExternalContext externalContext = facesContext.getExternalContext();
+			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
+			baseURL = new BaseURLEncodedImpl(bridgeURI, portletResponse);
 		}
 
 		// Otherwise, if the URL originally contained the "javax.portlet.faces.ViewLink" which represents navigation
