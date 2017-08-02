@@ -4,8 +4,13 @@
 
 	<ui:define name="col1">
 		<h:form enctype="multipart/form-data">
-			<showcase:example>
-				<bridge:inputFile fileUploadListener="#{bridgeInputFileBackingBean.handleFileUpload}" />
+			<showcase:example renderedCheckbox="true" requiredCheckbox="true">
+				<showcase:field>
+					<bridge:inputFile id="file" fileUploadListener="#{bridgeInputFileBackingBean.handleFileUpload}"
+						rendered="#{showcaseModelBean.selectedComponent.rendered}"
+						required="#{showcaseModelBean.selectedComponent.required}" />
+					<h:message for="file" />
+				</showcase:field>
 				<hr />
 				<h:commandButton value="#{i18n['submit']}" />
 			</showcase:example>
