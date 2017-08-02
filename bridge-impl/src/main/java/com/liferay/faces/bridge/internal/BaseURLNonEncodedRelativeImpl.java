@@ -50,7 +50,7 @@ public class BaseURLNonEncodedRelativeImpl extends BaseURLNonEncodedImpl {
 			toStringValue = super.toString();
 
 			if (toStringValue.startsWith(RELATIVE_PATH_PREFIX)) {
-				toStringValue = contextPath + "/" + toStringValue.substring(RELATIVE_PATH_PREFIX.length()));
+				toStringValue = contextPath + "/" + toStringValue.substring(RELATIVE_PATH_PREFIX.length());
 			}
 			else {
 				toStringValue = contextPath + "/" + toStringValue;
