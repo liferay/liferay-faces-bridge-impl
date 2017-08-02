@@ -1,52 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<f:view xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+		xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:ui="http://java.sun.com/jsf/facelets">
 	<h:head />
 	<h:body>
 		<h2>Test Procedure:</h2>
-		<ul>
-			<li>Click Submit and verify that you see <span class="portlet-msg-error">"Validation Error: Value is required"</span> for the firstName and lastName fields.</li>
-			<li>Type "John" in the firstName field.</li>
-			<li>Using your browser's "Inspect" feature, remove <strong><code>&lt;input id="namingConainerId:_:myForm:lastName" ... /></code></strong> from the DOM.</li>
-			<li>Click Submit.</li>
-		</ul>
-		<h2>Test Results:</h2>
-		<p>
-			<strong>If the issue still exists, </strong>
-			<span>then form submission will succeed and you will see the global FacesMessage </span>
-			<span class="portlet-msg-info">"Hello John null"</span>
-		</p>
-		<p>
-			<strong>Otherwise, if the issue is fixed, </strong>
-			<span>You should see </span>
-			<span class="portlet-msg-error">"Validation Error: Value is required"</span>
-			<span> for the lastName field.</span>
-		</p>
-		<hr />
-		<h:form id="myForm">
-			<h:messages globalOnly="true" />
-			<em>* indicates a required field</em>
-			<br />
-			<h:outputLabel value="* First Name:" />
-			<h:inputText id="firstName" label="First Name" required="true" value="#{testBean.firstName}" />
-			<h:message for="firstName" />
-			<br />
-			<h:outputLabel value=" Middle Name:" />
-			<h:inputText id="middleName" label="Middle Name" value="#{testBean.middleName}" />
-			<h:message for="middleName" />
-			<br />
-			<h:outputLabel value="* Last Name:" />
-			<h:inputText id="lastName" label="Last Name" required="true" value="#{testBean.lastName}" />
-			<h:message for="lastName" />
-			<br />
-			<h:commandButton action="#{testBean.action}" value="Submit">
+		<ol>
+			<li>Navigate to the JSFSPEC-1433 page.</li>
+			<li>Click the *Run Test* button.</li>
+			<li>Verify that a "Value is Required." message appeared for each component.</li>
+		</ol>
+		<h:form>
+			<h:panelGroup styleClass="html-field" layout="block">
+				<label>h:inputHidden</label>
+				<br />
+				<h:inputHidden id="h_inputHidden" binding="#{inputHidden}" required="true"
+					requiredMessage="Value is required." styleClass="ui-input-component" />
+				<h:message for="h_inputHidden" />
+			</h:panelGroup>
+			<h:panelGroup styleClass="html-field" layout="block">
+				<label>h:inputSecret</label>
+				<br />
+				<h:inputSecret id="h_inputSecret" required="true" requiredMessage="Value is required."
+					styleClass="ui-input-component" />
+				<h:message for="h_inputSecret" />
+			</h:panelGroup>
+			<h:panelGroup styleClass="html-field" layout="block">
+				<label>h:inputText</label>
+				<br />
+				<h:inputText id="h_inputText" required="true" requiredMessage="Value is required."
+					styleClass="ui-input-component" />
+				<h:message for="h_inputText" />
+			</h:panelGroup>
+			<h:panelGroup styleClass="html-field" layout="block">
+				<label>h:inputTextarea</label>
+				<br />
+				<h:inputTextarea id="h_inputTextarea" required="true" requiredMessage="Value is required."
+					styleClass="ui-input-component" />
+				<h:message for="h_inputTextarea" />
+			</h:panelGroup>
+			<ui:remove>
+				<!--
+					h:selectBooleanCheckbox does not behave correctly with required="true". For more details, see:
+					https://stackoverflow.com/questions/14796961/jsf-selectbooleancheckbox-required-true-doesnt-validate-if-checkbox-is-selected
+				-->
+				<h:panelGroup styleClass="html-field" layout="block">
+					<label>h:selectBooleanCheckbox</label>
+					<br />
+					<h:selectBooleanCheckbox id="h_selectBooleanCheckbox" required="true"
+						requiredMessage="Value is required." styleClass="ui-input-component">
+						<f:selectItem itemLabel="test" itemValue="test" />
+					</h:selectBooleanCheckbox>
+					<h:message for="h_selectBooleanCheckbox" />
+				</h:panelGroup>
+			</ui:remove>
+			<h:panelGroup styleClass="html-field" layout="block">
+				<label>h:selectManyCheckbox</label>
+				<br />
+				<h:selectManyCheckbox id="h_selectManyCheckbox" required="true"
+					requiredMessage="Value is required." styleClass="ui-input-component">
+					<f:selectItem itemLabel="test" itemValue="test" />
+				</h:selectManyCheckbox>
+				<h:message for="h_selectManyCheckbox" />
+			</h:panelGroup>
+			<h:panelGroup styleClass="html-field" layout="block">
+				<label>h:selectManyListbox</label>
+				<br />
+				<h:selectManyListbox id="h_selectManyListbox" required="true"
+					requiredMessage="Value is required." styleClass="ui-input-component">
+					<f:selectItem itemLabel="test" itemValue="test" />
+				</h:selectManyListbox>
+				<h:message for="h_selectManyListbox" />
+			</h:panelGroup>
+			<h:panelGroup styleClass="html-field" layout="block">
+				<label>h:selectManyMenu</label>
+				<br />
+				<h:selectManyMenu id="h_selectManyMenu" required="true" requiredMessage="Value is required."
+					styleClass="ui-input-component">
+					<f:selectItem itemLabel="test" itemValue="test" />
+				</h:selectManyMenu>
+				<h:message for="h_selectManyMenu" />
+			</h:panelGroup>
+			<h:panelGroup styleClass="html-field" layout="block">
+				<label>h:selectOneListbox</label>
+				<br />
+				<h:selectOneListbox id="h_selectOneListbox" required="true"
+					requiredMessage="Value is required." styleClass="ui-input-component">
+					<f:selectItem itemLabel="test" itemValue="test" />
+				</h:selectOneListbox>
+				<h:message for="h_selectOneListbox" />
+			</h:panelGroup>
+			<h:panelGroup styleClass="html-field" layout="block">
+				<label>h:selectOneMenu</label>
+				<br />
+				<h:selectOneMenu id="h_selectOneMenu" required="true" requiredMessage="Value is required."
+					styleClass="ui-input-component">
+					<f:selectItem itemLabel="test" itemValue="test" />
+				</h:selectOneMenu>
+				<h:message for="h_selectOneMenu" />
+			</h:panelGroup>
+			<h:panelGroup styleClass="html-field" layout="block">
+				<label>h:selectOneRadio</label>
+				<br />
+				<h:selectOneRadio id="h_selectOneRadio" required="true" requiredMessage="Value is required."
+					styleClass="ui-input-component">
+					<f:selectItem itemLabel="test" itemValue="test" />
+				</h:selectOneRadio>
+				<h:message for="h_selectOneMenu" />
+			</h:panelGroup>
+			<h:commandButton styleClass="run-test-button" value="Run Test">
 				<f:ajax execute="@form" render="@form" />
 			</h:commandButton>
+			<h:outputScript>
+				[].forEach.call(document.getElementsByClassName('run-test-button'), function(element) {
+					element.disabled = true;
+				});
+			</h:outputScript>
 		</h:form>
-		<hr />
 		<ul>
 			<li><em><h:outputText value="#{product.JSF}" /></em></li>
 			<li><em><h:outputText value="#{product.LIFERAY_FACES_BRIDGE}" /></em></li>
+			<c:if test="#{product.LIFERAY_FACES_BRIDGE_EXT.detected}">
+				<li><em><h:outputText value="#{product.LIFERAY_FACES_BRIDGE_EXT}" /></em></li>
+			</c:if>
 		</ul>
+		<h:outputScript target="body">
+			[].forEach.call(document.getElementsByClassName('ui-input-component'), function(element) {
+				element.removeAttribute('name');
+			});
+
+			// Ensure that the "name" attribute is removed from inputHidden since it does not have the
+			// "ui-input-component" class.
+			document.getElementById('#{inputHidden.clientId}').removeAttribute('name');
+
+			[].forEach.call(document.getElementsByClassName('run-test-button'), function(element) {
+				element.removeAttribute('disabled');
+			});
+		</h:outputScript>
 	</h:body>
 </f:view>
