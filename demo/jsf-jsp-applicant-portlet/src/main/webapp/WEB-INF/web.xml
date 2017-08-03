@@ -8,7 +8,7 @@
 		<param-value>.jspx</param-value>
 	</context-param>
 	<context-param>
-		<param-name>javax.faces.component.UIInput.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE</param-name>
+		<param-name>javax.faces.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE</param-name>
 		<param-value>true</param-value>
 	</context-param>
 	<!-- Instruct Mojarra to utilize JBoss-EL instead of the EL implementation provided by the servlet container. -->
