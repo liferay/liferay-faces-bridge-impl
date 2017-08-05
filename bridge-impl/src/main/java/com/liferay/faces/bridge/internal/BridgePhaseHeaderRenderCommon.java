@@ -65,9 +65,6 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 
 	protected abstract RenderRequest getRenderRequest();
 
-	protected abstract void renderCapturedOperations(List<WriterOperation> writerOperations, Writer writer)
-		throws IOException;
-
 	protected void executeRender(String renderRedirectViewId, Bridge.PortletPhase portletPhase) throws BridgeException,
 		IOException {
 
@@ -149,12 +146,29 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 		// RESTORE_VIEW phase executes. Note that this is accomplished by the HeaderRequestPhaseListener.
 		else {
 
+			ExternalContext externalContext = facesContext.getExternalContext();
+
 			try {
-				ExternalContext externalContext = facesContext.getExternalContext();
 				String viewId = getFacesViewId(externalContext);
 				logger.debug("Executing Faces lifecycle for viewId=[{0}]", viewId);
 			}
+
+			// In the case of a BridgeException being caught such as BridgeDefaultViewNotSpecifiedException or
+			// BridgeInvalidViewPathException, even though there is no rendered markup, it is necessary to save the
+			// empty list of captured writer operations as a clue to the RENDER_PHASE that an attempt to execute the JSF
+			// lifecycle has already happened in the HEADER_PHASE.
 			catch (BridgeException e) {
+
+				// TCK TestPage048 (portletSetsInvalidViewPathTest)
+				// TCK TestPage051 (exceptionThrownWhenNoDefaultViewIdTest)
+				Writer responseOutputWriter = getResponseOutputWriter(externalContext);
+
+				if (responseOutputWriter instanceof CapturingWriter) {
+
+					CapturingWriter capturingWriter = (CapturingWriter) responseOutputWriter;
+					renderRequest.setAttribute(BridgeExt.WRITER_OPERATIONS, capturingWriter.getWriterOperations());
+				}
+
 				logger.error("Unable to get viewId due to {0}", e.getClass().getSimpleName());
 				throw e;
 			}
@@ -244,12 +258,30 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 		// Otherwise,
 		else {
 
-			// In the case that a render-redirect took place, need to render the buffered markup to the response.
+			// If there are captured writer operations, then that means either the JSF lifecycle executed in the
+			// HEADER_PHASE or that a render-redirect executed in the HEADER_PHASE or RESOURCE_PHASE.
 			if (responseOutputWriter instanceof CapturingWriter) {
 
 				CapturingWriter capturingWriter = (CapturingWriter) responseOutputWriter;
 				List<WriterOperation> writerOperations = capturingWriter.getWriterOperations();
-				renderCapturedOperations(writerOperations, responseOutputWriter);
+
+				if (writerOperations != null) {
+
+					// If running in the RENDER_PHASE of the portlet lifecycle, then invoke each writer operation so
+					// that the markup will be written to the response.
+					if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
+
+						for (WriterOperation writerOperation : writerOperations) {
+							writerOperation.invoke(responseOutputWriter);
+						}
+					}
+
+					// Otherwise, since running in the HEADER_PHASE, save the list of writer operations so that the
+					// markup will be rendered in the subsequent RENDER_PHASE.
+					else {
+						renderRequest.setAttribute(BridgeExt.WRITER_OPERATIONS, writerOperations);
+					}
+				}
 			}
 		}
 	}
