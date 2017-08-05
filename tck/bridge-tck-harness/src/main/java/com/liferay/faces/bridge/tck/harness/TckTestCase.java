@@ -504,6 +504,7 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 				testName.equals("encodeActionURLWithInvalidWindowStateActionTest") ||
 				testName.equals("encodeActionURLWithInvalidWindowStateEventTest") ||
 				testName.equals("encodeActionURLWithInvalidWindowStateRenderTest") ||
-				testName.equals("encodeResourceURLWithWindowStateTest"));
+				testName.equals("encodeResourceURLWithWindowStateTest") ||
+				testName.equals("resourcesRenderedInHeadTest"));
 	}
 }
