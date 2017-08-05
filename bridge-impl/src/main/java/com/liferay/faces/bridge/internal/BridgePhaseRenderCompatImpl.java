@@ -66,12 +66,4 @@ public abstract class BridgePhaseRenderCompatImpl extends BridgePhaseHeaderRende
 	protected void execute(String renderRedirectViewId) throws BridgeException, IOException {
 		executeRender(null, Bridge.PortletPhase.RENDER_PHASE);
 	}
-
-	@Override
-	protected void renderCapturedOperations(List<WriterOperation> writerOperations, Writer writer) throws IOException {
-
-		for (WriterOperation writerOperation : writerOperations) {
-			writerOperation.invoke(writer);
-		}
-	}
 }
