@@ -15,10 +15,6 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.List;
-
 import javax.portlet.HeaderRequest;
 import javax.portlet.HeaderResponse;
 import javax.portlet.MimeResponse;
@@ -30,7 +26,6 @@ import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.filter.BridgePortletRequestFactory;
 import javax.portlet.faces.filter.BridgePortletResponseFactory;
 
-import com.liferay.faces.bridge.context.internal.WriterOperation;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -87,13 +82,5 @@ public class BridgePhaseHeaderImpl extends BridgePhaseHeaderRenderCommon {
 	@Override
 	protected RenderRequest getRenderRequest() {
 		return headerRequest;
-	}
-
-	@Override
-	protected void renderCapturedOperations(List<WriterOperation> writerOperations, Writer writer) throws IOException {
-
-		// Save the writer operations as a request attribute so that the RENDER_PHASE of the portlet lifecycle will be
-		// able to retrieve them and write them to the RenderResponse.
-		headerRequest.setAttribute(BridgeExt.WRITER_OPERATIONS, writerOperations);
 	}
 }

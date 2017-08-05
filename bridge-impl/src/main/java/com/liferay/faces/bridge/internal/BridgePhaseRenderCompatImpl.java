@@ -15,7 +15,9 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import com.liferay.faces.bridge.context.internal.WriterOperation;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.List;
 
 import javax.faces.context.ExternalContext;
 import javax.portlet.PortletConfig;
@@ -26,9 +28,8 @@ import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.filter.BridgePortletRequestFactory;
 import javax.portlet.faces.filter.BridgePortletResponseFactory;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.List;
+
+import com.liferay.faces.bridge.context.internal.WriterOperation;
 
 
 /**
@@ -60,6 +61,8 @@ public abstract class BridgePhaseRenderCompatImpl extends BridgePhaseCompat_2_2_
 		// Spec 6.6 (Namespacing)
 		indicateNamespacingToConsumers(facesContext.getViewRoot(), renderResponse);
 
+		// If a captured list of writer operations was saved in the HEADER_PHASE, then invoke each writer operation so
+		// that the markup will be written to the response now in the RENDER_PHASE.
 		ExternalContext externalContext = facesContext.getExternalContext();
 		List<WriterOperation> writerOperations = (List<WriterOperation>) renderRequest.getAttribute(
 				BridgeExt.WRITER_OPERATIONS);
