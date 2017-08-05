@@ -15,36 +15,37 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import java.util.Collection;
-
 import javax.portlet.HeaderResponse;
-import javax.portlet.PortletMode;
-import javax.portlet.RenderResponse;
 import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * Provides a way to decorate an {@link HttpServletResponse} as a portlet {@link RenderResponse}.
+ * Provides a way to decorate an {@link HttpServletResponse} as a portlet {@link HeaderResponse}.
  *
  * @author  Neil Griffin
  */
-public class HttpServletResponseHeaderAdapter extends HttpServletResponseMimeAdapter implements RenderResponse {
+public class HttpServletResponseHeaderAdapter extends HttpServletResponseMimeAdapter implements HeaderResponse {
 
 	public HttpServletResponseHeaderAdapter(HeaderResponse headerResponse, HttpServletResponse httpServletResponse) {
 		super(headerResponse, httpServletResponse);
 	}
 
 	@Override
-	public void setNextPossiblePortletModes(Collection<? extends PortletMode> portletModes) {
-		getRenderResponse().setNextPossiblePortletModes(portletModes);
+	public void addDependency(String name, String scope, String version) {
+		getHeaderResponse().addDependency(name, scope, version);
+	}
+
+	@Override
+	public void addDependency(String name, String scope, String version, String markup) {
+		getHeaderResponse().addDependency(name, scope, version, markup);
 	}
 
 	@Override
 	public void setTitle(String title) {
-		getRenderResponse().setTitle(title);
+		getHeaderResponse().setTitle(title);
 	}
 
-	private RenderResponse getRenderResponse() {
-		return (RenderResponse) getResponse();
+	private HeaderResponse getHeaderResponse() {
+		return (HeaderResponse) getResponse();
 	}
 }
