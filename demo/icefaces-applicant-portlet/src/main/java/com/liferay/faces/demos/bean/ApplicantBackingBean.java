@@ -105,11 +105,7 @@ public class ApplicantBackingBean implements Serializable {
 				List<UploadedFile> uploadedFiles = applicantModelBean.getUploadedFiles();
 
 				UploadedFile uploadedFile = new UploadedFileWrapper(fileInfo);
-
-				synchronized (uploadedFiles) {
-
-					uploadedFiles.add(uploadedFile);
-				}
+				uploadedFiles.add(uploadedFile);
 			}
 			else if (status == InputFile.SIZE_LIMIT_EXCEEDED) {
 				FacesContextHelperUtil.addGlobalErrorMessage("please-enter-a-file-with-a-valid-file-size");

@@ -37,31 +37,31 @@ public class RenderRequestPhaseListener extends RenderRequestPhaseListenerCompat
 	// serialVersionUID
 	private static final long serialVersionUID = 8470095938465172618L;
 
-	// Protected (Lazy-Initialized) Constants
-	private static Boolean VIEW_PARAMETERS_ENABLED;
-
-	// Private Data Members
-	private PhaseId phaseId = PhaseId.RESTORE_VIEW;
+	// Instance field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
+	private static volatile Boolean viewParametersEnabled;
 
 	// Java 1.6+ @Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		FacesContext facesContext = phaseEvent.getFacesContext();
 
-		if (VIEW_PARAMETERS_ENABLED == null) {
+		// First check without locking (not yet thread-safe)
+		if (viewParametersEnabled == null) {
 
 			synchronized (this) {
 
-				if (VIEW_PARAMETERS_ENABLED == null) {
+				// Second check with locking (thread-safe)
+				if (viewParametersEnabled == null) {
 
 					PortletConfig portletConfig = RequestMapUtil.getPortletConfig(facesContext);
-					VIEW_PARAMETERS_ENABLED = isViewParametersEnabled(portletConfig);
+					viewParametersEnabled = isViewParametersEnabled(portletConfig);
 				}
 			}
 		}
 
 		// If the JSF 2 "View Parameters" feature is not enabled, then ensure that only the RESTORE_VIEW phase executes.
-		if (!VIEW_PARAMETERS_ENABLED && (BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE)) {
+		if (!viewParametersEnabled &&
+				(BridgeUtil.getPortletRequestPhase() == Bridge.PortletPhase.RENDER_PHASE)) {
 
 			facesContext.renderResponse();
 		}
@@ -74,6 +74,6 @@ public class RenderRequestPhaseListener extends RenderRequestPhaseListenerCompat
 
 	// Java 1.6+ @Override
 	public PhaseId getPhaseId() {
-		return phaseId;
+		return PhaseId.RESTORE_VIEW;
 	}
 }
