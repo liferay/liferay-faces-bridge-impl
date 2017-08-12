@@ -408,7 +408,8 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 		// the primeFacesHeadRenderer instance will be lazily initialized when
 		// HeadRendererPrimeFacesImpl.getPrimeFacesHeadRenderer() is called and HeadRendererPrimeFacesImpl.isMobile() is
 		// false. Class initialization is thread-safe. For more details on this pattern, see
-		// http://stackoverflow.com/questions/7420504/threading-lazy-initialization-vs-static-lazy-initialization.
+		// http://stackoverflow.com/questions/7420504/threading-lazy-initialization-vs-static-lazy-initialization and
+		// http://docs.oracle.com/javase/specs/jls/se7/html/jls-12.html#jls-12.4.2
 		private static final Renderer instance;
 
 		static {
@@ -433,7 +434,8 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 		// the primeFacesMobileHeadRenderer instance will be lazily initialized when
 		// HeadRendererPrimeFacesImpl.getPrimeFacesHeadRenderer() is called and HeadRendererPrimeFacesImpl.isMobile() is
 		// true. Class initialization is thread-safe. For more details on this pattern, see
-		// http://stackoverflow.com/questions/7420504/threading-lazy-initialization-vs-static-lazy-initialization.
+		// http://stackoverflow.com/questions/7420504/threading-lazy-initialization-vs-static-lazy-initialization and
+		// http://docs.oracle.com/javase/specs/jls/se7/html/jls-12.html#jls-12.4.2
 		private static final Renderer instance;
 
 		static {

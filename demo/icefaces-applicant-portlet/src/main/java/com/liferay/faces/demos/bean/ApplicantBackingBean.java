@@ -125,10 +125,7 @@ public class ApplicantBackingBean {
 				UploadedFileWrapper uploadedFile = new UploadedFileWrapper(fileInfo);
 
 				if (uploadedFile.getStatus() == UploadedFile.Status.FILE_SAVED) {
-
-					synchronized (uploadedFiles) {
-						uploadedFiles.add(uploadedFile);
-					}
+					uploadedFiles.add(uploadedFile);
 				}
 			}
 		}
