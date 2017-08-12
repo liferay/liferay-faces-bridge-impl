@@ -16,9 +16,11 @@
 package com.liferay.faces.demos.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -41,10 +43,10 @@ public class ProvinceServiceMockImpl implements ProvinceService {
 
 	// Private Data Members
 	private List<Province> provinces;
-	private Map<Long, List<Province>> countryProvinceMap;
+	private ConcurrentHashMap<Long, List<Province>> countryProvinceMap;
 
 	public ProvinceServiceMockImpl() {
-		this.countryProvinceMap = new HashMap<Long, List<Province>>();
+		this.countryProvinceMap = new ConcurrentHashMap<Long, List<Province>>();
 		this.provinces = new ArrayList<Province>();
 	}
 
@@ -55,18 +57,22 @@ public class ProvinceServiceMockImpl implements ProvinceService {
 
 		if (countryProvinces == null) {
 
-			synchronized (countryProvinceMap) {
+			countryProvinces = new ArrayList<Province>();
 
-				countryProvinces = new ArrayList<Province>();
+			for (Province province : provinces) {
 
-				for (Province province : provinces) {
-
-					if (province.getCountryId() == countryId) {
-						countryProvinces.add(province);
-					}
+				if (province.getCountryId() == countryId) {
+					countryProvinces.add(province);
 				}
+			}
 
-				countryProvinceMap.put(countryId, countryProvinces);
+			countryProvinces = Collections.unmodifiableList(countryProvinces);
+
+			List<Province> tempCountryProvinces = countryProvinceMap.putIfAbsent(countryId, countryProvinces);
+
+			// Another thread already added the list of country provinces.
+			if (tempCountryProvinces != null) {
+				countryProvinces = tempCountryProvinces;
 			}
 		}
 
@@ -145,5 +151,6 @@ public class ProvinceServiceMockImpl implements ProvinceService {
 		provinces.add(new Province(62, countryId, "Quebec", "QC"));
 		provinces.add(new Province(63, countryId, "Saskatchewan", "SK"));
 		provinces.add(new Province(64, countryId, "Yukon", "YT"));
+		provinces = Collections.unmodifiableList(provinces);
 	}
 }
