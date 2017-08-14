@@ -37,7 +37,7 @@ public class RenderRequestPhaseListener extends RenderRequestPhaseListenerCompat
 	// serialVersionUID
 	private static final long serialVersionUID = 8470095938465172618L;
 
-	// Instance field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
+	// Static field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
 	private static volatile Boolean viewParametersEnabled;
 
 	@Override
@@ -48,7 +48,7 @@ public class RenderRequestPhaseListener extends RenderRequestPhaseListenerCompat
 		// First check without locking (not yet thread-safe)
 		if (viewParametersEnabled == null) {
 
-			synchronized (this) {
+			synchronized (RenderRequestPhaseListener.class) {
 
 				// Second check with locking (thread-safe)
 				if (viewParametersEnabled == null) {
