@@ -39,23 +39,26 @@ public class HeaderRequestPhaseListener implements PhaseListener {
 	private static final long serialVersionUID = 8470095938465172618L;
 
 	// Instance field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
-	private static volatile Boolean viewParametersEnabled;
+	private volatile Boolean viewParametersEnabled;
 
 	@Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		FacesContext facesContext = phaseEvent.getFacesContext();
+		Boolean viewParametersEnabled = this.viewParametersEnabled;
 
 		// First check without locking (not yet thread-safe)
 		if (viewParametersEnabled == null) {
 
 			synchronized (this) {
 
+				viewParametersEnabled = this.viewParametersEnabled;
+
 				// Second check with locking (thread-safe)
 				if (viewParametersEnabled == null) {
 
 					PortletConfig portletConfig = RequestMapUtil.getPortletConfig(facesContext);
-					viewParametersEnabled = isViewParametersEnabled(portletConfig);
+					viewParametersEnabled = this.viewParametersEnabled = isViewParametersEnabled(portletConfig);
 				}
 			}
 		}
