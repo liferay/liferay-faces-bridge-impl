@@ -13,13 +13,10 @@
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>${project.stage}</param-value>
 	</context-param>
-	<!-- JAVASERVERFACES-4120: Ajax file upload fails when com.sun.faces.namespaceParameters is set to true -->
-	<!--
 	<context-param>
 		<param-name>com.sun.faces.namespaceParameters</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	-->
 	<listener>
 		<listener-class>com.liferay.faces.showcase.servlet.UploadedFileCleanupListener</listener-class>
 	</listener>
