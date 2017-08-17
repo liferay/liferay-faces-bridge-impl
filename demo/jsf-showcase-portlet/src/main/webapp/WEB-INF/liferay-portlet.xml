@@ -7,7 +7,6 @@
 		<friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
 		<friendly-url-mapping>jsf-tag</friendly-url-mapping>
 		<friendly-url-routes>friendly-url-routes.xml</friendly-url-routes>
-		<!-- JAVASERVERFACES-3031 -->
 		<requires-namespaced-parameters>true</requires-namespaced-parameters>
 		<render-weight>1</render-weight>
 		<ajaxable>false</ajaxable>
