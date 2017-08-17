@@ -55,7 +55,7 @@ public class FacesViewImpl implements FacesView {
 
 				if (facesServletMapping.isPathMapped()) {
 
-					logger.debug("Attempting to determine if viewId=[{0}] is path-mapped to urlPatttern=[{1}]", viewId,
+					logger.debug("Attempting to determine if viewId=[{0}] is path-mapped to urlPattern=[{1}]", viewId,
 						facesServletMapping.getUrlPattern());
 
 					if (facesServletMapping.isMatch(viewId)) {
