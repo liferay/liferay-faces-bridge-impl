@@ -19,8 +19,6 @@ import java.util.Map;
 
 import javax.portlet.ResourceURL;
 
-import com.liferay.faces.bridge.filter.internal.ResourceURLWrapper;
-
 
 /**
  * @author  Neil Griffin
