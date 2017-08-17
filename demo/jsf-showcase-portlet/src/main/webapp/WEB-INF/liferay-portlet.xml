@@ -7,8 +7,7 @@
 		<friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
 		<friendly-url-mapping>jsf-tag</friendly-url-mapping>
 		<friendly-url-routes>friendly-url-routes.xml</friendly-url-routes>
-		<!-- FACES-2868: Ajax file upload fails when com.sun.faces.namespaceParameters is set to true. -->
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<requires-namespaced-parameters>true</requires-namespaced-parameters>
 		<render-weight>1</render-weight>
 		<ajaxable>false</ajaxable>
 		<add-default-resource>true</add-default-resource>
