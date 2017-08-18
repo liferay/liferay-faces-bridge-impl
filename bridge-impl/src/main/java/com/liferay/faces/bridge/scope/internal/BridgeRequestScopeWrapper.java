@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.scope.internal;
 
 import java.util.Map;
-import java.util.Set;
 
 import javax.faces.FacesWrapper;
 import javax.faces.context.FacesContext;
@@ -35,11 +34,6 @@ public abstract class BridgeRequestScopeWrapper implements BridgeRequestScope, F
 	@Override
 	public PortletPhase getBeganInPhase() {
 		return getWrapped().getBeganInPhase();
-	}
-
-	@Override
-	public long getDateCreated() {
-		return getWrapped().getDateCreated();
 	}
 
 	@Override
