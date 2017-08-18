@@ -17,18 +17,19 @@ package com.liferay.faces.demos.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.liferay.faces.demos.dto.Country;
 import com.liferay.faces.demos.dto.Province;
+import com.liferay.faces.util.cache.Cache;
+import com.liferay.faces.util.cache.CacheFactory;
 
 
 /**
@@ -43,17 +44,20 @@ public class ProvinceServiceMockImpl implements ProvinceService {
 
 	// Private Data Members
 	private List<Province> provinces;
-	private ConcurrentHashMap<Long, List<Province>> countryProvinceMap;
+	private Cache<Long, List<Province>> countryProvinceCache;
 
 	public ProvinceServiceMockImpl() {
-		this.countryProvinceMap = new ConcurrentHashMap<Long, List<Province>>();
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		this.countryProvinceCache = CacheFactory.getConcurrentCacheInstance(externalContext);
 		this.provinces = new ArrayList<Province>();
 	}
 
 	@Override
 	public List<Province> getProvinces(long countryId) {
 
-		List<Province> countryProvinces = countryProvinceMap.get(countryId);
+		List<Province> countryProvinces = countryProvinceCache.get(countryId);
 
 		if (countryProvinces == null) {
 
@@ -67,13 +71,7 @@ public class ProvinceServiceMockImpl implements ProvinceService {
 			}
 
 			countryProvinces = Collections.unmodifiableList(countryProvinces);
-
-			List<Province> tempCountryProvinces = countryProvinceMap.putIfAbsent(countryId, countryProvinces);
-
-			// Another thread already added the list of country provinces.
-			if (tempCountryProvinces != null) {
-				countryProvinces = tempCountryProvinces;
-			}
+			countryProvinces = countryProvinceCache.putIfAbsent(countryId, countryProvinces);
 		}
 
 		return countryProvinces;

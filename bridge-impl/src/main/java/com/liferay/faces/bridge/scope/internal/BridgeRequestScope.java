@@ -67,11 +67,6 @@ public interface BridgeRequestScope {
 	public Bridge.PortletPhase getBeganInPhase();
 
 	/**
-	 * Returns the date in which the scope was created, measured in UTC milliseconds from the epoch.
-	 */
-	public long getDateCreated();
-
-	/**
 	 * Returns the unique identifier for this bridge request scope.
 	 */
 	public String getId();

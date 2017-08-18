@@ -80,10 +80,8 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 
 	// Private Data Members
 	private Bridge.PortletPhase beganInPhase;
-	private long dateCreated;
 	private boolean facesLifecycleExecuted;
-	private String idPrefix;
-	private String idSuffix;
+	private String id;
 	private boolean navigationOccurred;
 	private Set<String> nonExcludedAttributeNames;
 	private PortletMode portletMode;
@@ -96,14 +94,11 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	public BridgeRequestScopeImpl(PortletRequest portletRequest, PortletConfig portletConfig,
 		BridgeConfig bridgeConfig) {
 
-		Calendar calendar = new GregorianCalendar();
-		this.dateCreated = calendar.getTimeInMillis();
-
 		String portletName = portletConfig.getPortletName();
 		PortletSession portletSession = portletRequest.getPortletSession();
 		String sessionId = portletSession.getId();
-		this.idPrefix = portletName + ":::" + sessionId + ":::";
-		this.idSuffix = Long.toString(this.dateCreated);
+		Calendar calendar = new GregorianCalendar();
+		this.id = portletName + ":::" + sessionId + ":::" + calendar.getTimeInMillis();
 		this.portletMode = PortletMode.VIEW;
 		this.beganInPhase = (Bridge.PortletPhase) portletRequest.getAttribute(Bridge.PORTLET_LIFECYCLE_PHASE);
 		this.preserveActionParams = PortletConfigParam.PreserveActionParams.getBooleanValue(portletConfig);
@@ -121,13 +116,8 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	}
 
 	@Override
-	public long getDateCreated() {
-		return dateCreated;
-	}
-
-	@Override
 	public String getId() {
-		return idPrefix + idSuffix;
+		return id;
 	}
 
 	@Override
