@@ -2,7 +2,11 @@
 <f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:alloy="http://liferay.com/faces/alloy"
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-	<h:head />
+	<h:head>
+		<c:if test="#{product.LIFERAY_PORTAL.detected}">
+			<h:outputScript library="butterfaces-dist-bower" name="bootstrap.js" />
+		</c:if>
+	</h:head>
 	<h:body styleClass="jsf-applicant-portlet ltr">
 		<ui:include src="styling.xhtml" />
 		<ui:include src="applicant.xhtml" />
