@@ -39,10 +39,11 @@ import com.liferay.faces.bridge.context.internal.IncongruityContext;
 import com.liferay.faces.bridge.context.internal.IncongruityContextFactory;
 import com.liferay.faces.bridge.helper.internal.PortletModeHelper;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
-import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeCache;
-import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeCacheFactory;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeFactory;
+import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManager;
+import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerFactory;
 import com.liferay.faces.bridge.util.internal.ViewUtil;
+import com.liferay.faces.util.cache.Cache;
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -62,7 +63,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 	// Protected Data Members
 	protected BridgeConfig bridgeConfig;
 	protected BridgeRequestScope bridgeRequestScope;
-	protected BridgeRequestScopeCache bridgeRequestScopeCache;
+	protected Cache<String, BridgeRequestScope> bridgeRequestScopeCache;
 	protected boolean bridgeRequestScopeActionEnabled;
 	protected FacesContext facesContext;
 	protected IncongruityContext incongruityContext;
@@ -86,9 +87,10 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		// Initialize the incongruity context implementation.
 		this.incongruityContext = IncongruityContextFactory.getIncongruityContextInstance(portletContext);
 
-		// Get the bridge request scope cache from the factory.
-		this.bridgeRequestScopeCache = BridgeRequestScopeCacheFactory.getBridgeRequestScopeCacheInstance(
-				portletContext);
+		// Get the bridge request scope cache from the bridgeRequestScopeManager.
+		BridgeRequestScopeManager bridgeRequestScopeManager = BridgeRequestScopeManagerFactory
+			.getBridgeRequestScopeManagerInstance(portletContext);
+		this.bridgeRequestScopeCache = bridgeRequestScopeManager.getBridgeRequestScopeCache(portletContext);
 
 		// Get the default lifecycle instance from the factory.
 		LifecycleFactory lifecycleFactory = (LifecycleFactory) FactoryFinder.getFactory(
