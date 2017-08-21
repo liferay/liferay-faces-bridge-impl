@@ -17,8 +17,11 @@ package com.liferay.faces.bridge.scope.internal;
 
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletConfig;
+import javax.portlet.PortletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionListener;
+
+import com.liferay.faces.util.cache.Cache;
 
 
 /**
@@ -27,6 +30,8 @@ import javax.servlet.http.HttpSessionListener;
  * @author  Neil Griffin
  */
 public interface BridgeRequestScopeManager {
+
+	public Cache<String, BridgeRequestScope> getBridgeRequestScopeCache(PortletContext portletContext);
 
 	/**
 	 * Removes all {@link BridgeRequestScope} instances that are associated with the specified {@link FacesContext}.
@@ -43,5 +48,5 @@ public interface BridgeRequestScopeManager {
 	 *
 	 * @param  httpSession  The current {@link HttpSession}.
 	 */
-	void removeBridgeRequestScopesBySession(HttpSession httpSession);
+	public void removeBridgeRequestScopesBySession(HttpSession httpSession);
 }
