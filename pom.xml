@@ -75,7 +75,6 @@
 	</scm>
 
 	<modules>
-		<module>bridge-ice</module>
 		<module>bridge-impl</module>
 		<module>demo</module>
 		<module>issue</module>
