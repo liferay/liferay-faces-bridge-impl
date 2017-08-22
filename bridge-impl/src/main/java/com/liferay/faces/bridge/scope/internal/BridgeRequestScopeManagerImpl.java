@@ -24,10 +24,10 @@ import java.util.Set;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.servlet.BridgeSessionListener;
 import com.liferay.faces.util.cache.Cache;
 import com.liferay.faces.util.cache.CacheFactory;
