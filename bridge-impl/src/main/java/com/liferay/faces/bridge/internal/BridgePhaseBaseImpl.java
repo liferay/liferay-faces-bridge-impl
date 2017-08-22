@@ -88,7 +88,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		// Initialize the incongruity context implementation.
 		this.incongruityContext = IncongruityContextFactory.getIncongruityContextInstance(portletContext);
 
-		// Get the bridge request scope cache from the bridgeRequestScopeManager.
+		// Get the bridge request scope cache from the bridge request scope manager.
 		BridgeRequestScopeManager bridgeRequestScopeManager = BridgeRequestScopeManagerFactory
 			.getBridgeRequestScopeManagerInstance(portletContext);
 		this.bridgeRequestScopeCache = bridgeRequestScopeManager.getBridgeRequestScopeCache(portletContext);
