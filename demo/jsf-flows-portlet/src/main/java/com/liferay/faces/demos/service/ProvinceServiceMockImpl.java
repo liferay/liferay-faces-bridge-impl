@@ -57,7 +57,7 @@ public class ProvinceServiceMockImpl implements ProvinceService {
 	@Override
 	public List<Province> getProvinces(long countryId) {
 
-		List<Province> countryProvinces = countryProvinceCache.get(countryId);
+		List<Province> countryProvinces = countryProvinceCache.getValue(countryId);
 
 		if (countryProvinces == null) {
 
@@ -71,7 +71,7 @@ public class ProvinceServiceMockImpl implements ProvinceService {
 			}
 
 			countryProvinces = Collections.unmodifiableList(countryProvinces);
-			countryProvinces = countryProvinceCache.putIfAbsent(countryId, countryProvinces);
+			countryProvinces = countryProvinceCache.putValueIfAbsent(countryId, countryProvinces);
 		}
 
 		return countryProvinces;
