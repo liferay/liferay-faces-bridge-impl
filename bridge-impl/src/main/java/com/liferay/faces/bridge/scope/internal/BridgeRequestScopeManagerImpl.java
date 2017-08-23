@@ -31,6 +31,7 @@ import javax.servlet.http.HttpSession;
 import com.liferay.faces.bridge.servlet.BridgeSessionListener;
 import com.liferay.faces.util.cache.Cache;
 import com.liferay.faces.util.cache.CacheFactory;
+import com.liferay.faces.util.config.WebConfigParam;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -43,51 +44,51 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeRequestScopeManagerImpl.class);
 
-	// Private Constants
-	private static final String ATTR_BRIDGE_REQUEST_SCOPE_CACHE = "com.liferay.faces.bridge.bridgeRequestScopeCache";
+	// Static field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
+	private static volatile Cache<String, BridgeRequestScope> bridgeRequestScopeCache;
 
 	@Override
 	public Cache<String, BridgeRequestScope> getBridgeRequestScopeCache(PortletContext portletContext) {
 
-		Cache<String, BridgeRequestScope> bridgeRequestScopeCache;
+		Cache<String, BridgeRequestScope> bridgeRequestScopeCache =
+			BridgeRequestScopeManagerImpl.bridgeRequestScopeCache;
 
-		synchronized (portletContext) {
+		// First check without locking (not yet thread-safe)
+		if (bridgeRequestScopeCache == null) {
 
-			bridgeRequestScopeCache = (Cache<String, BridgeRequestScope>) portletContext.getAttribute(
-					ATTR_BRIDGE_REQUEST_SCOPE_CACHE);
+			synchronized (BridgeRequestScopeManagerImpl.class) {
 
-			if (bridgeRequestScopeCache == null) {
+				bridgeRequestScopeCache = BridgeRequestScopeManagerImpl.bridgeRequestScopeCache;
 
-				CacheFactory cacheFactory = (CacheFactory) BridgeFactoryFinder.getFactory(portletContext,
-						CacheFactory.class);
+				// Second check with locking (thread-safe)
+				if (bridgeRequestScopeCache == null) {
 
-				// Spec Section 3.2: Support for configuration of maximum number of bridge request scopes.
-				Integer maxManagedRequestScope = null;
-				String maxManagedRequestScopeString = portletContext.getInitParameter(
-						Bridge.MAX_MANAGED_REQUEST_SCOPES);
+					CacheFactory cacheFactory = (CacheFactory) BridgeFactoryFinder.getFactory(portletContext,
+							CacheFactory.class);
 
-				if (maxManagedRequestScopeString != null) {
+					// Spec Section 3.2: Support for configuration of maximum number of bridge request scopes.
+					Integer maxCacheCapacity = getIntegerWebXMLInitParamValue(Bridge.MAX_MANAGED_REQUEST_SCOPES,
+							portletContext);
 
-					try {
-						maxManagedRequestScope = Integer.parseInt(maxManagedRequestScopeString);
+					if (maxCacheCapacity != null) {
+
+						WebConfigParam DefaultInitialCacheCapacity = WebConfigParam.DefaultInitialCacheCapacity;
+						String defaultInitialCacheCapacityParamName = DefaultInitialCacheCapacity.getName();
+						Integer initialCacheCapacity = getIntegerWebXMLInitParamValue(
+								defaultInitialCacheCapacityParamName, portletContext);
+
+						if (initialCacheCapacity == null) {
+							initialCacheCapacity = DefaultInitialCacheCapacity.getDefaultIntegerValue();
+						}
+
+						bridgeRequestScopeCache = BridgeRequestScopeManagerImpl.bridgeRequestScopeCache =
+								cacheFactory.getConcurrentLRUCache(initialCacheCapacity, maxCacheCapacity);
 					}
-					catch (NumberFormatException e) {
-						logger.error("Unable to parse portlet.xml init-param name=[{0}] error=[{1}]",
-							Bridge.MAX_MANAGED_REQUEST_SCOPES, e.getMessage());
+					else {
+						bridgeRequestScopeCache = BridgeRequestScopeManagerImpl.bridgeRequestScopeCache =
+								cacheFactory.getConcurrentCache();
 					}
 				}
-
-				if (maxManagedRequestScope != null) {
-
-					int initialCacheCapacity = cacheFactory.getDefaultInitialCapacity();
-					bridgeRequestScopeCache = cacheFactory.getConcurrentCache(initialCacheCapacity,
-							maxManagedRequestScope);
-				}
-				else {
-					bridgeRequestScopeCache = cacheFactory.getConcurrentCache();
-				}
-
-				portletContext.setAttribute(ATTR_BRIDGE_REQUEST_SCOPE_CACHE, bridgeRequestScopeCache);
 			}
 		}
 
@@ -99,7 +100,10 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 
 		String portletNameToRemove = portletConfig.getPortletName();
 		PortletContext portletContext = portletConfig.getPortletContext();
-		Cache<String, BridgeRequestScope> bridgeRequestScopeCache = getBridgeRequestScopeCache(portletContext);
+		BridgeRequestScopeManager bridgeRequestScopeManager = BridgeRequestScopeManagerFactory
+			.getBridgeRequestScopeManagerInstance(portletContext);
+		Cache<String, BridgeRequestScope> bridgeRequestScopeCache =
+			bridgeRequestScopeManager.getBridgeRequestScopeCache(portletContext);
 		removeBridgeRequestScopes(bridgeRequestScopeCache, true, portletNameToRemove);
 	}
 
@@ -126,7 +130,7 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 
 				boolean bridgeRequestScopeCacheFound = false;
 				Cache cache = (Cache) attribute;
-				Set keySet = cache.keySet();
+				Set keySet = cache.getKeys();
 				Iterator iterator = keySet.iterator();
 
 				while (iterator.hasNext()) {
@@ -135,7 +139,7 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 
 					if (key instanceof String) {
 
-						Object value = cache.get(key);
+						Object value = cache.getValue(key);
 
 						if (value instanceof BridgeRequestScope) {
 
@@ -159,6 +163,29 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 		}
 	}
 
+	/**
+	 * Since {@link javax.faces.context.ExternalContext} has not been initialized by the time this method is called,
+	 * {@link WebConfigParam} cannot be used to obtain the parameter value. {@link PortletConfigParam} also cannot be
+	 * used because it examines portlet.xml init-params.
+	 */
+	private Integer getIntegerWebXMLInitParamValue(String paramName, PortletContext portletContext) {
+
+		Integer paramValue = null;
+		String paramValueString = portletContext.getInitParameter(paramName);
+
+		if (paramValueString != null) {
+
+			try {
+				paramValue = Integer.parseInt(paramValueString);
+			}
+			catch (NumberFormatException e) {
+				logger.error("Unable to parse web.xml init-param name=[{0}] error=[{1}]", paramName, e.getMessage());
+			}
+		}
+
+		return paramValue;
+	}
+
 	private void removeBridgeRequestScopes(Cache bridgeRequestScopeCache, boolean removeByPortletId,
 		String portletOrSessionId) {
 
@@ -167,7 +194,7 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 		// Iterate over the map entries, and build up a list of BridgeRequestScope keys that are to be
 		// removed. Doing it this way prevents ConcurrentModificationExceptions from being thrown.
 		List<String> keysToRemove = new ArrayList<String>();
-		Set<String> keySet = (Set<String>) bridgeRequestScopeCache.keySet();
+		Set<String> keySet = (Set<String>) bridgeRequestScopeCache.getKeys();
 		String portletOrSessionIdWithSeparatorSuffix = portletOrSessionId + ":::";
 
 		for (String bridgeRequestScopeId : keySet) {
@@ -194,7 +221,7 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 
 		for (String keyToRemove : keysToRemove) {
 
-			Object bridgeRequestScope = bridgeRequestScopeCache.remove(keyToRemove);
+			Object bridgeRequestScope = bridgeRequestScopeCache.removeValue(keyToRemove);
 
 			if (!removeByPortletId) {
 				logger.debug(

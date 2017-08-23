@@ -250,7 +250,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 			if (bridgeRequestScopeId != null) {
 
-				bridgeRequestScope = bridgeRequestScopeCache.get(bridgeRequestScopeId);
+				bridgeRequestScope = bridgeRequestScopeCache.getValue(bridgeRequestScopeId);
 
 				if (bridgeRequestScope != null) {
 					logger.debug("Found render parameter name=[{0}] value=[{1}] and cached bridgeRequestScope=[{2}]",
@@ -280,7 +280,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 					portletSession.removeAttribute(bridgeRequestScopeKey);
 
-					bridgeRequestScope = bridgeRequestScopeCache.get(bridgeRequestScopeId);
+					bridgeRequestScope = bridgeRequestScopeCache.getValue(bridgeRequestScopeId);
 
 					if (bridgeRequestScope != null) {
 
@@ -318,7 +318,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 		String bridgeRequestScopeId = bridgeRequestScope.getId();
 
-		bridgeRequestScopeCache.put(bridgeRequestScopeId, bridgeRequestScope);
+		bridgeRequestScope = bridgeRequestScopeCache.putValueIfAbsent(bridgeRequestScopeId, bridgeRequestScope);
 
 		String bridgeRequestScopeKey = portletName + PARAM_BRIDGE_REQUEST_SCOPE_ID;
 
