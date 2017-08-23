@@ -50,7 +50,7 @@ public class ProvinceServiceMockImpl implements ProvinceService {
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		this.countryProvinceCache = CacheFactory.getConcurrentCacheInstance(externalContext);
+		this.countryProvinceCache = CacheFactory.getConcurrentCacheInstance(externalContext, 16);
 		this.provinces = new ArrayList<Province>();
 	}
 
