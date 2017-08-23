@@ -89,7 +89,7 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 		// PROPOSE-FOR-BRIDGE3-SPEC: Although the spec does not mention the redirect case, the bridge request
 		// scope must not be maintained if a redirect has occurred.
 		if (bridgeRequestScope.isPortletModeChanged() || bridgeRequestScope.isRedirectOccurred()) {
-			bridgeRequestScopeCache.remove(bridgeRequestScope.getId());
+			bridgeRequestScopeCache.removeValue(bridgeRequestScope.getId());
 		}
 
 		// If a render-redirect URL was specified, then it is necessary to create a new view from the URL and place it

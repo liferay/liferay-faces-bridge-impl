@@ -22,14 +22,7 @@ public class BridgeRequestScopeManagerFactoryImpl extends BridgeRequestScopeMana
 
 	@Override
 	public BridgeRequestScopeManager getBridgeRequestScopeManager() {
-
-		BridgeRequestScopeManager bridgeRequestScopeManager = null;
-
-		if (bridgeRequestScopeManager == null) {
-			bridgeRequestScopeManager = new BridgeRequestScopeManagerImpl();
-		}
-
-		return bridgeRequestScopeManager;
+		return new BridgeRequestScopeManagerImpl();
 	}
 
 	public BridgeRequestScopeManagerFactory getWrapped() {
