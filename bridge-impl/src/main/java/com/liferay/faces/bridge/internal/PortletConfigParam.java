@@ -45,6 +45,29 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		"com.liferay.faces.bridge.bridgeRequestScopeAjaxEnabled", false),
 
 	/**
+	 * Integer indicating the initial cache capacity for the Bridge Request Scope. The default value of this param is
+	 * 16. For more details, see {@link com.liferay.faces.util.cache.CacheFactory#getConcurrentCache(int)} and {@link
+	 * java.util.HashMap#HashMap()}.
+	 *
+	 * @since  1.1
+	 * @since  2.1
+	 * @since  3.1
+	 */
+	BridgeRequestScopeInitialCacheCapacity("com.liferay.faces.bridge.INITIAL_MANAGED_REQUEST_SCOPES", 16),
+
+	/**
+	 * Integer indicating the maximum cache capacity for the Bridge Request Scope. According to Section 3.2 of the
+	 * FacesBridge Spec, "If not set the bridge provides an implementation dependent default maximum." The default value
+	 * is 100, which is the default value also used by the Apache MyFaces Portlet Bridge (the original FacesBridge
+	 * Reference Implementation developed under JSR 301/329).
+	 *
+	 * @since  1.1
+	 * @since  2.1
+	 * @since  3.1
+	 */
+	BridgeRequestScopeMaxCacheCapacity(Bridge.MAX_MANAGED_REQUEST_SCOPES, 100),
+
+	/**
 	 * Flag indicating whether or not the portlet container has the ability to set the HTTP status code for resources.
 	 * Default value is false.
 	 */
@@ -106,6 +129,10 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	private int defaultIntegerValue;
 	private long defaultLongValue;
 	private String name;
+
+	PortletConfigParam(String name, int defaultIntegerValue) {
+		this(name, null, defaultIntegerValue);
+	}
 
 	PortletConfigParam(String name, String defaultStringValue) {
 		this(name, null, defaultStringValue);
