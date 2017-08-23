@@ -23,15 +23,15 @@ import java.util.Set;
 
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
-import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import com.liferay.faces.bridge.internal.PortletConfigEmptyImpl;
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.servlet.BridgeSessionListener;
 import com.liferay.faces.util.cache.Cache;
 import com.liferay.faces.util.cache.CacheFactory;
-import com.liferay.faces.util.config.WebConfigParam;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -43,10 +43,6 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeRequestScopeManagerImpl.class);
-
-	// Private Constants
-	private static final String BRIDGE_REQUEST_SCOPE_INITIAL_CACHE_CAPACITY_PARAM_NAME =
-		"com.liferay.faces.bridge.scope.BRIDGE_REQUEST_SCOPE_INITIAL_CACHE_CAPACITY";
 
 	// Static field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
 	private static volatile Cache<String, BridgeRequestScope> bridgeRequestScopeCache;
@@ -69,18 +65,16 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 
 					CacheFactory cacheFactory = (CacheFactory) BridgeFactoryFinder.getFactory(portletContext,
 							CacheFactory.class);
-					Integer initialCacheCapacity = getIntegerWebXMLInitParamValue(
-							BRIDGE_REQUEST_SCOPE_INITIAL_CACHE_CAPACITY_PARAM_NAME, portletContext);
 
-					if (initialCacheCapacity == null) {
-						initialCacheCapacity = 16;
-					}
+					PortletConfig emptyPortletConfig = new PortletConfigEmptyImpl(portletContext);
+					int initialCacheCapacity = PortletConfigParam.BridgeRequestScopeInitialCacheCapacity
+						.getIntegerValue(emptyPortletConfig);
 
-					// Spec Section 3.2: Support for configuration of maximum number of bridge request scopes.
-					Integer maxCacheCapacity = getIntegerWebXMLInitParamValue(Bridge.MAX_MANAGED_REQUEST_SCOPES,
-							portletContext);
+					PortletConfigParam bridgeRequestScopeMaxCacheCapacity =
+						PortletConfigParam.BridgeRequestScopeMaxCacheCapacity;
+					int maxCacheCapacity = bridgeRequestScopeMaxCacheCapacity.getIntegerValue(emptyPortletConfig);
 
-					if (maxCacheCapacity != null) {
+					if (maxCacheCapacity != bridgeRequestScopeMaxCacheCapacity.getDefaultIntegerValue()) {
 						bridgeRequestScopeCache = BridgeRequestScopeManagerImpl.bridgeRequestScopeCache =
 								cacheFactory.getConcurrentLRUCache(initialCacheCapacity, maxCacheCapacity);
 					}
@@ -161,29 +155,6 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 				}
 			}
 		}
-	}
-
-	/**
-	 * Since {@link javax.faces.context.ExternalContext} has not been initialized by the time this method is called,
-	 * {@link WebConfigParam} cannot be used to obtain the parameter value. {@link PortletConfigParam} also cannot be
-	 * used because it examines portlet.xml init-params.
-	 */
-	private Integer getIntegerWebXMLInitParamValue(String paramName, PortletContext portletContext) {
-
-		Integer paramValue = null;
-		String paramValueString = portletContext.getInitParameter(paramName);
-
-		if (paramValueString != null) {
-
-			try {
-				paramValue = Integer.parseInt(paramValueString);
-			}
-			catch (NumberFormatException e) {
-				logger.error("Unable to parse web.xml init-param name=[{0}] error=[{1}]", paramName, e.getMessage());
-			}
-		}
-
-		return paramValue;
 	}
 
 	private void removeBridgeRequestScopes(Cache bridgeRequestScopeCache, boolean removeByPortletId,
