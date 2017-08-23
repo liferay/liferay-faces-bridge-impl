@@ -44,6 +44,10 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeRequestScopeManagerImpl.class);
 
+	// Private Constants
+	private static final String BRIDGE_REQUEST_SCOPE_INITIAL_CACHE_CAPACITY_PARAM_NAME =
+		"com.liferay.faces.bridge.scope.BRIDGE_REQUEST_SCOPE_INITIAL_CACHE_CAPACITY";
+
 	// Static field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
 	private static volatile Cache<String, BridgeRequestScope> bridgeRequestScopeCache;
 
@@ -65,28 +69,24 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 
 					CacheFactory cacheFactory = (CacheFactory) BridgeFactoryFinder.getFactory(portletContext,
 							CacheFactory.class);
+					Integer initialCacheCapacity = getIntegerWebXMLInitParamValue(
+							BRIDGE_REQUEST_SCOPE_INITIAL_CACHE_CAPACITY_PARAM_NAME, portletContext);
+
+					if (initialCacheCapacity == null) {
+						initialCacheCapacity = 16;
+					}
 
 					// Spec Section 3.2: Support for configuration of maximum number of bridge request scopes.
 					Integer maxCacheCapacity = getIntegerWebXMLInitParamValue(Bridge.MAX_MANAGED_REQUEST_SCOPES,
 							portletContext);
 
 					if (maxCacheCapacity != null) {
-
-						WebConfigParam DefaultInitialCacheCapacity = WebConfigParam.DefaultInitialCacheCapacity;
-						String defaultInitialCacheCapacityParamName = DefaultInitialCacheCapacity.getName();
-						Integer initialCacheCapacity = getIntegerWebXMLInitParamValue(
-								defaultInitialCacheCapacityParamName, portletContext);
-
-						if (initialCacheCapacity == null) {
-							initialCacheCapacity = DefaultInitialCacheCapacity.getDefaultIntegerValue();
-						}
-
 						bridgeRequestScopeCache = BridgeRequestScopeManagerImpl.bridgeRequestScopeCache =
 								cacheFactory.getConcurrentLRUCache(initialCacheCapacity, maxCacheCapacity);
 					}
 					else {
 						bridgeRequestScopeCache = BridgeRequestScopeManagerImpl.bridgeRequestScopeCache =
-								cacheFactory.getConcurrentCache();
+								cacheFactory.getConcurrentCache(initialCacheCapacity);
 					}
 				}
 			}
