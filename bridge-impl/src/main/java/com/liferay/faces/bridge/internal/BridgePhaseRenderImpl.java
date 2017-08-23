@@ -75,7 +75,7 @@ public class BridgePhaseRenderImpl extends BridgePhaseRenderCompatImpl {
 
 		// If required, cause the BridgeRequestScope to go out-of-scope.
 		if (!bridgeRequestScopeActionEnabled) {
-			bridgeRequestScopeCache.remove(bridgeRequestScope.getId());
+			bridgeRequestScopeCache.removeValue(bridgeRequestScope.getId());
 		}
 
 		super.cleanup(portletRequest);
