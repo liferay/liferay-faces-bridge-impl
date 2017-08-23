@@ -69,12 +69,10 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 					PortletConfig emptyPortletConfig = new PortletConfigEmptyImpl(portletContext);
 					int initialCacheCapacity = PortletConfigParam.BridgeRequestScopeInitialCacheCapacity
 						.getIntegerValue(emptyPortletConfig);
+					int maxCacheCapacity = PortletConfigParam.BridgeRequestScopeMaxCacheCapacity.getIntegerValue(
+							emptyPortletConfig);
 
-					PortletConfigParam bridgeRequestScopeMaxCacheCapacity =
-						PortletConfigParam.BridgeRequestScopeMaxCacheCapacity;
-					int maxCacheCapacity = bridgeRequestScopeMaxCacheCapacity.getIntegerValue(emptyPortletConfig);
-
-					if (maxCacheCapacity != bridgeRequestScopeMaxCacheCapacity.getDefaultIntegerValue()) {
+					if (maxCacheCapacity > 0) {
 						bridgeRequestScopeCache = BridgeRequestScopeManagerImpl.bridgeRequestScopeCache =
 								cacheFactory.getConcurrentLRUCache(initialCacheCapacity, maxCacheCapacity);
 					}
