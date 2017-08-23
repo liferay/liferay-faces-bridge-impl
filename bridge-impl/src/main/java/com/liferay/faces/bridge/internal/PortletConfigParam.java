@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.internal;
 
 import javax.portlet.PortletConfig;
+import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.util.config.ConfigParam;
 import com.liferay.faces.util.helper.BooleanHelper;
