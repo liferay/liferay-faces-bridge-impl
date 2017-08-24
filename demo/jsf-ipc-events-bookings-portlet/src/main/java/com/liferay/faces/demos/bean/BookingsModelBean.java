@@ -33,12 +33,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
  * broadcasts the IPC events. At that point, the bridge executes the RESTORE_VIEW phase of the JSF lifecycle so that the
  * CustomerSelectedEventHandler.handleEvent(FacesContext, Event) method can handle the "ipc.customerSelected" event as
  * defined in the WEB-INF/portlet.xml descriptor. Then, the Portlet 2.0 RENDER_PHASE will cause the RENDER_RESPONSE
- * phase of the JSF lifecycle to be executed. Note that this class has to be {@link SessionScoped} instead of {@link
- * ViewScoped} because the {@link Customer} received in the {@link CustomerSelectedEventHandler} (which is injected into
- * this bean) has to survive the navigation from the noCustomerSelected.xhtml view to the customers.xhtml view due to
- * the navigation-rule in the WEB-INF/faces-config.xml descriptor. Also, it needs to be {@link SessionScoped} instead of
- * {@link RequestScoped} because otherwise the bookings form data submitted in customers.xhtml won't have a
- * correctly-sized List&lt;Booking&gt; for the Faces APPLY_REQUEST_VALUES phase to postback into.
+ * phase of the JSF lifecycle to be executed.
  *
  * @author  Neil Griffin
  */

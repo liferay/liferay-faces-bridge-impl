@@ -41,7 +41,7 @@ public abstract class BridgeNavigationHandler extends NavigationHandler {
 	 * Bridge#PORTLET_MODE_PARAMETER} parameter for switching to a different {@link PortletMode} and the {@link
 	 * Bridge#PORTLET_WINDOWSTATE_PARAMETER} parameter for switching to a different {@link WindowState}.
 	 *
-	 * @see  {@link NavigationHandler#handleNavigation(FacesContext, String, String)}
+	 * @see  NavigationHandler#handleNavigation(FacesContext, String, String)
 	 */
 	@Override
 	public abstract void handleNavigation(FacesContext facesContext, String fromAction, String outcome);
