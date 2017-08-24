@@ -179,7 +179,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	}
 
 	/**
-	 * @see  {@link ExternalContext#encodeActionURL(String)}
+	 * @see  ExternalContext#encodeActionURL(String)
 	 */
 	@Override
 	public String encodeActionURL(String url) {
@@ -640,7 +640,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	}
 
 	/**
-	 * @see  {@link ExternalContext#getResponseContentType()}
+	 * @see  ExternalContext#getResponseContentType()
 	 */
 	@Override
 	public String getResponseContentType() {
@@ -660,7 +660,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	}
 
 	/**
-	 * @see  {@link ExternalContext#getSession(boolean)}
+	 * @see  ExternalContext#getSession(boolean)
 	 */
 	@Override
 	public Object getSession(boolean create) {

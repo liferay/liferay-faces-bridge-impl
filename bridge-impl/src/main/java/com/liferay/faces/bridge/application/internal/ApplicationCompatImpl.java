@@ -81,7 +81,7 @@ public abstract class ApplicationCompatImpl extends ApplicationWrapper {
 	}
 
 	/**
-	 * @see    {@link Application#getResourceHandler()}
+	 * @see    Application#getResourceHandler()
 	 * @since  JSF 2.0
 	 */
 	@Override

@@ -35,7 +35,7 @@ public abstract class ExternalContextCompat_2_1_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getSessionMaxInactiveInterval()}
+	 * @see    ExternalContext#getSessionMaxInactiveInterval()
 	 * @since  JSF 2.1
 	 */
 	@Override
@@ -47,7 +47,7 @@ public abstract class ExternalContextCompat_2_1_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#isSecure()}
+	 * @see    ExternalContext#isSecure()
 	 * @since  JSF 2.1
 	 */
 	@Override
@@ -56,7 +56,7 @@ public abstract class ExternalContextCompat_2_1_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#setSessionMaxInactiveInterval(int)}
+	 * @see    ExternalContext#setSessionMaxInactiveInterval(int)
 	 * @since  JSF 2.1
 	 */
 	@Override

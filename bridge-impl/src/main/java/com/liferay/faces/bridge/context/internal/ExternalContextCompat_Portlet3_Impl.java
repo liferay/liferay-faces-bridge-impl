@@ -39,7 +39,7 @@ public abstract class ExternalContextCompat_Portlet3_Impl extends ExternalContex
 	 * portlet request of type PortletResponse because that is the only type of portlet response that is delivered
 	 * directly back to the client (without additional markup added by the portlet container).
 	 *
-	 * @see    {@link ExternalContext#setResponseStatus(int)}
+	 * @see    ExternalContext#setResponseStatus(int)
 	 * @since  JSF 2.0
 	 */
 	@Override
