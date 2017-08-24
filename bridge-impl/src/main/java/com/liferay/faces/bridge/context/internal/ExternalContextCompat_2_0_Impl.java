@@ -82,7 +82,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#addResponseCookie(String, String, Map)}
+	 * @see    ExternalContext#addResponseCookie(String, String, Map)
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -93,7 +93,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#addResponseHeader(String, String)}
+	 * @see    ExternalContext#addResponseHeader(String, String)
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -109,7 +109,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#encodeBookmarkableURL(String, Map)}
+	 * @see    ExternalContext#encodeBookmarkableURL(String, Map)
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -134,7 +134,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#encodePartialActionURL(String)}
+	 * @see    ExternalContext#encodePartialActionURL(String)
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -158,7 +158,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#encodeRedirectURL(String, Map)}
+	 * @see    ExternalContext#encodeRedirectURL(String, Map)
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -182,7 +182,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getContextName()}
+	 * @see    ExternalContext#getContextName()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -196,7 +196,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getMimeType(String)}
+	 * @see    ExternalContext#getMimeType(String)
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -211,7 +211,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getRealPath(String)}
+	 * @see    ExternalContext#getRealPath(String)
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -220,7 +220,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getRequestContentLength()}
+	 * @see    ExternalContext#getRequestContentLength()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -250,7 +250,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getRequestScheme()}
+	 * @see    ExternalContext#getRequestScheme()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -259,7 +259,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getRequestServerName()}
+	 * @see    ExternalContext#getRequestServerName()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -268,7 +268,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getRequestServerPort()}
+	 * @see    ExternalContext#getRequestServerPort()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -277,7 +277,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getResponseBufferSize()}
+	 * @see    ExternalContext#getResponseBufferSize()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -305,7 +305,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getResponseOutputStream()}
+	 * @see    ExternalContext#getResponseOutputStream()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -329,7 +329,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getResponseOutputWriter()}
+	 * @see    ExternalContext#getResponseOutputWriter()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -396,7 +396,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#invalidateSession()}
+	 * @see    ExternalContext#invalidateSession()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -405,7 +405,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#isResponseCommitted()}
+	 * @see    ExternalContext#isResponseCommitted()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -433,7 +433,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#responseFlushBuffer()}
+	 * @see    ExternalContext#responseFlushBuffer()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -456,7 +456,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#responseReset()}
+	 * @see    ExternalContext#responseReset()
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -483,7 +483,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	 * portlet environment to simply log an error and throw an IOException up the call stack so that the portlet will
 	 * give the portlet container a chance to render an error message.
 	 *
-	 * @see    {@link ExternalContext#responseSendError(int, String)}
+	 * @see    ExternalContext#responseSendError(int, String)
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -494,7 +494,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#setResponseBufferSize(int)}
+	 * @see    ExternalContext#setResponseBufferSize(int)
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -523,7 +523,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#setResponseContentLength(int)}
+	 * @see    ExternalContext#setResponseContentLength(int)
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -545,7 +545,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#setResponseContentType(String)}
+	 * @see    ExternalContext#setResponseContentType(String)
 	 * @since  JSF 2.0
 	 */
 	@Override
@@ -567,7 +567,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#setResponseHeader(String, String)}
+	 * @see    ExternalContext#setResponseHeader(String, String)
 	 * @since  JSF 2.0
 	 */
 	@Override

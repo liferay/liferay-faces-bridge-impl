@@ -48,7 +48,7 @@ public abstract class ExternalContextCompat_2_2_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getApplicationContextPath()}
+	 * @see    ExternalContext#getApplicationContextPath()
 	 * @since  JSF 2.2
 	 */
 	@Override
@@ -64,7 +64,7 @@ public abstract class ExternalContextCompat_2_2_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getClientWindow()}
+	 * @see    ExternalContext#getClientWindow()
 	 * @since  JSF 2.2
 	 */
 	@Override
@@ -95,7 +95,7 @@ public abstract class ExternalContextCompat_2_2_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * @see    {@link ExternalContext#setClientWindow(ClientWindow)}
+	 * @see    ExternalContext#setClientWindow(ClientWindow)
 	 * @since  JSF 2.2
 	 */
 	@Override
