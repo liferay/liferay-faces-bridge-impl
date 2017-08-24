@@ -181,7 +181,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	}
 
 	/**
-	 * @see  {@link ExternalContext#encodeActionURL(String)}
+	 * @see  ExternalContext#encodeActionURL(String)
 	 */
 	@Override
 	public String encodeActionURL(String url) {
@@ -637,7 +637,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	}
 
 	/**
-	 * @see  {@link ExternalContext#getResponseContentType()}
+	 * @see  ExternalContext#getResponseContentType()
 	 */
 	// Java 1.6+ @Override
 	public String getResponseContentType() {
@@ -657,7 +657,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	}
 
 	/**
-	 * @see  {@link ExternalContext#getSession(boolean)}
+	 * @see  ExternalContext#getSession(boolean)
 	 */
 	// Java 1.6+ @Override
 	public Object getSession(boolean create) {

@@ -28,7 +28,7 @@ import com.liferay.faces.util.helper.Wrapper;
 
 
 /**
- * NOTE: This class intentionally does NOT implement FacesWrapper<PortletConfig> in order to prevent
+ * NOTE: This class intentionally does NOT implement FacesWrapper&lt;PortletConfig&gt; in order to prevent
  * ELResolverImpl.resolveVariable(ELContext,String) from unwrapping the PortletConfig too much, which would cause a TCK
  * failure in TestPage201 (JSF_ELTest). This will not be necessary with JSR 378. For more information, see:
  * https://issues.liferay.com/browse/FACES-3108

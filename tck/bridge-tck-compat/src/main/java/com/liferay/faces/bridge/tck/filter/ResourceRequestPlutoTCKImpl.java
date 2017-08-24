@@ -41,9 +41,10 @@ public class ResourceRequestPlutoTCKImpl extends ResourceRequestWrapper {
 	/**
 	 * The JSF 2.x version of the TCK has a dependency on Trinidad 2.x, which needs to be able to detect the browser
 	 * (user-agent) that issued the request in order to determine whether-or-not Partial Page Rendering (PPR) is
-	 * enabled/disabled. Specifically, the {@link
-	 * org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl#_getUserAgentHeader(Map<String, String>))} method will
-	 * call {@link javax.faces.context.ExternalContext#getRequestHeaderMap()} in order to get the "User-Agent" header.
+	 * enabled/disabled. Specifically, the org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl#_getUserAgentHeader
+	 * method will call {@link javax.faces.context.ExternalContext#getRequestHeaderMap()} in order to get the
+	 * "User-Agent" header.
+	 *
 	 * Liferay provides a way of determining this header from the underlying HttpServletRequest, but Pluto does not.
 	 * Therefore in order for PPR tests like TestPage073 (scopeAfterRedisplayResourcePPRTest) to work with PPR, it is
 	 * necessary to return a bogus value here.
