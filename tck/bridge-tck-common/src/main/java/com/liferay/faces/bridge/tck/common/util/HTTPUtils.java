@@ -473,7 +473,7 @@ public class HTTPUtils {
 
 	/**
 	 * Determine if a value needs to be decoded using HTTPUtils.decode() This method assumes that a value is encoded. As
-	 * such, the existence of '%' (leading character of an encoded sequence) or '+' (sometimes used to replace <space>
+	 * such, the existence of '%' (leading character of an encoded sequence) or '+' (sometimes used to replace 'space'
 	 * characters indicates that decoding IS required.
 	 */
 	public static final boolean needsDecoding(String token) {
