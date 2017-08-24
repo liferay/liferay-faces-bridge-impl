@@ -153,10 +153,7 @@ public class UploadedFileWrapper implements Serializable, UploadedFile,
 
 	/**
 	 * Since the PrimeFaces UploadedFile interface does not provide a method for deleting the file, Liferay Faces Bridge
-	 * automatically deletes it when the wrappedUploadedFile.getContents() method is called. For more information, see
-	 * {@link com.liferay.faces.bridge.renderkit.primefaces.FileUploadRendererPrimeFacesImpl.PrimeFacesFileItem#get()}
-	 * and {@link
-	 * com.liferay.faces.bridge.renderkit.primefaces.FileUploadRendererPrimeFacesImpl.UploadedFileInputStream#close()}.
+	 * automatically deletes it when the wrappedUploadedFile.getContents() method is called.
 	 */
 	protected File getFile(String uniqueFolderName) {
 

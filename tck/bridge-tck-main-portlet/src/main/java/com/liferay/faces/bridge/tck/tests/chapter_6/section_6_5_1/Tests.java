@@ -59,7 +59,7 @@ public class Tests {
 	/**
 	 * Testing JSF EL - implicits are in alpha order.
 	 *
-	 * @param   testBean
+	 * @param   testBean  the bean for testing
 	 *
 	 * @return
 	 */
@@ -304,7 +304,7 @@ public class Tests {
 	/**
 	 * Testing JSP EL.
 	 *
-	 * @param   testBean
+	 * @param   testBean  the bean for testing
 	 *
 	 * @return
 	 */

@@ -38,7 +38,7 @@ public abstract class ExternalContextCompat_2_0_FlashImpl extends ExternalContex
 	}
 
 	/**
-	 * @see    {@link ExternalContext#getFlash()}
+	 * @see    ExternalContext#getFlash()
 	 * @since  JSF 2.0
 	 */
 	@Override
