@@ -646,7 +646,13 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 			MimeResponse mimeResponse = (MimeResponse) portletResponse;
 
-			return mimeResponse.getContentType();
+			String responseContentType = mimeResponse.getContentType();
+
+			if (responseContentType == null) {
+				responseContentType = portletRequest.getResponseContentType();
+			}
+
+			return responseContentType;
 		}
 		else {
 
