@@ -55,7 +55,7 @@ public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFacto
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		if (PortletContainerDetector.isPlutoPortletResponse(renderResponse)) {
-			return new RenderResponseBridgePlutoImpl(renderRequest, renderResponse);
+			return new RenderResponseBridgePlutoImpl(renderResponse);
 		}
 		else {
 			return renderResponse;
@@ -67,7 +67,7 @@ public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFacto
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		if (PortletContainerDetector.isPlutoPortletResponse(resourceResponse)) {
-			return new ResourceResponseBridgePlutoImpl(resourceRequest, resourceResponse);
+			return new ResourceResponseBridgePlutoImpl(resourceResponse);
 		}
 		else {
 			return resourceResponse;
