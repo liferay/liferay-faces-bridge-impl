@@ -114,7 +114,7 @@ public class GenericFacesPortletSignatureTest {
 		}
 		catch (Exception e) {
 			throw new AssertionError("public void " + expectedReturnType + " " + methodName +
-				" not found in GenericFacesPortlet.", e);
+				" not found in GenericFacesPortlet." + e.getMessage());
 		}
 	}
 }
