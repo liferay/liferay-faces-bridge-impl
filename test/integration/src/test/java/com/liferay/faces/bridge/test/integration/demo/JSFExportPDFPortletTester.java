@@ -114,7 +114,7 @@ public class JSFExportPDFPortletTester extends BrowserDriverManagingTesterBase {
 				expectedShearerRichPDFText.equals(shearerRichPDFText));
 		}
 		catch (IOException e) {
-			throw new AssertionError("Test failed due to the following " + e.getClass() + ": " + e.getMessage(), e);
+			throw new AssertionError("Test failed due to the following " + e.getClass() + ": " + e.getMessage());
 		}
 	}
 
