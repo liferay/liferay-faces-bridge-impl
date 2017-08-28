@@ -301,8 +301,11 @@ public class HeadRendererBridgeImpl extends Renderer {
 		return (componentResource instanceof InlineScript) ||
 			((resourceName == null) &&
 				(RenderKitUtil.SCRIPT_RENDERER_TYPE.equals(rendererType) ||
-					"com.liferay.faces.alloy.component.outputscript.OutputScriptRenderer".equals(rendererType) ||
-					"com.liferay.faces.metal.component.outputscript.OutputScriptRenderer".equals(rendererType)));
+
+					// Avoid matching the exact renderer type to ensure that all Liferay Faces resources (including
+					// potential future resource components) will correctly be detected.
+					((rendererType != null) && rendererType.startsWith("com.liferay.faces.") &&
+						rendererType.endsWith(".component.outputscript.OutputScriptRenderer"))));
 	}
 
 	private boolean isInlineStyleSheet(UIComponent componentResource) {
@@ -313,7 +316,10 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 		return (resourceName == null) &&
 			(RenderKitUtil.STYLESHEET_RENDERER_TYPE.equals(rendererType) ||
-				"com.liferay.faces.alloy.component.outputstylesheet.OutputStylesheetRenderer".equals(rendererType) ||
-				"com.liferay.faces.metal.component.outputstylesheet.OutputStylesheetRenderer".equals(rendererType));
+
+				// Avoid matching the exact renderer type to ensure that all Liferay Faces resources (including
+				// potential future resource components) will correctly be detected.
+				((rendererType != null) && rendererType.startsWith("com.liferay.faces.") &&
+					rendererType.endsWith(".component.outputstylesheet.OutputStylesheetRenderer")));
 	}
 }
