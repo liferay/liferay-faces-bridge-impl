@@ -77,7 +77,7 @@ public class BootsFacesApplicantPortletTester extends BridgeApplicantPortletTest
 			fieldXpath = fieldXpath + "/..";
 		}
 
-		return fieldXpath + "/../following-sibling::div[contains(@class,'alert-danger')]";
+		return fieldXpath + "/../following-sibling::div/div[contains(@class,'alert-danger')]";
 	}
 
 	@Override
