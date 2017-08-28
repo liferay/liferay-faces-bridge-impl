@@ -47,7 +47,7 @@ public class BrowserSnifferFactoryBridgeImpl extends BrowserSnifferFactory imple
 		return new BrowserSnifferPortalImpl();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public BrowserSnifferFactory getWrapped() {
 		return wrappedBrowserSnifferFactory;
 	}

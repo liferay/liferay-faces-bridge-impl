@@ -38,12 +38,12 @@ public class RequestCookieMap implements Map<String, Object> {
 		this.cookies = cookies;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void clear() {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public boolean containsKey(Object key) {
 		boolean found = false;
 
@@ -65,7 +65,7 @@ public class RequestCookieMap implements Map<String, Object> {
 		return found;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public boolean containsValue(Object value) {
 		boolean found = false;
 
@@ -83,7 +83,7 @@ public class RequestCookieMap implements Map<String, Object> {
 		return found;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Set<Map.Entry<String, Object>> entrySet() {
 		Set<Map.Entry<String, Object>> entrySet = null;
 
@@ -100,7 +100,7 @@ public class RequestCookieMap implements Map<String, Object> {
 		return entrySet;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Cookie get(Object key) {
 		Cookie value = null;
 
@@ -120,12 +120,12 @@ public class RequestCookieMap implements Map<String, Object> {
 		return value;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public boolean isEmpty() {
 		return ((cookies == null) || (cookies.length == 0));
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Set<String> keySet() {
 		Set<String> keySet = null;
 
@@ -141,22 +141,22 @@ public class RequestCookieMap implements Map<String, Object> {
 		return keySet;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Cookie put(String key, Object value) {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void putAll(Map<? extends String, ? extends Object> t) {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Cookie remove(Object key) {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public int size() {
 		int size = 0;
 
@@ -167,7 +167,7 @@ public class RequestCookieMap implements Map<String, Object> {
 		return size;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Collection<Object> values() {
 		Collection<Object> values = null;
 

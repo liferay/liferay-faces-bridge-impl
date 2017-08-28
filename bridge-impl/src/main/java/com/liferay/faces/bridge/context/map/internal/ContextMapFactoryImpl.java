@@ -156,7 +156,7 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 		return bridgeUploadedFileMap;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public ContextMapFactoryImpl getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.

@@ -40,7 +40,7 @@ public class RenderRequestPhaseListener extends RenderRequestPhaseListenerCompat
 	// Instance field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
 	private volatile Boolean viewParametersEnabled;
 
-	// Java 1.6+ @Override
+	@Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		FacesContext facesContext = phaseEvent.getFacesContext();
@@ -70,12 +70,12 @@ public class RenderRequestPhaseListener extends RenderRequestPhaseListenerCompat
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 		// This method is required by the PhaseListener interfaces but is not used.
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.RESTORE_VIEW;
 	}

@@ -53,7 +53,7 @@ public class IPCPhaseListener implements PhaseListener {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(IPCPhaseListener.class);
 
-	// Java 1.6+ @Override
+	@Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		FacesContext facesContext = phaseEvent.getFacesContext();
@@ -91,12 +91,12 @@ public class IPCPhaseListener implements PhaseListener {
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 		// This method is required by the PhaseListener interface but is not used.
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.ANY_PHASE;
 	}

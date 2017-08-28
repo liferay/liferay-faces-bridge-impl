@@ -75,7 +75,7 @@ public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFacto
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public BridgePortletResponseFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.

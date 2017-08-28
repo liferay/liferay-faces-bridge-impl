@@ -35,7 +35,7 @@ public class BridgeURIFactoryImpl extends BridgeURIFactory {
 		return new BridgeURIImpl(namespace, uri);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public BridgeURIFactory getWrapped() {
 		return wrappedBridgeURIFactory;
 	}

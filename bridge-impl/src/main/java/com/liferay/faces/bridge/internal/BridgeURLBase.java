@@ -81,7 +81,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		this.viewIdResourceParameterName = bridgeConfig.getViewIdResourceParameterName();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getParameter(String name) {
 
 		Map<String, String[]> parameterMap = bridgeURI.getParameterMap();
@@ -99,12 +99,12 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, String[]> getParameterMap() {
 		return bridgeURI.getParameterMap();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getViewId() {
 
 		if (viewId == null) {
@@ -208,7 +208,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		return viewId;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String removeParameter(String name) {
 
 		String[] values = bridgeURI.getParameterMap().remove(name);
@@ -221,12 +221,12 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void setParameter(String name, String[] value) {
 		bridgeURI.getParameterMap().put(name, value);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void setParameter(String name, String value) {
 		bridgeURI.getParameterMap().put(name, new String[] { value });
 	}

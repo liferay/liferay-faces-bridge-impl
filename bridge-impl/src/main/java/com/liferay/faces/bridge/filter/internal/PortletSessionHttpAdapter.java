@@ -40,122 +40,122 @@ public class PortletSessionHttpAdapter implements PortletSession, HttpSession {
 		this.wrappedPortletSession = portletSession;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Object getAttribute(String name) {
 		return wrappedPortletSession.getAttribute(name);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Object getAttribute(String name, int scope) {
 		return wrappedPortletSession.getAttribute(name, scope);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, Object> getAttributeMap() {
 		return wrappedPortletSession.getAttributeMap();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, Object> getAttributeMap(int scope) {
 		return wrappedPortletSession.getAttributeMap(scope);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Enumeration<String> getAttributeNames() {
 		return wrappedPortletSession.getAttributeNames();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Enumeration<String> getAttributeNames(int scope) {
 		return wrappedPortletSession.getAttributeNames(scope);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public long getCreationTime() {
 		return wrappedPortletSession.getCreationTime();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getId() {
 		return wrappedPortletSession.getId();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public long getLastAccessedTime() {
 		return wrappedPortletSession.getLastAccessedTime();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public int getMaxInactiveInterval() {
 		return wrappedPortletSession.getMaxInactiveInterval();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public PortletContext getPortletContext() {
 		return wrappedPortletSession.getPortletContext();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public ServletContext getServletContext() {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public HttpSessionContext getSessionContext() {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Object getValue(String name) {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String[] getValueNames() {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void invalidate() {
 		wrappedPortletSession.invalidate();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public boolean isNew() {
 		return wrappedPortletSession.isNew();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void putValue(String name, Object value) {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void removeAttribute(String name) {
 		wrappedPortletSession.removeAttribute(name);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void removeAttribute(String name, int scope) {
 		wrappedPortletSession.removeAttribute(name, scope);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void removeValue(String name) {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void setAttribute(String name, Object value) {
 		wrappedPortletSession.setAttribute(name, value);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void setAttribute(String name, Object value, int scope) {
 		wrappedPortletSession.setAttribute(name, value, scope);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void setMaxInactiveInterval(int interval) {
 		wrappedPortletSession.setMaxInactiveInterval(interval);
 	}

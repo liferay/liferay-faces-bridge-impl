@@ -68,12 +68,12 @@ public class PortalContextBridgeImpl extends PortalContextBridgeCompatImpl {
 		propertyNameList.add(BridgePortalContext.STRICT_NAMESPACED_PARAMETERS_SUPPORT);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getPortalInfo() {
 		return wrappedPortalContext.getPortalInfo();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getProperty(String name) {
 
 		if (PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT.equals(name) ||
@@ -107,17 +107,17 @@ public class PortalContextBridgeImpl extends PortalContextBridgeCompatImpl {
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Enumeration<String> getPropertyNames() {
 		return Collections.enumeration(propertyNameList);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Enumeration<PortletMode> getSupportedPortletModes() {
 		return wrappedPortalContext.getSupportedPortletModes();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Enumeration<WindowState> getSupportedWindowStates() {
 		return wrappedPortalContext.getSupportedWindowStates();
 	}

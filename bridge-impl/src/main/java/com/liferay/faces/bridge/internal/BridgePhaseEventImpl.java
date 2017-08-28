@@ -67,7 +67,7 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 				portletConfig, bridgeConfig);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void execute() throws BridgeDefaultViewNotSpecifiedException, BridgeException {
 
 		logger.debug(Logger.SEPARATOR);

@@ -39,7 +39,7 @@ public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServlet
 		super(resourceRequest, null);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getCacheability() {
 		return ((ResourceRequest) getRequest()).getCacheability();
 	}
@@ -59,7 +59,7 @@ public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServlet
 		return ((ResourceRequest) getRequest()).getContentType();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getETag() {
 		return ((ResourceRequest) getRequest()).getETag();
 	}
@@ -69,12 +69,12 @@ public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServlet
 		return ((ResourceRequest) getRequest()).getMethod();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public InputStream getPortletInputStream() throws IOException {
 		return ((ResourceRequest) getRequest()).getPortletInputStream();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Map<String, String[]> getPrivateRenderParameterMap() {
 		return ((ResourceRequest) getRequest()).getPrivateRenderParameterMap();
 	}
@@ -90,7 +90,7 @@ public class ResourceRequestHttpServletAdapter extends PortletRequestHttpServlet
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getResourceID() {
 		return ((ResourceRequest) getRequest()).getResourceID();
 	}

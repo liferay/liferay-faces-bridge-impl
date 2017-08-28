@@ -58,7 +58,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 	// Private Data Members
 	private boolean firstInstance;
 
-	// Java 1.6+ @Override
+	@Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {
 		ServletContext servletContext = servletContextEvent.getServletContext();
 		PortletContext portletContext = new PortletContextAdapter(servletContext);
@@ -68,7 +68,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 	/**
 	 * This method provides the ability to discover the Mojarra InjectionProvider at startup.
 	 */
-	// Java 1.6+ @Override
+	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 
 		ServletContext servletContext = servletContextEvent.getServletContext();
@@ -87,7 +87,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void sessionCreated(HttpSessionEvent httpSessionEvent) {
 
 		// FACES-2427: Prevent an error message during session expiration by ensuring that the BridgeFactoryFinder has
@@ -98,7 +98,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 		BridgeFactoryFinder.getFactory(portletContext, BeanManagerFactory.class);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
 
 		if (firstInstance) {

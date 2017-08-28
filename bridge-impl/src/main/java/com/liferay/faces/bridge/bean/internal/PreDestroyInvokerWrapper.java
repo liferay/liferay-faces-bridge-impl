@@ -25,7 +25,7 @@ public abstract class PreDestroyInvokerWrapper implements PreDestroyInvoker, Wra
 
 	public abstract PreDestroyInvoker getWrapped();
 
-	// Java 1.6+ @Override
+	@Override
 	public void invokeAnnotatedMethods(Object managedBean, boolean preferPreDestroy) {
 		getWrapped().invokeAnnotatedMethods(managedBean, preferPreDestroy);
 	}
