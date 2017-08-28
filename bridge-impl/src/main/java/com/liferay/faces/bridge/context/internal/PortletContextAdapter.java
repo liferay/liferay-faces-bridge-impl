@@ -38,110 +38,109 @@ public class PortletContextAdapter implements PortletContext {
 		this.servletContext = servletContext;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Object getAttribute(String name) {
 		return servletContext.getAttribute(name);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	@SuppressWarnings("unchecked")
 	public Enumeration<String> getAttributeNames() {
 		return servletContext.getAttributeNames();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public Enumeration<String> getContainerRuntimeOptions() {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
 	public String getContextPath() {
 		return servletContext.getContextPath();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getInitParameter(String name) {
 		return servletContext.getInitParameter(name);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	@SuppressWarnings("unchecked")
 	public Enumeration<String> getInitParameterNames() {
 		return servletContext.getInitParameterNames();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public int getMajorVersion() {
 		return servletContext.getMajorVersion();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getMimeType(String file) {
 		return servletContext.getMimeType(file);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public int getMinorVersion() {
 		return servletContext.getMinorVersion();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public PortletRequestDispatcher getNamedDispatcher(String name) {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getPortletContextName() {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getRealPath(String path) {
 		return servletContext.getRealPath(path);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public PortletRequestDispatcher getRequestDispatcher(String path) {
 		throw new UnsupportedOperationException();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public URL getResource(String path) throws MalformedURLException {
 		return servletContext.getResource(path);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public InputStream getResourceAsStream(String path) {
 		return servletContext.getResourceAsStream(path);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	@SuppressWarnings("unchecked")
 	public Set<String> getResourcePaths(String path) {
 		return servletContext.getResourcePaths(path);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getServerInfo() {
 		return servletContext.getServerInfo();
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void log(String msg) {
 		servletContext.log(msg);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void log(String message, Throwable throwable) {
 		servletContext.log(message, throwable);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void removeAttribute(String name) {
 		servletContext.removeAttribute(name);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void setAttribute(String name, Object object) {
 		servletContext.setAttribute(name, object);
 	}

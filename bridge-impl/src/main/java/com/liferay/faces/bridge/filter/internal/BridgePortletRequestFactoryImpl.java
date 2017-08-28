@@ -41,7 +41,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 	// serialVersionUID
 	private static final long serialVersionUID = 1165668363125044029L;
 
-	// Java 1.6+ @Override
+	@Override
 	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
@@ -50,7 +50,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 		return new ActionRequestBridgeImpl(actionRequest, portalContext);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public EventRequest getEventRequest(EventRequest eventRequest, EventResponse eventResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
@@ -59,7 +59,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 		return new EventRequestBridgeImpl(eventRequest, portalContext);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public RenderRequest getRenderRequest(RenderRequest renderRequest, RenderResponse renderResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
@@ -68,7 +68,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 		return new RenderRequestBridgeImpl(renderRequest, portalContext);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
@@ -77,7 +77,7 @@ public class BridgePortletRequestFactoryImpl extends BridgePortletRequestFactory
 		return new ResourceRequestBridgeImpl(resourceRequest, portalContext);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public BridgePortletRequestFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.

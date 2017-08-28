@@ -58,7 +58,7 @@ public class ManagedBeanScopePhaseListener implements PhaseListener {
 	// serialVersionUID
 	private static final long serialVersionUID = 1713704308484763548L;
 
-	// Java 1.6+ @Override
+	@Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		if (phaseEvent.getPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -106,12 +106,12 @@ public class ManagedBeanScopePhaseListener implements PhaseListener {
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 		// This method is required by the PhaseListener interface but is not used.
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.RENDER_RESPONSE;
 	}

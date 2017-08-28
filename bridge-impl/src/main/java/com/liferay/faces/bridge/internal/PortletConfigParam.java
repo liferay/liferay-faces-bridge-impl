@@ -206,62 +206,62 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		}
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getAlternateName() {
 		return alternateName;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public boolean getBooleanValue(PortletConfig portletConfig) {
 		return PortletConfigParamUtil.getBooleanValue(portletConfig, name, alternateName, defaultBooleanValue);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getConfiguredValue(PortletConfig portletConfig) {
 		return PortletConfigParamUtil.getConfiguredValue(portletConfig, name, alternateName);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public boolean getDefaultBooleanValue() {
 		return defaultBooleanValue;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public int getDefaultIntegerValue() {
 		return defaultIntegerValue;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public long getDefaultLongValue() {
 		return defaultLongValue;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getDefaultStringValue() {
 		return defaultStringValue;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public int getIntegerValue(PortletConfig portletConfig) {
 		return PortletConfigParamUtil.getIntegerValue(portletConfig, name, alternateName, defaultIntegerValue);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public long getLongValue(PortletConfig portletConfig) {
 		return PortletConfigParamUtil.getLongValue(portletConfig, name, alternateName, defaultLongValue);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getName() {
 		return name;
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public String getStringValue(PortletConfig portletConfig) {
 		return PortletConfigParamUtil.getStringValue(portletConfig, name, alternateName, defaultStringValue);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public boolean isConfigured(PortletConfig portletConfig) {
 		return PortletConfigParamUtil.isSpecified(portletConfig, name, alternateName);
 	}

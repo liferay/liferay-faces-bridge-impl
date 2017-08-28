@@ -33,12 +33,10 @@ public abstract class ExternalContextCompat_Portlet3_Impl extends ExternalContex
 		super(portletContext, portletRequest, portletResponse);
 	}
 
-	// Java 1.6+ @Override
 	protected boolean isHeaderPhase(Bridge.PortletPhase portletPhase) {
 		return false;
 	}
 
-	// Java 1.6+ @Override
 	protected boolean isHeaderPhaseSupported() {
 		return true;
 	}

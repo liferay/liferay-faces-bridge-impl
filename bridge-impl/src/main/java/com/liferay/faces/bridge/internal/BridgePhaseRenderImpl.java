@@ -39,7 +39,7 @@ public class BridgePhaseRenderImpl extends BridgePhaseRenderCompatImpl {
 		super(renderRequest, renderResponse, portletConfig, bridgeConfig);
 	}
 
-	// Java 1.6+ @Override
+	@Override
 	public void execute() throws BridgeException {
 
 		logger.debug(Logger.SEPARATOR);
