@@ -962,7 +962,7 @@
 			<dependency>
 				<groupId>com.liferay.faces.test</groupId>
 				<artifactId>com.liferay.faces.test.selenium</artifactId>
-				<version>0.4.1-SNAPSHOT</version>
+				<version>0.4.1</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
