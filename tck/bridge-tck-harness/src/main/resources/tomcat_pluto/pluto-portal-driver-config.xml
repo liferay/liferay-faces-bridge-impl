@@ -77,16 +77,20 @@ limitations under the License.
 		<page name="jsf-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.jsf.applicant.portlet" name="1"/>
 		</page>
+                <!-- FACES-2865 JSF CDI based portlets fail to render on pluto portal 2.0
 		<page name="jsf-cdi-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.jsf.cdi.applicant.portlet" name="1"/>
 		</page>
+                -->
 		<page name="jsf-events" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.jsf.ipc.events.customers.portlet" name="customers"/>
 			<portlet context="/com.liferay.faces.demo.jsf.ipc.events.bookings.portlet" name="bookings"/>
 		</page>
+                <!-- FACES-2865 JSF CDI based portlets fail to render on pluto portal 2.0
 		<page name="jsf-flows" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.jsf.flows.portlet" name="1"/>
 		</page>
+                -->
 		<page name="jsf-html5-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.jsf.html5.applicant.portlet" name="1"/>
 		</page>
@@ -109,9 +113,11 @@ limitations under the License.
 		<page name="primefaces-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.primefaces.applicant.portlet" name="1"/>
 		</page>
+                <!-- FACES-2865 JSF CDI based portlets fail to render on pluto portal 2.0
 		<page name="primepush-cdi-counter" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.primepush.cdi.counter.portlet" name="1"/>
 		</page>
+                -->
 		<page name="richfaces-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.richfaces.applicant.portlet" name="1"/>
 		</page>
