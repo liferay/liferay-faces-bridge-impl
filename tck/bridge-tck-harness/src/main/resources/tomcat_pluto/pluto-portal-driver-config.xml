@@ -46,17 +46,6 @@ limitations under the License.
 			<portlet context="/pluto" name="PlutoPageAdmin"/>
 			<portlet context="/pluto" name="AboutPortlet"/>
 		</page>
-		<!--
-		<page name="RenderPolicy1" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.bridge.render.policy1.portlet" name="chapter3Tests-renderPolicyTest-portlet"/>
-		</page>
-		<page name="RenderPolicy2" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.render.policy2.portlet" name="chapter3Tests-renderPolicyTest-portlet"/>
-		</page>
-		<page name="RenderPolicy3" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.render.policy3.portlet" name="chapter3Tests-renderPolicyTest-portlet"/>
-		</page>
-		-->
 
 		<!-- Liferay Faces Demo Portlets -->
 		<page name="icefaces-ipc" uri="/WEB-INF/themes/pluto-default-theme.jsp">
@@ -742,6 +731,25 @@ limitations under the License.
 		</page>
 		<page name="TestPage211" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_9Tests-usesConfiguredRenderKitTest-portlet"/>
+		</page>
+
+		<page name="Lifecycle Set" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.lifecycle.set.portlet" name="chapter3Tests-lifecycleTest-portlet"/>
+		</page>
+		<page name="Render Policy Always Delegate" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.render.policy1.portlet" name="chapter3Tests-renderPolicyTest-portlet"/>
+		</page>
+		<page name="Render Policy Default" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.render.policy2.portlet" name="chapter3Tests-renderPolicyTest-portlet"/>
+		</page>
+		<page name="Render Policy Never Delegate" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.render.policy3.portlet" name="chapter3Tests-renderPolicyTest-portlet"/>
+		</page>
+		<page name="Render Response Wrapper" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.response.wrapper.portlet" name="chapter6_2_1Tests-usesConfiguredRenderResponseWrapperTest-portlet"/>
+		</page>
+		<page name="Resource Response Wrapper" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.response.wrapper.portlet" name="chapter6_2_1Tests-usesConfiguredResourceResponseWrapperTest-portlet"/>
 		</page>
 
 	</render-config>
