@@ -27,6 +27,22 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>liferay62</id>
+			<dependencies>
+				<dependency>
+					<groupId>commons-fileupload</groupId>
+					<artifactId>commons-fileupload</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</dependency>
+			</dependencies>
+			<properties>
+				<provide.bootstrap>true</provide.bootstrap>
+			</properties>
+		</profile>
+		<profile>
 			<id>pluto</id>
 			<dependencies>
 				<dependency>
