@@ -46,17 +46,6 @@ limitations under the License.
 			<portlet context="/pluto" name="PlutoPageAdmin"/>
 			<portlet context="/pluto" name="AboutPortlet"/>
 		</page>
-		<!--
-		<page name="RenderPolicy1" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.bridge.render.policy1.portlet" name="chapter3Tests-renderPolicyTest-portlet"/>
-		</page>
-		<page name="RenderPolicy2" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.render.policy2.portlet" name="chapter3Tests-renderPolicyTest-portlet"/>
-		</page>
-		<page name="RenderPolicy3" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.render.policy3.portlet" name="chapter3Tests-renderPolicyTest-portlet"/>
-		</page>
-		-->
 
 		<!-- Liferay Faces Demo Portlets -->
 		<page name="alloy-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
@@ -797,6 +786,10 @@ limitations under the License.
 		</page>
 		<page name="TestPage212" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-resourcesRenderedInHeadTest-portlet"/>
+		</page>
+
+		<page name="Lifecycle Set" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.lifecycle.set.portlet" name="chapter3Tests-lifecycleTest-portlet"/>
 		</page>
 
 	</render-config>
