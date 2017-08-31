@@ -117,7 +117,7 @@
 		<liferay.version>7.0.3</liferay.version> <!-- Liferay Portal 7.1 will be 7.1.0-SNAPSHOT -->
 		<liferay.version.dtd>7.0</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
-		<liferay.weblogic.version>12.1.3.0</liferay.weblogic.version>
+		<liferay.weblogic.version>12.2.1.2</liferay.weblogic.version>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
 		<mojarra.version>2.2.14</mojarra.version>
 		<myfaces.version>UNSUPPORTED</myfaces.version>
@@ -150,7 +150,6 @@
 		</war.packaging.excludes>
 		<webapp.descriptor>web.xml</webapp.descriptor>
 		<weblogic.jaxb.version>2.2.7</weblogic.jaxb.version>
-		<weblogic.xerces.version>2.11.0</weblogic.xerces.version>
 		<weld.version>2.3.3.Final</weld.version>
 	</properties>
 
@@ -673,7 +672,6 @@
 			<id>weblogic</id>
 			<properties>
 				<app.server.type>weblogic</app.server.type>
-				<faces.impl.scope>provided</faces.impl.scope>
 				<liferay.app.server.dir>${liferay.home}/weblogic-${liferay.weblogic.version}</liferay.app.server.dir>
 				<liferay.deploy.dir>${liferay.app.server.dir}/autodeploy</liferay.deploy.dir>
 				<war.packaging.excludes>
@@ -684,11 +682,17 @@
 					WEB-INF/web-*.xml
 				</war.packaging.excludes>
 			</properties>
+		</profile>
+		<profile>
+			<id>weblogic-liferay62</id>
+			<properties>
+				<faces.impl.scope>provided</faces.impl.scope>
+			</properties>
 			<dependencies>
 			    <dependency>
 			        <groupId>xerces</groupId>
 			        <artifactId>xercesImpl</artifactId>
-			        <version>${weblogic.xerces.version}</version>
+			        <version>2.11.0</version>
 			    </dependency>
 			</dependencies>
 			<dependencyManagement>

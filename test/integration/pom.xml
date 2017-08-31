@@ -360,6 +360,11 @@
 			<id>weblogic</id>
 			<properties>
 				<integration.port>7001</integration.port>
+			</properties>
+		</profile>
+		<profile>
+			<id>weblogic-liferay62</id>
+			<properties>
 				<faces.impl.name>JavaServer Faces Reference Implementation</faces.impl.name>
 			</properties>
 		</profile>
