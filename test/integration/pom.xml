@@ -378,28 +378,6 @@
 			<artifactId>com.liferay.faces.test.selenium</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>com.liferay.faces.demo</groupId>
-			<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
-			<version>${liferay.faces.showcase.version}</version>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.liferay.faces.demo</groupId>
-			<artifactId>com.liferay.faces.demo.alloy.showcase.webapp</artifactId>
-			<version>${liferay.faces.alloy.version}</version>
-			<type>test-jar</type>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>com.liferay.faces.demo</groupId>
-					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
@@ -423,11 +401,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.liferay.faces</groupId>
-			<artifactId>com.liferay.faces.util</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
