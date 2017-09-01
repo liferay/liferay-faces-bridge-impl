@@ -115,11 +115,10 @@
 								<b:button value="#{i18n['no']}" dismiss="modal" />
 							</f:facet>
 						</b:modal>
-						<b:dataTable id="uploadedFilesTable" headerClass="portlet-section-header results-header"
-							info="false" paginated="false"
+						<h:dataTable id="uploadedFilesTable" headerClass="portlet-section-header results-header"
 							rowClasses="portlet-section-body results-row, portlet-section-alternate results-row alt"
-							searching="false" value="#{applicantModelBean.uploadedFiles}" var="uploadedFile">
-							<b:dataTableColumn orderable="false">
+							value="#{applicantModelBean.uploadedFiles}" var="uploadedFile">
+							<h:column>
 								<f:facet name="header">
 									<h:outputText />
 								</f:facet>
@@ -128,20 +127,20 @@
 									<f:setPropertyActionListener value="#{uploadedFile.id}"
 										target="#{applicantViewBean.uploadedFileId}" />
 								</b:commandButton>
-							</b:dataTableColumn>
-							<b:dataTableColumn orderable="false">
+							</h:column>
+							<h:column>
 								<f:facet name="header">
 									<h:outputText value="#{i18n['file-name']}" />
 								</f:facet>
 								<h:outputText value="#{uploadedFile.name}" />
-							</b:dataTableColumn>
-							<b:dataTableColumn orderable="false">
+							</h:column>
+							<h:column>
 								<f:facet name="header">
 									<h:outputText value="#{i18n['size']}" />
 								</f:facet>
 								<h:outputText value="#{uploadedFile.size}" />
-							</b:dataTableColumn>
-						</b:dataTable>
+							</h:column>
+						</h:dataTable>
 						<h:panelGrid columns="1">
 							<h:inputFile value="#{applicantBackingBean.uploadedPart}" />
 						</h:panelGrid>
