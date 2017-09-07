@@ -228,7 +228,6 @@
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>2.10.4</version>
 					<configuration>
-						<additionalparam>-Xdoclint:all -Xdoclint:-missing</additionalparam>
 						<sourceFileExcludes>
 							<exclude>**/internal/*.java</exclude>
 						</sourceFileExcludes>
