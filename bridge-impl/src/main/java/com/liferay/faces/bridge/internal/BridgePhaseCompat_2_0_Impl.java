@@ -69,11 +69,11 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 
 			if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
 
-
 				// If the render-redirect feature is enabled, then return a capturing writer so that the
 				// bridge has the opportunity to discard output in the case that a render-redirect actually
 				// occurs.
 				boolean renderRedirectEnabled = PortletConfigParam.RenderRedirectEnabled.getBooleanValue(portletConfig);
+
 				if (renderRedirectEnabled) {
 					responseOutputWriter = new CapturingWriterImpl();
 				}

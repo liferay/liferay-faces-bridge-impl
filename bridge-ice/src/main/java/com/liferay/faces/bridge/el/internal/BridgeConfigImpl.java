@@ -15,14 +15,14 @@
  */
 package com.liferay.faces.bridge.el.internal;
 
-import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -31,7 +31,7 @@ import java.util.Set;
 public class BridgeConfigImpl implements BridgeConfig {
 
 	// Private Data Members
-	private Map<String,Object> attributes;
+	private Map<String, Object> attributes;
 
 	public BridgeConfigImpl() {
 

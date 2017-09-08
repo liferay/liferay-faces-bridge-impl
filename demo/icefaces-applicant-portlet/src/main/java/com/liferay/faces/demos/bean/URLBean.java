@@ -15,12 +15,13 @@
  */
 package com.liferay.faces.demos.bean;
 
+import java.io.Serializable;
+
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderResponse;
-import java.io.Serializable;
 
 
 /**

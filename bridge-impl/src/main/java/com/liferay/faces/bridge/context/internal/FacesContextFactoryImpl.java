@@ -47,7 +47,7 @@ public class FacesContextFactoryImpl extends FacesContextFactoryCompatImpl {
 		if ((context != null) && (context instanceof PortletContext)) {
 
 			return getFacesContext((PortletContext) context, (PortletRequest) request, (PortletResponse) response,
-				lifecycle);
+					lifecycle);
 		}
 
 		// Otherwise, if the specified context is a ServletContext, then it is possible that the session is expiring.
@@ -70,7 +70,7 @@ public class FacesContextFactoryImpl extends FacesContextFactoryCompatImpl {
 			// NOTE: BridgeSessionListener creates classes named HttpServletRequestExpirationImpl and
 			// HttpServletResponseExpirationImpl.
 			if ((requestFQCN.length() == 0) || (responseFQCN.length() == 0) || requestFQCN.contains("expiration") ||
-				responseFQCN.contains("expiration")) {
+					responseFQCN.contains("expiration")) {
 
 				ExternalContext externalContext = new ExternalContextExpirationImpl((ServletContext) context);
 

@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.issues.bean;
 
-
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.MimeResponse;
@@ -26,7 +25,6 @@ import javax.portlet.PortletURL;
  * @author  Neil Griffin
  */
 public class TestBean {
-
 
 	public String getRenderUrl() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();

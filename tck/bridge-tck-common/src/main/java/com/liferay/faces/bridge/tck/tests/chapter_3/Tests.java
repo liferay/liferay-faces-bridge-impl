@@ -121,8 +121,7 @@ public class Tests extends Object {
 
 			// Create and raise the event
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
-			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME),
-				testBean.getTestName());
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return "eventDestroyTest"; // action Navigation result
 		}

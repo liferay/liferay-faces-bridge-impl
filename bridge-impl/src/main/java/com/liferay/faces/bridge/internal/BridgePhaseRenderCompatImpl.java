@@ -53,6 +53,10 @@ public abstract class BridgePhaseRenderCompatImpl extends BridgePhaseHeaderRende
 				portletConfig, bridgeConfig);
 	}
 
+	protected void execute(String renderRedirectViewId) throws BridgeException, IOException {
+		executeRender(null, Bridge.PortletPhase.RENDER_PHASE);
+	}
+
 	@Override
 	protected MimeResponse getMimeResponse() {
 		return renderResponse;
@@ -61,9 +65,5 @@ public abstract class BridgePhaseRenderCompatImpl extends BridgePhaseHeaderRende
 	@Override
 	protected RenderRequest getRenderRequest() {
 		return renderRequest;
-	}
-
-	protected void execute(String renderRedirectViewId) throws BridgeException, IOException {
-		executeRender(null, Bridge.PortletPhase.RENDER_PHASE);
 	}
 }

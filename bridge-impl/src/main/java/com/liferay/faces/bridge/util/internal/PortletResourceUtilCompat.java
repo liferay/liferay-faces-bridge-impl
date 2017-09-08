@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.bridge.util.internal;
 
-
 /**
  * @author  Kyle Stiemann
  */

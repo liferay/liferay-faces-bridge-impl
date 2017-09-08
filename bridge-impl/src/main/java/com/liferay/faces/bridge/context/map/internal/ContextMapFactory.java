@@ -96,11 +96,11 @@ public abstract class ContextMapFactory implements Wrapper<ContextMapFactory> {
 	/**
 	 * Returns a {@link Map} of request-scoped attributes stored in the underlying {@link javax.portlet.PortletRequest}.
 	 *
-	 * @param  portletContext         The current portlet context.
-	 * @param  portletRequest         The current portlet request.
-	 * @param  responseNamespace      The current response namespace.
-	 * @param  preferPreDestroy       Determines whether or not methods annotated with the @PreDestroy annotation are
-	 *                                preferably invoked over the @BridgePreDestroy annotation.
+	 * @param  portletContext     The current portlet context.
+	 * @param  portletRequest     The current portlet request.
+	 * @param  responseNamespace  The current response namespace.
+	 * @param  preferPreDestroy   Determines whether or not methods annotated with the @PreDestroy annotation are
+	 *                            preferably invoked over the @BridgePreDestroy annotation.
 	 */
 	public abstract Map<String, Object> getRequestScopeMap(PortletContext portletContext, PortletRequest portletRequest,
 		String responseNamespace, boolean preferPreDestroy);

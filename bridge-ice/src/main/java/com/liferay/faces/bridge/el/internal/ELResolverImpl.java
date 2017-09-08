@@ -33,6 +33,7 @@ import javax.portlet.faces.BridgeUtil;
 import javax.servlet.jsp.JspContext;
 
 import com.icesoft.faces.webapp.http.portlet.PortletExternalContext;
+
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.helper.BooleanHelper;
 
@@ -321,7 +322,8 @@ public class ELResolverImpl extends ELResolver {
 					value = bridgeConfig;
 				}
 				else if (varName.equals(PORTLET_CONFIG)) {
-					PortletExternalContext portletExternalContext = (PortletExternalContext) facesContext.getExternalContext();
+					PortletExternalContext portletExternalContext = (PortletExternalContext)
+						facesContext.getExternalContext();
 					value = portletExternalContext.getConfig();
 				}
 				else {

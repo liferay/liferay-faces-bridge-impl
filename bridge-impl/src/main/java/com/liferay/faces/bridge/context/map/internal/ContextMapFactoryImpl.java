@@ -189,7 +189,8 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 
 				if (multiPartFormData == null) {
 					facesRequestParameterMap = new FacesRequestParameterMapImpl(responseNamespace, bridgeRequestScope,
-							facesViewParameterMap, defaultRenderKitId, getSeparatorChar(), strictParameterNamespacing, namespaceViewState);
+							facesViewParameterMap, defaultRenderKitId, getSeparatorChar(), strictParameterNamespacing,
+							namespaceViewState);
 
 					MultiPartFormDataProcessor multiPartFormDataProcessor = new MultiPartFormDataProcessorImpl();
 					Map<String, List<com.liferay.faces.util.model.UploadedFile>> uploadedFileMap =
