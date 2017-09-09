@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.issues.bean;
 
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
@@ -30,7 +29,6 @@ import javax.portlet.PortletURL;
 @ManagedBean
 @RequestScoped
 public class TestBean {
-
 
 	public String getRenderUrl() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();

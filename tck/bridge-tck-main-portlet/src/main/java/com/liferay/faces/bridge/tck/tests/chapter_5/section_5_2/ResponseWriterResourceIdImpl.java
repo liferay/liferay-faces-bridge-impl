@@ -25,9 +25,8 @@ import javax.faces.context.ResponseWriterWrapper;
 
 /**
  * This {@link ResponseWriter} writes the id attribute of script and stylesheet resources as the resource name or the
- * client id if the resource name is unavailable.
- * See src/main/webapp/resources/test/resourcesRenderedInHeadTest.js for details on how this id is
- * used. This {@link ResponseWriter} is set in {@link
+ * client id if the resource name is unavailable. See src/main/webapp/resources/test/resourcesRenderedInHeadTest.js for
+ * details on how this id is used. This {@link ResponseWriter} is set in {@link
  * ResourcesRenderedInHeadTestBean#preRenderHeadListener(javax.faces.event.ComponentSystemEvent)}.
  *
  * @author  Kyle Stiemann

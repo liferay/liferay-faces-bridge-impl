@@ -37,8 +37,8 @@ public class ExternalContextRichFacesResourceImpl extends ExternalContextWrapper
 	/**
 	 * When this method returns null, {@link org.richfaces.resource.ResourceUtils#getMappingForRequest()} assumes that
 	 * the Faces Servlet URL mapping is extension based and strips the extension off the value returned by {@link
-	 * ExternalContextRichFacesResourceImpl#getRequestServletPath()}. This method always returns null to avoid adding code
-	 * in this class to detect the actual Faces Servlet URL mapping since RichFaces never uses it.
+	 * ExternalContextRichFacesResourceImpl#getRequestServletPath()}. This method always returns null to avoid adding
+	 * code in this class to detect the actual Faces Servlet URL mapping since RichFaces never uses it.
 	 */
 	@Override
 	public String getRequestPathInfo() {

@@ -52,8 +52,9 @@ public class BridgeTCKResultWriter {
 	/**
 	 * Returns the fail string. Also used on the client side to provide failure critieria for a test.
 	 *
-	 * @param  testName  name of the test
-	 * @return String  failed string
+	 * @param   testName  name of the test
+	 *
+	 * @return  String failed string
 	 */
 	public static String getFailedString(String testName) {
 		return Constants.TEST_FAILED;
@@ -62,8 +63,9 @@ public class BridgeTCKResultWriter {
 	/**
 	 * Returns the pass string. Also used on the client side, for specifying the success criteria.
 	 *
-	 * @param  testName  name of the test
-	 * @return  String  passed string
+	 * @param   testName  name of the test
+	 *
+	 * @return  String passed string
 	 */
 	public static String getPassedString(String testName) {
 
