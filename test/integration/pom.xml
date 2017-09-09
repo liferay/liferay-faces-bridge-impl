@@ -15,6 +15,7 @@
 	<name>Liferay Faces Bridge Integration Tests</name>
 
 	<properties>
+		<maven.test.skip>true</maven.test.skip>
 		<faces.impl.name>Mojarra</faces.impl.name>
 		<integration.alloy.showcase.context>/web/guest/alloy-showcase/-/alloy-tag</integration.alloy.showcase.context>
 		<integration.container>liferay</integration.container>
@@ -110,6 +111,9 @@
 		<!-- /browsers -->
 		<profile>
 			<id>selenium</id>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+			</properties>
 			<build>
 				<plugins>
 					<!-- Ensure that the png resource is in the temporary directory for testing. -->
@@ -183,9 +187,25 @@
 					</plugin>
 				</plugins>
 			</build>
+			<dependencies>
+				<!--
+					This dependency is only included to ensure that all tests compile. Showcase tests are only run in
+					the selenium-alloy-showcase and selenium-jsf-showcase profiles.
+				-->
+				<dependency>
+					<groupId>com.liferay.faces.demo</groupId>
+					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+					<version>${liferay.faces.showcase.version}</version>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>selenium-alloy-showcase</id>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+			</properties>
 			<build>
 				<plugins>
 					<!-- Ensure that the png resource is in the temporary directory for testing. -->
@@ -281,6 +301,13 @@
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces.demo</groupId>
+					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+					<version>${liferay.faces.showcase.version}</version>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+				<dependency>
+					<groupId>com.liferay.faces.demo</groupId>
 					<artifactId>com.liferay.faces.demo.alloy.showcase.webapp</artifactId>
 					<version>${liferay.faces.alloy.version}</version>
 					<type>test-jar</type>
@@ -301,6 +328,9 @@
 		</profile>
 		<profile>
 			<id>selenium-jsf-showcase</id>
+			<properties>
+				<maven.test.skip>false</maven.test.skip>
+			</properties>
 			<build>
 				<plugins>
 					<!-- Ensure that the png resource is in the temporary directory for testing. -->
@@ -375,6 +405,15 @@
 					</plugin>
 				</plugins>
 			</build>
+			<dependencies>
+				<dependency>
+					<groupId>com.liferay.faces.demo</groupId>
+					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+					<version>${liferay.faces.showcase.version}</version>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>weblogic</id>
@@ -396,13 +435,6 @@
 		<dependency>
 			<groupId>com.liferay.faces.test</groupId>
 			<artifactId>com.liferay.faces.test.selenium</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.liferay.faces.demo</groupId>
-			<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
-			<version>${liferay.faces.showcase.version}</version>
-			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
