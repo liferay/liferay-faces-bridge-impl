@@ -50,14 +50,15 @@ public class RequestParameterMap extends AbstractImmutablePropertyMap<String> {
 	}
 
 	@Override
-	protected String getProperty(String name) {
-		return facesRequestParameterMap.getFirst(name);
-	}
-
-	@Override
 	protected Enumeration<String> getImmutablePropertyNames() {
 
 		Set<String> parameterNames = facesRequestParameterMap.keySet();
+
 		return Collections.enumeration(parameterNames);
+	}
+
+	@Override
+	protected String getProperty(String name) {
+		return facesRequestParameterMap.getFirst(name);
 	}
 }

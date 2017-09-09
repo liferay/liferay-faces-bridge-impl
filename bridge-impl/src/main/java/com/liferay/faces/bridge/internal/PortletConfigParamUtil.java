@@ -56,7 +56,6 @@ public class PortletConfigParamUtil {
 						booleanValue = BooleanHelper.isTrueToken(namespacedContextAttributeValue.toString());
 					}
 
-
 					return booleanValue;
 				}
 			}

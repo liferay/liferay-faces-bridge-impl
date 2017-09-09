@@ -15,15 +15,16 @@
  */
 package com.liferay.faces.demos.dto;
 
-import com.liferay.faces.util.model.UploadedFile;
-
-import javax.faces.FacesWrapper;
-import javax.servlet.http.Part;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
+
+import javax.faces.FacesWrapper;
+import javax.servlet.http.Part;
+
+import com.liferay.faces.util.model.UploadedFile;
 
 
 /**

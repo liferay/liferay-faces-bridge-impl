@@ -15,32 +15,34 @@
  */
 package com.liferay.faces.bridge.context.map.internal;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.portlet.ClientDataRequest;
+import javax.portlet.PortletConfig;
+import javax.portlet.PortletSession;
+
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.model.UploadedFile;
 
-import javax.portlet.ClientDataRequest;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletSession;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 
 /**
  * @author  Neil Griffin
  */
-public class MultiPartFormDataProcessorImpl extends MultiPartFormDataProcessorCompatImpl implements MultiPartFormDataProcessor {
+public class MultiPartFormDataProcessorImpl extends MultiPartFormDataProcessorCompatImpl
+	implements MultiPartFormDataProcessor {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(MultiPartFormDataProcessorImpl.class);
 
 	@Override
 	public Map<String, List<UploadedFile>> process(ClientDataRequest clientDataRequest, PortletConfig portletConfig,
-												   FacesRequestParameterMap facesRequestParameterMap) {
+		FacesRequestParameterMap facesRequestParameterMap) {
 
 		PortletSession portletSession = clientDataRequest.getPortletSession();
 
@@ -66,7 +68,7 @@ public class MultiPartFormDataProcessorImpl extends MultiPartFormDataProcessorCo
 	}
 
 	protected void addUploadedFile(Map<String, List<UploadedFile>> uploadedFileMap, String fieldName,
-								   UploadedFile uploadedFile) {
+		UploadedFile uploadedFile) {
 		List<UploadedFile> uploadedFiles = uploadedFileMap.get(fieldName);
 
 		if (uploadedFiles == null) {

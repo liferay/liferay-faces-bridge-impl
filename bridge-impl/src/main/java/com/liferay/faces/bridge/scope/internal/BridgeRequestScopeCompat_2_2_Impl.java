@@ -15,9 +15,10 @@
  */
 package com.liferay.faces.bridge.scope.internal;
 
+import java.util.Map;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.lifecycle.ClientWindow;
-import java.util.Map;
 
 
 /**
