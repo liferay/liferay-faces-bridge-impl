@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -23,10 +24,8 @@ import javax.faces.context.ResponseWriter;
 import javax.portlet.HeaderResponse;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
-import com.liferay.faces.util.application.ResourceUtil;
+import com.liferay.faces.bridge.util.internal.ElementUtil;
 
 
 /**
@@ -46,8 +45,24 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 	}
 
 	@Override
-	public Element createElement(String name) {
-		return headerResponse.createElement(name);
+	public void endCDATA() throws IOException {
+		write("]]>");
+	}
+
+	@Override
+	public void startCDATA() throws IOException {
+		write("<![CDATA[");
+	}
+
+	@Override
+	public void writeComment(Object comment) throws IOException {
+
+		if (comment != null) {
+
+			write("<!--");
+			writeText(comment, null);
+			write("-->");
+		}
 	}
 
 	@Override
@@ -57,7 +72,7 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 		String name;
 		String scope = null;
 		String version = null;
-		String elementString = elementToString(nodeName, element);
+		String elementString = ElementUtil.elementToString(nodeName, element);
 
 		if ((componentResource != null) &&
 				(RenderKitUtil.isScriptResource(componentResource) ||
@@ -114,39 +129,23 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 		headerResponse.addDependency(name, scope, version, elementString);
 	}
 
-	private String elementToString(String nodeName, Element element) {
+	@Override
+	protected Element createElement(String name) {
+		return headerResponse.createElement(name);
+	}
 
-		StringBuilder buf = new StringBuilder("<");
-		buf.append(nodeName);
+	@Override
+	protected boolean isEscapeAttributeValueXML(Element currentElement) {
+		return true;
+	}
 
-		NamedNodeMap attributes = element.getAttributes();
+	@Override
+	protected boolean isEscapeTextXML(Element currentElement) {
 
-		for (int i = 0; i < attributes.getLength(); i++) {
+		String nodeName = currentElement.getNodeName();
+		String lowerCaseNodeName = nodeName.toLowerCase(Locale.ENGLISH);
 
-			Node attribute = attributes.item(i);
-			buf.append(" ");
-			buf.append(attribute.getNodeName());
-			buf.append("=\"");
-			buf.append(attribute.getNodeValue());
-			buf.append("\"");
-		}
-
-		buf.append(">");
-
-		if (!nodeName.equals("link")) {
-
-			String textContent = element.getTextContent();
-
-			if (textContent != null) {
-				buf.append(textContent);
-			}
-
-			buf.append("</");
-			buf.append(nodeName);
-			buf.append(">");
-		}
-
-		return buf.toString();
+		return !(lowerCaseNodeName.equals("script") || lowerCaseNodeName.equals("style"));
 	}
 
 	private int getParameterValueStartIndex(String queryString, String parameterName) {

@@ -28,11 +28,10 @@ import javax.portlet.BaseURL;
 import javax.portlet.PortletSecurityException;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
-import javax.portlet.faces.component.PortletActionURL;
 import javax.portlet.faces.component.PortletParam;
 import javax.portlet.faces.component.PortletProperty;
 
-import com.liferay.faces.bridge.util.internal.URLUtil;
+import com.liferay.faces.bridge.util.internal.XMLUtil;
 
 
 /**
@@ -73,7 +72,7 @@ public abstract class BaseURLRenderer extends BaseURLRendererBase {
 		String url = baseURL.toString();
 
 		if (isEscapeXml(uiComponent)) {
-			url = URLUtil.escapeXML(url);
+			url = XMLUtil.escapeXML(url);
 		}
 
 		// If the user didn't specify a value for the "var" attribute, then write the URL to the response.
