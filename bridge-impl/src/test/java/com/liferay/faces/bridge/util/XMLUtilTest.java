@@ -13,41 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.url;
+package com.liferay.faces.bridge.util;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.liferay.faces.bridge.util.internal.URLUtil;
+import com.liferay.faces.bridge.util.internal.XMLUtil;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class URLUtilTest {
+public class XMLUtilTest {
 
 	@Test
 	public void testEscapeXML() {
 
-		Assert.assertEquals("&amp;", URLUtil.escapeXML("&"));
-		Assert.assertEquals("&lt;", URLUtil.escapeXML("<"));
-		Assert.assertEquals("&gt;", URLUtil.escapeXML(">"));
-		Assert.assertEquals("&#034;", URLUtil.escapeXML("\""));
-		Assert.assertEquals("&#039;", URLUtil.escapeXML("'"));
-		Assert.assertEquals("&#187;", URLUtil.escapeXML("\u00bb"));
-		Assert.assertEquals("&#x2013;", URLUtil.escapeXML("\u2013"));
-		Assert.assertEquals("&#x2014;", URLUtil.escapeXML("\u2014"));
-		Assert.assertEquals("&#x2028;", URLUtil.escapeXML("\u2028"));
+		Assert.assertEquals("&amp;", XMLUtil.escapeXML("&"));
+		Assert.assertEquals("&lt;", XMLUtil.escapeXML("<"));
+		Assert.assertEquals("&gt;", XMLUtil.escapeXML(">"));
+		Assert.assertEquals("&#034;", XMLUtil.escapeXML("\""));
+		Assert.assertEquals("&#039;", XMLUtil.escapeXML("'"));
+		Assert.assertEquals("&#187;", XMLUtil.escapeXML("\u00bb"));
+		Assert.assertEquals("&#x2013;", XMLUtil.escapeXML("\u2013"));
+		Assert.assertEquals("&#x2014;", XMLUtil.escapeXML("\u2014"));
+		Assert.assertEquals("&#x2028;", XMLUtil.escapeXML("\u2028"));
 
 		Assert.assertEquals("http://www.liferay.com/hello.world?foo=bar&amp;bar=baz&amp;baz=foo",
-			URLUtil.escapeXML("http://www.liferay.com/hello.world?foo=bar&bar=baz&baz=foo"));
+			XMLUtil.escapeXML("http://www.liferay.com/hello.world?foo=bar&bar=baz&baz=foo"));
 		Assert.assertEquals(
 			"http://www.liferay.com/hello.world?foo=&lt;script&gt;&amp;bar=&#034;baz&#034;&amp;baz=&#039;foo&#039;",
-			URLUtil.escapeXML("http://www.liferay.com/hello.world?foo=<script>&bar=\"baz\"&baz='foo'"));
+			XMLUtil.escapeXML("http://www.liferay.com/hello.world?foo=<script>&bar=\"baz\"&baz='foo'"));
 		Assert.assertEquals(
 			"http://www.liferay.com/hello.world?foo=&#187;bar&amp;bar=&#x2013;baz&amp;baz=&#x2014;foo&#x2028;",
-			URLUtil.escapeXML("http://www.liferay.com/hello.world?foo=\u00bbbar&bar=\u2013baz&baz=\u2014foo\u2028"));
+			XMLUtil.escapeXML("http://www.liferay.com/hello.world?foo=\u00bbbar&bar=\u2013baz&baz=\u2014foo\u2028"));
 		Assert.assertEquals("http://www.liferay.com/hello.world?foo=bar&amp;amp;bar=baz",
-			URLUtil.escapeXML("http://www.liferay.com/hello.world?foo=bar&amp;bar=baz"));
+			XMLUtil.escapeXML("http://www.liferay.com/hello.world?foo=bar&amp;bar=baz"));
 	}
 }
