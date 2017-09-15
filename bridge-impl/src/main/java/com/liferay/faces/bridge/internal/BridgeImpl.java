@@ -193,18 +193,10 @@ public class BridgeImpl extends BridgeCompatImpl {
 
 	@Override
 	public void init(PortletConfig portletConfig) throws BridgeException {
-		StringBuilder logMessage = new StringBuilder();
-		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss,SSS");
-		Calendar calendar = new GregorianCalendar();
-		String timestamp = dateFormat.format(calendar.getTime());
-		logMessage.append(timestamp);
-		logMessage.append(" INFO  [BridgeImpl] Initializing ");
-		logMessage.append(getTitle());
-		logMessage.append(" ");
-		logMessage.append(getVersion());
-		System.out.println(logMessage.toString());
 		this.initialized = true;
 		this.portletConfig = portletConfig;
+		logger.info("Initializing {0} {1} for {2}:{3}", getTitle(), getVersion(),
+			portletConfig.getPortletContext().getPortletContextName(), portletConfig.getPortletName());
 	}
 
 	@Override
