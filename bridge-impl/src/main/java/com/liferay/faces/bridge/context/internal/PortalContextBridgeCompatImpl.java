@@ -42,11 +42,8 @@ public abstract class PortalContextBridgeCompatImpl implements PortalContext {
 		if (ajaxRequest) {
 			return null;
 		}
-		else if (PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT.equals(addToHeadPropertyName)) {
-			return wrappedPortalContext.getProperty(addToHeadPropertyName);
-		}
 		else {
-			return null;
+			return wrappedPortalContext.getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT);
 		}
 	}
 }

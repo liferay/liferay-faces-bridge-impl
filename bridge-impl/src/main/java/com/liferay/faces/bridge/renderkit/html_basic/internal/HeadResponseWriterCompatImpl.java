@@ -48,8 +48,20 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 	}
 
 	@Override
-	public Element createElement(String name) {
-		return renderResponse.createElement(name);
+	public void endCDATA() throws IOException {
+		logger.warn(
+			"CDATA end tag removed because adding a CDATA tag to the <head> section is not supported in Portlet 2.0.");
+	}
+
+	@Override
+	public void startCDATA() throws IOException {
+		logger.warn(
+			"CDATA start tag removed because adding a CDATA tag to the <head> section is not supported in Portlet 2.0.");
+	}
+
+	@Override
+	public void writeComment(Object comment) throws IOException {
+		logger.warn("Comment removed because adding a comment to the <head> section is not supported in Portlet 2.0.");
 	}
 
 	@Override
@@ -63,5 +75,24 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 		// http://portals.apache.org/pluto/portlet-2.0-apidocs/javax/portlet/PortletResponse.html#addProperty(java.lang.String,%20org.w3c.dom.Element)
 		renderResponse.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, element);
 		logger.debug(ADDED_RESOURCE_TO_HEAD, "portal", nodeName);
+	}
+
+	@Override
+	protected Element createElement(String name) {
+		return renderResponse.createElement(name);
+	}
+
+	@Override
+	protected boolean isEscapeAttributeValueXML(Element currentElement) {
+
+		// The text will be escaped by the portlet container handling the element. See FACES-3220 for more details.
+		return false;
+	}
+
+	@Override
+	protected boolean isEscapeTextXML(Element currentElement) {
+
+		// The text will be escaped by the portlet container handling the element. See FACES-3220 for more details.
+		return false;
 	}
 }
