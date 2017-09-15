@@ -26,7 +26,7 @@ import javax.portlet.PortletSecurityException;
 import javax.portlet.RenderParameters;
 import javax.portlet.WindowState;
 
-import com.liferay.faces.bridge.util.internal.URLUtil;
+import com.liferay.faces.bridge.util.internal.XMLUtil;
 
 
 /**
@@ -128,7 +128,7 @@ public class BaseURLNonEncodedImpl implements BaseURL {
 		String uri = bridgeURI.toString();
 
 		if (escapeXML) {
-			uri = URLUtil.escapeXML(uri);
+			uri = XMLUtil.escapeXML(uri);
 		}
 
 		out.write(uri);
