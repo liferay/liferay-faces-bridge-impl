@@ -40,9 +40,16 @@ public abstract class PortalContextBridgeCompatImpl implements PortalContext {
 	protected String getAddToHeadSupport(String addToHeadPropertyName, PortalContext wrappedPortalContext) {
 
 		if (ajaxRequest) {
+
+			// During a Faces ajax request no elements can be added to the <head> section via the portlet API.
 			return null;
 		}
 		else {
+
+			// The only way to add elements to the <head> section is via the optional Portlet 2.0 MARKUP_HEAD_ELEMENT
+			// feature, so for all BridgePortalContext.ADD_*_TO_HEAD_SUPPORT property names (such as
+			// ADD_ELEMENT_TO_HEAD_SUPPORT) and the MARKUP_HEAD_ELEMENT_SUPPORT property name, delegate to the portlet
+			// container to determine if the optional MARKUP_HEAD_ELEMENT feature is supported.
 			return wrappedPortalContext.getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT);
 		}
 	}
