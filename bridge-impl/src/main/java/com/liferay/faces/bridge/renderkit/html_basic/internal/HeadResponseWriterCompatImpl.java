@@ -74,7 +74,7 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 		// added to the <head>...</head> section of the rendered portal page. See:
 		// http://portals.apache.org/pluto/portlet-2.0-apidocs/javax/portlet/PortletResponse.html#addProperty(java.lang.String,%20org.w3c.dom.Element)
 		renderResponse.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, element);
-		logger.debug(ADDED_RESOURCE_TO_HEAD, "portal", nodeName);
+		logger.debug("Added resource to {0}'s <head>...</head> section, element=[{1}]", "portal", nodeName);
 	}
 
 	@Override
