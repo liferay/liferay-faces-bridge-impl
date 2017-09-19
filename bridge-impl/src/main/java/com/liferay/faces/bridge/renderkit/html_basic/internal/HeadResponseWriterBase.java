@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.EmptyStackException;
 import java.util.Stack;
@@ -39,10 +38,6 @@ public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(HeadResponseWriterBase.class);
-
-	// Protected Constants
-	protected static final String ADDED_RESOURCE_TO_HEAD =
-		"Added resource to {0}'s <head>...</head> section, element=[{1}]";
 
 	// Private Data Members
 	private ResponseWriter wrappedResponseWriter;
