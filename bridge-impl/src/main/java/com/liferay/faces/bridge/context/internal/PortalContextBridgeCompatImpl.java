@@ -31,9 +31,14 @@ public abstract class PortalContextBridgeCompatImpl implements PortalContext {
 	protected String getAddToHeadSupport(String addToHeadPropertyName, PortalContext wrappedPortalContext) {
 
 		if (PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT.equals(addToHeadPropertyName)) {
+
+			// Delegate to the portlet container to determine if the optional MARKUP_HEAD_ELEMENT feature is supported.
 			return wrappedPortalContext.getProperty(addToHeadPropertyName);
 		}
 		else {
+
+			// JSF 1.2 does not support any <head> section features, so return null for all
+			// BridgePortalContext.ADD_*_TO_HEAD_SUPPORT property names (such as ADD_ELEMENT_TO_HEAD_SUPPORT).
 			return null;
 		}
 	}
