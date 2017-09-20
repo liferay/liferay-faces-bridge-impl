@@ -26,52 +26,24 @@ import com.liferay.faces.bridge.context.internal.PortalContextBridgeImpl;
 /**
  * @author  Kyle Stiemann
  */
-public class BridgePortalContextTest {
+public class BridgePortalContextTest extends BridgePortalContextTestCompat {
 
 	@Test
 	public void testBridgePortalContext() {
 
-		PortalContext portalContextBridgeImpl = new PortalContextBridgeImpl(new PortletRequestMockImpl(true, false));
+		// PortalContextBridgeImpl should delegate to the portlet container to determine if the optional
+		// MARKUP_HEAD_ELEMENT feature is supported.
+		boolean markupHeadElementSupport = true;
+		PortalContext portalContextBridgeImpl = new PortalContextBridgeImpl(new PortletRequestMockImpl(
+					markupHeadElementSupport));
 		Assert.assertEquals("true", portalContextBridgeImpl.getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT));
-		Assert.assertEquals("true",
-			portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT));
-		Assert.assertEquals("true",
-			portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT));
-		Assert.assertEquals("true",
-			portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT));
-		Assert.assertEquals("true",
-			portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT));
-		Assert.assertEquals("true",
-			portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_ELEMENT_TO_HEAD_SUPPORT));
+		testBridgePortalContextAddToHeadSupport(portalContextBridgeImpl, markupHeadElementSupport);
 
-		portalContextBridgeImpl = new PortalContextBridgeImpl(new PortletRequestMockImpl(false, false));
+		// PortalContextBridgeImpl should delegate to the portlet container to determine if the optional
+		// MARKUP_HEAD_ELEMENT feature is supported.
+		markupHeadElementSupport = false;
+		portalContextBridgeImpl = new PortalContextBridgeImpl(new PortletRequestMockImpl(markupHeadElementSupport));
 		Assert.assertNull(portalContextBridgeImpl.getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(
-				BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(
-				BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_ELEMENT_TO_HEAD_SUPPORT));
-
-		portalContextBridgeImpl = new PortalContextBridgeImpl(new PortletRequestMockImpl(true, true));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(
-				BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(
-				BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_ELEMENT_TO_HEAD_SUPPORT));
-
-		portalContextBridgeImpl = new PortalContextBridgeImpl(new PortletRequestMockImpl(false, true));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(PortalContext.MARKUP_HEAD_ELEMENT_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_SCRIPT_TEXT_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(
-				BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(
-				BridgePortalContext.ADD_STYLE_SHEET_TEXT_TO_HEAD_SUPPORT));
-		Assert.assertNull(portalContextBridgeImpl.getProperty(BridgePortalContext.ADD_ELEMENT_TO_HEAD_SUPPORT));
+		testBridgePortalContextAddToHeadSupport(portalContextBridgeImpl, markupHeadElementSupport);
 	}
 }
