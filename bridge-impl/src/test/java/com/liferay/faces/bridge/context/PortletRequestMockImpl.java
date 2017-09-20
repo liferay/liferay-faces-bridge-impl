@@ -18,44 +18,35 @@ package com.liferay.faces.bridge.context;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.portlet.PortalContext;
-import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
-import javax.portlet.RenderParameters;
 import javax.portlet.WindowState;
-import javax.portlet.faces.Bridge;
 import javax.servlet.http.Cookie;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class PortletRequestMockImpl implements PortletRequest {
+public class PortletRequestMockImpl extends PortletRequestMockCompatImpl implements PortletRequest {
 
 	// Private Data Members
-	private Map<String, String[]> parameters;
-	private PortalContext portalContext;
+	private final Map<String, String[]> parameters;
+	private final PortalContext portalContext;
+
+	public PortletRequestMockImpl(boolean markupHeadElementSupport) {
+		this(markupHeadElementSupport, false);
+	}
 
 	public PortletRequestMockImpl(boolean markupHeadElementSupport, boolean ajaxRequest) {
 
 		this.portalContext = new PortalContextMockImpl(markupHeadElementSupport);
-
-		if (ajaxRequest) {
-
-			this.parameters = new HashMap<String, String[]>();
-			parameters.put(Bridge.FACES_AJAX_PARAMETER, new String[] { "true" });
-			parameters = Collections.unmodifiableMap(parameters);
-		}
-		else {
-			this.parameters = Collections.emptyMap();
-		}
+		this.parameters = initParameters(ajaxRequest);
 	}
 
 	@Override
@@ -113,7 +104,7 @@ public class PortletRequestMockImpl implements PortletRequest {
 
 	@Override
 	public Enumeration<String> getParameterNames() {
-		return Collections.<String>enumeration(parameters.keySet());
+		return Collections.enumeration(parameters.keySet());
 	}
 
 	@Override
@@ -124,11 +115,6 @@ public class PortletRequestMockImpl implements PortletRequest {
 	@Override
 	public PortalContext getPortalContext() {
 		return portalContext;
-	}
-
-	@Override
-	public PortletContext getPortletContext() {
-		throw new UnsupportedOperationException("");
 	}
 
 	@Override
@@ -182,11 +168,6 @@ public class PortletRequestMockImpl implements PortletRequest {
 	}
 
 	@Override
-	public RenderParameters getRenderParameters() {
-		throw new UnsupportedOperationException("");
-	}
-
-	@Override
 	public String getRequestedSessionId() {
 		throw new UnsupportedOperationException("");
 	}
@@ -213,11 +194,6 @@ public class PortletRequestMockImpl implements PortletRequest {
 
 	@Override
 	public int getServerPort() {
-		throw new UnsupportedOperationException("");
-	}
-
-	@Override
-	public String getUserAgent() {
 		throw new UnsupportedOperationException("");
 	}
 
