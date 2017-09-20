@@ -18,7 +18,6 @@ package com.liferay.faces.bridge.context;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -34,14 +33,20 @@ import javax.servlet.http.Cookie;
 /**
  * @author  Kyle Stiemann
  */
-public class PortletRequestMockImpl implements PortletRequest {
+public class PortletRequestMockImpl extends PortletRequestMockCompatImpl implements PortletRequest {
 
 	// Private Data Members
-	private Map<String, String[]> parameters;
-	private PortalContext portalContext;
+	private final Map<String, String[]> parameters;
+	private final PortalContext portalContext;
 
 	public PortletRequestMockImpl(boolean markupHeadElementSupport) {
+		this(markupHeadElementSupport, false);
+	}
+
+	public PortletRequestMockImpl(boolean markupHeadElementSupport, boolean ajaxRequest) {
+
 		this.portalContext = new PortalContextMockImpl(markupHeadElementSupport);
+		this.parameters = initParameters(ajaxRequest);
 	}
 
 	@Override
@@ -99,7 +104,7 @@ public class PortletRequestMockImpl implements PortletRequest {
 
 	@Override
 	public Enumeration<String> getParameterNames() {
-		return Collections.<String>enumeration(parameters.keySet());
+		return Collections.enumeration(parameters.keySet());
 	}
 
 	@Override
