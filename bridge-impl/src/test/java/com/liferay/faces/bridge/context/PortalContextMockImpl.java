@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.context;
 
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.portlet.PortalContext;
 import javax.portlet.PortletMode;
@@ -31,21 +31,18 @@ import javax.portlet.WindowState;
 public class PortalContextMockImpl implements PortalContext {
 
 	// Private Data Members
-	private boolean markupHeadElementSupport;
-	private Enumeration<String> propertyNames;
+	private final Map<String, String> properties;
 
 	public PortalContextMockImpl(boolean markupHeadElementSupport) {
 
-		this.markupHeadElementSupport = markupHeadElementSupport;
-
 		if (markupHeadElementSupport) {
 
-			Set<String> propertyNames = new HashSet<String>();
-			propertyNames.add(MARKUP_HEAD_ELEMENT_SUPPORT);
-			this.propertyNames = Collections.enumeration(propertyNames);
+			Map<String, String> properties = new HashMap<String, String>();
+			properties.put(MARKUP_HEAD_ELEMENT_SUPPORT, "true");
+			this.properties = Collections.unmodifiableMap(properties);
 		}
 		else {
-			this.propertyNames = Collections.emptyEnumeration();
+			this.properties = Collections.emptyMap();
 		}
 	}
 
@@ -56,19 +53,12 @@ public class PortalContextMockImpl implements PortalContext {
 
 	@Override
 	public String getProperty(String name) {
-
-		String propertyValue = null;
-
-		if (markupHeadElementSupport && MARKUP_HEAD_ELEMENT_SUPPORT.equals(name)) {
-			propertyValue = "true";
-		}
-
-		return propertyValue;
+		return properties.get(name);
 	}
 
 	@Override
 	public Enumeration<String> getPropertyNames() {
-		return propertyNames;
+		return Collections.enumeration(properties.keySet());
 	}
 
 	@Override
