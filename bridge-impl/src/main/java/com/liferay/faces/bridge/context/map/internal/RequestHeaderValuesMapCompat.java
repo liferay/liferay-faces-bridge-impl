@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.context.map.internal;
 
 import javax.portlet.PortletRequest;
+import javax.portlet.faces.Bridge;
 
 
 /**
@@ -31,5 +32,13 @@ public abstract class RequestHeaderValuesMapCompat extends CaseInsensitiveHashMa
 	protected void addJSF1Headers(PortletRequest portletRequest) {
 
 		// This is a no-op for JSF 2.x
+	}
+
+	protected boolean shouldAddContentHeaders(PortletRequest portletRequest) {
+
+		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) portletRequest.getAttribute(
+				Bridge.PORTLET_LIFECYCLE_PHASE);
+
+		return (portletPhase != Bridge.PortletPhase.RENDER_PHASE) && (portletPhase != Bridge.PortletPhase.EVENT_PHASE);
 	}
 }
