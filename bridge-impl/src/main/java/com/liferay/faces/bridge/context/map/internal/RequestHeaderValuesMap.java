@@ -52,6 +52,7 @@ public class RequestHeaderValuesMap extends RequestHeaderValuesMapCompat {
 	// Private Constants
 	private static final String HEADER_ACCEPT = "Accept";
 	private static final String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
+	private static final String HEADER_CONTENT_LENGTH = "Content-Length";
 	private static final String HEADER_CONTENT_TYPE = "Content-Type";
 	private static final String HEADER_FACES_REQUEST = "Faces-Request";
 
@@ -61,6 +62,7 @@ public class RequestHeaderValuesMap extends RequestHeaderValuesMapCompat {
 		boolean foundAccept = false;
 		boolean foundContentType = false;
 		boolean foundFacesRequest = false;
+		boolean addContentHeaders = shouldAddContentHeaders(portletRequest);
 
 		if (propertyNames != null) {
 
@@ -95,6 +97,15 @@ public class RequestHeaderValuesMap extends RequestHeaderValuesMapCompat {
 						}
 
 						super.put(name, new String[] { buf.toString() });
+					}
+				}
+
+				// FACES-3232: Within a HEADER_REQUEST, RENDER_REQUEST, or EVENT_REQUEST, the map must exclude the
+				// "Content-Type" and "Content-Length" properties (if they are present in the underlying request).
+				if (!addContentHeaders) {
+
+					if (HEADER_CONTENT_LENGTH.equalsIgnoreCase(name) || HEADER_CONTENT_TYPE.equalsIgnoreCase(name)) {
+						addHeader = false;
 					}
 				}
 
@@ -143,7 +154,7 @@ public class RequestHeaderValuesMap extends RequestHeaderValuesMapCompat {
 			addAcceptHeader(portletRequest);
 		}
 
-		if (!foundContentType) {
+		if (!foundContentType && addContentHeaders) {
 			addContentTypeHeader(portletRequest);
 		}
 

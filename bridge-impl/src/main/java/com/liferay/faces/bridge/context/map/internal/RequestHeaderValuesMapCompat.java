@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.context.map.internal;
 
 import javax.portlet.PortletRequest;
+import javax.portlet.faces.Bridge;
 
 
 /**
@@ -41,5 +42,13 @@ public abstract class RequestHeaderValuesMapCompat extends CaseInsensitiveHashMa
 				put(HEADER_TRINIDAD_PPR, new String[] { pprHeader });
 			}
 		}
+	}
+
+	protected boolean shouldAddContentHeaders(PortletRequest portletRequest) {
+
+		Bridge.PortletPhase portletPhase = (Bridge.PortletPhase) portletRequest.getAttribute(
+				Bridge.PORTLET_LIFECYCLE_PHASE);
+
+		return (portletPhase != Bridge.PortletPhase.RENDER_PHASE) && (portletPhase != Bridge.PortletPhase.EVENT_PHASE);
 	}
 }
