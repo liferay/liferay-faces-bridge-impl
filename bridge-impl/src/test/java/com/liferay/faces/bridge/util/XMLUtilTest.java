@@ -32,8 +32,8 @@ public class XMLUtilTest {
 		Assert.assertEquals("&amp;", XMLUtil.escapeXML("&"));
 		Assert.assertEquals("&lt;", XMLUtil.escapeXML("<"));
 		Assert.assertEquals("&gt;", XMLUtil.escapeXML(">"));
-		Assert.assertEquals("&#034;", XMLUtil.escapeXML("\""));
-		Assert.assertEquals("&#039;", XMLUtil.escapeXML("'"));
+		Assert.assertEquals("&#34;", XMLUtil.escapeXML("\""));
+		Assert.assertEquals("&#39;", XMLUtil.escapeXML("'"));
 		Assert.assertEquals("&#187;", XMLUtil.escapeXML("\u00bb"));
 		Assert.assertEquals("&#x2013;", XMLUtil.escapeXML("\u2013"));
 		Assert.assertEquals("&#x2014;", XMLUtil.escapeXML("\u2014"));
@@ -42,7 +42,7 @@ public class XMLUtilTest {
 		Assert.assertEquals("http://www.liferay.com/hello.world?foo=bar&amp;bar=baz&amp;baz=foo",
 			XMLUtil.escapeXML("http://www.liferay.com/hello.world?foo=bar&bar=baz&baz=foo"));
 		Assert.assertEquals(
-			"http://www.liferay.com/hello.world?foo=&lt;script&gt;&amp;bar=&#034;baz&#034;&amp;baz=&#039;foo&#039;",
+			"http://www.liferay.com/hello.world?foo=&lt;script&gt;&amp;bar=&#34;baz&#34;&amp;baz=&#39;foo&#39;",
 			XMLUtil.escapeXML("http://www.liferay.com/hello.world?foo=<script>&bar=\"baz\"&baz='foo'"));
 		Assert.assertEquals(
 			"http://www.liferay.com/hello.world?foo=&#187;bar&amp;bar=&#x2013;baz&amp;baz=&#x2014;foo&#x2028;",

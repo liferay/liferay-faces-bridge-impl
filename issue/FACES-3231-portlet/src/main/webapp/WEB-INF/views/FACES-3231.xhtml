@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+	<h:head>
+		<script id="FACES-3231-results-template" type="data/template">
+			<p>Test: <span id="FACES-3231-test-name">FACES-3231</span></p>
+			<p>Status: <span id="FACES-3231-result-status">SUCCESS</span></p>
+			<p>Detail: <span id="FACES-3231-result-detail">Successfully load html from head section template.</span></p>
+		</script>
+		<h:outputScript>/* <![CDATA[ */
+			function testAction() {
+				var faces3231Results = document.getElementById('FACES-3231-results');
+				var faces3231ResultsTemplate = document.getElementById('FACES-3231-results-template');
+				faces3231Results.innerHTML = faces3231ResultsTemplate.innerHTML;
+			}
+		// ]]></h:outputScript>
+	</h:head>
+	<h:body>
+		<div id="FACES-3231-results" style="display: none;">
+			<p>Test: <span id="FACES-3231-test-name">FACES-3231</span></p>
+			<p>Status: <span id="FACES-3231-result-status">FAILED</span></p>
+			<p>Detail: <span id="FACES-3231-result-detail">Failed to load html from head section template.</span></p>
+		</div>
+		<button class="testAction"
+				onclick="try { testAction(); } catch (e) {} document.getElementById('FACES-3231-results').style.display = null; return false;">
+			Load html from head section template.
+		</button>
+	</h:body>
+
+</f:view>
