@@ -123,6 +123,9 @@ limitations under the License.
 		<page name="faces-3031" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.issue.primefaces.portlet" name="FACES-3031"/>
 		</page>
+		<page name="faces-3231" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.issue.3231.portlet" name="1"/>
+		</page>
 		<page name="jsfspec-1433" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.issue.1433.portlet" name="1"/>
 		</page>

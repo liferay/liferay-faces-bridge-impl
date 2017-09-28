@@ -35,7 +35,7 @@ import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.liferay.faces.bridge.util.internal.ElementUtil;
+import com.liferay.faces.bridge.util.internal.XMLUtil;
 
 
 /**
@@ -126,7 +126,7 @@ public class RenderResponseMockImpl implements RenderResponse {
 	}
 
 	public String getLastElementPropertyAsString() {
-		return ElementUtil.elementToString(element);
+		return XMLUtil.elementToString(element, false);
 	}
 
 	@Override
