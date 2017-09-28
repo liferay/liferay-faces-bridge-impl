@@ -19,6 +19,7 @@
 		<module>FACES-1478-portlet</module>
 		<module>FACES-1618-portlet</module>
 		<module>FACES-1638-portlet</module>
+		<module>FACES-3231-portlet</module>
 		<module>primefaces-issues-portlet</module>
 		<module>JSFSPEC-1433-portlet</module>
 	</modules>
