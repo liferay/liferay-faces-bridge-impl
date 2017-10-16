@@ -55,7 +55,7 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(TckTestCase.class);
 
-	// XPath
+	// Private XPath
 	private static final String TEST_RESULT_STATUS_XPATH_TEMPLATE = "//span[@id=\"{0}-result-status\"]";
 	private static final String TEST_RESULT_DETAIL_XPATH_TEMPLATE = "//span[@id=\"{0}-result-detail\"]";
 	private static final String TEST_RESULT_STATUS_XPATH = "//p[contains (.,\"Status\")]";
@@ -71,40 +71,21 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 		};
 
 	// Private Constants
-	private static final String PORTLET_CONTAINER = TestUtil.getContainer("liferay");
+	private static final String PORTLET_CONTAINER = TestUtil.getContainer("pluto");
 	private static final String TESTS_FILE_PATH = TestUtil.getSystemPropertyOrDefault("integration.tests.file",
 			"/" + PORTLET_CONTAINER + "-tests.xml");
 	private static final String EXCLUDED_TESTS_FILE_PATH = TestUtil.getSystemPropertyOrDefault(
 			"integration.excluded.tests.file", "/excluded-tests.xml");
 	private static final String TCK_CONTEXT;
-	private static final String DEFAULT_LIFERAY_WINDOW_STATE = TestUtil.getSystemPropertyOrDefault(
-			"integration.default.liferay.window.state", "exclusive");
 	private static final int DEFAULT_BROWSER_WAIT_TIMEOUT;
 	private static final int MAX_NUMBER_ACTIONS = 10;
-
-	//J-
-	private static final String USE_DEFAULT_LIFERAY_WINDOW_STATE_SCRIPT =
-		"var forms = document.getElementsByTagName('form');" +
-		"for (var i = 0; i < forms.length; i++) {" +
-		"forms[i]['action'] =" +
-		"forms[i]['action'].replace('p_p_state=normal', 'p_p_state=" + DEFAULT_LIFERAY_WINDOW_STATE + "');" +
-		"}" +
-		"var links = document.getElementsByTagName('a');" +
-		"for (var i = 0; i < links.length; i++) {" +
-		"links[i]['href'] =" +
-		"links[i]['href'].replace('p_p_state=normal', 'p_p_state=" + DEFAULT_LIFERAY_WINDOW_STATE + "');" +
-		"}";
-	//J+
 
 	static {
 
 		String tckContext = "/";
 		int defaultBrowserWaitTimeout = 5;
 
-		if (PORTLET_CONTAINER.contains("liferay")) {
-			tckContext = "/group/bridge-tck/";
-		}
-		else if (PORTLET_CONTAINER.contains("pluto")) {
+		if (PORTLET_CONTAINER.contains("pluto")) {
 			tckContext = TestUtil.DEFAULT_PLUTO_CONTEXT + "/";
 			defaultBrowserWaitTimeout = 1;
 		}
@@ -211,22 +192,23 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 		return testName;
 	}
 
+	public String getPageName() {
+		return pageName;
+	}
+
+	public String getTestName() {
+		return testName;
+	}
+
+	public String getTestPortletName() {
+		return testPortletName;
+	}
+
 	@Before
 	public void runBeforeEachTest() throws Exception {
 
 		BrowserDriver browserDriver = getBrowserDriver();
-		String query = "";
-
-		if (useDefaultLiferayWindowState(DEFAULT_LIFERAY_WINDOW_STATE)) {
-			query = "?p_p_state=" + DEFAULT_LIFERAY_WINDOW_STATE + "&p_p_id=" + testPortletName.replace("-", "") +
-				"_WAR_comliferayfacestestbridgetckmainportlet";
-		}
-
-		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + TCK_CONTEXT + pageName + query);
-
-		if (useDefaultLiferayWindowState(DEFAULT_LIFERAY_WINDOW_STATE)) {
-			browserDriver.executeScriptInCurrentWindow(USE_DEFAULT_LIFERAY_WINDOW_STATE_SCRIPT);
-		}
+		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + TCK_CONTEXT + pageName);
 	}
 
 	@Test
@@ -244,6 +226,10 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 		BrowserDriver browserDriver = getBrowserDriver();
 		int browserDriverWaitTimeOut = TestUtil.getBrowserDriverWaitTimeOut(DEFAULT_BROWSER_WAIT_TIMEOUT);
 		browserDriver.setWaitTimeOut(browserDriverWaitTimeOut);
+	}
+
+	protected void runAfterEachFullPageTestAction() {
+		// no-op
 	}
 
 	private boolean areElementsDisplayed(BrowserDriver browserDriver, String... elementXpaths) {
@@ -433,8 +419,8 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 						recordResult(browserDriver);
 						resultObtained = true;
 					}
-					else if (useDefaultLiferayWindowState(DEFAULT_LIFERAY_WINDOW_STATE)) {
-						browserDriver.executeScriptInCurrentWindow(USE_DEFAULT_LIFERAY_WINDOW_STATE_SCRIPT);
+					else {
+						runAfterEachFullPageTestAction();
 					}
 					// Otherwise continue clicking on elements.
 				}
@@ -493,18 +479,5 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 		catch (WebDriverException e) {
 			failTckTestCase("Uncaught WebDriverException: ", e, browserDriver);
 		}
-	}
-
-	private boolean useDefaultLiferayWindowState(String defaultLiferayWindowState) {
-		return PORTLET_CONTAINER.contains("liferay") &&
-			!((defaultLiferayWindowState == null) || defaultLiferayWindowState.equals("") ||
-				defaultLiferayWindowState.equals("normal")) &&
-			!(testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest") ||
-				testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest") ||
-				testName.equals("encodeActionURLWithInvalidWindowStateActionTest") ||
-				testName.equals("encodeActionURLWithInvalidWindowStateEventTest") ||
-				testName.equals("encodeActionURLWithInvalidWindowStateRenderTest") ||
-				testName.equals("encodeResourceURLWithWindowStateTest") ||
-				testName.equals("resourcesRenderedInHeadTest"));
 	}
 }
