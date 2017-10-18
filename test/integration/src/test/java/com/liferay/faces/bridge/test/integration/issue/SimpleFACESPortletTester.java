@@ -51,7 +51,7 @@ public abstract class SimpleFACESPortletTester extends BrowserDriverManagingTest
 		String resultStatusXpath = "//*[@id='" + testPageUpperCase + "-result-status']";
 		List<WebElement> resultStatusElements = browserDriver.findElementsByXpath(resultStatusXpath);
 
-		if (resultStatusElements.isEmpty()) {
+		if (!isResultsDisplayed(resultStatusElements)) {
 
 			List<WebElement> testActionElements = browserDriver.findElementsByXpath(
 					"//*[contains(@class,'testAction')]");
@@ -67,7 +67,7 @@ public abstract class SimpleFACESPortletTester extends BrowserDriverManagingTest
 		String resultDetail = "No test results appeared on the page.";
 		resultStatusElements = browserDriver.findElementsByXpath(resultStatusXpath);
 
-		if (!resultStatusElements.isEmpty()) {
+		if (isResultsDisplayed(resultStatusElements)) {
 
 			resultDetail = "No test result details appeared on the page.";
 			resultStatus = resultStatusElements.get(0).getText();
@@ -82,5 +82,9 @@ public abstract class SimpleFACESPortletTester extends BrowserDriverManagingTest
 
 		Assert.assertEquals(resultDetail, "SUCCESS", resultStatus);
 		logger.info("{} test passed: {}", testPage, resultDetail);
+	}
+
+	private boolean isResultsDisplayed(List<WebElement> resultStatusElements) {
+		return !resultStatusElements.isEmpty() && resultStatusElements.get(0).isDisplayed();
 	}
 }

@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Locale;
 import java.util.Map;
 
@@ -24,8 +25,11 @@ import javax.faces.context.ResponseWriter;
 import javax.portlet.HeaderResponse;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
-import com.liferay.faces.bridge.util.internal.ElementUtil;
+import com.liferay.faces.bridge.util.internal.XMLUtil;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -36,6 +40,9 @@ import com.liferay.faces.bridge.util.internal.ElementUtil;
  */
 public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(HeadResponseWriterCompatImpl.class);
+
 	// Private Data Members
 	private HeaderResponse headerResponse;
 
@@ -45,107 +52,166 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 	}
 
 	@Override
+	public Writer append(CharSequence csq) throws IOException {
+
+		if (csq != null) {
+
+			String text = csq.toString();
+
+			if ("<![CDATA[".equalsIgnoreCase(text.toUpperCase(Locale.ENGLISH))) {
+				startCDATA();
+			}
+			else if ("]]>".equalsIgnoreCase(text)) {
+				endCDATA();
+			}
+			else {
+				addNodeToHeadSection(Node.TEXT_NODE, csq);
+			}
+		}
+
+		return this;
+	}
+
+	@Override
 	public void endCDATA() throws IOException {
-		write("]]>");
+
+		Node currentNode = getCurrentNode();
+
+		if (currentNode.getNodeType() != Node.CDATA_SECTION_NODE) {
+			throw new IllegalArgumentException("ResponseWriter.endCDATA() called before startCDATA().");
+		}
+
+		Node parentNode = currentNode.getParentNode();
+
+		if (parentNode != null) {
+			setCurrentNode(parentNode);
+		}
+		else {
+
+			writeNodeToHeadSection(currentNode, null);
+			setCurrentNode(null);
+		}
 	}
 
 	@Override
 	public void startCDATA() throws IOException {
-		write("<![CDATA[");
+
+		Node currentNode = getCurrentNode();
+		Node cdataNode = new NodeImpl(Node.CDATA_SECTION_NODE, currentNode);
+
+		if (currentNode != null) {
+
+			if (Node.CDATA_SECTION_NODE == currentNode.getNodeType()) {
+				throw new IllegalStateException("CDATA cannot be nested.");
+			}
+
+			currentNode.appendChild(cdataNode);
+		}
+
+		setCurrentNode(cdataNode);
 	}
 
 	@Override
 	public void writeComment(Object comment) throws IOException {
 
 		if (comment != null) {
-
-			write("<!--");
-			writeText(comment, null);
-			write("-->");
+			addNodeToHeadSection(Node.COMMENT_NODE, XMLUtil.escapeXML(comment.toString()));
 		}
 	}
 
 	@Override
-	protected void addResourceToHeadSection(Element element, String nodeName, UIComponent componentResource)
-		throws IOException {
+	protected Node createElement(String nodeName) {
+		return new ElementImpl(nodeName, getCurrentNode());
+	}
 
-		String name;
+	@Override
+	protected void writeNodeToHeadSection(Node node, UIComponent componentResource) throws IOException {
+
+		String name = null;
 		String scope = null;
 		String version = null;
-		String elementString = ElementUtil.elementToString(nodeName, element);
+		String nodeString;
 
-		if ((componentResource != null) &&
-				(RenderKitUtil.isScriptResource(componentResource) ||
-					RenderKitUtil.isStyleSheetResource(componentResource))) {
+		if (isElement(node)) {
 
-			Map<String, Object> attributes = componentResource.getAttributes();
-			name = (String) attributes.get("name");
-			scope = (String) attributes.get("library");
+			Element element = (Element) node;
 
-			// TODO consider support for portlet:version attribute via TagDecorator.
-			version = (String) attributes.get("portlet:version");
+			if ((componentResource != null) &&
+					(RenderKitUtil.isScriptResource(componentResource) ||
+						RenderKitUtil.isStyleSheetResource(componentResource))) {
 
-			// TODO add option to configure this boolean on a portlet wide basis.
-			boolean obtainComponentResourceVersionFromURL = false;
+				Map<String, Object> attributes = componentResource.getAttributes();
+				name = (String) attributes.get("name");
+				scope = (String) attributes.get("library");
 
-			if ((version == null) && obtainComponentResourceVersionFromURL) {
+				// TODO consider support for portlet:version attribute via TagDecorator.
+				version = (String) attributes.get("portlet:version");
 
-				String url = element.getAttribute("src");
+				// TODO add option to configure this boolean on a portlet wide basis.
+				boolean obtainComponentResourceVersionFromURL = false;
 
-				if ((url == null) || url.equals("")) {
-					url = element.getAttribute("href");
-				}
+				if ((version == null) && obtainComponentResourceVersionFromURL) {
 
-				int queryIndex = url.indexOf("?");
+					String url = element.getAttribute("src");
 
-				if (queryIndex > 0) {
-
-					String queryString = url.substring(queryIndex + 1);
-					int versionStartIndex = getParameterValueStartIndex(queryString, "v");
-
-					if (versionStartIndex > -1) {
-						versionStartIndex = getParameterValueStartIndex(queryString, "version");
+					if ((url == null) || url.equals("")) {
+						url = element.getAttribute("href");
 					}
 
-					if (versionStartIndex > -1) {
+					int queryIndex = url.indexOf("?");
 
-						version = queryString.substring(versionStartIndex);
+					if (queryIndex > 0) {
 
-						int indexOfAmpersand = version.indexOf("&");
+						String queryString = url.substring(queryIndex + 1);
+						int versionStartIndex = getParameterValueStartIndex(queryString, "v");
 
-						if (indexOfAmpersand > -1) {
-							version = version.substring(0, indexOfAmpersand);
+						if (versionStartIndex > -1) {
+							versionStartIndex = getParameterValueStartIndex(queryString, "version");
+						}
+
+						if (versionStartIndex > -1) {
+
+							version = queryString.substring(versionStartIndex);
+
+							int indexOfAmpersand = version.indexOf("&");
+
+							if (indexOfAmpersand > -1) {
+								version = version.substring(0, indexOfAmpersand);
+							}
 						}
 					}
 				}
 			}
+
+			nodeString = XMLUtil.elementToString(node, true);
 		}
 		else {
-
-			// Generate a unique id for each element that is not a JSF resource.
-			name = Integer.toString(element.hashCode()) + Integer.toString(headerResponse.hashCode());
+			nodeString = XMLUtil.nodeToString(node);
 		}
 
-		headerResponse.addDependency(name, scope, version, elementString);
+		if (name == null) {
+
+			// Generate a unique id for each element that is not a JSF resource.
+			name = Integer.toString(node.hashCode()) + Integer.toString(headerResponse.hashCode());
+		}
+
+		headerResponse.addDependency(name, scope, version, nodeString);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("Added resource to Liferay's <head>...</head> section, node=[{0}]", getNodeInfo(node));
+		}
 	}
 
-	@Override
-	protected Element createElement(String name) {
-		return headerResponse.createElement(name);
-	}
+	private void addNodeToHeadSection(short nodeType, Object text) throws IOException {
 
-	@Override
-	protected boolean isEscapeAttributeValueXML(Element currentElement) {
-		return true;
-	}
+		Node currentNode = getCurrentNode();
 
-	@Override
-	protected boolean isEscapeTextXML(Element currentElement) {
-
-		String nodeName = currentElement.getNodeName();
-		String lowerCaseNodeName = nodeName.toLowerCase(Locale.ENGLISH);
-
-		return !(lowerCaseNodeName.equals("script") || lowerCaseNodeName.equals("style"));
+		if (currentNode != null) {
+			currentNode.appendChild(new NodeImpl(nodeType, text.toString(), currentNode));
+		}
+		else {
+			writeNodeToHeadSection(new NodeImpl(nodeType, text.toString(), null), null);
+		}
 	}
 
 	private int getParameterValueStartIndex(String queryString, String parameterName) {
