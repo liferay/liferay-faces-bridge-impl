@@ -659,11 +659,12 @@ public class Tests extends Object {
 		// ensure the managed beans come into existence
 		Boolean isIn = (Boolean) app.evaluateExpressionGet(facesContext,
 				"#{predestroySessionBean.inBridgeRequestScope}", Object.class);
-		Map<String, Object> requestMap = externalContext.getRequestMap();
-		requestMap.remove("predestroySessionBean");
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+		sessionMap.remove("predestroySessionBean");
 
 		// Now verify that things worked correctly
 		// We expect that the beans were not added to the bridge scope (yet) and hence only the Predestroy was called
+		Map<String, Object> requestMap = externalContext.getRequestMap();
 		Boolean notifiedAddedToBridgeScope = (Boolean) requestMap.get("PreDestroyBean1.attributeAdded");
 		Boolean notifiedPreDestroy = (Boolean) requestMap.get("PreDestroyBean1.servletPreDestroy");
 		Boolean notifiedBridgePreDestroy = (Boolean) requestMap.get("PreDestroyBean1.bridgePreDestroy");
