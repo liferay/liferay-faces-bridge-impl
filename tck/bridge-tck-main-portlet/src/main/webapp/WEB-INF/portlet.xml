@@ -310,7 +310,8 @@
 	<!-- * Tests: Chapter 4                                            * -->
 	<!-- *                                                             * -->
 	<!-- *************************************************************** -->
-	<!--<portlet>
+	<!--
+	<portlet>
         <portlet-name>chapter4Tests-bridgeClassDefaultTest-portlet</portlet-name>
         <portlet-class>BridgeClassDefaultTestPortlet</portlet-class>
         <expiration-cache>0</expiration-cache>
@@ -320,7 +321,8 @@
         <portlet-info>
             <title>chapter4Tests-bridgeClassDefaultTest-portlet</title>
         </portlet-info>
-    </portlet>-->
+    </portlet>
+	-->
 
 	<portlet>
 		<portlet-name>chapter4_1Tests-portletInitializationParametersTest-portlet</portlet-name>
@@ -2137,17 +2139,18 @@
 		</portlet-info>
 	</portlet>
 
-	<!--   This relies on a feature that isn't required in the portlet containers - if your container supports
-       uncomment to check to see if the bridge is behaving as expected.
+	<!--
+		This relies on a feature that isn't required in the portlet containers.
+	-->
 
     <portlet>
         <portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityActionTest-portlet</portlet-name>
-        <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
+        <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
-        <init-param>
-          <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/multiRequestTest.xhtml</value>
-        </init-param>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/multiRequestTest.xhtml</value>
+		</init-param>
 
         <expiration-cache>0</expiration-cache>
         
@@ -2161,12 +2164,12 @@
     
     <portlet>
         <portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityActionTest-portlet</portlet-name>
-        <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
+        <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
-        <init-param>
-          <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/multiRequestTest.xhtml</value>
-        </init-param>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/multiRequestTest.xhtml</value>
+		</init-param>
 
         <expiration-cache>0</expiration-cache>
         
@@ -2177,8 +2180,6 @@
                 <title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityActionTest-portlet</title>
         </portlet-info>
     </portlet>
-    
--->
 
 	<portlet>
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewRenderTest-portlet</portlet-name>
@@ -2635,17 +2636,18 @@
 		</supported-publishing-event>
 	</portlet>
 
-	<!--   This relies on a feature that isn't required in the portlet containers - if your container supports
-       uncomment to check to see if the bridge is behaving as expected.
+	<!--
+		This relies on a feature that isn't required in the portlet containers.
+	-->
 
     <portlet>
         <portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityEventTest-portlet</portlet-name>
-        <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
+        <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
-        <init-param>
-          <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/multiRequestTest.xhtml</value>
-        </init-param>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/multiRequestTest.xhtml</value>
+		</init-param>
         
         <init-param>
           <name>javax.portlet.faces.bridgeEventHandler</name>
@@ -2660,24 +2662,24 @@
         <portlet-info>
                 <title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityEventTest-portlet</title>
         </portlet-info>
-        
-        <supported-publishing-event>
-          <qname xmlns:bridge="http://liferay.com/faces/event_ns">bridge:faces.liferay.com.tck.testEvent</qname>
-        </supported-publishing-event>
-        
-        <supported-processing-event>
-          <qname xmlns:bridge="http://liferay.com/faces/event_ns">bridge:faces.liferay.com.tck.testEvent</qname>
-        </supported-processing-event>
+
+		<supported-processing-event>
+			<qname xmlns:bridge="http://liferay.com/faces/event_ns">bridge:faces.liferay.com.tck.testEvent</qname>
+		</supported-processing-event>
+
+		<supported-publishing-event>
+			<qname xmlns:bridge="http://liferay.com/faces/event_ns">bridge:faces.liferay.com.tck.testEvent</qname>
+		</supported-publishing-event>
     </portlet>
     
     <portlet>
         <portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityEventTest-portlet</portlet-name>
-        <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
+        <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
-        <init-param>
-          <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/multiRequestTest.xhtml</value>
-        </init-param>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/multiRequestTest.xhtml</value>
+		</init-param>
         
         <init-param>
           <name>javax.portlet.faces.bridgeEventHandler</name>
@@ -2692,17 +2694,15 @@
         <portlet-info>
                 <title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityEventTest-portlet</title>
         </portlet-info>
-        
-        <supported-publishing-event>
-          <qname xmlns:bridge="http://liferay.com/faces/event_ns">bridge:faces.liferay.com.tck.testEvent</qname>
-        </supported-publishing-event>
-        
-        <supported-processing-event>
-          <qname xmlns:bridge="http://liferay.com/faces/event_ns">bridge:faces.liferay.com.tck.testEvent</qname>
-        </supported-processing-event>
+
+		<supported-processing-event>
+			<qname xmlns:bridge="http://liferay.com/faces/event_ns">bridge:faces.liferay.com.tck.testEvent</qname>
+		</supported-processing-event>
+
+		<supported-publishing-event>
+			<qname xmlns:bridge="http://liferay.com/faces/event_ns">bridge:faces.liferay.com.tck.testEvent</qname>
+		</supported-publishing-event>
     </portlet>
-    
--->
 
 	<portlet>
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewRenderTest-portlet</portlet-name>
@@ -2825,22 +2825,23 @@
 		</portlet-info>
 	</portlet>
 
-	<!--   This relies on a feature that isn't required in the portlet containers - if your container supports
-       uncomment to check to see if the bridge is behaving as expected.    
+	<!--
+		This relies on a feature that isn't required in the portlet containers.
+	-->    
     <portlet>
         <portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityRenderTest-portlet</portlet-name>
-        <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
+        <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
-        <init-param>
-          <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/multiRequestTest.xhtml</value>
-        </init-param>
-        
-        <expiration-cache>0</expiration-cache>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/multiRequestTest.xhtml</value>
+		</init-param>
 
-       <supports>
-         <mime-type>text/html</mime-type>
-       </supports>
+		<expiration-cache>0</expiration-cache>
+
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
         <portlet-info>
                 <title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityRenderTest-portlet</title>
         </portlet-info>
@@ -2848,23 +2849,22 @@
     
     <portlet>
         <portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityRenderTest-portlet</portlet-name>
-        <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
+        <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
-        <init-param>
-          <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/multiRequestTest.xhtml</value>
-        </init-param>
-        
-        <expiration-cache>0</expiration-cache>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/multiRequestTest.xhtml</value>
+		</init-param>
 
-       <supports>
-         <mime-type>text/html</mime-type>
-       </supports>
+		<expiration-cache>0</expiration-cache>
+
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
         <portlet-info>
                 <title>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityRenderTest-portlet</title>
         </portlet-info>
     </portlet>
--->
 
 	<portlet>
 		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet</portlet-name>
@@ -2981,16 +2981,17 @@
 	</portlet>
 
 
-	<!--   This relies on a feature that isn't required in the portlet containers - if your container supports
-       uncomment to check to see if the bridge is behaving as expected.        
+	<!--
+		This relies on a feature that isn't required in the portlet containers.
+	-->
     <portlet>
         <portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithSecurityResourceTest-portlet</portlet-name>
-        <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
+        <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
-        <init-param>
-          <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/resourceAjaxResult.xhtml</value>
-        </init-param>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/resourceAjaxResult.xhtml</value>
+		</init-param>
 
         <expiration-cache>0</expiration-cache>
 
@@ -3004,23 +3005,22 @@
     
     <portlet>
         <portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidSecurityResourceTest-portlet</portlet-name>
-        <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
+        <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
-        <init-param>
-          <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/resourceAjaxResult.xhtml</value>
-        </init-param>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/resourceAjaxResult.xhtml</value>
+		</init-param>
 
-        <expiration-cache>0</expiration-cache>
+		<expiration-cache>0</expiration-cache>
 
-       <supports>
-         <mime-type>text/html</mime-type>
-       </supports>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
         <portlet-info>
                 <title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidSecurityResourceTest-portlet</title>
         </portlet-info>
     </portlet>
--->
 
 	<portlet>
 		<portlet-name>chapter6_1_3_1EncodeURLEscapingTests-encodeURLEscapingTest-portlet</portlet-name>
@@ -3559,30 +3559,31 @@
 		</portlet-info>
 	</portlet>
 
-	<!-- PreDestroy doesn't work in local portlet containers that rely on cross context
-     execution of the portlet.  I.e. the portal is is the context that ends the request and
-     hence sends the predestroy - but the portlet is in a different context and hence 
-     isn't notified.  If not running in such a cross context environment uncomment
-     this out.
+	<!--
+		PreDestroy doesn't work in local portlet containers that rely on cross context
+		execution of the portlet.  I.e. the portal is is the context that ends the request and
+		hence sends the predestroy - but the portlet is in a different context and hence 
+		isn't notified.
+	-->
   
     <portlet>
         <portlet-name>chapter6_1_3_1Tests-requestMapPreDestroyRemoveWithinActionTest-portlet</portlet-name>
-        <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
-        <expiration-cache>0</expiration-cache>
+        <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
-        <init-param>
-          <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/multiRequestTest.xhtml</value>
-        </init-param>
-        
-       <supports>
-         <mime-type>text/html</mime-type>
-       </supports>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/multiRequestTest.xhtml</value>
+		</init-param>
+
+		<expiration-cache>0</expiration-cache>
+
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
         <portlet-info>
-                <title>chapter6_1_3_1Tests-requestMapPreDestroyRemoveWithinActionTest-portlet</title>
+            <title>chapter6_1_3_1Tests-requestMapPreDestroyRemoveWithinActionTest-portlet</title>
         </portlet-info>
     </portlet>
--->
 
 	<!-- *************************************************************** -->
 	<!-- *                                                             * -->
@@ -4602,31 +4603,31 @@
 		</portlet-info>
 	</portlet>
 
-	<!-- PreDestroy doesn't work in local portlet containers that rely on cross context
-     execution of the portlet.  I.e. the portal is is the context that ends the request and
-     hence sends the predestroy - but the portlet is in a different context and hence 
-     isn't notified.  If not running in such a cross context environment uncomment
-     this out.
+	<!--
+		PreDestroy doesn't work in local portlet containers that rely on cross context
+		execution of the portlet.  I.e. the portal is is the context that ends the request and
+		hence sends the predestroy - but the portlet is in a different context and hence 
+		isn't notified.
+	-->
 
     <portlet>
         <portlet-name>chapter6_1_3_2Tests-sessionMapPreDestroyRemoveTest-portlet</portlet-name>
-        <portlet-class>GenericFacesTestSuitePortlet</portlet-class>
+        <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
-        <init-param>
-          <name>javax.portlet.faces.defaultViewId.view</name>
-          <value>/tests/singleRequestTest.xhtml</value>
-        </init-param>   
-        
-        <expiration-cache>0</expiration-cache>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/singleRequestTest.xhtml</value>
+		</init-param> 
 
-       <supports>
-         <mime-type>text/html</mime-type>
-       </supports>
+		<expiration-cache>0</expiration-cache>
+
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
         <portlet-info>
                 <title>chapter6_1_3_2Tests-sessionMapPreDestroyRemoveTest-portlet</title>
         </portlet-info>
     </portlet>
--->
 
 	<!-- *************************************************************** -->
 	<!-- *                                                             * -->
