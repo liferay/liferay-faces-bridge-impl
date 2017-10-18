@@ -17,7 +17,8 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.EmptyStackException;
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.Stack;
 
 import javax.faces.component.UIComponent;
@@ -25,6 +26,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.context.ResponseWriterWrapper;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import com.liferay.faces.bridge.util.internal.XMLUtil;
 import com.liferay.faces.util.logging.Logger;
@@ -41,65 +43,29 @@ public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 
 	// Private Data Members
 	private ResponseWriter wrappedResponseWriter;
-	private ElementWriterStack elementWriterStack;
+	private Node currentNode;
 	private Stack<UIComponent> componentResourceStack;
 	private boolean titleElement = false;
 
 	public HeadResponseWriterBase(ResponseWriter wrappedResponseWriter) {
 
 		this.wrappedResponseWriter = wrappedResponseWriter;
-		this.elementWriterStack = new ElementWriterStack();
 		this.componentResourceStack = new Stack<UIComponent>();
 	}
 
 	@Override
-	public Writer append(CharSequence csq) throws IOException {
-
-		try {
-			elementWriterStack.safePeek().append(csq);
-		}
-		catch (EmptyStackException e) {
-			throw new IOException(EmptyStackException.class.getSimpleName());
-		}
-
-		return this;
-	}
-
-	@Override
 	public Writer append(char c) throws IOException {
-
-		try {
-			elementWriterStack.safePeek().append(c);
-		}
-		catch (EmptyStackException e) {
-			throw new IOException(EmptyStackException.class.getSimpleName());
-		}
-
-		return this;
+		return append(Character.toString(c));
 	}
 
 	@Override
 	public Writer append(CharSequence csq, int start, int end) throws IOException {
-
-		try {
-			elementWriterStack.safePeek().append(csq, start, end);
-		}
-		catch (EmptyStackException e) {
-			throw new IOException(EmptyStackException.class.getSimpleName());
-		}
-
-		return this;
+		return append(toString(csq, start, end));
 	}
 
 	@Override
 	public void close() throws IOException {
-
-		try {
-			elementWriterStack.safePeek().close();
-		}
-		catch (EmptyStackException e) {
-			throw new IOException(EmptyStackException.class.getSimpleName());
-		}
+		// no-op
 	}
 
 	@Override
@@ -110,38 +76,48 @@ public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 	@Override
 	public void endElement(String name) throws IOException {
 
-		if ("title".equals(name)) {
+		if ("head".equals(name)) {
+			// no-op
+		}
+		else if ("title".equals(name)) {
 			titleElement = false;
 		}
 		else {
 
-			try {
-				ElementWriter elementWriter = elementWriterStack.pop();
-				Element element = elementWriter.getElement();
-				String nodeName = element.getNodeName();
+			if (currentNode == null) {
+				throw new IllegalStateException("ResponseWriter.endElement(\"" + name +
+					"\") called before startElement(\"" + name + "\", uiComponent)");
+			}
+
+			if (!isElement(currentNode)) {
+				throw new IllegalStateException(
+					"ResponseWriter.endElement() called, but current node is not an element.");
+			}
+
+			UIComponent componentResource = componentResourceStack.pop();
+
+			if (isDirectDescendantOfHead(currentNode)) {
+
+				String nodeName = currentNode.getNodeName();
 				logger.trace("POPPED element name=[{0}]", nodeName);
 
-				UIComponent componentResource = componentResourceStack.pop();
-
-				if (!"head".equals(nodeName)) {
-					addResourceToHeadSection(element, nodeName, componentResource);
+				if (!name.equals(nodeName)) {
+					throw new IllegalStateException("Current element node name [\"" + nodeName +
+						"\"] does not match name passed to endElement() [\"" + name + "\"].");
 				}
+
+				writeNodeToHeadSection(currentNode, componentResource);
+				currentNode = null;
 			}
-			catch (EmptyStackException e) {
-				throw new IOException(EmptyStackException.class.getSimpleName());
+			else {
+				currentNode = currentNode.getParentNode();
 			}
 		}
 	}
 
 	@Override
 	public void flush() throws IOException {
-
-		try {
-			elementWriterStack.safePeek().flush();
-		}
-		catch (EmptyStackException e) {
-			throw new IOException(EmptyStackException.class.getSimpleName());
-		}
+		// no-op
 	}
 
 	@Override
@@ -155,111 +131,81 @@ public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 	}
 
 	@Override
-	public void startElement(String name, UIComponent component) throws IOException {
+	public void startElement(String name, UIComponent uiComponent) throws IOException {
 
-		if ("title".equals(name)) {
+		if ("head".equals(name)) {
+			// no-op
+		}
+		else if ("title".equals(name)) {
 
 			logger.warn(
 				"Title removed because multiple <title> elements are invalid and the portlet container controls the <title>.");
 			titleElement = true;
 		}
 		else {
-			Element element = createElement(name);
-			ElementWriter elementWriter = new ElementWriter(element);
-			elementWriterStack.push(elementWriter);
-			componentResourceStack.push(component);
+
+			if (currentNode == null) {
+				currentNode = createElement(name);
+			}
+			else {
+
+				if (!isElement(currentNode)) {
+					throw new IllegalStateException(
+						"ResponseWriter.startElement() called, but parent node is not an element.");
+				}
+
+				Node element = createElement(name);
+				currentNode.appendChild(element);
+				currentNode = element;
+			}
+
+			componentResourceStack.push(uiComponent);
+
 			logger.trace("PUSHED element name=[{0}]", name);
 		}
 	}
 
 	@Override
 	public void write(int c) throws IOException {
-
-		try {
-			elementWriterStack.safePeek().write(c);
-		}
-		catch (EmptyStackException e) {
-			throw new IOException(EmptyStackException.class.getSimpleName());
-		}
+		write(Character.toChars(c));
 	}
 
 	@Override
 	public void write(char[] cbuf) throws IOException {
-
-		if (cbuf != null) {
-
-			try {
-				elementWriterStack.safePeek().write(cbuf);
-			}
-			catch (EmptyStackException e) {
-				throw new IOException(EmptyStackException.class.getSimpleName());
-			}
-		}
+		write(String.valueOf(cbuf));
 	}
 
 	@Override
 	public void write(String str) throws IOException {
-
-		if (str != null) {
-
-			try {
-				elementWriterStack.safePeek().write(str);
-			}
-			catch (EmptyStackException e) {
-				throw new IOException(EmptyStackException.class.getSimpleName());
-			}
-		}
+		append(str);
 	}
 
 	@Override
 	public void write(char[] cbuf, int off, int len) throws IOException {
-
-		if (cbuf != null) {
-
-			try {
-				elementWriterStack.safePeek().write(cbuf, off, len);
-			}
-			catch (EmptyStackException e) {
-				throw new IOException(EmptyStackException.class.getSimpleName());
-			}
-		}
+		write(toString(cbuf, off, len));
 	}
 
 	@Override
 	public void write(String str, int off, int len) throws IOException {
-
-		if (str != null) {
-
-			try {
-				elementWriterStack.safePeek().write(str, off, len);
-			}
-			catch (EmptyStackException e) {
-				throw new IOException(EmptyStackException.class.getSimpleName());
-			}
-		}
+		write(toString(str, off, len));
 	}
 
 	@Override
 	public void writeAttribute(String name, Object value, String property) throws IOException {
 
-		try {
+		if (isElement(currentNode)) {
 
-			Element element = elementWriterStack.safePeek().getElement();
+			Element currentElement = (Element) currentNode;
 
 			if (value != null) {
-
-				if (isEscapeAttributeValueXML(element)) {
-					value = XMLUtil.escapeXML(value.toString());
-				}
-
-				element.setAttribute(name, value.toString());
+				currentElement.setAttribute(name, value.toString());
 			}
 			else {
-				element.setAttribute(name, null);
+				currentElement.setAttribute(name, null);
 			}
 		}
-		catch (EmptyStackException e) {
-			throw new IOException(EmptyStackException.class.getSimpleName());
+		else {
+			throw new IllegalStateException("ResponseWriter.writeAttribute() called before startElement().");
 		}
 	}
 
@@ -268,23 +214,16 @@ public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 
 		if ((text != null) && !titleElement) {
 
-			try {
-				ElementWriter elementWriter = elementWriterStack.safePeek();
-
-				if (isEscapeTextXML(elementWriter.getElement())) {
-					text = XMLUtil.escapeXML(text.toString());
-				}
-
-				elementWriter.write(text.toString());
+			if (isEscapeTextXML(currentNode)) {
+				text = XMLUtil.escapeXML(text.toString());
 			}
-			catch (EmptyStackException e) {
-				throw new IOException(EmptyStackException.class.getSimpleName());
-			}
+
+			write(text.toString());
 		}
 	}
 
 	@Override
-	public void writeText(Object text, UIComponent component, String property) throws IOException {
+	public void writeText(Object text, UIComponent uiComponent, String property) throws IOException {
 		writeText(text, property);
 	}
 
@@ -292,10 +231,7 @@ public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 	public void writeText(char[] textArray, int off, int len) throws IOException {
 
 		if (textArray != null) {
-
-			StringBuilder stringBuilder = new StringBuilder(len - off);
-			stringBuilder.append(textArray, off, len);
-			writeText(stringBuilder.toString(), null);
+			writeText(toString(textArray, off, len), null);
 		}
 	}
 
@@ -304,12 +240,80 @@ public abstract class HeadResponseWriterBase extends ResponseWriterWrapper {
 		writeAttribute(name, value, property);
 	}
 
-	protected abstract void addResourceToHeadSection(Element element, String nodeName, UIComponent componentResource)
-		throws IOException;
+	protected abstract Node createElement(String nodeName);
 
-	protected abstract Element createElement(String name);
+	protected abstract void writeNodeToHeadSection(Node node, UIComponent componentResource) throws IOException;
 
-	protected abstract boolean isEscapeAttributeValueXML(Element currentElement);
+	protected Node getCurrentNode() {
+		return currentNode;
+	}
 
-	protected abstract boolean isEscapeTextXML(Element currentElement);
+	protected String getNodeInfo(Node node) {
+
+		String nodeInfo = "";
+		short nodeType = node.getNodeType();
+
+		if (isElement(node)) {
+			nodeInfo = node.getNodeName();
+		}
+		else if (nodeType == Node.CDATA_SECTION_NODE) {
+			nodeInfo = "CDATA_SECTION_NODE";
+		}
+		else if (nodeType == Node.COMMENT_NODE) {
+			nodeInfo = "COMMENT_NODE";
+		}
+		else if (nodeType == Node.TEXT_NODE) {
+			nodeInfo = "TEXT_NODE";
+		}
+
+		return nodeInfo;
+	}
+
+	protected boolean isElement(Node node) {
+		return (node != null) && (node.getNodeType() == Node.ELEMENT_NODE);
+	}
+
+	protected void setCurrentNode(Node newCurrentNode) {
+		this.currentNode = newCurrentNode;
+	}
+
+	private boolean isDirectDescendantOfHead(Node node) {
+
+		Node parentNode = node.getParentNode();
+
+		return (parentNode == null) || (parentNode.getNodeType() != Node.ELEMENT_NODE);
+	}
+
+	private boolean isEscapeTextXML(Node node) {
+
+		boolean cdataNode = false;
+		boolean scriptNode = false;
+		boolean styleNode = false;
+
+		if (node != null) {
+
+			if (isElement(node)) {
+
+				String nodeName = node.getNodeName();
+				String lowerCaseNodeName = nodeName.toLowerCase(Locale.ENGLISH);
+				scriptNode = lowerCaseNodeName.equals("script");
+				styleNode = lowerCaseNodeName.equals("style");
+			}
+			else {
+
+				short nodeType = node.getNodeType();
+				cdataNode = (nodeType == Node.CDATA_SECTION_NODE);
+			}
+		}
+
+		return !(cdataNode || scriptNode || styleNode);
+	}
+
+	private String toString(CharSequence csq, int start, int end) {
+		return new StringBuilder(1).append(csq, start, end).toString();
+	}
+
+	private String toString(char[] cbuf, int off, int len) {
+		return String.valueOf(Arrays.copyOfRange(cbuf, off, len));
+	}
 }

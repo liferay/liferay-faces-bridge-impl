@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.renderkit.html_basic.internal;
+package com.liferay.faces.bridge.test.integration.issue;
+
+import org.junit.Test;
+
 
 /**
- * This implementation is a special case that is meant to be used when JSF component renderers do not properly call
- * startElement() first. It represents a pseudo-element that has has a blank (empty string) node name.
- *
- * @author  Neil Griffin
+ * @author  Kyle Stiemann
  */
-public class ElementBlankImpl extends ElementImpl {
+public class FACES_3231PortletTester extends SimpleFACESPortletTester {
 
-	public ElementBlankImpl() {
-		super("");
+	@Test
+	public void runFACES_3031PortletTest() {
+		runSimpleFACESPortletTest("faces-3231");
 	}
-
-	@Override
-	public String toString() {
-		return getTextContent();
-	}
-
 }
