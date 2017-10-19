@@ -30,7 +30,8 @@ public final class XMLUtil {
 	 * Escapes XML characters so that text can be safely written to the response. This method's functionality was
 	 * copied from {@link com.liferay.portal.util.HtmlImpl#escape(java.lang.String)}
 	 * (https://github.com/liferay/liferay-portal/blob/7.0.2-ga3/portal-impl/src/com/liferay/portal/util/HtmlImpl.java#L99-L178).
-	 * The code was copied from 7.0.2-ga3 to avoid https://issues.liferay.com/browse/LPS-75183.
+	 * The code was copied from 7.0.2-ga3 in order to avoid https://issues.liferay.com/browse/LPS-75183 (which was
+	 * introduced in 7.0.3-ga4).
 	 *
 	 * This method follows recommendations from
 	 * http://www.owasp.org/index.php/Cross_Site_Scripting#How_to_Protect_Yourself.
