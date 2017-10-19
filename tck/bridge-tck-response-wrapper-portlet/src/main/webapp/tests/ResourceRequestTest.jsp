@@ -20,7 +20,7 @@
 	<%
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		String resource = externalContext.encodeActionURL("portlet:resource?_jsfBridgeViewId=/tests/UsesConfiguredResourceResponseWrapperTest.jsp");
-		out.println("<iframe src=\"" + resource + "\" width=\"100%\" height=\"400px\"/>");
+		out.println("<iframe name=\"tck-iframe\" src=\"" + resource + "\" width=\"100%\" height=\"400px\"/>");
 	%>
 	</body>
 	</html>
