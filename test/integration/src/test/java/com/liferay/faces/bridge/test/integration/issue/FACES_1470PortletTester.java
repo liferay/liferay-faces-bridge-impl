@@ -238,7 +238,12 @@ public class FACES_1470PortletTester extends BrowserDriverManagingTesterBase {
 
 	private void signOut(BrowserDriver browserDriver) {
 
-		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + "/c/portal/logout");
+		String container = TestUtil.getContainer();
+
+		if (container.startsWith("liferay")) {
+			browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + "/c/portal/logout");
+		}
+
 		browserDriver.clearBrowserCookies();
 	}
 

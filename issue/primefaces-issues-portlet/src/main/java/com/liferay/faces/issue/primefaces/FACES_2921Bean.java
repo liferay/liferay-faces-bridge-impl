@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.issue.primefaces;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -24,7 +26,10 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean(name = "FACES_2921Bean")
 @ViewScoped
-public class FACES_2921Bean {
+public class FACES_2921Bean implements Serializable {
+
+	// serialVersionUID
+	private static final long serialVersionUID = 6803594338534821930L;
 
 	// Private Data Members
 	private String text;
