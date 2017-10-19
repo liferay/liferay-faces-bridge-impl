@@ -14,8 +14,7 @@
 	<name>Liferay Faces Bridge Issues</name>
 
 	<modules>
-		<module>FACES-1478-portlet</module>
-		<module>JSFSPEC-1433-portlet</module>
+		<module>jsf-issues-portlet</module>
 	</modules>
 
 	<profiles>

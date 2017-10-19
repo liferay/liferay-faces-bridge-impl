@@ -3,9 +3,14 @@
 
 <liferay-portlet-app>
 	<portlet>
-		<portlet-name>1</portlet-name>
+		<portlet-name>FACES-1478</portlet-name>
 		<instanceable>false</instanceable>
-		<!-- JAVASERVERFACES-3031 -->
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<ajaxable>false</ajaxable>
+	</portlet>
+	<portlet>
+		<portlet-name>JSFSPEC-1433</portlet-name>
+		<instanceable>false</instanceable>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<ajaxable>false</ajaxable>
 	</portlet>

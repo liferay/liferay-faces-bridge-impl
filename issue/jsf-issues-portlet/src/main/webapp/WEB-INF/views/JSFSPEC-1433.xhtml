@@ -124,11 +124,9 @@
 		[].forEach.call(document.getElementsByClassName('ui-input-component'), function(element) {
 			element.removeAttribute('name');
 		});
-
 		// Ensure that the "name" attribute is removed from inputHidden since it does not have the
 		// "ui-input-component" class.
-		document.getElementById('#{testBean.inputHiddenClientId}').removeAttribute('name');
-
+		document.getElementById('#{JSFSPEC_1433Bean.inputHiddenClientId}').removeAttribute('name');
 		[].forEach.call(document.getElementsByClassName('run-test-button'), function(element) {
 			element.removeAttribute('disabled');
 		});

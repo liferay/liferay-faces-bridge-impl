@@ -8,9 +8,9 @@
 		<version>2.1.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<artifactId>com.liferay.faces.issue.1433.portlet</artifactId>
+	<artifactId>com.liferay.faces.issue.jsf.portlet</artifactId>
 	<packaging>war</packaging>
-	<name>FACES-1433-portlet</name>
+	<name>jsf-issues-portlet</name>
 
 	<profiles>
 		<profile>
@@ -24,7 +24,6 @@
 			</dependencies>
 		</profile>
 	</profiles>
-
 
 	<dependencies>
 		<dependency>

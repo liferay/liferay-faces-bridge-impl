@@ -13,27 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.issues.bean;
+package com.liferay.faces.issue;
 
-import javax.faces.context.ExternalContext;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.portlet.MimeResponse;
-import javax.portlet.PortletURL;
+
+import com.liferay.faces.util.context.FacesContextHelperUtil;
 
 
 /**
- * @author  Neil Griffin
+ * @author  Kyle Stiemann
  */
-public class TestBean {
+public class JSFSPEC_1433Bean {
 
-	public String getRenderUrl() {
+	public String getInputHiddenClientId() {
+
 		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-		MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();
-		PortletURL renderURL = mimeResponse.createRenderURL();
-		renderURL.setParameter("testParam", new String[] { "foo", "bar" });
+		UIComponent inputHidden = FacesContextHelperUtil.matchComponentInViewRoot(facesContext, "h_inputHidden");
 
-		return renderURL.toString();
+		return inputHidden.getClientId(facesContext);
 	}
-
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+	<lifecycle>
+		<phase-listener>com.liferay.faces.util.lifecycle.DebugPhaseListener</phase-listener>
+	</lifecycle>
+	<application>
+		<view-handler>com.liferay.faces.bridge.application.PortletFaceletViewHandler</view-handler>
+	</application>
+	<managed-bean>
+		<managed-bean-name>FACES_1478Bean</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.issue.FACES_1478Bean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>JSFSPEC_1433Bean</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.issue.JSFSPEC_1433Bean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+</faces-config>
