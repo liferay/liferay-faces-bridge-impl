@@ -48,7 +48,8 @@ public abstract class SimpleFACESPortletTester extends BrowserDriverManagingTest
 		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL(testPage));
 
 		String testPageUpperCase = testPage.toUpperCase(Locale.ENGLISH);
-		String resultStatusXpath = "//*[@id='" + testPageUpperCase + "-result-status']";
+		String resultStatusXpath = "//div[contains(@class,'liferay-faces-bridge-body')]//*[@id='" + testPageUpperCase +
+			"-result-status']";
 		List<WebElement> resultStatusElements = browserDriver.findElementsByXpath(resultStatusXpath);
 
 		if (!isResultsDisplayed(resultStatusElements)) {
@@ -72,7 +73,8 @@ public abstract class SimpleFACESPortletTester extends BrowserDriverManagingTest
 			resultDetail = "No test result details appeared on the page.";
 			resultStatus = resultStatusElements.get(0).getText();
 
-			List<WebElement> resultDetailElements = browserDriver.findElementsByXpath("//*[@id='" + testPageUpperCase +
+			List<WebElement> resultDetailElements = browserDriver.findElementsByXpath(
+					"//div[contains(@class,'liferay-faces-bridge-body')]//*[@id='" + testPageUpperCase +
 					"-result-detail']");
 
 			if (!resultDetailElements.isEmpty()) {

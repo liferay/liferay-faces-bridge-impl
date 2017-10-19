@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	<h:head />
+	<f:metadata>
+		<f:viewParam name="viewParam1" value="#{FACES_224Bean.value1}"></f:viewParam>
+		<f:viewParam name="viewParam2" value="#{FACES_224Bean.value2}"></f:viewParam>
+	</f:metadata>
+	<h:body>
+		<h:outputText value="This is view2.xhtml" />
+		<br />
+		<h:outputText value="If the issue is fixed, the value should be equal to &quot;" />
+		<h:outputText id="viewParamValue1" value="abc" />
+		<h:outputText value="&quot;:" />
+		<pre><h:outputText id="viewParam1" value="viewParam1=#{FACES_224Bean.value1}" /></pre>
+		<h:outputText value="If the issue is fixed, the value should be equal to &quot;" />
+		<h:outputText id="viewParamValue2" value="xyz" />
+		<h:outputText value="&quot;:" />
+		<pre><h:outputText id="viewParam2" value="viewParam2=#{FACES_224Bean.value2}" /></pre>
+	</h:body>
+</f:view>
+
