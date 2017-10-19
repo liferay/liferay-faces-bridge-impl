@@ -72,10 +72,10 @@ limitations under the License.
 
 		<!-- Liferay Faces Issue Portlets -->
 		<page name="faces-1478" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.issue.1478.portlet" name="1"/>
+			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="FACES-1478"/>
 		</page>
 		<page name="jsfspec-1433" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.issue.1433.portlet" name="1"/>
+			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="JSFSPEC-1433"/>
 		</page>
 
 		<!-- Liferay Faces LSV Portlets -->
