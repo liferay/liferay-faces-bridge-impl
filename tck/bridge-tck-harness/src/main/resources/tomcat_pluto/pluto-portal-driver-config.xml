@@ -282,23 +282,23 @@ limitations under the License.
 
 		<!-- Liferay Faces Issue Portlets -->
 		<page name="faces-224" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.issue.224.portlet" name="1"/>
+			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="FACES-224"/>
 		</page>
 		<page name="faces-1470" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.issue.1470.portlet" name="1"/>
+			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="FACES-1470"/>
 		</page>
 		<page name="faces-1478" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.issue.1478.portlet" name="1"/>
+			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="FACES-1478"/>
 		</page>
 		<page name="faces-1618" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.issue.1618.portlet" name="1"/>
+			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="FACES-1618"/>
 		</page>
 		<page name="faces-1635" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.jsf.applicant.portlet" name="1"/>
 			<portlet context="/com.liferay.faces.demo.primefaces.applicant.portlet" name="1"/>
 		</page>
 		<page name="faces-1638" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.issue.1638.portlet" name="1"/>
+			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="FACES-1638"/>
 		</page>
 		<page name="faces-2921" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.issue.primefaces.portlet" name="FACES-2921"/>
@@ -307,10 +307,10 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.issue.primefaces.portlet" name="FACES-3031"/>
 		</page>
 		<page name="faces-3231" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.issue.3231.portlet" name="1"/>
+			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="FACES-3231"/>
 		</page>
 		<page name="jsfspec-1433" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.issue.1433.portlet" name="1"/>
+			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="JSFSPEC-1433"/>
 		</page>
 
 		<!-- Liferay Faces LSV Portlets -->
