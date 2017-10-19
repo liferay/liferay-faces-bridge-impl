@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:portlet="http://java.sun.com/portlet_2_0">
+	<h:head />
+	<h:body>
+		<h:form>
+			<h:outputLink value="http://issues.liferay.com/browse/FACES-1478">
+				<h:outputText value="http://issues.liferay.com/browse/FACES-1478" />
+			</h:outputLink>
+			<hr />
+			<h:outputText value="The value of the following URL:" />
+			<br />
+			<pre><h:outputText id="url" value="#{FACES_1478Bean.renderUrl}" /></pre>
+			<h:outputLink value="#{FACES_1478Bean.renderUrl}">
+				<h:outputText value="should be the same as the href attribute of this link" />
+			</h:outputLink>
+			<br />
+			<h:outputText value="Specifically, there should be two testParam URL parameters:" />
+			<br />
+			<portlet:namespace var="portletNamespace" />
+			<h:outputText value="1) The first occurrence should be:" />
+			<pre><h:outputText id="parameter1" value="#{portletNamespace}testParam=foo" /></pre>
+			<h:outputText value="2) The second occurrence should be:" />
+			<pre><h:outputText id="parameter2" value="#{portletNamespace}testParam=bar" /></pre>
+		</h:form>
+	</h:body>
+</f:view>
+
