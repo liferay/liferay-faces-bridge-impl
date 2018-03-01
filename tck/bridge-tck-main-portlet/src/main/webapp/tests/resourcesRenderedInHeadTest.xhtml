@@ -4,7 +4,7 @@
 	<h:head>
 		<f:event type="preRenderComponent" listener="#{resourcesRenderedInHeadTestBean.preRenderHeadListener}" />
 		<h:outputScript library="test" name="resourcesRenderedInHeadTest.js" />
-		<script id="resource1_js" type="text/javascript" src="#{resource['test:resource1.js']}"></script>
+		<script id="resource1_js" type="text/javascript" src="#{facesContext.externalContext.encodeResourceURL(resource['test:resource1.js'])}"></script>
 		<h:outputStylesheet library="test" name="resource1.css" />
 	</h:head>
 	<h:body>
