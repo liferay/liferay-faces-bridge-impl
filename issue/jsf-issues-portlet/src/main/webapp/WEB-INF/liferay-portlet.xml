@@ -37,6 +37,16 @@
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
+	<portlet>
+		<portlet-name>MOJARRA-4340-workaround</portlet-name>
+		<instanceable>false</instanceable>
+		<ajaxable>false</ajaxable>
+	</portlet>
+	<portlet>
+		<portlet-name>MOJARRA-4345-workaround</portlet-name>
+		<instanceable>false</instanceable>
+		<ajaxable>false</ajaxable>
+	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>
