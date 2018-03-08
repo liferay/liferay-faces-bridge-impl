@@ -24,7 +24,7 @@ import org.junit.Test;
 public class FACES_3231PortletTester extends SimpleFACESPortletTester {
 
 	@Test
-	public void runFACES_3031PortletTest() {
+	public void runFACES_3231PortletTest() {
 		runSimpleFACESPortletTest("faces-3231");
 	}
 }
