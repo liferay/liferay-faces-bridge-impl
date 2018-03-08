@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head/>
+	<h:body>
+		<h:form>
+			<h:outputScript>/* <![CDATA[ */
+				jsf.ajax.addOnEvent(function(data) {
+
+					if (data.status === 'success') {
+						var stylesheetParamsUnnecessarilyEscaped = true;
+						var stylesheets = document.getElementsByTagName('link');
+
+						for (var i = 0; i < stylesheets.length; i++) {
+
+							if (stylesheets[i].href.indexOf('test.css') > -1 &&
+								stylesheets[i].href.indexOf('firstParam=1&secondParam=2') > -1) {
+								stylesheetParamsUnnecessarilyEscaped = false;
+							}
+						}
+
+						var scripts = document.getElementsByTagName('script');
+
+						if (!stylesheetParamsUnnecessarilyEscaped) {
+
+							for (var i = 0; i < scripts.length; i++) {
+
+								if (scripts[i].src.indexOf('test.js') > -1 &&
+									scripts[i].src.indexOf('firstParam=1&secondParam=2') > -1) {
+
+									var portletBody = document.getElementsByClassName('liferay-faces-bridge-body')[0];
+									portletBody.innerHTML +=
+										'<div id="mojarra4345WorkaroundResult">' +
+										'<p>Test: <span id="MOJARRA-4345-WORKAROUND-test-name">' +
+										'MOJARRA-4340-workaround</span></p>' +
+										'<p>Status: <span id="MOJARRA-4345-WORKAROUND-result-status">' +
+										'SUCCESS</span></p>' +
+										'<p>Detail: <span id="MOJARRA-4345-WORKAROUND-result-detail">' +
+										'Resource URLs loaded via Ajax were not double escaped.</span></p>' +
+										'</div>';
+								}
+							}
+						}
+					}
+				});
+			/* ]]> */</h:outputScript>
+			<h:commandButton styleClass="testAction" action="/WEB-INF/views/MOJARRA-4345-workaround/result.xhtml"
+				value="result.xhtml">
+				<f:ajax render="@all" />
+			</h:commandButton>
+		</h:form>
+	</h:body>
+</f:view>
