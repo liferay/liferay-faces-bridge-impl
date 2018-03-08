@@ -21,10 +21,10 @@ import org.junit.Test;
 /**
  * @author  Kyle Stiemann
  */
-public class FACES_3231PortletTester extends SimpleFACESPortletTester {
+public class MOJARRA_4345_WorkaroundPortletTester extends SimpleFACESPortletTester {
 
 	@Test
-	public void runFACES_3031PortletTest() {
-		runSimpleFACESPortletTest("faces-3231");
+	public void runMOJARRA_4345_WorkaroundPortletTest() {
+		runSimpleFACESPortletTest("mojarra-4345-workaround");
 	}
 }

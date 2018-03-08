@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head/>
+	<h:body>
+		<h:form>
+			<h:commandButton styleClass="testAction" action="/WEB-INF/views/MOJARRA-4340-workaround/result.xhtml"
+				value="result.xhtml">
+				<f:ajax render="@all" />
+			</h:commandButton>
+		</h:form>
+	</h:body>
+</f:view>
