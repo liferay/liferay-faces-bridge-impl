@@ -10,5 +10,7 @@
 		<portlet id="FACES-1638" />
 		<portlet id="FACES-3231" />
 		<portlet id="JSFSPEC-1433" />
+		<portlet id="MOJARRA-4340-workaround" />
+		<portlet id="MOJARRA-4345-workaround" />
 	</category>
 </display>

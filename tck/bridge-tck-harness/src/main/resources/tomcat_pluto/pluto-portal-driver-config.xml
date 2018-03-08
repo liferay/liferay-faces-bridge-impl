@@ -143,6 +143,12 @@ limitations under the License.
 		<page name="jsfspec-1433" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="JSFSPEC-1433"/>
 		</page>
+		<page name="mojarra-4340-workaround" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="MOJARRA-4340-workaround"/>
+		</page>
+		<page name="mojarra-4345-workaround" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.issue.jsf.portlet" name="MOJARRA-4345-workaround"/>
+		</page>
 
 		<!-- Liferay Faces LSV Portlets -->
 		<page name="lsv-5" uri="/WEB-INF/themes/pluto-default-theme.jsp">
