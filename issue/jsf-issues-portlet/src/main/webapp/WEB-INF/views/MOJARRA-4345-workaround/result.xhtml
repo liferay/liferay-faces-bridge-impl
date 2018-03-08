@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head>
+		<!-- h:outputStylesheet does not support params in the URL, so generate a similar link manually. -->
+		<!--<h:outputStylesheet library="MOJARRA-4345-workaround" name="test.css?firstParam=1&amp;secondParam=2" />-->
+		<link type="text/css" rel="stylesheet"
+			href="#{facesContext.externalContext.encodeResourceURL(resource['MOJARRA-4345-workaround:test.css'])}&amp;firstParam=1&amp;secondParam=2" />
+		<h:outputScript library="MOJARRA-4345-workaround" name="test.js?firstParam=1&amp;secondParam=2" />
+	</h:head>
+	<h:body>
+		<h:outputScript>
+			console.log('result.xhtml loaded.');
+		</h:outputScript>
+	</h:body>
+</f:view>
