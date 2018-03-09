@@ -192,7 +192,7 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 	public void writeAttribute(String name, Object value, String property) throws IOException {
 
 		if (writingScript && "type".equalsIgnoreCase(name) && "text/javascript".equalsIgnoreCase((String) value)) {
-			javaScriptType = new Attribute(name, value, property);
+			javaScriptType = new Attribute(name, value);
 		}
 		else {
 			super.writeAttribute(name, value, property);
@@ -270,18 +270,18 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 
 		if (javaScriptType != null) {
 
-			Attribute javaScriptType = this.javaScriptType;
+			Attribute jsType = javaScriptType;
 
 			// Other methods in this class such as write() call writeTypeTextJavaScriptIfNecessary(), so ensure that
 			// writeTypeTextJavaScriptIfNecessary() is not called recursively when super.writeAttribute() calls other
 			// methods from this class.
-			this.javaScriptType = null;
+			javaScriptType = null;
 			write(" ");
-			write(javaScriptType.name);
+			write(jsType.name);
 			write("=\"");
 
-			if (javaScriptType.value != null) {
-				write(javaScriptType.value.toString());
+			if (jsType.value != null) {
+				write(jsType.value.toString());
 			}
 
 			write("\">");
@@ -292,12 +292,10 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 
 		private final String name;
 		private final Object value;
-		private final String property;
 
-		public Attribute(String name, Object value, String property) {
+		public Attribute(String name, Object value) {
 			this.name = name;
 			this.value = value;
-			this.property = property;
 		}
 	}
 }
