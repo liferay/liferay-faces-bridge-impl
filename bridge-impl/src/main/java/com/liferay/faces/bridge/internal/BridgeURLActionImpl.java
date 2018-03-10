@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Map;
@@ -32,6 +33,7 @@ import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.util.helper.BooleanHelper;
+import com.liferay.faces.util.render.FacesURLEncoder;
 
 
 /**
@@ -44,11 +46,12 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 	private boolean bookmarkable;
 	private boolean redirect;
 
-	public BridgeURLActionImpl(String uri, String contextPath, String namespace, String currentViewId,
-		boolean clientWindowEnabled, String clientWindowId, Map<String, String> clientWindowParameters,
-		PortletConfig portletConfig, BridgeConfig bridgeConfig) throws URISyntaxException {
+	public BridgeURLActionImpl(String uri, String contextPath, String namespace, String encoding,
+		FacesURLEncoder facesURLEncoder, String currentViewId, boolean clientWindowEnabled, String clientWindowId,
+		Map<String, String> clientWindowParameters, PortletConfig portletConfig, BridgeConfig bridgeConfig)
+		throws URISyntaxException, UnsupportedEncodingException {
 
-		super(uri, contextPath, namespace, currentViewId, portletConfig, bridgeConfig);
+		super(uri, contextPath, namespace, encoding, facesURLEncoder, currentViewId, portletConfig, bridgeConfig);
 
 		// If the URI starts with "portlet:", then
 		if (bridgeURI.isPortletScheme()) {
@@ -115,7 +118,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 				bridgeURI.setParameter(ResponseStateManager.CLIENT_WINDOW_URL_PARAM, clientWindowId);
 
 				if (clientWindowParameters != null) {
-					bridgeURI.setParameters(clientWindowParameters);
+					bridgeURI.addParameters(clientWindowParameters);
 				}
 			}
 		}
@@ -133,7 +136,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 		if (portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Since ActionResponse is not a MimeResponse, there is no way to create a RenderURL in a standard way.
-			baseURL = new BaseURLNonEncodedImpl(bridgeURI);
+			baseURL = new BaseURLBridgeURIAdapterImpl(bridgeURI);
 		}
 
 		// Otherwise,
@@ -144,7 +147,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 			if (uri.startsWith("#") || (bridgeURI.isAbsolute() && bridgeURI.isExternal(contextPath))) {
 
 				// TCK TestPage084: encodeActionURLPoundCharTest
-				baseURL = new BaseURLNonEncodedImpl(bridgeURI);
+				baseURL = new BaseURLBridgeURIAdapterImpl(bridgeURI);
 			}
 
 			// Otherwise, if the URI has a "javax.portlet.faces.DirectLink" parameter with a value of "true",
@@ -152,8 +155,8 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 			else if (directLink || bridgeURI.isExternal(contextPath)) {
 				ExternalContext externalContext = facesContext.getExternalContext();
 				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-				baseURL = new BaseURLNonEncodedDirectImpl(bridgeURI, portletRequest.getScheme(),
-						portletRequest.getServerName(), portletRequest.getServerPort());
+				baseURL = new BaseURLDirectImpl(bridgeURI, portletRequest.getScheme(), portletRequest.getServerName(),
+						portletRequest.getServerPort());
 			}
 
 			// Otherwise,
@@ -187,7 +190,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 				else {
 
 					if (portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE) {
-						baseURL = new BaseURLNonEncodedImpl(bridgeURI);
+						baseURL = new BaseURLBridgeURIAdapterImpl(bridgeURI);
 					}
 					else if (bookmarkable || (redirect && (portletRequestPhase == PortletPhase.RESOURCE_PHASE))) {
 						baseURL = createRenderURL(facesContext, modeChanged);

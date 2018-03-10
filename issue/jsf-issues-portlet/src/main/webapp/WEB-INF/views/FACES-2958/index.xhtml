@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+		xmlns:portlet="http://java.sun.com/portlet_2_0">
+	<h:head />
+	<h:body>
+		<h:outputLink target="_blank" value="http://issues.liferay.com/browse/FACES-2958">
+			http://issues.liferay.com/browse/FACES-2958
+		</h:outputLink><br />
+		<br />
+		<h:link outcome="/WEB-INF/views/FACES-2958/link.xhtml" value="link.xhtml" /><br />
+		<h:link outcome="/WEB-INF/views/FACES-2958/commandLinkAjax.xhtml" value="commandLinkAjax.xhtml" /><br />
+		<h:link outcome="/WEB-INF/views/FACES-2958/commandLinkNonAjax.xhtml" value="commandLinkNonAjax.xhtml" /><br />
+		<portlet:namespace var="portletNamespace" />
+		<!-- Disable testing of friendly resource URLs until https://issues.liferay.com/browse/FACES-3176 is fixed. -->
+		<h:link pt:data-senna-off="true" outcome="/WEB-INF/views/FACES-2958/resource.xhtml"
+			rendered="#{not portletNamespace.contains('friendlyURL')}" value="resource.xhtml" /><br />
+		<h:form>
+			<h:commandLink action="/WEB-INF/views/FACES-2958/link.xhtml" value="link.xhtml via Ajax">
+				<f:ajax render="@all" />
+			</h:commandLink><br />
+			<h:commandLink action="/WEB-INF/views/FACES-2958/commandLinkAjax.xhtml"
+				value="commandLinkAjax.xhtml via Ajax">
+				<f:ajax render="@all" />
+			</h:commandLink><br />
+			<h:commandLink action="/WEB-INF/views/FACES-2958/commandLinkNonAjax.xhtml"
+				value="commandLinkNonAjax.xhtml via Ajax">
+				<f:ajax render="@all" />
+			</h:commandLink><br />
+			<!--
+				Disable testing of friendly resource URLs until https://issues.liferay.com/browse/FACES-3176 is fixed.
+			-->
+			<h:commandLink action="/WEB-INF/views/FACES-2958/resourceViaAjax.xhtml"
+				rendered="#{not portletNamespace.contains('friendlyURL')}" value="resourceViaAjax.xhtml">
+				<f:ajax render="@all" />
+			</h:commandLink><br />
+		</h:form>
+	</h:body>
+</f:view>

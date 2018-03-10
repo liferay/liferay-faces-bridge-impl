@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,13 @@ import javax.portlet.BaseURL;
 
 
 /**
- * This class represents a "relative" non-encoded {@link BaseURL}, meaning an implementation that simply wraps a String
- * based URL that starts with "../" and does not require encoding. The only methods that are meant to be called is
- * {@link BaseURLNonEncodedRelativeImpl#toString()} and {@link BaseURLNonEncodedRelativeImpl#write(Writer, boolean)}.
- * All other methods throw an {@link UnsupportedOperationException}.
+ * This class wraps a {@link BridgeURI} so that it can be accessed as a "relative" {@link BaseURL}, meaning an
+ * implementation that simply wraps URI that starts with "../". The only methods that are meant to be called are {@link
+ * BaseURLRelativeImpl#toString()} and {@link BaseURLRelativeImpl#write(Writer, boolean)}.
  *
  * @author  Neil Griffin
  */
-public class BaseURLNonEncodedRelativeImpl extends BaseURLNonEncodedImpl {
+public class BaseURLRelativeImpl extends BaseURLBridgeURIAdapterImpl {
 
 	// Private Constants
 	private static final String RELATIVE_PATH_PREFIX = "../";
@@ -37,7 +36,7 @@ public class BaseURLNonEncodedRelativeImpl extends BaseURLNonEncodedImpl {
 	private String contextPath;
 	private String toStringValue;
 
-	public BaseURLNonEncodedRelativeImpl(BridgeURI bridgeURI, String contextPath) {
+	public BaseURLRelativeImpl(BridgeURI bridgeURI, String contextPath) {
 		super(bridgeURI);
 		this.contextPath = contextPath;
 	}

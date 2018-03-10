@@ -76,7 +76,6 @@
 			<bridge:bridge-public-render-parameter-handler-factory>com.liferay.faces.bridge.internal.BridgePublicRenderParameterHandlerFactoryImpl</bridge:bridge-public-render-parameter-handler-factory>
 			<bridge:bridge-request-scope-factory>com.liferay.faces.bridge.scope.internal.BridgeRequestScopeFactoryImpl</bridge:bridge-request-scope-factory>
 			<bridge:bridge-request-scope-manager-factory>com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerFactoryImpl</bridge:bridge-request-scope-manager-factory>
-			<bridge:bridge-uri-factory>com.liferay.faces.bridge.internal.BridgeURIFactoryImpl</bridge:bridge-uri-factory>
 			<bridge:bridge-url-factory>com.liferay.faces.bridge.internal.BridgeURLFactoryImpl</bridge:bridge-url-factory>
 			<bridge:context-map-factory>com.liferay.faces.bridge.context.map.internal.ContextMapFactoryImpl</bridge:context-map-factory>
 			<bridge:head-response-writer-factory>com.liferay.faces.bridge.renderkit.html_basic.internal.HeadResponseWriterFactoryImpl</bridge:head-response-writer-factory>
