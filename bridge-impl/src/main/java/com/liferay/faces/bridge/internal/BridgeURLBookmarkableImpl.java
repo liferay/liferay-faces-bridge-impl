@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -28,6 +29,7 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletURL;
 
 import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.util.render.FacesURLEncoder;
 
 
 /**
@@ -49,12 +51,13 @@ import com.liferay.faces.bridge.BridgeConfig;
  */
 public class BridgeURLBookmarkableImpl extends BridgeURLBase {
 
-	public BridgeURLBookmarkableImpl(String uri, String contextPath, String namespace, String currentViewId,
-		Map<String, List<String>> bookmarkParameters, boolean clientWindowEnabled, String clientWindowId,
-		Map<String, String> clientWindowParameters, PortletConfig portletConfig, BridgeConfig bridgeConfig)
-		throws URISyntaxException {
+	public BridgeURLBookmarkableImpl(String uri, String contextPath, String namespace, String encoding,
+		FacesURLEncoder facesURLEncoder, String currentViewId, Map<String, List<String>> bookmarkParameters,
+		boolean clientWindowEnabled, String clientWindowId, Map<String, String> clientWindowParameters,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) throws URISyntaxException,
+		UnsupportedEncodingException {
 
-		super(uri, contextPath, namespace, currentViewId, portletConfig, bridgeConfig);
+		super(uri, contextPath, namespace, encoding, facesURLEncoder, currentViewId, portletConfig, bridgeConfig);
 
 		// If the client window feature is enabled and the URI does not have a "jfwid" parameter then set the
 		// "jfwid" parameter and any associated client window parameters on the URI.
@@ -64,7 +67,7 @@ public class BridgeURLBookmarkableImpl extends BridgeURLBase {
 			bridgeURI.setParameter(ResponseStateManager.CLIENT_WINDOW_URL_PARAM, clientWindowId);
 
 			if (clientWindowParameters != null) {
-				bridgeURI.setParameters(clientWindowParameters);
+				bridgeURI.addParameters(clientWindowParameters);
 			}
 		}
 
@@ -87,6 +90,6 @@ public class BridgeURLBookmarkableImpl extends BridgeURLBase {
 
 	@Override
 	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
-		return new BaseURLNonEncodedImpl(bridgeURI);
+		return new BaseURLBridgeURIAdapterImpl(bridgeURI);
 	}
 }

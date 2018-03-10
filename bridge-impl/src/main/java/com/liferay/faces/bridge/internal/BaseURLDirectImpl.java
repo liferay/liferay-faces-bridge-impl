@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,20 @@ import javax.portlet.PortletRequest;
 
 
 /**
- * This class represents a "direct" non-encoded {@link BaseURL}, meaning an implementation that wraps a path and
- * constructs an absolute path URL based on the scheme, server/host name, and port found in the {@link PortletRequest}.
+ * This class wraps a {@link BridgeURI} so that it can be accessed as a "direct" {@link BaseURL}, meaning an
+ * implementation that constructs an absolute path URL based on the scheme, server/host name, and port found in the
+ * {@link PortletRequest}.
  *
  * @author  Neil Griffin
  */
-public class BaseURLNonEncodedDirectImpl extends BaseURLNonEncodedImpl {
+public class BaseURLDirectImpl extends BaseURLBridgeURIAdapterImpl {
 
 	// Private Data Members
 	private String scheme;
 	private String host;
 	private int port;
 
-	public BaseURLNonEncodedDirectImpl(BridgeURI bridgeURI, String scheme, String host, int port) {
+	public BaseURLDirectImpl(BridgeURI bridgeURI, String scheme, String host, int port) {
 		super(bridgeURI);
 		this.scheme = scheme;
 		this.host = host;

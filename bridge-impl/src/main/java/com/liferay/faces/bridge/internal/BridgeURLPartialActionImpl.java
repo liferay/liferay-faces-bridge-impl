@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Map;
@@ -28,6 +29,7 @@ import javax.portlet.faces.Bridge;
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.render.FacesURLEncoder;
 
 
 /**
@@ -38,11 +40,12 @@ public class BridgeURLPartialActionImpl extends BridgeURLBase {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeURLPartialActionImpl.class);
 
-	public BridgeURLPartialActionImpl(String uri, String contextPath, String namespace, String currentViewId,
-		boolean clientWindowEnabled, String clientWindowId, Map<String, String> clientWindowParameters,
-		PortletConfig portletConfig, BridgeConfig bridgeConfig) throws URISyntaxException {
+	public BridgeURLPartialActionImpl(String uri, String contextPath, String namespace, String encoding,
+		FacesURLEncoder facesURLEncoder, String currentViewId, boolean clientWindowEnabled, String clientWindowId,
+		Map<String, String> clientWindowParameters, PortletConfig portletConfig, BridgeConfig bridgeConfig)
+		throws URISyntaxException, UnsupportedEncodingException {
 
-		super(uri, contextPath, namespace, currentViewId, portletConfig, bridgeConfig);
+		super(uri, contextPath, namespace, encoding, facesURLEncoder, currentViewId, portletConfig, bridgeConfig);
 
 		// If the client window feature is enabled and the URI does not have a "jfwid" parameter then set the
 		// "jfwid" parameter and any associated client window parameters on the URI.
@@ -52,7 +55,7 @@ public class BridgeURLPartialActionImpl extends BridgeURLBase {
 			bridgeURI.setParameter(ResponseStateManager.CLIENT_WINDOW_URL_PARAM, clientWindowId);
 
 			if (clientWindowParameters != null) {
-				bridgeURI.setParameters(clientWindowParameters);
+				bridgeURI.addParameters(clientWindowParameters);
 			}
 		}
 
@@ -69,7 +72,7 @@ public class BridgeURLPartialActionImpl extends BridgeURLBase {
 		if (uri != null) {
 
 			if (uri.startsWith("http")) {
-				baseURL = new BaseURLNonEncodedImpl(bridgeURI);
+				baseURL = new BaseURLBridgeURIAdapterImpl(bridgeURI);
 				logger.debug("URL starts with http so assuming that it has already been encoded: url=[{0}]", uri);
 			}
 			else {
