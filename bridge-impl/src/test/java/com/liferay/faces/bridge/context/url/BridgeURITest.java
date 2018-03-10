@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,31 +15,32 @@
  */
 package com.liferay.faces.bridge.context.url;
 
+import java.io.IOException;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URISyntaxException;
 
 import javax.portlet.BaseURL;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import com.liferay.faces.bridge.internal.BaseURLNonEncodedImpl;
+import com.liferay.faces.bridge.internal.BaseURLBridgeURIAdapterImpl;
 import com.liferay.faces.bridge.internal.BridgeURI;
-import com.liferay.faces.bridge.internal.BridgeURIImpl;
-
-import junit.framework.Assert;
+import com.liferay.faces.util.render.FacesURLEncoder;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgeURLTest {
+public class BridgeURITest {
 
 	// Private Constants
 	private static final String CONTEXT_PATH = "/my-portlet";
 
 	@Test
-	public void testEscaped() {
+	public void testEscaped() throws UnsupportedEncodingException {
 
 		try {
 			Assert.assertFalse(newBridgeURI("http://www.liferay.com/foo").isEscaped());
@@ -48,12 +49,12 @@ public class BridgeURLTest {
 			Assert.assertTrue(newBridgeURI("http://www.liferay.com/foo?a=1&amp;b=2&amp;c=3").isEscaped());
 		}
 		catch (URISyntaxException e) {
-			Assert.fail(e.getMessage());
+			throw new AssertionError(e);
 		}
 	}
 
 	@Test
-	public void testExternal() {
+	public void testExternal() throws UnsupportedEncodingException {
 
 		try {
 			Assert.assertTrue(newBridgeURI("http://www.liferay.com").isExternal(CONTEXT_PATH));
@@ -61,12 +62,12 @@ public class BridgeURLTest {
 			Assert.assertTrue(newBridgeURI("/relativeToContextPath?someurl=" + CONTEXT_PATH).isExternal(CONTEXT_PATH));
 		}
 		catch (URISyntaxException e) {
-			Assert.fail(e.getMessage());
+			throw new AssertionError(e);
 		}
 	}
 
 	@Test
-	public void testHierarchical() {
+	public void testHierarchical() throws UnsupportedEncodingException {
 
 		try {
 			Assert.assertTrue(newBridgeURI("http://www.liferay.com").isHierarchical());
@@ -76,24 +77,24 @@ public class BridgeURLTest {
 			Assert.assertFalse(newBridgeURI("portlet:render").isHierarchical());
 		}
 		catch (URISyntaxException e) {
-			Assert.fail(e.getMessage());
+			throw new AssertionError(e);
 		}
 	}
 
 	@Test
-	public void testOpaque() {
+	public void testOpaque() throws UnsupportedEncodingException {
 
 		try {
 			Assert.assertFalse(newBridgeURI("http://www.liferay.com").isOpaque());
 			Assert.assertTrue(newBridgeURI("mailto:foo@liferay.com").isOpaque());
 		}
 		catch (URISyntaxException e) {
-			Assert.fail(e.getMessage());
+			throw new AssertionError(e);
 		}
 	}
 
 	@Test
-	public void testPathRelative() {
+	public void testPathRelative() throws UnsupportedEncodingException {
 
 		try {
 			Assert.assertFalse(newBridgeURI("http://www.liferay.com").isPathRelative());
@@ -101,31 +102,30 @@ public class BridgeURLTest {
 			Assert.assertTrue(newBridgeURI("foo/bar.gif").isPathRelative());
 		}
 		catch (URISyntaxException e) {
-			Assert.fail(e.getMessage());
+			throw new AssertionError(e);
 		}
 	}
 
 	@Test
-	public void testViewPath() {
+	public void testViewPath() throws UnsupportedEncodingException {
 
 		try {
-			newBridgeURI("http://www.liferay.com");
 			Assert.assertTrue(newBridgeURI("http://www.liferay.com").getContextRelativePath("") == null);
 			Assert.assertTrue(newBridgeURI("/views/foo.xhtml").getContextRelativePath("").equals("/views/foo.xhtml"));
 			Assert.assertTrue(newBridgeURI(CONTEXT_PATH + "/views/foo.xhtml").getContextRelativePath(CONTEXT_PATH)
 				.equals("/views/foo.xhtml"));
 		}
 		catch (URISyntaxException e) {
-			Assert.fail(e.getMessage());
+			throw new AssertionError(e);
 		}
 	}
 
 	@Test
-	public void testXmlEscaping() {
+	public void testXmlEscaping() throws UnsupportedEncodingException {
 
 		try {
 			BridgeURI bridgeURI = newBridgeURI("http://www.liferay.com/hello.world?a=1&b=2");
-			BaseURL nonEncodedURL = new BaseURLNonEncodedImpl(bridgeURI);
+			BaseURL nonEncodedURL = new BaseURLBridgeURIAdapterImpl(bridgeURI);
 			Writer stringWriter = new StringWriter();
 			nonEncodedURL.write(stringWriter, false);
 			Assert.assertTrue("http://www.liferay.com/hello.world?a=1&b=2".equals(stringWriter.toString()));
@@ -133,12 +133,20 @@ public class BridgeURLTest {
 			nonEncodedURL.write(stringWriter, true);
 			Assert.assertTrue("http://www.liferay.com/hello.world?a=1&amp;b=2".equals(stringWriter.toString()));
 		}
-		catch (Exception e) {
-			Assert.fail(e.getMessage());
+		catch (IOException e) {
+			throw new AssertionError(e);
+		}
+		catch (URISyntaxException e) {
+			throw new AssertionError(e);
 		}
 	}
 
-	protected BridgeURI newBridgeURI(String uri) throws URISyntaxException {
-		return new BridgeURIImpl("", uri);
+	protected BridgeURI newBridgeURI(String uri) throws URISyntaxException, UnsupportedEncodingException {
+		return new BridgeURI(uri, "", new FacesURLEncoder() {
+					@Override
+					public String encode(String url, String encoding) {
+						return url;
+					}
+				}, "UTF-8");
 	}
 }

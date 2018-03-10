@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ import com.liferay.faces.util.product.ProductFactory;
 		String resourceName = (String) componentResourceAttributes.get("name");
 		String resourceLibrary = (String) componentResourceAttributes.get("library");
 
-		return ((resourceName != null) && resourceName.endsWith("js")) ||
+		return ((resourceName != null) && (resourceName.endsWith("js") || resourceName.contains(".js?"))) ||
 			isRichFacesReslibResource(resourceName, resourceLibrary) ||
 			isBootsFacesNonJSFResource(resourceName, componentResourceAttributes, "js");
 	}
@@ -76,7 +76,7 @@ import com.liferay.faces.util.product.ProductFactory;
 		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
 		String resourceName = (String) componentResourceAttributes.get("name");
 
-		return ((resourceName != null) && resourceName.endsWith("css")) ||
+		return ((resourceName != null) && (resourceName.endsWith("css") || resourceName.contains(".css?"))) ||
 			isBootsFacesNonJSFResource(resourceName, componentResourceAttributes, "css");
 	}
 

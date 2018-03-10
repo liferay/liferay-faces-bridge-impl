@@ -28,6 +28,19 @@
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
+		<portlet-name>FACES-2958</portlet-name>
+		<instanceable>false</instanceable>
+		<ajaxable>false</ajaxable>
+	</portlet>
+	<portlet>
+		<portlet-name>FACES-2958-friendlyURL</portlet-name>
+		<friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
+		<friendly-url-mapping>FACES-2958</friendly-url-mapping>
+		<friendly-url-routes>friendly-url-routes.xml</friendly-url-routes>
+		<instanceable>false</instanceable>
+		<ajaxable>false</ajaxable>
+	</portlet>
+	<portlet>
 		<portlet-name>FACES-3231</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>

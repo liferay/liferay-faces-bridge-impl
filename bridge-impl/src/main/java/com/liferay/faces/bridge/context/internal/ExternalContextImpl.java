@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.HeaderResponse;
@@ -47,7 +48,6 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletRequestDispatcher;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
-import javax.portlet.RenderResponse;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
@@ -71,12 +71,15 @@ import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.bridge.internal.BridgeURI;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.LocaleIterator;
+import com.liferay.faces.bridge.util.internal.URLUtil;
 import com.liferay.faces.bridge.util.internal.ViewUtil;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
+import com.liferay.faces.util.render.FacesURLEncoder;
+import com.liferay.faces.util.render.FacesURLEncoderFactory;
 
 
 /**
@@ -88,7 +91,6 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	private static final Logger logger = LoggerFactory.getLogger(ExternalContextImpl.class);
 
 	// Private Constants
-	private static final String DIRECT_LINK_EQUALS_TRUE = Bridge.DIRECT_LINK + "=true";
 	private static final String ORG_RICHFACES_EXTENSION = "org.richfaces.extension";
 	private static final String REQUEST_ATTR_PORTLET_REQUEST = "javax.portlet.request";
 	private static final String REQUEST_ATTR_QUERY_STRING = "javax.servlet.forward.query_string";
@@ -720,15 +722,21 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 				// If the specified URL starts with a "#" character, is external to this application, or has a
 				// "javax.portlet.faces.DirectLink" parameter value of "true", then
 				try {
-					BridgeURI bridgeURI = bridgeURIFactory.getBridgeURI(portletResponse.getNamespace(), url);
-					String queryString = bridgeURI.getQuery();
-					boolean directLink = (queryString != null) && queryString.contains(DIRECT_LINK_EQUALS_TRUE);
+
 					FacesContext facesContext = FacesContext.getCurrentInstance();
 					ExternalContext externalContext = facesContext.getExternalContext();
+					FacesURLEncoder facesURLEncoder = FacesURLEncoderFactory.getFacesURLEncoderInstance(
+							externalContext);
+					ResponseWriter responseWriter = facesContext.getResponseWriter();
+					String urlCharacterEncoding = URLUtil.getURLCharacterEncoding(portletPhase, externalContext,
+							responseWriter, "UTF-8");
+					BridgeURI bridgeURI = new BridgeURI(url, portletResponse.getNamespace(), facesURLEncoder,
+							urlCharacterEncoding);
+					String directLink = bridgeURI.getParameter(Bridge.DIRECT_LINK);
 					String contextPath = externalContext.getRequestContextPath();
 
 					if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) &&
-							(url.startsWith("#") || bridgeURI.isExternal(contextPath) || directLink)) {
+							(url.startsWith("#") || bridgeURI.isExternal(contextPath) || "true".equals(directLink))) {
 
 						if (bridgeRequestScope != null) {
 							bridgeRequestScope.setRedirectOccurred(true);
@@ -736,7 +744,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 						// TCK TestPage039: requestNoScopeOnRedirectTest
 						ActionResponse actionResponse = (ActionResponse) portletResponse;
-						actionResponse.sendRedirect(url);
+						actionResponse.sendRedirect(bridgeURI.toString());
 					}
 
 					// Otherwise,
@@ -857,7 +865,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 									// TCK TestPage179: redirectRenderPRP1Test
 									portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT, Boolean.TRUE);
 									portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT_VIEW_ID,
-										URLDecoder.decode(viewIdRenderParameterValue, "UTF-8"));
+										URLDecoder.decode(viewIdRenderParameterValue, urlCharacterEncoding));
 								}
 
 								// Otherwise, throw an IllegalStateException according to Section 6.1.3.1 of the Spec.

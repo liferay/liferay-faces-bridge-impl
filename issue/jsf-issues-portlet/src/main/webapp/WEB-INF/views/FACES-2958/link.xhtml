@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+		<h:outputScript library="FACES-2958" name="testURLEncoded.js" />
+	</h:head>
+	<h:body>
+		<h:link styleClass="testAction" fragment="fragment"
+			outcome="/WEB-INF/views/FACES-2958/success.xhtml"
+			style="display: none;" value="To &quot;success.xhtml&quot;.">
+			<f:param name="param" value="paramValueWithoutSpaces" />
+			<f:param name="param20" value="encoded param value" />
+			<f:param name="param09" value="encoded&#09;param&#09;value" />
+			<f:param name="param0A" value="encoded&#010;param&#010;value" />
+			<f:param name="param0D" value="encoded&#013;param&#013;value" />
+			<f:param name="urlParam" value="http://liferay.com?name1=value1&amp;name2=value2" />
+		</h:link>
+		<h:outputScript>/* <![CDATA[ */
+			var testActionLink = document.getElementsByClassName('testAction')[0];
+			testURLEncoded(testActionLink.href, function(){ testActionLink.style.display = null; });
+		/* ]]> */</h:outputScript>
+	</h:body>
+</f:view>
+
