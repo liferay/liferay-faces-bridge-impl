@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<h:head>
+		<h:outputScript library="FACES-2958" name="testURLEncoded.js" />
+	</h:head>
+	<h:body>
+		<h:form>
+			<h:outputScript>/* <![CDATA[ */
+
+				jsf.ajax.addOnEvent(function(data) {
+
+					if (data.status === 'complete') {
+
+						var redirect = data.responseXML.getElementsByTagName('redirect')[0];
+						var url = redirect.getAttribute('url');
+						console.log(url);
+						testURLEncoded(url, null, function(){ throw new Error("Abort Ajax Request.") });
+					}
+				});
+			/* ]]> */</h:outputScript>
+			<h:commandLink styleClass="testAction"
+					action="/WEB-INF/views/FACES-2958/success.xhtml?faces-redirect=true&amp;param=paramValueWithoutSpaces&amp;param20=encoded param value&amp;param09=encoded&#09;param&#09;value&amp;param0A=encoded&#010;param&#010;value&amp;param0D=encoded&#013;param&#013;value&amp;urlParam=http%3A%2F%2Fliferay.com%3Fname1%3Dvalue1%26name2%3Dvalue2"
+					value="To &quot;success.xhtml&quot;.">
+				<f:ajax />
+			</h:commandLink>
+		</h:form>
+	</h:body>
+</f:view>
+
+

@@ -4,6 +4,8 @@
 <display>
 	<category name="category.sample">
 		<portlet id="FACES-1478" />
+		<portlet id="FACES-2958" />
+		<portlet id="FACES-2958-friendlyURL" />
 		<portlet id="JSFSPEC-1433" />
 	</category>
 </display>

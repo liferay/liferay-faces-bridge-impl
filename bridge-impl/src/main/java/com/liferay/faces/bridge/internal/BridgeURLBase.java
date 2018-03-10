@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.internal;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ import com.liferay.faces.bridge.filter.internal.PortletURLWrapper;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.render.FacesURLEncoder;
 
 
 /**
@@ -62,19 +64,17 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 	protected String viewIdRenderParameterName;
 
 	// Private Data Members
-	private String namespace;
 	private PortletConfig portletConfig;
 	private String viewId;
 
-	@SuppressWarnings("unchecked")
-	public BridgeURLBase(String uri, String contextPath, String namespace, String currentViewId,
-		PortletConfig portletConfig, BridgeConfig bridgeConfig) throws URISyntaxException {
+	public BridgeURLBase(String uri, String contextPath, String namespace, String encoding,
+		FacesURLEncoder facesURLEncoder, String currentViewId, PortletConfig portletConfig, BridgeConfig bridgeConfig)
+		throws URISyntaxException, UnsupportedEncodingException {
 
-		this.bridgeURI = BridgeURIFactory.getBridgeURIInstance(portletConfig.getPortletContext(), namespace, uri);
+		this.bridgeURI = new BridgeURI(uri, namespace, facesURLEncoder, encoding);
 		this.configuredFacesServletMappings = (List<ConfiguredServletMapping>) bridgeConfig.getAttributes().get(
 				BridgeConfigAttributeMap.CONFIGURED_FACES_SERVLET_MAPPINGS);
 		this.contextPath = contextPath;
-		this.namespace = namespace;
 		this.currentViewId = currentViewId;
 		this.portletConfig = portletConfig;
 		this.viewIdRenderParameterName = bridgeConfig.getViewIdRenderParameterName();
@@ -83,20 +83,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 
 	@Override
 	public String getParameter(String name) {
-
-		Map<String, String[]> parameterMap = bridgeURI.getParameterMap();
-		String[] values = parameterMap.get(name);
-
-		if (values == null) {
-			values = parameterMap.get(namespace.concat(name));
-		}
-
-		if ((values != null) && (values.length > 0)) {
-			return values[0];
-		}
-		else {
-			return null;
-		}
+		return bridgeURI.getParameter(name);
 	}
 
 	@Override
@@ -210,25 +197,17 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 
 	@Override
 	public String removeParameter(String name) {
-
-		String[] values = bridgeURI.getParameterMap().remove(name);
-
-		if ((values != null) && (values.length > 0)) {
-			return values[0];
-		}
-		else {
-			return null;
-		}
+		return bridgeURI.removeParameter(name);
 	}
 
 	@Override
 	public void setParameter(String name, String[] value) {
-		bridgeURI.getParameterMap().put(name, value);
+		bridgeURI.setParameter(name, value);
 	}
 
 	@Override
 	public void setParameter(String name, String value) {
-		bridgeURI.getParameterMap().put(name, new String[] { value });
+		bridgeURI.setParameter(name, new String[] { value });
 	}
 
 	@Override
@@ -242,21 +221,22 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			BaseURL baseURL = toBaseURL(facesContext);
 
-			// If the URL string has escaped characters (like %20 for space, etc) then ask the
+			// If the URL string has escaped characters (like "&amp;" for "&", etc) then ask the
 			// portlet container to create an escaped representation of the URL string.
 			if (bridgeURI.isEscaped()) {
 
 				StringWriter urlWriter = new StringWriter();
 
 				try {
+
 					baseURL.write(urlWriter, true);
+					stringValue = urlWriter.toString();
 				}
 				catch (IOException e) {
+
 					logger.error(e);
 					stringValue = baseURL.toString();
 				}
-
-				stringValue = urlWriter.toString();
 			}
 
 			// Otherwise, ask the portlet container to create a normal (non-escaped) string

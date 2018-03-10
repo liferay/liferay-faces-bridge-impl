@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -28,6 +29,7 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletURL;
 
 import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.util.render.FacesURLEncoder;
 
 
 /**
@@ -49,12 +51,12 @@ import com.liferay.faces.bridge.BridgeConfig;
  */
 public class BridgeURLRedirectImpl extends BridgeURLBase {
 
-	public BridgeURLRedirectImpl(String uri, String contextPath, String namespace,
-		Map<String, List<String>> redirectParameters, boolean clientWindowEnabled, String clientWindowId,
-		Map<String, String> clientWindowParameters, PortletConfig portletConfig, BridgeConfig bridgeConfig)
-		throws URISyntaxException {
+	public BridgeURLRedirectImpl(String uri, String contextPath, String namespace, String encoding,
+		FacesURLEncoder facesURLEncoder, Map<String, List<String>> redirectParameters, boolean clientWindowEnabled,
+		String clientWindowId, Map<String, String> clientWindowParameters, PortletConfig portletConfig,
+		BridgeConfig bridgeConfig) throws URISyntaxException, UnsupportedEncodingException {
 
-		super(uri, contextPath, namespace, null, portletConfig, bridgeConfig);
+		super(uri, contextPath, namespace, encoding, facesURLEncoder, null, portletConfig, bridgeConfig);
 
 		// Since the Bridge's version of ExternalContext.encodeActionURL(String url) needs to detect whether or not the
 		// specified URL is for a redirect, ensure that "_jsfBridgeRedirect=true" appears in the query-string.
@@ -81,7 +83,7 @@ public class BridgeURLRedirectImpl extends BridgeURLBase {
 			bridgeURI.setParameter(BridgeURLBaseCompat.CLIENT_WINDOW_URL_PARAM, clientWindowId);
 
 			if (clientWindowParameters != null) {
-				bridgeURI.setParameters(clientWindowParameters);
+				bridgeURI.addParameters(clientWindowParameters);
 			}
 		}
 	}
@@ -90,6 +92,6 @@ public class BridgeURLRedirectImpl extends BridgeURLBase {
 	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 
 		// TCK TestPage039 (requestNoScopeOnRedirectTest)
-		return new BaseURLNonEncodedImpl(bridgeURI);
+		return new BaseURLBridgeURIAdapterImpl(bridgeURI);
 	}
 }

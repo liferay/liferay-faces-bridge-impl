@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,17 +20,17 @@ import javax.portlet.PortletResponse;
 
 
 /**
- * This abstract class represents an "encoded" {@link BaseURL}, meaning an implementation that simply decorates a URI
- * and ensures that the return value {@link #toString()} is encoded.
+ * This class wraps a {@link BridgeURI} so that it can be accessed as a {@link BaseURL} which will be encoded by the
+ * {@link PortletResponse} rather than the {@link com.liferay.faces.util.render.FacesURLEncoder}.
  *
  * @author  Neil Griffin
  */
-public class BaseURLEncodedImpl extends BaseURLNonEncodedImpl {
+public class BaseURLPortletResponseEncodedImpl extends BaseURLBridgeURIAdapterImpl {
 
 	// Private Data Members
 	private PortletResponse portletResponse;
 
-	public BaseURLEncodedImpl(BridgeURI bridgeURI, PortletResponse portletResponse) {
+	public BaseURLPortletResponseEncodedImpl(BridgeURI bridgeURI, PortletResponse portletResponse) {
 		super(bridgeURI);
 		this.portletResponse = portletResponse;
 	}
