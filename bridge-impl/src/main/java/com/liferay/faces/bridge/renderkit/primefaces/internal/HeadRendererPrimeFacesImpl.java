@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.renderkit.primefaces.internal;
 
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -131,9 +130,10 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 				// Determine the value of the "javax.faces.resource" and "ln" parameters from the URL.
 				String resourceName = null;
 				String libraryName = null;
-				String decodedExternalResourceURL = URLDecoder.decode(externalResourceURL, "UTF-8");
+				ResponseWriter responseWriter = facesContext.getResponseWriter();
+				String characterEncoding = responseWriter.getCharacterEncoding();
 				Map<String, String[]> parsedParameterMapValuesArray = URLUtil.parseParameterMapValuesArray(
-						decodedExternalResourceURL);
+						externalResourceURL, characterEncoding);
 
 				if (parsedParameterMapValuesArray != null) {
 
@@ -149,18 +149,18 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 
 					if (resourceName == null) {
 
-						int indexOfResource = decodedExternalResourceURL.indexOf("javax.faces.resource/");
-						int indexOfQuery = decodedExternalResourceURL.indexOf("?");
+						int indexOfResource = externalResourceURL.indexOf("javax.faces.resource/");
+						int indexOfQuery = externalResourceURL.indexOf("?");
 
 						if (indexOfResource > -1) {
 
 							int indexOfResourceName = indexOfResource + "javax.faces.resource/".length();
 
 							if (indexOfQuery > -1) {
-								resourceName = decodedExternalResourceURL.substring(indexOfResourceName, indexOfQuery);
+								resourceName = externalResourceURL.substring(indexOfResourceName, indexOfQuery);
 							}
 							else {
-								resourceName = decodedExternalResourceURL.substring(indexOfResourceName);
+								resourceName = externalResourceURL.substring(indexOfResourceName);
 							}
 						}
 					}

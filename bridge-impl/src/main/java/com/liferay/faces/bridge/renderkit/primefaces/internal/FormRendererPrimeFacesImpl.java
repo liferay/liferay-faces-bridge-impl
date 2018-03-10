@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -109,7 +109,7 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 
 			try {
 				BridgeURL partialActionURL = bridgeURLFactory.getBridgePartialActionURL(facesContext, facesActionURL);
-				partialActionURL.getParameterMap().remove(Bridge.FACES_AJAX_PARAMETER);
+				partialActionURL.removeParameter(Bridge.FACES_AJAX_PARAMETER);
 
 				String nonAjaxPartialActionURL = partialActionURL.toString();
 				ResponseWriter responseWriter = facesContext.getResponseWriter();

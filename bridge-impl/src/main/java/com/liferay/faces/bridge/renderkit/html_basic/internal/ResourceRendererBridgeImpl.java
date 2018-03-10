@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,9 +74,11 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 		ResponseWriter responseWriter = null;
 
 		// If this is taking place during an Ajax request, then:
-		if (ajaxRequest) {
+		if (ajaxRequest &&
+				(RenderKitUtil.isScriptResource(uiComponentResource) ||
+					RenderKitUtil.isStyleSheetResource(uiComponentResource))) {
 
-			// Set a custom response writer that knows how to remove double-encoded ampersands from URLs.
+			// Set a custom response writer that doesn't escape ampersands from URLs.
 			responseWriter = facesContext.getResponseWriter();
 			facesContext.setResponseWriter(new ResponseWriterResourceImpl(facesContext, responseWriter));
 		}
@@ -84,7 +86,7 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 		// Ask the wrapped renderer to encode the script.
 		super.encodeEnd(facesContext, uiComponentResource);
 
-		if (ajaxRequest) {
+		if (responseWriter != null) {
 
 			// Restore the original response writer.
 			facesContext.setResponseWriter(responseWriter);

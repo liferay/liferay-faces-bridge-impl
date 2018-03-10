@@ -24,6 +24,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.context.ResponseWriterWrapper;
 
+import com.liferay.faces.bridge.util.internal.URLUtil;
 import com.liferay.faces.util.render.FacesURLEncoder;
 import com.liferay.faces.util.render.FacesURLEncoderFactory;
 
@@ -245,8 +246,7 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 
 				String uri = value.toString();
 				String characterEncoding = wrappedResponseWriter.getCharacterEncoding();
-				uri = facesURLEncoder.encode(uri, characterEncoding);
-				uri = uri.replace("&amp;", "&");
+				uri = URLUtil.encodeURL(uri, facesURLEncoder, characterEncoding);
 				writeWithoutClosingStartTag(uri);
 			}
 

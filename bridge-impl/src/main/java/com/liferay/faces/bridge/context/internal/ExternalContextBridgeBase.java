@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.BridgeURLFactory;
 import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
-import com.liferay.faces.bridge.internal.BridgeURIFactory;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
@@ -39,10 +38,9 @@ import com.liferay.faces.util.config.ConfiguredServletMapping;
  */
 public abstract class ExternalContextBridgeBase extends ExternalContext {
 
-	// Private Data Members
+	// Protected Data Members
 	protected BridgeConfig bridgeConfig;
 	protected BridgeRequestScope bridgeRequestScope;
-	protected BridgeURIFactory bridgeURIFactory;
 	protected BridgeURLFactory bridgeURLFactory;
 	protected List<String> configuredSuffixes;
 	protected List<ConfiguredServletMapping> configuredFacesServletMappings;
@@ -64,8 +62,6 @@ public abstract class ExternalContextBridgeBase extends ExternalContext {
 		this.portletConfig = RequestMapUtil.getPortletConfig(portletRequest);
 		this.manageIncongruities = PortletConfigParam.ManageIncongruities.getBooleanValue(portletConfig);
 		this.bridgeRequestScope = (BridgeRequestScope) portletRequest.getAttribute(BridgeRequestScope.class.getName());
-		this.bridgeURIFactory = (BridgeURIFactory) BridgeFactoryFinder.getFactory(portletContext,
-				BridgeURIFactory.class);
 		this.bridgeURLFactory = (BridgeURLFactory) BridgeFactoryFinder.getFactory(portletContext,
 				BridgeURLFactory.class);
 		this.configuredFacesServletMappings = (List<ConfiguredServletMapping>) bridgeConfig.getAttributes().get(

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,20 +42,51 @@ public abstract class SimpleFACESPortletTester extends BrowserDriverManagingTest
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(SimpleFACESPortletTester.class);
 
-	public void runSimpleFACESPortletTest(String testPage) {
+	// Protected Constants
+	protected static final String TEST_ACTION_XPATH = "//*[contains(@class,'testAction')]";
+
+	protected static String getResultStatusXpath(String testPage) {
+		return getResultXpath(testPage, true);
+	}
+
+	protected static String getResultXpath(String testPage, boolean status) {
+
+		String testPageUpperCase = testPage.toUpperCase(Locale.ENGLISH);
+		String resultIdSuffix = "status";
+
+		if (!status) {
+			resultIdSuffix = "detail";
+		}
+
+		return "//div[contains(@class,'liferay-faces-bridge-body')]//*[@id='" + testPageUpperCase + "-result-" +
+			resultIdSuffix + "']";
+	}
+
+	protected static boolean isElementDisplayed(BrowserDriver browserDriver, String xpath) {
+
+		List<WebElement> elements = browserDriver.findElementsByXpath(xpath);
+
+		return !elements.isEmpty() && elements.get(0).isDisplayed();
+	}
+
+	private static boolean isResultsDisplayed(List<WebElement> resultStatusElements) {
+		return !resultStatusElements.isEmpty() && resultStatusElements.get(0).isDisplayed();
+	}
+
+	public final void runSimpleFACESPortletTest(String testPage) {
 
 		BrowserDriver browserDriver = getBrowserDriver();
 		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL(testPage));
+		runSimpleFACESPortletTest(browserDriver, testPage);
+	}
 
-		String testPageUpperCase = testPage.toUpperCase(Locale.ENGLISH);
-		String resultStatusXpath = "//div[contains(@class,'liferay-faces-bridge-body')]//*[@id='" + testPageUpperCase +
-			"-result-status']";
-		List<WebElement> resultStatusElements = browserDriver.findElementsByXpath(resultStatusXpath);
+	public final void runSimpleFACESPortletTest(BrowserDriver browserDriver, String testPage) {
 
-		if (!isResultsDisplayed(resultStatusElements)) {
+		String resultStatusXpath = getResultStatusXpath(testPage);
 
-			List<WebElement> testActionElements = browserDriver.findElementsByXpath(
-					"//*[contains(@class,'testAction')]");
+		if (!isElementDisplayed(browserDriver, resultStatusXpath)) {
+
+			List<WebElement> testActionElements = browserDriver.findElementsByXpath(TEST_ACTION_XPATH);
 
 			if (!testActionElements.isEmpty()) {
 
@@ -66,16 +97,14 @@ public abstract class SimpleFACESPortletTester extends BrowserDriverManagingTest
 
 		String resultStatus = "FAILURE";
 		String resultDetail = "No test results appeared on the page.";
-		resultStatusElements = browserDriver.findElementsByXpath(resultStatusXpath);
+		List<WebElement> resultStatusElements = browserDriver.findElementsByXpath(resultStatusXpath);
 
 		if (isResultsDisplayed(resultStatusElements)) {
 
 			resultDetail = "No test result details appeared on the page.";
 			resultStatus = resultStatusElements.get(0).getText();
 
-			List<WebElement> resultDetailElements = browserDriver.findElementsByXpath(
-					"//div[contains(@class,'liferay-faces-bridge-body')]//*[@id='" + testPageUpperCase +
-					"-result-detail']");
+			List<WebElement> resultDetailElements = browserDriver.findElementsByXpath(getResultXpath(testPage, false));
 
 			if (!resultDetailElements.isEmpty()) {
 				resultDetail = resultDetailElements.get(0).getText();
@@ -84,9 +113,5 @@ public abstract class SimpleFACESPortletTester extends BrowserDriverManagingTest
 
 		Assert.assertEquals(resultDetail, "SUCCESS", resultStatus);
 		logger.info("{} test passed: {}", testPage, resultDetail);
-	}
-
-	private boolean isResultsDisplayed(List<WebElement> resultStatusElements) {
-		return !resultStatusElements.isEmpty() && resultStatusElements.get(0).isDisplayed();
 	}
 }
