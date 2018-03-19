@@ -49,6 +49,7 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 	private Attribute javaScriptType;
 	private boolean writingLink;
 	private boolean writingScript;
+	private boolean closeStartTag;
 
 	public ResponseWriterResourceImpl(FacesContext facesContext, ResponseWriter responseWriter) {
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -59,7 +60,7 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 	@Override
 	public Writer append(char c) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 
 		return super.append(c);
 	}
@@ -67,7 +68,7 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 	@Override
 	public Writer append(CharSequence csq) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 
 		return super.append(csq);
 	}
@@ -75,7 +76,7 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 	@Override
 	public Writer append(CharSequence csq, int start, int end) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 
 		return super.append(csq, start, end);
 	}
@@ -83,41 +84,45 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 	@Override
 	public void close() throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.close();
 	}
 
 	@Override
 	public void endCDATA() throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.endCDATA();
 	}
 
 	@Override
 	public void endDocument() throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.endDocument();
 	}
 
 	@Override
 	public void endElement(String name) throws IOException {
 
-		if ("script".equalsIgnoreCase(name)) {
+		boolean endingScript = "script".equalsIgnoreCase(name);
+		boolean endingLink = "link".equalsIgnoreCase(name);
 
-			writeTypeTextJavaScriptIfNecessary();
-			write("</");
-			write(name);
-			write(">");
-			writingScript = false;
-		}
-		else {
+		if (endingScript || endingLink) {
 
-			if ("link".equalsIgnoreCase(name)) {
+			closeStartTagIfNecessary();
+			writeWithoutClosingStartTag("</");
+			writeWithoutClosingStartTag(name);
+			writeWithoutClosingStartTag(">");
+
+			if (endingScript) {
+				writingScript = false;
+			}
+			else {
 				writingLink = false;
 			}
-
+		}
+		else {
 			super.endElement(name);
 		}
 	}
@@ -130,25 +135,23 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 	@Override
 	public void startCDATA() throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.startCDATA();
 	}
 
 	@Override
 	public void startElement(String name, UIComponent component) throws IOException {
 
-		if ("script".equalsIgnoreCase(name)) {
+		writingScript = "script".equalsIgnoreCase(name);
+		writingLink = "link".equalsIgnoreCase(name);
 
-			writingScript = true;
-			write("<");
-			write(name);
+		if (writingScript || writingLink) {
+
+			writeWithoutClosingStartTag("<");
+			writeWithoutClosingStartTag(name);
+			closeStartTag = true;
 		}
 		else {
-
-			if ("link".equalsIgnoreCase(name)) {
-				writingLink = true;
-			}
-
 			super.startElement(name, component);
 		}
 	}
@@ -156,35 +159,35 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 	@Override
 	public void write(String str) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.write(str);
 	}
 
 	@Override
 	public void write(char[] cbuf) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.write(cbuf);
 	}
 
 	@Override
 	public void write(int c) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.write(c);
 	}
 
 	@Override
 	public void write(char[] cbuf, int off, int len) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.write(cbuf, off, len);
 	}
 
 	@Override
 	public void write(String str, int off, int len) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.write(str, off, len);
 	}
 
@@ -202,48 +205,41 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 	@Override
 	public void writeComment(Object comment) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.writeComment(comment);
 	}
 
 	@Override
 	public void writeText(Object text, String property) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.writeText(text, property);
 	}
 
 	@Override
 	public void writeText(char[] text, int off, int len) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.writeText(text, off, len);
 	}
 
 	@Override
 	public void writeText(Object text, UIComponent component, String property) throws IOException {
 
-		writeTypeTextJavaScriptIfNecessary();
+		closeStartTagIfNecessary();
 		super.writeText(text, component, property);
 	}
 
 	@Override
 	public void writeURIAttribute(String name, Object value, String property) throws IOException {
 
-		// Workaround https://github.com/javaserverfaces/mojarra/issues/4345: JSF script and link resource urls
-		// params are HTML escaped twice when added via Ajax. Also see https://issues.liferay.com/browse/FACES-1236.
 		if (writingScript || writingLink) {
 
-			Attribute javaScriptType = this.javaScriptType;
-
-			// Other methods in this class such as write() call writeTypeTextJavaScriptIfNecessary(), so ensure that
-			// writeTypeTextJavaScriptIfNecessary() is not called recursively when super.write() calls other methods
-			// from this class.
-			this.javaScriptType = null;
-
-			write(" ");
-			write(name);
-			write("=\"");
+			// Workaround https://github.com/javaserverfaces/mojarra/issues/4345: JSF script and link resource urls
+			// params are HTML escaped twice when added via Ajax. Also see https://issues.liferay.com/browse/FACES-1236.
+			writeWithoutClosingStartTag(" ");
+			writeWithoutClosingStartTag(name);
+			writeWithoutClosingStartTag("=\"");
 
 			if (value != null) {
 
@@ -251,41 +247,48 @@ public class ResponseWriterResourceImpl extends ResponseWriterWrapper {
 				String characterEncoding = wrappedResponseWriter.getCharacterEncoding();
 				uri = facesURLEncoder.encode(uri, characterEncoding);
 				uri = uri.replace("&amp;", "&");
-				write(uri);
+				writeWithoutClosingStartTag(uri);
 			}
 
-			write("\"");
-
-			this.javaScriptType = javaScriptType;
+			writeWithoutClosingStartTag("\"");
 		}
 	}
 
-	/**
-	 * Workaround https://github.com/javaserverfaces/mojarra/issues/4340: Script resources in
-	 * <body>are never run during Ajax requests.
-	 *
-	 * @throws  IOException
-	 */
-	private void writeTypeTextJavaScriptIfNecessary() throws IOException {
+	private void closeStartTagIfNecessary() throws IOException {
 
-		if (javaScriptType != null) {
+		if (closeStartTag && (writingScript || writingLink)) {
 
-			Attribute jsType = javaScriptType;
+			closeStartTag = false;
 
-			// Other methods in this class such as write() call writeTypeTextJavaScriptIfNecessary(), so ensure that
-			// writeTypeTextJavaScriptIfNecessary() is not called recursively when super.writeAttribute() calls other
-			// methods from this class.
-			javaScriptType = null;
-			write(" ");
-			write(jsType.name);
-			write("=\"");
+			if (javaScriptType != null) {
 
-			if (jsType.value != null) {
-				write(jsType.value.toString());
+				// Workaround https://github.com/javaserverfaces/mojarra/issues/4340: Script resources in <body> are
+				// never run during Ajax requests.
+				writeWithoutClosingStartTag(" ");
+				writeWithoutClosingStartTag(javaScriptType.name);
+				writeWithoutClosingStartTag("=\"");
+
+				if (javaScriptType.value != null) {
+					writeWithoutClosingStartTag(javaScriptType.value.toString());
+				}
+
+				writeWithoutClosingStartTag("\"");
+				javaScriptType = null;
 			}
 
-			write("\">");
+			writeWithoutClosingStartTag(">");
 		}
+	}
+
+	private void writeWithoutClosingStartTag(String string) throws IOException {
+
+		// Other methods in this class such as write() call closeElementStartTagIfNecessary(), so ensure that
+		// closeElementStartTagIfNecessary() is not called recursively when super.write() calls other
+		// methods from this class.
+		boolean closeStartTag = this.closeStartTag;
+		this.closeStartTag = false;
+		super.write(string);
+		this.closeStartTag = closeStartTag;
 	}
 
 	private static final class Attribute {
