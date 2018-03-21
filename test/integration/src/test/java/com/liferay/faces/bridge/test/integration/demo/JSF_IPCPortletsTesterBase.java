@@ -55,7 +55,7 @@ public class JSF_IPCPortletsTesterBase extends BrowserDriverManagingTesterBase {
 		// Test that the start date can be set.
 		browserDriver.clearElement(startDate1Xpath);
 
-		String startDate = "12/25/2999";
+		String startDate = "12/25/1999";
 		browserDriver.sendKeysToElement(startDate1Xpath, startDate);
 		browserDriver.clickElement(submitButtonXpath);
 
