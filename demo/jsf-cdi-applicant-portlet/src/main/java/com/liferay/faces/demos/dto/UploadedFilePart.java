@@ -92,7 +92,7 @@ public class UploadedFilePart implements UploadedFile, FacesWrapper<Part> {
 		int bytesRead = inputStream.read(byteBuffer);
 
 		while (bytesRead != -1) {
-			byteArrayOutputStream.write(byteBuffer);
+			byteArrayOutputStream.write(byteBuffer, 0, bytesRead);
 			bytesRead = inputStream.read(byteBuffer);
 		}
 
