@@ -125,10 +125,17 @@ public class BridgeURI {
 		}
 	}
 
+	/**
+	 * Sets the parameters of the underlying {@link BridgeURI#getParameterMap()} according to the specified parameter
+	 * map.
+	 */
 	public void addParameters(Map<String, String> parameters) {
 		addParameters(parameters, String.class);
 	}
 
+	/**
+	 * Returns the path component of the URI, relative to the specified context-path.
+	 */
 	public String getContextRelativePath(String contextPath) {
 
 		String contextRelativePath = null;
@@ -155,6 +162,10 @@ public class BridgeURI {
 		return contextRelativePath;
 	}
 
+	/**
+	 * Returns the first value of the underlying {@link BridgeURI#getParameterMap()} with the specified <code>
+	 * name</code>.
+	 */
 	public String getParameter(String name) {
 
 		Map<String, String[]> parameterMap = getParameterMap();
@@ -172,6 +183,9 @@ public class BridgeURI {
 		}
 	}
 
+	/**
+	 * Returns an mutable {@link Map} representing the URI query parameters.
+	 */
 	public Map<String, String[]> getParameterMap() {
 
 		if (parameters == null) {
@@ -181,10 +195,17 @@ public class BridgeURI {
 		return parameters;
 	}
 
+	/**
+	 * Returns the path component of the URI.
+	 */
 	public String getPath() {
 		return path;
 	}
 
+	/**
+	 * Returns the {@link javax.portlet.faces.Bridge.PortletPhase} associated with this URI. Note that the value will be
+	 * null if the URI does not begin with the "portlet:" scheme/prefix.
+	 */
 	public Bridge.PortletPhase getPortletPhase() {
 
 		if (portletPhase == null) {
@@ -219,6 +240,10 @@ public class BridgeURI {
 		return portletPhase;
 	}
 
+	/**
+	 * Returns the query component, meaning all characters after the question-mark of the scheme-specific-part of the
+	 * URI.
+	 */
 	public String getQuery() {
 
 		if (query == null) {
@@ -281,14 +306,34 @@ public class BridgeURI {
 		return query;
 	}
 
+	/**
+	 * Determines whether or not the URI is absolute, meaning it contains a scheme component. Note that according to the
+	 * class-level documentation of {@link java.net.URI} an absolute URI is non-relative.
+	 *
+	 * @return  Returns true if the URI is absolute, otherwise returns false.
+	 */
 	public boolean isAbsolute() {
 		return absolute;
 	}
 
+	/**
+	 * Determines whether or not the URI is escaped.
+	 *
+	 * @return  <code>true</code> if all occurrences of the ampersand character appear as &amp; otherwise, returns
+	 *          <code>false</code>.
+	 */
 	public boolean isEscaped() {
 		return escaped;
 	}
 
+	/**
+	 * Determines whether or not the URI is external with respect to a context path, meaning it is not absolute and does
+	 * not start with the context path.
+	 *
+	 * @param   contextPath  The context path for determining whether or not the URI is external.
+	 *
+	 * @return  <code>true</code> if external, otherwise <code>false</code>.
+	 */
 	public boolean isExternal(String contextPath) {
 
 		if (external == null) {
@@ -319,6 +364,12 @@ public class BridgeURI {
 		return external;
 	}
 
+	/**
+	 * Determines whether or not the URI is hierarchical, meaning it is either 1) absolute and the scheme-specific part
+	 * begins with a forward-slash character, or 2) is relative.
+	 *
+	 * @return  <code>true</code> if the URI is hierarchical, otherwise <code>false</code>.
+	 */
 	public boolean isHierarchical() {
 
 		if (hierarchical == null) {
@@ -333,10 +384,22 @@ public class BridgeURI {
 		return hierarchical;
 	}
 
+	/**
+	 * Determines whether or not the URI is opaque, meaning it is absolute and its scheme component does not begin with
+	 * a forward-slash character. For more information see {@link java.net.URI#isOpaque()}.
+	 *
+	 * @return  <code>true</code> if the URI is opaque, otherwise <code>false</code>.
+	 */
 	public boolean isOpaque() {
 		return portletScheme || opaque;
 	}
 
+	/**
+	 * Determines whether or not the path component of the URI is relative, meaning it does not begin with a
+	 * forward-slash character.
+	 *
+	 * @return  <code>true</code> if the path is relative, otherwise <code>false</code>.
+	 */
 	public boolean isPathRelative() {
 
 		if (pathRelative == null) {
@@ -355,14 +418,32 @@ public class BridgeURI {
 		return pathRelative;
 	}
 
+	/**
+	 * Determines whether or not the URI begins with the "portlet:" scheme.
+	 *
+	 * @return  <code>true</code> if the URI begins with the "portlet:" scheme, otherwise <code>false</code>.
+	 */
 	public boolean isPortletScheme() {
 		return portletScheme;
 	}
 
+	/**
+	 * Determines whether or not the URI is relative, meaning it does not have a scheme component. Note that according
+	 * to the class-level documentation of {@link java.net.URI} a relative URI is non-absolute.
+	 *
+	 * @return  Returns true if the URI is relative, otherwise returns false.
+	 */
 	public boolean isRelative() {
 		return !isAbsolute();
 	}
 
+	/**
+	 * Removes the entry of the underlying {@link BridgeURI#getParameterMap()} according to the specified <code>
+	 * name</code>.
+	 *
+	 * @return  the first value of the underlying {@link BridgeURI#getParameterMap()} with the specified <code>
+	 *          name</code>.
+	 */
 	public String removeParameter(String name) {
 
 		String[] values = null;
@@ -390,12 +471,20 @@ public class BridgeURI {
 		}
 	}
 
+	/**
+	 * Sets the <code>values</code> of the underlying {@link BridgeURI#getParameterMap()} according to the specified
+	 * <code>name</code>.
+	 */
 	public void setParameter(String name, String[] values) {
 
 		getParameterMap().put(name, values);
 		invalidateToString();
 	}
 
+	/**
+	 * Sets the <code>value</code> of the underlying {@link BridgeURI#getParameterMap()} according to the specified
+	 * <code>name</code>.
+	 */
 	public void setParameter(String name, String value) {
 		setParameter(name, new String[] { value });
 	}
@@ -406,6 +495,10 @@ public class BridgeURI {
 		addParameters(parameters, String[].class);
 	}
 
+	/**
+	 * Returns a string-based representation of the URI.
+	 */
+	@Override
 	public String toString() {
 
 		if (stringValue == null) {
