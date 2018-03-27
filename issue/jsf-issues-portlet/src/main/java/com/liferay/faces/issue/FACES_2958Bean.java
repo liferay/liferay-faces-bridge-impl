@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -177,7 +177,8 @@ public class FACES_2958Bean {
 			else {
 
 				ExternalContext externalContext = facesContext.getExternalContext();
-				String urlParam = applicationCompat.evaluateExpressionGet(facesContext, "#{param['urlParam']}", String.class);
+				String urlParam = applicationCompat.evaluateExpressionGet(facesContext, "#{param['urlParam']}",
+						String.class);
 
 				if (!urlParam.equals("http://liferay.com?name1=value1&name2=value2")) {
 
