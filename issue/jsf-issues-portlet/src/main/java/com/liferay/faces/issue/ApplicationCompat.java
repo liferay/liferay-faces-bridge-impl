@@ -15,8 +15,10 @@
  */
 package com.liferay.faces.issue;
 
+import javax.el.ELContext;
+import javax.el.ELResolver;
 import javax.faces.application.Application;
-import javax.faces.application.ApplicationWrapper;
+import javax.faces.context.FacesContext;
 
 
 /**
@@ -24,7 +26,7 @@ import javax.faces.application.ApplicationWrapper;
  *
  * @author  Neil Griffin
  */
-public class ApplicationCompat extends ApplicationWrapper {
+public class ApplicationCompat {
 
 	private Application application;
 
@@ -32,8 +34,11 @@ public class ApplicationCompat extends ApplicationWrapper {
 		this.application = application;
 	}
 
-	@Override
-	public Application getWrapped() {
-		return application;
+	public <T> T evaluateExpressionGet(FacesContext facesContext, String elExpression, Class<? extends T> clazz) {
+
+		ELResolver elResolver = application.getELResolver();
+		ELContext elContext = facesContext.getELContext();
+
+		return (T) elResolver.getValue(elContext, null, elExpression);
 	}
 }

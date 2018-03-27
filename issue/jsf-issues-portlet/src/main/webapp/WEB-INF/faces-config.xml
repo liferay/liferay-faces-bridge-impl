@@ -13,6 +13,11 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>FACES_2958Bean</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.issue.FACES_2958Bean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>JSFSPEC_1433Bean</managed-bean-name>
 		<managed-bean-class>com.liferay.faces.issue.JSFSPEC_1433Bean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
