@@ -79,17 +79,17 @@ public class FACES_2958Bean {
 	private String testResultDetail;
 	private String testResultStatus;
 
-	public static boolean exceptionThrownWhenEncodingURLsWithWhitespace(ExternalContext externalContext) {
+	public static boolean exceptionThrownWhenEncodingURLsWithWhitespace(ExternalContextCompat externalContextCompat) {
 
 		boolean exceptionThrownWhenEncodingURLsWithWhitespace = true;
 
 		try {
 
-			externalContext.encodeActionURL("path/to/view.xhtml" + TEST_PARAMETERS_AS_STRING);
-			externalContext.encodeBookmarkableURL("path/to/view.xhtml", TEST_PARAMETERS);
-			externalContext.encodePartialActionURL("path/to/view.xhtml" + TEST_PARAMETERS_AS_STRING);
-			externalContext.encodeRedirectURL("path/to/view.xhtml", TEST_PARAMETERS);
-			externalContext.encodeResourceURL("path/to/resource.js" + TEST_PARAMETERS_AS_STRING);
+			externalContextCompat.encodeActionURL("path/to/view.xhtml" + TEST_PARAMETERS_AS_STRING);
+			externalContextCompat.encodeBookmarkableURL("path/to/view.xhtml", TEST_PARAMETERS);
+			externalContextCompat.encodePartialActionURL("path/to/view.xhtml" + TEST_PARAMETERS_AS_STRING);
+			externalContextCompat.encodeRedirectURL("path/to/view.xhtml", TEST_PARAMETERS);
+			externalContextCompat.encodeResourceURL("path/to/resource.js" + TEST_PARAMETERS_AS_STRING);
 			exceptionThrownWhenEncodingURLsWithWhitespace = false;
 		}
 		catch (Exception e) {
@@ -123,9 +123,10 @@ public class FACES_2958Bean {
 		return whitespaceEncoded;
 	}
 
-	public static boolean whitespaceEncodedInURLsWithParameters(ExternalContext externalContext) {
-		return testWhitespaceEncoded(externalContext.encodeBookmarkableURL("path/to/view.xhtml", TEST_PARAMETERS)) &&
-			testWhitespaceEncoded(externalContext.encodeRedirectURL("path/to/view.xhtml", TEST_PARAMETERS));
+	public static boolean whitespaceEncodedInURLsWithParameters(ExternalContextCompat externalContextCompat) {
+		return testWhitespaceEncoded(externalContextCompat.encodeBookmarkableURL("path/to/view.xhtml",
+					TEST_PARAMETERS)) &&
+			testWhitespaceEncoded(externalContextCompat.encodeRedirectURL("path/to/view.xhtml", TEST_PARAMETERS));
 	}
 
 	private static Character getUnencodedParamChar(String paramNameSuffix) {
@@ -177,6 +178,7 @@ public class FACES_2958Bean {
 			else {
 
 				ExternalContext externalContext = facesContext.getExternalContext();
+				ExternalContextCompat externalContextCompat = new ExternalContextCompat(externalContext);
 				String urlParam = applicationCompat.evaluateExpressionGet(facesContext, "#{param['urlParam']}",
 						String.class);
 
@@ -186,13 +188,13 @@ public class FACES_2958Bean {
 					testResultDetail =
 						"The url &quot;http://liferay.com?name1=value1&amp;name2=value2&quot; was not found encoded on the URL.";
 				}
-				else if (exceptionThrownWhenEncodingURLsWithWhitespace(externalContext)) {
+				else if (exceptionThrownWhenEncodingURLsWithWhitespace(externalContextCompat)) {
 
 					testResultStatus = "FAILED";
 					testResultDetail =
 						"ExternalContext.encode*URL() method threw an exception when encoding URLs with whitespace characters.";
 				}
-				else if (!whitespaceEncodedInURLsWithParameters(externalContext)) {
+				else if (!whitespaceEncodedInURLsWithParameters(externalContextCompat)) {
 
 					testResultStatus = "FAILED";
 					testResultDetail = "ExternalContext.encode*URL() methods failed to encode whitespace characters.";
