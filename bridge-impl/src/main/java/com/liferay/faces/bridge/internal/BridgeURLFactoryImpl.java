@@ -55,7 +55,8 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 	public BridgeURL getBridgeActionURL(FacesContext facesContext, String uri) throws BridgeException {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
-		ContextInfo contextInfo = new ContextInfo(facesContext, externalContext);
+		ContextInfo contextInfo = new ContextInfo(facesContext.getViewRoot(), externalContext,
+				facesContext.getResponseWriter());
 		ClientWindowInfo clientWindowInfo = new ClientWindowInfo(externalContext);
 
 		try {
@@ -78,7 +79,8 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 		Map<String, List<String>> parameters) throws BridgeException {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
-		ContextInfo contextInfo = new ContextInfo(facesContext, externalContext);
+		ContextInfo contextInfo = new ContextInfo(facesContext.getViewRoot(), externalContext,
+				facesContext.getResponseWriter());
 		ClientWindowInfo clientWindowInfo = new ClientWindowInfo(externalContext);
 
 		try {
@@ -100,12 +102,11 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 	public BridgeURL getBridgePartialActionURL(FacesContext facesContext, String uri) throws BridgeException {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
-		ContextInfo contextInfo = new ContextInfo(facesContext, externalContext);
+		ContextInfo contextInfo = new ContextInfo(facesContext.getViewRoot(), externalContext,
+				facesContext.getResponseWriter());
+		ClientWindowInfo clientWindowInfo = new ClientWindowInfo(externalContext);
 
 		try {
-
-			ClientWindowInfo clientWindowInfo = new ClientWindowInfo(externalContext);
-
 			return new BridgeURLPartialActionImpl(uri, contextInfo.contextPath, contextInfo.namespace,
 					contextInfo.encoding, contextInfo.facesURLEncoder, contextInfo.currentFacesViewId,
 					clientWindowInfo.isRenderModeEnabled(facesContext), clientWindowInfo.getId(),
@@ -125,7 +126,8 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 		throws BridgeException {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
-		ContextInfo contextInfo = new ContextInfo(facesContext, externalContext);
+		ContextInfo contextInfo = new ContextInfo(facesContext.getViewRoot(), externalContext,
+				facesContext.getResponseWriter());
 		ClientWindowInfo clientWindowInfo = new ClientWindowInfo(externalContext);
 
 		try {
@@ -145,8 +147,8 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 	@Override
 	public BridgeURL getBridgeResourceURL(FacesContext facesContext, String uri) throws BridgeException {
 
-		ExternalContext externalContext = facesContext.getExternalContext();
-		ContextInfo contextInfo = new ContextInfo(facesContext, externalContext);
+		ContextInfo contextInfo = new ContextInfo(facesContext.getViewRoot(), facesContext.getExternalContext(),
+				facesContext.getResponseWriter());
 
 		try {
 			return new BridgeURLResourceImpl(facesContext, uri, contextInfo.contextPath, contextInfo.namespace,
@@ -179,14 +181,8 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 		private final String namespace;
 		private final PortletConfig portletConfig;
 
-		public ContextInfo(FacesContext facesContext, ExternalContext externalContext) {
+		public ContextInfo(UIViewRoot uiViewRoot, ExternalContext externalContext, ResponseWriter responseWriter) {
 
-			this.facesURLEncoder = FacesURLEncoderFactory.getFacesURLEncoderInstance(externalContext);
-
-			ResponseWriter responseWriter = facesContext.getResponseWriter();
-			this.encoding = URLUtil.getURLCharacterEncoding(externalContext, responseWriter, "UTF-8");
-
-			UIViewRoot uiViewRoot = facesContext.getViewRoot();
 			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 			this.bridgeConfig = RequestMapUtil.getBridgeConfig(portletRequest);
 			this.contextPath = externalContext.getRequestContextPath();
@@ -197,6 +193,9 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 			else {
 				this.currentFacesViewId = null;
 			}
+
+			this.encoding = URLUtil.getURLCharacterEncoding(externalContext, responseWriter, "UTF-8");
+			this.facesURLEncoder = FacesURLEncoderFactory.getFacesURLEncoderInstance(externalContext);
 
 			this.namespace = externalContext.encodeNamespace("");
 			this.portletConfig = RequestMapUtil.getPortletConfig(portletRequest);
