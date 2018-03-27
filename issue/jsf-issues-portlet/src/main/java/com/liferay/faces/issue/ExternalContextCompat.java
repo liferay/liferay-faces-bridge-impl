@@ -15,14 +15,16 @@
  */
 package com.liferay.faces.issue;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.faces.context.ExternalContext;
-import javax.faces.context.ExternalContextWrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public class ExternalContextCompat extends ExternalContextWrapper {
+public class ExternalContextCompat {
 
 	private ExternalContext externalContext;
 
@@ -30,8 +32,23 @@ public class ExternalContextCompat extends ExternalContextWrapper {
 		this.externalContext = externalContext;
 	}
 
-	@Override
-	public ExternalContext getWrapped() {
-		return externalContext;
+	public String encodeActionURL(String url) {
+		return externalContext.encodeActionURL(url);
+	}
+
+	public String encodeBookmarkableURL(String url, Map<String, List<String>> params) {
+		return "";
+	}
+
+	public String encodePartialActionURL(String url) {
+		return "";
+	}
+
+	public String encodeRedirectURL(String url, Map<String, List<String>> params) {
+		return "";
+	}
+
+	public String encodeResourceURL(String url) {
+		return externalContext.encodeResourceURL(url);
 	}
 }

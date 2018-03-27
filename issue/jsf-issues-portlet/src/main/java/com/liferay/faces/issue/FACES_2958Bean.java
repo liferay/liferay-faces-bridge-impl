@@ -24,8 +24,9 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.faces.application.Application;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+
+// import javax.faces.bean.ManagedBean;
+// import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -33,8 +34,8 @@ import javax.faces.context.FacesContext;
 /**
  * @author  Kyle Stiemann
  */
-@ManagedBean(name = "FACES_2958Bean")
-@RequestScoped
+// @ManagedBean(name = "FACES_2958Bean")
+// @RequestScoped
 public class FACES_2958Bean {
 
 	// Private Constants
