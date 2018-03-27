@@ -862,7 +862,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 									// TCK TestPage179: redirectRenderPRP1Test
 									portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT, Boolean.TRUE);
 									portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT_VIEW_ID,
-										URLDecoder.decode(viewIdRenderParameterValue, urlCharacterEncoding));
+										viewIdRenderParameterValue);
 								}
 
 								// Otherwise, throw an IllegalStateException according to Section 6.1.3.1 of the Spec.
