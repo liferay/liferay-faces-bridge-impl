@@ -149,10 +149,11 @@ public class FACES_2958Bean {
 			String testResultDetail = "";
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			Application application = facesContext.getApplication();
+			ApplicationCompat applicationCompat = new ApplicationCompat(application);
 
 			for (String paramNameSuffix : TEST_PARAMETER_NAME_SUFFIXES) {
 
-				String param = application.evaluateExpressionGet(facesContext,
+				String param = applicationCompat.evaluateExpressionGet(facesContext,
 						"#{param['param" + paramNameSuffix + "']}", String.class);
 				Character unencodedParamChar = getUnencodedParamChar(paramNameSuffix);
 
@@ -176,7 +177,7 @@ public class FACES_2958Bean {
 			else {
 
 				ExternalContext externalContext = facesContext.getExternalContext();
-				String urlParam = application.evaluateExpressionGet(facesContext, "#{param['urlParam']}", String.class);
+				String urlParam = applicationCompat.evaluateExpressionGet(facesContext, "#{param['urlParam']}", String.class);
 
 				if (!urlParam.equals("http://liferay.com?name1=value1&name2=value2")) {
 
