@@ -44,15 +44,16 @@ public class URLUtil {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(URLUtil.class);
 
-	public static String encodeParameterNameOrValue(String name, String encoding) throws UnsupportedEncodingException {
+	public static String encodeParameterNameOrValue(String nameOrValue, String encoding)
+		throws UnsupportedEncodingException {
 
-		String encodedName = name;
+		String encodedNameOrValue = nameOrValue;
 
-		if (name != null) {
-			encodedName = URLEncoder.encode(name, encoding);
+		if (nameOrValue != null) {
+			encodedNameOrValue = URLEncoder.encode(nameOrValue, encoding);
 		}
 
-		return encodedName;
+		return encodedNameOrValue;
 	}
 
 	public static String[] encodeParameterValues(String[] values, String encoding) throws UnsupportedEncodingException {
@@ -210,17 +211,16 @@ public class URLUtil {
 		return parameterMapValuesList;
 	}
 
-	private static String decodeParameterNameOrValue(String name, String encoding) throws UnsupportedEncodingException {
+	private static String decodeParameterNameOrValue(String nameOrValue, String encoding)
+		throws UnsupportedEncodingException {
 
-		String decodedName = name;
+		String decodedNameOrValue = nameOrValue;
 
-		if (name != null) {
-
-			decodedName = URLDecoder.decode(name, encoding);
-			decodedName = decodedName.replace("+", " ");
+		if (nameOrValue != null) {
+			decodedNameOrValue = URLDecoder.decode(nameOrValue, encoding);
 		}
 
-		return decodedName;
+		return decodedNameOrValue;
 	}
 
 	private static String[] decodeParameterValues(String[] values, String encoding)
