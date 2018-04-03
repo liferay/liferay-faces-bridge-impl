@@ -8,13 +8,13 @@
 			<p>Status: <span id="FACES-3231-result-status">SUCCESS</span></p>
 			<p>Detail: <span id="FACES-3231-result-detail">Successfully load html from head section template.</span></p>
 		</script>
-		<h:outputScript>/* <![CDATA[ */
+		<h:outputScript>
 			function testAction() {
 				var faces3231Results = document.getElementById('FACES-3231-results');
 				var faces3231ResultsTemplate = document.getElementById('FACES-3231-results-template');
 				faces3231Results.innerHTML = faces3231ResultsTemplate.innerHTML;
 			}
-		// ]]></h:outputScript>
+		</h:outputScript>
 	</h:head>
 	<h:body>
 		<div id="FACES-3231-results" style="display: none;">
