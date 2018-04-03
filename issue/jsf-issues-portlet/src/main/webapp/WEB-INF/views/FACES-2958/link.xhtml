@@ -15,10 +15,10 @@
 			<f:param name="param0D" value="encoded&#013;param&#013;value" />
 			<f:param name="urlParam" value="http://liferay.com?name1=value1&amp;name2=value2" />
 		</h:link>
-		<h:outputScript>/* <![CDATA[ */
+		<h:outputScript>
 			var testActionLink = document.getElementsByClassName('testAction')[0];
 			testURLEncoded(testActionLink.href, function(){ testActionLink.style.display = null; });
-		/* ]]> */</h:outputScript>
+		</h:outputScript>
 	</h:body>
 </f:view>
 
