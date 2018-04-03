@@ -7,26 +7,7 @@
 	<h:body>
 		<h:outputScript library="FACES-2958"
 			name="resourceViaAjax.js?param=paramValueWithoutSpaces&amp;param20=encoded param value&amp;param09=encoded&#09;param&#09;value&amp;param0A=encoded&#010;param&#010;value&amp;param0D=encoded&#013;param&#013;value&amp;urlParam=http%3A%2F%2Fliferay.com%3Fname1%3Dvalue1%26name2%3Dvalue2" />
-		<h:outputScript>/* <![CDATA[ */
-			var scripts = document.getElementsByTagName('script');
-			var srcOfCurrentScript;
-
-			for (var i = 0; i < scripts.length; i++) {
-
-				if (scripts[i].src.indexOf('FACES-2958') > -1 &&
-					/resourceViaAjax[.]js/.test(scripts[i].src)) {
-					srcOfCurrentScript = scripts[i].src;
-				}
-			}
-
-			if (!srcOfCurrentScript) {
-				throw new Error('Could not obtain FACES-2958 resource url.');
-			}
-
-			testURLEncoded(srcOfCurrentScript, function(){
-				displayResult('SUCCESS', 'All special URL characters were correctly encoded.');
-			});
-		/* ]]> */</h:outputScript>
+		<h:outputScript library="FACES-2958" name="handleResourceViaAjax.js" />
 	</h:body>
 </f:view>
 
