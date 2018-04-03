@@ -6,8 +6,7 @@
 	</h:head>
 	<h:body>
 		<h:form>
-			<h:outputScript>/* <![CDATA[ */
-
+			<h:outputScript>
 				jsf.ajax.addOnEvent(function(data) {
 
 					if (data.status === 'complete') {
@@ -18,7 +17,7 @@
 						testURLEncoded(url, null, function(){ throw new Error("Abort Ajax Request.") });
 					}
 				});
-			/* ]]> */</h:outputScript>
+			</h:outputScript>
 			<h:commandLink styleClass="testAction"
 					action="/WEB-INF/views/FACES-2958/success.xhtml?faces-redirect=true&amp;param=paramValueWithoutSpaces&amp;param20=encoded param value&amp;param09=encoded&#09;param&#09;value&amp;param0A=encoded&#010;param&#010;value&amp;param0D=encoded&#013;param&#013;value&amp;urlParam=http%3A%2F%2Fliferay.com%3Fname1%3Dvalue1%26name2%3Dvalue2"
 					value="To &quot;success.xhtml&quot;.">
