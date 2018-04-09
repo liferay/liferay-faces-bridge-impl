@@ -42,6 +42,7 @@ public class PrimeFacesFileUpload extends UIInputWrapper {
 
 	// Private Constants
 	private static final String METHOD_GET_MODE = "getMode";
+	private static final String METHOD_IS_SKIN_SIMPLE = "isSkinSimple";
 
 	// Private Data Members
 	private UIInput wrappedUIInput;
@@ -65,6 +66,22 @@ public class PrimeFacesFileUpload extends UIInputWrapper {
 
 		return mode;
 	}
+	
+	public boolean isSkinSimple() {
+		
+		boolean isSkinSimple = false;
+		Class<?> clazz = wrappedUIInput.getClass();
+
+		try {
+			Method method = clazz.getMethod(METHOD_IS_SKIN_SIMPLE, (Class[]) null);
+			isSkinSimple = (Boolean) method.invoke(wrappedUIInput, (Object[]) null);
+		} 
+		catch (Exception e) {
+			logger.error(e);
+		}
+
+		return isSkinSimple;
+	}	
 
 	@Override
 	public UIInput getWrapped() {
