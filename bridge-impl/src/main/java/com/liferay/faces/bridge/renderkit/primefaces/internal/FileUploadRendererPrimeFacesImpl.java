@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,8 @@ import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -51,6 +53,7 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 	private static final Logger logger = LoggerFactory.getLogger(FileUploadRendererPrimeFacesImpl.class);
 
 	// Private Constants
+	private static final String FQCN_FILE_UPLOAD = "org.primefaces.component.fileupload.FileUpload";
 	private static final String FQCN_FILE_UPLOAD_EVENT = "org.primefaces.event.FileUploadEvent";
 	private static final String FQCN_NATIVE_UPLOADED_FILE = "org.primefaces.model.NativeUploadedFile";
 	private static final String FQCN_UPLOADED_FILE = "org.primefaces.model.UploadedFile";
@@ -80,8 +83,8 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 
 				// Get the UploadedFile from the request attribute map.
 				PortletContext portletContext = (PortletContext) externalContext.getContext();
-				ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
-						portletContext, ContextMapFactory.class);
+				ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
+						ContextMapFactory.class);
 				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 				Map<String, List<UploadedFile>> uploadedFileMap = contextMapFactory.getUploadedFileMap(portletRequest);
 
@@ -95,9 +98,23 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 						Part part = new HtmlInputFilePartImpl(uploadedFile, clientId);
 
 						// Reflectively create an instance of the PrimeFaces DefaultUploadedFile class.
+						final Product PRIMEFACES = ProductFactory.getProduct(Product.Name.PRIMEFACES);
+						Object defaultUploadedFile;
 						Class<?> defaultUploadedFileClass = Class.forName(FQCN_NATIVE_UPLOADED_FILE);
-						Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(Part.class);
-						Object defaultUploadedFile = constructor.newInstance(part);
+
+						if ((PRIMEFACES.getMajorVersion() > 6) ||
+								((PRIMEFACES.getMajorVersion() == 6) && (PRIMEFACES.getMinorVersion() >= 2))) {
+
+							Class<?> fileUploadClass = Class.forName(FQCN_FILE_UPLOAD);
+							Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(Part.class,
+									fileUploadClass);
+							defaultUploadedFile = constructor.newInstance(part, uiComponent);
+						}
+						else {
+
+							Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(Part.class);
+							defaultUploadedFile = constructor.newInstance(part);
+						}
 
 						// If the PrimeFaces FileUpload component is in "simple" mode, then simply set the submitted
 						// value of the component to the DefaultUploadedFile instance.
@@ -115,8 +132,8 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 							// Reflectively create an instance of the PrimeFaces FileUploadEvent class.
 							Class<?> uploadedFileClass = Class.forName(FQCN_UPLOADED_FILE);
 							Class<?> fileUploadEventClass = Class.forName(FQCN_FILE_UPLOAD_EVENT);
-							constructor = fileUploadEventClass.getConstructor(UIComponent.class, uploadedFileClass);
-
+							Constructor<?> constructor = fileUploadEventClass.getConstructor(UIComponent.class,
+									uploadedFileClass);
 							FacesEvent fileUploadEvent = (FacesEvent) constructor.newInstance(uiComponent,
 									defaultUploadedFile);
 
