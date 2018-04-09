@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,8 @@ import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -52,6 +54,7 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 
 	// Private Constants
 	private static final String FQCN_DEFAULT_UPLOADED_FILE = "org.primefaces.model.DefaultUploadedFile";
+	private static final String FQCN_FILE_UPLOAD = "org.primefaces.component.fileupload.FileUpload";
 	private static final String FQCN_FILE_UPLOAD_EVENT = "org.primefaces.event.FileUploadEvent";
 	private static final String FQCN_UPLOADED_FILE = "org.primefaces.model.UploadedFile";
 
@@ -95,9 +98,24 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 						FileItem fileItem = new PrimeFacesFileItem(clientId, uploadedFile);
 
 						// Reflectively create an instance of the PrimeFaces DefaultUploadedFile class.
+						final Product PRIMEFACES = ProductFactory.getProduct(Product.Name.PRIMEFACES);
+						Object defaultUploadedFile;
 						Class<?> defaultUploadedFileClass = Class.forName(FQCN_DEFAULT_UPLOADED_FILE);
-						Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(FileItem.class);
-						Object defaultUploadedFile = constructor.newInstance(fileItem);
+
+						if ((PRIMEFACES.getMajorVersion() > 6) ||
+								((PRIMEFACES.getMajorVersion() == 6) && (PRIMEFACES.getMinorVersion() >= 2))) {
+
+							Class<?> fileUploadClass = Class.forName(FQCN_FILE_UPLOAD);
+							Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(FileItem.class,
+									fileUploadClass);
+							defaultUploadedFile = constructor.newInstance(fileItem, uiComponent);
+						}
+						else {
+
+							Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(
+									FileItem.class);
+							defaultUploadedFile = constructor.newInstance(fileItem);
+						}
 
 						// If the PrimeFaces FileUpload component is in "simple" mode, then simply set the submitted
 						// value of the component to the DefaultUploadedFile instance.
@@ -115,8 +133,8 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 							// Reflectively create an instance of the PrimeFaces FileUploadEvent class.
 							Class<?> uploadedFileClass = Class.forName(FQCN_UPLOADED_FILE);
 							Class<?> fileUploadEventClass = Class.forName(FQCN_FILE_UPLOAD_EVENT);
-							constructor = fileUploadEventClass.getConstructor(UIComponent.class, uploadedFileClass);
-
+							Constructor<?> constructor = fileUploadEventClass.getConstructor(UIComponent.class,
+									uploadedFileClass);
 							FacesEvent fileUploadEvent = (FacesEvent) constructor.newInstance(uiComponent,
 									defaultUploadedFile);
 
