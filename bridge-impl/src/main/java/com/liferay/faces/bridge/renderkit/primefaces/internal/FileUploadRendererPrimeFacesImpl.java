@@ -59,9 +59,13 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 	private static final String FQCN_UPLOADED_FILE = "org.primefaces.model.UploadedFile";
 
 	// Private Data Members
+	private int majorVersion;
+	private int minorVersion;
 	private Renderer wrappedRenderer;
 
-	public FileUploadRendererPrimeFacesImpl(Renderer renderer) {
+	public FileUploadRendererPrimeFacesImpl(int majorVersion, int minorVersion, Renderer renderer) {
+		this.majorVersion = majorVersion;
+		this.minorVersion = minorVersion;
 		this.wrappedRenderer = renderer;
 	}
 
@@ -74,7 +78,7 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 	public void decode(FacesContext facesContext, UIComponent uiComponent) {
 
 		try {
-			String clientId = uiComponent.getClientId(facesContext);
+			String clientId = getInputDecodeId(uiComponent, facesContext);
 			ExternalContext externalContext = facesContext.getExternalContext();
 			Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
 			String submittedValue = requestParameterMap.get(clientId);
@@ -152,5 +156,24 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 	@Override
 	public Renderer getWrapped() {
 		return wrappedRenderer;
+	}
+	
+	public String getInputDecodeId(UIComponent uiComponent, FacesContext context) {
+		PrimeFacesFileUpload primeFacesFileUpload = new PrimeFacesFileUpload((UIInput) uiComponent);
+		String clientId = primeFacesFileUpload.getClientId(context);
+
+		// FACES-3250: Since PF 5.2
+		if (((majorVersion == 5) && (minorVersion >= 2)) || (majorVersion >= 6)) {
+			if (primeFacesFileUpload.getMode().equals(PrimeFacesFileUpload.MODE_SIMPLE)
+					&& primeFacesFileUpload.isSkinSimple()) {
+				return clientId + "_input";
+			} else {
+				return clientId;
+			}
+		}
+		// Older PF versions
+		else {
+			return clientId;
+		}
 	}
 }
