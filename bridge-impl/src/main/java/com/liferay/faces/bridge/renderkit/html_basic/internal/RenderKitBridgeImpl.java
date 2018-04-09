@@ -87,7 +87,8 @@ public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 					renderer);
 		}
 		else if (PRIMEFACES_FAMILY.equals(family) && PrimeFacesFileUpload.RENDERER_TYPE.equals(rendererType)) {
-			renderer = new FileUploadRendererPrimeFacesImpl(renderer);
+			renderer = new FileUploadRendererPrimeFacesImpl(PRIMEFACES.getMajorVersion(), PRIMEFACES.getMinorVersion(),
+					renderer);
 		}
 		else if (RICHFACES_FILE_UPLOAD_FAMILY.equals(family) &&
 				RICHFACES_FILE_UPLOAD_RENDERER_TYPE.equals(rendererType)) {
