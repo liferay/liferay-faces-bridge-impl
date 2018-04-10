@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitWrapper;
 import javax.faces.render.Renderer;
 
-import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
 import com.liferay.faces.bridge.renderkit.icefaces.internal.HeadRendererICEfacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.FileUploadRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.FormRendererPrimeFacesImpl;
@@ -38,6 +37,9 @@ import com.liferay.faces.util.product.ProductFactory;
  * @author  Neil Griffin
  */
 public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
+
+	// Public Constants
+	public static final String PRIMEFACES_FILE_UPLOAD_RENDERER_TYPE = "org.primefaces.component.FileUploadRenderer";
 
 	// Private Constants
 	private static final String JAVAX_FACES_BODY = "javax.faces.Body";
@@ -86,9 +88,8 @@ public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 			renderer = new FormRendererPrimeFacesImpl(PRIMEFACES.getMajorVersion(), PRIMEFACES.getMinorVersion(),
 					renderer);
 		}
-		else if (PRIMEFACES_FAMILY.equals(family) && PrimeFacesFileUpload.RENDERER_TYPE.equals(rendererType)) {
-			renderer = new FileUploadRendererPrimeFacesImpl(PRIMEFACES.getMajorVersion(), PRIMEFACES.getMinorVersion(),
-					renderer);
+		else if (PRIMEFACES_FAMILY.equals(family) && PRIMEFACES_FILE_UPLOAD_RENDERER_TYPE.equals(rendererType)) {
+			renderer = new FileUploadRendererPrimeFacesImpl(renderer);
 		}
 		else if (RICHFACES_FILE_UPLOAD_FAMILY.equals(family) &&
 				RICHFACES_FILE_UPLOAD_RENDERER_TYPE.equals(rendererType)) {
