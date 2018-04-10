@@ -19,7 +19,6 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.component.UIComponent;
 
 import org.primefaces.event.FileUploadEvent;
 
@@ -27,6 +26,7 @@ import org.primefaces.model.UploadedFile;
 
 
 /**
+ * @author  Yeray Rodriguez (yerayrodriguez@gmail.com)
  * @author  Kyle Stiemann
  */
 @ManagedBean(name = "FACES_3250Bean")
