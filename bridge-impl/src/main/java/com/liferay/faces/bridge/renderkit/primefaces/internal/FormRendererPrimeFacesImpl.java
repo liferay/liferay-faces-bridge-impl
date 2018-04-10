@@ -22,7 +22,6 @@ import java.util.List;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -36,7 +35,7 @@ import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeURL;
 import javax.portlet.faces.BridgeURLFactory;
 
-import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
+import com.liferay.faces.bridge.renderkit.html_basic.internal.RenderKitBridgeImpl;
 
 
 /**
@@ -45,6 +44,9 @@ import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUplo
  * @author  Neil Griffin
  */
 public class FormRendererPrimeFacesImpl extends RendererWrapper {
+
+	// Public Constants
+	public static final String AJAX_FILE_UPLOAD = "ajax.file.upload";
 
 	// Private Constants
 	private static final String P_DATA_EXPORTER_FQCN = "org.primefaces.component.export.DataExporter";
@@ -72,14 +74,14 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 		if ((majorVersion == 3) && (minorVersion < 3) && isMultiPartForm(uiComponent)) {
 
 			boolean hasPrimeFacesAjaxFileUploadChild = false;
-			UIComponent childComponent = getChildWithRendererType(uiComponent, PrimeFacesFileUpload.RENDERER_TYPE);
+			UIComponent childComponent = getChildWithRendererType(uiComponent,
+					RenderKitBridgeImpl.PRIMEFACES_FILE_UPLOAD_RENDERER_TYPE);
 
 			if (childComponent != null) {
-				PrimeFacesFileUpload primeFacesFileUpload = new PrimeFacesFileUpload((UIInput) childComponent);
 
-				if (!primeFacesFileUpload.getMode().equals(PrimeFacesFileUpload.MODE_SIMPLE)) {
+				if (!FileUploadRendererPrimeFacesImpl.isSimpleMode(uiComponent)) {
 					hasPrimeFacesAjaxFileUploadChild = true;
-					facesContext.getAttributes().put(PrimeFacesFileUpload.AJAX_FILE_UPLOAD, Boolean.TRUE);
+					facesContext.getAttributes().put(AJAX_FILE_UPLOAD, Boolean.TRUE);
 				}
 			}
 
@@ -90,7 +92,7 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 			super.encodeBegin(facesContext, uiComponent);
 
 			if (hasPrimeFacesAjaxFileUploadChild) {
-				facesContext.getAttributes().remove(PrimeFacesFileUpload.AJAX_FILE_UPLOAD);
+				facesContext.getAttributes().remove(AJAX_FILE_UPLOAD);
 			}
 		}
 
