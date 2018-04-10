@@ -32,7 +32,6 @@ import javax.portlet.PortletRequest;
 import org.apache.commons.fileupload.FileItem;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
-import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.logging.Logger;
@@ -59,14 +58,24 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 	private static final String FQCN_UPLOADED_FILE = "org.primefaces.model.UploadedFile";
 
 	// Private Data Members
-	private int majorVersion;
-	private int minorVersion;
 	private Renderer wrappedRenderer;
 
-	public FileUploadRendererPrimeFacesImpl(int majorVersion, int minorVersion, Renderer renderer) {
-		this.majorVersion = majorVersion;
-		this.minorVersion = minorVersion;
+	public FileUploadRendererPrimeFacesImpl(Renderer renderer) {
 		this.wrappedRenderer = renderer;
+	}
+
+	/* package-private */ static boolean isSimpleMode(UIComponent fileUpload) {
+
+		Map<String, Object> attributes = fileUpload.getAttributes();
+
+		return isSimpleMode(attributes);
+	}
+
+	private static boolean isSimpleMode(Map<String, Object> fileUploadAttributes) {
+
+		Object mode = fileUploadAttributes.get("mode");
+
+		return "simple".equals(mode);
 	}
 
 	/**
@@ -77,104 +86,104 @@ public class FileUploadRendererPrimeFacesImpl extends RendererWrapper {
 	@Override
 	public void decode(FacesContext facesContext, UIComponent uiComponent) {
 
-		try {
-			String clientId = getInputDecodeId(uiComponent, facesContext);
-			ExternalContext externalContext = facesContext.getExternalContext();
-			Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
-			String submittedValue = requestParameterMap.get(clientId);
+		Map<String, Object> attributes = uiComponent.getAttributes();
+		Object disabled = attributes.get("disabled");
 
-			if (submittedValue != null) {
+		if (!Boolean.TRUE.equals(disabled)) {
 
-				// Get the UploadedFile from the request attribute map.
-				PortletContext portletContext = (PortletContext) externalContext.getContext();
-				ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
-						ContextMapFactory.class);
-				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-				Map<String, List<UploadedFile>> uploadedFileMap = contextMapFactory.getUploadedFileMap(portletRequest);
+			try {
+				String clientId = uiComponent.getClientId(facesContext);
+				ExternalContext externalContext = facesContext.getExternalContext();
+				Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
+				String submittedValue = requestParameterMap.get(clientId);
 
-				List<UploadedFile> uploadedFiles = uploadedFileMap.get(clientId);
+				if (submittedValue == null) {
 
-				if (uploadedFiles != null) {
+					Object skinSimple = attributes.get("skinSimple");
 
-					for (UploadedFile uploadedFile : uploadedFiles) {
+					if (isSimpleMode(attributes) && Boolean.TRUE.equals(skinSimple)) {
 
-						// Convert the UploadedFile to a Commons-FileUpload FileItem.
-						FileItem fileItem = new PrimeFacesFileItem(clientId, uploadedFile);
+						clientId += "_input";
+						submittedValue = requestParameterMap.get(clientId);
+					}
+				}
 
-						// Reflectively create an instance of the PrimeFaces DefaultUploadedFile class.
-						final Product PRIMEFACES = ProductFactory.getProduct(Product.Name.PRIMEFACES);
-						Object defaultUploadedFile;
-						Class<?> defaultUploadedFileClass = Class.forName(FQCN_DEFAULT_UPLOADED_FILE);
+				if (submittedValue != null) {
 
-						if ((PRIMEFACES.getMajorVersion() > 6) ||
-								((PRIMEFACES.getMajorVersion() == 6) && (PRIMEFACES.getMinorVersion() >= 2))) {
+					// Get the UploadedFile from the request attribute map.
+					PortletContext portletContext = (PortletContext) externalContext.getContext();
+					ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
+							portletContext, ContextMapFactory.class);
+					PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+					Map<String, List<UploadedFile>> uploadedFileMap = contextMapFactory.getUploadedFileMap(
+							portletRequest);
 
-							Class<?> fileUploadClass = Class.forName(FQCN_FILE_UPLOAD);
-							Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(FileItem.class,
-									fileUploadClass);
-							defaultUploadedFile = constructor.newInstance(fileItem, uiComponent);
-						}
-						else {
+					List<UploadedFile> uploadedFiles = uploadedFileMap.get(clientId);
 
-							Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(
-									FileItem.class);
-							defaultUploadedFile = constructor.newInstance(fileItem);
-						}
+					if (uploadedFiles != null) {
 
-						// If the PrimeFaces FileUpload component is in "simple" mode, then simply set the submitted
-						// value of the component to the DefaultUploadedFile instance.
-						PrimeFacesFileUpload primeFacesFileUpload = new PrimeFacesFileUpload((UIInput) uiComponent);
+						for (UploadedFile uploadedFile : uploadedFiles) {
 
-						if (primeFacesFileUpload.getMode().equals(PrimeFacesFileUpload.MODE_SIMPLE)) {
-							logger.debug("Setting submittedValue=[{0}]", submittedValue);
-							primeFacesFileUpload.setSubmittedValue(defaultUploadedFile);
-						}
+							// Convert the UploadedFile to a Commons-FileUpload FileItem.
+							FileItem fileItem = new PrimeFacesFileItem(clientId, uploadedFile);
 
-						// Otherwise,
-						else {
-							logger.debug("Queuing FileUploadEvent for submittedValue=[{0}]", submittedValue);
+							// Reflectively create an instance of the PrimeFaces DefaultUploadedFile class.
+							final Product PRIMEFACES = ProductFactory.getProduct(Product.Name.PRIMEFACES);
+							Object defaultUploadedFile;
+							Class<?> defaultUploadedFileClass = Class.forName(FQCN_DEFAULT_UPLOADED_FILE);
 
-							// Reflectively create an instance of the PrimeFaces FileUploadEvent class.
-							Class<?> uploadedFileClass = Class.forName(FQCN_UPLOADED_FILE);
-							Class<?> fileUploadEventClass = Class.forName(FQCN_FILE_UPLOAD_EVENT);
-							Constructor<?> constructor = fileUploadEventClass.getConstructor(UIComponent.class,
-									uploadedFileClass);
-							FacesEvent fileUploadEvent = (FacesEvent) constructor.newInstance(uiComponent,
-									defaultUploadedFile);
+							if ((PRIMEFACES.getMajorVersion() > 6) ||
+									((PRIMEFACES.getMajorVersion() == 6) && (PRIMEFACES.getMinorVersion() >= 2))) {
 
-							// Queue the event.
-							primeFacesFileUpload.queueEvent(fileUploadEvent);
+								Class<?> fileUploadClass = Class.forName(FQCN_FILE_UPLOAD);
+								Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(
+										FileItem.class, fileUploadClass);
+								defaultUploadedFile = constructor.newInstance(fileItem, uiComponent);
+							}
+							else {
+
+								Constructor<?> constructor = defaultUploadedFileClass.getDeclaredConstructor(
+										FileItem.class);
+								defaultUploadedFile = constructor.newInstance(fileItem);
+							}
+
+							// If the PrimeFaces FileUpload component is in "simple" mode, then simply set the submitted
+							// value of the component to the DefaultUploadedFile instance.
+							if (isSimpleMode(attributes)) {
+
+								logger.debug("Setting submittedValue=[{0}]", submittedValue);
+
+								UIInput uiInput = (UIInput) uiComponent;
+								uiInput.setSubmittedValue(defaultUploadedFile);
+							}
+
+							// Otherwise,
+							else {
+								logger.debug("Queuing FileUploadEvent for submittedValue=[{0}]", submittedValue);
+
+								// Reflectively create an instance of the PrimeFaces FileUploadEvent class.
+								Class<?> uploadedFileClass = Class.forName(FQCN_UPLOADED_FILE);
+								Class<?> fileUploadEventClass = Class.forName(FQCN_FILE_UPLOAD_EVENT);
+								Constructor<?> constructor = fileUploadEventClass.getConstructor(UIComponent.class,
+										uploadedFileClass);
+								FacesEvent fileUploadEvent = (FacesEvent) constructor.newInstance(uiComponent,
+										defaultUploadedFile);
+
+								// Queue the event.
+								uiComponent.queueEvent(fileUploadEvent);
+							}
 						}
 					}
 				}
 			}
-		}
-		catch (Exception e) {
-			logger.error(e);
+			catch (Exception e) {
+				logger.error(e);
+			}
 		}
 	}
 
 	@Override
 	public Renderer getWrapped() {
 		return wrappedRenderer;
-	}
-	
-	public String getInputDecodeId(UIComponent uiComponent, FacesContext context) {
-		PrimeFacesFileUpload primeFacesFileUpload = new PrimeFacesFileUpload((UIInput) uiComponent);
-		String clientId = primeFacesFileUpload.getClientId(context);
-
-		// FACES-3250: Since PF 5.2
-		if (((majorVersion == 5) && (minorVersion >= 2)) || (majorVersion >= 6)) {
-			if (primeFacesFileUpload.getMode().equals(PrimeFacesFileUpload.MODE_SIMPLE)
-					&& primeFacesFileUpload.isSkinSimple()) {
-				return clientId + "_input";
-			} else {
-				return clientId;
-			}
-		}
-		// Older PF versions
-		else {
-			return clientId;
-		}
 	}
 }

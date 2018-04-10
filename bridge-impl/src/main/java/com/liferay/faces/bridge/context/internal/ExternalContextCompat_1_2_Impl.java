@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
-import com.liferay.faces.bridge.component.primefaces.internal.PrimeFacesFileUpload;
+import com.liferay.faces.bridge.renderkit.primefaces.internal.FormRendererPrimeFacesImpl;
 
 
 /**
@@ -42,6 +42,6 @@ public abstract class ExternalContextCompat_1_2_Impl extends ExternalContextBrid
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		return facesContext.getAttributes().get(PrimeFacesFileUpload.AJAX_FILE_UPLOAD) != null;
+		return facesContext.getAttributes().get(FormRendererPrimeFacesImpl.AJAX_FILE_UPLOAD) != null;
 	}
 }
