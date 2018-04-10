@@ -657,6 +657,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 				FacesContext facesContext = FacesContext.getCurrentInstance();
 
+				// FACES-3261 The wrong content type of "text/html" is set for execute "@all" Ajax responses
 				if (isJSF2PartialRequest(facesContext)) {
 					responseContentType = "text/xml";
 				}
