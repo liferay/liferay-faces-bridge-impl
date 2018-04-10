@@ -21,7 +21,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLDecoder;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.Iterator;
@@ -655,7 +654,15 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			String responseContentType = mimeResponse.getContentType();
 
 			if (responseContentType == null) {
-				responseContentType = portletRequest.getResponseContentType();
+
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+
+				if (isJSF2PartialRequest(facesContext)) {
+					responseContentType = "text/xml";
+				}
+				else {
+					responseContentType = portletRequest.getResponseContentType();
+				}
 			}
 
 			return responseContentType;
