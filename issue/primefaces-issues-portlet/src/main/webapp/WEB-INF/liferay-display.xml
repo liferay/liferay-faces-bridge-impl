@@ -5,5 +5,6 @@
 	<category name="category.sample">
 		<portlet id="FACES-2921" />
 		<portlet id="FACES-3031" />
+		<portlet id="FACES-3250" />
 	</category>
 </display>

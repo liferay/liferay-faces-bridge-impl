@@ -14,6 +14,12 @@
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
+	
+	<portlet>
+		<portlet-name>FACES-3250</portlet-name>
+		<instanceable>false</instanceable>
+		<ajaxable>false</ajaxable>
+	</portlet>	
 
 	<role-mapper>
 		<role-name>administrator</role-name>
