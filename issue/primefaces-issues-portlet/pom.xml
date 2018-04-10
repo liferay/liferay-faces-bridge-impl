@@ -25,33 +25,25 @@
 		</profile>
 	</profiles>
 
-   <dependencies>
-	<dependency>
-		<groupId>commons-fileupload</groupId>
-		<artifactId>commons-fileupload</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>commons-io</groupId>
-		<artifactId>commons-io</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>javax.el</groupId>
-		<artifactId>javax.el-api</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>javax.portlet</groupId>
-		<artifactId>portlet-api</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>com.liferay.faces</groupId>
-		<artifactId>com.liferay.faces.bridge.impl</artifactId>
-		<version>${project.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.primefaces</groupId>
-		<artifactId>primefaces</artifactId>
-		<version>${primefaces.version}</version>
-	</dependency>
-   </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.portlet</groupId>
+			<artifactId>portlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.bridge.impl</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>${primefaces.version}</version>
+		</dependency>
+	</dependencies>
 
 </project>
