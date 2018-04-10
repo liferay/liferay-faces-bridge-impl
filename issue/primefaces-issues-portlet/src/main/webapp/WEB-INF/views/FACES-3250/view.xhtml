@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form id="formSimpleNoTheming" enctype="multipart/form-data">
+			<h:outputText value="Simple mode, without theming (skinSimple=false)" />
+			<br />
+			<p:inputText id="inputTextSimpleModeNoTheming"
+				value="#{simpleModeNoTheming.text}" />
+			<br />
+			<p:fileUpload id="fileUploadSimpleModeNoTheming"
+				value="#{simpleModeNoTheming.file}" mode="simple" skinSimple="false" />
+			<br />
+			<p:commandButton id="submitSimpleModeNoTheming" value="Submit"
+				ajax="false" actionListener="#{simpleModeNoTheming.submit}" />
+			<br />
+			<h:outputText value="Text: " />
+			<h:outputText id="outputTextSimpleModeNoTheming"
+				value="#{simpleModeNoTheming.text}" />
+			<br />
+			<h:outputText value="Uploaded file name: " />
+			<h:outputText id="fileNameSimpleModeNoTheming"
+				value="#{simpleModeNoTheming.fileName}" />
+		</h:form>
+		<hr />
+		<h:form id="formSimpleTheming" enctype="multipart/form-data">
+			<h:outputText value="Simple mode, with theming (skinSimple=true)" />
+			<br />
+			<p:inputText id="inputTextSimpleModeTheming"
+				value="#{simpleModeTheming.text}" />
+			<br />
+			<p:fileUpload id="fileUploadSimpleModeTheming"
+				value="#{simpleModeTheming.file}" mode="simple" skinSimple="true" />
+			<br />
+			<p:commandButton id="submitSimpleModeTheming" value="Submit"
+				ajax="false" actionListener="#{simpleModeTheming.submit}" />
+			<br />
+			<h:outputText value="Text: " />
+			<h:outputText id="outputTextSimpleModeTheming"
+				value="#{simpleModeTheming.text}" />
+			<br />
+			<h:outputText value="Uploaded file name: " />
+			<h:outputText id="fileNameSimpleModeTheming"
+				value="#{simpleModeTheming.fileName}" />
+		</h:form>
+		<hr />
+		<h:form id="formAdvanced" enctype="multipart/form-data">
+			<h:outputText value="Advanced mode" />
+			<br />
+			<p:inputText id="inputTextAdvancedMode" value="#{advancedMode.text}" />
+			<br />
+			<p:fileUpload id="fileUploadAdvancedMode"
+				fileUploadListener="#{advancedMode.handleFileUpload}"
+				mode="advanced" multiple="false" auto="true" />
+			<br />
+			<p:commandButton id="submitAdvancedMode" value="Submit" ajax="false"
+				actionListener="#{advancedMode.submit}" />
+			<br />
+			<h:outputText value="Text: " />
+			<h:outputText id="outputTextAdvancedMode"
+				value="#{advancedMode.text}" />
+			<br />
+			<h:outputText value="Uploaded file name: " />
+			<h:outputText id="fileNameAdvancedMode"
+				value="#{advancedMode.fileName}" />
+		</h:form>
+		<hr />
+		<ul>
+			<li><em><h:outputText value="#{product.JSF}" /></em></li>
+			<li><em><h:outputText value="#{product.PRIMEFACES}" /></em></li>
+			<li><em><h:outputText
+						value="#{product.LIFERAY_FACES_BRIDGE}" /></em></li>
+			<li><em><h:outputText value="#{product.PORTLET_API}" /></em></li>
+			<li><em><h:outputText value="#{product.PORTLET_CONTAINER}" /></em></li>
+			<li><em><h:outputText value="#{product.SERVLET_CONTAINER}" /></em></li>
+		</ul>
+	</h:body>
+</f:view>
