@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form id="advancedModeForm" enctype="multipart/form-data">
+			<p:fileUpload id="advancedModeFileUpload" auto="true"
+				fileUploadListener="#{FACES_3250Bean.handleAdvancedModeFileUpload}" multiple="false"
+				update="advancedModeFileName" />
+			<br />
+			<h:outputText value="Uploaded file name: " />
+			<h:outputText id="advancedModeFileName" value="#{FACES_3250Bean.advancedModeUploadedFile.fileName}" />
+		</h:form>
+		<hr />
+		<h:form id="simpleModeForm" enctype="multipart/form-data">
+			<p:fileUpload id="simpleModeFileUpload" mode="simple" value="#{FACES_3250Bean.simpleModeUploadedFile}" />
+			<br />
+			<p:commandButton id="simpleModeSubmitButton" ajax="false"
+				value="Submit file via simple mode (skinSimple=false) p:fileUpload" />
+			<br />
+			<h:outputText value="Uploaded file name: " />
+			<h:outputText id="simpleModeFileName" value="#{FACES_3250Bean.simpleModeUploadedFile.fileName}" />
+		</h:form>
+		<hr />
+		<h:form id="skinSimpleModeForm" enctype="multipart/form-data">
+			<p:fileUpload id="skinSimpleModeFileUpload" mode="simple" skinSimple="true"
+				value="#{FACES_3250Bean.skinSimpleModeUploadedFile}" />
+			<br />
+			<p:commandButton id="skinSimpleModeSubmitButton" ajax="false"
+				value="Submit file via simple mode (skinSimple=true) p:fileUpload" />
+			<br />
+			<h:outputText value="Uploaded file name: " />
+			<h:outputText id="skinSimpleModeFileName" value="#{FACES_3250Bean.skinSimpleModeUploadedFile.fileName}" />
+		</h:form>
+	</h:body>
+</f:view>
