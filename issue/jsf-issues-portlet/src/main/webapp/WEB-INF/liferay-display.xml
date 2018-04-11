@@ -4,6 +4,7 @@
 <display>
 	<category name="category.sample">
 		<portlet id="FACES-224" />
+		<portlet id="FACES-257" />
 		<portlet id="FACES-1470" />
 		<portlet id="FACES-1478" />
 		<portlet id="FACES-1618" />
