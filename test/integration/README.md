@@ -26,7 +26,7 @@ to run the tests on Firefox:
 Single tests and groups of tests can be selected via the the `it.test` property. The `it.test` property uses wildcards
 to select tests from their fully qualified class names. For example, to run only the issue portlet tests:
 
-	mvn verify -P selenium -Dit.test=\*issue.\*Test\*
+	mvn verify -P selenium -Dit.test=\*issue.\*\*
 
 Likewise, `-Dit.test=\*Applicant\*` would run only the applicant portlet tests, and `-Dit.test=\*demo.JSF\*` would run
 only the non-applicant demo portlet tests.
@@ -44,7 +44,7 @@ All of the above properties and profiles can be combined to run tests in more co
 
 - Run the issue tests with Chrome against a Pluto Portal instance running on port 4000.
  
-		mvn verify -P selenium,pluto,chrome -Dintegration.port=4000 -Dit.test=\*issue.\*Test\*
+		mvn verify -P selenium,pluto,chrome -Dintegration.port=4000 -Dit.test=\*issue.\*\*
 
 - Run the tests on Firefox against a Liferay 6.2 Portal instance:
 
