@@ -31,7 +31,6 @@
 		<module>icefaces-applicant-portlet</module>
 		<module>alloy-applicant-portlet</module>
 		<module>primefaces-applicant-portlet</module>
-		<module>primepush-cdi-counter-portlet</module>
 		<module>richfaces-applicant-portlet</module>
 	</modules>
 
