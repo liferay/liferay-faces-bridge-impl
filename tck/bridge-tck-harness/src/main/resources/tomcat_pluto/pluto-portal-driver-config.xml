@@ -149,6 +149,9 @@ limitations under the License.
 		</page>
 
 		<!-- Liferay Faces PrimeFaces Issue Portlets -->
+		<page name="faces-1513-2185" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.issue.primefaces.portlet" name="FACES-1513-2185"/>
+		</page>
 		<page name="faces-2921" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.issue.primefaces.portlet" name="FACES-2921"/>
 		</page>
