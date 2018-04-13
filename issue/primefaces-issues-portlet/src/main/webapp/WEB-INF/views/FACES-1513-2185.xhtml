@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<h:head>
+	</h:head>
+	<h:body>
+		<p:dataTable id="usersTable" value="#{FACES_1513_2185Bean.users}" var="user">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="First Name" />
+				</f:facet>
+				<h:outputText value="#{user.firstName}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Last Name" />
+				</f:facet>
+				<h:outputText value="#{user.lastName}" />
+			</p:column>
+		</p:dataTable>
+		<h:form>
+			<p:commandButton id="p_dataExporter" ajax="false" icon="ui-icon-disk" value="Export via p:dataExporter">
+				<p:dataExporter fileName="p_dataExporterUsers" target=":usersTable" type="csv" />
+			</p:commandButton>
+		</h:form>
+		<h:form>
+			<p:commandButton id="pe_exporter" ajax="false" icon="ui-icon-disk" value="Export via pe:exporter">
+				<pe:exporter fileName="pe_exporterUsers" target=":usersTable" type="csv" />
+			</p:commandButton>
+		</h:form>
+		<h:form>
+			<p:commandButton id="p_fileDownload" ajax="false" icon="ui-icon-disk" value="Download via p:fileDownload">
+				<p:fileDownload value="#{FACES_1513_2185Bean.file}" />
+			</p:commandButton>
+		</h:form>
+	</h:body>
+
+</f:view>
