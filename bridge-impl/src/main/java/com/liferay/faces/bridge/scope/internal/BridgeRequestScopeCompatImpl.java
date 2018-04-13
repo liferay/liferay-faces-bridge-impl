@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,12 +78,24 @@ public abstract class BridgeRequestScopeCompatImpl extends BridgeRequestScopeBas
 			Map<Object, Object> currentFacesContextAttributes = facesContext.getAttributes();
 
 			for (FacesContextAttribute facesContextAttribute : savedFacesContextAttributes) {
+
 				Object name = facesContextAttribute.getName();
 
-				Object value = facesContextAttribute.getValue();
-				logger.trace("Restoring FacesContext attribute name=[{0}] value=[{1}]", name, value);
-				currentFacesContextAttributes.put(name, value);
-				restoredFacesContextAttibutes = true;
+				// Don't restore/overwrite attributes that have been set during FacesContext initialization. Overwriting
+				// attributes that are set during initialization can cause issues if the attributes contain references
+				// to request scoped objects. For example, PrimeFaces RequestContext is added to the attribute map
+				// whenever a FacesContext is initialized and it saves a reference to the current FacesContext. If the
+				// RequestContext attribute is restored, it will contain a reference to a FacesContext instance that has
+				// already been released (or the FacesContext will be null since the RequestContext has also been
+				// released).
+				if (!currentFacesContextAttributes.containsKey(name)) {
+
+					Object value = facesContextAttribute.getValue();
+					currentFacesContextAttributes.put(name, value);
+					logger.trace("Restoring FacesContext attribute name=[{0}] value=[{1}]", name, value);
+
+					restoredFacesContextAttibutes = true;
+				}
 			}
 		}
 
@@ -119,5 +131,4 @@ public abstract class BridgeRequestScopeCompatImpl extends BridgeRequestScopeBas
 
 		setAttribute(BRIDGE_REQ_SCOPE_ATTR_FACES_CONTEXT_ATTRIBUTES, savedFacesContextAttributes);
 	}
-
 }
