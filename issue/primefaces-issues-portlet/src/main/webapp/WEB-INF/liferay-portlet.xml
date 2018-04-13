@@ -4,6 +4,12 @@
 <liferay-portlet-app>
 
 	<portlet>
+		<portlet-name>FACES-1513-2185</portlet-name>
+		<instanceable>false</instanceable>
+		<ajaxable>false</ajaxable>
+	</portlet>
+
+	<portlet>
 		<portlet-name>FACES-2921</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
