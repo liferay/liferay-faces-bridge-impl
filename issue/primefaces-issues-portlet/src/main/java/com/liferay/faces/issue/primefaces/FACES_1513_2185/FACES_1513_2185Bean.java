@@ -22,7 +22,7 @@ import java.util.List;
 
 import javax.faces.FacesException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -34,7 +34,7 @@ import org.primefaces.model.StreamedContent;
  * @author  Kyle Stiemann
  */
 @ManagedBean(name = "FACES_1513_2185Bean")
-@ViewScoped
+@RequestScoped
 public class FACES_1513_2185Bean {
 
 	//J-
