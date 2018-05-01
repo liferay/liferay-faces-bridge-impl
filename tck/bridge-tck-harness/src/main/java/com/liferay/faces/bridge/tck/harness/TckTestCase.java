@@ -255,11 +255,11 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 	}
 
 	private void failTckTestCase(String message, BrowserDriver browserDriver) {
-		throw new AssertionError(getTckTestCaseFailureMessage(message, browserDriver));
+		failTckTestCase(message, null, browserDriver);
 	}
 
 	private void failTckTestCase(String message, Exception e, BrowserDriver browserDriver) {
-		throw new AssertionError(getTckTestCaseFailureMessage(message, e, browserDriver), e);
+		throw new AssertionError(getTckTestCaseFailureMessage(message, e, browserDriver));
 	}
 
 	private String getTckTestCaseFailureMessage(String message, BrowserDriver browserDriver) {
