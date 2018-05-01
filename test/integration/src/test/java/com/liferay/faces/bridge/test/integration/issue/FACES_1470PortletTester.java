@@ -216,7 +216,7 @@ public class FACES_1470PortletTester extends BrowserDriverManagingTesterBase {
 
 	@Before
 	public void setUpFACES_1470PortletTester() {
-		getBrowserDriver().setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut(10));
+		getBrowserDriver().setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut() * 2);
 	}
 
 	private void clickButton(BrowserDriver browserDriver, String buttonXpath) {
