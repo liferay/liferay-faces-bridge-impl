@@ -21,7 +21,7 @@ import com.liferay.faces.test.selenium.browser.BrowserDriver;
 /**
  * @author  Kyle Stiemann
  */
-public class AlloyApplicantPortletTester extends BridgeApplicantPortletTester {
+public class AlloyApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
 	protected String getFieldErrorXpath(String fieldXpath) {

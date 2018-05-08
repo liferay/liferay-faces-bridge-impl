@@ -30,7 +30,7 @@ import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 /**
  * @author  Kyle Stiemann
  */
-public class ButterFacesApplicantPortletTester extends BridgeApplicantPortletTester {
+public class ButterFacesApplicantPortletTester extends ApplicantTesterBase {
 
 	// Private Constants
 	private static final String TOOLTIP_XPATH_FRAGMENT =

@@ -15,19 +15,26 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
-import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
-import com.liferay.faces.test.selenium.applicant.ApplicantTesterBase;
+import org.junit.Assume;
+import org.junit.Before;
+
+import com.liferay.faces.test.selenium.browser.TestUtil;
 
 
 /**
- * @author  Kyle Stiemann
+ * @author  Liferay Faces Team
  */
-public abstract class BridgeApplicantPortletTester extends ApplicantTesterBase {
+public class JSF_DSApplicantPortletTester extends ApplicantTesterBase {
 
-	protected abstract String getPortletPageName();
+	@Before
+	public void onlyTestOnLiferay7_0OrGreater() {
+
+		String container = TestUtil.getContainer();
+		Assume.assumeFalse(container.contains("pluto") || "liferay62".equals(container));
+	}
 
 	@Override
-	protected String getContext() {
-		return BridgeTestUtil.getDemoContext(getPortletPageName());
+	protected String getPortletPageName() {
+		return "jsf-ds-applicant";
 	}
 }
