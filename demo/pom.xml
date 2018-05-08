@@ -18,6 +18,7 @@
 		<module>bootsfaces-applicant-portlet</module>
 		<module>butterfaces-applicant-portlet</module>
 		<module>jsf-cdi-applicant-portlet</module>
+		<module>jsf-ds-applicant-portlet</module>
 		<module>jsf-export-pdf-portlet</module>
 		<module>jsf-flows-portlet</module>
 		<module>jsf-html5-applicant-portlet</module>

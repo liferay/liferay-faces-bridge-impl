@@ -24,7 +24,7 @@ import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 /**
  * @author  Kyle Stiemann
  */
-public class PrimeFacesApplicantPortletTester extends BridgeApplicantPortletTester {
+public class PrimeFacesApplicantPortletTester extends ApplicantTesterBase {
 
 	// Private Constants
 	private static final String SELECT_PROVINCE_ID_XPATH = "//select[contains(@id,':provinceId')]";

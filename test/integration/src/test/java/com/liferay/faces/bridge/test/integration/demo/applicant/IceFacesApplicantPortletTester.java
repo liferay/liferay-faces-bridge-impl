@@ -21,7 +21,7 @@ import com.liferay.faces.test.selenium.browser.BrowserDriver;
 /**
  * @author  Kyle Stiemann
  */
-public class IceFacesApplicantPortletTester extends BridgeApplicantPortletTester {
+public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
 	protected String getExtraLibraryName() {

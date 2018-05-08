@@ -25,7 +25,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.TestUtil;
 import com.liferay.faces.test.selenium.browser.WaitingAsserter;
@@ -42,7 +41,7 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 	public void runApplicantPortletTest_A_ApplicantViewRendered() throws Exception {
 
 		BrowserDriver browserDriver = getBrowserDriver();
-		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + getContext());
+		navigateWindowToDemo(browserDriver);
 
 		// Wait to begin the test until the first name field is rendered.
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
@@ -226,11 +225,6 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 	}
 
 	@Override
-	protected String getContext() {
-		return BridgeTestUtil.getDemoContext("jsf-jsp-applicant");
-	}
-
-	@Override
 	protected String getEditModeXpath() {
 		return "//input[contains(@value,'Edit Preferences')]";
 	}
@@ -238,6 +232,11 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 	@Override
 	protected String getFileUploadChooserXpath() {
 		return "(//input[@type='file'])[1]";
+	}
+
+	@Override
+	protected String getPortletPageName() {
+		return "jsf-jsp-applicant";
 	}
 
 	protected final void submitPostalCodeAndWaitForPostback(BrowserDriver browserDriver, CharSequence... postalCode) {

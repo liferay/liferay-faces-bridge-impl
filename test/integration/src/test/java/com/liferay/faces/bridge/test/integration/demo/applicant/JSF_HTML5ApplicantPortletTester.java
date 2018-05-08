@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.test.integration.demo.applicant;
 /**
  * @author  Kyle Stiemann
  */
-public class JSF_HTML5ApplicantPortletTester extends BridgeApplicantPortletTester {
+public class JSF_HTML5ApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
 	protected String getPortletPageName() {

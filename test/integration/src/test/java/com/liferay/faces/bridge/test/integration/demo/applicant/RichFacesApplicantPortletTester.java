@@ -22,7 +22,7 @@ import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 /**
  * @author  Kyle Stiemann
  */
-public class RichFacesApplicantPortletTester extends BridgeApplicantPortletTester {
+public class RichFacesApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
 	protected void assertFileUploadChooserDisplayed(BrowserDriver browserDriver, WaitingAsserter waitingAsserter) {
