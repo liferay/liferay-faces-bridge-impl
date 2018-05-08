@@ -28,7 +28,7 @@ import com.liferay.faces.test.selenium.browser.TestUtil;
 /**
  * @author  Kyle Stiemann
  */
-public class BootsFacesApplicantPortletTester extends BridgeApplicantPortletTester {
+public class BootsFacesApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
 	public void runApplicantPortletTest_G_Comments() {
