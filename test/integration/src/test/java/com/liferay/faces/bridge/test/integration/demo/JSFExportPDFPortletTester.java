@@ -15,15 +15,10 @@
  */
 package com.liferay.faces.bridge.test.integration.demo;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.FileChannel;
-import java.nio.channels.ReadableByteChannel;
 import java.util.Set;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -41,8 +36,8 @@ import org.slf4j.LoggerFactory;
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
-import com.liferay.faces.test.selenium.browser.TestUtil;
 import com.liferay.faces.test.selenium.browser.WaitingAsserter;
+import com.liferay.faces.test.selenium.util.ClosableUtil;
 
 
 /**
@@ -90,21 +85,14 @@ public class JSFExportPDFPortletTester extends BrowserDriverManagingTesterBase {
 		httpURLConnection.addRequestProperty("Cookie", cookieString);
 
 		InputStream inputStream = httpURLConnection.getInputStream();
-		ReadableByteChannel readableByteChannel = Channels.newChannel(inputStream);
-		String shearerRichPDFFilePath = TestUtil.JAVA_IO_TMPDIR + "Shearer-Rich.pdf";
-		FileOutputStream fileOutputStream = new FileOutputStream(shearerRichPDFFilePath);
-		FileChannel fileOutputStreamChannel = fileOutputStream.getChannel();
-		fileOutputStreamChannel.transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
 
 		// Compare the text of the PDFs rather than the files (via a hash such as md5) becuase the portlet generates
 		// slightly different PDFs each time the link is clicked (CreationDate, ModDate, and Info 7 0 R/ID are
 		// different each time).
-		File shearerRichPDFFile = new File(shearerRichPDFFilePath);
-		String shearerRichPDFText = getPDFText(shearerRichPDFFile);
-		URL expectedShearerRichPDFURL = JSFExportPDFPortletTester.class.getResource("/Shearer-Rich.pdf");
-		String expectedShearerRichPDFFilePath = expectedShearerRichPDFURL.getFile();
-		File expectedShearerRichPDFFile = new File(expectedShearerRichPDFFilePath);
-		String expectedShearerRichPDFText = getPDFText(expectedShearerRichPDFFile);
+		String shearerRichPDFText = getPDFText(inputStream);
+		inputStream = JSFExportPDFPortletTester.class.getResourceAsStream("/Shearer-Rich.pdf");
+
+		String expectedShearerRichPDFText = getPDFText(inputStream);
 		logger.info("Expected Shearer-Rich.pdf text:\n\n{}\nDownloaded Shearer-Rich.pdf text:\n\n{}",
 			expectedShearerRichPDFText, shearerRichPDFText);
 		Assert.assertEquals(
@@ -112,12 +100,23 @@ public class JSFExportPDFPortletTester extends BrowserDriverManagingTesterBase {
 			expectedShearerRichPDFText, shearerRichPDFText);
 	}
 
-	private String getPDFText(File file) throws IOException {
+	private String getPDFText(InputStream inputStream) throws IOException {
 
-		PDDocument pdDocument = PDDocument.load(file);
-		PDFTextStripper pdfTextStripper = new PDFTextStripper();
-		String text = pdfTextStripper.getText(pdDocument);
-		pdDocument.close();
+		String text = "";
+		PDDocument pdDocument = null;
+
+		try {
+
+			pdDocument = PDDocument.load(inputStream);
+
+			PDFTextStripper pdfTextStripper = new PDFTextStripper();
+			text = pdfTextStripper.getText(pdDocument);
+		}
+		finally {
+
+			ClosableUtil.close(pdDocument);
+			ClosableUtil.close(inputStream);
+		}
 
 		return text;
 	}

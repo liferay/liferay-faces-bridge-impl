@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.test.showcase.bridge;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import com.liferay.faces.test.showcase.inputfile.InputFileTester;
@@ -27,7 +29,7 @@ import com.liferay.faces.test.showcase.inputfile.InputFileTester;
 public class InputFileGeneralTester extends InputFileTester {
 
 	@Test
-	public void runBridgeInputFileGeneralTest() throws Exception {
+	public void runBridgeInputFileGeneralTest() throws IOException {
 		runInputFileTest("bridge", "general");
 	}
 }

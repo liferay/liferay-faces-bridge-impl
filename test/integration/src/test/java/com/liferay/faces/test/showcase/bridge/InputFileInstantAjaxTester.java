@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.test.showcase.bridge;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import com.liferay.faces.test.showcase.inputfile.InputFileTester;
@@ -27,7 +29,7 @@ import com.liferay.faces.test.showcase.inputfile.InputFileTester;
 public class InputFileInstantAjaxTester extends InputFileTester {
 
 	@Test
-	public void runBridgeInputFileInstantAjaxTest() throws Exception {
+	public void runBridgeInputFileInstantAjaxTest() throws IOException {
 		runInputFileTest("bridge", "instant-ajax");
 	}
 }

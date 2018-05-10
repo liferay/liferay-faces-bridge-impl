@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
+import java.io.IOException;
+
 import org.junit.Assume;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -167,7 +169,7 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 	}
 
 	@Override
-	public void runApplicantPortletTest_I_FileUpload() {
+	public void runApplicantPortletTest_I_FileUpload() throws IOException {
 
 		BrowserDriver browserDriver = getBrowserDriver();
 		String addAttachmentXpath = getAddAttachmentXpath();

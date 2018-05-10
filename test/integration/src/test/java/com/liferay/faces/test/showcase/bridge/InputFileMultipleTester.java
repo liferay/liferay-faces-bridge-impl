@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.test.showcase.bridge;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import com.liferay.faces.test.showcase.inputfile.InputFileTester;
@@ -27,7 +29,7 @@ import com.liferay.faces.test.showcase.inputfile.InputFileTester;
 public class InputFileMultipleTester extends InputFileTester {
 
 	@Test
-	public void runBridgeInputFileMultipleTest() throws Exception {
+	public void runBridgeInputFileMultipleTest() throws IOException {
 
 		// Multiple file upload is currently unsupported on Selenium, so this test only tests uploading a single file.
 		// https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/2239
