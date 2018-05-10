@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.test.integration.issue.primefaces;
 
+import java.io.IOException;
 import java.util.Locale;
 
 import org.junit.Test;
@@ -23,18 +24,29 @@ import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
-import com.liferay.faces.test.selenium.browser.TestUtil;
+import com.liferay.faces.test.selenium.browser.FileUploadTesterBase;
 import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class FACES_3250PortletTester extends BrowserDriverManagingTesterBase {
+public class FACES_3250PortletTester extends FileUploadTesterBase {
 
-	public static void testFACES_3250FileUpload(BrowserDriver browserDriver, WaitingAsserter waitingAsserter,
-		String mode) {
+	@Test
+	public void testFACES_3250Portlet() throws IOException {
+
+		BrowserDriver browserDriver = getBrowserDriver();
+		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL("faces-3250"));
+
+		WaitingAsserter waitingAsserter = getWaitingAsserter();
+		testFACES_3250FileUpload(browserDriver, waitingAsserter, "advancedMode");
+		testFACES_3250FileUpload(browserDriver, waitingAsserter, "simpleMode");
+		testFACES_3250FileUpload(browserDriver, waitingAsserter, "skinSimpleMode");
+	}
+
+	private void testFACES_3250FileUpload(BrowserDriver browserDriver, WaitingAsserter waitingAsserter, String mode)
+		throws IOException {
 
 		WebElement fileUploadChooser = browserDriver.findElementByXpath("//input[contains(@id,':" + mode +
 				"FileUpload')]");
@@ -53,24 +65,12 @@ public class FACES_3250PortletTester extends BrowserDriverManagingTesterBase {
 				"multipleFileUploadElements[i].removeAttribute('multiple'); }");
 		}
 
-		fileUploadChooser.sendKeys(TestUtil.JAVA_IO_TMPDIR + "liferay-jsf-jersey.png");
+		fileUploadChooser.sendKeys(getFileSystemPathForResource(BridgeTestUtil.LIFERAY_JSF_JERSEY_PNG_FILE_NAME));
 
 		if (mode.toLowerCase(Locale.ENGLISH).contains("simplemode")) {
 			browserDriver.clickElementAndWaitForRerender("//button[contains(@id,':" + mode + "SubmitButton')]");
 		}
 
 		waitingAsserter.assertTextPresentInElement("jersey", "//span[contains(@id,':" + mode + "FileName')]");
-	}
-
-	@Test
-	public void testFACES_3250Portlet() {
-
-		BrowserDriver browserDriver = getBrowserDriver();
-		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL("faces-3250"));
-
-		WaitingAsserter waitingAsserter = getWaitingAsserter();
-		testFACES_3250FileUpload(browserDriver, waitingAsserter, "advancedMode");
-		testFACES_3250FileUpload(browserDriver, waitingAsserter, "simpleMode");
-		testFACES_3250FileUpload(browserDriver, waitingAsserter, "skinSimpleMode");
 	}
 }

@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -38,7 +39,7 @@ import org.slf4j.LoggerFactory;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.FileUploadTesterBase;
 import com.liferay.faces.test.selenium.browser.TestUtil;
 import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
@@ -47,13 +48,10 @@ import com.liferay.faces.test.selenium.browser.WaitingAsserter;
  * @author  Kyle Stiemann
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public abstract class ApplicantTesterBase extends BrowserDriverManagingTesterBase {
+public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ApplicantTesterBase.class);
-
-	// Private Constants
-	protected static final String LIFERAY_JSF_JERSEY_PNG_FILE_PATH = TestUtil.JAVA_IO_TMPDIR + "liferay-jsf-jersey.png";
 
 	@Test
 	public void runApplicantPortletTest_A_ApplicantViewRendered() throws Exception {
@@ -267,7 +265,7 @@ public abstract class ApplicantTesterBase extends BrowserDriverManagingTesterBas
 	}
 
 	@Test
-	public void runApplicantPortletTest_I_FileUpload() {
+	public void runApplicantPortletTest_I_FileUpload() throws IOException {
 
 		BrowserDriver browserDriver = getBrowserDriver();
 		String fileUploadChooserXpath = getFileUploadChooserXpath();
@@ -287,7 +285,7 @@ public abstract class ApplicantTesterBase extends BrowserDriverManagingTesterBas
 				"multipleFileUploadElements[i].removeAttribute('multiple'); }");
 		}
 
-		fileUploadChooser.sendKeys(LIFERAY_JSF_JERSEY_PNG_FILE_PATH);
+		fileUploadChooser.sendKeys(getFileSystemPathForResource(BridgeTestUtil.LIFERAY_JSF_JERSEY_PNG_FILE_NAME));
 		submitFile(browserDriver);
 		getWaitingAsserter().assertTextPresentInElement("jersey", getUploadedFileXpath());
 	}

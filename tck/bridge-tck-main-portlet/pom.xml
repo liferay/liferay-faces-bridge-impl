@@ -238,25 +238,6 @@
 			<id>selenium</id>
 			<build>
 				<plugins>
-					<!-- Ensure that the png resource is in the temporary directory for testing. -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>pre-integration-test</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-								<configuration>
-									<target>
-										<copy file="src/test/resources/liferay-jsf-jersey.png" todir="${java.io.tmpdir}" />
-									</target>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
