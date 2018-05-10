@@ -23,6 +23,9 @@ import com.liferay.faces.test.selenium.browser.TestUtil;
  */
 public final class BridgeTestUtil {
 
+	// Public Constants
+	public static final String LIFERAY_JSF_JERSEY_PNG_FILE_NAME = "liferay-jsf-jersey.png";
+
 	// Private Constants
 	private static final String DEFAULT_DEMO_CONTEXT;
 	private static final String DEFAULT_ISSUE_CONTEXT;
