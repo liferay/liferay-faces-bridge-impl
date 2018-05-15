@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,12 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
 import javax.portlet.PortletConfig;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
@@ -66,9 +62,9 @@ public class BridgeImpl extends BridgeCompatImpl {
 		// FACES-1450: Surround with try/catch block in order to prevent hot re-deploys from failing in Liferay Portal.
 		try {
 
+			PortletContext portletContext = portletConfig.getPortletContext();
 			BridgeRequestScopeManagerFactory bridgeRequestScopeManagerFactory = (BridgeRequestScopeManagerFactory)
-				BridgeFactoryFinder.getFactory(portletConfig.getPortletContext(),
-					BridgeRequestScopeManagerFactory.class);
+				BridgeFactoryFinder.getFactory(portletContext, BridgeRequestScopeManagerFactory.class);
 
 			// Note: If the bridge request scope manager factory is null, that means that the servlet container that
 			// underlies the portlet container already destroyed the context (including all of the context attributes
@@ -77,7 +73,7 @@ public class BridgeImpl extends BridgeCompatImpl {
 			if (bridgeRequestScopeManagerFactory != null) {
 
 				BridgeRequestScopeManager bridgeRequestScopeManager =
-					bridgeRequestScopeManagerFactory.getBridgeRequestScopeManager();
+					bridgeRequestScopeManagerFactory.getBridgeRequestScopeManager(portletContext);
 				bridgeRequestScopeManager.removeBridgeRequestScopesByPortlet(portletConfig);
 			}
 			else {

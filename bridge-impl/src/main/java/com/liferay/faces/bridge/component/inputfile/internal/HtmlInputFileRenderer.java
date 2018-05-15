@@ -20,6 +20,7 @@ import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputFile;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
@@ -28,6 +29,7 @@ import javax.servlet.http.Part;
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.bridge.renderkit.bridge.internal.PartFileUploadAdapterImpl;
+import com.liferay.faces.util.lang.ThreadSafeAccessor;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.product.Product;
@@ -44,27 +46,8 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(HtmlInputFileRenderer.class);
 
-	// Private Data Members
-	private Renderer delegateRenderer;
-
-	public HtmlInputFileRenderer() {
-
-		String delegateRendererFQCN = "com.sun.faces.renderkit.html_basic.FileRenderer";
-
-		final boolean MYFACES_DETECTED = ProductFactory.getProduct(Product.Name.MYFACES).isDetected();
-
-		if (MYFACES_DETECTED) {
-			delegateRendererFQCN = "org.apache.myfaces.renderkit.html.HtmlInputFileRenderer";
-		}
-
-		try {
-			Class<?> delegateRendererClass = Class.forName(delegateRendererFQCN);
-			delegateRenderer = (Renderer) delegateRendererClass.newInstance();
-		}
-		catch (Exception e) {
-			logger.error(e);
-		}
-	}
+	// Private Final Data Members
+	private final DelegateRendererAccessor delegateRendererAccessor = new DelegateRendererAccessor();
 
 	@Override
 	public void decode(FacesContext facesContext, UIComponent uiComponent) {
@@ -115,11 +98,44 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 
 	@Override
 	public Renderer getDelegateRenderer(FacesContext facesContext) {
-		return delegateRenderer;
+		return delegateRendererAccessor.get(facesContext);
 	}
 
 	@Override
 	public String getDelegateRendererType() {
 		return "javax.faces.File";
+	}
+
+	private static final class DelegateRendererAccessor extends ThreadSafeAccessor<Renderer, FacesContext> {
+
+		@Override
+		protected Renderer computeValue(FacesContext facesContext) {
+
+			Renderer delegateRenderer;
+			String delegateRendererFQCN = "com.sun.faces.renderkit.html_basic.FileRenderer";
+			ExternalContext externalContext = facesContext.getExternalContext();
+			final Product MYFACES = ProductFactory.getProductInstance(externalContext, Product.Name.MYFACES);
+
+			if (MYFACES.isDetected()) {
+				delegateRendererFQCN = "org.apache.myfaces.renderkit.html.HtmlInputFileRenderer";
+			}
+
+			try {
+
+				Class<?> delegateRendererClass = Class.forName(delegateRendererFQCN);
+				delegateRenderer = (Renderer) delegateRendererClass.newInstance();
+			}
+			catch (Exception e) {
+
+				logger.error(e);
+				delegateRenderer = new NoOpRenderer();
+			}
+
+			return delegateRenderer;
+		}
+	}
+
+	private static final class NoOpRenderer extends Renderer {
+
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -90,7 +90,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		// Get the bridge request scope cache from the bridge request scope manager.
 		BridgeRequestScopeManager bridgeRequestScopeManager = BridgeRequestScopeManagerFactory
 			.getBridgeRequestScopeManagerInstance(portletContext);
-		this.bridgeRequestScopeCache = bridgeRequestScopeManager.getBridgeRequestScopeCache(portletContext);
+		this.bridgeRequestScopeCache = bridgeRequestScopeManager.getBridgeRequestScopeCache();
 
 		// Get the default lifecycle instance from the factory.
 		LifecycleFactory lifecycleFactory = (LifecycleFactory) FactoryFinder.getFactory(
