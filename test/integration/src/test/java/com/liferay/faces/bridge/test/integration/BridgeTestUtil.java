@@ -25,6 +25,7 @@ public final class BridgeTestUtil {
 
 	// Public Constants
 	public static final String LIFERAY_JSF_JERSEY_PNG_FILE_NAME = "liferay-jsf-jersey.png";
+	public static final int DOUBLED_DEFAULT_BROWSER_DRIVER_WAIT_TIME_OUT;
 
 	// Private Constants
 	private static final String DEFAULT_DEMO_CONTEXT;
@@ -35,14 +36,17 @@ public final class BridgeTestUtil {
 
 		String defaultDemoContext = "/group/bridge-demos";
 		String defaultIssueContext = "/web/bridge-issues";
+		int doubledDefaultBrowserDriverWaitTimeOut = 10;
 
 		if (isContainerPluto(TestUtil.getContainer())) {
 			defaultDemoContext = TestUtil.DEFAULT_PLUTO_CONTEXT;
 			defaultIssueContext = TestUtil.DEFAULT_PLUTO_CONTEXT;
+			doubledDefaultBrowserDriverWaitTimeOut = 6;
 		}
 
 		DEFAULT_DEMO_CONTEXT = defaultDemoContext;
 		DEFAULT_ISSUE_CONTEXT = defaultIssueContext;
+		DOUBLED_DEFAULT_BROWSER_DRIVER_WAIT_TIME_OUT = doubledDefaultBrowserDriverWaitTimeOut;
 	}
 
 	private BridgeTestUtil() {

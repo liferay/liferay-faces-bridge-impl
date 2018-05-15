@@ -161,7 +161,8 @@ public class JSFFlowsPortletTester extends BrowserDriverManagingTesterBase {
 
 	@Before
 	public void setUpJSFFlowsPortletTester() {
-		getBrowserDriver().setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut() * 2);
+		getBrowserDriver().setWaitTimeOut(TestUtil.getBrowserDriverWaitTimeOut(
+				BridgeTestUtil.DOUBLED_DEFAULT_BROWSER_DRIVER_WAIT_TIME_OUT));
 	}
 
 	@After
