@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
+import com.liferay.faces.util.lang.ThreadSafeAccessor;
 
 
 /**
@@ -38,33 +39,16 @@ public class HeaderRequestPhaseListener implements PhaseListener {
 	// serialVersionUID
 	private static final long serialVersionUID = 8470095938465172618L;
 
-	// Instance field must be declared volatile in order for the double-check idiom to work (requires JRE 1.5+)
-	private volatile Boolean viewParametersEnabled;
+	// Private Final Data Members
+	private final ViewParametersEnabledAccessor viewParametersEnabledAccessor = new ViewParametersEnabledAccessor();
 
 	@Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 
 		FacesContext facesContext = phaseEvent.getFacesContext();
-		Boolean viewParametersEnabled = this.viewParametersEnabled;
-
-		// First check without locking (not yet thread-safe)
-		if (viewParametersEnabled == null) {
-
-			synchronized (this) {
-
-				viewParametersEnabled = this.viewParametersEnabled;
-
-				// Second check with locking (thread-safe)
-				if (viewParametersEnabled == null) {
-
-					PortletConfig portletConfig = RequestMapUtil.getPortletConfig(facesContext);
-					viewParametersEnabled = this.viewParametersEnabled = isViewParametersEnabled(portletConfig);
-				}
-			}
-		}
 
 		// If the JSF 2 "View Parameters" feature is not enabled, then ensure that only the RESTORE_VIEW phase executes.
-		if (!viewParametersEnabled &&
+		if (!viewParametersEnabledAccessor.get(facesContext) &&
 				(BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RENDER_PHASE)) {
 
 			facesContext.renderResponse();
@@ -81,7 +65,14 @@ public class HeaderRequestPhaseListener implements PhaseListener {
 		return PhaseId.RESTORE_VIEW;
 	}
 
-	private boolean isViewParametersEnabled(PortletConfig portletConfig) {
-		return PortletConfigParam.ViewParametersEnabled.getBooleanValue(portletConfig);
+	private static final class ViewParametersEnabledAccessor extends ThreadSafeAccessor<Boolean, FacesContext> {
+
+		@Override
+		protected Boolean computeValue(FacesContext facesContext) {
+
+			PortletConfig portletConfig = RequestMapUtil.getPortletConfig(facesContext);
+
+			return PortletConfigParam.ViewParametersEnabled.getBooleanValue(portletConfig);
+		}
 	}
 }

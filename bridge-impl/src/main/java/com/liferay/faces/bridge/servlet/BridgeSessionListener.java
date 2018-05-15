@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import com.liferay.faces.bridge.context.internal.PortletContextAdapter;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManager;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerFactory;
 import com.liferay.faces.util.config.ApplicationConfig;
+import com.liferay.faces.util.lang.ThreadSafeAccessor;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.product.Product;
@@ -54,6 +55,10 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 	private static final String MOJARRA_ACTIVE_VIEW_MAPS = "com.sun.faces.application.view.activeViewMaps";
 	private static final String MOJARRA_PACKAGE_PREFIX = "com.sun.faces";
 	private static final String MOJARRA_VIEW_SCOPE_MANAGER = "com.sun.faces.application.view.viewScopeManager";
+
+	// Private Final Data Members
+	private final MojarraAbleToCleanUpViewScopedDataAccessor mojarraAbleToCleanUpViewScopedDataAccessor =
+		new MojarraAbleToCleanUpViewScopedDataAccessor();
 
 	// Private Data Members
 	private boolean firstInstance;
@@ -103,45 +108,18 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 
 		if (firstInstance) {
 
-			// Determine if Mojarra is able to cleanup the active view maps.
-			Product mojarra = ProductFactory.getProduct(Product.Name.MOJARRA);
-			boolean mojarraAbleToCleanup = true;
-
-			if (mojarra.isDetected() && (mojarra.getMajorVersion() == 2) && (mojarra.getMinorVersion() == 1)) {
-
-				if (mojarra.getPatchVersion() < 18) {
-					mojarraAbleToCleanup = false;
-
-					boolean logWarning = true;
-					Product iceFaces = ProductFactory.getProduct(Product.Name.ICEFACES);
-
-					if (iceFaces.isDetected()) {
-
-						if ((iceFaces.getMajorVersion() == 2) ||
-								((iceFaces.getMajorVersion() == 3) && (iceFaces.getMinorVersion() <= 2))) {
-
-							// Versions of ICEfaces prior to 3.3 can only go as high as Mojarra 2.1.6 so don't bother to
-							// log the warning.
-							logWarning = false;
-						}
-					}
-
-					if (logWarning) {
-						logger.warn("Unable to cleanup ViewScoped managed-beans upon session expiration. " +
-							"Please upgrade to Mojarra 2.1.18 or newer. " +
-							"For more info, see: http://issues.liferay.com/browse/FACES-1470");
-					}
-				}
-			}
-
 			// Discover Factories
 			BeanManagerFactory beanManagerFactory = null;
 			BridgeRequestScopeManagerFactory bridgeRequestScopeManagerFactory = null;
+			HttpSession httpSession = null;
+			ServletContext servletContext = null;
+			PortletContext portletContext = null;
 
 			try {
-				HttpSession httpSession = httpSessionEvent.getSession();
-				ServletContext servletContext = httpSession.getServletContext();
-				PortletContext portletContext = new PortletContextAdapter(servletContext);
+
+				httpSession = httpSessionEvent.getSession();
+				servletContext = httpSession.getServletContext();
+				portletContext = new PortletContextAdapter(servletContext);
 				beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(portletContext,
 						BeanManagerFactory.class);
 				bridgeRequestScopeManagerFactory = (BridgeRequestScopeManagerFactory) BridgeFactoryFinder.getFactory(
@@ -151,18 +129,8 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 
 				String contextPath = "unknown";
 
-				if (httpSessionEvent != null) {
-
-					HttpSession httpSession = httpSessionEvent.getSession();
-
-					if (httpSession != null) {
-
-						ServletContext servletContext = httpSession.getServletContext();
-
-						if (servletContext != null) {
-							contextPath = servletContext.getContextPath();
-						}
-					}
+				if (servletContext != null) {
+					contextPath = servletContext.getContextPath();
 				}
 
 				logger.error(
@@ -173,14 +141,12 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 			if ((beanManagerFactory != null) && (bridgeRequestScopeManagerFactory != null)) {
 
 				// Cleanup instances of BridgeRequestScope that are associated with the expiring session.
-				HttpSession httpSession = httpSessionEvent.getSession();
 				BridgeRequestScopeManager bridgeRequestScopeManager =
-					bridgeRequestScopeManagerFactory.getBridgeRequestScopeManager();
+					bridgeRequestScopeManagerFactory.getBridgeRequestScopeManager(portletContext);
 				bridgeRequestScopeManager.removeBridgeRequestScopesBySession(httpSession);
 
 				// For each session attribute:
 				String appConfigAttrName = ApplicationConfig.class.getName();
-				ServletContext servletContext = httpSession.getServletContext();
 				ApplicationConfig applicationConfig = (ApplicationConfig) servletContext.getAttribute(
 						appConfigAttrName);
 				BeanManager beanManager = beanManagerFactory.getBeanManager(applicationConfig.getFacesConfig());
@@ -217,7 +183,6 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 									// one would get cleaned-up by Mojarra.
 									if (beanManager.isManagedBean(attributeName, attributeValue)) {
 
-										PortletContext portletContext = new PortletContextAdapter(servletContext);
 										PreDestroyInvokerFactory preDestroyInvokerFactory = (PreDestroyInvokerFactory)
 											BridgeFactoryFinder.getFactory(portletContext,
 												PreDestroyInvokerFactory.class);
@@ -246,7 +211,7 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 											// If this is the attribute that contains all of the active view maps, then
 											if (MOJARRA_ACTIVE_VIEW_MAPS.equals(nonPrefixedName)) {
 
-												if (mojarraAbleToCleanup) {
+												if (mojarraAbleToCleanUpViewScopedDataAccessor.get(portletContext)) {
 
 													// Invoke the Mojarra
 													// ViewScopeManager.sessionDestroyed(HttpSessionEvent) method in
@@ -289,6 +254,49 @@ public class BridgeSessionListener implements HttpSessionListener, ServletContex
 					logger.warn("Server does not permit cleanup of Mojarra managed-beans during session expiration");
 				}
 			}
+		}
+	}
+
+	private static final class MojarraAbleToCleanUpViewScopedDataAccessor
+		extends ThreadSafeAccessor<Boolean, PortletContext> {
+
+		@Override
+		protected Boolean computeValue(PortletContext portletContext) {
+
+			// Determine if Mojarra is able to cleanup the active view maps.
+			ProductFactory productFactory = (ProductFactory) BridgeFactoryFinder.getFactory(portletContext,
+					ProductFactory.class);
+			Product mojarra = productFactory.getProductInfo(Product.Name.MOJARRA);
+			boolean mojarraAbleToCleanup = true;
+
+			if (mojarra.isDetected() && (mojarra.getMajorVersion() == 2) && (mojarra.getMinorVersion() == 1)) {
+
+				if (mojarra.getPatchVersion() < 18) {
+					mojarraAbleToCleanup = false;
+
+					boolean logWarning = true;
+					Product iceFaces = productFactory.getProductInfo(Product.Name.ICEFACES);
+
+					if (iceFaces.isDetected()) {
+
+						if ((iceFaces.getMajorVersion() == 2) ||
+								((iceFaces.getMajorVersion() == 3) && (iceFaces.getMinorVersion() <= 2))) {
+
+							// Versions of ICEfaces prior to 3.3 can only go as high as Mojarra 2.1.6 so don't bother to
+							// log the warning.
+							logWarning = false;
+						}
+					}
+
+					if (logWarning) {
+						logger.warn("Unable to cleanup ViewScoped managed-beans upon session expiration. " +
+							"Please upgrade to Mojarra 2.1.18 or newer. " +
+							"For more info, see: http://issues.liferay.com/browse/FACES-1470");
+					}
+				}
+			}
+
+			return mojarraAbleToCleanup;
 		}
 	}
 }

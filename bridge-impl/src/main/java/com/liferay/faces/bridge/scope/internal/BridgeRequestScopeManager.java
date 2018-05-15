@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,11 +31,11 @@ import com.liferay.faces.util.cache.Cache;
  */
 public interface BridgeRequestScopeManager {
 
-	public Cache<String, BridgeRequestScope> getBridgeRequestScopeCache(PortletContext portletContext);
+	public Cache<String, BridgeRequestScope> getBridgeRequestScopeCache();
 
 	/**
 	 * Removes all {@link BridgeRequestScope} instances that are associated with the specified {@link FacesContext}.
-	 * This should be called if the portlet container unloads an portlet individually.
+	 * This should be called if the portlet container unloads a portlet individually.
 	 *
 	 * @param  portletConfig  The current {@link PortletConfig}.
 	 */
