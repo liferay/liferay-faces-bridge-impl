@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,21 +42,19 @@ import com.liferay.faces.util.product.ProductFactory;
  */
 public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 
-	// Private Constants
-	private static final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
-
 	@Override
 	public String getRedirectURL(FacesContext facesContext, String viewId, Map<String, List<String>> parameters,
 		boolean includeViewParams) {
 
 		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+		ExternalContext externalContext = facesContext.getExternalContext();
 
 		// Determine whether or not it is necessary to work-around the patch applied to Mojarra in JAVASERVERFACES-3023.
-		boolean workaroundMojarra = (MOJARRA_DETECTED) &&
+		final Product MOJARRA = ProductFactory.getProductInstance(externalContext, Product.Name.MOJARRA);
+		boolean workaroundMojarra = (MOJARRA.isDetected()) &&
 			((portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) ||
 				(portletRequestPhase == Bridge.PortletPhase.EVENT_PHASE));
 
-		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		if (workaroundMojarra) {

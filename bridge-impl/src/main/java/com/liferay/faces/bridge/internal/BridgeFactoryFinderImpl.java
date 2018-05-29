@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ public class BridgeFactoryFinderImpl extends BridgeFactoryFinder {
 		FactoryExtensionFinder.getInstance().releaseFactories(factoryExternalContext);
 	}
 
-	private static class FactoryApplicationScopeMap extends AbstractMutablePropertyMap<Object> {
+	private static final class FactoryApplicationScopeMap extends AbstractMutablePropertyMap<Object> {
 
 		// Private Data Members
 		private PortletContext portletContext;
@@ -83,7 +83,7 @@ public class BridgeFactoryFinderImpl extends BridgeFactoryFinder {
 		}
 	}
 
-	private static class FactoryExternalContext extends ExternalContextWrapper {
+	private static final class FactoryExternalContext extends ExternalContextWrapper {
 
 		// Private Data Members
 		private Map<String, Object> applicationMap;

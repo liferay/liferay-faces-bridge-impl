@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +27,14 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class PDFUtil {
+public final class PDFUtil {
 
+	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(PDFUtil.class);
+
+	private PDFUtil() {
+		throw new AssertionError();
+	}
 
 	public static byte[] TXT2PDF(String htmlFragment, String headMarkup, String pdfTitle, String description,
 		String author) throws IOException {

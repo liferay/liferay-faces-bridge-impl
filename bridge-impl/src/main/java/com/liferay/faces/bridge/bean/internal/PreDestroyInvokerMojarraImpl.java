@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -134,16 +134,21 @@ public class PreDestroyInvokerMojarraImpl extends PreDestroyInvokerImpl {
 
 	}
 
-	private static class ContextAdapter {
+	private static final class ContextAdapter {
 
-		private PortletContext portletContext;
-		private ServletContext servletContext;
+		// Private Final Data Members
+		private final PortletContext portletContext;
+		private final ServletContext servletContext;
 
 		public ContextAdapter(PortletContext portletContext) {
+
 			this.portletContext = portletContext;
+			this.servletContext = null;
 		}
 
 		public ContextAdapter(ServletContext servletContext) {
+
+			this.portletContext = null;
 			this.servletContext = servletContext;
 		}
 

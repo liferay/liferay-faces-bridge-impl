@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -702,10 +702,10 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		return uriParameters;
 	}
 
-	private static class FacesViewActionURL extends PortletURLWrapper {
+	private static final class FacesViewActionURL extends PortletURLWrapper {
 
-		// Private Data Members
-		private String viewId;
+		// Private Final Data Members
+		private final String viewId;
 
 		public FacesViewActionURL(PortletURL portletURL, String viewId) {
 			super(portletURL);
@@ -717,11 +717,11 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		}
 	}
 
-	private static class URIParameter {
+	private static final class URIParameter {
 
-		// Private Data Members
-		private String name;
-		private String[] values;
+		// Private Final Data Members
+		private final String name;
+		private final String[] values;
 
 		public URIParameter(String name, String value) {
 			this(name, new String[] { value });

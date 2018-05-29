@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,12 @@ import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.faces.application.Resource;
@@ -60,21 +63,23 @@ public class ResourceInnerImpl extends ResourceWrapper implements Serializable {
 	// Private Constants: Resources that can't be cached.
 	private static final String EXTENSION_FACES = ".faces";
 	private static final String LIBRARY_NAME_JAVAX_FACES = "javax.faces";
-
-	private static final ArrayList<String> NON_CACHED_RESOURCES = new ArrayList<String>(5);
+	private static final Set<String> NON_CACHED_RESOURCES;
 
 	static {
-		NON_CACHED_RESOURCES.add("jsf.js");
-		NON_CACHED_RESOURCES.add("bridge.js");
-		NON_CACHED_RESOURCES.add("bridge.uncompressed.js");
-		NON_CACHED_RESOURCES.add("compat.js");
-		NON_CACHED_RESOURCES.add("compat.uncompressed.js");
-		NON_CACHED_RESOURCES.add("icefaces-compat.js");
-		NON_CACHED_RESOURCES.add("icefaces-compat.uncompressed.js");
-		NON_CACHED_RESOURCES.add("icepush.js");
-		NON_CACHED_RESOURCES.add("icepush.uncompressed.js");
-		NON_CACHED_RESOURCES.add("compat.js");
-		NON_CACHED_RESOURCES.add("icefaces-compat.js");
+
+		Set<String> nonCachedResources = new HashSet<String>();
+		nonCachedResources.add("jsf.js");
+		nonCachedResources.add("bridge.js");
+		nonCachedResources.add("bridge.uncompressed.js");
+		nonCachedResources.add("compat.js");
+		nonCachedResources.add("compat.uncompressed.js");
+		nonCachedResources.add("icefaces-compat.js");
+		nonCachedResources.add("icefaces-compat.uncompressed.js");
+		nonCachedResources.add("icepush.js");
+		nonCachedResources.add("icepush.uncompressed.js");
+		nonCachedResources.add("compat.js");
+		nonCachedResources.add("icefaces-compat.js");
+		NON_CACHED_RESOURCES = Collections.unmodifiableSet(nonCachedResources);
 	}
 
 	// Private Data Members

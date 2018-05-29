@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -180,7 +180,7 @@ public class AirportServiceMockImpl implements AirportService {
 		}
 	}
 
-	private static class AirportComparator implements Comparator<Airport> {
+	private static final class AirportComparator implements Comparator<Airport> {
 
 		@Override
 		public int compare(Airport airport1, Airport airport2) {

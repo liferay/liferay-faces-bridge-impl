@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.liferay.faces.issue.primefaces.exporter.components;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.faces.FacesException;
@@ -38,11 +39,11 @@ import org.primefaces.model.StreamedContent;
 public class ExporterComponentsBean {
 
 	//J-
-	private static final List<User> USERS = Arrays.asList(
+	private static final List<User> USERS = Collections.unmodifiableList(Arrays.asList(
 		new User("Neil", "Griffin"),
 		new User("Vernon", "Singleton"),
 		new User("Kyle", "Stiemann")
-	);
+	));
 	//J+
 
 	public StreamedContent getFile() {

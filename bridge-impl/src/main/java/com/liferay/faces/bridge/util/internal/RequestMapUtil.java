@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,11 @@ import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 /**
  * @author  Neil Griffin
  */
-public class RequestMapUtil {
+public final class RequestMapUtil {
+
+	private RequestMapUtil() {
+		throw new AssertionError();
+	}
 
 	public static BridgeConfig getBridgeConfig(FacesContext facesContext) {
 		return getBridgeConfig(facesContext.getExternalContext());

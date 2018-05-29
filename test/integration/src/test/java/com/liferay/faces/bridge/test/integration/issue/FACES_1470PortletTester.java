@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -280,7 +280,7 @@ public class FACES_1470PortletTester extends BrowserDriverManagingTesterBase {
 		waitingAsserter.assertElementDisplayed(as7LeakInstanceXpath + "/code[contains(text(),'AS7Leak')]");
 	}
 
-	private static class SwitchedToWindow implements ExpectedCondition<Boolean> {
+	private static final class SwitchedToWindow implements ExpectedCondition<Boolean> {
 
 		// Private Data Members
 		private String expectedWindowId;

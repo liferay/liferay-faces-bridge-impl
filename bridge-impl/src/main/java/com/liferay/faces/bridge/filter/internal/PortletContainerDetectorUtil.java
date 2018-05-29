@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,11 @@ import javax.portlet.filter.PortletResponseWrapper;
 /**
  * @author  Neil Griffin
  */
-public class PortletContainerDetector {
+public final class PortletContainerDetectorUtil {
+
+	private PortletContainerDetectorUtil() {
+		throw new AssertionError();
+	}
 
 	/**
 	 * Determines whether or not the specified {@link javax.portlet.PortletResponse} is one created by Pluto Portal. If

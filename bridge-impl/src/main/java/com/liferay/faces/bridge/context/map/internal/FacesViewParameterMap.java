@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.context.map.internal;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,6 +23,7 @@ import java.util.Set;
 
 import javax.portlet.faces.Bridge;
 
+import com.liferay.faces.bridge.internal.PortletURLHelper;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -38,16 +40,6 @@ public class FacesViewParameterMap extends HashMap<String, String> implements Ma
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(FacesViewParameterMap.class);
-
-	// Private Static Data Members
-	private static Set<String> excludedParameterNames;
-
-	static {
-		excludedParameterNames = new HashSet<String>(3);
-		excludedParameterNames.add(Bridge.PORTLET_MODE_PARAMETER);
-		excludedParameterNames.add(Bridge.PORTLET_SECURE_PARAMETER);
-		excludedParameterNames.add(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
-	}
 
 	public FacesViewParameterMap(String facesViewQueryString) {
 
@@ -86,7 +78,7 @@ public class FacesViewParameterMap extends HashMap<String, String> implements Ma
 
 							String parameterValue = nameValueArray[1];
 
-							if (excludedParameterNames.contains(parameterName)) {
+							if (PortletURLHelper.EXCLUDED_PARAMETER_NAMES.contains(parameterName)) {
 								logger.debug("Excluding parameterName=[{0}]", parameterName);
 							}
 							else {
