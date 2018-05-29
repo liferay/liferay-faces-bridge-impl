@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -643,21 +643,22 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 
 		if (iceFacesLegacyMode == null) {
 
-			iceFacesLegacyMode = Boolean.FALSE;
-
+			boolean iceFacesLegacyMode = false;
 			String requestContentType = clientDataRequest.getContentType();
 
 			if ((requestContentType != null) && requestContentType.toLowerCase().startsWith("multipart/")) {
 
-				Product iceFaces = ProductFactory.getProduct(Product.Name.ICEFACES);
+				final Product ICEFACES = ProductFactory.getProductInstance(this, Product.Name.ICEFACES);
 
-				if (iceFaces.isDetected() &&
-						((iceFaces.getMajorVersion() == 2) ||
-							((iceFaces.getMajorVersion() == 3) && (iceFaces.getMinorVersion() == 0)))) {
+				if (ICEFACES.isDetected() &&
+						((ICEFACES.getMajorVersion() == 2) ||
+							((ICEFACES.getMajorVersion() == 3) && (ICEFACES.getMinorVersion() == 0)))) {
 
-					iceFacesLegacyMode = Boolean.TRUE;
+					iceFacesLegacyMode = true;
 				}
 			}
+
+			this.iceFacesLegacyMode = iceFacesLegacyMode;
 		}
 
 		return iceFacesLegacyMode;

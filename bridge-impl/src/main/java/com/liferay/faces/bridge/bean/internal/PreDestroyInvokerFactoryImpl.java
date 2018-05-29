@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ package com.liferay.faces.bridge.bean.internal;
 import javax.portlet.PortletContext;
 import javax.servlet.ServletContext;
 
+import com.liferay.faces.bridge.BridgeFactoryFinder;
+import com.liferay.faces.bridge.context.internal.PortletContextAdapter;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
 
@@ -30,9 +32,12 @@ public class PreDestroyInvokerFactoryImpl extends PreDestroyInvokerFactory {
 	@Override
 	public PreDestroyInvoker getPreDestroyInvoker(ServletContext servletContext) {
 
-		final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
+		PortletContextAdapter portletContextAdapter = new PortletContextAdapter(servletContext);
+		ProductFactory productFactory = (ProductFactory) BridgeFactoryFinder.getFactory(portletContextAdapter,
+				ProductFactory.class);
+		final Product MOJARRA = productFactory.getProductInfo(Product.Name.MOJARRA);
 
-		if (MOJARRA_DETECTED) {
+		if (MOJARRA.isDetected()) {
 			return new PreDestroyInvokerMojarraImpl(servletContext);
 		}
 		else {
@@ -43,9 +48,11 @@ public class PreDestroyInvokerFactoryImpl extends PreDestroyInvokerFactory {
 	@Override
 	public PreDestroyInvoker getPreDestroyInvoker(PortletContext portletContext) {
 
-		final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
+		ProductFactory productFactory = (ProductFactory) BridgeFactoryFinder.getFactory(portletContext,
+				ProductFactory.class);
+		final Product MOJARRA = productFactory.getProductInfo(Product.Name.MOJARRA);
 
-		if (MOJARRA_DETECTED) {
+		if (MOJARRA.isDetected()) {
 			return new PreDestroyInvokerMojarraImpl(portletContext);
 		}
 		else {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFacto
 	public RenderResponse getRenderResponse(RenderRequest renderRequest, RenderResponse renderResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		if (PortletContainerDetector.isPlutoPortletResponse(renderResponse)) {
+		if (PortletContainerDetectorUtil.isPlutoPortletResponse(renderResponse)) {
 			return new RenderResponseBridgePlutoImpl(renderResponse);
 		}
 		else {
@@ -67,7 +67,7 @@ public class BridgePortletResponseFactoryImpl extends BridgePortletResponseFacto
 	public ResourceResponse getResourceResponse(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		if (PortletContainerDetector.isPlutoPortletResponse(resourceResponse)) {
+		if (PortletContainerDetectorUtil.isPlutoPortletResponse(resourceResponse)) {
 			return new ResourceResponseBridgePlutoImpl(resourceResponse);
 		}
 		else {

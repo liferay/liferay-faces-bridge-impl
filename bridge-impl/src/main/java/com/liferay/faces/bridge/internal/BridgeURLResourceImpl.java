@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,18 +51,6 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeURLResourceImpl.class);
-
-	// Private Constants
-	private static final Set<String> EXCLUDED_PARAMETER_NAMES;
-
-	static {
-
-		Set<String> excludedParameterNames = new HashSet<String>();
-		excludedParameterNames.add(Bridge.PORTLET_MODE_PARAMETER);
-		excludedParameterNames.add(Bridge.PORTLET_SECURE_PARAMETER);
-		excludedParameterNames.add(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
-		EXCLUDED_PARAMETER_NAMES = Collections.unmodifiableSet(excludedParameterNames);
-	}
 
 	// Private Final Data Members
 	private final String encoding;
@@ -284,7 +272,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 				// TCK: encodeResourceURLViewLinkWithBackLinkTest
 				ExternalContext externalContext = facesContext.getExternalContext();
 				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-				PortletURL actionURL = createActionURL(facesContext, EXCLUDED_PARAMETER_NAMES);
+				PortletURL actionURL = createActionURL(facesContext, PortletURLHelper.EXCLUDED_PARAMETER_NAMES);
 				PortletURLHelper.setPortletMode(actionURL, portletMode, portletRequest);
 				PortletURLHelper.setWindowState(actionURL, windowState, portletRequest);
 				PortletURLHelper.setSecure(actionURL, secure);
@@ -321,7 +309,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 					// TCK: encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest
 					ExternalContext externalContext = facesContext.getExternalContext();
 					PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-					PortletURL renderURL = createRenderURL(facesContext, EXCLUDED_PARAMETER_NAMES);
+					PortletURL renderURL = createRenderURL(facesContext, PortletURLHelper.EXCLUDED_PARAMETER_NAMES);
 					renderURL.setParameter(Bridge.NONFACES_TARGET_PATH_PARAMETER, bridgeURI.getPath());
 					PortletURLHelper.setPortletMode(renderURL, portletMode, portletRequest);
 					PortletURLHelper.setWindowState(renderURL, windowState, portletRequest);
@@ -353,7 +341,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			// TCK: encodeActionURLWithInvalidWindowStateResourceTest
 			// TCK: encodeURLEscapingTest
 			// TCK: encodeResourceURLWithModeTest
-			baseURL = createResourceURL(facesContext, EXCLUDED_PARAMETER_NAMES);
+			baseURL = createResourceURL(facesContext, PortletURLHelper.EXCLUDED_PARAMETER_NAMES);
 		}
 
 		// Otherwise, if the bridge must encode the URL to satisfy "in-protocol" resource serving, then return a

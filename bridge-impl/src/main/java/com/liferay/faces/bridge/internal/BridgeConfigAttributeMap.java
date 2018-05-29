@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,9 @@
 package com.liferay.faces.bridge.internal;
 
 import java.util.HashMap;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
@@ -36,13 +39,17 @@ public class BridgeConfigAttributeMap extends HashMap<String, Object> {
 
 	@Override
 	public Object get(Object key) {
+
 		Object value = super.get(key);
 
 		if (value == null) {
 
 			try {
+
 				Product.Name productName = Product.Name.valueOf((String) key);
-				value = ProductFactory.getProduct(productName);
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				ExternalContext externalContext = facesContext.getExternalContext();
+				value = ProductFactory.getProductInstance(externalContext, productName);
 			}
 			catch (IllegalArgumentException e) {
 				// do nothing.

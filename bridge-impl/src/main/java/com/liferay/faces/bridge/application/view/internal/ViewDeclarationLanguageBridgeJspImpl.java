@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ import com.liferay.faces.bridge.filter.internal.RenderRequestHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.RenderResponseHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.ResourceRequestHttpServletAdapter;
 import com.liferay.faces.bridge.filter.internal.ResourceResponseHttpServletAdapter;
+import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
 
@@ -44,10 +45,6 @@ import com.liferay.faces.util.product.ProductFactory;
  */
 public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguageBridgeBase {
 
-	// Private Constants
-	private static final boolean MYFACES_DETECTED = ProductFactory.getProduct(Product.Name.MYFACES).isDetected();
-	private static final boolean MOJARRA_DETECTED = ProductFactory.getProduct(Product.Name.MOJARRA).isDetected();
-
 	public ViewDeclarationLanguageBridgeJspImpl(ViewDeclarationLanguage viewDeclarationLanguage) {
 		super(viewDeclarationLanguage);
 	}
@@ -56,6 +53,10 @@ public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguag
 	public void buildView(FacesContext facesContext, UIViewRoot uiViewRoot) throws IOException {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
+		ProductFactory productFactory = (ProductFactory) FactoryExtensionFinder.getFactory(externalContext,
+				ProductFactory.class);
+		final Product MYFACES = productFactory.getProductInfo(Product.Name.MYFACES);
+		final boolean MYFACES_DETECTED = MYFACES.isDetected();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 		PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
 
@@ -73,6 +74,9 @@ public class ViewDeclarationLanguageBridgeJspImpl extends ViewDeclarationLanguag
 				externalContext.setRequest(new ResourceRequestHttpServletAdapter((ResourceRequest) portletRequest));
 			}
 		}
+
+		final Product MOJARRA = productFactory.getProductInfo(Product.Name.MOJARRA);
+		final boolean MOJARRA_DETECTED = MOJARRA.isDetected();
 
 		// If Mojarra or MyFaces is detected, then work-around a Servlet API dependency by decorating the
 		// PortletResponse with an adapter that implements HttpServletResponse.

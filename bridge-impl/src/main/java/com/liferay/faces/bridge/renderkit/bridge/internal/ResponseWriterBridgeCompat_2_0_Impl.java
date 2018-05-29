@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,8 +45,8 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 	protected static final String VIEW_STATE_MARKER = PartialResponseWriter.VIEW_STATE_MARKER;
 	protected static final String XML_MARKER = "<?xml";
 
-	// Protected Data Members
-	protected boolean namespacedParameters;
+	// Protected Final Data Members
+	protected final boolean namespaceViewState;
 
 	public ResponseWriterBridgeCompat_2_0_Impl() {
 
@@ -54,10 +54,7 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 		PortalContext portalContext = portletRequest.getPortalContext();
-		String namespacedParametersSupport = portalContext.getProperty(
-				BridgePortalContext.STRICT_NAMESPACED_PARAMETERS_SUPPORT);
-		this.namespacedParameters = (namespacedParametersSupport != null) &&
-			FacesRuntimeUtil.isNamespacedViewStateSupported();
+		this.namespaceViewState = FacesRuntimeUtil.isAbleToNamespaceViewState(portalContext, externalContext);
 	}
 
 	/**
@@ -115,7 +112,7 @@ public abstract class ResponseWriterBridgeCompat_2_0_Impl extends ResponseWriter
 
 		String viewStateName = PartialResponseWriter.VIEW_STATE_MARKER;
 
-		if (namespacedParameters) {
+		if (namespaceViewState) {
 
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			String namingContainerId = facesContext.getViewRoot().getContainerClientId(facesContext);

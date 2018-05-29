@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,6 @@ import java.io.Serializable;
 
 import com.liferay.faces.util.application.ResourceValidator;
 import com.liferay.faces.util.application.ResourceValidatorFactory;
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -31,9 +29,6 @@ public class ResourceValidatorFactoryBridgeImpl extends ResourceValidatorFactory
 	// serialVersionUID
 	private static final long serialVersionUID = 4615985625648751613L;
 
-	// Private Constants
-	private static final boolean PLUTO_DETECTED = ProductFactory.getProduct(Product.Name.PLUTO).isDetected();
-
 	// Private Data Members
 	private ResourceValidator resourceValidator;
 	private ResourceValidatorFactory wrappedResourceValidatorFactory;
@@ -41,14 +36,7 @@ public class ResourceValidatorFactoryBridgeImpl extends ResourceValidatorFactory
 	public ResourceValidatorFactoryBridgeImpl(ResourceValidatorFactory resourceValidatorFactory) {
 
 		ResourceValidator wrappedResourceValidator = resourceValidatorFactory.getResourceValidator();
-
-		if (PLUTO_DETECTED) {
-			this.resourceValidator = new ResourceValidatorPlutoImpl(wrappedResourceValidator);
-		}
-		else {
-			this.resourceValidator = wrappedResourceValidator;
-		}
-
+		this.resourceValidator = new ResourceValidatorBridgeImpl(wrappedResourceValidator);
 		this.wrappedResourceValidatorFactory = resourceValidatorFactory;
 	}
 

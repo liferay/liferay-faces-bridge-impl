@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,6 @@ import javax.portlet.RenderResponse;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -30,16 +28,13 @@ import com.liferay.faces.util.product.ProductFactory;
  */
 public abstract class BridgePortletRequestFactoryTCKCompatImpl extends BridgePortletRequestFactory {
 
-	// Private Constants
-	protected static final boolean RESIN_DETECTED = ProductFactory.getProduct(Product.Name.RESIN).isDetected();
-
 	@Override
 	public RenderRequest getRenderRequest(RenderRequest headerRequest, RenderResponse headerResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		headerRequest = getWrapped().getRenderRequest(headerRequest, headerResponse, portletConfig, bridgeConfig);
 
-		if (RESIN_DETECTED) {
+		if (isResinDetected(portletConfig)) {
 
 			// Workaround for FACES-1629
 			headerRequest = new RenderRequestResinImpl(headerRequest);
@@ -47,4 +42,6 @@ public abstract class BridgePortletRequestFactoryTCKCompatImpl extends BridgePor
 
 		return headerRequest;
 	}
+
+	protected abstract boolean isResinDetected(PortletConfig portletConfig);
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,10 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.portlet.BaseURL;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
@@ -23,6 +27,7 @@ import javax.portlet.PortletSecurityException;
 import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
+import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;
@@ -32,10 +37,26 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * @author  Neil Griffin
  */
-public class PortletURLHelper {
+public final class PortletURLHelper {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(PortletURLHelper.class);
+
+	// Public Static Data Members
+	public static final Set<String> EXCLUDED_PARAMETER_NAMES;
+
+	static {
+
+		Set<String> excludedParameterNames = new HashSet<String>(3);
+		excludedParameterNames.add(Bridge.PORTLET_MODE_PARAMETER);
+		excludedParameterNames.add(Bridge.PORTLET_SECURE_PARAMETER);
+		excludedParameterNames.add(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
+		EXCLUDED_PARAMETER_NAMES = Collections.unmodifiableSet(excludedParameterNames);
+	}
+
+	private PortletURLHelper() {
+		throw new AssertionError();
+	}
 
 	public static void setPortletMode(PortletURL portletURL, String portletMode, PortletRequest portletRequest) {
 
