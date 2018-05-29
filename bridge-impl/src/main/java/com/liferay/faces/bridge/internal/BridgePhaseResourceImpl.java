@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -53,9 +55,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 	private static final Logger logger = LoggerFactory.getLogger(BridgePhaseResourceImpl.class);
 
 	// Private Constants
-	private static final boolean LIFERAY_PORTAL_DETECTED = ProductFactory.getProduct(Product.Name.LIFERAY_PORTAL)
-		.isDetected();
-	private static final String[] URL_SEPARATOR_CHARS = new String[] { "?", "#", ";" };
+	private static final List<String> URL_SEPARATOR_CHARS = Collections.unmodifiableList(Arrays.asList("?", "#", ";"));
 
 	// Private Data Members
 	private ResourceRequest resourceRequest;
@@ -150,7 +150,10 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 						// has been enforced.
 						if (resourcePath.trim().length() == 0) {
 
-							if (LIFERAY_PORTAL_DETECTED) {
+							final Product LIFERAY_PORTAL = ProductFactory.getProductInstance(externalContext,
+									Product.Name.LIFERAY_PORTAL);
+
+							if (LIFERAY_PORTAL.isDetected()) {
 
 								logger.warn(
 									"Invalid request for resourceId=[] possibly due to Liferay Portal enforcing the portlet.resource.id.banned.paths.regexp property.");

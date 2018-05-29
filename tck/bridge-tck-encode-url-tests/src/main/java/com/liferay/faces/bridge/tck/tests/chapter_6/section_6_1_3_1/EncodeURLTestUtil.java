@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,11 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1;
  *
  * @author  Neil Griffin
  */
-class EncodeURLTestUtil {
+final class EncodeURLTestUtil {
+
+	private EncodeURLTestUtil() {
+		throw new AssertionError();
+	}
 
 	static boolean isStrictXhtmlEncoded(String url) {
 

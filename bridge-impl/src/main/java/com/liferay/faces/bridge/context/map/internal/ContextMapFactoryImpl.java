@@ -28,9 +28,9 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
+import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.ServletContext;
 
-import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.bridge.model.internal.UploadedFileBridgeImpl;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
@@ -47,7 +47,6 @@ import com.liferay.faces.util.product.ProductFactory;
 public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 
 	// Private Constants
-	private static final boolean ICEFACES_DETECTED = ProductFactory.getProduct(Product.Name.ICEFACES).isDetected();
 	private static final String MULTIPART_FORM_DATA_FQCN = MultiPartFormData.class.getName();
 
 	@Override
@@ -171,10 +170,11 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 		Map<String, String> facesViewParameterMap = getFacesViewParameterMap(facesViewQueryString);
 
 		PortalContext portalContext = portletRequest.getPortalContext();
-		String strictNamespacedParametersSupport = portalContext.getProperty(
-				BridgePortalContext.STRICT_NAMESPACED_PARAMETERS_SUPPORT);
-		boolean strictParameterNamespacing = (strictNamespacedParametersSupport != null);
-		boolean namespaceViewState = strictParameterNamespacing && FacesRuntimeUtil.isNamespacedViewStateSupported();
+		boolean strictParameterNamespacingSupported = FacesRuntimeUtil.isStrictParameterNamespacingSupported(
+				portalContext);
+		PortletContext portletContext = portletConfig.getPortletContext();
+		boolean namespaceViewState = strictParameterNamespacingSupported &&
+			FacesRuntimeUtil.isNamespaceViewState(strictParameterNamespacingSupported, portletContext);
 
 		if (portletRequest instanceof ClientDataRequest) {
 
@@ -182,6 +182,11 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 			String contentType = clientDataRequest.getContentType();
 
 			// Note: ICEfaces ace:fileEntry relies on its own mechanism for handling file upload.
+			ProductFactory productFactory = (ProductFactory) BridgeFactoryFinder.getFactory(portletContext,
+					ProductFactory.class);
+			final Product ICEFACES = productFactory.getProductInfo(Product.Name.ICEFACES);
+			final boolean ICEFACES_DETECTED = ICEFACES.isDetected();
+
 			if (!ICEFACES_DETECTED && (contentType != null) && contentType.toLowerCase().startsWith("multipart/")) {
 
 				MultiPartFormData multiPartFormData = (MultiPartFormData) portletRequest.getAttribute(
@@ -189,8 +194,8 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 
 				if (multiPartFormData == null) {
 					facesRequestParameterMap = new FacesRequestParameterMapImpl(responseNamespace, bridgeRequestScope,
-							facesViewParameterMap, defaultRenderKitId, getSeparatorChar(), strictParameterNamespacing,
-							namespaceViewState);
+							facesViewParameterMap, defaultRenderKitId, getSeparatorChar(),
+							strictParameterNamespacingSupported, namespaceViewState);
 
 					MultiPartFormDataProcessor multiPartFormDataProcessor = new MultiPartFormDataProcessorImpl();
 					Map<String, List<com.liferay.faces.util.model.UploadedFile>> uploadedFileMap =
@@ -212,7 +217,7 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 			Map<String, String[]> parameterMap = portletRequest.getParameterMap();
 			facesRequestParameterMap = new FacesRequestParameterMapImpl(parameterMap, responseNamespace,
 					bridgeRequestScope, facesViewParameterMap, defaultRenderKitId, getSeparatorChar(),
-					strictParameterNamespacing, namespaceViewState);
+					strictParameterNamespacingSupported, namespaceViewState);
 		}
 
 		return facesRequestParameterMap;

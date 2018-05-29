@@ -42,6 +42,10 @@ public final class PortletConfigParamUtil {
 	// Package-Private Final Data Members
 	/* package-private */ static final String[] ALTERNATE_NAMES_EMPTY_ARRAY = new String[] {};
 
+	private PortletConfigParamUtil() {
+		throw new AssertionError();
+	}
+
 	public static boolean getBooleanValue(PortletConfig portletConfig, PortletConfigParam portletConfigParam) {
 
 		boolean booleanValue = portletConfigParam.getDefaultBooleanValue();

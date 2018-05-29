@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.faces.application.Resource;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import com.liferay.faces.util.application.FilteredResourceBase;
 import com.liferay.faces.util.logging.Logger;
@@ -31,11 +33,6 @@ import com.liferay.faces.util.product.ProductFactory;
  * @author  Kyle Stiemann
  */
 public class ResourceRichFacesPackedJSImpl extends FilteredResourceBase {
-
-	// Private Constants
-	private static final Product JSF = ProductFactory.getProduct(Product.Name.JSF);
-	private static final int JSF_MAJOR_VERSION = JSF.getMajorVersion();
-	private static final int JSF_MINOR_VERSION = JSF.getMinorVersion();
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ResourceRichFacesPackedJSImpl.class);
@@ -94,7 +91,12 @@ public class ResourceRichFacesPackedJSImpl extends FilteredResourceBase {
 		token = "this.fileUpload.form.find(\"input[name='javax.faces.ViewState']\").val();";
 		pos = javaScriptText.indexOf(token);
 
-		if (((JSF_MAJOR_VERSION > 2) || ((JSF_MAJOR_VERSION == 2) && (JSF_MINOR_VERSION >= 3))) && (pos > 0)) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		final Product JSF = ProductFactory.getProductInstance(externalContext, Product.Name.JSF);
+		final int JSF_MAJOR_VERSION = JSF.getMajorVersion();
+
+		if (((JSF_MAJOR_VERSION > 2) || ((JSF_MAJOR_VERSION == 2) && (JSF.getMinorVersion() >= 3))) && (pos > 0)) {
 
 			logger.debug("Found javax.faces.ViewState selector in packed.js");
 

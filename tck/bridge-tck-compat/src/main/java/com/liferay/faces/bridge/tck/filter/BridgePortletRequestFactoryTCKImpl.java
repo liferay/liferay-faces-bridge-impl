@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,17 @@ import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
 import javax.portlet.PortletConfig;
+import javax.portlet.PortletContext;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.BridgeConfig;
+import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.filter.BridgePortletRequestFactory;
+
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -58,7 +63,7 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 
 		renderRequest = getWrapped().getRenderRequest(renderRequest, renderResponse, portletConfig, bridgeConfig);
 
-		if (RESIN_DETECTED) {
+		if (isResinDetected(portletConfig)) {
 
 			// Workaround for FACES-1629
 			renderRequest = new RenderRequestResinImpl(renderRequest);
@@ -76,5 +81,16 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 	@Override
 	public BridgePortletRequestFactory getWrapped() {
 		return wrappedBridgePortletRequestFactory;
+	}
+
+	@Override
+	protected boolean isResinDetected(PortletConfig portletConfig) {
+
+		PortletContext portletContext = portletConfig.getPortletContext();
+		ProductFactory productFactory = (ProductFactory) BridgeFactoryFinder.getFactory(portletContext,
+				ProductFactory.class);
+		final Product RESIN = productFactory.getProductInfo(Product.Name.RESIN);
+
+		return RESIN.isDetected();
 	}
 }

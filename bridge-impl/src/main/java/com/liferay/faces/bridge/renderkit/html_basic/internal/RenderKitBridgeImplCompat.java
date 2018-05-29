@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,18 +18,11 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitWrapper;
 
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
-
 
 /**
  * @author  Neil Griffin
  */
 public class RenderKitBridgeImplCompat extends RenderKitWrapper {
-
-	// Protected Constants
-	protected static final Product ICEFACES = ProductFactory.getProduct(Product.Name.ICEFACES);
-	protected static final boolean ICEFACES_DETECTED = ICEFACES.isDetected();
 
 	// Private Data Members
 	private RenderKit wrappedRenderKit;

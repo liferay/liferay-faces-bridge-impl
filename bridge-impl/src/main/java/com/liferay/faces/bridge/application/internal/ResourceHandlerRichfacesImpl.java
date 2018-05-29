@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ package com.liferay.faces.bridge.application.internal;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceHandlerWrapper;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
@@ -36,7 +38,6 @@ public class ResourceHandlerRichfacesImpl extends ResourceHandlerWrapper {
 
 	// Private Constants
 	private static final String ORG_RICHFACES_RESOURCE = "org.richfaces.resource";
-	private static final boolean RICHFACES_DETECTED = ProductFactory.getProduct(Product.Name.RICHFACES).isDetected();
 	private static final String RICHFACES_STATIC_RESOURCE = "org.richfaces.staticResource";
 
 	// Private Data Members
@@ -79,6 +80,11 @@ public class ResourceHandlerRichfacesImpl extends ResourceHandlerWrapper {
 	}
 
 	private Resource createResource(String resourceName, Resource resource) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		final Product RICHFACES = ProductFactory.getProductInstance(externalContext, Product.Name.RICHFACES);
+		final boolean RICHFACES_DETECTED = RICHFACES.isDetected();
 
 		if ((resource != null) && RICHFACES_DETECTED) {
 

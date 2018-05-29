@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.helper.internal;
+package com.liferay.faces.bridge.util.internal;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import javax.faces.context.ExternalContext;
 
-import javax.portlet.PortletMode;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
- * @author  Neil Griffin
+ * @author  Kyle Stiemann
  */
-public class PortletModeHelper {
+public final class RichFacesUtil {
 
-	// Public Constants
-	public static final String PORTLET_MODE_VIEW = PortletMode.VIEW.toString();
-	public static final String PORTLET_MODE_EDIT = PortletMode.EDIT.toString();
-	public static final String PORTLET_MODE_HELP = PortletMode.HELP.toString();
-	public static final List<String> PORTLET_MODE_NAMES = Collections.unmodifiableList(Arrays.asList(PORTLET_MODE_VIEW,
-				PORTLET_MODE_EDIT, PORTLET_MODE_HELP));
-
-	private PortletModeHelper() {
+	private RichFacesUtil() {
 		throw new AssertionError();
+	}
+
+	public static boolean shouldWorkAroundFACES_2638(ExternalContext externalContext) {
+
+		final Product RICHFACES = ProductFactory.getProductInstance(externalContext, Product.Name.RICHFACES);
+
+		return RICHFACES.isDetected() && (RICHFACES.getMajorVersion() == 4) && (RICHFACES.getMinorVersion() == 5) &&
+			(RICHFACES.getPatchVersion() >= 16);
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,23 +32,25 @@ import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.config.WebConfig;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class ResourceValidatorPlutoImpl extends ResourceValidatorWrapper implements Serializable {
+public class ResourceValidatorBridgeImpl extends ResourceValidatorWrapper implements Serializable {
 
 	// serialVersionUID
 	private static final long serialVersionUID = 5058022096981863159L;
 
 	// Logger
-	private static final Logger logger = LoggerFactory.getLogger(ResourceValidatorPlutoImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ResourceValidatorBridgeImpl.class);
 
 	// Private Data Members
 	private ResourceValidator wrappedResourceValidator;
 
-	public ResourceValidatorPlutoImpl(ResourceValidator resourceValidator) {
+	public ResourceValidatorBridgeImpl(ResourceValidator resourceValidator) {
 		this.wrappedResourceValidator = resourceValidator;
 	}
 
@@ -60,14 +62,16 @@ public class ResourceValidatorPlutoImpl extends ResourceValidatorWrapper impleme
 	@Override
 	public boolean isSelfReferencing(FacesContext facesContext, String resourceId) {
 
+		ExternalContext externalContext = facesContext.getExternalContext();
+		final Product PLUTO = ProductFactory.getProductInstance(externalContext, Product.Name.PLUTO);
+
 		// If the delegation chain indicates that the specified resource is not self-referencing, then
 		boolean selfReferencing = super.isSelfReferencing(facesContext, resourceId);
 
-		if ((!selfReferencing) && (resourceId != null)) {
+		if (PLUTO.isDetected() && (!selfReferencing) && (resourceId != null)) {
 
 			// Process the configured servlet entries in order to determine which ones are portlet invokers.
 			Set<String> invokerServletNames = new HashSet<String>();
-			ExternalContext externalContext = facesContext.getExternalContext();
 			Map<String, Object> applicationMap = externalContext.getApplicationMap();
 			ApplicationConfig applicationConfig = (ApplicationConfig) applicationMap.get(ApplicationConfig.class
 					.getName());
@@ -103,14 +107,10 @@ public class ResourceValidatorPlutoImpl extends ResourceValidatorWrapper impleme
 		return selfReferencing;
 	}
 
-	protected String getInvokerServletFQCN() {
-		return "org.apache.pluto.container.driver.PortletServlet";
-	}
-
-	protected boolean isInvokerServletClass(String servletClassFQCN) {
+	private boolean isInvokerServletClass(String servletClassFQCN) {
 
 		boolean invokerServletClass = false;
-		String invokerServletFQCN = getInvokerServletFQCN();
+		String invokerServletFQCN = "org.apache.pluto.container.driver.PortletServlet";
 
 		if (invokerServletFQCN.equals(servletClassFQCN)) {
 

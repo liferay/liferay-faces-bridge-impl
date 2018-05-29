@@ -17,6 +17,8 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import javax.faces.component.UIForm;
 import javax.faces.component.UIOutput;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitWrapper;
 import javax.faces.render.Renderer;
@@ -26,6 +28,7 @@ import com.liferay.faces.bridge.renderkit.icefaces.internal.HeadRendererICEfaces
 import com.liferay.faces.bridge.renderkit.primefaces.internal.FormRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.HeadRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.richfaces.internal.FileUploadRendererRichFacesImpl;
+import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
 
@@ -45,8 +48,6 @@ public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 	private static final String JAVAX_FACES_BODY = "javax.faces.Body";
 	private static final String JAVAX_FACES_FORM = "javax.faces.Form";
 	private static final String JAVAX_FACES_HEAD = "javax.faces.Head";
-	private static final Product PRIMEFACES = ProductFactory.getProduct(Product.Name.PRIMEFACES);
-	private static final boolean PRIMEFACES_DETECTED = PRIMEFACES.isDetected();
 	private static final String PRIMEFACES_FAMILY = "org.primefaces.component";
 	private static final String RICHFACES_FILE_UPLOAD_FAMILY = "org.richfaces.FileUpload";
 	private static final String RICHFACES_FILE_UPLOAD_RENDERER_TYPE = "org.richfaces.FileUploadRenderer";
@@ -58,11 +59,21 @@ public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 	@Override
 	public Renderer getRenderer(String family, String rendererType) {
 
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		ProductFactory productFactory = (ProductFactory) FactoryExtensionFinder.getFactory(externalContext,
+				ProductFactory.class);
+		final Product PRIMEFACES = productFactory.getProductInfo(Product.Name.PRIMEFACES);
+		final boolean PRIMEFACES_DETECTED = PRIMEFACES.isDetected();
+
 		Renderer renderer = super.getRenderer(family, rendererType);
 
 		if (UIOutput.COMPONENT_FAMILY.equals(family)) {
 
 			if (JAVAX_FACES_HEAD.equals(rendererType)) {
+
+				final Product ICEFACES = productFactory.getProductInfo(Product.Name.ICEFACES);
+				final boolean ICEFACES_DETECTED = ICEFACES.isDetected();
 
 				if (ICEFACES_DETECTED) {
 					renderer = new HeadRendererICEfacesImpl();

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package com.liferay.faces.bridge.util.internal;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,10 +27,11 @@ import java.util.Map;
  */
 public class FileNameUtil {
 
-	private static Map<String, String> mimeTypeMap;
+	private static final Map<String, String> MIME_TYPE_MAP;
 
 	static {
-		mimeTypeMap = new HashMap<String, String>();
+
+		Map<String, String> mimeTypeMap = new HashMap<String, String>();
 		mimeTypeMap.put("css", "text/css");
 		mimeTypeMap.put("csv", "text/csv");
 		mimeTypeMap.put("doc", "application/msword");
@@ -63,6 +65,7 @@ public class FileNameUtil {
 		mimeTypeMap.put("xls", "application/vnd.ms-excel");
 		mimeTypeMap.put("xml", "text/xml");
 		mimeTypeMap.put("zip", "application/zip");
+		MIME_TYPE_MAP = Collections.unmodifiableMap(mimeTypeMap);
 	}
 
 	public static String getFileNameExtension(String fileName) {
@@ -82,6 +85,6 @@ public class FileNameUtil {
 	}
 
 	public static String getFileNameMimeType(String fileName) {
-		return mimeTypeMap.get(getFileNameExtension(fileName));
+		return MIME_TYPE_MAP.get(getFileNameExtension(fileName));
 	}
 }

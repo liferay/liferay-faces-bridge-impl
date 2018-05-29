@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ import com.liferay.faces.bridge.component.internal.ResourceComponent;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.HeadRendererBridgeImpl;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.InlineScript;
 import com.liferay.faces.bridge.util.internal.URLUtil;
+import com.liferay.faces.util.lang.ThreadSafeAccessor;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -56,6 +57,11 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 		"_mobileComponentResources";
 	private static final String PRIMEFACES_THEME_PREFIX = "primefaces-";
 	private static final String PRIMEFACES_THEME_RESOURCE_NAME = "theme.css";
+
+	// Private Final Data Members
+	private final PrimeFacesHeadRendererAccessor primeFacesHeadRendererAccessor = new PrimeFacesHeadRendererAccessor();
+	private final PrimeFacesMobileHeadRendererAccessor primeFacesMobileHeadRendererAccessor =
+		new PrimeFacesMobileHeadRendererAccessor();
 
 	@Override
 	public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
@@ -328,10 +334,10 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 	private Renderer getPrimeFacesHeadRenderer(FacesContext facesContext) {
 
 		if (isMobile(facesContext)) {
-			return OnDemandPrimeFacesMobileHeadRenderer.instance;
+			return primeFacesMobileHeadRendererAccessor.computeValue(facesContext);
 		}
 		else {
-			return OnDemandPrimeFacesHeadRenderer.instance;
+			return primeFacesHeadRendererAccessor.computeValue(facesContext);
 		}
 	}
 
@@ -402,17 +408,10 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 				"core.js".equals(resourceName) || "components-mobile.js".equals(resourceName));
 	}
 
-	private static class OnDemandPrimeFacesHeadRenderer {
+	private static final class PrimeFacesHeadRendererAccessor extends ThreadSafeAccessor<Renderer, FacesContext> {
 
-		// Since this class is not referenced until HeadRendererPrimeFacesImpl.getPrimeFacesHeadRenderer() is called,
-		// the primeFacesHeadRenderer instance will be lazily initialized when
-		// HeadRendererPrimeFacesImpl.getPrimeFacesHeadRenderer() is called and HeadRendererPrimeFacesImpl.isMobile() is
-		// false. Class initialization is thread-safe. For more details on this pattern, see
-		// http://stackoverflow.com/questions/7420504/threading-lazy-initialization-vs-static-lazy-initialization and
-		// http://docs.oracle.com/javase/specs/jls/se7/html/jls-12.html#jls-12.4.2
-		private static final Renderer instance;
-
-		static {
+		@Override
+		protected Renderer computeValue(FacesContext facesContext) {
 
 			Renderer primeFacesHeadRenderer = null;
 
@@ -424,21 +423,14 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 				logger.error(e);
 			}
 
-			instance = primeFacesHeadRenderer;
+			return primeFacesHeadRenderer;
 		}
 	}
 
-	private static class OnDemandPrimeFacesMobileHeadRenderer {
+	private static final class PrimeFacesMobileHeadRendererAccessor extends ThreadSafeAccessor<Renderer, FacesContext> {
 
-		// Since this class is not referenced until HeadRendererPrimeFacesImpl.getPrimeFacesHeadRenderer() is called,
-		// the primeFacesMobileHeadRenderer instance will be lazily initialized when
-		// HeadRendererPrimeFacesImpl.getPrimeFacesHeadRenderer() is called and HeadRendererPrimeFacesImpl.isMobile() is
-		// true. Class initialization is thread-safe. For more details on this pattern, see
-		// http://stackoverflow.com/questions/7420504/threading-lazy-initialization-vs-static-lazy-initialization and
-		// http://docs.oracle.com/javase/specs/jls/se7/html/jls-12.html#jls-12.4.2
-		private static final Renderer instance;
-
-		static {
+		@Override
+		protected Renderer computeValue(FacesContext facesContext) {
 
 			Renderer primeFacesMobileHeadRenderer = null;
 
@@ -450,7 +442,7 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 				logger.error(e);
 			}
 
-			instance = primeFacesMobileHeadRenderer;
+			return primeFacesMobileHeadRenderer;
 		}
 	}
 }

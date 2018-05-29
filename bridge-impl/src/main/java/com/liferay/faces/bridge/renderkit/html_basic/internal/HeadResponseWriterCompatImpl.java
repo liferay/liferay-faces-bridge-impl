@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.portlet.HeaderResponse;
 
@@ -28,8 +30,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.liferay.faces.bridge.util.internal.XMLUtil;
+import com.liferay.faces.util.lang.ThreadSafeAccessor;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -43,8 +48,9 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(HeadResponseWriterCompatImpl.class);
 
-	// Private Data Members
-	private HeaderResponse headerResponse;
+	// Private Final Data Members
+	private final HeaderResponse headerResponse;
+	private final BootsFacesDetectedAccessor bootsFacesDetectedAccessor = new BootsFacesDetectedAccessor();
 
 	public HeadResponseWriterCompatImpl(ResponseWriter wrappedResponseWriter, HeaderResponse headerResponse) {
 		super(wrappedResponseWriter);
@@ -137,8 +143,8 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 			Element element = (Element) node;
 
 			if ((componentResource != null) &&
-					(RenderKitUtil.isScriptResource(componentResource) ||
-						RenderKitUtil.isStyleSheetResource(componentResource))) {
+					(RenderKitUtil.isScriptResource(componentResource, bootsFacesDetectedAccessor.get(null)) ||
+						RenderKitUtil.isStyleSheetResource(componentResource, bootsFacesDetectedAccessor.get(null)))) {
 
 				Map<String, Object> attributes = componentResource.getAttributes();
 				name = (String) attributes.get("name");
@@ -233,5 +239,18 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 		}
 
 		return parameterValueStartIndex;
+	}
+
+	private static final class BootsFacesDetectedAccessor extends ThreadSafeAccessor<Boolean, Void> {
+
+		@Override
+		protected Boolean computeValue(Void null_) {
+
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			final Product BOOTSFACES = ProductFactory.getProductInstance(externalContext, Product.Name.BOOTSFACES);
+
+			return BOOTSFACES.isDetected();
+		}
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,8 @@ import com.liferay.faces.bridge.context.HeadResponseWriterFactory;
 import com.liferay.faces.util.application.ResourceUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -79,17 +81,21 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 		// Sort the components that are in the view root into stylesheets, scripts, and other.
 		List<UIComponent> headComponentResources = uiViewRoot.getComponentResources(facesContext, "head");
+		ExternalContext externalContext = facesContext.getExternalContext();
+		final Product BOOTSFACES = ProductFactory.getProductInstance(externalContext, Product.Name.BOOTSFACES);
+		final boolean BOOTSFACES_DETECTED = BOOTSFACES.isDetected();
 		List<UIComponent> styleSheetResources = new ArrayList<UIComponent>();
 		List<UIComponent> scriptResources = new ArrayList<UIComponent>();
 		List<UIComponent> otherHeadResources = new ArrayList<UIComponent>();
 
 		for (UIComponent headComponentResource : headComponentResources) {
 
-			if (RenderKitUtil.isStyleSheetResource(headComponentResource) ||
+			if (RenderKitUtil.isStyleSheetResource(headComponentResource, BOOTSFACES_DETECTED) ||
 					isInlineStyleSheet(headComponentResource)) {
 				styleSheetResources.add(headComponentResource);
 			}
-			else if (RenderKitUtil.isScriptResource(headComponentResource) || isInlineScript(headComponentResource)) {
+			else if (RenderKitUtil.isScriptResource(headComponentResource, BOOTSFACES_DETECTED) ||
+					isInlineScript(headComponentResource)) {
 				scriptResources.add(headComponentResource);
 			}
 			else {
@@ -105,10 +111,10 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 		for (UIComponent child : children) {
 
-			if (RenderKitUtil.isStyleSheetResource(child) || isInlineStyleSheet(child)) {
+			if (RenderKitUtil.isStyleSheetResource(child, BOOTSFACES_DETECTED) || isInlineStyleSheet(child)) {
 				styleSheetResources.add(child);
 			}
-			else if (RenderKitUtil.isScriptResource(child) || isInlineScript(child)) {
+			else if (RenderKitUtil.isScriptResource(child, BOOTSFACES_DETECTED) || isInlineScript(child)) {
 				scriptResources.add(child);
 			}
 			else {
@@ -148,7 +154,6 @@ public class HeadRendererBridgeImpl extends Renderer {
 		}
 
 		List<UIComponent> headResourcesToRenderInBody = new ArrayList<UIComponent>();
-		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 		PortalContext portalContext = portletRequest.getPortalContext();
 		Iterator<UIComponent> iterator = headResources.iterator();
@@ -159,7 +164,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 			// If the portlet container does not have the ability to add the resource to the <head> section of the
 			// portal page, then
-			if (!ableToAddResourceToHead(portalContext, headResource)) {
+			if (!ableToAddResourceToHead(portalContext, headResource, BOOTSFACES_DETECTED)) {
 
 				// Add it to the list of resources that are to be rendered in the body section by the body renderer.
 				headResourcesToRenderInBody.add(headResource);
@@ -211,7 +216,8 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 				headResource.encodeAll(facesContext);
 
-				if (RenderKitUtil.isScriptResource(headResource) || RenderKitUtil.isStyleSheetResource(headResource)) {
+				if (RenderKitUtil.isScriptResource(headResource, BOOTSFACES_DETECTED) ||
+						RenderKitUtil.isStyleSheetResource(headResource, BOOTSFACES_DETECTED)) {
 					headResourceIds.add(ResourceUtil.getResourceId(headResource));
 				}
 			}
@@ -273,12 +279,13 @@ public class HeadRendererBridgeImpl extends Renderer {
 		return resources;
 	}
 
-	private boolean ableToAddResourceToHead(PortalContext portalContext, UIComponent componentResource) {
+	private boolean ableToAddResourceToHead(PortalContext portalContext, UIComponent componentResource,
+		final boolean BOOTSFACES_DETECTED) {
 
-		if (RenderKitUtil.isStyleSheetResource(componentResource)) {
+		if (RenderKitUtil.isStyleSheetResource(componentResource, BOOTSFACES_DETECTED)) {
 			return (portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT) != null);
 		}
-		else if (RenderKitUtil.isScriptResource(componentResource)) {
+		else if (RenderKitUtil.isScriptResource(componentResource, BOOTSFACES_DETECTED)) {
 			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT) != null);
 		}
 		else if (isInlineStyleSheet(componentResource)) {

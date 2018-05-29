@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ public abstract class BridgePortletResponseFactoryCompatImpl extends BridgePortl
 	public HeaderResponse getHeaderResponse(HeaderRequest headerRequest, HeaderResponse headerResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
-		if (PortletContainerDetector.isPlutoPortletResponse(headerResponse)) {
+		if (PortletContainerDetectorUtil.isPlutoPortletResponse(headerResponse)) {
 			return new HeaderResponseBridgePlutoImpl(headerResponse);
 		}
 		else {

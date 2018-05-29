@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -95,7 +95,6 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	private static final String ORG_RICHFACES_EXTENSION = "org.richfaces.extension";
 	private static final String REQUEST_ATTR_PORTLET_REQUEST = "javax.portlet.request";
 	private static final String REQUEST_ATTR_QUERY_STRING = "javax.servlet.forward.query_string";
-	private static final boolean RICHFACES_DETECTED = ProductFactory.getProduct(Product.Name.RICHFACES).isDetected();
 
 	// Pre-initialized Data Members
 	private Map<String, Object> applicationMap;
@@ -216,6 +215,9 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	 */
 	@Override
 	public String encodeNamespace(String name) {
+
+		final Product RICHFACES = ProductFactory.getProductInstance(this, Product.Name.RICHFACES);
+		final boolean RICHFACES_DETECTED = RICHFACES.isDetected();
 
 		if (name == null) {
 			return portletResponse.getNamespace();
@@ -1415,7 +1417,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		}
 	}
 
-	private static class StringWrapper {
+	private static final class StringWrapper {
 
 		private String value;
 

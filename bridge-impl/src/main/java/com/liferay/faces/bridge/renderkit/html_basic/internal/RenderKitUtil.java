@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import com.liferay.faces.bridge.application.internal.ResourceRichFacesImpl;
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -37,9 +35,6 @@ import com.liferay.faces.util.product.ProductFactory;
 	/* package-private */ static final String SCRIPT_RENDERER_TYPE = "javax.faces.resource.Script";
 	/* package-private */ static final String STYLE_CLASS_PORTLET_BODY = "liferay-faces-bridge-body";
 	/* package-private */ static final String STYLESHEET_RENDERER_TYPE = "javax.faces.resource.Stylesheet";
-
-	// Private Constants
-	private static final boolean BOOTSFACES_DETECTED = ProductFactory.getProduct(Product.Name.BOOTSFACES).isDetected();
 
 	private RenderKitUtil() {
 		throw new AssertionError();
@@ -60,7 +55,7 @@ import com.liferay.faces.util.product.ProductFactory;
 		return headResourceIds;
 	}
 
-	/* package-private */ static boolean isScriptResource(UIComponent componentResource) {
+	/* package-private */ static boolean isScriptResource(UIComponent componentResource, final boolean BOOTSFACES_DETECTED) {
 
 		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
 		String resourceName = (String) componentResourceAttributes.get("name");
@@ -68,20 +63,20 @@ import com.liferay.faces.util.product.ProductFactory;
 
 		return ((resourceName != null) && (resourceName.endsWith("js") || resourceName.contains(".js?"))) ||
 			isRichFacesReslibResource(resourceName, resourceLibrary) ||
-			isBootsFacesNonJSFResource(resourceName, componentResourceAttributes, "js");
+			isBootsFacesNonJSFResource(resourceName, componentResourceAttributes, "js", BOOTSFACES_DETECTED);
 	}
 
-	/* package-private */ static boolean isStyleSheetResource(UIComponent componentResource) {
+	/* package-private */ static boolean isStyleSheetResource(UIComponent componentResource, final boolean BOOTSFACES_DETECTED) {
 
 		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
 		String resourceName = (String) componentResourceAttributes.get("name");
 
 		return ((resourceName != null) && (resourceName.endsWith("css") || resourceName.contains(".css?"))) ||
-			isBootsFacesNonJSFResource(resourceName, componentResourceAttributes, "css");
+			isBootsFacesNonJSFResource(resourceName, componentResourceAttributes, "css", BOOTSFACES_DETECTED);
 	}
 
 	private static boolean isBootsFacesNonJSFResource(String resourceName,
-		Map<String, Object> componentResourceAttributes, String resourceExtension) {
+		Map<String, Object> componentResourceAttributes, String resourceExtension, final boolean BOOTSFACES_DETECTED) {
 
 		boolean bootsFacesResource = false;
 
