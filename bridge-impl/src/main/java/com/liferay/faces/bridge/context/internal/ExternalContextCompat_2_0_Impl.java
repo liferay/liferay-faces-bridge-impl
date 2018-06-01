@@ -487,9 +487,18 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	 */
 	@Override
 	public void responseSendError(int statusCode, String message) throws IOException {
-		String errorMessage = "Status code " + statusCode + ": " + message;
-		logger.error(errorMessage);
-		throw new IOException(errorMessage);
+
+		boolean isResourcePhase = (Bridge.PortletPhase.RESOURCE_PHASE == portletPhase);
+
+		if (isResourcePhase) {
+			logger.error(message);
+		}
+
+		setResponseStatus(statusCode);
+
+		if (!isResourcePhase) {
+			throw new BridgeStatusErrorException(statusCode, message);
+		}
 	}
 
 	/**

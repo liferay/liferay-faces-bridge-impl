@@ -1151,6 +1151,10 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 						viewPath = viewPath.substring(pos + contextPath.length());
 					}
 
+					if (!viewPath.startsWith("/")) {
+						viewPath = "/" + viewPath;
+					}
+
 					viewIdAndQueryString = getFacesViewIdFromPath(viewPath);
 
 					if (viewIdAndQueryString == null) {
@@ -1225,6 +1229,10 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			else {
 				logger.debug("javax.portlet.faces.viewId=[{0}]", viewIdAndQueryString);
 			}
+		}
+
+		if ((viewIdAndQueryString != null) && !viewIdAndQueryString.startsWith("/")) {
+			viewIdAndQueryString = "/" + viewIdAndQueryString;
 		}
 
 		return viewIdAndQueryString;
