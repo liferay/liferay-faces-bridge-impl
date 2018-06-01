@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:portlet="http://java.sun.com/portlet_2_0">
+	<h:head/>
+	<h:body>
+		<h:panelGroup rendered="#{FACES_3300Bean.isFailed(request)}">
+			<p>Test: <span id="FACES-3300-test-name">FACES-3300</span></p>
+			<p>Status: <span id="FACES-3300-result-status">FAILED</span></p>
+			<p>Detail: <span id="FACES-3300-result-detail">FAILED to navigate to <code>result.xhtml</code></span></p>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{!FACES_3300Bean.isFailed(request)}">
+			<h3>Valid Test URLs</h3>
+			<ol id="validTestURLs">
+			<ui:repeat value="#{FACES_3300Bean.bridgeFacesViewParameterNames}" var="bridgeFacesViewParameterName">
+				<ui:repeat value="#{FACES_3300Bean.validViews}" var="validView">
+					<portlet:renderURL var="url">
+						<portlet:param name="#{bridgeFacesViewParameterName}" value="#{validView}" />
+					</portlet:renderURL>
+					<li>
+						<h:outputLink value="#{url}">
+							<span id="expectedResult"><strong><em>VALID</em></strong></span>
+							<code>
+								<span style="display: inline-block; width: 20ch;">#{bridgeFacesViewParameterName}=</span>
+								<strong>#{validView}</strong>
+							</code>
+						</h:outputLink>
+					</li>
+				</ui:repeat>
+			</ui:repeat>
+			</ol>
+			<br />
+			<h3>Invalid Test URLs</h3>
+			<ol id="invalidTestURLs">
+			<ui:repeat value="#{FACES_3300Bean.bridgeFacesViewParameterNames}" var="bridgeFacesViewParameterName">
+				<ui:repeat value="#{FACES_3300Bean.invalidViews}" var="invalidView">
+					<portlet:renderURL var="url">
+						<portlet:param name="#{bridgeFacesViewParameterName}" value="#{invalidView}" />
+					</portlet:renderURL>
+					<li>
+						<h:outputLink value="#{url}">
+							<span id="expectedResult"><strong><em>INVALID</em></strong></span>
+							<code>
+								<span style="display: inline-block; width: 20ch;">#{bridgeFacesViewParameterName}=</span>
+								<strong>#{invalidView}</strong>
+							</code>
+						</h:outputLink>
+					</li>
+				</ui:repeat>
+			</ui:repeat>
+			</ol>
+		</h:panelGroup>
+	</h:body>
+</f:view>
