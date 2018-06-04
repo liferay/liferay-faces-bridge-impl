@@ -15,7 +15,10 @@
  */
 package com.liferay.faces.bridge.util.internal;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.portlet.PortletConfig;
 import javax.portlet.faces.GenericFacesPortlet;
@@ -33,7 +36,11 @@ import com.liferay.faces.util.map.AbstractPropertyMapEntry;
  */
 public class DefaultViewIdMap extends AbstractImmutablePropertyMap<String> {
 
-	private PortletConfig portletConfig;
+	// Private Constants
+	private static final String DEFAULT_VIEWID_PREFIX = GenericFacesPortlet.DEFAULT_VIEWID + ".";
+
+	// Private Final Data Members
+	private final PortletConfig portletConfig;
 
 	public DefaultViewIdMap(PortletConfig portletConfig) {
 		this.portletConfig = portletConfig;
@@ -46,11 +53,35 @@ public class DefaultViewIdMap extends AbstractImmutablePropertyMap<String> {
 
 	@Override
 	protected Enumeration<String> getImmutablePropertyNames() {
-		return portletConfig.getInitParameterNames();
+
+		Enumeration<String> immutablePropertyNames = portletConfig.getInitParameterNames();
+		List<String> immutablePropertyNamesList = new ArrayList<String>();
+
+		while (immutablePropertyNames.hasMoreElements()) {
+
+			String immutablePropertyName = immutablePropertyNames.nextElement();
+
+			if (immutablePropertyName.startsWith(DEFAULT_VIEWID_PREFIX)) {
+				immutablePropertyNamesList.add(immutablePropertyName);
+			}
+		}
+
+		return Collections.enumeration(immutablePropertyNamesList);
 	}
 
 	@Override
-	protected String getProperty(String portletMode) {
-		return portletConfig.getInitParameter(GenericFacesPortlet.DEFAULT_VIEWID + "." + portletMode);
+	protected String getProperty(String defaultViewIdInitParamName) {
+
+		if ((defaultViewIdInitParamName != null) && !defaultViewIdInitParamName.startsWith(DEFAULT_VIEWID_PREFIX)) {
+			defaultViewIdInitParamName = DEFAULT_VIEWID_PREFIX + defaultViewIdInitParamName;
+		}
+
+		String defaultViewId = portletConfig.getInitParameter(defaultViewIdInitParamName);
+
+		if ((defaultViewId != null) && !defaultViewId.startsWith("/")) {
+			defaultViewId = "/" + defaultViewId;
+		}
+
+		return defaultViewId;
 	}
 }
