@@ -15,8 +15,6 @@
  */
 package com.liferay.faces.issue.FACES_1470;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,13 +33,10 @@ import javax.faces.event.ActionEvent;
  */
 @ManagedBean(name = "instanceTrackerBean")
 @ApplicationScoped
-public class InstanceTrackerBean implements Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 4394440323684057396L;
+public class InstanceTrackerBean {
 
 	// Private Data Members
-	private CopyOnWriteArrayList<WeakReference> as7LeakInstances;
+	private CopyOnWriteArrayList<WeakReference> as7LeakInstances = new CopyOnWriteArrayList<WeakReference>();
 
 	public static <T> void trackAS7LeakInstance(T t) {
 
@@ -54,11 +49,6 @@ public class InstanceTrackerBean implements Serializable {
 	}
 
 	public List<WeakReference> getAS7LeakInstances() {
-
-		if (as7LeakInstances == null) {
-			as7LeakInstances = new CopyOnWriteArrayList<WeakReference>();
-		}
-
 		return as7LeakInstances;
 	}
 
@@ -78,13 +68,5 @@ public class InstanceTrackerBean implements Serializable {
 		}
 
 		as7LeakInstances.removeAll(as7LeakInstancesToRemove);
-	}
-
-	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-		as7LeakInstances = null;
-	}
-
-	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-		// no-op
 	}
 }

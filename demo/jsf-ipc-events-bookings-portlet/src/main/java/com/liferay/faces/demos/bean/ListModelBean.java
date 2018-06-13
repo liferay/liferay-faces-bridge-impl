@@ -17,6 +17,7 @@ package com.liferay.faces.demos.bean;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -40,16 +41,16 @@ public class ListModelBean {
 	private BookingTypeService bookingTypeService;
 
 	public List<BookingType> getBookingTypes() {
-
-		if (bookingTypes == null) {
-			bookingTypes = bookingTypeService.getAllBookingTypes();
-		}
-
 		return bookingTypes;
 	}
 
 	public BookingTypeService getBookingTypeService() {
 		return bookingTypeService;
+	}
+
+	@PostConstruct
+	public void postConstruct() {
+		bookingTypes = bookingTypeService.getAllBookingTypes();
 	}
 
 	public void setBookingTypeService(BookingTypeService bookingTypeService) {
