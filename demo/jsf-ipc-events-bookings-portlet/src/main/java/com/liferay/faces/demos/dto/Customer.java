@@ -16,7 +16,7 @@
 package com.liferay.faces.demos.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -36,20 +36,17 @@ public class Customer implements Serializable {
 	private boolean selected;
 
 	public Customer() {
+		this.bookings = Collections.emptyList();
 	}
 
 	public Customer(long customerId, String firstName, String lastName) {
+		this();
 		this.customerId = customerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
 
 	public List<Booking> getBookings() {
-
-		if (bookings == null) {
-			bookings = new ArrayList<Booking>();
-		}
-
 		return bookings;
 	}
 
@@ -70,7 +67,7 @@ public class Customer implements Serializable {
 	}
 
 	public void setBookings(List<Booking> bookings) {
-		this.bookings = bookings;
+		this.bookings = Collections.unmodifiableList(bookings);
 	}
 
 	public void setCustomerId(long customerId) {

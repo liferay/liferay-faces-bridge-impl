@@ -16,8 +16,10 @@
 package com.liferay.faces.demos.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
@@ -34,17 +36,19 @@ public class TitleServiceMockImpl implements TitleService {
 	// Private Data Members
 	private List<Title> titles;
 
-	public TitleServiceMockImpl() {
-		this.titles = new ArrayList<Title>();
-		this.titles.add(new Title(1, "Mr."));
-		this.titles.add(new Title(2, "Mrs."));
-		this.titles.add(new Title(3, "Ms."));
-		this.titles.add(new Title(4, "Dr."));
-	}
-
 	@Override
 	public List<Title> getTitles() {
 		return titles;
+	}
+
+	@PostConstruct
+	public void postConstruct() {
+		titles = new ArrayList<Title>();
+		titles.add(new Title(1, "Mr."));
+		titles.add(new Title(2, "Mrs."));
+		titles.add(new Title(3, "Ms."));
+		titles.add(new Title(4, "Dr."));
+		titles = Collections.unmodifiableList(titles);
 	}
 
 }

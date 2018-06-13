@@ -16,8 +16,10 @@
 package com.liferay.faces.demos.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
@@ -34,18 +36,20 @@ public class PaymentTypeServiceMockImpl implements PaymentTypeService {
 	// Private Data Members
 	private List<PaymentType> paymentTypes;
 
-	public PaymentTypeServiceMockImpl() {
-
-		this.paymentTypes = new ArrayList<PaymentType>();
-		this.paymentTypes.add(new PaymentType(1, "visa"));
-		this.paymentTypes.add(new PaymentType(1, "mastercard"));
-		this.paymentTypes.add(new PaymentType(1, "amex"));
-		this.paymentTypes.add(new PaymentType(1, "discover"));
-		this.paymentTypes.add(new PaymentType(1, "paypal"));
-	}
-
 	@Override
 	public List<PaymentType> getPaymentTypes() {
 		return paymentTypes;
+	}
+
+	@PostConstruct
+	public void postConstruct() {
+
+		paymentTypes = new ArrayList<PaymentType>();
+		paymentTypes.add(new PaymentType(1, "visa"));
+		paymentTypes.add(new PaymentType(1, "mastercard"));
+		paymentTypes.add(new PaymentType(1, "amex"));
+		paymentTypes.add(new PaymentType(1, "discover"));
+		paymentTypes.add(new PaymentType(1, "paypal"));
+		paymentTypes = Collections.unmodifiableList(paymentTypes);
 	}
 }

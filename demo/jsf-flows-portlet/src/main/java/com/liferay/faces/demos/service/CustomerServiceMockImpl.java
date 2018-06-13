@@ -15,9 +15,8 @@
  */
 package com.liferay.faces.demos.service;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -28,17 +27,10 @@ import com.liferay.faces.demos.dto.Customer;
  * @author  Neil Griffin
  */
 @ApplicationScoped
-public class CustomerServiceMockImpl implements CustomerService, Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 6241863951014091848L;
+public class CustomerServiceMockImpl implements CustomerService {
 
 	// Private Data Members
-	private Map<Long, Customer> customerMap;
-
-	public CustomerServiceMockImpl() {
-		this.customerMap = new HashMap<Long, Customer>();
-	}
+	private ConcurrentMap<Long, Customer> customerMap = new ConcurrentHashMap<Long, Customer>();
 
 	@Override
 	public void save(Customer customer) {

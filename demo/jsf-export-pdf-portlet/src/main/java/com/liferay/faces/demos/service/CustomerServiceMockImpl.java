@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.demos.service;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,18 +31,15 @@ import com.liferay.faces.demos.dto.Customer;
  */
 @ApplicationScoped
 @ManagedBean(name = "customerService")
-public class CustomerServiceMockImpl implements CustomerService, Serializable {
+public class CustomerServiceMockImpl implements CustomerService {
 
 	// Public Constants
 	public static final long ID_BRIAN_GREEN = 1;
 	public static final long ID_LIZ_KESSLER = 2;
 	public static final long ID_RICH_SHEARER = 3;
 
-	// serialVersionUID
-	private static final long serialVersionUID = 6515562063250005643L;
-
 	// Private Data Members
-	private ArrayList<Customer> allCustomers;
+	private List<Customer> allCustomers;
 
 	public List<Customer> getAllCustomers() {
 		return allCustomers;
@@ -75,15 +72,6 @@ public class CustomerServiceMockImpl implements CustomerService, Serializable {
 		allCustomers.add(customer);
 		customer = new Customer(ID_RICH_SHEARER, "Rich", "Shearer");
 		allCustomers.add(customer);
-	}
-
-	public void save(Customer customer) {
-
-		for (int i = 0; i < allCustomers.size(); i++) {
-
-			if (allCustomers.get(i).getCustomerId() == customer.getCustomerId()) {
-				allCustomers.set(i, customer);
-			}
-		}
+		allCustomers = Collections.unmodifiableList(allCustomers);
 	}
 }

@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.demos.service;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.liferay.faces.demos.dto.Customer;
 
@@ -25,7 +25,7 @@ import com.liferay.faces.demos.dto.Customer;
  */
 public interface CustomerService {
 
-	public List<Customer> getAllCustomers();
+	public Collection<Customer> getAllCustomers();
 
 	public Customer getCustomer(long customerId);
 
