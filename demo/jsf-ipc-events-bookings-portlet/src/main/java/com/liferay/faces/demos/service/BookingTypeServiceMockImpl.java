@@ -16,8 +16,10 @@
 package com.liferay.faces.demos.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
@@ -44,18 +46,20 @@ public class BookingTypeServiceMockImpl implements BookingTypeService {
 	private List<BookingType> allBookingTypes;
 
 	public List<BookingType> getAllBookingTypes() {
-
-		if (allBookingTypes == null) {
-			allBookingTypes = new ArrayList<BookingType>();
-			allBookingTypes.add(new BookingType(TYPE_ID_AIRFARE, "Airfare"));
-			allBookingTypes.add(new BookingType(TYPE_ID_CRUISE, "Cruise"));
-			allBookingTypes.add(new BookingType(TYPE_ID_HOTEL, "Hotel"));
-			allBookingTypes.add(new BookingType(TYPE_ID_PLAY, "Play/Theatre"));
-			allBookingTypes.add(new BookingType(TYPE_ID_RENTAL_CAR, "Rental Car"));
-			allBookingTypes.add(new BookingType(TYPE_ID_THEME_PARK, "Theme Park"));
-			allBookingTypes.add(new BookingType(TYPE_ID_TRAIN, "Train"));
-		}
-
 		return allBookingTypes;
+	}
+
+	@PostConstruct
+	public void postConstruct() {
+
+		allBookingTypes = new ArrayList<BookingType>();
+		allBookingTypes.add(new BookingType(TYPE_ID_AIRFARE, "Airfare"));
+		allBookingTypes.add(new BookingType(TYPE_ID_CRUISE, "Cruise"));
+		allBookingTypes.add(new BookingType(TYPE_ID_HOTEL, "Hotel"));
+		allBookingTypes.add(new BookingType(TYPE_ID_PLAY, "Play/Theatre"));
+		allBookingTypes.add(new BookingType(TYPE_ID_RENTAL_CAR, "Rental Car"));
+		allBookingTypes.add(new BookingType(TYPE_ID_THEME_PARK, "Theme Park"));
+		allBookingTypes.add(new BookingType(TYPE_ID_TRAIN, "Train"));
+		allBookingTypes = Collections.unmodifiableList(allBookingTypes);
 	}
 }

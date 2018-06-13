@@ -17,6 +17,7 @@ package com.liferay.faces.demos.list;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.faces.model.ListDataModel;
@@ -36,19 +37,15 @@ public class CustomersDataModel extends ListDataModel<CustomerWrapper> implement
 
 	public CustomersDataModel(CustomerService customerService) {
 
-		List<Customer> customers = customerService.getAllCustomers();
+		Collection<Customer> customers = customerService.getAllCustomers();
 		List<CustomerWrapper> wrappedData = new ArrayList<CustomerWrapper>(customers.size());
 
-		if (customers != null) {
-
-			for (Customer customer : customers) {
-				CustomerExportResource customerExportResource = new CustomerExportResource(customer);
-				String exportResourceURL = customerExportResource.getRequestPath();
-				wrappedData.add(new CustomerWrapper(customer, exportResourceURL));
-			}
-
-			setWrappedData(wrappedData);
+		for (Customer customer : customers) {
+			CustomerExportResource customerExportResource = new CustomerExportResource(customer);
+			String exportResourceURL = customerExportResource.getRequestPath();
+			wrappedData.add(new CustomerWrapper(customer, exportResourceURL));
 		}
-	}
 
+		setWrappedData(wrappedData);
+	}
 }

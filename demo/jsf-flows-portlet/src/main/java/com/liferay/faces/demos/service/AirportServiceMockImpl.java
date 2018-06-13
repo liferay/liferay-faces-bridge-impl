@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.FacesException;
 import javax.inject.Named;
@@ -63,7 +64,18 @@ public class AirportServiceMockImpl implements AirportService {
 	private List<Airport> airports;
 	private Map<Long, Airport> airportMap;
 
-	public AirportServiceMockImpl() {
+	@Override
+	public Airport findById(long airportId) {
+		return airportMap.get(airportId);
+	}
+
+	@Override
+	public List<Airport> getAirports() {
+		return airports;
+	}
+
+	@PostConstruct
+	public void postConstruct() {
 
 		this.airports = new ArrayList<Airport>();
 		this.airportMap = new HashMap<Long, Airport>();
@@ -150,17 +162,9 @@ public class AirportServiceMockImpl implements AirportService {
 			close(fileReader);
 		}
 
+		this.airportMap = Collections.unmodifiableMap(airportMap);
 		Collections.sort(this.airports, new AirportComparator());
-	}
-
-	@Override
-	public Airport findById(long airportId) {
-		return airportMap.get(airportId);
-	}
-
-	@Override
-	public List<Airport> getAirports() {
-		return airports;
+		this.airports = Collections.unmodifiableList(airports);
 	}
 
 	private void close(Closeable closeable) {

@@ -16,8 +16,10 @@
 package com.liferay.faces.demos.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
@@ -55,14 +57,15 @@ public class CountryServiceMockImpl implements CountryService {
 
 	@Override
 	public List<Country> getCountries() {
-
-		if (countries == null) {
-
-			countries = new ArrayList<Country>();
-			countries.add(new Country(1, "United States", "US"));
-			countries.add(new Country(2, "Canada", "CA"));
-		}
-
 		return countries;
+	}
+
+	@PostConstruct
+	public void postConstruct() {
+
+		countries = new ArrayList<Country>();
+		countries.add(new Country(1, "United States", "US"));
+		countries.add(new Country(2, "Canada", "CA"));
+		countries = Collections.unmodifiableList(countries);
 	}
 }

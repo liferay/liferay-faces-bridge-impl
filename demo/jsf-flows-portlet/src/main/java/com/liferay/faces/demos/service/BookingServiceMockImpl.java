@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.demos.service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -30,11 +30,7 @@ import com.liferay.faces.demos.dto.Booking;
 public class BookingServiceMockImpl implements BookingService {
 
 	// Private Data Members
-	private Map<Long, Booking> bookingsMap;
-
-	public BookingServiceMockImpl() {
-		this.bookingsMap = new HashMap<Long, Booking>();
-	}
+	private ConcurrentMap<Long, Booking> bookingsMap = new ConcurrentHashMap<Long, Booking>();
 
 	@Override
 	public void save(Booking booking) {

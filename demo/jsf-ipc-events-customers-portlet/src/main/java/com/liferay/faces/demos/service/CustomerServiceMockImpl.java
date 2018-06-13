@@ -15,9 +15,10 @@
  */
 package com.liferay.faces.demos.service;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
@@ -32,10 +33,7 @@ import com.liferay.faces.demos.dto.Customer;
  */
 @ApplicationScoped
 @ManagedBean(name = "customerService")
-public class CustomerServiceMockImpl implements CustomerService, Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 7241863951014091848L;
+public class CustomerServiceMockImpl implements CustomerService {
 
 	// Public Constants
 	public static final long ID_BRIAN_GREEN = 1;
@@ -43,14 +41,15 @@ public class CustomerServiceMockImpl implements CustomerService, Serializable {
 	public static final long ID_RICH_SHEARER = 3;
 
 	// Private Data Members
-	private ArrayList<Customer> allCustomers;
+	private ConcurrentMap<Long, Customer> allCustomers;
 
 	// Injections
 	@ManagedProperty(name = "bookingService", value = "#{bookingService}")
 	private BookingService bookingService;
 
-	public List<Customer> getAllCustomers() {
-		return allCustomers;
+	@Override
+	public Collection<Customer> getAllCustomers() {
+		return Collections.unmodifiableCollection(allCustomers.values());
 	}
 
 	public BookingService getBookingService() {
@@ -59,28 +58,25 @@ public class CustomerServiceMockImpl implements CustomerService, Serializable {
 
 	@PostConstruct
 	public void postConstruct() {
-		allCustomers = new ArrayList<Customer>();
+		allCustomers = new ConcurrentHashMap<Long, Customer>();
 
 		BookingService bookingService = getBookingService();
 		Customer customer = new Customer(ID_BRIAN_GREEN, "Brian", "Green");
 		customer.setBookings(bookingService.getBookingsByCustomerId(ID_BRIAN_GREEN));
-		allCustomers.add(customer);
+		allCustomers.put(ID_BRIAN_GREEN, customer);
 		customer = new Customer(ID_LIZ_KESSLER, "Liz", "Kessler");
 		customer.setBookings(bookingService.getBookingsByCustomerId(ID_LIZ_KESSLER));
-		allCustomers.add(customer);
+		allCustomers.put(ID_LIZ_KESSLER, customer);
 		customer = new Customer(ID_RICH_SHEARER, "Rich", "Shearer");
 		customer.setBookings(bookingService.getBookingsByCustomerId(ID_RICH_SHEARER));
-		allCustomers.add(customer);
+		allCustomers.put(ID_RICH_SHEARER, customer);
 	}
 
+	@Override
 	public void save(Customer customer) {
 
-		for (int i = 0; i < allCustomers.size(); i++) {
-
-			if (allCustomers.get(i).getCustomerId() == customer.getCustomerId()) {
-				allCustomers.set(i, customer);
-			}
-		}
+		long customerId = customer.getCustomerId();
+		allCustomers.put(customerId, customer);
 	}
 
 	public void setBookingService(BookingService bookingService) {

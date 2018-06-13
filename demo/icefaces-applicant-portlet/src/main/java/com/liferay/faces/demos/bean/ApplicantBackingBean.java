@@ -62,19 +62,6 @@ public class ApplicantBackingBean {
 	// Private Data Members
 	private String fileUploadAbsolutePath;
 
-	public void cityListener(ValueChangeEvent valueChangeEvent) {
-		String cityNameStartsWith = (String) valueChangeEvent.getNewValue();
-		listModelBean.filterSelectItems(cityNameStartsWith);
-
-		City city = listModelBean.getCityByName(cityNameStartsWith);
-
-		if (city != null) {
-			applicantModelBean.setAutoFillCity(city.getCityName());
-			applicantModelBean.setAutoFillProvinceId(city.getProvinceId());
-			applicantModelBean.setAutoFillPostalCode(city.getPostalCode());
-		}
-	}
-
 	public void deleteUploadedFile(ActionEvent actionEvent) {
 
 		try {

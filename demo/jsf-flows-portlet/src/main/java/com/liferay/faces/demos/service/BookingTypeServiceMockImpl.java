@@ -16,12 +16,14 @@
 package com.liferay.faces.demos.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
@@ -47,26 +49,6 @@ public class BookingTypeServiceMockImpl implements BookingTypeService {
 	private Map<Long, BookingType> bookingTypeMap;
 	private List<BookingType> bookingTypes;
 
-	public BookingTypeServiceMockImpl() {
-
-		bookingTypeMap = new HashMap<Long, BookingType>();
-		bookingTypeMap.put(TYPE_ID_FLIGHT, new BookingType(TYPE_ID_FLIGHT, "flight"));
-		bookingTypeMap.put(TYPE_ID_CRUISE, new BookingType(TYPE_ID_CRUISE, "cruise"));
-		bookingTypeMap.put(TYPE_ID_HOTEL, new BookingType(TYPE_ID_HOTEL, "hotel"));
-		bookingTypeMap.put(TYPE_ID_RESTAURANT, new BookingType(TYPE_ID_RESTAURANT, "restaurant"));
-		bookingTypeMap.put(TYPE_ID_RENTAL_CAR, new BookingType(TYPE_ID_RENTAL_CAR, "rental-car"));
-		bookingTypeMap.put(TYPE_ID_TRAIN, new BookingType(TYPE_ID_TRAIN, "train"));
-
-		bookingTypes = new ArrayList<BookingType>();
-
-		Set<Entry<Long, BookingType>> entrySet = bookingTypeMap.entrySet();
-
-		for (Entry<Long, BookingType> mapEntry : entrySet) {
-			BookingType bookingType = mapEntry.getValue();
-			bookingTypes.add(bookingType);
-		}
-	}
-
 	public List<BookingType> getBookingTypes() {
 		return bookingTypes;
 	}
@@ -82,5 +64,29 @@ public class BookingTypeServiceMockImpl implements BookingTypeService {
 		}
 
 		return name;
+	}
+
+	@PostConstruct
+	public void postConstruct() {
+
+		bookingTypeMap = new HashMap<Long, BookingType>();
+		bookingTypeMap.put(TYPE_ID_FLIGHT, new BookingType(TYPE_ID_FLIGHT, "flight"));
+		bookingTypeMap.put(TYPE_ID_CRUISE, new BookingType(TYPE_ID_CRUISE, "cruise"));
+		bookingTypeMap.put(TYPE_ID_HOTEL, new BookingType(TYPE_ID_HOTEL, "hotel"));
+		bookingTypeMap.put(TYPE_ID_RESTAURANT, new BookingType(TYPE_ID_RESTAURANT, "restaurant"));
+		bookingTypeMap.put(TYPE_ID_RENTAL_CAR, new BookingType(TYPE_ID_RENTAL_CAR, "rental-car"));
+		bookingTypeMap.put(TYPE_ID_TRAIN, new BookingType(TYPE_ID_TRAIN, "train"));
+		bookingTypeMap = Collections.unmodifiableMap(bookingTypeMap);
+
+		bookingTypes = new ArrayList<BookingType>();
+
+		Set<Entry<Long, BookingType>> entrySet = bookingTypeMap.entrySet();
+
+		for (Entry<Long, BookingType> mapEntry : entrySet) {
+			BookingType bookingType = mapEntry.getValue();
+			bookingTypes.add(bookingType);
+		}
+
+		bookingTypes = Collections.unmodifiableList(bookingTypes);
 	}
 }

@@ -17,8 +17,10 @@ package com.liferay.faces.demos.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
@@ -41,36 +43,10 @@ public class ListModelBean implements Serializable {
 	private List<Province> provinces;
 
 	public List<City> getCities() {
-
-		if (cities == null) {
-			long cityId = 1;
-			cities = new ArrayList<City>();
-
-			City city = new City(cityId++, getProvinceId("DE"), "Wilmington", "19806");
-			cities.add(city);
-			city = new City(cityId++, getProvinceId("GA"), "Atlanta", "30329");
-			cities.add(city);
-			city = new City(cityId++, getProvinceId("FL"), "Orlando", "32801");
-			cities.add(city);
-			city = new City(cityId++, getProvinceId("MD"), "Baltimore", "21224");
-			cities.add(city);
-			city = new City(cityId++, getProvinceId("NC"), "Charlotte", "28202");
-			cities.add(city);
-			city = new City(cityId++, getProvinceId("NJ"), "Hoboken", "07030");
-			cities.add(city);
-			city = new City(cityId++, getProvinceId("NY"), "Albany", "12205");
-			cities.add(city);
-			city = new City(cityId++, getProvinceId("SC"), "Columbia", "29201");
-			cities.add(city);
-			city = new City(cityId++, getProvinceId("VA"), "Roanoke", "24013");
-			cities.add(city);
-		}
-
 		return cities;
 	}
 
 	public City getCityByPostalCode(String postalCode) {
-		List<City> cities = getCities();
 
 		for (City city : cities) {
 
@@ -84,7 +60,6 @@ public class ListModelBean implements Serializable {
 
 	public long getProvinceId(String provinceName) {
 		long provinceId = 0;
-		List<Province> provinces = getProvinces();
 
 		for (Province province : provinces) {
 
@@ -99,31 +74,56 @@ public class ListModelBean implements Serializable {
 	}
 
 	public List<Province> getProvinces() {
+		return provinces;
+	}
 
-		if (provinces == null) {
-			long provinceId = 1;
-			provinces = new ArrayList<Province>();
+	@PostConstruct
+	public void postConstruct() {
 
-			Province province = new Province(provinceId++, "DE");
-			provinces.add(province);
-			province = new Province(provinceId++, "GA");
-			provinces.add(province);
-			province = new Province(provinceId++, "FL");
-			provinces.add(province);
-			province = new Province(provinceId++, "MD");
-			provinces.add(province);
-			province = new Province(provinceId++, "NC");
-			provinces.add(province);
-			province = new Province(provinceId++, "NJ");
-			provinces.add(province);
-			province = new Province(provinceId++, "NY");
-			provinces.add(province);
-			province = new Province(provinceId++, "SC");
-			provinces.add(province);
-			province = new Province(provinceId++, "VA");
-			provinces.add(province);
-		}
+		long provinceId = 1;
+		provinces = new ArrayList<Province>();
 
-		return this.provinces;
+		Province province = new Province(provinceId++, "DE");
+		provinces.add(province);
+		province = new Province(provinceId++, "GA");
+		provinces.add(province);
+		province = new Province(provinceId++, "FL");
+		provinces.add(province);
+		province = new Province(provinceId++, "MD");
+		provinces.add(province);
+		province = new Province(provinceId++, "NC");
+		provinces.add(province);
+		province = new Province(provinceId++, "NJ");
+		provinces.add(province);
+		province = new Province(provinceId++, "NY");
+		provinces.add(province);
+		province = new Province(provinceId++, "SC");
+		provinces.add(province);
+		province = new Province(provinceId++, "VA");
+		provinces.add(province);
+		provinces = Collections.unmodifiableList(provinces);
+
+		long cityId = 1;
+		cities = new ArrayList<City>();
+
+		City city = new City(cityId++, getProvinceId("DE"), "Wilmington", "19806");
+		cities.add(city);
+		city = new City(cityId++, getProvinceId("GA"), "Atlanta", "30329");
+		cities.add(city);
+		city = new City(cityId++, getProvinceId("FL"), "Orlando", "32801");
+		cities.add(city);
+		city = new City(cityId++, getProvinceId("MD"), "Baltimore", "21224");
+		cities.add(city);
+		city = new City(cityId++, getProvinceId("NC"), "Charlotte", "28202");
+		cities.add(city);
+		city = new City(cityId++, getProvinceId("NJ"), "Hoboken", "07030");
+		cities.add(city);
+		city = new City(cityId++, getProvinceId("NY"), "Albany", "12205");
+		cities.add(city);
+		city = new City(cityId++, getProvinceId("SC"), "Columbia", "29201");
+		cities.add(city);
+		city = new City(cityId++, getProvinceId("VA"), "Roanoke", "24013");
+		cities.add(city);
+		cities = Collections.unmodifiableList(cities);
 	}
 }
