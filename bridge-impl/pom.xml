@@ -12,6 +12,83 @@
 	<name>Liferay Faces Bridge Implementation</name>
 	<description>Implementation of the API for Liferay Faces Bridge</description>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-baseline-maven-plugin</artifactId>
+				<version>${bnd.version}</version>
+				<configuration>
+					<base>
+						<groupId>${project.groupId}</groupId>
+						<artifactId>${project.artifactId}</artifactId>
+						<version>(,4.1.2]</version>
+					</base>
+					<includeDistributionManagement>false</includeDistributionManagement>
+				</configuration>
+				<executions>
+					<execution>
+						<id>baseline</id>
+						<goals>
+							<goal>baseline</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-maven-plugin</artifactId>
+				<version>${bnd.version}</version>
+				<configuration>
+					<bnd>
+						<![CDATA[
+							# javax.el is automatically imported with the following versions:
+							# javax.el;version="[2.2.0,3.0.0)", but versions 3.0.0+ are also valid.
+							Import-Package: \
+								javax.el;version="[2.2.0,4.0.0)",\
+								com.liferay.faces.util.*;version="[1.0.0,2.0.0)",\
+								com.liferay.faces.bridge.*;version="[1.0.0,2.0.0)",\
+								com.liferay.faces.portlet.*;version="[1.0.0,2.0.0)",\
+								javax.portlet.faces.*;version="[1.0.0,2.0.0)",\
+								*
+							Require-Capability: osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"
+							Provide-Capability: \
+								osgi.serviceloader;osgi.serviceloader=javax.portlet.faces.Bridge,\
+								osgi.serviceloader;osgi.serviceloader=com.liferay.faces.bridge.BridgeFactoryFinder,\
+								osgi.extender;osgi.extender="jsp.taglib";uri="http://liferay.com/faces/bridge";\
+								version:Version="1.0.0"
+						]]>
+					</bnd>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>bnd-process</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<useDefaultManifestFile>true</useDefaultManifestFile>
+					<archive>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+						<manifestEntries>
+							<Built-By>Release Manager</Built-By>
+							<Implementation-Title>${project.name}</Implementation-Title>
+							<Implementation-Version>${full.version}</Implementation-Version>
+							<Implementation-Vendor-Id>com.liferay</Implementation-Vendor-Id>
+							<Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<!-- BEGIN: Only required for bridge:inputFile -->
 		<dependency>
@@ -28,10 +105,12 @@
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
 			<artifactId>com.liferay.faces.bridge.api</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
 			<artifactId>com.liferay.faces.util</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.el</groupId>
