@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.demos.bean;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,10 +33,7 @@ import com.liferay.faces.demos.dto.Province;
 
 @Named
 @ApplicationScoped
-public class ListModelBean implements Serializable {
-
-	// serialVersionUID
-	private static final long serialVersionUID = 4433667773050051612L;
+public class ListModelBean {
 
 	// Private Data Members
 	private List<City> cities;
