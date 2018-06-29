@@ -26,7 +26,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
 /**
  * @author  Michael Freedman
  */
-public class Tests extends Object {
+public class Tests {
 	@BridgeTest(test = "requestProcessingNonFacesTest")
 	public String requestProcessingNonFacesTest(TestBean testBean) {
 
