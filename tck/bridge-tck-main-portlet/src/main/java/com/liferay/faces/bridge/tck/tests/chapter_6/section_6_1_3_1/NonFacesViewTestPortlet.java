@@ -52,11 +52,6 @@ public class NonFacesViewTestPortlet extends NonFacesViewTestCompatPortlet {
 
 	}
 
-	public void init(PortletConfig config) throws PortletException {
-		super.init(config);
-
-	}
-
 	public String runTest(RenderRequest request, RenderResponse response) throws PortletException, IOException {
 
 		String target = request.getParameter("_jsfBridgeNonFacesView");
