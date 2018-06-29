@@ -39,7 +39,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
 /**
  * @author  Michael Freedman
  */
-public class Tests extends Object {
+public class Tests {
 
 	private static final String MESSAGE_VALUE1 = "Test Message1 Retention.";
 	private static final String MESSAGE_VALUE2 = "Test Message2 Retention.";
