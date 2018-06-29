@@ -28,7 +28,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
  * PortletRequest.getAttribute()
  */
 
-public class SampleTests extends Object {
+public class SampleTests {
 
 	@BridgeTest(test = "multiRequestTest")
 	public String multiRequestTest(TestBean testBean) {

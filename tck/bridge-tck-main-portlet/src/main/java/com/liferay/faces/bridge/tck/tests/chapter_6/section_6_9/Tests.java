@@ -33,7 +33,7 @@ import com.liferay.faces.bridge.tck.renderkit.TestRenderKitFactory;
 /**
  * @author  Michael Freedman
  */
-public class Tests extends Object {
+public class Tests {
 
 	public static final String ACTION_TEST_RESULT = "com.liferay.faces.bridge.tck.actionTestResult";
 

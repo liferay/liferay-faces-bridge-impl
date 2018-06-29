@@ -31,7 +31,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
 /**
  * @author  Michael Freedman
  */
-public class Tests extends Object {
+public class Tests {
 	public boolean checkAttrs(Map<String, Object> attributes, String namespace, Map<String, Object> expectedInitParams,
 		StringBuilder notFoundMsg) {
 

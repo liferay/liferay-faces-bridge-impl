@@ -28,7 +28,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
 /**
  * @author  Michael Freedman
  */
-public class Tests extends Object {
+public class Tests {
 
 	// Test is MultiRequest --
 	// Test #6.97

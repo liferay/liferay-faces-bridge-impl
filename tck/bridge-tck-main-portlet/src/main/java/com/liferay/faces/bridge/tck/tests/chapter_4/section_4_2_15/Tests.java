@@ -26,7 +26,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
 /**
  * @author  Michael Freedman
  */
-public class Tests extends Object {
+public class Tests {
 
 	@BridgeTest(test = "getFacesBridgeMethodTest")
 	public String getFacesBridgeMethodTest(TestBean testBean) {

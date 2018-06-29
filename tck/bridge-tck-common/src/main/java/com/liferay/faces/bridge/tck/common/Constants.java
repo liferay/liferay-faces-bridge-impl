@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.tck.common;
 /**
  * @author  Michael Freedman
  */
-public class Constants extends Object {
+public class Constants {
 
 	public static final String PORTLET_CONFIG = "com.liferay.faces.bridge.tck.common.portletConfig";
 	public static final String EVENT_NAME = "faces.liferay.com.tck.testEvent";
