@@ -105,57 +105,57 @@
 
 	if (pageContext.getAttribute("tck_applicationScope") == null) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'applicationScope' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'applicationScope' failed<br>";
 	}
 
 	if (pageContext.getAttribute("tck_cookie") == null) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'cookie' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'cookie' failed<br>";
 	}
 
 	if (pageContext.getAttribute("tck_header") == null) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'header' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'header' failed<br>";
 	}
 
 	if (pageContext.getAttribute("tck_headerValues") == null) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'headerValues' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'headerValues' failed<br>";
 	}
 
 	if (pageContext.getAttribute("tck_initParam") == null) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'initParam' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'initParam' failed<br>";
 	}
 
 	if (pageContext.getAttribute("tck_pageContext") == null) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'pageContext' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'pageContext' failed<br>";
 	}
 
 	if (pageContext.getAttribute("tck_pageScope") == null) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'pageScope' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'pageScope' failed<br>";
 	}
 
 	if (pageContext.getAttribute("tck_param") == null) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'param' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'param' failed<br>";
 	}
 
 	if (pageContext.getAttribute("tck_paramValues") == null) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'paramValues' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'paramValues' failed<br>";
 	}
 
 	if (pageContext.getAttribute("tck_requestScope") == null) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'requestScope' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'requestScope' failed<br>";
 	}
 
 	if (pageContext.getAttribute("tck_sessionScope") == null) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'sessionScope' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'sessionScope' failed<br>";
 	}
   
   /* verify we didn't resolve the portlet implicit objects tied to portlet:defineObjects -- as
@@ -177,14 +177,14 @@
 	FacesContext elFacesContext = (FacesContext) pageContext.getAttribute("tck_facesContext");
 	if (elFacesContext == null || !FacesContext.getCurrentInstance().equals(elFacesContext)) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'facesContext' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'facesContext' failed<br>";
 		elFacesContext = FacesContext.getCurrentInstance();
 	}
 
 	UIViewRoot elView = (UIViewRoot) pageContext.getAttribute("tck_view");
 	if (elView == null || !elFacesContext.getViewRoot().equals(elView)) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'view' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'view' failed<br>";
 	}
   
   /* Verify that the Bridge specific implicit objects resolved correctly - test
@@ -192,13 +192,13 @@
 	Map<String, Object> elHttpSessionScope = (Map<String, Object>) pageContext.getAttribute("tck_httpSessionScope");
 	if (elHttpSessionScope == null || !testHttpSessionScope(elHttpSessionScope, (PortletSession) elFacesContext.getExternalContext().getSession(true))) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'httpSessionScope' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'httpSessionScope' failed<br>";
 	}
 
 	Map<String, Preference> elMutablePortletPreferencesValues = (Map<String, Preference>) pageContext.getAttribute("tck_mutablePortletPreferencesValues");
 	if (elMutablePortletPreferencesValues == null || !testMutablePortletPreferencesValues(elMutablePortletPreferencesValues, ((PortletRequest) elFacesContext.getExternalContext().getRequest()).getPreferences().getMap())) {
 		status = false;
-		detail += "JSF EL resolution of implict variable 'mutablePortletPreferencesValues' failed<br>";
+		detail += "JSF EL resolution of implicit variable 'mutablePortletPreferencesValues' failed<br>";
 	}
 
 	if (status)
