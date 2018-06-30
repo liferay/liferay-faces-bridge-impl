@@ -107,7 +107,7 @@ public class Tests {
 		// ensure they start out identical
 		if (
 			!containsIdenticalAttributeEntries(externalContextAppMap,
-					(Enumeration<String>) portletCtx.getAttributeNames(), portletCtx)) {
+					(Enumeration<String>) portletContext.getAttributeNames(), portletContext)) {
 			testBean.setTestResult(false,
 				"Failed: Portlet context attributes and the externalContext applicationMap entries aren't identical.");
 
@@ -117,7 +117,7 @@ public class Tests {
 		// Test for mutability
 		try {
 			externalContextAppMap.put("Test0Key", "Test0Value");
-			portletCtx.setAttribute("Test1Key", "Test1Value");
+			portletContext.setAttribute("Test1Key", "Test1Value");
 		}
 		catch (Exception e) {
 			testBean.setTestResult(false,
@@ -133,7 +133,7 @@ public class Tests {
 		// the Maps contain the same keys/values should do the trick.
 		if (
 			!containsIdenticalAttributeEntries(externalContextAppMap,
-					(Enumeration<String>) portletCtx.getAttributeNames(), portletCtx)) {
+					(Enumeration<String>) portletContext.getAttributeNames(), portletContext)) {
 			testBean.setTestResult(false,
 				"Failed: After setting an attribute on the portlet context and the externalContext applicationMap they no longer contain identical entries.");
 
@@ -142,11 +142,11 @@ public class Tests {
 
 		// Now remove the attribute we put in the  -- do the remove on the opposite object
 		externalContextAppMap.remove("Test1Key");
-		portletCtx.removeAttribute("Test0Key");
+		portletContext.removeAttribute("Test0Key");
 
 		if (
 			!containsIdenticalAttributeEntries(externalContextAppMap,
-					(Enumeration<String>) portletCtx.getAttributeNames(), portletCtx)) {
+					(Enumeration<String>) portletContext.getAttributeNames(), portletContext)) {
 			testBean.setTestResult(false,
 				"Failed: After removing an attribute on the portlet context and the externalContext applicationMap they no longer contain identical entries.");
 
