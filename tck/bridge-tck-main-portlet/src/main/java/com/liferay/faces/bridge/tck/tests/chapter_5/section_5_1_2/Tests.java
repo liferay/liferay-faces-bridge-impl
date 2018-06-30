@@ -454,11 +454,11 @@ public class Tests {
 			requestMap.put("com.liferay.faces.bridge.tck.PortletResponse", externalContext.getResponse());
 			requestMap.put("com.liferay.faces.bridge.tck.PortletSession", externalContext.getSession(true));
 
-			PortletRequest r = (PortletRequest) externalContext.getRequest();
-			PortletPreferences prefs = r.getPreferences();
+			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+			PortletPreferences prefs = portletRequest.getPreferences();
 			requestMap.put("com.liferay.faces.bridge.tck.PortletPreferences", prefs);
 
-			PortalContext pc = r.getPortalContext();
+			PortalContext pc = portletRequest.getPortalContext();
 			requestMap.put("com.liferay.faces.bridge.tck.PortalContext", pc);
 
 			requestMap.put("com.liferay.faces.bridge.tck.FacesContext", facesContext);

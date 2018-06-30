@@ -106,13 +106,13 @@ public class EncodeActionURLTests {
 			"/test.jsp?firstParam=value&javax.portlet.faces.DirectLink=true&anotherParam=value";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletRequest r = (PortletRequest) externalContext.getRequest();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
 		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
 				DIRECTLINK_TRUE_TEST_STRING).toString();
 
-		String s = new StringBuffer(testString.length() + 20).append(r.getScheme()).append("://").append(
-				r.getServerName()).append(":").append(r.getServerPort()).append(testString).toString();
+		String s = new StringBuffer(testString.length() + 20).append(portletRequest.getScheme()).append("://").append(
+				portletRequest.getServerName()).append(":").append(portletRequest.getServerPort()).append(testString).toString();
 
 		if (externalContext.encodeActionURL(testString).equalsIgnoreCase(s)) {
 			testBean.setTestResult(true,
