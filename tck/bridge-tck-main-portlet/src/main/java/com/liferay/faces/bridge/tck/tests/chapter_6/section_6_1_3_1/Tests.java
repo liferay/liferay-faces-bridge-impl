@@ -3444,12 +3444,12 @@ public class Tests {
 		}
 	}
 
-	private boolean containsIdenticalEntries(Map<String, Object> m, Enumeration<String> eNames, PortletRequest r) {
+	private boolean containsIdenticalEntries(Map<String, Object> m, Enumeration<String> eNames, PortletRequest portletRequest) {
 
 		// For each entry in m ensure there is an idenitcal one in the request
 		for (Iterator<Map.Entry<String, Object>> entries = m.entrySet().iterator(); entries.hasNext();) {
 			Map.Entry<String, Object> e = entries.next();
-			Object requestObj = r.getAttribute(e.getKey());
+			Object requestObj = portletRequest.getAttribute(e.getKey());
 			Object mapObj = e.getValue();
 
 			if ((mapObj == null) && (requestObj == null))
@@ -3463,7 +3463,7 @@ public class Tests {
 		// For each entry in the request -- ensure there is an identical one in the map
 		while (eNames.hasMoreElements()) {
 			String key = eNames.nextElement();
-			Object requestObj = r.getAttribute(key);
+			Object requestObj = portletRequest.getAttribute(key);
 			Object mapObj = m.get(key);
 
 			if ((mapObj == null) && (requestObj == null))
