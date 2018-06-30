@@ -37,8 +37,8 @@ public class TestSuiteLifecycleImpl extends Lifecycle {
 	}
 
 	@Override
-	public void execute(FacesContext context) throws FacesException {
-		getWrapped().execute(context);
+	public void execute(FacesContext facesContext) throws FacesException {
+		getWrapped().execute(facesContext);
 	}
 
 	@Override
@@ -52,8 +52,8 @@ public class TestSuiteLifecycleImpl extends Lifecycle {
 	}
 
 	@Override
-	public void render(FacesContext context) throws FacesException {
-		getWrapped().render(context);
+	public void render(FacesContext facesContext) throws FacesException {
+		getWrapped().render(facesContext);
 	}
 
 	Lifecycle getWrapped() {

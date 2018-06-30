@@ -136,7 +136,7 @@ public class MissingResourceImpl extends Resource {
 	}
 
 	@Override
-	public boolean userAgentNeedsUpdate(FacesContext context) {
+	public boolean userAgentNeedsUpdate(FacesContext facesContext) {
 		logger.error(ERROR_MSG, failedResourceHandler, resourceName, libraryName, contentType);
 
 		return false;

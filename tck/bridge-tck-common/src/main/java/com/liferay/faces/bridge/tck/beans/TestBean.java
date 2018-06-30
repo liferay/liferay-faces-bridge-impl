@@ -50,8 +50,8 @@ public class TestBean {
 
 		// Get the Test information from the request (attributes)
 		// Placed into the request by the GenericFacesTestSuitePortlet
-		FacesContext context = FacesContext.getCurrentInstance();
-		Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
 		mTestGroup = (String) requestMap.get(Constants.TEST_BEAN_NAME);
 		mTestName = (String) requestMap.get(Constants.TEST_NAME);
 
@@ -62,7 +62,7 @@ public class TestBean {
 
 		// Now lookup the object that implements the test.  There should be a managedBean with the same name as
 		// the testGroup.
-		mTest = context.getELContext().getELResolver().getValue(context.getELContext(), null, mTestGroup);
+		mTest = facesContext.getELContext().getELResolver().getValue(facesContext.getELContext(), null, mTestGroup);
 
 		if (mTest == null) {
 			throw new IllegalStateException("Couldn't locate managed bean containing the test: " + mTestGroup);

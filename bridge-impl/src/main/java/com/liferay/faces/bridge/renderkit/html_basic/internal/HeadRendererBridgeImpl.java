@@ -59,7 +59,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 	private static final Logger logger = LoggerFactory.getLogger(HeadRendererBridgeImpl.class);
 
 	@Override
-	public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+	public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 		// no-op because Portlets are forbidden from rendering the <head>...</head> section.
 	}
 
@@ -222,7 +222,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 	}
 
 	@Override
-	public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
+	public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 		// no-op because Portlets are forbidden from rendering the <head>...</head> section.
 	}
 

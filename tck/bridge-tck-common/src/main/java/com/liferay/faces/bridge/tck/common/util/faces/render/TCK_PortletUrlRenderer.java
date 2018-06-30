@@ -34,34 +34,34 @@ public class TCK_PortletUrlRenderer extends Renderer {
 		mWrapped = r;
 	}
 
-	public String convertClientId(FacesContext context, String clientId) {
-		return mWrapped.convertClientId(context, clientId);
+	public String convertClientId(FacesContext facesContext, String clientId) {
+		return mWrapped.convertClientId(facesContext, clientId);
 	}
 
-	public void decode(FacesContext context, UIComponent component) {
-		mWrapped.decode(context, component);
+	public void decode(FacesContext facesContext, UIComponent component) {
+		mWrapped.decode(facesContext, component);
 	}
 
-	public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
-		ResponseWriter writer = context.getResponseWriter();
+	public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+		ResponseWriter writer = facesContext.getResponseWriter();
 		writer.write("<tck-portlet><portlet-url>");
-		mWrapped.encodeBegin(context, component);
+		mWrapped.encodeBegin(facesContext, component);
 	}
 
-	public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
-		mWrapped.encodeChildren(context, component);
+	public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
+		mWrapped.encodeChildren(facesContext, component);
 	}
 
-	public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
-		mWrapped.encodeEnd(context, component);
+	public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+		mWrapped.encodeEnd(facesContext, component);
 
-		ResponseWriter writer = context.getResponseWriter();
+		ResponseWriter writer = facesContext.getResponseWriter();
 		writer.write("</portlet-url></tck-portlet>");
 	}
 
-	public Object getConvertedValue(FacesContext context, UIComponent component, Object submittedValue)
+	public Object getConvertedValue(FacesContext facesContext, UIComponent component, Object submittedValue)
 		throws ConverterException {
-		return mWrapped.getConvertedValue(context, component, submittedValue);
+		return mWrapped.getConvertedValue(facesContext, component, submittedValue);
 	}
 
 	public boolean getRendersChildren() {
