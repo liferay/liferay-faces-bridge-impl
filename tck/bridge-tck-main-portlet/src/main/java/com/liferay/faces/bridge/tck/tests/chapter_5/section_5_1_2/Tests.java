@@ -440,14 +440,14 @@ public class Tests {
 			requestMap.put("com.liferay.faces.bridge.tck.TestRequestScope_b", new AnnotatedExcludedBean());
 			// Don't need to add additional excludedAttributes tests as they are covered in chapter 6 tests
 
-			PortletConfig config = (PortletConfig) facesContext.getELContext().getELResolver().getValue(
+			PortletConfig portletConfig = (PortletConfig) facesContext.getELContext().getELResolver().getValue(
 					facesContext.getELContext(), null, "portletConfig");
 
-			if (config == null) {
+			if (portletConfig == null) {
 				throw new IllegalStateException("Unable to acquire the portletConfig!");
 			}
 
-			requestMap.put("com.liferay.faces.bridge.tck.PortletConfig", config);
+			requestMap.put("com.liferay.faces.bridge.tck.PortletConfig", portletConfig);
 
 			requestMap.put("com.liferay.faces.bridge.tck.PortletContext", externalContext.getContext());
 			requestMap.put("com.liferay.faces.bridge.tck.PortletRequest", externalContext.getRequest());
