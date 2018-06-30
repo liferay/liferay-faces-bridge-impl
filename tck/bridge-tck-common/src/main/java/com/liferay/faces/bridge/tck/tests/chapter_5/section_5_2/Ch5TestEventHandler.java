@@ -39,10 +39,10 @@ public class Ch5TestEventHandler implements BridgeEventHandler {
 	}
 
 	@Override
-	public EventNavigationResult handleEvent(FacesContext context, Event event) {
+	public EventNavigationResult handleEvent(FacesContext facesContext, Event event) {
 
-		Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
-		Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
+		Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
+		Map<String, Object> sessionMap = facesContext.getExternalContext().getSessionMap();
 
 		String testName = (String) event.getValue();
 		String portletTestName = (String) requestMap.get(Constants.TEST_NAME);
