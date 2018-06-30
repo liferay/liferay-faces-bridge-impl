@@ -23,7 +23,6 @@ import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
 import javax.portlet.MimeResponse;
-import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSecurityException;
@@ -54,12 +53,6 @@ public class ManualBridgeInvokePortlet extends RenderViewDispatchCompatPortlet {
 	private static final String FACESCONTEXTRELEASED_RESOURCE_TEST = "facesContextReleasedResourceTest";
 	private static final String PORTLETPHASEREMOVED_RESOURCE_TEST = "portletPhaseRemovedResourceTest";
 	private static final String BRIDGESETSCONTENTTYPE_TEST = "bridgeSetsContentTypeTest";
-
-	@Override
-	public void init(PortletConfig config) throws PortletException {
-		super.init(config);
-
-	}
 
 	@Override
 	public void processAction(ActionRequest request, ActionResponse response) throws PortletException,

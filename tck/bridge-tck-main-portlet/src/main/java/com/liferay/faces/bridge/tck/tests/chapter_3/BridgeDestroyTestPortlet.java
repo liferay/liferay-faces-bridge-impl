@@ -23,7 +23,6 @@ import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
 import javax.portlet.MimeResponse;
-import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
@@ -76,11 +75,6 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 		else {
 			super.doDispatch(renderRequest, renderResponse);
 		}
-	}
-
-	public void init(PortletConfig config) throws PortletException {
-		super.init(config);
-
 	}
 
 	public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException,
