@@ -46,10 +46,10 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 		super.doDispatch(renderRequest, renderResponse);
 	}
 
-	public Bridge getFacesBridge(PortletRequest request, PortletResponse response) throws PortletException {
-		initTestRequest(request);
+	public Bridge getFacesBridge(PortletRequest portletRequest, PortletResponse response) throws PortletException {
+		initTestRequest(portletRequest);
 
-		return super.getFacesBridge(request, response);
+		return super.getFacesBridge(portletRequest, response);
 	}
 
 	public String getTestName() {

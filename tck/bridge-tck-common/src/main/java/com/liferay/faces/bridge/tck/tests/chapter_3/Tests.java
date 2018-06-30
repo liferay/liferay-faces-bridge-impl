@@ -174,7 +174,7 @@ public class Tests {
 	public String modeViewIDTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletRequest req = (PortletRequest) externalContext.getRequest();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
 		testBean.setTestComplete(true);
 
@@ -190,7 +190,7 @@ public class Tests {
 		}
 
 		// Are we in edit mode???
-		if (!req.getPortletMode().equals(PortletMode.EDIT)) {
+		if (!portletRequest.getPortletMode().equals(PortletMode.EDIT)) {
 			testBean.setTestResult(false,
 				"defaultViewId test failed:  though in the correct view we aren't in EDIT mode.  So why did we get here?");
 

@@ -135,7 +135,7 @@ public class BridgeDestroyTestPortlet extends BridgeDestroyTestCompatPortlet {
 		mActionResult = resultWriter.toString();
 	}
 
-	private void outputActionResult(PortletRequest request, MimeResponse response) throws PortletException,
+	private void outputActionResult(PortletRequest portletRequest, MimeResponse response) throws PortletException,
 		IOException {
 		response.setContentType("text/html");
 
