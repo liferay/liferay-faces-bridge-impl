@@ -714,8 +714,6 @@ public class Tests {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		PortletResponse response = (PortletResponse) externalContext.getResponse();
-
 		String curEncoding = externalContext.getResponseCharacterEncoding();
 
 		if (curEncoding.equalsIgnoreCase("utf-8")) {
