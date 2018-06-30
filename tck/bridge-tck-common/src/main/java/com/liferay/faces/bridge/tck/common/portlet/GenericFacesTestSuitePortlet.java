@@ -56,15 +56,15 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 		return mTestName;
 	}
 
-	public void init(PortletConfig config) throws PortletException {
-		String portletConfigWrapperFQCN = config.getPortletContext().getInitParameter("portletConfigWrapperClass");
+	public void init(PortletConfig portletConfig) throws PortletException {
+		String portletConfigWrapperFQCN = portletConfig.getPortletContext().getInitParameter("portletConfigWrapperClass");
 
 		if (portletConfigWrapperFQCN != null) {
 
 			try {
 				Class<?> portletConfigWrapperClass = (Class<?>) Class.forName(portletConfigWrapperFQCN);
 				Constructor<?> constructor = portletConfigWrapperClass.getConstructor(PortletConfig.class);
-				config = (PortletConfig) constructor.newInstance(config);
+				portletConfig = (PortletConfig) constructor.newInstance(portletConfig);
 			}
 			catch (Exception e) {
 				throw new IllegalStateException(e);
@@ -77,7 +77,7 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 		// reference the test in any result.
 
 		// portletName syntax: testGroup-testName-portlet
-		String portletName = config.getPortletName();
+		String portletName = portletConfig.getPortletName();
 		String[] parts = portletName.split("-");
 
 		if (parts.length != 3) {
@@ -92,7 +92,7 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 			mTestName = mTestName.concat("Test");
 		}
 
-		super.init(config);
+		super.init(portletConfig);
 	}
 
 	public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException,
