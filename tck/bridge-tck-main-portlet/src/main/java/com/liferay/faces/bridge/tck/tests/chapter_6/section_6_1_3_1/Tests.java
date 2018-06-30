@@ -3035,21 +3035,21 @@ public class Tests {
 
 		// Test the following:
 		// 1. Map is mutable
-		// 2. Map contains attributes in the underlying request
-		// a) set on portlet request -- get via map
-		// b) set on map -- get via portlet request
-		// 3. Remove in request -- gone from Map
-		// 4. Remove from Map -- gone in request
+		// 2. Map contains attributes in the underlying portletRequest
+		// a) set on portlet portletRequest -- get via map
+		// b) set on map -- get via portlet portletRequest
+		// 3. Remove in portletRequest -- gone from Map
+		// 4. Remove from Map -- gone in portletRequest
 
-		PortletRequest request = (PortletRequest) externalContext.getRequest();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 		Map<String, Object> externalContextRequestMap = externalContext.getRequestMap();
 
 		// ensure they start out identical
 		if (
-			!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) request.getAttributeNames(),
-					request)) {
+			!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) portletRequest.getAttributeNames(),
+					portletRequest)) {
 			testBean.setTestResult(false,
-				"Failed: Portlet request attributes and the externalContext requestMap entries aren't identical.");
+				"Failed: Portlet portletRequest attributes and the externalContext requestMap entries aren't identical.");
 
 			return Constants.TEST_FAILED;
 		}
@@ -3057,7 +3057,7 @@ public class Tests {
 		// Test for mutability
 		try {
 			externalContextRequestMap.put("Test0Key", "Test0Value");
-			request.setAttribute("Test1Key", "Test1Value");
+			portletRequest.setAttribute("Test1Key", "Test1Value");
 		}
 		catch (Exception e) {
 			testBean.setTestResult(false,
@@ -3067,28 +3067,28 @@ public class Tests {
 			return Constants.TEST_FAILED;
 		}
 
-		// test that we can read an attribute set on the portlet request via this Map
+		// test that we can read an attribute set on the portlet portletRequest via this Map
 		// and vice-versa -- as we have just written an attribute on the externalContext and
-		// the test portlet wrote one on the portlet request -- the act of verifying
+		// the test portlet wrote one on the portlet portletRequest -- the act of verifying
 		// the Maps contain the same keys/values should do the trick.
 		if (
-			!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) request.getAttributeNames(),
-					request)) {
+			!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) portletRequest.getAttributeNames(),
+					portletRequest)) {
 			testBean.setTestResult(false,
-				"Failed: After setting an attribute on the portlet request and the externalContext requestMap they no longer contain identical entries.");
+				"Failed: After setting an attribute on the portlet portletRequest and the externalContext requestMap they no longer contain identical entries.");
 
 			return Constants.TEST_FAILED;
 		}
 
 		// Now remove the attribute we put in the  -- do the remove on the opposite object
 		externalContextRequestMap.remove("Test1Key");
-		request.removeAttribute("Test0Key");
+		portletRequest.removeAttribute("Test0Key");
 
 		if (
-			!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) request.getAttributeNames(),
-					request)) {
+			!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) portletRequest.getAttributeNames(),
+					portletRequest)) {
 			testBean.setTestResult(false,
-				"Failed: After removing an attribute on the portlet request and the externalContext requestMap they no longer contain identical entries.");
+				"Failed: After removing an attribute on the portlet portletRequest and the externalContext requestMap they no longer contain identical entries.");
 
 			return Constants.TEST_FAILED;
 		}
@@ -3097,13 +3097,13 @@ public class Tests {
 
 		testBean.setTestResult(true, "The Map returned from getRequestMap is mutable.");
 		testBean.appendTestDetail(
-			"The getRequestMap Map correctly expresses attributes in the underlying request that have been added there.");
+			"The getRequestMap Map correctly expresses attributes in the underlying portletRequest that have been added there.");
 		testBean.appendTestDetail(
-			"The getRequestMap Map correctly reflects attrbiutes into the underlying request that have been added to it.");
+			"The getRequestMap Map correctly reflects attrbiutes into the underlying portletRequest that have been added to it.");
 		testBean.appendTestDetail(
-			"The getRequestMap Map correctly doesn't express attrbiutes that have been removed from the underlying request");
+			"The getRequestMap Map correctly doesn't express attrbiutes that have been removed from the underlying portletRequest");
 		testBean.appendTestDetail(
-			"The getRequestMap Map correctly cause the underlying request to remove any attributes removed from it");
+			"The getRequestMap Map correctly cause the underlying portletRequest to remove any attributes removed from it");
 
 		return Constants.TEST_SUCCESS;
 

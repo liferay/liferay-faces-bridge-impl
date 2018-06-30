@@ -603,17 +603,17 @@ public class Tests {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		PortletRequest request = (PortletRequest) externalContext.getRequest();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
-		if (request.getPortletSession(true).equals(externalContext.getSession(true))) {
+		if (portletRequest.getPortletSession(true).equals(externalContext.getSession(true))) {
 			testBean.setTestResult(true,
-				"externalContext.getSession() correctly returned the same session object as the underlying request.");
+				"externalContext.getSession() correctly returned the same session object as the underlying portletRequest.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"externalContext.getSession() incorrectly returned a different session object than the underlying request.");
+				"externalContext.getSession() incorrectly returned a different session object than the underlying portletRequest.");
 
 			return Constants.TEST_FAILED;
 		}
@@ -627,21 +627,21 @@ public class Tests {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		PortletRequest request = (PortletRequest) externalContext.getRequest();
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
 		Principal externalContextUP = externalContext.getUserPrincipal();
-		Principal requestUP = request.getUserPrincipal();
+		Principal requestUP = portletRequest.getUserPrincipal();
 
 		if (((externalContextUP == null) && (requestUP == null)) ||
 				((externalContextUP != null) && (requestUP != null) && externalContextUP.equals(requestUP))) {
 			testBean.setTestResult(true,
-				"externalContext.getUserPrinicpal() correctly returned the same Principal as is in the underlying portlet request.");
+				"externalContext.getUserPrinicpal() correctly returned the same Principal as is in the underlying portlet portletRequest.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"externalContext.getUserPrinicpal() unexpectedly returned a different Principal than is in the underlying portlet request.");
+				"externalContext.getUserPrinicpal() unexpectedly returned a different Principal than is in the underlying portlet portletRequest.");
 
 			return Constants.TEST_FAILED;
 		}

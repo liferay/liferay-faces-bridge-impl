@@ -38,10 +38,10 @@ public class PortletRequestDispatcherTCKImpl implements PortletRequestDispatcher
 	}
 
 	@Override
-	public void forward(PortletRequest request, PortletResponse response) throws PortletException, IOException {
+	public void forward(PortletRequest portletRequest, PortletResponse response) throws PortletException, IOException {
 
 		try {
-			wrappedPortletRequestDispatcher.forward(request, response);
+			wrappedPortletRequestDispatcher.forward(portletRequest, response);
 		}
 		catch (IllegalStateException e) {
 
@@ -60,7 +60,7 @@ public class PortletRequestDispatcherTCKImpl implements PortletRequestDispatcher
 	}
 
 	@Override
-	public void include(PortletRequest request, PortletResponse response) throws PortletException, IOException {
-		wrappedPortletRequestDispatcher.include(request, response);
+	public void include(PortletRequest portletRequest, PortletResponse response) throws PortletException, IOException {
+		wrappedPortletRequestDispatcher.include(portletRequest, response);
 	}
 }
