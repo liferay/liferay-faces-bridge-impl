@@ -219,13 +219,13 @@ public class InitParameterTests {
 		}
 	}
 
-	private boolean containsIdenticalInitParamEntries(Map<String, String> m, Enumeration<String> eNames,
+	private boolean containsIdenticalInitParamEntries(Map<String, String> map, Enumeration<String> eNames,
 		PortletConfig portletConfig) {
 
-		// For each entry in m ensure there is an identical one in the context
+		// For each entry in map ensure there is an identical one in the context
 		PortletContext portletContext = portletConfig.getPortletContext();
 
-		for (Iterator<Map.Entry<String, String>> entries = m.entrySet().iterator(); entries.hasNext();) {
+		for (Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator(); entries.hasNext();) {
 			Map.Entry<String, String> e = entries.next();
 			String value = portletConfig.getInitParameter(e.getKey());
 
@@ -252,7 +252,7 @@ public class InitParameterTests {
 				value = portletContext.getInitParameter(key);
 			}
 
-			Object mapObj = m.get(key);
+			Object mapObj = map.get(key);
 
 			if ((mapObj == null) && (value == null))
 				continue; // technically shouldn't have this but some container do

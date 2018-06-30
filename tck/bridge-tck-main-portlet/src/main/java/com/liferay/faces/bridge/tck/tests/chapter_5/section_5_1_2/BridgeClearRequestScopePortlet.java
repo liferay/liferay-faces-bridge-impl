@@ -69,11 +69,11 @@ public class BridgeClearRequestScopePortlet extends GenericFacesTestSuitePortlet
 
 	public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException,
 		IOException {
-		Map<String, Object> m = copyAttributes(actionRequest);
+		Map<String, Object> map = copyAttributes(actionRequest);
 		addLifecycleListener();
 		super.processAction(actionRequest, actionResponse);
 		removeLifecycleListener();
-		clearAttributes(actionRequest, m);
+		clearAttributes(actionRequest, map);
 	}
 
 	private void addLifecycleListener() {
@@ -84,14 +84,14 @@ public class BridgeClearRequestScopePortlet extends GenericFacesTestSuitePortlet
 		}
 	}
 
-	private void clearAttributes(ActionRequest r, Map<String, Object> m) {
+	private void clearAttributes(ActionRequest r, Map<String, Object> map) {
 		ArrayList<String> removeList = (ArrayList<String>) new ArrayList(10);
 		Enumeration<String> e = r.getAttributeNames();
 
 		while (e.hasMoreElements()) {
 			String key = e.nextElement();
 
-			if (!m.containsKey(key)) {
+			if (!map.containsKey(key)) {
 
 				// add to removeList so can remove after the loop to avoid potential ConcurrentModification Exceptions
 				removeList.add(key);
@@ -107,16 +107,16 @@ public class BridgeClearRequestScopePortlet extends GenericFacesTestSuitePortlet
 	}
 
 	private Map<String, Object> copyAttributes(ActionRequest r) {
-		Map<String, Object> m = new HashMap(20);
+		Map<String, Object> map = new HashMap(20);
 		Enumeration<String> e = r.getAttributeNames();
 
 		while (e.hasMoreElements()) {
 			String key = e.nextElement();
 			Object o = r.getAttribute(key);
-			m.put(key, o);
+			map.put(key, o);
 		}
 
-		return m;
+		return map;
 	}
 
 	private void removeLifecycleListener() {
