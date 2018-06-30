@@ -52,15 +52,15 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 		return super.createView(facesContext, viewId);
 	}
 
-	public String getActionURL(FacesContext context, String viewId) {
+	public String getActionURL(FacesContext facesContext, String viewId) {
 
 		// Call super to get the actionURL
-		String resultURL = super.getActionURL(context, viewId);
+		String resultURL = super.getActionURL(facesContext, viewId);
 
 		// Then test to see if we are in a render and this is an encodeActionURL test that
 		// tests the render encoding -- if so add the appropriate parameters to test.
 		if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(context))) {
-			String testName = (String) context.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
+			String testName = (String) facesContext.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
 
 			if (testName == null)
 				return resultURL;
@@ -98,13 +98,13 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 	}
 
 	@Override
-	public void renderView(FacesContext context, UIViewRoot viewToRender) throws IOException, FacesException {
+	public void renderView(FacesContext facesContext, UIViewRoot viewToRender) throws IOException, FacesException {
 
-		String testName = (String) context.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
+		String testName = (String) facesContext.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
 
 		// Do nothing when not running in portlet request
-		if (BridgeUtil.isPortletRequest(context) && (testName != null)) {
-			super.renderView(context, viewToRender);
+		if (BridgeUtil.isPortletRequest(facesContext) && (testName != null)) {
+			super.renderView(facesContext, viewToRender);
 		}
 	}
 

@@ -113,8 +113,8 @@ public class TestSuiteApplicationImpl extends Application {
 	 * @deprecated
 	 */
 	public javax.faces.component.UIComponent createComponent(javax.faces.el.ValueBinding componentBinding,
-		javax.faces.context.FacesContext context, String componentType) throws FacesException {
-		return mWrapped.createComponent(componentBinding, context, componentType);
+		javax.faces.context.FacesContext facesContext, String componentType) throws FacesException {
+		return mWrapped.createComponent(componentBinding, facesContext, componentType);
 	}
 
 	public javax.faces.convert.Converter createConverter(String converterId) {
@@ -156,9 +156,9 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.createValueBinding(ref);
 	}
 
-	public Object evaluateExpressionGet(FacesContext context, String expression, Class expectedType)
+	public Object evaluateExpressionGet(FacesContext facesContext, String expression, Class expectedType)
 		throws ELException {
-		return mWrapped.evaluateExpressionGet(context, expression, expectedType);
+		return mWrapped.evaluateExpressionGet(facesContext, expression, expectedType);
 	}
 
 	public javax.faces.event.ActionListener getActionListener() {

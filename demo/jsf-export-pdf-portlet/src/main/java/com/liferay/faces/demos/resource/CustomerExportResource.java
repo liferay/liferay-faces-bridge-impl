@@ -145,7 +145,7 @@ public class CustomerExportResource extends Resource {
 	}
 
 	@Override
-	public boolean userAgentNeedsUpdate(FacesContext context) {
+	public boolean userAgentNeedsUpdate(FacesContext facesContext) {
 
 		// Since this is a list that can potentially change dynamically, always return true.
 		return true;

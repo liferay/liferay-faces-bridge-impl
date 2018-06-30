@@ -73,7 +73,7 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 	}
 
 	@Override
-	public ViewDeclarationLanguage getViewDeclarationLanguage(FacesContext context, String viewId) {
+	public ViewDeclarationLanguage getViewDeclarationLanguage(FacesContext facesContext, String viewId) {
 
 		if (viewId != null) {
 
@@ -84,7 +84,7 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 			}
 		}
 
-		return super.getViewDeclarationLanguage(context, viewId);
+		return super.getViewDeclarationLanguage(facesContext, viewId);
 	}
 
 	@Override

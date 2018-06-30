@@ -41,8 +41,8 @@ public class Ch6TestEventHandler implements BridgeEventHandler {
 	public Ch6TestEventHandler() {
 	}
 
-	public EventNavigationResult handleEvent(FacesContext context, Event event) {
-		Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+	public EventNavigationResult handleEvent(FacesContext facesContext, Event event) {
+		Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
 		String portletTestName = (String) requestMap.get(Constants.TEST_NAME);
 		String testName = (String) event.getValue();
 

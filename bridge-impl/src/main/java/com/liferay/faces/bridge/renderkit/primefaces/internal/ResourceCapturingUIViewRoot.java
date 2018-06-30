@@ -50,7 +50,7 @@ public class ResourceCapturingUIViewRoot extends UIViewRoot {
 	}
 
 	@Override
-	public void addComponentResource(FacesContext context, UIComponent componentResource, String target) {
+	public void addComponentResource(FacesContext facesContext, UIComponent componentResource, String target) {
 
 		// Add the specified component resource to the list of those that have been captured (remembered).
 		List<UIComponent> capturedResourcesList = capturedResourcesMap.get(target);
@@ -70,7 +70,7 @@ public class ResourceCapturingUIViewRoot extends UIViewRoot {
 	}
 
 	@Override
-	public List<UIComponent> getComponentResources(FacesContext context, String target) {
+	public List<UIComponent> getComponentResources(FacesContext facesContext, String target) {
 
 		// Trick the PrimeFaces HeadRenderer into thinking that there are no resources to render, even though some may
 		// have been added (captured).

@@ -40,12 +40,12 @@ import com.liferay.faces.portlet.component.property.Property;
 public abstract class BaseURLRenderer extends BaseURLRendererBase {
 
 	@Override
-	public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+	public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 		// no-op
 	}
 
 	@Override
-	public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+	public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
 		// no-op
 	}
 

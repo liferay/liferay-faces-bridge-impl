@@ -54,8 +54,8 @@ public abstract class AjaxBehaviorWrapper extends AjaxBehavior implements FacesW
 	}
 
 	@Override
-	public void decode(FacesContext context, UIComponent component) {
-		getWrapped().decode(context, component);
+	public void decode(FacesContext facesContext, UIComponent component) {
+		getWrapped().decode(facesContext, component);
 	}
 
 	@Override
@@ -134,13 +134,13 @@ public abstract class AjaxBehaviorWrapper extends AjaxBehavior implements FacesW
 	}
 
 	@Override
-	public void restoreState(FacesContext context, Object state) {
-		getWrapped().restoreState(context, state);
+	public void restoreState(FacesContext facesContext, Object state) {
+		getWrapped().restoreState(facesContext, state);
 	}
 
 	@Override
-	public Object saveState(FacesContext context) {
-		return getWrapped().saveState(context);
+	public Object saveState(FacesContext facesContext) {
+		return getWrapped().saveState(facesContext);
 	}
 
 	@Override
