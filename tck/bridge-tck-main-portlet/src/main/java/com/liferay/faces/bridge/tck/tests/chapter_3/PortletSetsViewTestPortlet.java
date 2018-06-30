@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.portlet.MimeResponse;
-import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
@@ -39,11 +38,6 @@ public class PortletSetsViewTestPortlet extends RenderViewDispatchCompatPortlet 
 	private static final String SETSVIEWID_TEST = "portletSetsViewIdTest";
 	private static final String SETSVIEWPATH_TEST = "portletSetsViewPathTest";
 	private static final String SETSINVALIDVIEWPATH_TEST = "portletSetsInvalidViewPathTest";
-
-	@Override
-	public void init(PortletConfig config) throws PortletException {
-		super.init(config);
-	}
 
 	@Override
 	public void renderView(RenderRequest renderRequest, MimeResponse mimeResponse) throws PortletException,
