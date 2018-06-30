@@ -101,7 +101,7 @@ public class Tests {
 		// 3. Remove in request -- gone from Map
 		// 4. Remove from Map -- gone in portlet context
 
-		PortletContext portletCtx = (PortletContext) externalContext.getContext();
+		PortletContext portletContext = (PortletContext) externalContext.getContext();
 		Map<String, Object> externalContextAppMap = externalContext.getApplicationMap();
 
 		// ensure they start out identical
