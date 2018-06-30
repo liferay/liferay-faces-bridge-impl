@@ -736,11 +736,11 @@ public class Tests {
 		}
 	}
 
-	private boolean containsIdenticalAttributeEntries(Map<String, Object> m, Enumeration<String> eNames,
+	private boolean containsIdenticalAttributeEntries(Map<String, Object> map, Enumeration<String> eNames,
 		PortletContext portletContext) {
 
-		// For each entry in m ensure there is an identical one in the context
-		for (Iterator<Map.Entry<String, Object>> entries = m.entrySet().iterator(); entries.hasNext();) {
+		// For each entry in map ensure there is an identical one in the context
+		for (Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator(); entries.hasNext();) {
 			Map.Entry<String, Object> e = entries.next();
 			Object attrValue = portletContext.getAttribute(e.getKey());
 			Object mapObj = e.getValue();
@@ -757,7 +757,7 @@ public class Tests {
 		while (eNames.hasMoreElements()) {
 			String key = eNames.nextElement();
 			Object attrValue = portletContext.getAttribute(key);
-			Object mapObj = m.get(key);
+			Object mapObj = map.get(key);
 
 			if ((mapObj == null) && (attrValue == null))
 				continue; // technically shouldn't have this but some container do
@@ -770,11 +770,11 @@ public class Tests {
 		return true;
 	}
 
-	private boolean containsIdenticalSessionEntries(Map<String, Object> m, Enumeration<String> eNames,
+	private boolean containsIdenticalSessionEntries(Map<String, Object> map, Enumeration<String> eNames,
 		PortletSession r) {
 
-		// For each entry in m ensure there is an idenitcal one in the request
-		for (Iterator<Map.Entry<String, Object>> entries = m.entrySet().iterator(); entries.hasNext();) {
+		// For each entry in map ensure there is an idenitcal one in the request
+		for (Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator(); entries.hasNext();) {
 			Map.Entry<String, Object> e = entries.next();
 			Object requestObj = r.getAttribute(e.getKey());
 			Object mapObj = e.getValue();
