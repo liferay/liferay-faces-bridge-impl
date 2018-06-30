@@ -30,7 +30,6 @@ import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.LifecycleFactory;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
@@ -66,11 +65,6 @@ public class BridgeClearRequestScopePortlet extends GenericFacesTestSuitePortlet
 	// PhaseListener methods
 	public PhaseId getPhaseId() {
 		return PhaseId.INVOKE_APPLICATION;
-	}
-
-	public void init(PortletConfig config) throws PortletException {
-		super.init(config);
-
 	}
 
 	public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException,
