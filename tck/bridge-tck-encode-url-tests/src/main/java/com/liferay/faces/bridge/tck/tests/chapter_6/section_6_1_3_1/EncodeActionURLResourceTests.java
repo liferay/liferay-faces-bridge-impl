@@ -57,8 +57,7 @@ public class EncodeActionURLResourceTests {
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING = "/tests/viewLink.jsf";
 
-		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
-				ENCODE_ACTIONURL_TEST_STRING).toString();
+		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
@@ -186,8 +185,7 @@ public class EncodeActionURLResourceTests {
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
-				ENCODE_ACTIONURL_TEST_STRING).toString();
+		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
@@ -257,8 +255,7 @@ public class EncodeActionURLResourceTests {
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
-				ENCODE_ACTIONURL_TEST_STRING).toString();
+		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
@@ -328,8 +325,7 @@ public class EncodeActionURLResourceTests {
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
-				ENCODE_ACTIONURL_TEST_STRING).toString();
+		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
@@ -399,8 +395,7 @@ public class EncodeActionURLResourceTests {
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=edit&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
-				ENCODE_ACTIONURL_TEST_STRING).toString();
+		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
@@ -469,8 +464,7 @@ public class EncodeActionURLResourceTests {
 		final String ENCODE_ACTIONURL_TEST_STRING = "/tests/viewLink.jsf?param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
-				ENCODE_ACTIONURL_TEST_STRING).toString();
+		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
@@ -541,8 +535,7 @@ public class EncodeActionURLResourceTests {
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
-				ENCODE_ACTIONURL_TEST_STRING).toString();
+		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
@@ -612,8 +605,7 @@ public class EncodeActionURLResourceTests {
 			"/tests/viewLink.jsf?javax.portlet.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
-		String testString = new StringBuffer(externalContext.getRequestContextPath()).append(
-				ENCODE_ACTIONURL_TEST_STRING).toString();
+		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 
