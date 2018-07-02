@@ -108,7 +108,8 @@ public class EncodeActionURLTests {
 
 		String testString = externalContext.getRequestContextPath() + DIRECTLINK_TRUE_TEST_STRING;
 
-		String absoluteURL = portletRequest.getScheme() + "://" + portletRequest.getServerName() + ":" + portletRequest.getServerPort() + testString;
+		String absoluteURL = portletRequest.getScheme() + "://" + portletRequest.getServerName() + ":" +
+			portletRequest.getServerPort() + testString;
 
 		if (externalContext.encodeActionURL(testString).equalsIgnoreCase(absoluteURL)) {
 			testBean.setTestResult(true,
@@ -118,7 +119,8 @@ public class EncodeActionURLTests {
 		}
 		else {
 			testBean.setTestResult(false,
-				"encodeActionURL didn't return an absolute URL representing the DirectLink url or it didn't contain the javax.portlet.faces.DirectLink parameter with a value of true.  Expected: " + absoluteURL + " and encodeActionURL returned: " + externalContext.encodeActionURL(testString));
+				"encodeActionURL didn't return an absolute URL representing the DirectLink url or it didn't contain the javax.portlet.faces.DirectLink parameter with a value of true.  Expected: " +
+				absoluteURL + " and encodeActionURL returned: " + externalContext.encodeActionURL(testString));
 
 			return Constants.TEST_FAILED;
 		}

@@ -46,7 +46,8 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 		super.doDispatch(renderRequest, renderResponse);
 	}
 
-	public Bridge getFacesBridge(PortletRequest portletRequest, PortletResponse portletResponse) throws PortletException {
+	public Bridge getFacesBridge(PortletRequest portletRequest, PortletResponse portletResponse)
+		throws PortletException {
 		initTestRequest(portletRequest);
 
 		return super.getFacesBridge(portletRequest, portletResponse);
@@ -57,7 +58,8 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 	}
 
 	public void init(PortletConfig portletConfig) throws PortletException {
-		String portletConfigWrapperFQCN = portletConfig.getPortletContext().getInitParameter("portletConfigWrapperClass");
+		String portletConfigWrapperFQCN = portletConfig.getPortletContext().getInitParameter(
+				"portletConfigWrapperClass");
 
 		if (portletConfigWrapperFQCN != null) {
 

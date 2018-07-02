@@ -38,7 +38,8 @@ public class PortletRequestDispatcherTCKImpl implements PortletRequestDispatcher
 	}
 
 	@Override
-	public void forward(PortletRequest portletRequest, PortletResponse portletResponse) throws PortletException, IOException {
+	public void forward(PortletRequest portletRequest, PortletResponse portletResponse) throws PortletException,
+		IOException {
 
 		try {
 			wrappedPortletRequestDispatcher.forward(portletRequest, portletResponse);
@@ -60,7 +61,8 @@ public class PortletRequestDispatcherTCKImpl implements PortletRequestDispatcher
 	}
 
 	@Override
-	public void include(PortletRequest portletRequest, PortletResponse portletResponse) throws PortletException, IOException {
+	public void include(PortletRequest portletRequest, PortletResponse portletResponse) throws PortletException,
+		IOException {
 		wrappedPortletRequestDispatcher.include(portletRequest, portletResponse);
 	}
 }
