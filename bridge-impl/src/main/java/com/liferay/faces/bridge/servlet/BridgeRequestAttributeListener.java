@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,11 +35,9 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * <p>This class is designed to support the {@link BridgeRequestScopeAttributeAdded} annotation. It has to be specified
  * as a listener in the WEB-INF/web.xml descriptor like this:</p>
- * <code>
-    &lt;listener&gt;
-        &lt;listener-class&gt;com.liferay.faces.bridge.context.map.BridgeRequestAttributeListener&lt;/listener-class&gt;
-    &lt;/listener&gt;
- * </code>
+ * <code>&lt;listener&gt;
+ * &lt;listener-class&gt;com.liferay.faces.bridge.context.map.BridgeRequestAttributeListener&lt;/listener-class&gt;
+ * &lt;/listener&gt;</code>
  *
  * @see     <a href="http://issues.liferay.com/browse/FACES-146">FACES-146</a>
  * @author  Neil Griffin

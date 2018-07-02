@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,8 +37,8 @@ public class ExternalContextRichFacesResourceImpl extends ExternalContextWrapper
 	/**
 	 * When this method returns null, {@link org.richfaces.resource.ResourceUtils#getMappingForRequest()} assumes that
 	 * the Faces Servlet URL mapping is extension based and strips the extension off the value returned by {@link
-	 * ExternalContextRichFacesResourceImpl#getRequestServletPath()}. This method always returns null to avoid adding code
-	 * in this class to detect the actual Faces Servlet URL mapping since RichFaces never uses it.
+	 * ExternalContextRichFacesResourceImpl#getRequestServletPath()}. This method always returns null to avoid adding
+	 * code in this class to detect the actual Faces Servlet URL mapping since RichFaces never uses it.
 	 */
 	@Override
 	public String getRequestPathInfo() {

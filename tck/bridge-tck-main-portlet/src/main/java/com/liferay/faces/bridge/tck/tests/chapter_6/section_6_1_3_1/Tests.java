@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -3046,8 +3046,8 @@ public class Tests {
 
 		// ensure they start out identical
 		if (
-			!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) portletRequest.getAttributeNames(),
-					portletRequest)) {
+			!containsIdenticalEntries(externalContextRequestMap,
+					(Enumeration<String>) portletRequest.getAttributeNames(), portletRequest)) {
 			testBean.setTestResult(false,
 				"Failed: Portlet portletRequest attributes and the externalContext requestMap entries aren't identical.");
 
@@ -3072,8 +3072,8 @@ public class Tests {
 		// the test portlet wrote one on the portlet portletRequest -- the act of verifying
 		// the Maps contain the same keys/values should do the trick.
 		if (
-			!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) portletRequest.getAttributeNames(),
-					portletRequest)) {
+			!containsIdenticalEntries(externalContextRequestMap,
+					(Enumeration<String>) portletRequest.getAttributeNames(), portletRequest)) {
 			testBean.setTestResult(false,
 				"Failed: After setting an attribute on the portlet portletRequest and the externalContext requestMap they no longer contain identical entries.");
 
@@ -3085,8 +3085,8 @@ public class Tests {
 		portletRequest.removeAttribute("Test0Key");
 
 		if (
-			!containsIdenticalEntries(externalContextRequestMap, (Enumeration<String>) portletRequest.getAttributeNames(),
-					portletRequest)) {
+			!containsIdenticalEntries(externalContextRequestMap,
+					(Enumeration<String>) portletRequest.getAttributeNames(), portletRequest)) {
 			testBean.setTestResult(false,
 				"Failed: After removing an attribute on the portlet portletRequest and the externalContext requestMap they no longer contain identical entries.");
 
@@ -3435,7 +3435,8 @@ public class Tests {
 		}
 	}
 
-	private boolean containsIdenticalEntries(Map<String, Object> map, Enumeration<String> eNames, PortletRequest portletRequest) {
+	private boolean containsIdenticalEntries(Map<String, Object> map, Enumeration<String> eNames,
+		PortletRequest portletRequest) {
 
 		// For each entry in map ensure there is an idenitcal one in the request
 		for (Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator(); entries.hasNext();) {

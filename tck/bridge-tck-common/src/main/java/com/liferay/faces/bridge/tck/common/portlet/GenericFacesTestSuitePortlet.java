@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,8 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 		super.doDispatch(renderRequest, renderResponse);
 	}
 
-	public Bridge getFacesBridge(PortletRequest portletRequest, PortletResponse portletResponse) throws PortletException {
+	public Bridge getFacesBridge(PortletRequest portletRequest, PortletResponse portletResponse)
+		throws PortletException {
 		initTestRequest(portletRequest);
 
 		return super.getFacesBridge(portletRequest, portletResponse);
@@ -57,7 +58,8 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 	}
 
 	public void init(PortletConfig portletConfig) throws PortletException {
-		String portletConfigWrapperFQCN = portletConfig.getPortletContext().getInitParameter("portletConfigWrapperClass");
+		String portletConfigWrapperFQCN = portletConfig.getPortletContext().getInitParameter(
+				"portletConfigWrapperClass");
 
 		if (portletConfigWrapperFQCN != null) {
 
