@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,14 +50,15 @@ public class RequestParameterMap extends AbstractImmutablePropertyMap<String> {
 	}
 
 	@Override
-	protected String getProperty(String name) {
-		return facesRequestParameterMap.getFirst(name);
-	}
-
-	@Override
 	protected Enumeration<String> getImmutablePropertyNames() {
 
 		Set<String> parameterNames = facesRequestParameterMap.keySet();
+
 		return Collections.enumeration(parameterNames);
+	}
+
+	@Override
+	protected String getProperty(String name) {
+		return facesRequestParameterMap.getFirst(name);
 	}
 }

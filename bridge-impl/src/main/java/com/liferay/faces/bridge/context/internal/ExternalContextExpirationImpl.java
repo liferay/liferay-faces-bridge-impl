@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,8 +50,8 @@ public class ExternalContextExpirationImpl extends ExternalContext {
 
 		// Initialize the application map.
 		PortletContext portletContext = new PortletContextAdapter(servletContext);
-		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
-				portletContext, ContextMapFactory.class);
+		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
+				ContextMapFactory.class);
 		this.applicationMap = contextMapFactory.getServletContextAttributeMap(servletContext);
 
 	}

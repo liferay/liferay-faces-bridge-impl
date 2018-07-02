@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,8 @@ public class InitParameterTests {
 
 		testBean.setTestComplete(true);
 
-		// Verify that the init parameters are the union of init-params from portlet.xml and context-params from web.xml.
+		// Verify that the init parameters are the union of init-params from portlet.xml and context-params from
+		// web.xml.
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletContext portletContext = (PortletContext) externalContext.getContext();

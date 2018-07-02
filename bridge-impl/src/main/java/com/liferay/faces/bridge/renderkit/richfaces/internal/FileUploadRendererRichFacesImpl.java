@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,8 +76,8 @@ public class FileUploadRendererRichFacesImpl extends RendererWrapper {
 			// Get the UploadedFile from the request attribute map.
 			ExternalContext externalContext = facesContext.getExternalContext();
 			PortletContext portletContext = (PortletContext) externalContext.getContext();
-			ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(
-					portletContext, ContextMapFactory.class);
+			ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
+					ContextMapFactory.class);
 
 			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 			Map<String, List<UploadedFile>> uploadedFileMap = contextMapFactory.getUploadedFileMap(portletRequest);

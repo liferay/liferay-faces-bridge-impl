@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,16 @@
  */
 package com.liferay.faces.demos.dto;
 
-import com.liferay.faces.util.model.UploadedFile;
-
-import javax.faces.FacesWrapper;
-import javax.servlet.http.Part;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
+
+import javax.faces.FacesWrapper;
+import javax.servlet.http.Part;
+
+import com.liferay.faces.util.model.UploadedFile;
 
 
 /**

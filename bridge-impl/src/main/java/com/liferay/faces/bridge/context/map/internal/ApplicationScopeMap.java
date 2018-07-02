@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,8 +47,8 @@ public class ApplicationScopeMap extends AbstractMutablePropertyMap<Object> {
 
 	public ApplicationScopeMap(PortletContext portletContext, boolean preferPreDestroy) {
 
-		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(
-				portletContext, BeanManagerFactory.class);
+		BeanManagerFactory beanManagerFactory = (BeanManagerFactory) BridgeFactoryFinder.getFactory(portletContext,
+				BeanManagerFactory.class);
 		this.portletContext = portletContext;
 
 		String appConfigAttrName = ApplicationConfig.class.getName();

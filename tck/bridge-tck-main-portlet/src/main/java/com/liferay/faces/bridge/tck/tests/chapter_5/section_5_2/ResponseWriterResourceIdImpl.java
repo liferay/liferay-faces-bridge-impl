@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2017 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,8 @@ import javax.faces.context.ResponseWriterWrapper;
 
 /**
  * This {@link ResponseWriter} writes the id attribute of script and stylesheet resources as the resource name or the
- * client id if the resource name is unavailable.
- * See src/main/webapp/resources/test/resourcesRenderedInHeadTest.js for details on how this id is
- * used. This {@link ResponseWriter} is set in {@link
+ * client id if the resource name is unavailable. See src/main/webapp/resources/test/resourcesRenderedInHeadTest.js for
+ * details on how this id is used. This {@link ResponseWriter} is set in {@link
  * ResourcesRenderedInHeadTestBean#preRenderHeadListener(javax.faces.event.ComponentSystemEvent)}.
  *
  * @author  Kyle Stiemann
