@@ -59,7 +59,7 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 
 		// Then test to see if we are in a render and this is an encodeActionURL test that
 		// tests the render encoding -- if so add the appropriate parameters to test.
-		if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(context))) {
+		if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(facesContext))) {
 			String testName = (String) facesContext.getExternalContext().getRequestMap().get(Constants.TEST_NAME);
 
 			if (testName == null)
