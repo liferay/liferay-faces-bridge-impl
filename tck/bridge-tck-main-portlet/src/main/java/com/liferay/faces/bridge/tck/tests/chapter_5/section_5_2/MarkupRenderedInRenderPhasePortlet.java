@@ -23,6 +23,7 @@ import javax.portlet.HeaderResponse;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 
@@ -39,6 +40,7 @@ public class MarkupRenderedInRenderPhasePortlet extends GenericFacesTestSuitePor
 
 	// Private Constants
 	private static final String HEADER_PHASE_ATTEMPTED_WRITE = "HEADER_PHASE_ATTEMPTED_WRITE";
+	private static final String MARKUP_CAPTURED = "MARKUP_CAPTURED";
 
 	/**
 	 * This method executes during the RENDER_PHASE of the portlet lifecycle. Its purpose
@@ -72,9 +74,19 @@ public class MarkupRenderedInRenderPhasePortlet extends GenericFacesTestSuitePor
 
 			if (suppressedPrintWriter.isAttemptedWrite()) {
 
-				testResultStatus = "SUCCESS";
-				testResultDetail =
-					"The bridge correctly captured the response markup in the header phase and rendered the markup in the render phase.";
+				boolean markupCaptured = (Boolean) renderRequest.getAttribute(MARKUP_CAPTURED);
+
+				if (markupCaptured) {
+					testResultStatus = "SUCCESS";
+					testResultDetail =
+						"The bridge correctly captured the response markup in the header phase and rendered the markup in the render phase.";
+				}
+				else {
+
+					testResultStatus = "FAILURE";
+					testResultDetail = "The bridge did not capture the response markup in the " +
+						Bridge.RENDER_RESPONSE_OUTPUT + " request attribute.";
+				}
 			}
 
 			// Otherwise, report failure.
@@ -115,5 +127,9 @@ public class MarkupRenderedInRenderPhasePortlet extends GenericFacesTestSuitePor
 		// in the RENDER_PHASE.
 		SuppressedPrintWriter suppressedPrintWriter = (SuppressedPrintWriter) headerResponse.getWriter();
 		headerRequest.setAttribute(HEADER_PHASE_ATTEMPTED_WRITE, suppressedPrintWriter.isAttemptedWrite());
+
+		// Determine whether or not the markup was captured.
+		Object renderResponseOutput = headerRequest.getAttribute(Bridge.RENDER_RESPONSE_OUTPUT);
+		headerRequest.setAttribute(MARKUP_CAPTURED, (renderResponseOutput != null));
 	}
 }
