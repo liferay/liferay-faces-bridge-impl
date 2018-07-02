@@ -166,7 +166,7 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 				if (responseOutputWriter instanceof CapturingWriter) {
 
 					CapturingWriter capturingWriter = (CapturingWriter) responseOutputWriter;
-					renderRequest.setAttribute(BridgeExt.WRITER_OPERATIONS, capturingWriter.getWriterOperations());
+					renderRequest.setAttribute(Bridge.RENDER_RESPONSE_OUTPUT, capturingWriter.getWriterOperations());
 				}
 
 				logger.error("Unable to get viewId due to {0}", e.getClass().getSimpleName());
@@ -279,7 +279,7 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 					// Otherwise, since running in the HEADER_PHASE, save the list of writer operations so that the
 					// markup will be rendered in the subsequent RENDER_PHASE.
 					else {
-						renderRequest.setAttribute(BridgeExt.WRITER_OPERATIONS, writerOperations);
+						renderRequest.setAttribute(Bridge.RENDER_RESPONSE_OUTPUT, writerOperations);
 					}
 				}
 			}
