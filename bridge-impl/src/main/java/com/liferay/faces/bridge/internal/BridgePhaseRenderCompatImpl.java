@@ -65,8 +65,8 @@ public abstract class BridgePhaseRenderCompatImpl extends BridgePhaseCompat_2_2_
 		// that the markup will be written to the response now in the RENDER_PHASE.
 		ExternalContext externalContext = facesContext.getExternalContext();
 		List<WriterOperation> writerOperations = (List<WriterOperation>) renderRequest.getAttribute(
-				BridgeExt.WRITER_OPERATIONS);
-		renderRequest.removeAttribute(BridgeExt.WRITER_OPERATIONS);
+				Bridge.RENDER_RESPONSE_OUTPUT);
+		renderRequest.removeAttribute(Bridge.RENDER_RESPONSE_OUTPUT);
 
 		if (writerOperations != null) {
 
