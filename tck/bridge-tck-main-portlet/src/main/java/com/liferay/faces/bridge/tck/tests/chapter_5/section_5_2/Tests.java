@@ -29,6 +29,7 @@ import javax.portlet.Event;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
@@ -101,6 +102,15 @@ public class Tests extends RenderTests implements PhaseListener {
 		}
 	}
 
+	/**
+	 * As defined in portlet.xml, this test uses {@link ManualBridgeInvokePortlet} rather than {@link
+	 * com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet}. It relies on
+	 * NullContentTypePortletFilter to decorate the RenderResponse to ensure that the RenderResponse.getContentType()
+	 * method returns null. {@link ManualBridgeInvokePortlet} will invoke the bridge directly and not set the
+	 * contentType (as is normally done in its outputTestResult method). All this will cause the bridge's implementation
+	 * of ExternalContext.getResponseContentType() to consult RenderRequest.getContentType() in order to determine the
+	 * content type.
+	 */
 	// Test is Render test
 	// Test #5.29
 	@BridgeTest(test = "bridgeSetsContentTypeTest")
@@ -110,20 +120,32 @@ public class Tests extends RenderTests implements PhaseListener {
 
 		testBean.setTestComplete(true);
 
-		// Parameter encoded in the faces-config.xml target
-		String responseCT = externalContext.getResponseContentType();
-		String requestedCT = ((RenderRequest) externalContext.getRequest()).getResponseContentType();
+		RenderResponse renderResponse = (RenderResponse) externalContext.getResponse();
+		String renderResponseContentType = renderResponse.getContentType();
+		RenderRequest renderRequest = (RenderRequest) externalContext.getRequest();
+		String renderRequestContentType = renderRequest.getResponseContentType();
+		String externalContextResponseContentType = externalContext.getResponseContentType();
 
-		if ((responseCT != null) && (requestedCT != null) && responseCT.equals(requestedCT)) {
+		if ((renderResponseContentType == null) && (externalContextResponseContentType != null) &&
+				(renderRequestContentType != null) &&
+				externalContextResponseContentType.equals(renderRequestContentType)) {
 			testBean.setTestResult(true,
 				"Bridge correctly set the proper (default) content type when not set by portlet.");
 
 			return Constants.TEST_SUCCESS;
 		}
+		else if (renderResponseContentType != null) {
+
+			testBean.setTestResult(false,
+				"NullContentTypePortletFilter did not return null for the response contentType. Current: " +
+				renderRequestContentType + " expected: null");
+
+			return Constants.TEST_FAILED;
+		}
 		else {
 			testBean.setTestResult(false,
-				"Bridge didn't set the proper (default) content type when not set by portlet.  Current: " + responseCT +
-				" expected: " + requestedCT);
+				"Bridge didn't set the proper (default) content type when not set by portlet.  Current: " +
+				externalContextResponseContentType + " expected: " + renderRequestContentType);
 
 			return Constants.TEST_FAILED;
 		}

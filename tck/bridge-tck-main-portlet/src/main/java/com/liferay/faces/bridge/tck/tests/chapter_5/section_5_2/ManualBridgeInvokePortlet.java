@@ -148,8 +148,9 @@ public class ManualBridgeInvokePortlet extends RenderViewDispatchCompatPortlet {
 		}
 		else if (getTestName().equals(BRIDGESETSCONTENTTYPE_TEST)) {
 
-			// By invoking the bridge directly (and not setting the contentType)
-			// we force the bridge to have to do the work
+			// Invoke the bridge directly and do not set the contentType (as is normally done in the outputTestResult
+			// method below). See the comments in bridgeSetsContentTypeTest for more information as to how the test
+			// is designed.
 			Bridge bridge = super.getFacesBridge(renderRequest, mimeResponse);
 			doBridgeFacesRequest(bridge, renderRequest, mimeResponse);
 		}

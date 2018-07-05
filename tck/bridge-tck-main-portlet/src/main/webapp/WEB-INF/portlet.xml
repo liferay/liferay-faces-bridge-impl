@@ -5014,6 +5014,16 @@
 		</portlet-info>
 	</portlet>
 
+	<filter>
+		<filter-name>nullContentTypePortletFilter</filter-name>
+		<filter-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.NullContentTypePortletFilter</filter-class>
+		<lifecycle>RENDER_PHASE</lifecycle>
+	</filter>
+	<filter-mapping>
+		<filter-name>nullContentTypePortletFilter</filter-name>
+		<portlet-name>chapter5_2Tests-bridgeSetsContentTypeTest-portlet</portlet-name>
+	</filter-mapping>
+
 	<event-definition>
 		<qname xmlns:bridge="http://liferay.com/faces/event_ns">bridge:faces.liferay.com.tck.testEvent</qname>
 		<value-type>java.lang.String</value-type>
