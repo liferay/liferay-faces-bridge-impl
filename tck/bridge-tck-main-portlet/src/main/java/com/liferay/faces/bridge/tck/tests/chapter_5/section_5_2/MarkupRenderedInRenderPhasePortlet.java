@@ -39,8 +39,8 @@ import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 public class MarkupRenderedInRenderPhasePortlet extends GenericFacesTestSuitePortlet {
 
 	// Private Constants
-	private static final String HEADER_PHASE_ATTEMPTED_WRITE = "HEADER_PHASE_ATTEMPTED_WRITE";
-	private static final String MARKUP_CAPTURED = "MARKUP_CAPTURED";
+	private static final String HEADER_PHASE_ATTEMPTED_WRITE = "com.liferay.faces.bridge.tck.HEADER_PHASE_ATTEMPTED_WRITE";
+	private static final String MARKUP_CAPTURED = "com.liferay.faces.bridge.tck.MARKUP_CAPTURED";
 
 	/**
 	 * This method executes during the RENDER_PHASE of the portlet lifecycle. Its purpose
