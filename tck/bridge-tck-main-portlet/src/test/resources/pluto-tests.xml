@@ -227,4 +227,5 @@ NOTE:
 	<entry key="TestPage217">chapter6_7Tests-setsIsPostbackAttributeTest-portlet</entry>
 	<entry key="TestPage218">chapter6_9Tests-usesConfiguredRenderKitTest-portlet</entry>
 	<entry key="TestPage219">chapter5_2Tests-resourcesRenderedInHeadTest-portlet</entry>
+	<entry key="TestPage220">chapter5_2Tests-markupRenderedInRenderPhaseTest-portlet</entry>
 </properties>
