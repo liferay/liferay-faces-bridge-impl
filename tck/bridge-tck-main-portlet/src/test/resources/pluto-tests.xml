@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<!DOCTYPE properties>
 <!--
 NOTE:
 * Many event-based tests are commented-out because they are not compatible with Pluto's implementation of Events IPC.
@@ -10,8 +10,8 @@ NOTE:
 <properties>
 	<entry key="TestPage001">chapter3Tests-bridgeVersionTest-portlet</entry>
 	<entry key="TestPage002">chapter3Tests-renderPolicyTest-portlet</entry>
-	<entry key="TestPage003">chapter3Tests-lifecycleTest-portlet</entry><!--com.liferay.faces.test.bridge.tck.main.portlet-->
-	<entry key="TestPage004">chapter3Tests-lifecycleTest-portlet</entry><!--com.liferay.faces.test.bridge.tck.lifecycle.set.portlet-->
+	<entry key="TestPage003">chapter3Tests-lifecycleTest-portlet</entry>
+	<entry key="TestPage004" context="/com.liferay.faces.test.bridge.tck.lifecycle.set.portlet">chapter3Tests-lifecycleTest-portlet</entry>
 	<entry key="TestPage005">chapter3Tests-defaultRenderKitIdTest-portlet</entry>
 	<entry key="TestPage006">chapter3Tests-modeViewIDTest-portlet</entry>
 	<entry key="TestPage007">chapter3Tests-actionDestroyTest-portlet</entry>
