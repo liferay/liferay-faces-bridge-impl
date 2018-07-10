@@ -245,7 +245,7 @@ public class ConfigFormatter {
 			this.context = "/com.liferay.faces.test.bridge.tck.main.portlet";
 			this.enabled = !commented;
 
-			String[] tokens = text.split("[ =<>/\"]");
+			String[] tokens = text.split("[ =<>/\"|]");
 
 			for (String token : tokens) {
 
