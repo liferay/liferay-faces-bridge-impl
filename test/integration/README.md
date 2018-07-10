@@ -19,9 +19,9 @@ to run the tests on Firefox:
 	mvn verify -P selenium,firefox
 
 **Note:** HTMLUnit and [JBrowser](https://github.com/MachinePublishers/jBrowserDriver) may fail to open web pages with
-*complex JavaScript due to their experimental/buggy JavaScript support. PhantomJS is recommended for testing complex
-*pages in a headless environment. Chrome (or the slightly slower Firefox) is recommended for testing complex pages in a
-*normal desktop environment. See the root `pom.xml` file dependencies section for the required versions of each browser.
+complex JavaScript due to their experimental/buggy JavaScript support. PhantomJS is recommended for testing complex
+pages in a headless environment. Chrome (or the slightly slower Firefox) is recommended for testing complex pages in a
+normal desktop environment. See the root `pom.xml` file dependencies section for the required versions of each browser.
 
 Single tests and groups of tests can be selected via the the `it.test` property. The `it.test` property uses wildcards
 to select tests from their fully qualified class names. For example, to run only the issue portlet tests:
