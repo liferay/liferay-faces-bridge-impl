@@ -18,7 +18,6 @@ package com.liferay.faces.bridge.tck.formatter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -26,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.nio.file.Files;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,17 +61,14 @@ public class ConfigFormatter {
 
 			writePropertiesFile(liferayPropertiesPath, liferayEntries, null);
 
-			StringBuffer comments = new StringBuffer();
-			comments.append("<!--\n");
-			comments.append("NOTE:\n");
-			comments.append("* Many event-based tests are disabled because they are not compatible with Pluto's\n");
-			comments.append("* implementation of Events IPC. The setRequestCharacterEncodingActionTest is disabled\n");
-			comments.append("* because of a known bug in Pluto (according to the TCK User's Guide). The\n");
-			comments.append("* scopeNotRestoredResourceTest is disabled because the Pluto ResourceURL#toString()\n");
-			comments.append("* method automatically adds public render parameters to ResourceURLs (which includes\n");
-			comments.append("* the public render parameter for the bridgeRequestScopeId).\n");
-			comments.append("-->\n");
-			writePropertiesFile(plutoPropertiesPath, plutoEntries, comments.toString());
+			String comments = "<!--\n" + "NOTE:\n" +
+				"* Many event-based tests are disabled because they are not compatible with Pluto's\n" +
+				"* implementation of Events IPC. The setRequestCharacterEncodingActionTest is disabled\n" +
+				"* because of a known bug in Pluto (according to the TCK User's Guide). The\n" +
+				"* scopeNotRestoredResourceTest is disabled because the Pluto ResourceURL#toString()\n" +
+				"* method automatically adds public render parameters to ResourceURLs (which includes\n" +
+				"* the public render parameter for the bridgeRequestScopeId).\n" + "-->\n";
+			writePropertiesFile(plutoPropertiesPath, plutoEntries, comments);
 			updatePlutoPortalDriverConfigFile(liferayEntries);
 		}
 		catch (IOException e) {
@@ -114,7 +109,7 @@ public class ConfigFormatter {
 
 	private static List<Entry> parsePropertiesFile(String filePath) throws IOException {
 
-		List<Entry> entries = new ArrayList<>();
+		List<Entry> entries = new ArrayList<Entry>();
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
 
 		String curLine;
