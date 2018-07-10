@@ -27,6 +27,7 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -68,6 +69,7 @@ public class ConfigFormatter {
 				"* scopeNotRestoredResourceTest is disabled because the Pluto ResourceURL#toString()\n" +
 				"* method automatically adds public render parameters to ResourceURLs (which includes\n" +
 				"* the public render parameter for the bridgeRequestScopeId).\n" + "-->\n";
+
 			writePropertiesFile(plutoPropertiesPath, plutoEntries, comments);
 			updatePlutoPortalDriverConfigFile(liferayEntries);
 		}
@@ -199,13 +201,12 @@ public class ConfigFormatter {
 		System.out.println("Updated: " + inputFilePath);
 	}
 
-	private static void writePropertiesFile(String inputFilePath, List<Entry> entries, String comments)
+	private static void writePropertiesFile(String filePath, List<Entry> entries, String comments)
 		throws IOException {
 
-		String outputFilePath = inputFilePath + ".txt";
-		Writer writer = new FileWriter(outputFilePath);
+		Writer writer = new FileWriter(filePath);
 		writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-		writer.write("<!DOCTYPE properties>\n");
+		writer.write("<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\n");
 
 		if (comments != null) {
 			writer.write(comments);
@@ -217,10 +218,12 @@ public class ConfigFormatter {
 			Entry entry = entries.get(i);
 			writer.write("\t<entry key=\"TestPage");
 			writer.write(LEADING_ZEROS_FORMAT.format(i + 1));
-			writer.write("\" enabled=\"");
-			writer.write(String.valueOf(entry.isEnabled()));
 			writer.write("\">");
 			writer.write(entry.getPortletName());
+			writer.write("|");
+			writer.write(String.valueOf(entry.isEnabled()));
+			writer.write("|");
+			writer.write(entry.getContext());
 			writer.write("</entry>\n");
 		}
 
@@ -228,9 +231,7 @@ public class ConfigFormatter {
 		writer.flush();
 		writer.close();
 
-		moveFile(outputFilePath, inputFilePath);
-
-		System.out.println("Updated: " + inputFilePath);
+		System.out.println("Updated: " + filePath);
 	}
 
 	private static class Entry {
@@ -253,6 +254,9 @@ public class ConfigFormatter {
 				}
 				else if (token.equals("true") && !commented) {
 					this.enabled = true;
+				}
+				else if (token.equals("false") && !commented) {
+					this.enabled = false;
 				}
 				else if (token.startsWith("com.liferay.faces.test.bridge.tck")) {
 					this.context = "/" + token;
