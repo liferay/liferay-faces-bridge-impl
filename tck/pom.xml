@@ -18,6 +18,7 @@
 		<module>bridge-tck-common</module>
 		<module>bridge-tck-compat</module>
 		<module>bridge-tck-encode-url-tests</module>
+		<module>bridge-tck-formatter</module>
 		<module>bridge-tck-harness</module>
 		<module>bridge-tck-liferay-harness</module>
 		<module>bridge-tck-lifecycle-set-portlet</module>
