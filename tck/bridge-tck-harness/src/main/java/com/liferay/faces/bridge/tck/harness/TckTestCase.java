@@ -18,6 +18,7 @@ package com.liferay.faces.bridge.tck.harness;
 import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
@@ -176,10 +177,13 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 		while (tests.hasMoreElements()) {
 
 			String page = (String) tests.nextElement();
-			String testPortletName = testProps.getProperty(page);
+			String propertyValue = testProps.getProperty(page);
+			String[] propertyValues = propertyValue.split("[|]");
+			String testPortletName = propertyValues[0];
+			boolean testEnabled = Boolean.valueOf(propertyValues[1]);
 			String testName = extractTestNamePattern.matcher(testPortletName).replaceFirst("$1");
 
-			if ((exProps.getProperty(testName) == null) &&
+			if (testEnabled && (exProps.getProperty(testName) == null) &&
 					((testFilterPattern == null) || testFilterPattern.matcher(testName).matches())) {
 				testList.add(new String[] { page, testName, testPortletName });
 			}
