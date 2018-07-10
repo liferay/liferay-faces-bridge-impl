@@ -377,8 +377,19 @@ public class Tests {
 
 	// Test is MultiRequest -- Render/Action
 	// Test #5.8
-	@BridgeTest(test = "requestRenderRedisplayTest")
-	public String requestRenderRedisplayTest(TestBean testBean) {
+	@BridgeTest(test = "requestRenderRedisplayRetainedTest")
+	public String requestRenderRedisplayRetainedTest(TestBean testBean) {
+		return requestRenderRedisplayTest(testBean, true);
+	}
+
+	// Test is MultiRequest -- Render/Action
+	// Test #5.8
+	@BridgeTest(test = "requestRenderRedisplayNonRetainedTest")
+	public String requestRenderRedisplayNonRetainedTest(TestBean testBean) {
+		return requestRenderRedisplayTest(testBean, false);
+	}
+
+	public String requestRenderRedisplayTest(TestBean testBean, boolean retain) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
@@ -400,16 +411,32 @@ public class Tests {
 
 			testBean.setTestComplete(true);
 
+			String initParamName = "javax.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED";
+			boolean bridgeRequestScopeActionEnabled = Boolean.valueOf(externalContext.getInitParameter(initParamName));
+
 			String s = (String) externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.TestRequestScope_a");
 
 			if (s != null) {
-				testBean.setTestResult(true, "Request attribute retained as expected through a redisplay.");
+				String detail = "Request attribute retained through a redisplay with " + initParamName + "=" + bridgeRequestScopeActionEnabled;
 
-				return Constants.TEST_SUCCESS;
+				if (bridgeRequestScopeActionEnabled && retain) {
+					testBean.setTestResult(true, detail);
+					return Constants.TEST_SUCCESS;
+				}
+
+				testBean.setTestResult(false, detail);
+				return Constants.TEST_FAILED;
 			}
 			else {
-				testBean.setTestResult(false, "Request attribute not retained as expected through a redisplay.");
 
+				String detail = "Request attribute not retained through a redisplay with " + initParamName + "=" + bridgeRequestScopeActionEnabled;
+
+				if (!bridgeRequestScopeActionEnabled && !retain) {
+					testBean.setTestResult(true, detail);
+					return Constants.TEST_SUCCESS;
+				}
+
+				testBean.setTestResult(false, detail);
 				return Constants.TEST_FAILED;
 			}
 		}
