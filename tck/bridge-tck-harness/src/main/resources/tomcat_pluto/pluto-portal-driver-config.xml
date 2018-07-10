@@ -319,7 +319,7 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_1_2Tests-requestRenderIgnoresScopeViaCreateViewTest-portlet"/>
 		</page>
 		<page name="TestPage044" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_1_2Tests-requestRenderRedisplayTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_1_2Tests-requestRenderRedisplayRetainedTest-portlet"/>
 		</page>
 		<page name="TestPage045" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_1_2Tests-requestRedisplayOutOfScopeTest-portlet"/>
@@ -845,6 +845,9 @@ limitations under the License.
 		</page>
 		<page name="TestPage219" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-resourcesRenderedInHeadTest-portlet"/>
+		</page>
+		<page name="TestPage221" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_1_2Tests-requestRenderRedisplayNonRetainedTest-portlet"/>
 		</page>
 
 	</render-config>
