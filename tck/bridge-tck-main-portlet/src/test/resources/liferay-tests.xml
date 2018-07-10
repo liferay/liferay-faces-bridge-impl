@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<!DOCTYPE properties>
 <properties>
 	<entry key="testpage001">chapter3Tests-bridgeVersionTest-portlet</entry>
 	<entry key="testpage002">chapter3Tests-renderPolicyTest-portlet</entry>
 	<entry key="testpage003">chapter3Tests-lifecycleTest-portlet</entry><!--com.liferay.faces.test.bridge.tck.main.portlet-->
-	<entry key="testpage004">chapter3Tests-lifecycleTest-portlet</entry><!--com.liferay.faces.test.bridge.tck.lifecycle.set.portlet-->
+	<entry key="testpage004" context="/com.liferay.faces.test.bridge.tck.lifecycle.set.portlet">chapter3Tests-lifecycleTest-portlet</entry><!--com.liferay.faces.test.bridge.tck.lifecycle.set.portlet-->
 	<entry key="testpage005">chapter3Tests-defaultRenderKitIdTest-portlet</entry>
 	<entry key="testpage006">chapter3Tests-modeViewIDTest-portlet</entry>
 	<entry key="testpage007">chapter3Tests-actionDestroyTest-portlet</entry>
