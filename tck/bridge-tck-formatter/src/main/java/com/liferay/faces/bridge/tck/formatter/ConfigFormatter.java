@@ -16,10 +16,17 @@
 package com.liferay.faces.bridge.tck.formatter;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Writer;
+import java.nio.file.Files;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,13 +61,55 @@ public class ConfigFormatter {
 					"liferay-tests.xml and pluto-tests.xml do not have the same list of portlet names");
 			}
 
-			writePropertiesFile(liferayPropertiesPath, liferayEntries);
-			writePropertiesFile(plutoPropertiesPath, plutoEntries);
+			writePropertiesFile(liferayPropertiesPath, liferayEntries, null);
+
+			StringBuffer comments = new StringBuffer();
+			comments.append("<!--\n");
+			comments.append("NOTE:\n");
+			comments.append("* Many event-based tests are disabled because they are not compatible with Pluto's\n");
+			comments.append("* implementation of Events IPC. The setRequestCharacterEncodingActionTest is disabled\n");
+			comments.append("* because of a known bug in Pluto (according to the TCK User's Guide). The\n");
+			comments.append("* scopeNotRestoredResourceTest is disabled because the Pluto ResourceURL#toString()\n");
+			comments.append("* method automatically adds public render parameters to ResourceURLs (which includes\n");
+			comments.append("* the public render parameter for the bridgeRequestScopeId).\n");
+			comments.append("-->\n");
+			writePropertiesFile(plutoPropertiesPath, plutoEntries, comments.toString());
 			updatePlutoPortalDriverConfigFile(liferayEntries);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static void moveFile(String sourcePath, String destinationPath) throws IOException {
+
+		InputStream inputStream = null;
+		OutputStream outputStream = null;
+
+		try {
+			inputStream = new FileInputStream(sourcePath);
+			outputStream = new FileOutputStream(destinationPath);
+
+			int length;
+			byte[] buffer = new byte[1024];
+
+			while ((length = inputStream.read(buffer)) > 0) {
+				outputStream.write(buffer, 0, length);
+			}
+		}
+		finally {
+
+			if (inputStream != null) {
+				inputStream.close();
+			}
+
+			if (outputStream != null) {
+				outputStream.close();
+			}
+		}
+
+		File sourceFile = new File(sourcePath);
+		sourceFile.delete();
 	}
 
 	private static List<Entry> parsePropertiesFile(String filePath) throws IOException {
@@ -150,15 +199,23 @@ public class ConfigFormatter {
 		writer.flush();
 		writer.close();
 
-		System.out.println("Updated: " + outputFilePath);
+		moveFile(outputFilePath, inputFilePath);
+
+		System.out.println("Updated: " + inputFilePath);
 	}
 
-	private static void writePropertiesFile(String inputFilePath, List<Entry> entries) throws IOException {
+	private static void writePropertiesFile(String inputFilePath, List<Entry> entries, String comments)
+		throws IOException {
 
 		String outputFilePath = inputFilePath + ".txt";
 		Writer writer = new FileWriter(outputFilePath);
 		writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		writer.write("<!DOCTYPE properties>\n");
+
+		if (comments != null) {
+			writer.write(comments);
+		}
+
 		writer.write("<properties>\n");
 
 		for (int i = 0; i < entries.size(); i++) {
@@ -176,7 +233,9 @@ public class ConfigFormatter {
 		writer.flush();
 		writer.close();
 
-		System.out.println("Updated: " + outputFilePath);
+		moveFile(outputFilePath, inputFilePath);
+
+		System.out.println("Updated: " + inputFilePath);
 	}
 
 	private static class Entry {
