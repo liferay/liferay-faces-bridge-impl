@@ -7,7 +7,7 @@
 	<entry key="TestPage004" enabled="true">chapter3Tests-doubleDestroyTest-portlet</entry>
 	<entry key="TestPage005" enabled="true">chapter3Tests-eventDestroyTest-portlet</entry>
 	<entry key="TestPage006" enabled="true">chapter3Tests-lifecycleTest-portlet</entry>
-	<entry key="TestPage007" enabled="true">chapter3Tests-lifecycleTest-portlet</entry>
+	<entry key="TestPage007" enabled="true" context="/com.liferay.faces.test.bridge.tck.lifecycle.set.portlet">chapter3Tests-lifecycleTest-portlet</entry>
 	<entry key="TestPage008" enabled="true">chapter3Tests-modeViewIDTest-portlet</entry>
 	<entry key="TestPage009" enabled="true">chapter3Tests-nullRequestActionTest-portlet</entry>
 	<entry key="TestPage010" enabled="true">chapter3Tests-nullRequestRenderTest-portlet</entry>
