@@ -1,224 +1,224 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE properties>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="TestPage001" enabled="true">chapter3Tests-bridgeVersionTest-portlet</entry>
-	<entry key="TestPage002" enabled="true">chapter3Tests-actionDestroyTest-portlet</entry>
-	<entry key="TestPage003" enabled="true">chapter3Tests-defaultRenderKitIdTest-portlet</entry>
-	<entry key="TestPage004" enabled="true">chapter3Tests-doubleDestroyTest-portlet</entry>
-	<entry key="TestPage005" enabled="true">chapter3Tests-eventDestroyTest-portlet</entry>
-	<entry key="TestPage006" enabled="true">chapter3Tests-lifecycleTest-portlet</entry>
-	<entry key="TestPage007" enabled="true" context="/com.liferay.faces.test.bridge.tck.lifecycle.set.portlet">chapter3Tests-lifecycleTest-portlet</entry>
-	<entry key="TestPage008" enabled="true">chapter3Tests-modeViewIDTest-portlet</entry>
-	<entry key="TestPage009" enabled="true">chapter3Tests-nullRequestActionTest-portlet</entry>
-	<entry key="TestPage010" enabled="true">chapter3Tests-nullRequestRenderTest-portlet</entry>
-	<entry key="TestPage011" enabled="true">chapter3Tests-portletSetsViewIdTest-portlet</entry>
-	<entry key="TestPage012" enabled="true">chapter3Tests-portletSetsViewPathTest-portlet</entry>
-	<entry key="TestPage013" enabled="true">chapter3Tests-renderDestroyTest-portlet</entry>
-	<entry key="TestPage014" enabled="true">chapter3Tests-renderPolicyTest-portlet</entry>
-	<entry key="TestPage015" enabled="true">chapter3Tests-resourceDestroyTest-portlet</entry>
-	<entry key="TestPage016" enabled="true">chapter4_1Tests-portletInitializationParametersTest-portlet</entry>
-	<entry key="TestPage017" enabled="true">chapter4_2_10Tests-getResponseContentTypeMethodNotSetTest-portlet</entry>
-	<entry key="TestPage018" enabled="true">chapter4_2_10Tests-getResponseContentTypeMethodSetTest-portlet</entry>
-	<entry key="TestPage019" enabled="true">chapter4_2_11Tests-getResponseCharacterSetEncodingMethodNotSetTest-portlet</entry>
-	<entry key="TestPage020" enabled="true">chapter4_2_11Tests-getResponseCharacterSetEncodingMethodSetTest-portlet</entry>
-	<entry key="TestPage021" enabled="true">chapter4_2_12Tests-getBridgeEventHandlerMethodNotSetTest-portlet</entry>
-	<entry key="TestPage022" enabled="true">chapter4_2_12Tests-getBridgeEventHandlerMethodSetTest-portlet</entry>
-	<entry key="TestPage023" enabled="true">chapter4_2_13Tests-getBridgePublicRenderParameterHandlerMethodNotSetTest-portlet</entry>
-	<entry key="TestPage024" enabled="true">chapter4_2_13Tests-getBridgePublicRenderParameterHandlerMethodSetTest-portlet</entry>
-	<entry key="TestPage025" enabled="true">chapter4_2_14Tests-isAutoDispatchEventsNotSetTest-portlet</entry>
-	<entry key="TestPage026" enabled="true">chapter4_2_14Tests-isAutoDispatchEventsSetTest-portlet</entry>
-	<entry key="TestPage027" enabled="true">chapter4_2_15Tests-getFacesBridgeMethodTest-portlet</entry>
-	<entry key="TestPage028" enabled="true">chapter4_2_1Tests-initMethodTest-portlet</entry>
-	<entry key="TestPage029" enabled="true">chapter4_2_5Tests-requestProcessingNonFacesTest-portlet</entry>
-	<entry key="TestPage030" enabled="true">chapter4_2_6Tests-getBridgeClassNameMethodTest-portlet</entry>
-	<entry key="TestPage031" enabled="true">chapter4_2_7Tests-getDefaultViewIdMapMethodTest-portlet</entry>
-	<entry key="TestPage032" enabled="true">chapter4_2_8Tests-getExcludedRequestAttributesMethodNotSetTest-portlet</entry>
-	<entry key="TestPage033" enabled="true">chapter4_2_8Tests-getExcludedRequestAttributesMethodSetListTest-portlet</entry>
-	<entry key="TestPage034" enabled="true">chapter4_2_8Tests-getExcludedRequestAttributesMethodSetSingleValueTest-portlet</entry>
-	<entry key="TestPage035" enabled="true">chapter4_2_9Tests-isPreserveActionParametersMethodNotSetTest-portlet</entry>
-	<entry key="TestPage036" enabled="true">chapter4_2_9Tests-isPreserveActionParametersMethodSetFalseTest-portlet</entry>
-	<entry key="TestPage037" enabled="true">chapter4_2_9Tests-isPreserveActionParametersMethodSetTrueTest-portlet</entry>
-	<entry key="TestPage038" enabled="true">chapter5_1_2Tests-excludedAttributesTest-portlet</entry>
-	<entry key="TestPage039" enabled="true">chapter5_1_2Tests-requestNoScopeOnModeChangeTest-portlet</entry>
-	<entry key="TestPage040" enabled="true">chapter5_1_2Tests-requestNoScopeOnRedirectTest-portlet</entry>
-	<entry key="TestPage041" enabled="true">chapter5_1_2Tests-requestPreserveActionParamsTest-portlet</entry>
-	<entry key="TestPage042" enabled="true">chapter5_1_2Tests-requestRedisplayOutOfScopeTest-portlet</entry>
-	<entry key="TestPage043" enabled="true">chapter5_1_2Tests-requestRenderIgnoresScopeViaCreateViewTest-portlet</entry>
-	<entry key="TestPage044" enabled="true">chapter5_1_2Tests-requestRenderRedisplayNonRetainedTest-portlet</entry>
-	<entry key="TestPage045" enabled="true">chapter5_1_2Tests-requestRenderRedisplayRetainedTest-portlet</entry>
-	<entry key="TestPage046" enabled="true">chapter5_1_2Tests-requestScopeContentsTest-portlet</entry>
-	<entry key="TestPage047" enabled="true">chapter5_1_2Tests-requestScopeRestartedOnActionTest-portlet</entry>
-	<entry key="TestPage048" enabled="true">chapter5_2Tests-bridgeSetsContentTypeTest-portlet</entry>
-	<entry key="TestPage049" enabled="true">chapter5_2Tests-eventControllerTest-portlet</entry>
-	<entry key="TestPage050" enabled="true">chapter5_2Tests-eventNoHandlerPRPPreservedTest-portlet</entry>
-	<entry key="TestPage051" enabled="true">chapter5_2Tests-eventPhaseListenerTest-portlet</entry>
-	<entry key="TestPage052" enabled="true">chapter5_2Tests-eventScopeNotRestoredModeChangedTest-portlet</entry>
-	<entry key="TestPage053" enabled="true">chapter5_2Tests-eventScopeNotRestoredRedirectTest-portlet</entry>
-	<entry key="TestPage054" enabled="true">chapter5_2Tests-eventScopeRestoredTest-portlet</entry>
-	<entry key="TestPage055" enabled="true">chapter5_2Tests-exceptionThrownWhenNoDefaultViewIdTest-portlet</entry>
-	<entry key="TestPage056" enabled="true">chapter5_2Tests-facesContextReleasedActionTest-portlet</entry>
-	<entry key="TestPage057" enabled="true">chapter5_2Tests-facesContextReleasedEventTest-portlet</entry>
-	<entry key="TestPage058" enabled="true">chapter5_2Tests-facesContextReleasedRenderTest-portlet</entry>
-	<entry key="TestPage059" enabled="true">chapter5_2Tests-facesContextReleasedResourceTest-portlet</entry>
-	<entry key="TestPage060" enabled="true">chapter5_2Tests-ignoreCurrentViewIdModeChangeTest-portlet</entry>
-	<entry key="TestPage061" enabled="true">chapter5_2Tests-isPostbackTest-portlet</entry>
-	<entry key="TestPage062" enabled="true">chapter5_2Tests-nonFacesResourceTest-portlet</entry>
-	<entry key="TestPage063" enabled="true">chapter5_2Tests-portletPhaseRemovedActionTest-portlet</entry>
-	<entry key="TestPage064" enabled="true">chapter5_2Tests-portletPhaseRemovedEventTest-portlet</entry>
-	<entry key="TestPage065" enabled="true">chapter5_2Tests-portletPhaseRemovedRenderTest-portlet</entry>
-	<entry key="TestPage066" enabled="true">chapter5_2Tests-portletPhaseRemovedResourceTest-portlet</entry>
-	<entry key="TestPage067" enabled="true">chapter5_2Tests-portletSetsInvalidViewPathTest-portlet</entry>
-	<entry key="TestPage068" enabled="true">chapter5_2Tests-prpUpdatedFromActionTest-portlet</entry>
-	<entry key="TestPage069" enabled="true">chapter5_2Tests-renderPhaseListenerTest-portlet</entry>
-	<entry key="TestPage070" enabled="true">chapter5_2Tests-renderRedirectTest-portlet</entry>
-	<entry key="TestPage071" enabled="true">chapter5_2Tests-resourcesRenderedInHeadTest-portlet</entry>
-	<entry key="TestPage072" enabled="true">chapter5_2Tests-scopeAfterRedisplayResourcePPRTest-portlet</entry>
-	<entry key="TestPage073" enabled="true">chapter5_2Tests-scopeNotRestoredResourceTest-portlet</entry>
-	<entry key="TestPage074" enabled="true">chapter5_2Tests-verifyPortletObjectsTest-portlet</entry>
-	<entry key="TestPage075" enabled="true">chapter5_2Tests-verifyPortletPhaseTest-portlet</entry>
-	<entry key="TestPage076" enabled="true">chapter5_2Tests-verifyResourcePhaseTest-portlet</entry>
-	<entry key="TestPage077" enabled="true">chapter5_2Tests-viewIdWithParam_1_Test-portlet</entry>
-	<entry key="TestPage078" enabled="true">chapter5_2Tests-viewIdWithParam_2_Test-portlet</entry>
-	<entry key="TestPage079" enabled="true">chapter5_3Tests-checkViewHistoryTest-portlet</entry>
-	<entry key="TestPage080" enabled="true">chapter5_3Tests-navigateToLastViewTest-portlet</entry>
-	<entry key="TestPage081" enabled="true">chapter5_3Tests-noViewStateParamOnModeChangeTest-portlet</entry>
-	<entry key="TestPage082" enabled="true">chapter5_3Tests-processPRPInRestoreViewPhaseTest-portlet</entry>
-	<entry key="TestPage083" enabled="true">chapter5_3Tests-prpModelUpdateTest-portlet</entry>
-	<entry key="TestPage084" enabled="true">chapter6_1_1Tests-facesContextFactoryServiceProviderTest-portlet</entry>
-	<entry key="TestPage085" enabled="true">chapter6_1_1Tests-wrappedFacesContextTest-portlet</entry>
-	<entry key="TestPage086" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet</entry>
-	<entry key="TestPage087" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewResourceTest-portlet</entry>
-	<entry key="TestPage088" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet</entry>
-	<entry key="TestPage089" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet</entry>
-	<entry key="TestPage090" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithModeResourceTest-portlet</entry>
-	<entry key="TestPage091" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithParamResourceTest-portlet</entry>
-	<entry key="TestPage092" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet</entry>
-	<entry key="TestPage093" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLPortletResourceTest-portlet</entry>
-	<entry key="TestPage094" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidModeResourceTest-portlet</entry>
-	<entry key="TestPage095" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet</entry>
-	<entry key="TestPage096" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithModeResourceTest-portlet</entry>
-	<entry key="TestPage097" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithParamResourceTest-portlet</entry>
-	<entry key="TestPage098" enabled="true">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithWindowStateResourceTest-portlet</entry>
-	<entry key="TestPage099" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLAbsoluteURLTest-portlet</entry>
-	<entry key="TestPage100" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLDirectLinkFalseTest-portlet</entry>
-	<entry key="TestPage101" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLDirectLinkTrueTest-portlet</entry>
-	<entry key="TestPage102" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewActionTest-portlet</entry>
-	<entry key="TestPage103" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewEventTest-portlet</entry>
-	<entry key="TestPage104" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewRenderTest-portlet</entry>
-	<entry key="TestPage105" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewRenderTest-portlet</entry>
-	<entry key="TestPage106" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidModeRenderTest-portlet</entry>
-	<entry key="TestPage107" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest-portlet</entry>
-	<entry key="TestPage108" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithModeRenderTest-portlet</entry>
-	<entry key="TestPage109" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithParamRenderTest-portlet</entry>
-	<entry key="TestPage110" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithWindowStateRenderTest-portlet</entry>
-	<entry key="TestPage111" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletActionTest-portlet</entry>
-	<entry key="TestPage112" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletRenderTest-portlet</entry>
-	<entry key="TestPage113" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLPoundCharTest-portlet</entry>
-	<entry key="TestPage114" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeActionTest-portlet</entry>
-	<entry key="TestPage115" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeEventTest-portlet</entry>
-	<entry key="TestPage116" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeRenderTest-portlet</entry>
-	<entry key="TestPage117" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityActionTest-portlet</entry>
-	<entry key="TestPage118" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityRenderTest-portlet</entry>
-	<entry key="TestPage119" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateActionTest-portlet</entry>
-	<entry key="TestPage120" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateEventTest-portlet</entry>
-	<entry key="TestPage121" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateRenderTest-portlet</entry>
-	<entry key="TestPage122" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeActionTest-portlet</entry>
-	<entry key="TestPage123" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeEventTest-portlet</entry>
-	<entry key="TestPage124" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeRenderTest-portlet</entry>
-	<entry key="TestPage125" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamActionTest-portlet</entry>
-	<entry key="TestPage126" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamEventTest-portlet</entry>
-	<entry key="TestPage127" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamRenderTest-portlet</entry>
-	<entry key="TestPage128" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityActionTest-portlet</entry>
-	<entry key="TestPage129" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityRenderTest-portlet</entry>
-	<entry key="TestPage130" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateActionTest-portlet</entry>
-	<entry key="TestPage131" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateEventTest-portlet</entry>
-	<entry key="TestPage132" enabled="true">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateRenderTest-portlet</entry>
-	<entry key="TestPage133" enabled="true">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLBackLinkTest-portlet</entry>
-	<entry key="TestPage134" enabled="true">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLForeignExternalURLBackLinkTest-portlet</entry>
-	<entry key="TestPage135" enabled="true">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLForeignExternalURLTest-portlet</entry>
-	<entry key="TestPage136" enabled="true">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLOpaqueTest-portlet</entry>
-	<entry key="TestPage137" enabled="true">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLRelativeURLBackLinkTest-portlet</entry>
-	<entry key="TestPage138" enabled="true">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLRelativeURLTest-portlet</entry>
-	<entry key="TestPage139" enabled="true">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLTest-portlet</entry>
-	<entry key="TestPage140" enabled="true">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLViewLinkTest-portlet</entry>
-	<entry key="TestPage141" enabled="true">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLViewLinkWithBackLinkTest-portlet</entry>
-	<entry key="TestPage142" enabled="true">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLWithModeTest-portlet</entry>
-	<entry key="TestPage143" enabled="true">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLWithWindowStateTest-portlet</entry>
-	<entry key="TestPage144" enabled="true">chapter6_1_3_1EncodeURLEscapingTests-encodeURLEscapingTest-portlet</entry>
-	<entry key="TestPage145" enabled="true">chapter6_1_3_1Tests-dispatchUsesForwardTest-portlet</entry>
-	<entry key="TestPage146" enabled="true">chapter6_1_3_1Tests-getRequestCharacterEncodingActionTest-portlet</entry>
-	<entry key="TestPage147" enabled="true">chapter6_1_3_1Tests-getRequestCharacterEncodingEventTest-portlet</entry>
-	<entry key="TestPage148" enabled="true">chapter6_1_3_1Tests-getRequestCharacterEncodingRenderTest-portlet</entry>
-	<entry key="TestPage149" enabled="true">chapter6_1_3_1Tests-getRequestCharacterEncodingResourceTest-portlet</entry>
-	<entry key="TestPage150" enabled="true">chapter6_1_3_1Tests-getRequestContentTypeActionTest-portlet</entry>
-	<entry key="TestPage151" enabled="true">chapter6_1_3_1Tests-getRequestContentTypeEventTest-portlet</entry>
-	<entry key="TestPage152" enabled="true">chapter6_1_3_1Tests-getRequestContentTypeRenderTest-portlet</entry>
-	<entry key="TestPage153" enabled="true">chapter6_1_3_1Tests-getRequestContentTypeResourceTest-portlet</entry>
-	<entry key="TestPage154" enabled="true">chapter6_1_3_1Tests-getRequestHeaderMapActionTest-portlet</entry>
-	<entry key="TestPage155" enabled="true">chapter6_1_3_1Tests-getRequestHeaderMapEventTest-portlet</entry>
-	<entry key="TestPage156" enabled="true">chapter6_1_3_1Tests-getRequestHeaderMapRenderTest-portlet</entry>
-	<entry key="TestPage157" enabled="true">chapter6_1_3_1Tests-getRequestHeaderMapResourceTest-portlet</entry>
-	<entry key="TestPage158" enabled="true">chapter6_1_3_1Tests-getRequestHeaderValuesMapActionTest-portlet</entry>
-	<entry key="TestPage159" enabled="true">chapter6_1_3_1Tests-getRequestHeaderValuesMapEventTest-portlet</entry>
-	<entry key="TestPage160" enabled="true">chapter6_1_3_1Tests-getRequestHeaderValuesMapRenderTest-portlet</entry>
-	<entry key="TestPage161" enabled="true">chapter6_1_3_1Tests-getRequestHeaderValuesMapResourceTest-portlet</entry>
-	<entry key="TestPage162" enabled="true">chapter6_1_3_1Tests-getRequestParameterDefaultViewParamsTest-portlet</entry>
-	<entry key="TestPage163" enabled="true">chapter6_1_3_1Tests-getRequestParameterMapCoreTest-portlet</entry>
-	<entry key="TestPage164" enabled="true">chapter6_1_3_1Tests-getRequestParameterNamesCoreTest-portlet</entry>
-	<entry key="TestPage165" enabled="true">chapter6_1_3_1Tests-getRequestParameterNamesDefaultViewParamsTest-portlet</entry>
-	<entry key="TestPage166" enabled="true">chapter6_1_3_1Tests-getRequestParameterNamesPreserveParamsTest-portlet</entry>
-	<entry key="TestPage167" enabled="true">chapter6_1_3_1Tests-getRequestParameterPreserveParamsTest-portlet</entry>
-	<entry key="TestPage168" enabled="true">chapter6_1_3_1Tests-getRequestPathInfoTest-portlet</entry>
-	<entry key="TestPage169" enabled="true">chapter6_1_3_1Tests-getRequestServletPathTest-portlet</entry>
-	<entry key="TestPage170" enabled="true">chapter6_1_3_1Tests-getResponseCharacterEncodingActionTest-portlet</entry>
-	<entry key="TestPage171" enabled="true">chapter6_1_3_1Tests-getResponseCharacterEncodingEventTest-portlet</entry>
-	<entry key="TestPage172" enabled="true">chapter6_1_3_1Tests-getResponseCharacterEncodingRenderTest-portlet</entry>
-	<entry key="TestPage173" enabled="true">chapter6_1_3_1Tests-getResponseCharacterEncodingResourceTest-portlet</entry>
-	<entry key="TestPage174" enabled="true">chapter6_1_3_1Tests-getResponseContentTypeActionTest-portlet</entry>
-	<entry key="TestPage175" enabled="true">chapter6_1_3_1Tests-getResponseContentTypeEventTest-portlet</entry>
-	<entry key="TestPage176" enabled="true">chapter6_1_3_1Tests-getResponseContentTypeRenderTest-portlet</entry>
-	<entry key="TestPage177" enabled="true">chapter6_1_3_1Tests-getResponseContentTypeResourceTest-portlet</entry>
-	<entry key="TestPage178" enabled="true">chapter6_1_3_1Tests-getSetRequestObjectTest-portlet</entry>
-	<entry key="TestPage179" enabled="true">chapter6_1_3_1Tests-illegalRedirectRenderTest-portlet</entry>
-	<entry key="TestPage180" enabled="true">chapter6_1_3_1Tests-redirectActionTest-portlet</entry>
-	<entry key="TestPage181" enabled="true">chapter6_1_3_1Tests-redirectEventTest-portlet</entry>
-	<entry key="TestPage182" enabled="true">chapter6_1_3_1Tests-redirectRenderPRP1Test-portlet</entry>
-	<entry key="TestPage183" enabled="true">chapter6_1_3_1Tests-redirectRenderPRP2Test-portlet</entry>
-	<entry key="TestPage184" enabled="true">chapter6_1_3_1Tests-redirectRenderTest-portlet</entry>
-	<entry key="TestPage185" enabled="true">chapter6_1_3_1Tests-requestMapCoreTest-portlet</entry>
-	<entry key="TestPage186" enabled="true">chapter6_1_3_1Tests-requestMapPreDestroyRemoveWithinActionTest-portlet</entry>
-	<entry key="TestPage187" enabled="true">chapter6_1_3_1Tests-requestMapRequestScopeTest-portlet</entry>
-	<entry key="TestPage188" enabled="true">chapter6_1_3_1Tests-setRequestCharacterEncodingActionTest-portlet</entry>
-	<entry key="TestPage189" enabled="true">chapter6_1_3_1Tests-setRequestCharacterEncodingRenderTest-portlet</entry>
-	<entry key="TestPage190" enabled="true">chapter6_1_3_2InitParameterTests-getInitParameterMapTest-portlet</entry>
-	<entry key="TestPage191" enabled="true">chapter6_1_3_2InitParameterTests-getInitParameterTest-portlet</entry>
-	<entry key="TestPage192" enabled="true">chapter6_1_3_2Tests-encodeNamespaceTest-portlet</entry>
-	<entry key="TestPage193" enabled="true">chapter6_1_3_2Tests-getApplicationMapTest-portlet</entry>
-	<entry key="TestPage194" enabled="true">chapter6_1_3_2Tests-getAuthTypeTest-portlet</entry>
-	<entry key="TestPage195" enabled="true">chapter6_1_3_2Tests-getContextTest-portlet</entry>
-	<entry key="TestPage196" enabled="true">chapter6_1_3_2Tests-getRemoteUserTest-portlet</entry>
-	<entry key="TestPage197" enabled="true">chapter6_1_3_2Tests-getRequestContextPathTest-portlet</entry>
-	<entry key="TestPage198" enabled="true">chapter6_1_3_2Tests-getRequestCookieMapTest-portlet</entry>
-	<entry key="TestPage199" enabled="true">chapter6_1_3_2Tests-getRequestLocaleTest-portlet</entry>
-	<entry key="TestPage200" enabled="true">chapter6_1_3_2Tests-getRequestLocalesTest-portlet</entry>
-	<entry key="TestPage201" enabled="true">chapter6_1_3_2Tests-getResourceAsStreamTest-portlet</entry>
-	<entry key="TestPage202" enabled="true">chapter6_1_3_2Tests-getResourcePathsTest-portlet</entry>
-	<entry key="TestPage203" enabled="true">chapter6_1_3_2Tests-getResourceTest-portlet</entry>
-	<entry key="TestPage204" enabled="true">chapter6_1_3_2Tests-getSessionMapTest-portlet</entry>
-	<entry key="TestPage205" enabled="true">chapter6_1_3_2Tests-getSessionTest-portlet</entry>
-	<entry key="TestPage206" enabled="true">chapter6_1_3_2Tests-sessionMapPreDestroyRemoveTest-portlet</entry>
-	<entry key="TestPage207" enabled="true">chapter6_1_3_2Tests-setResponseCharacterEncodingTest-portlet</entry>
-	<entry key="TestPage208" enabled="true">chapter6_2_1Tests-hasRenderContentAfterViewAttributeTest-portlet</entry>
-	<entry key="TestPage209" enabled="true">chapter6_2_1Tests-implementsBridgeWriteBehindResponseTest-portlet</entry>
-	<entry key="TestPage210" enabled="true">chapter6_2_1Tests-isPortletNamingContainerTest-portlet</entry>
-	<entry key="TestPage211" enabled="true">chapter6_2_1Tests-renderContentAfterViewTest-portlet</entry>
-	<entry key="TestPage212" enabled="true">chapter6_5_1Tests-JSF_ELTest-portlet</entry>
-	<entry key="TestPage213" enabled="true">chapter6_5_1Tests-JSP_ELTest-portlet</entry>
-	<entry key="TestPage214" enabled="true">chapter6_6Tests-portletNamingContainerClientIdConsistentTest-portlet</entry>
-	<entry key="TestPage215" enabled="true">chapter6_6Tests-portletNamingContainerClientIdTest-portlet</entry>
-	<entry key="TestPage216" enabled="true">chapter6_6Tests-portletNamingContainerUIViewRootClientIdTest-portlet</entry>
-	<entry key="TestPage217" enabled="true">chapter6_6Tests-portletNamingContainerUIViewRootTest-portlet</entry>
-	<entry key="TestPage218" enabled="true">chapter6_7Tests-restoredViewStateParameterTest-portlet</entry>
-	<entry key="TestPage219" enabled="true">chapter6_7Tests-setsIsPostbackAttributeTest-portlet</entry>
-	<entry key="TestPage220" enabled="true">chapter6_9Tests-usesConfiguredRenderKitTest-portlet</entry>
+	<entry key="TestPage001">chapter3Tests-bridgeVersionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage002">chapter3Tests-actionDestroyTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage003">chapter3Tests-defaultRenderKitIdTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage004">chapter3Tests-doubleDestroyTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage005">chapter3Tests-eventDestroyTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage006">chapter3Tests-lifecycleTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage007">chapter3Tests-lifecycleTest-portlet|true|/com.liferay.faces.test.bridge.tck.lifecycle.set.portlet</entry>
+	<entry key="TestPage008">chapter3Tests-modeViewIDTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage009">chapter3Tests-nullRequestActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage010">chapter3Tests-nullRequestRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage011">chapter3Tests-portletSetsViewIdTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage012">chapter3Tests-portletSetsViewPathTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage013">chapter3Tests-renderDestroyTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage014">chapter3Tests-renderPolicyTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage015">chapter3Tests-resourceDestroyTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage016">chapter4_1Tests-portletInitializationParametersTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage017">chapter4_2_10Tests-getResponseContentTypeMethodNotSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage018">chapter4_2_10Tests-getResponseContentTypeMethodSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage019">chapter4_2_11Tests-getResponseCharacterSetEncodingMethodNotSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage020">chapter4_2_11Tests-getResponseCharacterSetEncodingMethodSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage021">chapter4_2_12Tests-getBridgeEventHandlerMethodNotSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage022">chapter4_2_12Tests-getBridgeEventHandlerMethodSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage023">chapter4_2_13Tests-getBridgePublicRenderParameterHandlerMethodNotSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage024">chapter4_2_13Tests-getBridgePublicRenderParameterHandlerMethodSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage025">chapter4_2_14Tests-isAutoDispatchEventsNotSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage026">chapter4_2_14Tests-isAutoDispatchEventsSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage027">chapter4_2_15Tests-getFacesBridgeMethodTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage028">chapter4_2_1Tests-initMethodTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage029">chapter4_2_5Tests-requestProcessingNonFacesTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage030">chapter4_2_6Tests-getBridgeClassNameMethodTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage031">chapter4_2_7Tests-getDefaultViewIdMapMethodTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage032">chapter4_2_8Tests-getExcludedRequestAttributesMethodNotSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage033">chapter4_2_8Tests-getExcludedRequestAttributesMethodSetListTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage034">chapter4_2_8Tests-getExcludedRequestAttributesMethodSetSingleValueTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage035">chapter4_2_9Tests-isPreserveActionParametersMethodNotSetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage036">chapter4_2_9Tests-isPreserveActionParametersMethodSetFalseTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage037">chapter4_2_9Tests-isPreserveActionParametersMethodSetTrueTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage038">chapter5_1_2Tests-excludedAttributesTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage039">chapter5_1_2Tests-requestNoScopeOnModeChangeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage040">chapter5_1_2Tests-requestNoScopeOnRedirectTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage041">chapter5_1_2Tests-requestPreserveActionParamsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage042">chapter5_1_2Tests-requestRedisplayOutOfScopeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage043">chapter5_1_2Tests-requestRenderIgnoresScopeViaCreateViewTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage044">chapter5_1_2Tests-requestRenderRedisplayNonRetainedTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage045">chapter5_1_2Tests-requestRenderRedisplayRetainedTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage046">chapter5_1_2Tests-requestScopeContentsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage047">chapter5_1_2Tests-requestScopeRestartedOnActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage048">chapter5_2Tests-bridgeSetsContentTypeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage049">chapter5_2Tests-eventControllerTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage050">chapter5_2Tests-eventNoHandlerPRPPreservedTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage051">chapter5_2Tests-eventPhaseListenerTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage052">chapter5_2Tests-eventScopeNotRestoredModeChangedTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage053">chapter5_2Tests-eventScopeNotRestoredRedirectTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage054">chapter5_2Tests-eventScopeRestoredTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage055">chapter5_2Tests-exceptionThrownWhenNoDefaultViewIdTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage056">chapter5_2Tests-facesContextReleasedActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage057">chapter5_2Tests-facesContextReleasedEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage058">chapter5_2Tests-facesContextReleasedRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage059">chapter5_2Tests-facesContextReleasedResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage060">chapter5_2Tests-ignoreCurrentViewIdModeChangeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage061">chapter5_2Tests-isPostbackTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage062">chapter5_2Tests-nonFacesResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage063">chapter5_2Tests-portletPhaseRemovedActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage064">chapter5_2Tests-portletPhaseRemovedEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage065">chapter5_2Tests-portletPhaseRemovedRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage066">chapter5_2Tests-portletPhaseRemovedResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage067">chapter5_2Tests-portletSetsInvalidViewPathTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage068">chapter5_2Tests-prpUpdatedFromActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage069">chapter5_2Tests-renderPhaseListenerTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage070">chapter5_2Tests-renderRedirectTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage071">chapter5_2Tests-resourcesRenderedInHeadTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage072">chapter5_2Tests-scopeAfterRedisplayResourcePPRTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage073">chapter5_2Tests-scopeNotRestoredResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage074">chapter5_2Tests-verifyPortletObjectsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage075">chapter5_2Tests-verifyPortletPhaseTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage076">chapter5_2Tests-verifyResourcePhaseTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage077">chapter5_2Tests-viewIdWithParam_1_Test-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage078">chapter5_2Tests-viewIdWithParam_2_Test-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage079">chapter5_3Tests-checkViewHistoryTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage080">chapter5_3Tests-navigateToLastViewTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage081">chapter5_3Tests-noViewStateParamOnModeChangeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage082">chapter5_3Tests-processPRPInRestoreViewPhaseTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage083">chapter5_3Tests-prpModelUpdateTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage084">chapter6_1_1Tests-facesContextFactoryServiceProviderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage085">chapter6_1_1Tests-wrappedFacesContextTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage086">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage087">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage088">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage089">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage090">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithModeResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage091">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithParamResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage092">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithWindowStateResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage093">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLPortletResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage094">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidModeResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage095">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage096">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithModeResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage097">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithParamResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage098">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithWindowStateResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage099">chapter6_1_3_1EncodeActionURLTests-encodeActionURLAbsoluteURLTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage100">chapter6_1_3_1EncodeActionURLTests-encodeActionURLDirectLinkFalseTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage101">chapter6_1_3_1EncodeActionURLTests-encodeActionURLDirectLinkTrueTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage102">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage103">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage104">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage105">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage106">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidModeRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage107">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage108">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithModeRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage109">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithParamRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage110">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithWindowStateRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage111">chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage112">chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage113">chapter6_1_3_1EncodeActionURLTests-encodeActionURLPoundCharTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage114">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage115">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage116">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage117">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage118">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidSecurityRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage119">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage120">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage121">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage122">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage123">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage124">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage125">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage126">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage127">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage128">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage129">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithSecurityRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage130">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage131">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage132">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage133">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLBackLinkTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage134">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLForeignExternalURLBackLinkTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage135">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLForeignExternalURLTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage136">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLOpaqueTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage137">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLRelativeURLBackLinkTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage138">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLRelativeURLTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage139">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage140">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLViewLinkTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage141">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLViewLinkWithBackLinkTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage142">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLWithModeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage143">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLWithWindowStateTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage144">chapter6_1_3_1EncodeURLEscapingTests-encodeURLEscapingTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage145">chapter6_1_3_1Tests-dispatchUsesForwardTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage146">chapter6_1_3_1Tests-getRequestCharacterEncodingActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage147">chapter6_1_3_1Tests-getRequestCharacterEncodingEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage148">chapter6_1_3_1Tests-getRequestCharacterEncodingRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage149">chapter6_1_3_1Tests-getRequestCharacterEncodingResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage150">chapter6_1_3_1Tests-getRequestContentTypeActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage151">chapter6_1_3_1Tests-getRequestContentTypeEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage152">chapter6_1_3_1Tests-getRequestContentTypeRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage153">chapter6_1_3_1Tests-getRequestContentTypeResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage154">chapter6_1_3_1Tests-getRequestHeaderMapActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage155">chapter6_1_3_1Tests-getRequestHeaderMapEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage156">chapter6_1_3_1Tests-getRequestHeaderMapRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage157">chapter6_1_3_1Tests-getRequestHeaderMapResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage158">chapter6_1_3_1Tests-getRequestHeaderValuesMapActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage159">chapter6_1_3_1Tests-getRequestHeaderValuesMapEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage160">chapter6_1_3_1Tests-getRequestHeaderValuesMapRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage161">chapter6_1_3_1Tests-getRequestHeaderValuesMapResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage162">chapter6_1_3_1Tests-getRequestParameterDefaultViewParamsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage163">chapter6_1_3_1Tests-getRequestParameterMapCoreTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage164">chapter6_1_3_1Tests-getRequestParameterNamesCoreTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage165">chapter6_1_3_1Tests-getRequestParameterNamesDefaultViewParamsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage166">chapter6_1_3_1Tests-getRequestParameterNamesPreserveParamsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage167">chapter6_1_3_1Tests-getRequestParameterPreserveParamsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage168">chapter6_1_3_1Tests-getRequestPathInfoTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage169">chapter6_1_3_1Tests-getRequestServletPathTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage170">chapter6_1_3_1Tests-getResponseCharacterEncodingActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage171">chapter6_1_3_1Tests-getResponseCharacterEncodingEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage172">chapter6_1_3_1Tests-getResponseCharacterEncodingRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage173">chapter6_1_3_1Tests-getResponseCharacterEncodingResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage174">chapter6_1_3_1Tests-getResponseContentTypeActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage175">chapter6_1_3_1Tests-getResponseContentTypeEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage176">chapter6_1_3_1Tests-getResponseContentTypeRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage177">chapter6_1_3_1Tests-getResponseContentTypeResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage178">chapter6_1_3_1Tests-getSetRequestObjectTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage179">chapter6_1_3_1Tests-illegalRedirectRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage180">chapter6_1_3_1Tests-redirectActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage181">chapter6_1_3_1Tests-redirectEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage182">chapter6_1_3_1Tests-redirectRenderPRP1Test-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage183">chapter6_1_3_1Tests-redirectRenderPRP2Test-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage184">chapter6_1_3_1Tests-redirectRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage185">chapter6_1_3_1Tests-requestMapCoreTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage186">chapter6_1_3_1Tests-requestMapPreDestroyRemoveWithinActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage187">chapter6_1_3_1Tests-requestMapRequestScopeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage188">chapter6_1_3_1Tests-setRequestCharacterEncodingActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage189">chapter6_1_3_1Tests-setRequestCharacterEncodingRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage190">chapter6_1_3_2InitParameterTests-getInitParameterMapTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage191">chapter6_1_3_2InitParameterTests-getInitParameterTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage192">chapter6_1_3_2Tests-encodeNamespaceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage193">chapter6_1_3_2Tests-getApplicationMapTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage194">chapter6_1_3_2Tests-getAuthTypeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage195">chapter6_1_3_2Tests-getContextTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage196">chapter6_1_3_2Tests-getRemoteUserTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage197">chapter6_1_3_2Tests-getRequestContextPathTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage198">chapter6_1_3_2Tests-getRequestCookieMapTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage199">chapter6_1_3_2Tests-getRequestLocaleTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage200">chapter6_1_3_2Tests-getRequestLocalesTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage201">chapter6_1_3_2Tests-getResourceAsStreamTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage202">chapter6_1_3_2Tests-getResourcePathsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage203">chapter6_1_3_2Tests-getResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage204">chapter6_1_3_2Tests-getSessionMapTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage205">chapter6_1_3_2Tests-getSessionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage206">chapter6_1_3_2Tests-sessionMapPreDestroyRemoveTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage207">chapter6_1_3_2Tests-setResponseCharacterEncodingTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage208">chapter6_2_1Tests-hasRenderContentAfterViewAttributeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage209">chapter6_2_1Tests-implementsBridgeWriteBehindResponseTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage210">chapter6_2_1Tests-isPortletNamingContainerTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage211">chapter6_2_1Tests-renderContentAfterViewTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage212">chapter6_5_1Tests-JSF_ELTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage213">chapter6_5_1Tests-JSP_ELTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage214">chapter6_6Tests-portletNamingContainerClientIdConsistentTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage215">chapter6_6Tests-portletNamingContainerClientIdTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage216">chapter6_6Tests-portletNamingContainerUIViewRootClientIdTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage217">chapter6_6Tests-portletNamingContainerUIViewRootTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage218">chapter6_7Tests-restoredViewStateParameterTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage219">chapter6_7Tests-setsIsPostbackAttributeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage220">chapter6_9Tests-usesConfiguredRenderKitTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 </properties>
