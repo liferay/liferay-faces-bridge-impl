@@ -161,6 +161,9 @@ public class ConfigFormatter {
 		writer.write("<!DOCTYPE liferay-portlet-app PUBLIC \"-//Liferay//DTD Portlet Application ");
 
 		String liferayVersionDTD = System.getProperty("liferay.version.dtd");
+		String[] versionParts = liferayVersionDTD.split("[.]");
+		int liferayMajorVersion = Integer.valueOf(versionParts[0]);
+		int liferayMinorVersion = Integer.valueOf(versionParts[1]);
 		writer.write(liferayVersionDTD);
 		writer.write(".0//EN\" ");
 		writer.write("\"http://www.liferay.com/dtd/liferay-portlet-app_");
@@ -187,9 +190,13 @@ public class ConfigFormatter {
 				writer.write(portletName);
 				writer.write("</portlet-name>\n");
 				writer.write("\t\t<requires-namespaced-parameters>false</requires-namespaced-parameters>\n");
-				writer.write("\t\t<header-request-attribute-prefix>");
-				writer.write("com.liferay.faces.bridge.tck");
-				writer.write("</header-request-attribute-prefix>\n");
+
+				if ((liferayMajorVersion > 7) || ((liferayMajorVersion == 7) && (liferayMinorVersion > 0))) {
+					writer.write("\t\t<header-request-attribute-prefix>");
+					writer.write("com.liferay.faces.bridge.tck");
+					writer.write("</header-request-attribute-prefix>\n");
+				}
+
 				writer.write("\t</portlet>\n");
 			}
 		}
