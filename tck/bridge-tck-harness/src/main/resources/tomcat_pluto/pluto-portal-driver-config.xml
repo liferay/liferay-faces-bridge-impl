@@ -562,10 +562,10 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-renderRedirectTest-portlet"/>
 		</page>
 		<page name="TestPage068" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-resourcesRenderedInHeadTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-resourceAttrRetainedAfterRedisplayPPRTest-portlet"/>
 		</page>
 		<page name="TestPage069" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-scopeAfterRedisplayResourcePPRTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-resourcesRenderedInHeadTest-portlet"/>
 		</page>
 		<page name="TestPage070" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-scopeNotRestoredResourceTest-portlet"/>

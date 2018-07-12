@@ -929,8 +929,8 @@ public class Tests extends HeaderTests implements PhaseListener {
 
 	// Test is MultiRequest -- Render/Action
 	// Test # -- 5.66
-	@BridgeTest(test = "scopeAfterRedisplayResourcePPRTest")
-	public String scopeAfterRedisplayResourcePPRTest(TestBean testBean) {
+	@BridgeTest(test = "resourceAttrRetainedAfterRedisplayPPRTest")
+	public String resourceAttrRetainedAfterRedisplayPPRTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
@@ -966,8 +966,8 @@ public class Tests extends HeaderTests implements PhaseListener {
 	}
 
 	// ActionListener
-	@BridgeTest(test = "scopeAfterRedisplayResourcePPRTestActionListener")
-	public void scopeAfterRedisplayResourcePPRTestListener(TestBean testBean, ActionEvent action) {
+	@BridgeTest(test = "resourceAttrRetainedAfterRedisplayPPRTestActionListener")
+	public void resourceAttrRetainedAfterRedisplayPPRTestListener(TestBean testBean, ActionEvent action) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
