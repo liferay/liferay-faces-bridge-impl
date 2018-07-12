@@ -377,16 +377,16 @@ public class Tests {
 
 	// Test is MultiRequest -- Render/Action
 	// Test #5.8
-	@BridgeTest(test = "requestRenderRedisplayRetainedTest")
-	public String requestRenderRedisplayRetainedTest(TestBean testBean) {
-		return requestRenderRedisplayTest(testBean, true);
+	@BridgeTest(test = "requestRenderRedisplayNonRetainedTest")
+	public String requestRenderRedisplayNonRetainedTest(TestBean testBean) {
+		return requestRenderRedisplayTest(testBean, false);
 	}
 
 	// Test is MultiRequest -- Render/Action
 	// Test #5.8
-	@BridgeTest(test = "requestRenderRedisplayNonRetainedTest")
-	public String requestRenderRedisplayNonRetainedTest(TestBean testBean) {
-		return requestRenderRedisplayTest(testBean, false);
+	@BridgeTest(test = "requestRenderRedisplayRetainedTest")
+	public String requestRenderRedisplayRetainedTest(TestBean testBean) {
+		return requestRenderRedisplayTest(testBean, true);
 	}
 
 	public String requestRenderRedisplayTest(TestBean testBean, boolean retain) {
@@ -417,26 +417,32 @@ public class Tests {
 			String s = (String) externalContext.getRequestMap().get("com.liferay.faces.bridge.tck.TestRequestScope_a");
 
 			if (s != null) {
-				String detail = "Request attribute retained through a redisplay with " + initParamName + "=" + bridgeRequestScopeActionEnabled;
+				String detail = "Request attribute retained through a redisplay with " + initParamName + "=" +
+					bridgeRequestScopeActionEnabled;
 
 				if (bridgeRequestScopeActionEnabled && retain) {
 					testBean.setTestResult(true, detail);
+
 					return Constants.TEST_SUCCESS;
 				}
 
 				testBean.setTestResult(false, detail);
+
 				return Constants.TEST_FAILED;
 			}
 			else {
 
-				String detail = "Request attribute not retained through a redisplay with " + initParamName + "=" + bridgeRequestScopeActionEnabled;
+				String detail = "Request attribute not retained through a redisplay with " + initParamName + "=" +
+					bridgeRequestScopeActionEnabled;
 
 				if (!bridgeRequestScopeActionEnabled && !retain) {
 					testBean.setTestResult(true, detail);
+
 					return Constants.TEST_SUCCESS;
 				}
 
 				testBean.setTestResult(false, detail);
+
 				return Constants.TEST_FAILED;
 			}
 		}
