@@ -131,7 +131,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		FacesContext newFacesContext = getFacesContextFactory().getFacesContext(portletContext, portletRequest,
 				portletResponse, lifecycle);
 
-		// TCK TestPage203 (JSF_ELTest) ensure that the #{facesContext} implicit object is set to the current instance.
+		// TCK (JSF_ELTest) ensure that the #{facesContext} implicit object is set to the current instance.
 		ELContext elContext = newFacesContext.getELContext();
 		elContext.putContext(FacesContext.class, newFacesContext);
 
@@ -271,8 +271,8 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 			// non-excluded request attributes can be picked up by a subsequent RenderRequest.
 			if (bridgeRequestScope == null) {
 
-				// TCK TestPage071: nonFacesResourceTest
-				// TCK TestPage073: resourceAttrRetainedAfterRedisplayPPRTest
+				// TCK: nonFacesResourceTest
+				// TCK: resourceAttrRetainedAfterRedisplayPPRTest
 				PortletSession portletSession = portletRequest.getPortletSession();
 				bridgeRequestScopeId = (String) portletSession.getAttribute(bridgeRequestScopeKey);
 
@@ -324,8 +324,8 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 		if (bridgeRequestScopeTransport == BridgeRequestScope.Transport.PORTLET_SESSION_ATTRIBUTE) {
 
-			// TCK TestPage071: nonFacesResourceTest
-			// TCK TestPage073: resourceAttrRetainedAfterRedisplayPPRTest
+			// TCK: nonFacesResourceTest
+			// TCK: resourceAttrRetainedAfterRedisplayPPRTest
 			PortletSession portletSession = portletRequest.getPortletSession(true);
 			portletSession.setAttribute(bridgeRequestScopeKey, bridgeRequestScopeId);
 		}
@@ -346,13 +346,13 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 
 						// The Portlet API JavaDocs indicate that StateAwareResponse.setRenderParameter(String, String)
 						// must throw an IllegalStateException if ActionResponse.sendRedirect(String) was previously
-						// called. The JSR 329 TCK TestPage039 (requestNoScopeOnRedirectTest) and TestPage176
-						// (redirectActionTest) both perform pseudo-redirects (effectively treated like navigation-rules
-						// from one JSF viewId to another). Since the tests don't actually call
-						// ActionResponse.sendRedirect(String), this condition is never reached by the TCK. However,
-						// this condition is a real-world use-case and so the IllegalStateException must be
-						// swallowed/ignored here so that portlet lifecycle processing is able to continue. For more
-						// information, see: http://issues.liferay.com/browse/FACES-1367
+						// called. The JSR 329 TCK (requestNoScopeOnRedirectTest) and TestPage176 (redirectActionTest)
+						// both perform pseudo-redirects (effectively treated like navigation-rules from one JSF viewId
+						// to another). Since the tests don't actually call ActionResponse.sendRedirect(String), this
+						// condition is never reached by the TCK. However, this condition is a real-world use-case and
+						// so the IllegalStateException must be swallowed/ignored here so that portlet lifecycle
+						// processing is able to continue. For more information, see:
+						// http://issues.liferay.com/browse/FACES-1367
 					}
 
 					// Otherwise throw the IllegalStateException.

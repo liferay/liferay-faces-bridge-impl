@@ -117,25 +117,25 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 					// If the context relative path is not available, then
 					if (contextRelativePath == null) {
 
-						// TCK TestPage005 (modeViewIDTest)
+						// TCK (modeViewIDTest)
 						// * currentViewId="/tests/modeViewIdTest.xhtml"
 						//
-						// TCK TestPage042 (requestRenderIgnoresScopeViaCreateViewTest)
-						// TCK TestPage043 (requestRenderRedisplayTest)
-						// TCK TestPage044 (requestRedisplayOutOfScopeTest)
-						// TCK TestPage049 (renderRedirectTest)
-						// TCK TestPage050 (ignoreCurrentViewIdModeChangeTest)
-						// TCK TestPage051 (exceptionThrownWhenNoDefaultViewIdTest)
+						// TCK (requestRenderIgnoresScopeViaCreateViewTest)
+						// TCK (requestRenderRedisplayTest)
+						// TCK (requestRedisplayOutOfScopeTest)
+						// TCK (renderRedirectTest)
+						// TCK (ignoreCurrentViewIdModeChangeTest)
+						// TCK (exceptionThrownWhenNoDefaultViewIdTest)
 						// * currentViewId="/tests/redisplayRenderNewModeRequestTest.xhtml"
 						//
-						// TCK TestPage073 (resourceAttrRetainedAfterRedisplayPPRTest)
+						// TCK (resourceAttrRetainedAfterRedisplayPPRTest)
 						// * currentViewId="/tests/redisplayResourceAjaxResult.xhtml"
 						//
-						// TCK TestPage088 (encodeActionURLPortletRenderTest)
-						// TCK TestPage089 (encodeActionURLPortletActionTest)
+						// TCK (encodeActionURLPortletRenderTest)
+						// TCK (encodeActionURLPortletActionTest)
 						// * currentViewId="/tests/singleRequestTest.xhtml"
 						//
-						// TCK TestPage179 (redirectRenderPRP1Test)
+						// TCK (redirectRenderPRP1Test)
 						// * currentViewId=null
 						potentialFacesViewId = currentViewId;
 					}
@@ -143,32 +143,32 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 					// Otherwise, if the context relative path is indeed available, then
 					else {
 
-						// TCK TestPage059 (headerOrRenderPhaseListenerTest)
-						// TCK TestPage095 (encodeActionURLWithWindowStateActionTest)
-						// TCK TestPage097 (encodeActionURLNonJSFViewRenderTest)
-						// TCK TestPage098 (encodeActionURLNonJSFViewWithParamRenderTest)
-						// TCK TestPage099 (encodeActionURLNonJSFViewWithModeRenderTest)
-						// TCK TestPage100 (encodeActionURLNonJSFViewWithInvalidModeRenderTest)
-						// TCK TestPage101 (encodeActionURLNonJSFViewWithWindowStateRenderTest)
-						// TCK TestPage102 (encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest)
-						// TCK TestPage103 (encodeActionURLNonJSFViewResourceTest)
-						// TCK TestPage104 (encodeActionURLNonJSFViewWithParamResourceTest)
-						// TCK TestPage105 (encodeActionURLNonJSFViewWithModeResourceTest)
-						// TCK TestPage106 (encodeActionURLNonJSFViewWithInvalidModeResourceTest)
-						// TCK TestPage107 (encodeActionURLNonJSFViewWithWindowStateResourceTest)
-						// TCK TestPage108 (encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest)
+						// TCK (headerOrRenderPhaseListenerTest)
+						// TCK (encodeActionURLWithWindowStateActionTest)
+						// TCK (encodeActionURLNonJSFViewRenderTest)
+						// TCK (encodeActionURLNonJSFViewWithParamRenderTest)
+						// TCK (encodeActionURLNonJSFViewWithModeRenderTest)
+						// TCK (encodeActionURLNonJSFViewWithInvalidModeRenderTest)
+						// TCK (encodeActionURLNonJSFViewWithWindowStateRenderTest)
+						// TCK (encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest)
+						// TCK (encodeActionURLNonJSFViewResourceTest)
+						// TCK (encodeActionURLNonJSFViewWithParamResourceTest)
+						// TCK (encodeActionURLNonJSFViewWithModeResourceTest)
+						// TCK (encodeActionURLNonJSFViewWithInvalidModeResourceTest)
+						// TCK (encodeActionURLNonJSFViewWithWindowStateResourceTest)
+						// TCK (encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest)
 						// * contextRelativeViewPath="/nonFacesViewTestPortlet.ptlt"
 						// * currentViewId="/tests/nonJSFViewTest.xhtml"
 						//
-						// TCK TestPage071 (nonFacesResourceTest)
+						// TCK (nonFacesResourceTest)
 						// * contextRelativeViewPath="/tck/nonFacesResource"
 						// * currentViewId="/tests/nonFacesResourceTest.xhtml"
 						//
-						// TCK TestPage134 (encodeResourceURLBackLinkTest)
+						// TCK (encodeResourceURLBackLinkTest)
 						// * contextRelativePath="/resources/myImage.jpg"
 						// * currentViewId="/tests/singleRequestTest.xhtml"
 						//
-						// TCK TestPage181 (illegalRedirectRenderTest)
+						// TCK (illegalRedirectRenderTest)
 						// * contextRelativeViewPath="/tests/NonJSFView.portlet"
 						// * currentViewId=null
 						potentialFacesViewId = contextRelativePath;
@@ -178,7 +178,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 					// time of construction, then it is a it is a faces view target.
 					if ((currentViewId != null) && (matchPathAndExtension(currentViewId, potentialFacesViewId))) {
 
-						// TCK TestPage005 (modeViewIDTest)
+						// TCK (modeViewIDTest)
 						// * contextRelativeViewPath=null
 						// * potentialFacesViewId="/tests/modeViewIdTest.xhtml"
 						// * currentViewId="/tests/modeViewIdTest.xhtml"

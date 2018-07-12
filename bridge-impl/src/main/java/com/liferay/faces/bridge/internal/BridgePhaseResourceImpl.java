@@ -273,8 +273,8 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 					// PROPOSED-FOR-BRIDGE3-API: https://issues.apache.org/jira/browse/PORTLETBRIDGE-202
 					bridgeRequestScope.setPortletMode(resourceRequest.getPortletMode());
 
-					// TCK TestPage071: nonFacesResourceTest
-					// TCK TestPage073: resourceAttrRetainedAfterRedisplayPPRTest -- Preserve the non-excluded request
+					// TCK: nonFacesResourceTest
+					// TCK: resourceAttrRetainedAfterRedisplayPPRTest -- Preserve the non-excluded request
 					// attributes in the BridgeRequestScope so that they can be restored in subsequent render requests.
 					bridgeRequestScope.saveState(facesContext);
 					maintainBridgeRequestScope(resourceRequest, resourceResponse,

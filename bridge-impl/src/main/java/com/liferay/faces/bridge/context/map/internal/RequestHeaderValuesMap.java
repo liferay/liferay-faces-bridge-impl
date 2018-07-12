@@ -248,7 +248,7 @@ public class RequestHeaderValuesMap extends RequestHeaderValuesMapCompat {
 			put(HEADER_CONTENT_TYPE, new String[] { header.toString() });
 		}
 		else {
-			// TCK TestPage142: getRequestHeaderMapRenderTest
+			// TCK: getRequestHeaderMapRenderTest
 		}
 	}
 }
