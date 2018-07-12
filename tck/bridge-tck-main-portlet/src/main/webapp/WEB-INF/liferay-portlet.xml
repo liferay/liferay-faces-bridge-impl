@@ -298,6 +298,10 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
+		<portlet-name>chapter5_2Tests-resourceAttrNotRetainedAfterRedisplayPPRTest-portlet</portlet-name>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+	</portlet>
+	<portlet>
 		<portlet-name>chapter5_2Tests-resourceAttrRetainedAfterRedisplayPPRTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
