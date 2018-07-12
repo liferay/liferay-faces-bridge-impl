@@ -272,7 +272,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 			if (bridgeRequestScope == null) {
 
 				// TCK TestPage071: nonFacesResourceTest
-				// TCK TestPage073: scopeAfterRedisplayResourcePPRTest
+				// TCK TestPage073: resourceAttrRetainedAfterRedisplayPPRTest
 				PortletSession portletSession = portletRequest.getPortletSession();
 				bridgeRequestScopeId = (String) portletSession.getAttribute(bridgeRequestScopeKey);
 
@@ -325,7 +325,7 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		if (bridgeRequestScopeTransport == BridgeRequestScope.Transport.PORTLET_SESSION_ATTRIBUTE) {
 
 			// TCK TestPage071: nonFacesResourceTest
-			// TCK TestPage073: scopeAfterRedisplayResourcePPRTest
+			// TCK TestPage073: resourceAttrRetainedAfterRedisplayPPRTest
 			PortletSession portletSession = portletRequest.getPortletSession(true);
 			portletSession.setAttribute(bridgeRequestScopeKey, bridgeRequestScopeId);
 		}

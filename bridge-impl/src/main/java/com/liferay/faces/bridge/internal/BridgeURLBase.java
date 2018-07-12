@@ -128,7 +128,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 						// TCK TestPage051 (exceptionThrownWhenNoDefaultViewIdTest)
 						// * currentViewId="/tests/redisplayRenderNewModeRequestTest.xhtml"
 						//
-						// TCK TestPage073 (scopeAfterRedisplayResourcePPRTest)
+						// TCK TestPage073 (resourceAttrRetainedAfterRedisplayPPRTest)
 						// * currentViewId="/tests/redisplayResourceAjaxResult.xhtml"
 						//
 						// TCK TestPage088 (encodeActionURLPortletRenderTest)

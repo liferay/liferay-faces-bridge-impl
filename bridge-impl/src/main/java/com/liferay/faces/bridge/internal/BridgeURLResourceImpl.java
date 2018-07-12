@@ -344,7 +344,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// Otherwise, if the URL targets a Faces viewId, then return a ResourceURL that targets the view.
 		else if (getViewId() != null) {
 
-			// TCK TestPage073: scopeAfterRedisplayResourcePPRTest
+			// TCK TestPage073: resourceAttrRetainedAfterRedisplayPPRTest
 			// TCK TestPage121: encodeActionURLJSFViewResourceTest
 			// TCK TestPage122: encodeActionURLWithParamResourceTest
 			// TCK TestPage123: encodeActionURLWithModeResourceTest
