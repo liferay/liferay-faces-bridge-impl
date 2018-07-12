@@ -17,9 +17,9 @@ package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 
 import java.io.IOException;
 
+import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.portlet.PortletException;
 import javax.portlet.filter.FilterChain;
 import javax.portlet.filter.FilterConfig;
 import javax.portlet.filter.RenderFilter;
@@ -43,8 +43,7 @@ public class NullContentTypePortletFilter implements RenderFilter {
 	public void init(FilterConfig filterConfig) throws PortletException {
 	}
 
-	private static class NullContentTypeRenderResponse extends
-		RenderResponseWrapper {
+	private static class NullContentTypeRenderResponse extends RenderResponseWrapper {
 
 		NullContentTypeRenderResponse(RenderResponse renderResponse) {
 			super(renderResponse);
