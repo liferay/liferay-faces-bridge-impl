@@ -34,8 +34,8 @@ public class NullContentTypePortletFilter implements HeaderFilter {
 	public void destroy() {
 	}
 
-	public void doFilter(HeaderRequest headerRequest, HeaderResponse headerResponse, HeaderFilterChain headerFilterChain)
-		throws IOException, PortletException {
+	public void doFilter(HeaderRequest headerRequest, HeaderResponse headerResponse,
+		HeaderFilterChain headerFilterChain) throws IOException, PortletException {
 		headerResponse = new NullContentTypeHeaderResponse(headerResponse);
 		headerFilterChain.doFilter(headerRequest, headerResponse);
 	}
@@ -43,8 +43,7 @@ public class NullContentTypePortletFilter implements HeaderFilter {
 	public void init(FilterConfig filterConfig) throws PortletException {
 	}
 
-	private static class NullContentTypeHeaderResponse extends
-		HeaderResponseWrapper {
+	private static class NullContentTypeHeaderResponse extends HeaderResponseWrapper {
 
 		NullContentTypeHeaderResponse(HeaderResponse headerResponse) {
 			super(headerResponse);
