@@ -27,7 +27,6 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -72,6 +71,7 @@ public class ConfigFormatter {
 
 			writePropertiesFile(plutoPropertiesPath, plutoEntries, comments);
 			updatePlutoPortalDriverConfigFile(liferayEntries);
+			updateLiferayPortletXmlFile();
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -150,6 +150,74 @@ public class ConfigFormatter {
 		return entries;
 	}
 
+	private static void updateLiferayPortletXmlFile() throws IOException {
+
+		String inputFilePath = "../bridge-tck-main-portlet/src/main/webapp/WEB-INF/portlet.xml";
+		String outputFilePath = "../bridge-tck-main-portlet/src/main/webapp/WEB-INF/liferay-portlet.xml";
+
+		Writer writer = new FileWriter(outputFilePath);
+
+		writer.write("<?xml version=\"1.0\"?>\n");
+		writer.write("<!DOCTYPE liferay-portlet-app PUBLIC \"-//Liferay//DTD Portlet Application ");
+
+		String liferayVersionDTD = System.getProperty("liferay.version.dtd");
+		writer.write(liferayVersionDTD);
+		writer.write(".0//EN\" ");
+		writer.write("\"http://www.liferay.com/dtd/liferay-portlet-app_");
+		writer.write(liferayVersionDTD.replaceAll("[.]", "_"));
+		writer.write("_0.dtd\">\n");
+		writer.write("<liferay-portlet-app>\n");
+
+		BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFilePath));
+		String curLine;
+
+		while ((curLine = bufferedReader.readLine()) != null) {
+
+			String portletName = curLine.trim();
+
+			if (portletName.startsWith("<portlet-name>")) {
+				portletName = portletName.substring("<portlet-name>".length());
+
+				if (portletName.endsWith("</portlet-name>")) {
+					portletName = portletName.substring(0, portletName.indexOf("</portlet-name>"));
+				}
+
+				writer.write("\t<portlet>\n");
+				writer.write("\t\t<portlet-name>");
+				writer.write(portletName);
+				writer.write("</portlet-name>\n");
+				writer.write("\t\t<requires-namespaced-parameters>false</requires-namespaced-parameters>\n");
+				writer.write("\t\t<header-request-attribute-prefix>");
+				writer.write("com.liferay.faces.bridge.tck");
+				writer.write("</header-request-attribute-prefix>\n");
+				writer.write("\t</portlet>\n");
+			}
+		}
+
+		writer.write("\t<role-mapper>\n");
+		writer.write("\t\t<role-name>administrator</role-name>\n");
+		writer.write("\t\t<role-link>Administrator</role-link>\n");
+		writer.write("\t</role-mapper>\n");
+		writer.write("\t<role-mapper>\n");
+		writer.write("\t\t<role-name>guest</role-name>\n");
+		writer.write("\t\t<role-link>Guest</role-link>\n");
+		writer.write("\t</role-mapper>\n");
+		writer.write("\t<role-mapper>\n");
+		writer.write("\t\t<role-name>power-user</role-name>\n");
+		writer.write("\t\t<role-link>Power User</role-link>\n");
+		writer.write("\t</role-mapper>\n");
+		writer.write("\t<role-mapper>\n");
+		writer.write("\t\t<role-name>user</role-name>\n");
+		writer.write("\t\t<role-link>User</role-link>\n");
+		writer.write("\t</role-mapper>\n");
+		writer.write("</liferay-portlet-app>\n");
+
+		writer.flush();
+		writer.close();
+
+		System.out.println("Updated: " + outputFilePath);
+	}
+
 	private static void updatePlutoPortalDriverConfigFile(List<Entry> entries) throws IOException {
 
 		String inputFilePath = "../bridge-tck-harness/src/main/resources/tomcat_pluto/pluto-portal-driver-config.xml";
@@ -201,8 +269,7 @@ public class ConfigFormatter {
 		System.out.println("Updated: " + inputFilePath);
 	}
 
-	private static void writePropertiesFile(String filePath, List<Entry> entries, String comments)
-		throws IOException {
+	private static void writePropertiesFile(String filePath, List<Entry> entries, String comments) throws IOException {
 
 		Writer writer = new FileWriter(filePath);
 		writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
