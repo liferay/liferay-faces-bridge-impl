@@ -77,8 +77,8 @@ NOTE:
 	<entry key="TestPage065">chapter5_2Tests-portletSetsInvalidViewPathTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage066">chapter5_2Tests-prpUpdatedFromActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage067">chapter5_2Tests-renderRedirectTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
-	<entry key="TestPage068">chapter5_2Tests-resourcesRenderedInHeadTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
-	<entry key="TestPage069">chapter5_2Tests-scopeAfterRedisplayResourcePPRTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage068">chapter5_2Tests-resourceAttrRetainedAfterRedisplayPPRTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage069">chapter5_2Tests-resourcesRenderedInHeadTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage070">chapter5_2Tests-scopeNotRestoredResourceTest-portlet|false|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage071">chapter5_2Tests-verifyPortletObjectsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage072">chapter5_2Tests-verifyPortletPhaseTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
