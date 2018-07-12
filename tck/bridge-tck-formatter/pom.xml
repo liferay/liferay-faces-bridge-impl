@@ -30,4 +30,35 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>format-config</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2.1</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>java</goal>
+								</goals>
+								<phase>prepare-package</phase>
+								<configuration>
+									<mainClass>com.liferay.faces.bridge.tck.formatter.ConfigFormatter</mainClass>
+									<systemProperties>
+										<systemProperty>
+											<key>liferay.version.dtd</key>
+											<value>${liferay.version.dtd}</value>
+										</systemProperty>
+									</systemProperties>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
