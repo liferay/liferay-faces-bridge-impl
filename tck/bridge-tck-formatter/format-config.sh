@@ -1,2 +1,2 @@
 #!/bin/sh
-java -cp target/classes com.liferay.faces.bridge.tck.formatter.ConfigFormatter
+mvn -P format-config clean package
