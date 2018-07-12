@@ -41,7 +41,7 @@ public class BridgeEventHandlerFactoryImpl extends BridgeEventHandlerFactory imp
 
 		BridgeEventHandler bridgeEventHandler = null;
 
-		// TCK TestPage016: initMethodTest
+		// TCK: initMethodTest
 		String bridgeEventHandlerClass = portletConfig.getInitParameter("javax.portlet.faces.bridgeEventHandler");
 
 		if (bridgeEventHandlerClass != null) {

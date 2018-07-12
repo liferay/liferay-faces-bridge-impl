@@ -172,13 +172,13 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			// parameters. This will be a URL that represents navigation to a different viewId.
 			if (bridgeURI.isPortletScheme()) {
 
-				// TCK TestPage005: modeViewIDTest
-				// TCK TestPage042: requestRenderIgnoresScopeViaCreateViewTest
-				// TCK TestPage043: requestRenderRedisplayTest
-				// TCK TestPage044: requestRedisplayOutOfScopeTest
-				// TCK TestPage049: renderRedirectTest
-				// TCK TestPage050: ignoreCurrentViewIdModeChangeTest
-				// TCK TestPage051: exceptionThrownWhenNoDefaultViewIdTest
+				// TCK: modeViewIDTest
+				// TCK: requestRenderIgnoresScopeViaCreateViewTest
+				// TCK: requestRenderRedisplayTest
+				// TCK: requestRedisplayOutOfScopeTest
+				// TCK: renderRedirectTest
+				// TCK: ignoreCurrentViewIdModeChangeTest
+				// TCK: exceptionThrownWhenNoDefaultViewIdTest
 				String portletMode = getParameter(Bridge.PORTLET_MODE_PARAMETER);
 				boolean modeChanged = ((portletMode != null) && (portletMode.length() > 0));
 				Bridge.PortletPhase urlPortletPhase = bridgeURI.getPortletPhase();
@@ -229,7 +229,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			// Otherwise, return the a BaseURL string representation (unmodified value) as required by the Bridge Spec.
 			else {
 
-				// TCK TestPage128: encodeResourceURLOpaqueTest
+				// TCK: encodeResourceURLOpaqueTest
 				baseURL = new BaseURLNonEncodedImpl(bridgeURI, encoding);
 			}
 		}
@@ -251,8 +251,8 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// of the URL that contains the context-path.
 		else if (bridgeURI.isPathRelative()) {
 
-			// TCK TestPage131: encodeResourceURLRelativeURLTest
-			// TCK TestPage132: encodeResourceURLRelativeURLBackLinkTest
+			// TCK: encodeResourceURLRelativeURLTest
+			// TCK: encodeResourceURLRelativeURLBackLinkTest
 			ExternalContext externalContext = facesContext.getExternalContext();
 			String contextPath = externalContext.getRequestContextPath();
 			baseURL = new BaseURLRelativeImpl(bridgeURI, contextPath);
@@ -261,7 +261,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// Otherwise, if the URL is external, then return an encoded BaseURL string representation of the URL.
 		else if (bridgeURI.isExternal(contextPath)) {
 
-			// TCK TestPage130: encodeResourceURLForeignExternalURLBackLinkTest
+			// TCK: encodeResourceURLForeignExternalURLBackLinkTest
 			ExternalContext externalContext = facesContext.getExternalContext();
 			PortletResponse portletResponse = (PortletResponse) externalContext.getResponse();
 			baseURL = new BaseURLPortletResponseEncodedImpl(bridgeURI, portletResponse);
@@ -280,8 +280,8 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			// JavaDoc comments for {@link Bridge#VIEW_LINK}.
 			if (getViewId() != null) {
 
-				// TCK TestPage135: encodeResourceURLViewLinkTest
-				// TCK TestPage136: encodeResourceURLViewLinkWithBackLinkTest
+				// TCK: encodeResourceURLViewLinkTest
+				// TCK: encodeResourceURLViewLinkWithBackLinkTest
 				ExternalContext externalContext = facesContext.getExternalContext();
 				PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 				PortletURL actionURL = createActionURL(facesContext, EXCLUDED_PARAMETER_NAMES);
@@ -307,18 +307,18 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 
 				if (isHeaderOrRenderOrResourcePhase(portletRequestPhase)) {
 
-					// TCK TestPage097: encodeActionURLNonJSFViewRenderTest
-					// TCK TestPage098: encodeActionURLNonJSFViewWithParamRenderTest
-					// TCK TestPage099: encodeActionURLNonJSFViewWithModeRenderTest
-					// TCK TestPage100: encodeActionURLNonJSFViewWithInvalidModeRenderTest
-					// TCK TestPage101: encodeActionURLNonJSFViewWithWindowStateRenderTest
-					// TCK TestPage102: encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest
-					// TCK TestPage103: encodeActionURLNonJSFViewResourceTest
-					// TCK TestPage104: encodeActionURLNonJSFViewWithParamResourceTest
-					// TCK TestPage105: encodeActionURLNonJSFViewWithModeResourceTest
-					// TCK TestPage106: encodeActionURLNonJSFViewWithInvalidModeResourceTest
-					// TCK TestPage107: encodeActionURLNonJSFViewWithWindowStateResourceTest
-					// TCK TestPage108: encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest
+					// TCK: encodeActionURLNonJSFViewRenderTest
+					// TCK: encodeActionURLNonJSFViewWithParamRenderTest
+					// TCK: encodeActionURLNonJSFViewWithModeRenderTest
+					// TCK: encodeActionURLNonJSFViewWithInvalidModeRenderTest
+					// TCK: encodeActionURLNonJSFViewWithWindowStateRenderTest
+					// TCK: encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest
+					// TCK: encodeActionURLNonJSFViewResourceTest
+					// TCK: encodeActionURLNonJSFViewWithParamResourceTest
+					// TCK: encodeActionURLNonJSFViewWithModeResourceTest
+					// TCK: encodeActionURLNonJSFViewWithInvalidModeResourceTest
+					// TCK: encodeActionURLNonJSFViewWithWindowStateResourceTest
+					// TCK: encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest
 					ExternalContext externalContext = facesContext.getExternalContext();
 					PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 					PortletURL renderURL = createRenderURL(facesContext, EXCLUDED_PARAMETER_NAMES);
@@ -344,15 +344,15 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// Otherwise, if the URL targets a Faces viewId, then return a ResourceURL that targets the view.
 		else if (getViewId() != null) {
 
-			// TCK TestPage073: resourceAttrRetainedAfterRedisplayPPRTest
-			// TCK TestPage121: encodeActionURLJSFViewResourceTest
-			// TCK TestPage122: encodeActionURLWithParamResourceTest
-			// TCK TestPage123: encodeActionURLWithModeResourceTest
-			// TCK TestPage124: encodeActionURLWithInvalidModeResourceTest
-			// TCK TestPage125: encodeActionURLWithWindowStateResourceTest
-			// TCK TestPage126: encodeActionURLWithInvalidWindowStateResourceTest
-			// TCK TestPage127: encodeURLEscapingTest
-			// TCK TestPage137: encodeResourceURLWithModeTest
+			// TCK: resourceAttrRetainedAfterRedisplayPPRTest
+			// TCK: encodeActionURLJSFViewResourceTest
+			// TCK: encodeActionURLWithParamResourceTest
+			// TCK: encodeActionURLWithModeResourceTest
+			// TCK: encodeActionURLWithInvalidModeResourceTest
+			// TCK: encodeActionURLWithWindowStateResourceTest
+			// TCK: encodeActionURLWithInvalidWindowStateResourceTest
+			// TCK: encodeURLEscapingTest
+			// TCK: encodeResourceURLWithModeTest
 			baseURL = createResourceURL(facesContext, EXCLUDED_PARAMETER_NAMES);
 		}
 
@@ -360,7 +360,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// an appropriate ResourceURL.
 		else if (inProtocol) {
 
-			// TCK TestPage071: nonFacesResourceTest
+			// TCK: nonFacesResourceTest
 			ResourceURL resourceURL = createResourceURL(facesContext);
 			resourceURL.setResourceID(bridgeURI.getContextRelativePath(contextPath));
 			baseURL = resourceURL;
@@ -370,8 +370,8 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// "/portalcontext/resources/foo.png" and return a BaseURL string representation of it.
 		else {
 
-			// TCK TestPage133: encodeResourceURLTest
-			// TCK TestPage134: encodeResourceURLBackLinkTest
+			// TCK: encodeResourceURLTest
+			// TCK: encodeResourceURLBackLinkTest
 			baseURL = new BaseURLBridgeURIAdapterImpl(bridgeURI);
 		}
 

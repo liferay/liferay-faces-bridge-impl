@@ -140,7 +140,7 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 				}
 
 				// Process the outgoing public render parameters.
-				// TCK TestPage064 (eventControllerTest)
+				// TCK (eventControllerTest)
 				processOutgoingPublicRenderParameters(facesLifecycle);
 
 				// Save the faces view root and any messages in the faces context so that they can be restored during
@@ -158,30 +158,30 @@ public class BridgePhaseEventImpl extends BridgePhaseCompat_2_2_Impl {
 				//
 				// REDIRECT:
 				// ---------
-				// TCK TestPage062 (eventScopeNotRestoredRedirectTest)
-				// TCK TestPage177 (redirectEventTest)
+				// TCK (eventScopeNotRestoredRedirectTest)
+				// TCK (redirectEventTest)
 				//
 				// PORTLET MODE CHANGED:
 				// ---------------------
-				// TCK TestPage063 (eventScopeNotRestoredModeChangedTest)
-				// TCK TestPage111 (encodeActionURLWithModeEventTest)
+				// TCK (eventScopeNotRestoredModeChangedTest)
+				// TCK (encodeActionURLWithModeEventTest)
 				//
 				// NON-REDIRECT / SAME PORTLET MODE:
 				// ---------------------------------
-				// TCK TestPage060 (eventPhaseListenerTest)
-				// TCK TestPage061 (eventScopeRestoredTest)
-				// TCK TestPage064 (eventControllerTest)
-				// TCK TestPage109 (encodeActionURLJSFViewEventTest)
-				// TCK TestPage110 (encodeActionURLWithParamEventTest)
-				// TCK TestPage112 (encodeActionURLWithInvalidModeEventTest),
-				// TCK TestPage113 (encodeActionURLWithWindowStateEventTest)
-				// TCK TestPage114 (encodeActionURLWithInvalidWindowStateEventTest)
-				// TCK TestPage143 (getRequestHeaderMapEventTest)
-				// TCK TestPage147 (getRequestHeaderValuesMapEventTest)
-				// TCK TestPage161 (getRequestCharacterEncodingEventTest)
-				// TCK TestPage166 (getRequestContentTypeEventTest)
-				// TCK TestPage170 (getResponseCharacterEncodingEventTest)
-				// TCK TestPage174 (getResponseContentTypeEventTest)
+				// TCK (eventPhaseListenerTest)
+				// TCK (eventScopeRestoredTest)
+				// TCK (eventControllerTest)
+				// TCK (encodeActionURLJSFViewEventTest)
+				// TCK (encodeActionURLWithParamEventTest)
+				// TCK (encodeActionURLWithInvalidModeEventTest),
+				// TCK (encodeActionURLWithWindowStateEventTest)
+				// TCK (encodeActionURLWithInvalidWindowStateEventTest)
+				// TCK (getRequestHeaderMapEventTest)
+				// TCK (getRequestHeaderValuesMapEventTest)
+				// TCK (getRequestCharacterEncodingEventTest)
+				// TCK (getRequestContentTypeEventTest)
+				// TCK (getResponseCharacterEncodingEventTest)
+				// TCK (getResponseContentTypeEventTest)
 
 				// Assume that the bridge request scope should be maintained from the EVENT_PHASE into the
 				// RENDER_PHASE by utilizing render parameters.

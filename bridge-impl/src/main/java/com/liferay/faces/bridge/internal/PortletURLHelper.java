@@ -48,7 +48,7 @@ public class PortletURLHelper {
 					portletURL.setPortletMode(candidatePortletMode);
 				}
 				else {
-					// TCK TestPage118: encodeActionURLWithInvalidModeRenderTest
+					// TCK: encodeActionURLWithInvalidModeRenderTest
 				}
 			}
 			catch (PortletModeException e) {
@@ -86,7 +86,7 @@ public class PortletURLHelper {
 					portletURL.setWindowState(candidateWindowState);
 				}
 				else {
-					// TCK TestPage120: encodeActionURLWithInvalidWindowStateRenderTest
+					// TCK: encodeActionURLWithInvalidWindowStateRenderTest
 				}
 			}
 			catch (WindowStateException e) {

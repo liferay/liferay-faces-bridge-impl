@@ -92,7 +92,7 @@ public class BridgeURLRedirectImpl extends BridgeURLBase {
 	@Override
 	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 
-		// TCK TestPage039 (requestNoScopeOnRedirectTest)
+		// TCK (requestNoScopeOnRedirectTest)
 		return new BaseURLBridgeURIAdapterImpl(bridgeURI);
 	}
 }

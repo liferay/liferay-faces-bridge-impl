@@ -199,7 +199,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 
 				if (!portletModeChanged) {
 
-					// TCK TestPage040 (requestNoScopeOnModeChangeTest) - In this test, a navigation-rule fires in the
+					// TCK (requestNoScopeOnModeChangeTest) - In this test, a navigation-rule fires in the
 					// ACTION_PHASE of the portlet lifecycle that contains a portlet mode change from VIEW to EDIT.
 					// Since the BridgeRequestScope instance created in the ACTION_PHASE is not maintained, "this" will
 					// be a new instance and the mode change that took place in the ACTION_PHASE will not be known. In
@@ -415,7 +415,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			// If a redirect occurred, then indicate that the non-excluded request attributes are not to be preserved.
 			if (redirectOcurred) {
 
-				// TCK TestPage062: eventScopeNotRestoredRedirectTest
+				// TCK: eventScopeNotRestoredRedirectTest
 				logger.trace("Due to redirect, not saving any non-excluded request attributes");
 				saveNonExcludedAttributes = false;
 			}
@@ -577,8 +577,8 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	 */
 	private void simulatePostRedirectGet(PortletRequest portletRequest, Set<String> nonExcludedAttributeNames) {
 
-		// TCK TestPage062: eventScopeNotRestoredRedirectTest
-		// TCK TestPage063: eventScopeNotRestoredModeChangedTest
+		// TCK: eventScopeNotRestoredRedirectTest
+		// TCK: eventScopeNotRestoredModeChangedTest
 		for (String nonExcludedAttributeName : nonExcludedAttributeNames) {
 
 			portletRequest.removeAttribute(nonExcludedAttributeName);
@@ -601,9 +601,9 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		// Iterate through all of the request attributes and build up a list of those that are to be removed.
 		Enumeration<String> attributeNames = portletRequest.getAttributeNames();
 
-		// TCK TestPage037: requestScopeContentsTest
-		// TCK TestPage045: excludedAttributesTest
-		// TCK TestPage151: requestMapRequestScopeTest
+		// TCK: requestScopeContentsTest
+		// TCK: excludedAttributesTest
+		// TCK: requestMapRequestScopeTest
 		while (attributeNames.hasMoreElements()) {
 			String attributeName = attributeNames.nextElement();
 			Object attributeValue = portletRequest.getAttribute(attributeName);
@@ -612,7 +612,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 
 				if (requestAttributeInspector.isExcludedByConfig(attributeName, attributeValue)) {
 
-					// TCK TestPage151 (requestMapRequestScopeTest) remove "verifyPreBridgeExclusion"
+					// TCK (requestMapRequestScopeTest) remove "verifyPreBridgeExclusion"
 					portletRequest.removeAttribute(attributeName);
 					logger.debug("Removed request attribute name=[{0}] since it was specified for removal.",
 						attributeName);

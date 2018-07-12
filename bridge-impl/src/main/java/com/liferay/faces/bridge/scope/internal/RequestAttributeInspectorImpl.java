@@ -117,7 +117,7 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 			String initParamName = Bridge.BRIDGE_PACKAGE_PREFIX + Bridge.EXCLUDED_REQUEST_ATTRIBUTES;
 			String initParamValue = portletConfig.getInitParameter(initParamName);
 
-			// TCK TestPage016: initMethodTest
+			// TCK: initMethodTest
 			if (initParamValue != null) {
 				excludedRequestAttributes = Arrays.asList(initParamValue.split("\\s*,\\s*"));
 			}
