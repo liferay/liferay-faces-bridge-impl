@@ -926,10 +926,7 @@ public class Tests extends RenderTests implements PhaseListener {
 		}
 	}
 
-	// Test is MultiRequest -- Render/Action
-	// Test # -- 5.66
-	@BridgeTest(test = "resourceAttrRetainedAfterRedisplayPPRTest")
-	public String resourceAttrRetainedAfterRedisplayPPRTest(TestBean testBean) {
+	public String resourceAttrAfterRedisplayPPRTest(TestBean testBean, boolean retain) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
@@ -939,24 +936,55 @@ public class Tests extends RenderTests implements PhaseListener {
 
 			return "";
 		}
-		else if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(facesContext)) &&
-				(requestMap.get("com.liferay.faces.bridge.tck.pprSubmitted") != null)) {
-			testBean.setTestComplete(true);
+		else if (Bridge.PortletPhase.RENDER_PHASE.equals(BridgeUtil.getPortletRequestPhase(facesContext))) {
 
-			requestMap.remove("com.liferay.faces.bridge.tck.pprSubmitted");
+			if (retain) {
 
-			if ((requestMap.get("testAttr") != null) &&
-					((String) requestMap.get("testAttr")).equals(testBean.getTestName())) {
-				testBean.setTestResult(true,
-					"Redisplay after resource request correctly restored scope including attr added during resource execution.");
+				if (requestMap.get("com.liferay.faces.bridge.tck.pprSubmitted") != null) {
 
-				return Constants.TEST_SUCCESS;
+					testBean.setTestComplete(true);
+
+					requestMap.remove("com.liferay.faces.bridge.tck.pprSubmitted");
+
+					if ((requestMap.get("testAttr") != null) &&
+							(requestMap.get("testAttr")).equals(testBean.getTestName())) {
+						testBean.setTestResult(true,
+							"RENDER_PHASE after RESOURCE_PHASE found BridgeRequestScope attr set in RESOURCE_PHASE.");
+
+						return Constants.TEST_SUCCESS;
+					}
+					else {
+						testBean.setTestResult(false,
+							"RENDER_PHASE after RESOURCE_PHASE did not find BridgeRequestScope attr set in RESOURCE_PHASE.");
+
+						return Constants.TEST_FAILED;
+					}
+				}
 			}
 			else {
-				testBean.setTestResult(false,
-					"Redisplay after resource request didn't restored scope including the attr added during resource execution.");
 
-				return Constants.TEST_FAILED;
+				Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
+
+				if (requestParameterMap.get("org.apache.portlet.faces.tck.redisplay") != null) {
+
+					testBean.setTestComplete(true);
+
+					if (requestMap.get("com.liferay.faces.bridge.tck.pprSubmitted") == null) {
+
+						testBean.setTestResult(true,
+							"RENDER_PHASE after RESOURCE_PHASE did not find BridgeRequestScope attr set in RESOURCE_PHASE.");
+
+						return Constants.TEST_SUCCESS;
+					}
+					else {
+						requestMap.remove("com.liferay.faces.bridge.tck.pprSubmitted");
+
+						testBean.setTestResult(true,
+							"RENDER_PHASE after RESOURCE_PHASE found BridgeRequestScope attr set in RESOURCE_PHASE.");
+
+						return Constants.TEST_FAILED;
+					}
+				}
 			}
 		}
 
@@ -964,14 +992,38 @@ public class Tests extends RenderTests implements PhaseListener {
 		return "";
 	}
 
-	// ActionListener
-	@BridgeTest(test = "resourceAttrRetainedAfterRedisplayPPRTestActionListener")
-	public void resourceAttrRetainedAfterRedisplayPPRTestListener(TestBean testBean, ActionEvent action) {
+	public void resourceAttrAfterRedisplayPPRTestListener(TestBean testBean, ActionEvent action) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		requestMap.put("com.liferay.faces.bridge.tck.pprSubmitted", Boolean.TRUE);
+	}
+
+	// Test is MultiRequest -- Render/Action
+	// Test # -- 5.66
+	@BridgeTest(test = "resourceAttrNotRetainedAfterRedisplayPPRTest")
+	public String resourceAttrNotRetainedAfterRedisplayPPRTest(TestBean testBean) {
+		return resourceAttrAfterRedisplayPPRTest(testBean, false);
+	}
+
+	// ActionListener
+	@BridgeTest(test = "resourceAttrNotRetainedAfterRedisplayPPRTestActionListener")
+	public void resourceAttrNotRetainedAfterRedisplayPPRTestListener(TestBean testBean, ActionEvent action) {
+		resourceAttrAfterRedisplayPPRTestListener(testBean, action);
+	}
+
+	// Test is MultiRequest -- Render/Action
+	// Test # -- 5.66
+	@BridgeTest(test = "resourceAttrRetainedAfterRedisplayPPRTest")
+	public String resourceAttrRetainedAfterRedisplayPPRTest(TestBean testBean) {
+		return resourceAttrAfterRedisplayPPRTest(testBean, true);
+	}
+
+	// ActionListener
+	@BridgeTest(test = "resourceAttrRetainedAfterRedisplayPPRTestActionListener")
+	public void resourceAttrRetainedAfterRedisplayPPRTestListener(TestBean testBean, ActionEvent action) {
+		resourceAttrAfterRedisplayPPRTestListener(testBean, action);
 	}
 
 	// Test is MultiRequest -- Render/Action
