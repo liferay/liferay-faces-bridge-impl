@@ -109,7 +109,7 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 		// _facesViewIdRender request parameter.
 		else if (bridgeRequestScope.isRedirectOccurred()) {
 
-			// TCK TestPage177 (redirectEventTest)
+			// TCK (redirectEventTest)
 			facesLifecycleExecuted = false;
 		}
 
@@ -128,7 +128,7 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 		// If the JSF lifecycle executed back in the ACTION_PHASE of the portlet lifecycle, then
 		if (facesLifecycleExecuted) {
 
-			// TCK TestPage054: prpUpdatedFromActionTest
+			// TCK: prpUpdatedFromActionTest
 			PhaseEvent restoreViewPhaseEvent = new PhaseEvent(facesContext, PhaseId.RESTORE_VIEW, facesLifecycle);
 			PhaseListener[] phaseListeners = facesLifecycle.getPhaseListeners();
 
@@ -159,8 +159,8 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 			// lifecycle has already happened in the HEADER_PHASE.
 			catch (BridgeException e) {
 
-				// TCK TestPage048 (portletSetsInvalidViewPathTest)
-				// TCK TestPage051 (exceptionThrownWhenNoDefaultViewIdTest)
+				// TCK (portletSetsInvalidViewPathTest)
+				// TCK (exceptionThrownWhenNoDefaultViewIdTest)
 				Writer responseOutputWriter = getResponseOutputWriter(externalContext);
 
 				if (responseOutputWriter instanceof CapturingWriter) {

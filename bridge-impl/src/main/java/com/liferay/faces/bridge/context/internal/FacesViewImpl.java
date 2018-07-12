@@ -112,7 +112,7 @@ public class FacesViewImpl implements FacesView {
 
 								if (pos > 0) {
 
-									// TCK TestPage159: getRequestServletPathTest
+									// TCK: getRequestServletPathTest
 									this.extension = configuredFacesServletMappings.get(0).getExtension();
 									this.viewId = viewId.substring(0, pos) + this.extension;
 								}

@@ -146,7 +146,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 			// this portlet, then simply return the URI as required by the Bridge Spec.
 			if (uri.startsWith("#") || (bridgeURI.isAbsolute() && bridgeURI.isExternal(contextPath))) {
 
-				// TCK TestPage084: encodeActionURLPoundCharTest
+				// TCK: encodeActionURLPoundCharTest
 				baseURL = new BaseURLBridgeURIAdapterImpl(bridgeURI);
 			}
 

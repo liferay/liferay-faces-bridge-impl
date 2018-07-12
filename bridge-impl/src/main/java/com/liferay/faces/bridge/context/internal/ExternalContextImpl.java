@@ -372,7 +372,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			}
 			else {
 
-				// TCK TestPage166: getRequestContentTypeEventTest expects this condition to return null so throwing an
+				// TCK: getRequestContentTypeEventTest expects this condition to return null so throwing an
 				// IllegalStateException is not an option.
 				return null;
 			}
@@ -629,8 +629,8 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 					}
 					else {
 
-						// TCK TestPage169: getResponseCharacterEncodingActionTest
-						// TCK TestPage180: getResponseCharacterEncodingEventTest
+						// TCK: getResponseCharacterEncodingActionTest
+						// TCK: getResponseCharacterEncodingEventTest
 						throw new IllegalStateException();
 					}
 				}
@@ -670,8 +670,8 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		}
 		else {
 
-			// TCK TestPage173: getResponseContentTypeActionTest
-			// TCK TestPage174: getResponseContentTypeEventTest
+			// TCK: getResponseContentTypeActionTest
+			// TCK: getResponseContentTypeEventTest
 			throw new IllegalStateException();
 		}
 	}
@@ -750,7 +750,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 							bridgeRequestScope.setRedirectOccurred(true);
 						}
 
-						// TCK TestPage039: requestNoScopeOnRedirectTest
+						// TCK: requestNoScopeOnRedirectTest
 						ActionResponse actionResponse = (ActionResponse) portletResponse;
 						actionResponse.sendRedirect(bridgeURI.toString());
 					}
@@ -770,7 +770,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 								(createRenderUrlDuringActionPhaseSupport != null)) {
 
 							// Redirect to the targeted view.
-							// TCK TestPage176: redirectActionTest (Liferay Portal)
+							// TCK: redirectActionTest (Liferay Portal)
 							BridgeURL bridgeRedirectURL = bridgeURLFactory.getBridgeRedirectURL(facesContext,
 									bridgeURI.toString(), null);
 							ActionResponse actionResponse = (ActionResponse) portletResponse;
@@ -786,8 +786,8 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 						else if ((portletPhase == Bridge.PortletPhase.ACTION_PHASE) ||
 								(portletPhase == Bridge.PortletPhase.EVENT_PHASE)) {
 
-							// TCK TestPage176: redirectActionTest (Pluto)
-							// TCK TestPage177: redirectEventTest
+							// TCK: redirectActionTest (Pluto)
+							// TCK: redirectEventTest
 							String newViewId = bridgeURI.getContextRelativePath(contextPath);
 
 							// If redirecting to a different view, then create the target view and place it into the
@@ -844,9 +844,9 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 							if (redirectURLViewId != null) {
 
-								// TCK TestPage049: renderRedirectTest
-								// TCK TestPage178: redirectRenderTest
-								// TCK TestPage180: redirectRenderPRP2Test
+								// TCK: renderRedirectTest
+								// TCK: redirectRenderTest
+								// TCK: redirectRenderPRP2Test
 								portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT, Boolean.TRUE);
 								portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT_VIEW_ID, redirectURLViewId);
 							}
@@ -870,7 +870,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 								if (viewIdRenderParameterValue != null) {
 
-									// TCK TestPage179: redirectRenderPRP1Test
+									// TCK: redirectRenderPRP1Test
 									portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT, Boolean.TRUE);
 									portletRequest.setAttribute(BridgeExt.RENDER_REDIRECT_VIEW_ID,
 										viewIdRenderParameterValue);
@@ -950,7 +950,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 				clientDataRequest.setCharacterEncoding(encoding);
 			}
 			catch (IllegalStateException e) {
-				// TCK TestPage141: setRequestCharacterEncodingActionTest -- exception is to be ignored
+				// TCK: setRequestCharacterEncodingActionTest -- exception is to be ignored
 			}
 		}
 		else {
@@ -959,7 +959,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 				incongruityContext.setRequestCharacterEncoding(encoding);
 			}
 			else {
-				// TCK TestPage140: setRequestCharacterEncodingRenderTest expects this to be a no-op so throwing an
+				// TCK: setRequestCharacterEncodingRenderTest expects this to be a no-op so throwing an
 				// IllegalStateException is not an option.
 			}
 		}
@@ -1040,7 +1040,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 					incongruityContext.setResponseCharacterEncoding(encoding);
 				}
 				else {
-					// TCK TestPage196: setResponseCharacterEncodingTest expects this to be a no-op so throwing
+					// TCK: setResponseCharacterEncodingTest expects this to be a no-op so throwing
 					// IllegalStateException is not an option.
 				}
 			}
