@@ -86,6 +86,12 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+			<groupId>com.liferay.faces.demo</groupId>
+			<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+			<version>${liferay.faces.showcase.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
@@ -119,6 +125,18 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<dependentWarExcludes>**/h-tags*,**/component/h/**/*,**/images/jsf*.png,WEB-INF/lib/*</dependentWarExcludes>
+					<overlays>
+						<overlay>
+							<id>com.liferay.faces.demo.alloy.showcase.webapp</id>
+							<groupId>com.liferay.faces.demo</groupId>
+							<artifactId>com.liferay.faces.demo.alloy.showcase.webapp</artifactId>
+						</overlay>
+						<overlay>
+							<id>com.liferay.faces.demo.jsf.showcase.webapp</id>
+							<groupId>com.liferay.faces.demo</groupId>
+							<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+						</overlay>
+					</overlays>
 				</configuration>
 			</plugin>
 		</plugins>
