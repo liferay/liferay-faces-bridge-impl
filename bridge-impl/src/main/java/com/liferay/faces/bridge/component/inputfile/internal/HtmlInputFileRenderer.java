@@ -54,17 +54,17 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 
 	public HtmlInputFileRenderer() {
 
-		String delegateBodyRendererFQCN = "com.sun.faces.renderkit.html_basic.FileRenderer";
+		String delegateRendererFQCN = "com.sun.faces.renderkit.html_basic.FileRenderer";
 
 		final boolean MYFACES_DETECTED = ProductFactory.getProduct(Product.Name.MYFACES).isDetected();
 
 		if (MYFACES_DETECTED) {
-			delegateBodyRendererFQCN = "org.apache.myfaces.renderkit.html.HtmlInputFileRenderer";
+			delegateRendererFQCN = "org.apache.myfaces.renderkit.html.HtmlInputFileRenderer";
 		}
 
 		try {
-			Class<?> delegateBodyRendererClass = Class.forName(delegateBodyRendererFQCN);
-			delegateRenderer = (Renderer) delegateBodyRendererClass.newInstance();
+			Class<?> delegateRendererClass = Class.forName(delegateRendererFQCN);
+			delegateRenderer = (Renderer) delegateRendererClass.newInstance();
 		}
 		catch (Exception e) {
 			logger.error(e);
