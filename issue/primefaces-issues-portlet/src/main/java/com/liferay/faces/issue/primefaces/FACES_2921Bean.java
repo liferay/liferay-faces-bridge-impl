@@ -17,6 +17,7 @@ package com.liferay.faces.issue.primefaces;
 
 import java.io.Serializable;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -67,5 +68,47 @@ public class FACES_2921Bean implements Serializable {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	@ManagedBean(name = "renderKitBean")
+	@ApplicationScoped
+	public static final class RenderKitBean {
+
+		// Private Constants
+		private static final boolean MOBILE_AVAILABLE;
+
+		static {
+
+			boolean mobileAvailable = false;
+
+			try {
+
+				Class.forName("org.primefaces.mobile.component.uiswitch.UISwitch");
+				mobileAvailable = true;
+			}
+			catch (ClassNotFoundException e) {
+				// Do nothing.
+			}
+			catch (NoClassDefFoundError e) {
+				// Do nothing.
+			}
+
+			MOBILE_AVAILABLE = mobileAvailable;
+		}
+
+		public String getRenderKitId() {
+
+			String renderKitId = "HTML_BASIC";
+
+			if (isMobileAvailable()) {
+				renderKitId = "PRIMEFACES_MOBILE";
+			}
+
+			return renderKitId;
+		}
+
+		public boolean isMobileAvailable() {
+			return MOBILE_AVAILABLE;
+		}
 	}
 }
