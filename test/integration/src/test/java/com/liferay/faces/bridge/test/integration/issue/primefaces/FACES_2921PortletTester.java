@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.test.integration.issue.primefaces;
 
+import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
@@ -33,6 +35,14 @@ public class FACES_2921PortletTester extends BrowserDriverManagingTesterBase {
 
 		BrowserDriver browserDriver = getBrowserDriver();
 		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL("faces-2921"));
+
+		String renderKitIdXpath = "//code[@id='renderKitId']";
+		browserDriver.waitForElementDisplayed(renderKitIdXpath);
+
+		String renderKitId = browserDriver.findElementByXpath(renderKitIdXpath).getText();
+		boolean primeFacesMobile = "PRIMEFACES_MOBILE".equals(renderKitId);
+		Assert.assertTrue(primeFacesMobile || "HTML_BASIC".equals(renderKitId));
+		Assume.assumeTrue("Skipping PrimeFaces Mobile test since PrimeFaces Mobile is not available", primeFacesMobile);
 		browserDriver.sendKeysToElement("//input[contains(@id,':text')]", "text");
 		browserDriver.clickElement("//div[contains(@id,':switch')]");
 		browserDriver.sendKeysToElement("//input[contains(@id,':slider2')]", "10");
