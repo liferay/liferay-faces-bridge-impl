@@ -49,6 +49,11 @@
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
+		<portlet-name>FACES-3175</portlet-name>
+		<instanceable>false</instanceable>
+		<ajaxable>false</ajaxable>
+	</portlet>
+	<portlet>
 		<portlet-name>FACES-3231</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head>
+		<h:outputScript library="FACES-3175" name="reproducer.js" />
+	</h:head>
+	<h:body style="display: none;">
+		<p>Test: <span id="FACES-3175-test-name">FACES-3175</span></p>
+		<p>Status: <span id="FACES-3175-result-status">SUCCESS</span></p>
+		<p>Detail: <span id="FACES-3175-result-detail">
+				<h:outputText escape="false" value="Successfully avoided reloading FACES-3175:reproducer.js resource." />
+		</span></p>
+	</h:body>
+</f:view>
