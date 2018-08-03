@@ -243,36 +243,6 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3300</portlet-name>
-		<display-name>FACES-3300</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
-		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>WEB-INF/views/FACES-3300/start.xhtml</value>
-		</init-param>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-		</supports>
-		<portlet-info>
-			<title>FACES-3300</title>
-			<short-title>FACES-3300</short-title>
-			<keywords>FACES-3300</keywords>
-		</portlet-info>
-		<security-role-ref>
-			<role-name>administrator</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>guest</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>power-user</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>user</role-name>
-		</security-role-ref>
-	</portlet>
-	<portlet>
 		<portlet-name>FACES-3175</portlet-name>
 		<display-name>FACES-3175</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
@@ -318,6 +288,36 @@
 			<title>FACES-3231</title>
 			<short-title>FACES-3231</short-title>
 			<keywords>FACES-3231</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>FACES-3300</portlet-name>
+		<display-name>FACES-3300</display-name>
+		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>WEB-INF/views/FACES-3300/start.xhtml</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<portlet-info>
+			<title>FACES-3300</title>
+			<short-title>FACES-3300</short-title>
+			<keywords>FACES-3300</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
