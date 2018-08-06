@@ -42,7 +42,10 @@ public class ElementImpl extends NodeImpl implements Element {
 
 	@Override
 	public String getAttribute(String name) {
-		throw new UnsupportedOperationException();
+
+		Attr get = attributes.get(name);
+
+		return get.getValue();
 	}
 
 	@Override
@@ -92,7 +95,7 @@ public class ElementImpl extends NodeImpl implements Element {
 
 	@Override
 	public boolean hasAttribute(String name) {
-		throw new UnsupportedOperationException();
+		return attributes.containsKey(name);
 	}
 
 	@Override
@@ -102,7 +105,7 @@ public class ElementImpl extends NodeImpl implements Element {
 
 	@Override
 	public void removeAttribute(String name) throws DOMException {
-		throw new UnsupportedOperationException();
+		attributes.remove(name);
 	}
 
 	@Override
@@ -117,7 +120,7 @@ public class ElementImpl extends NodeImpl implements Element {
 
 	@Override
 	public void setAttribute(String name, String value) throws DOMException {
-		attributes.add(new AttrImpl(name, value, this));
+		attributes.put(name, new AttrImpl(name, value, this));
 	}
 
 	@Override
