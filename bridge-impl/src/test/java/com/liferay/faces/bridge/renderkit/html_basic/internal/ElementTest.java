@@ -15,27 +15,28 @@
  */
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
-import java.util.ArrayList;
+import org.junit.Assert;
+import org.junit.Test;
 
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 
 
 /**
  * @author  Kyle Stiemann
  */
-/* package-private */ class NodeListImpl extends ArrayList<Node> implements NodeList {
+public class ElementTest {
 
-	// serialVersionUID
-	private static final long serialVersionUID = 5559419753981665137L;
+	@Test
+	public void testOverwriteElementAttribute() {
 
-	@Override
-	public int getLength() {
-		return size();
-	}
+		Element element = new ElementImpl("script", null);
+		element.setAttribute("id", "my_id");
 
-	@Override
-	public Node item(int index) {
-		return get(index);
+		NamedNodeMap attributes = element.getAttributes();
+		Assert.assertEquals("my_id", attributes.item(0).getNodeValue());
+		element.setAttribute("id", "my_id_again");
+		Assert.assertEquals(1, attributes.getLength());
+		Assert.assertEquals("my_id_again", attributes.item(0).getNodeValue());
 	}
 }

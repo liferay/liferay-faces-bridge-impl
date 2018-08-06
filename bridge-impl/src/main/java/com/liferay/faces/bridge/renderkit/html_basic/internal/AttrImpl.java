@@ -25,7 +25,7 @@ import org.w3c.dom.TypeInfo;
 /**
  * @author  Kyle Stiemann
  */
-public class AttrImpl extends NodeImpl implements Attr {
+/* package-private */ class AttrImpl extends NodeImpl implements Attr {
 
 	// Private Data Members
 	private String name;
