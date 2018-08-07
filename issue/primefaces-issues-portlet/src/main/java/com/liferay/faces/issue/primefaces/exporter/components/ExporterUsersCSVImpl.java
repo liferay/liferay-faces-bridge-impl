@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.issue.primefaces.FACES_1513_2185;
+package com.liferay.faces.issue.primefaces.exporter.components;
 
 import java.io.IOException;
 import java.io.Writer;
