@@ -20,21 +20,22 @@ import java.io.IOException;
 import org.junit.Test;
 
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
+import com.liferay.faces.bridge.test.integration.issue.SimpleFACESPortletTester;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
-import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
 
 
 /**
  * @author  Kyle Stiemann
  */
-public class FACES_1513_2185PortletTester extends BrowserDriverManagingTesterBase {
+public class FACES_3327PortletTester extends SimpleFACESPortletTester {
 
 	@Test
-	public void runFACES_1513_2185PortletTest() throws IOException {
+	public void runFACES_3327PortletTest() throws IOException {
 
-		// Navigate the browser to the portal page that contains the FACES-1513-2185 portlet.
+		// Navigate the browser to the portal page that contains the FACES-3327 portlet.
 		BrowserDriver browserDriver = getBrowserDriver();
-		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL("faces-1513-2185"));
+		String faces3327PageURL = BridgeTestUtil.getIssuePageURL("faces-3327");
+		browserDriver.navigateWindowTo(faces3327PageURL);
 
 		//J-
 		// Click the *Export via p:dataExporter* button.
@@ -50,6 +51,15 @@ public class FACES_1513_2185PortletTester extends BrowserDriverManagingTesterBas
 		ExporterComponentsTestUtil.runDownloadUsersCSVFileTest(browserDriver, "p_dataExporter");
 
 		//J-
+		// Click the *result.xhtml* button.
+		// Verify that the test result status shows "SUCCESS" and not "FAILURE".
+		//J+
+		runSimpleFACESPortletTest(browserDriver, "faces-3327");
+
+		// Navigate the browser to the portal page that contains the FACES-3327 portlet.
+		browserDriver.navigateWindowTo(faces3327PageURL);
+
+		//J-
 		// Click the *Export via pe:exporter* button.
 		// Verify that a CSV file was downloaded and the downloaded CSV file contains the following text exactly:
 		/*
@@ -63,6 +73,15 @@ public class FACES_1513_2185PortletTester extends BrowserDriverManagingTesterBas
 		ExporterComponentsTestUtil.runDownloadUsersCSVFileTest(browserDriver, "pe_exporter");
 
 		//J-
+		// Click the *result.xhtml* button.
+		// Verify that the test result status shows "SUCCESS" and not "FAILURE".
+		//J+
+		runSimpleFACESPortletTest(browserDriver, "faces-3327");
+
+		// Navigate the browser to the portal page that contains the FACES-3327 portlet.
+		browserDriver.navigateWindowTo(faces3327PageURL);
+
+		//J-
 		// Click the *Export via p:fileDownload* button.
 		// Verify that a CSV file was downloaded and the downloaded CSV file contains the following text exactly:
 		/*
@@ -74,5 +93,11 @@ public class FACES_1513_2185PortletTester extends BrowserDriverManagingTesterBas
 		*/
 		//J+
 		ExporterComponentsTestUtil.runDownloadUsersCSVFileTest(browserDriver, "p_fileDownload");
+
+		//J-
+		// Click the *result.xhtml* button.
+		// Verify that the test result status shows "SUCCESS" and not "FAILURE".
+		//J+
+		runSimpleFACESPortletTest(browserDriver, "faces-3327");
 	}
 }

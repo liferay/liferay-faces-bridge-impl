@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<h:head>
+		<h:outputStylesheet name="FACES-3327.css" />
+	</h:head>
+	<h:body>
+		<h:button class="testAction" outcome="/WEB-INF/views/FACES-3327/result.xhtml" value="result.xhtml" />
+		<div class="FACES_3327_hidden">
+			<p>Test: <span id="FACES-3327-test-name">FACES-3327</span></p>
+			<p>Status: <span id="FACES-3327-result-status">FAILURE</span></p>
+			<p>Detail: <span id="FACES-3327-result-detail">Failed to navigate after exporting/downloading data from a PrimeFaces component.</span></p>
+		</div>
+		<ui:include src="/WEB-INF/views/exporterComponents/exportDataTableView.xhtml" />
+	</h:body>
+
+</f:view>
