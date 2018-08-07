@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.issue.primefaces.FACES_1513_2185;
+package com.liferay.faces.issue.primefaces.exporter.components;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -33,9 +33,9 @@ import org.primefaces.model.StreamedContent;
 /**
  * @author  Kyle Stiemann
  */
-@ManagedBean(name = "FACES_1513_2185Bean")
+@ManagedBean(name = "exporterComponentsBean")
 @RequestScoped
-public class FACES_1513_2185Bean {
+public class ExporterComponentsBean {
 
 	//J-
 	private static final List<User> USERS = Arrays.asList(
