@@ -234,6 +234,15 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 				bridgeRequestScopeEnabled = PortletConfigParam.BridgeRequestScopeAjaxEnabled.getBooleanValue(
 						portletConfig);
 			}
+			else {
+
+				String facesExportComponentParameter = portletRequest.getParameter(
+						BridgeExt.FACES_EXPORT_COMPONENT_PARAMETER);
+
+				if (BooleanHelper.isTrueToken(facesExportComponentParameter)) {
+					bridgeRequestScopeEnabled = false;
+				}
+			}
 		}
 
 		if (bridgeRequestScopeEnabled) {
