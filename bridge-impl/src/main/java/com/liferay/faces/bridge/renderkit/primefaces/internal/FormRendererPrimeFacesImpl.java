@@ -35,6 +35,7 @@ import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeURL;
 import javax.portlet.faces.BridgeURLFactory;
 
+import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.RenderKitBridgeImpl;
 
 
@@ -112,6 +113,7 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 			try {
 				BridgeURL partialActionURL = bridgeURLFactory.getBridgePartialActionURL(facesContext, facesActionURL);
 				partialActionURL.removeParameter(Bridge.FACES_AJAX_PARAMETER);
+				partialActionURL.setParameter(BridgeExt.FACES_EXPORT_COMPONENT_PARAMETER, "true");
 
 				String nonAjaxPartialActionURL = partialActionURL.toString();
 				ResponseWriter responseWriter = facesContext.getResponseWriter();
