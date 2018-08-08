@@ -18,7 +18,6 @@ package com.liferay.faces.bridge.renderkit.primefaces.internal;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.application.ViewHandler;
 import javax.faces.component.ActionSource;
@@ -36,6 +35,7 @@ import javax.portlet.faces.BridgeException;
 import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.BridgeURLFactory;
+import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.RenderKitBridgeImpl;
 
 
@@ -113,6 +113,7 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 			try {
 				BridgeURL partialActionURL = bridgeURLFactory.getBridgePartialActionURL(facesContext, facesActionURL);
 				partialActionURL.removeParameter(Bridge.FACES_AJAX_PARAMETER);
+				partialActionURL.setParameter(BridgeExt.FACES_EXPORT_COMPONENT_PARAMETER, "true");
 
 				String nonAjaxPartialActionURL = partialActionURL.toString();
 				ResponseWriter responseWriter = facesContext.getResponseWriter();
