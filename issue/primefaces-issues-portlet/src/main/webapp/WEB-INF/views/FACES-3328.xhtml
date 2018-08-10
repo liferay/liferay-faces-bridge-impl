@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<h:head />
+	<h:body>
+		<h:link class="testAction" outcome="/WEB-INF/views/FACES-3328/result.xhtml" value="result.xhtml" />
+		<br />
+		<p:calendar id="p_calendar" showOn="button"
+					onblur="document.getElementById('ui-datepicker-div').style.display = null;" />
+		<br />
+		<p:selectOneMenu id="p_selectOneMenu">
+			<f:selectItem itemLabel="Item 1" itemValue="item1" />
+			<f:selectItem itemLabel="Item 2" itemValue="item2" />
+			<f:selectItem itemLabel="Item 3" itemValue="item3" />
+		</p:selectOneMenu>
+	</h:body>
+
+</f:view>
