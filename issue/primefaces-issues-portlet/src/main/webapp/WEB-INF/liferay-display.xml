@@ -8,5 +8,6 @@
 		<portlet id="FACES-3031" />
 		<portlet id="FACES-3250" />
 		<portlet id="FACES-3327" />
+		<portlet id="FACES-3328" />
 	</category>
 </display>
