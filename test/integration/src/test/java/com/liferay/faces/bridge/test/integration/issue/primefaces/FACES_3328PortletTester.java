@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.test.integration.issue.primefaces;
 
 import java.util.List;
 
+import org.junit.Assume;
 import org.junit.Test;
 
 import org.openqa.selenium.By;
@@ -26,6 +27,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.BrowserDriverManagingTesterBase;
+import com.liferay.faces.test.selenium.browser.TestUtil;
 import com.liferay.faces.test.selenium.browser.WaitingAsserter;
 
 
@@ -37,10 +39,15 @@ public class FACES_3328PortletTester extends BrowserDriverManagingTesterBase {
 	@Test
 	public void testFACES_3328PortletTester() {
 
+		String container = TestUtil.getContainer();
+		Assume.assumeTrue("This is a SennaJS/SPA related only for Liferay 7.0+",
+			(container.startsWith("liferay") && !container.equals("liferay62")));
+
 		// Navigate the browser to the portal page that contains the FACES-1513-2185 portlet.
 		BrowserDriver browserDriver = getBrowserDriver();
 		browserDriver.navigateWindowTo(BridgeTestUtil.getIssuePageURL("faces-3328-start"));
 		browserDriver.clickElement("//a[@href='" + BridgeTestUtil.getIssuePageURL("faces-3328") + "']");
+
 		String datePickerButtonXpath = "//button[contains(@class, 'ui-datepicker-trigger')]";
 		browserDriver.waitForElementEnabled(datePickerButtonXpath);
 		browserDriver.clickElement(datePickerButtonXpath);
