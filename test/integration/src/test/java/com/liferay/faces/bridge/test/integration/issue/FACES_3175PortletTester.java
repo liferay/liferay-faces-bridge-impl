@@ -30,7 +30,7 @@ public class FACES_3175PortletTester extends SimpleFACESPortletTester {
 	public void runFACES_3231PortletTest() {
 
 		String container = TestUtil.getContainer();
-		Assume.assumeTrue("This is a SennaJS/SPA related only for Liferay 7.0+",
+		Assume.assumeTrue("This is a SennaJS/SPA related test for Liferay 7.0+",
 			(container.startsWith("liferay") && !container.equals("liferay62")));
 		runSimpleFACESPortletTest("faces-3175");
 	}
