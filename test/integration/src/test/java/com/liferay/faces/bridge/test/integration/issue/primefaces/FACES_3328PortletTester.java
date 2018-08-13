@@ -40,7 +40,7 @@ public class FACES_3328PortletTester extends BrowserDriverManagingTesterBase {
 	public void testFACES_3328PortletTester() {
 
 		String container = TestUtil.getContainer();
-		Assume.assumeTrue("This is a SennaJS/SPA related only for Liferay 7.0+",
+		Assume.assumeTrue("This is a SennaJS/SPA related test for Liferay 7.0+",
 			(container.startsWith("liferay") && !container.equals("liferay62")));
 
 		// Navigate the browser to the portal page that contains the FACES-1513-2185 portlet.
