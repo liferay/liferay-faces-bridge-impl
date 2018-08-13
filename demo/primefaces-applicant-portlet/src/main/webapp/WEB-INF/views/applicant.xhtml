@@ -62,8 +62,8 @@
 								<p:message id="cityMessage" for="city" />
 							</alloy:field>
 							<alloy:field id="provinceIdField" label="#{i18n['state-province']}">
-								<p:selectOneMenu id="provinceId" label="#{i18n['state-province']}" required="true"
-									value="#{applicantModelBean.provinceId}">
+								<p:selectOneMenu id="provinceId" appendTo="@this" label="#{i18n['state-province']}"
+									required="true" value="#{applicantModelBean.provinceId}">
 									<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
 									<f:selectItems itemValue="#{province.provinceId}" itemLabel="#{province.provinceName}"
 										value="#{listModelBean.provinces}" var="province" />
