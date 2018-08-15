@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.context.ResponseWriterWrapper;
 
@@ -69,7 +70,17 @@ public class ResponseWriterResourceIdImpl extends ResponseWriterWrapper {
 			}
 
 			if (resourceName != null) {
-				writeAttribute("id", resourceName, null);
+
+				// In case this isn't the outermost ResponseWriter, get the outermost ResponseWriter and call
+				// writeAttribute(). This gives other ResponseWriter implmentations a chance to react to the fact that
+				// an id attribute has been rendered. For example, FACES-3175 requires that an id be rendered on each
+				// resource, but the ResponseWriterHeadResourceLiferayImpl in Bridge Ext detects if the id has already
+				// been written and skips writing it a second time if it has already been written. Since
+				// ResponseWriterHeadResourceLiferayImpl is the outermost ResponseWriter, it must be alerted to the fact
+				// that the id is written here. Other implementations may be similar.
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				ResponseWriter responseWriter = facesContext.getResponseWriter();
+				responseWriter.writeAttribute("id", resourceName, null);
 			}
 		}
 	}
