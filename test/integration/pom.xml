@@ -168,6 +168,19 @@
 					</plugin>
 				</plugins>
 			</build>
+			<dependencies>
+				<!--
+					This dependency is only included to ensure that all tests compile. Showcase tests are only run in
+					the selenium-alloy-showcase and selenium-jsf-showcase profiles.
+				-->
+				<dependency>
+					<groupId>com.liferay.faces.demo</groupId>
+					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+					<version>${liferay.faces.showcase.version}</version>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>selenium-alloy-showcase</id>
@@ -248,6 +261,13 @@
 				</plugins>
 			</build>
 			<dependencies>
+				<dependency>
+					<groupId>com.liferay.faces.demo</groupId>
+					<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
+					<version>${liferay.faces.showcase.version}</version>
+					<type>test-jar</type>
+					<scope>test</scope>
+				</dependency>
 				<dependency>
 					<groupId>com.liferay.faces.demo</groupId>
 					<artifactId>com.liferay.faces.demo.alloy.showcase.webapp</artifactId>
@@ -404,17 +424,6 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!--
-			This dependency is only included to ensure that all tests compile. Showcase tests are only run in
-			the selenium-alloy-showcase and selenium-jsf-showcase profiles.
-		-->
-		<dependency>
-			<groupId>com.liferay.faces.demo</groupId>
-			<artifactId>com.liferay.faces.demo.jsf.showcase.webapp</artifactId>
-			<version>${liferay.faces.showcase.version}</version>
-			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<!-- End integration test dependencies. -->
