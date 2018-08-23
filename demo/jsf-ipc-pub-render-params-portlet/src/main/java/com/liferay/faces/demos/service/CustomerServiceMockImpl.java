@@ -15,8 +15,9 @@
  */
 package com.liferay.faces.demos.service;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -48,8 +49,8 @@ public class CustomerServiceMockImpl implements CustomerService {
 	private BookingService bookingService;
 
 	@Override
-	public Collection<Customer> getAllCustomers() {
-		return Collections.unmodifiableCollection(allCustomers.values());
+	public List<Customer> getAllCustomers() {
+		return Collections.unmodifiableList(new ArrayList<Customer>(allCustomers.values()));
 	}
 
 	public BookingService getBookingService() {
