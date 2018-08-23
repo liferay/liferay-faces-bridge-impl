@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.demos.bean;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -44,9 +44,9 @@ public class CustomersModelBean {
 	private CustomerService customerService;
 
 	// Private Bean Properties
-	private Collection<Customer> allCustomers;
+	private List<Customer> allCustomers;
 
-	public Collection<Customer> getAllCustomers() {
+	public List<Customer> getAllCustomers() {
 		return allCustomers;
 	}
 
