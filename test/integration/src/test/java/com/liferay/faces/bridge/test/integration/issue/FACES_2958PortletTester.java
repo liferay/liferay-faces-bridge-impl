@@ -15,16 +15,25 @@
  */
 package com.liferay.faces.bridge.test.integration.issue;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.junit.Assume;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.openqa.selenium.WebElement;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.liferay.faces.bridge.test.integration.BridgeTestUtil;
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.TestUtil;
+
+import junit.runner.BaseTestRunner;
 
 
 /**
@@ -32,9 +41,47 @@ import com.liferay.faces.test.selenium.browser.TestUtil;
  */
 public class FACES_2958PortletTester extends SimpleFACESPortletTester {
 
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(FACES_2958PortletTester.class);
+
 	// Private Constants
 	private static final String TEST_PAGE_LINKS_XPATH =
 		"//div[contains(@class,'liferay-faces-bridge-body')]//a[not(contains(text(),'FACES-2958'))]";
+
+	@BeforeClass
+	public static void allowFullLengthTestResultMessages() {
+		BaseTestRunner.setPreference("maxmessage", "-1");
+	}
+
+	private static void appendTestLinkText(StringBuilder testResults, String testLinkText) {
+
+		if (testResults.length() > 0) {
+			testResults.append(", ");
+		}
+
+		testResults.append("\"");
+		testResults.append(testLinkText);
+		testResults.append("\"");
+	}
+
+	private static String getTestResultMessage(StringBuilder failureTestResults, StringBuilder errorTestResults) {
+
+		StringBuilder stringBuilder = new StringBuilder();
+
+		if (failureTestResults.length() > 0) {
+
+			stringBuilder.append("The following test links failed: ");
+			stringBuilder.append(failureTestResults);
+		}
+
+		if (errorTestResults.length() > 0) {
+
+			stringBuilder.append("\nThe following test links threw an error: ");
+			stringBuilder.append(errorTestResults);
+		}
+
+		return stringBuilder.toString();
+	}
 
 	@Test
 	public void runFACES_2958PortletTest() {
@@ -43,11 +90,45 @@ public class FACES_2958PortletTester extends SimpleFACESPortletTester {
 		Assume.assumeTrue(container.startsWith("liferay"));
 
 		BrowserDriver browserDriver = getBrowserDriver();
-		runFACES_2958PortletTest(browserDriver, "faces-2958");
-		runFACES_2958PortletTest(browserDriver, "faces-2958-friendlyURL");
+		Map<String, Throwable> testResults = new LinkedHashMap<String, Throwable>();
+		testResults.putAll(getFACES_2958PortletTestResults(browserDriver, "faces-2958"));
+		testResults.putAll(getFACES_2958PortletTestResults(browserDriver, "faces-2958-friendlyURL"));
+
+		if (!testResults.isEmpty()) {
+
+			boolean error = false;
+			Set<String> keySet = testResults.keySet();
+			StringBuilder errorTestResults = new StringBuilder();
+			StringBuilder failureTestResults = new StringBuilder();
+
+			for (String key : keySet) {
+
+				Throwable t = testResults.get(key);
+				String messagePrefix = "Failure: ";
+
+				if (t instanceof AssertionError) {
+					appendTestLinkText(failureTestResults, key);
+				}
+				else {
+
+					error = true;
+					messagePrefix = "Error: ";
+					appendTestLinkText(errorTestResults, key);
+				}
+
+				logger.error(messagePrefix + "\"" + key + "\" link test:", t);
+			}
+
+			if (error) {
+				throw new RuntimeException(getTestResultMessage(failureTestResults, errorTestResults));
+			}
+			else {
+				throw new AssertionError(getTestResultMessage(failureTestResults, errorTestResults));
+			}
+		}
 	}
 
-	private void runFACES_2958PortletTest(BrowserDriver browserDriver, String testPortlet) {
+	private Map<String, Throwable> getFACES_2958PortletTestResults(BrowserDriver browserDriver, String testPortlet) {
 
 		String issuePageURL = BridgeTestUtil.getIssuePageURL(testPortlet);
 		browserDriver.navigateWindowTo(issuePageURL);
@@ -58,19 +139,41 @@ public class FACES_2958PortletTester extends SimpleFACESPortletTester {
 			throw new RuntimeException("No test links founds.");
 		}
 
+		Map<String, Throwable> testResults = new LinkedHashMap<String, Throwable>();
+
 		for (int i = 1; i <= linkElements.size(); i++) {
 
 			browserDriver.navigateWindowTo(issuePageURL);
-			browserDriver.clickElement("(" + TEST_PAGE_LINKS_XPATH + ")[" + i + "]");
 
-			String resultStatusXpath = getResultStatusXpath("faces-2958");
+			String testPageLinkXpath = "(" + TEST_PAGE_LINKS_XPATH + ")[" + i + "]";
+			WebElement testPageLink = browserDriver.findElementByXpath(testPageLinkXpath);
+			String testLinkName = testPageLink.getText();
 
-			if (!(isElementDisplayed(browserDriver, resultStatusXpath) ||
-						isElementDisplayed(browserDriver, TEST_ACTION_XPATH))) {
-				browserDriver.waitForElementEnabled("(" + TEST_ACTION_XPATH + "|" + resultStatusXpath + ")");
+			try {
+
+				browserDriver.clickElement(testPageLinkXpath);
+
+				String resultStatusXpath = getResultStatusXpath("faces-2958");
+
+				if (!(isElementDisplayed(browserDriver, resultStatusXpath) ||
+							isElementDisplayed(browserDriver, TEST_ACTION_XPATH))) {
+					browserDriver.waitForElementEnabled("(" + TEST_ACTION_XPATH + "|" + resultStatusXpath + ")");
+				}
+
+				runSimpleFACESPortletTest(browserDriver, "faces-2958");
 			}
+			catch (Throwable t) {
 
-			runSimpleFACESPortletTest(browserDriver, "faces-2958");
+				String key = testLinkName;
+
+				if (testPortlet.contains("friendlyURL")) {
+					key += " friendlyURL";
+				}
+
+				testResults.put(key, t);
+			}
 		}
+
+		return testResults;
 	}
 }
