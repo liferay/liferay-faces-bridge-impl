@@ -104,6 +104,9 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 		this.facesLifecycle = lifecycleFactory.getLifecycle(lifecycleId);
 	}
 
+	protected abstract void queueHandleableException(PortletRequest portletRequest, FacesContext facesContext,
+		Exception e);
+
 	protected abstract void removeBridgeContextAttribute(PortletRequest portletRequest);
 
 	protected abstract void setBridgeContextAttribute(PortletRequest portletRequest);
@@ -364,9 +367,9 @@ public abstract class BridgePhaseBaseImpl implements BridgePhase {
 						// http://issues.liferay.com/browse/FACES-1367
 					}
 
-					// Otherwise throw the IllegalStateException.
+					// Otherwise queue the IllegalStateException.
 					else {
-						throw e;
+						queueHandleableException(portletRequest, facesContext, e);
 					}
 				}
 			}
