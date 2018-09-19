@@ -27,6 +27,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 import javax.portlet.PortletConfig;
+import javax.portlet.PortletRequest;
+import javax.portlet.faces.BridgeException;
+import javax.portlet.faces.BridgeInvalidViewPathException;
 
 import com.liferay.faces.bridge.BridgeConfig;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.HeadManagedBean;
@@ -59,51 +62,6 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 		}
 	}
 
-	protected Throwable getJSF2HandledException(FacesContext facesContext) {
-
-		Throwable handledException = null;
-
-		ExceptionHandler exceptionHandler = facesContext.getExceptionHandler();
-		Iterable<ExceptionQueuedEvent> handledExceptionQueuedEvents =
-			exceptionHandler.getHandledExceptionQueuedEvents();
-
-		if (handledExceptionQueuedEvents != null) {
-			Iterator<ExceptionQueuedEvent> itr = handledExceptionQueuedEvents.iterator();
-
-			while (itr.hasNext()) {
-				ExceptionQueuedEvent exceptionQueuedEvent = itr.next();
-				ExceptionQueuedEventContext exceptionQueuedEventContext = exceptionQueuedEvent.getContext();
-				handledException = exceptionQueuedEventContext.getException();
-
-				break;
-			}
-		}
-
-		return handledException;
-	}
-
-	protected Throwable getJSF2UnhandledException(FacesContext facesContext) {
-
-		Throwable unhandledException = null;
-		ExceptionHandler exceptionHandler = facesContext.getExceptionHandler();
-		Iterable<ExceptionQueuedEvent> unhandledExceptionQueuedEvents =
-			exceptionHandler.getUnhandledExceptionQueuedEvents();
-
-		if (unhandledExceptionQueuedEvents != null) {
-			Iterator<ExceptionQueuedEvent> itr = unhandledExceptionQueuedEvents.iterator();
-
-			while (itr.hasNext()) {
-				ExceptionQueuedEvent exceptionQueuedEvent = itr.next();
-				ExceptionQueuedEventContext exceptionQueuedEventContext = exceptionQueuedEvent.getContext();
-				unhandledException = exceptionQueuedEventContext.getException();
-
-				break;
-			}
-		}
-
-		return unhandledException;
-	}
-
 	protected void handleJSF2ResourceRequest(FacesContext facesContext) throws IOException {
 		ResourceHandler resourceHandler = facesContext.getApplication().getResourceHandler();
 		resourceHandler.handleResourceRequest(facesContext);
@@ -117,5 +75,72 @@ public abstract class BridgePhaseCompat_2_0_Impl extends BridgePhaseCompat_1_2_I
 		ResourceHandler resourceHandler = facesContext.getApplication().getResourceHandler();
 
 		return resourceHandler.isResourceRequest(facesContext);
+	}
+
+	@Override
+	protected void queueHandleableException(PortletRequest portletRequest, FacesContext facesContext, Exception e) {
+
+		ExceptionHandler exceptionHandler = facesContext.getExceptionHandler();
+		ExceptionQueuedEventContext exceptionQueuedEventContext = new ExceptionQueuedEventContext(facesContext, e);
+		ExceptionQueuedEvent exceptionQueuedEvent = new ExceptionQueuedEvent(exceptionQueuedEventContext);
+		exceptionHandler.processEvent(exceptionQueuedEvent);
+	}
+
+	protected void throwQueuedExceptionIfNecessary(FacesContext facesContext) throws BridgeException {
+
+		// If there were any "handled" exceptions queued, then throw a BridgeException.
+		ExceptionHandler exceptionHandler = facesContext.getExceptionHandler();
+		Throwable t = getQueuedException(exceptionHandler, true);
+
+		if (t == null) {
+
+			// Otherwise, if there were any "unhandled" exceptions queued, then throw a BridgeException.
+			t = getQueuedException(exceptionHandler, false);
+		}
+
+		if (t != null) {
+
+			if (t instanceof BridgeException) {
+				throw (BridgeException) t;
+			}
+			else {
+
+				Throwable cause = t.getCause();
+
+				if ((cause != null) && (cause instanceof BridgeInvalidViewPathException)) {
+					throw (BridgeException) cause;
+				}
+				else {
+					throw new BridgeException(t);
+				}
+			}
+		}
+	}
+
+	private Throwable getQueuedException(ExceptionHandler exceptionHandler, boolean handled) {
+
+		Throwable t = null;
+		Iterable<ExceptionQueuedEvent> exceptionQueuedEvents;
+
+		if (handled) {
+			exceptionQueuedEvents = exceptionHandler.getHandledExceptionQueuedEvents();
+		}
+		else {
+			exceptionQueuedEvents = exceptionHandler.getUnhandledExceptionQueuedEvents();
+		}
+
+		if (exceptionQueuedEvents != null) {
+			Iterator<ExceptionQueuedEvent> itr = exceptionQueuedEvents.iterator();
+
+			while (itr.hasNext()) {
+				ExceptionQueuedEvent exceptionQueuedEvent = itr.next();
+				ExceptionQueuedEventContext exceptionQueuedEventContext = exceptionQueuedEvent.getContext();
+				t = exceptionQueuedEventContext.getException();
+
+				break;
+			}
+		}
+
+		return t;
 	}
 }

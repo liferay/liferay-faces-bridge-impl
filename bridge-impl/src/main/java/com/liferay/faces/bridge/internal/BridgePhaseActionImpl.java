@@ -90,20 +90,7 @@ public class BridgePhaseActionImpl extends BridgePhaseCompat_2_2_Impl {
 			// Execute all the phases of the JSF lifecycle except for RENDER_RESPONSE since that can only be executed
 			// during the RENDER_PHASE of the portlet lifecycle.
 			facesLifecycle.execute(facesContext);
-
-			// If there were any "handled" exceptions queued, then throw a BridgeException.
-			Throwable handledException = getJSF2HandledException(facesContext);
-
-			if (handledException != null) {
-				throw new BridgeException(handledException);
-			}
-
-			// Otherwise, if there were any "unhandled" exceptions queued, then throw a BridgeException.
-			Throwable unhandledException = getJSF2UnhandledException(facesContext);
-
-			if (unhandledException != null) {
-				throw new BridgeException(unhandledException);
-			}
+			throwQueuedExceptionIfNecessary(facesContext);
 
 			// Set a flag on the bridge request scope indicating that the Faces Lifecycle has executed.
 			bridgeRequestScope.setFacesLifecycleExecuted(true);
