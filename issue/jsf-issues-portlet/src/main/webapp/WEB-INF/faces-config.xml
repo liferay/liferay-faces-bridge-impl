@@ -6,5 +6,6 @@
 	</lifecycle>
 	<factory>
 		<render-kit-factory>com.liferay.faces.issue.FACES_1618.RenderKitFactoryImpl</render-kit-factory>
+		<exception-handler-factory>com.liferay.faces.issue.ExceptionHandlerFactoryFACES_3356Impl</exception-handler-factory>
 	</factory>
 </faces-config>
