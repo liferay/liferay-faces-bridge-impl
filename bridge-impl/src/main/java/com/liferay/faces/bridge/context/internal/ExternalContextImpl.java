@@ -67,6 +67,8 @@ import com.liferay.faces.bridge.context.map.internal.RequestHeaderValuesMap;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseHeaderAdapter;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseResourceAdapter;
 import com.liferay.faces.bridge.internal.BridgeExt;
+import com.liferay.faces.bridge.internal.BridgePhaseCompat_2_0_Impl;
+import com.liferay.faces.bridge.internal.BridgePhaseHeaderRenderCommon;
 import com.liferay.faces.bridge.internal.BridgeURI;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.LocaleIterator;
@@ -1072,24 +1074,31 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	protected FacesView getFacesView() throws BridgeDefaultViewNotSpecifiedException, BridgeInvalidViewPathException {
 
 		if (facesView == null) {
-			String fullViewId = getFacesViewIdAndQueryString();
-			String viewId = null;
-			String navigationQueryString = null;
 
-			if (fullViewId != null) {
-				int pos = fullViewId.indexOf("?");
-
-				if (pos > 0) {
-					navigationQueryString = fullViewId.substring(pos + 1);
-					viewId = fullViewId.substring(0, pos);
-				}
-				else {
-					viewId = fullViewId;
-				}
+			if (BridgePhaseHeaderRenderCommon.isHandlingBridgeInvalidViewPathException(portletRequest)) {
+				facesView = new FacesViewImpl(null, Collections.<String>emptyList(),
+						Collections.<ConfiguredServletMapping>emptyList());
 			}
+			else {
+				String fullViewId = getFacesViewIdAndQueryString();
+				String viewId = null;
+				String navigationQueryString = null;
 
-			facesView = new FacesViewImpl(viewId, navigationQueryString, configuredSuffixes,
-					configuredFacesServletMappings);
+				if (fullViewId != null) {
+					int pos = fullViewId.indexOf("?");
+
+					if (pos > 0) {
+						navigationQueryString = fullViewId.substring(pos + 1);
+						viewId = fullViewId.substring(0, pos);
+					}
+					else {
+						viewId = fullViewId;
+					}
+				}
+
+				facesView = new FacesViewImpl(viewId, navigationQueryString, configuredSuffixes,
+						configuredFacesServletMappings);
+			}
 		}
 
 		return facesView;

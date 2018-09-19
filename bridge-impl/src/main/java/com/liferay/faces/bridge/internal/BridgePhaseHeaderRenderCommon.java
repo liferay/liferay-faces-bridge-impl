@@ -20,6 +20,7 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.FacesException;
 import javax.faces.application.NavigationHandler;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
@@ -31,11 +32,13 @@ import javax.faces.event.PhaseListener;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletMode;
+import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeException;
+import javax.portlet.faces.BridgeInvalidViewPathException;
 
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandler;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandlerImpl;
@@ -57,8 +60,20 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgePhaseHeaderRenderCommon.class);
 
+	// Private Constants
+	private static final String HANDLING_BRIDGE_INVALID_VIEW_PATH_EXCEPTION = BridgePhaseHeaderRenderCommon.class
+		.getName() + ".HANDLING_BRIDGE_INVALID_VIEW_PATH_EXCEPTION";
+
 	public BridgePhaseHeaderRenderCommon(PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 		super(portletConfig, bridgeConfig);
+	}
+
+	public static boolean isHandlingBridgeInvalidViewPathException(PortletRequest portletRequest) {
+
+		Boolean handlingBridgeInvalidViewPathException = (Boolean) portletRequest.getAttribute(
+				HANDLING_BRIDGE_INVALID_VIEW_PATH_EXCEPTION);
+
+		return ((handlingBridgeInvalidViewPathException != null) && handlingBridgeInvalidViewPathException);
 	}
 
 	protected abstract MimeResponse getMimeResponse();
@@ -170,29 +185,47 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 				}
 
 				logger.error("Unable to get viewId due to {0}", e.getClass().getSimpleName());
-				throw e;
+
+				if (e instanceof BridgeInvalidViewPathException) {
+
+					renderRequest.setAttribute(HANDLING_BRIDGE_INVALID_VIEW_PATH_EXCEPTION, true);
+					queueHandleableException(renderRequest, facesContext, e);
+				}
+				else {
+					throw e;
+				}
 			}
 
 			// Attach the JSF 2.2 client window to the JSF lifecycle so that Faces Flows can be utilized.
 			attachClientWindowToLifecycle(facesContext, facesLifecycle);
 
 			// Execute the JSF lifecycle.
-			facesLifecycle.execute(facesContext);
+			if (isHandlingBridgeInvalidViewPathException(renderRequest)) {
+
+				try {
+					facesLifecycle.execute(facesContext);
+				}
+				catch (FacesException e) {
+
+					Throwable cause = e.getCause();
+
+					if ((cause != null) && (cause instanceof BridgeInvalidViewPathException)) {
+						throw (BridgeException) cause;
+					}
+					else {
+						throw e;
+					}
+				}
+				finally {
+					renderRequest.removeAttribute(HANDLING_BRIDGE_INVALID_VIEW_PATH_EXCEPTION);
+				}
+			}
+			else {
+				facesLifecycle.execute(facesContext);
+			}
 		}
 
-		// If there were any "handled" exceptions queued, then throw a BridgeException.
-		Throwable handledException = getJSF2HandledException(facesContext);
-
-		if (handledException != null) {
-			throw new BridgeException(handledException);
-		}
-
-		// Otherwise, if there were any "unhandled" exceptions queued, then throw a BridgeException.
-		Throwable unhandledException = getJSF2UnhandledException(facesContext);
-
-		if (unhandledException != null) {
-			throw new BridgeException(unhandledException);
-		}
+		throwQueuedExceptionIfNecessary(facesContext);
 
 		// Otherwise, if the PortletMode has changed, and a navigation-rule hasn't yet fired (which could have happened
 		// in the EVENT_PHASE), then switch to the appropriate PortletMode and navigate to the current viewId in the
