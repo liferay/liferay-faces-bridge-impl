@@ -137,6 +137,7 @@
 										<integration.browser.simulate.mobile>${integration.browser.simulate.mobile}</integration.browser.simulate.mobile>
 										<integration.browser.driver.wait.time.out>${integration.browser.driver.wait.time.out}</integration.browser.driver.wait.time.out>
 										<integration.container>${integration.container}</integration.container>
+										<integration.protocol>${integration.protocol}</integration.protocol>
 										<integration.host>${integration.host}</integration.host>
 										<integration.port>${integration.port}</integration.port>
 										<integration.demo.context>${integration.demo.context}</integration.demo.context>
@@ -225,6 +226,7 @@
 										<integration.browser.simulate.mobile>${integration.browser.simulate.mobile}</integration.browser.simulate.mobile>
 										<integration.browser.driver.wait.time.out>${integration.browser.driver.wait.time.out}</integration.browser.driver.wait.time.out>
 										<integration.container>${integration.container}</integration.container>
+										<integration.protocol>${integration.protocol}</integration.protocol>
 										<integration.host>${integration.host}</integration.host>
 										<integration.port>${integration.port}</integration.port>
 										<integration.showcase.context>${integration.alloy.showcase.context}</integration.showcase.context>
@@ -315,6 +317,7 @@
 										<integration.browser.simulate.mobile>${integration.browser.simulate.mobile}</integration.browser.simulate.mobile>
 										<integration.browser.driver.wait.time.out>${integration.browser.driver.wait.time.out}</integration.browser.driver.wait.time.out>
 										<integration.container>${integration.container}</integration.container>
+										<integration.protocol>${integration.protocol}</integration.protocol>
 										<integration.host>${integration.host}</integration.host>
 										<integration.port>${integration.port}</integration.port>
 										<integration.showcase.context>${integration.showcase.context}</integration.showcase.context>
