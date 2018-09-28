@@ -21,17 +21,30 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.el.ELContext;
 import javax.el.ELException;
+import javax.el.PropertyNotFoundException;
+import javax.el.PropertyNotWritableException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.EventRequest;
+import javax.portlet.EventResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
+import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeFactoryFinder;
@@ -104,35 +117,48 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 
 		// Initialize the list of static feature descriptors.
 		List<FeatureDescriptor> featureDescriptors = new ArrayList<FeatureDescriptor>();
-		featureDescriptors.add(getFeatureDescriptor(ACTION_REQUEST, String.class));
-		featureDescriptors.add(getFeatureDescriptor(ACTION_RESPONSE, String.class));
-		featureDescriptors.add(getFeatureDescriptor(BRIDGE_CONTEXT, String.class));
-		featureDescriptors.add(getFeatureDescriptor(EVENT_REQUEST, String.class));
-		featureDescriptors.add(getFeatureDescriptor(EVENT_RESPONSE, String.class));
-		featureDescriptors.add(getFeatureDescriptor(FLASH, String.class));
-		featureDescriptors.add(getFeatureDescriptor(HTTP_SESSION_SCOPE, String.class));
-		featureDescriptors.add(getFeatureDescriptor(MUTABLE_PORTLET_PREFERENCES_VALUES, String.class));
-		featureDescriptors.add(getFeatureDescriptor(PORTLET_CONFIG, String.class));
-		featureDescriptors.add(getFeatureDescriptor(PORTLET_SESSION, String.class));
-		featureDescriptors.add(getFeatureDescriptor(PORTLET_SESSION_SCOPE, String.class));
-		featureDescriptors.add(getFeatureDescriptor(PORTLET_PREFERENCES, String.class));
-		featureDescriptors.add(getFeatureDescriptor(PORTLET_PREFERENCES_VALUES, String.class));
-		featureDescriptors.add(getFeatureDescriptor(RENDER_REQUEST, String.class));
-		featureDescriptors.add(getFeatureDescriptor(RENDER_RESPONSE, String.class));
-		featureDescriptors.add(getFeatureDescriptor(RESOURCE_REQUEST, String.class));
-		featureDescriptors.add(getFeatureDescriptor(RESOURCE_RESPONSE, String.class));
+		featureDescriptors.add(getFeatureDescriptor(ACTION_REQUEST, ActionRequest.class));
+		featureDescriptors.add(getFeatureDescriptor(ACTION_RESPONSE, ActionResponse.class));
+		featureDescriptors.add(getFeatureDescriptor(BRIDGE_CONTEXT, LegacyBridgeContext.class));
+		featureDescriptors.add(getFeatureDescriptor(EVENT_REQUEST, EventRequest.class));
+		featureDescriptors.add(getFeatureDescriptor(EVENT_RESPONSE, EventResponse.class));
+		featureDescriptors.add(getFeatureDescriptor(FLASH, Flash.class));
+		featureDescriptors.add(getFeatureDescriptor(HTTP_SESSION_SCOPE, Map.class));
+		featureDescriptors.add(getFeatureDescriptor(MUTABLE_PORTLET_PREFERENCES_VALUES, Map.class));
+		featureDescriptors.add(getFeatureDescriptor(PORTLET_CONFIG, PortletConfig.class));
+		featureDescriptors.add(getFeatureDescriptor(PORTLET_SESSION, PortletSession.class));
+		featureDescriptors.add(getFeatureDescriptor(PORTLET_SESSION_SCOPE, Map.class));
+		featureDescriptors.add(getFeatureDescriptor(PORTLET_PREFERENCES, PortletPreferences.class));
+		featureDescriptors.add(getFeatureDescriptor(PORTLET_PREFERENCES_VALUES, Map.class));
+		featureDescriptors.add(getFeatureDescriptor(RENDER_REQUEST, RenderRequest.class));
+		featureDescriptors.add(getFeatureDescriptor(RENDER_RESPONSE, RenderResponse.class));
+		featureDescriptors.add(getFeatureDescriptor(RESOURCE_REQUEST, ResourceRequest.class));
+		featureDescriptors.add(getFeatureDescriptor(RESOURCE_RESPONSE, ResourceResponse.class));
 		featureDescriptors.addAll(FEATURE_DESCRIPTORS_COMPAT);
 		FEATURE_DESCRIPTORS = Collections.unmodifiableList(featureDescriptors);
 	}
 
 	@Override
 	public Class<?> getCommonPropertyType(ELContext elContext, Object base) {
-		return null;
+
+		Class<?> commonPropertyType = null;
+
+		if (base == null) {
+			commonPropertyType = String.class;
+		}
+
+		return commonPropertyType;
 	}
 
 	@Override
 	public Iterator<FeatureDescriptor> getFeatureDescriptors(ELContext elContext, Object base) {
-		return FEATURE_DESCRIPTORS.iterator();
+
+		if (base != null) {
+			return null;
+		}
+		else {
+			return FEATURE_DESCRIPTORS.iterator();
+		}
 	}
 
 	@Override
@@ -144,7 +170,15 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 			throw new NullPointerException("elContext may not be null");
 		}
 
-		return String.class;
+		if ((base == null) && (property == null)) {
+			throw new PropertyNotFoundException("Property name is null.");
+		}
+
+		if ((base == null) && canHandleVar(property)) {
+			elContext.setPropertyResolved(true);
+		}
+
+		return null;
 	}
 
 	@Override
@@ -155,9 +189,14 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 			// Throw an exception as directed by the JavaDoc for ELContext.
 			throw new NullPointerException();
 		}
-		else {
 
-			Object value;
+		if ((base == null) && (property == null)) {
+			throw new PropertyNotFoundException("Property name is null.");
+		}
+
+		Object value = null;
+
+		if (base == null) {
 
 			// If running inside a JSP context, meaning evaluation of a JSP-syntax (dollar-sign prefixed) EL expression
 			// like ${portletConfig} then
@@ -174,14 +213,27 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				// Resolve according to the JSF expression requirements of Section 6.5.2.2 of the JSR 329 Spec.
 				value = resolveFacesContext(elContext, base, property);
 			}
-
-			return value;
 		}
+
+		return value;
 	}
 
 	@Override
 	public boolean isReadOnly(ELContext elContext, Object base, Object property) {
-		return true;
+
+		if ((base == null) && (property == null)) {
+			throw new PropertyNotFoundException("Property name is null.");
+		}
+
+		if ((base == null) && canHandleVar(property)) {
+
+			elContext.setPropertyResolved(true);
+
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
@@ -191,6 +243,14 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 
 			// Throw an exception as directed by the JavaDoc for ELContext.
 			throw new NullPointerException("elContext may not be null");
+		}
+
+		if ((base == null) && (property == null)) {
+			throw new PropertyNotFoundException("Property name is null.");
+		}
+
+		if ((base == null) && canHandleVar(property)) {
+			throw new PropertyNotWritableException(property.toString());
 		}
 	}
 
@@ -465,5 +525,10 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		}
 
 		return value;
+	}
+
+	private boolean canHandleVar(Object property) {
+		return (property instanceof String) &&
+			(isFacesContextVar((String) property) || JSP_CONTEXT_VAR_NAMES.contains(property));
 	}
 }
