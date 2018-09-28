@@ -31,20 +31,29 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_5_1;
 
+import java.beans.FeatureDescriptor;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import javax.el.ELContext;
 import javax.el.ELResolver;
+import javax.el.PropertyNotFoundException;
+import javax.el.PropertyNotWritableException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.preference.Preference;
+import javax.portlet.filter.RenderRequestWrapper;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
@@ -55,6 +64,61 @@ import com.liferay.faces.bridge.tck.common.Constants;
  * @author  jhaley
  */
 public class Tests {
+
+	private static final Map<String, Class<?>> EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES;
+
+	static {
+
+		Map<String, Class<?>> expectedElResolverFeatureDescriptorTypes = new HashMap<String, Class<?>>();
+		expectedElResolverFeatureDescriptorTypes.put("portletConfig", javax.portlet.PortletConfig.class);
+		expectedElResolverFeatureDescriptorTypes.put("actionRequest", javax.portlet.ActionRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("actionResponse", javax.portlet.ActionResponse.class);
+		expectedElResolverFeatureDescriptorTypes.put("eventRequest", javax.portlet.EventRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("eventResponse", javax.portlet.EventResponse.class);
+		addExpectedFeatureDescriptorTypeIfPossible("headerRequest", "javax.portlet.HeaderRequest",
+			expectedElResolverFeatureDescriptorTypes);
+		addExpectedFeatureDescriptorTypeIfPossible("headerResponse", "javax.portlet.HeaderResponse",
+			expectedElResolverFeatureDescriptorTypes);
+		expectedElResolverFeatureDescriptorTypes.put("renderRequest", javax.portlet.RenderRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("renderResponse", javax.portlet.RenderResponse.class);
+		expectedElResolverFeatureDescriptorTypes.put("resourceRequest", javax.portlet.ResourceRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("resourceResponse", javax.portlet.ResourceResponse.class);
+		expectedElResolverFeatureDescriptorTypes.put("portletSession", javax.portlet.PortletSession.class);
+		expectedElResolverFeatureDescriptorTypes.put("portletSessionScope", Map.class);
+		expectedElResolverFeatureDescriptorTypes.put("httpSessionScope", Map.class);
+		expectedElResolverFeatureDescriptorTypes.put("portletPreferences", javax.portlet.PortletPreferences.class);
+		expectedElResolverFeatureDescriptorTypes.put("portletPreferencesValues", Map.class);
+		expectedElResolverFeatureDescriptorTypes.put("mutablePortletPreferencesValues", Map.class);
+		EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES = Collections.unmodifiableMap(
+				expectedElResolverFeatureDescriptorTypes);
+	}
+
+	private static void addExpectedFeatureDescriptorTypeIfPossible(String key, String classNameValue,
+		Map<String, Class<?>> map) {
+
+		try {
+			map.put(key, Class.forName(classNameValue));
+		}
+		catch (ClassNotFoundException e) {
+			// no-op
+		}
+		catch (NoClassDefFoundError e) {
+			// no-op
+		}
+	}
+
+	//J-
+//	// Unfortunately ELResolver.getFeatureDescriptors() cannot be tested in the TCK due to JSF implementation
+//	// bugs. If you are an implementor, consider adding a unit test that tests the features below instead.
+//	private static boolean isFeatureDescriptorValid(String name, FeatureDescriptor featureDescriptor, Class<?> clazz) {
+//
+//		return (featureDescriptor != null) && clazz.equals(featureDescriptor.getValue(ELResolver.TYPE)) &&
+//			Boolean.TRUE.equals(featureDescriptor.getValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME)) &&
+//			name.equals(featureDescriptor.getName()) && name.equals(featureDescriptor.getName()) &&
+//			(featureDescriptor.getShortDescription() != null) && !featureDescriptor.isExpert() &&
+//			!featureDescriptor.isHidden() && featureDescriptor.isPreferred();
+//	}
+	//J+
 
 	/**
 	 * Testing JSF EL - implicits are in alpha order.
@@ -67,7 +131,8 @@ public class Tests {
 	public String JSF_ELTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		ELResolver facesResolver = facesContext.getELContext().getELResolver();
+		ELContext elContext = facesContext.getELContext();
+		ELResolver facesResolver = elContext.getELResolver();
 
 		// Test that each implicit object is accessible and has the right value in
 		// both the action phase and render phase
@@ -285,6 +350,199 @@ public class Tests {
 				fail(testBean, "JSF EL failure in render request: " + t.getCause().toString());
 			}
 
+			// Test ELResolver.getType()
+			try {
+
+				facesResolver.getType(elContext, null, null);
+				fail(testBean, "PropertyNotFoundException not thrown when calling getType(elContext, null, null). ");
+			}
+			catch (PropertyNotFoundException e) {
+				// Passed.
+			}
+
+			Set<Map.Entry<String, Class<?>>> entrySet = EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES.entrySet();
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append(
+				"getType() didn't return null or elContext.setPropertyResolved(true) wasn't called for the following values: ");
+
+			boolean first = true;
+
+			for (Map.Entry<String, Class<?>> entry : entrySet) {
+
+				String name = entry.getKey();
+
+				if ((facesResolver.getType(elContext, null, name) != null) || !elContext.isPropertyResolved()) {
+
+					if (!first) {
+						stringBuilder.append(", ");
+					}
+
+					stringBuilder.append(name);
+					first = false;
+				}
+			}
+
+			if (!first) {
+
+				stringBuilder.append(". ");
+				fail(testBean, stringBuilder.toString());
+			}
+
+			// Test ELResolver.setValue()
+			try {
+
+				facesResolver.setValue(elContext, null, null, "facesContext");
+				fail(testBean,
+					"PropertyNotFoundException not thrown when calling setValue(elContext, null, null, value). ");
+			}
+			catch (PropertyNotFoundException e) {
+				// Passed.
+			}
+
+			Set<String> keySet = EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES.keySet();
+			stringBuilder.setLength(0);
+			stringBuilder.append(
+				"setValue(elContext, null, name, value) didn't throw PropertyNotWritableException when name was set to the following values: ");
+
+			first = true;
+
+			for (String name : keySet) {
+
+				if ((name.endsWith("Request") || name.endsWith("Response")) &&
+						!(name.startsWith("render") || name.startsWith("header"))) {
+
+					// Cannot test EL keywords for different portlet phases.
+					continue;
+				}
+
+				Object originalValue = facesResolver.getValue(elContext, null, name);
+
+				try {
+
+					facesResolver.setValue(elContext, null, name, name);
+
+					// Reset the original value so other parts of the test don't fail.
+					facesResolver.setValue(elContext, null, name, originalValue);
+
+					if (!first) {
+						stringBuilder.append(", ");
+					}
+
+					stringBuilder.append(name);
+					first = false;
+				}
+				catch (PropertyNotWritableException e) {
+					// Passed.
+				}
+			}
+
+			if (!first) {
+
+				stringBuilder.append(". ");
+				fail(testBean, stringBuilder.toString());
+			}
+
+			// Test ELResolver.isReadOnly()
+			try {
+
+				facesResolver.isReadOnly(elContext, "facesContext", "facesContext");
+				fail(testBean,
+					"PropertyNotFoundException not thrown when calling isReadOnly(elContext, base, value). ");
+			}
+			catch (PropertyNotFoundException e) {
+				// Passed.
+			}
+
+			stringBuilder.setLength(0);
+			stringBuilder.append(
+				"isReadOnly(elContext, null, name) didn't return true and/or call elContext.setPropertyResolved() when name was set to the following values: ");
+
+			first = true;
+
+			for (String name : keySet) {
+
+				if (!facesResolver.isReadOnly(elContext, null, name) || !elContext.isPropertyResolved()) {
+
+					if (!first) {
+						stringBuilder.append(", ");
+					}
+
+					stringBuilder.append(name);
+					first = false;
+				}
+			}
+
+			if (!first) {
+
+				stringBuilder.append(". ");
+				fail(testBean, stringBuilder.toString());
+			}
+
+			//J-
+//			// Unfortunately ELResolver.getFeatureDescriptors() cannot be tested in the TCK due to JSF implementation
+//			// bugs. If you are an implementor, consider adding a unit test that tests the features below instead.
+//			if (facesResolver.getFeatureDescriptors(elContext, "facesContext") != null) {
+//				fail(testBean,
+//					"ELResolver.getFeatureDescriptors() did not return null when passed a non-null value for base. ");
+//			}
+//
+//			RenderRequest renderRequest = (RenderRequest) externalContext.getRequest();
+//
+//			// Workaround the fact that certain request attributes are null in a portlet environment. JSF
+//			// implementations expect certain request attributes such as "javax.servlet.include.path_info" to be
+//			// non-null so their classes can be obtained.
+//			externalContext.setRequest(new RenderRequestELImpl(renderRequest));
+//
+//			Iterator<FeatureDescriptor> iterator = facesResolver.getFeatureDescriptors(elContext, null);
+//			Map<String, FeatureDescriptor> featureDescriptors = new HashMap<String, FeatureDescriptor>();
+//
+//			while (iterator.hasNext()) {
+//
+//				FeatureDescriptor featureDescriptor = iterator.next();
+//				featureDescriptors.put(featureDescriptor.getName(), featureDescriptor);
+//			}
+//
+//			featureDescriptors = Collections.unmodifiableMap(featureDescriptors);
+//			externalContext.setRequest(renderRequest);
+//			stringBuilder.setLength(0);
+//			stringBuilder.append("The following EL key words had invalid feature descriptors:<br />");
+//
+//			first = true;
+//
+//			for (Map.Entry<String, Class<?>> entry : entrySet) {
+//
+//				String name = entry.getKey();
+//				FeatureDescriptor featureDescriptor = featureDescriptors.get(name);
+//
+//				if (!isFeatureDescriptorValid(name, featureDescriptor, entry.getValue())) {
+//
+//					if (!first) {
+//						stringBuilder.append(",<br />");
+//					}
+//
+//					stringBuilder.append(name);
+//					stringBuilder.append(" (expected ELResolver.TYPE \"");
+//					stringBuilder.append(EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES.get(name));
+//					stringBuilder.append("\")");
+//					first = false;
+//				}
+//			}
+//
+//			if (!first) {
+//
+//				stringBuilder.append(
+//					".<br />ELResolver.RESOLVABLE_AT_DESIGN_TIME must be Boolean.TRUE. getName() and getDisplayName() must return the same value. getShortDescription() must not be null. isExpert() and isHidden() must return false. isPreferred() must return true. ");
+//				fail(testBean, stringBuilder.toString());
+//			}
+//
+//			// Test ELResolver.getCommonPropertyType()
+//			if ((facesResolver.getCommonPropertyType(elContext, "facesContext") != null) ||
+//					!String.class.equals(facesResolver.getCommonPropertyType(elContext, null))) {
+//				fail(testBean,
+//					"ELResolver.getCommonPropertyType() should return String.class if base is null and null otherwise. ");
+//			}
+			//J+
+
 			if (!testBean.isTestComplete()) {
 
 				// Things completed successfully
@@ -481,4 +739,21 @@ public class Tests {
 
 	}
 
+	private static final class RenderRequestELImpl extends RenderRequestWrapper {
+
+		public RenderRequestELImpl(RenderRequest wrappedRenderRequest) {
+			super(wrappedRenderRequest);
+		}
+
+		@Override
+		public Object getAttribute(String name) {
+
+			if ("javax.servlet.include.path_info".equals(name) || "javax.servlet.include.servlet_path".equals(name)) {
+				return "";
+			}
+			else {
+				return super.getAttribute(name);
+			}
+		}
+	}
 }

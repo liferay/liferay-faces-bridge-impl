@@ -53,7 +53,7 @@ public abstract class ELResolverCompatImpl extends ELResolver {
 		featureDescriptor.setHidden(false);
 		featureDescriptor.setPreferred(true);
 		featureDescriptor.setValue(ELResolver.TYPE, classType);
-		featureDescriptor.setValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME, true);
+		featureDescriptor.setValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME, Boolean.TRUE);
 
 		return featureDescriptor;
 	}
