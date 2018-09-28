@@ -24,6 +24,8 @@ import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.ELResolver;
 import javax.faces.context.FacesContext;
+import javax.portlet.HeaderRequest;
+import javax.portlet.HeaderResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -50,8 +52,8 @@ public abstract class ELResolverCompatImpl extends ELResolver {
 
 		// Initialize the list of static feature descriptors.
 		List<FeatureDescriptor> featureDescriptors = new ArrayList<FeatureDescriptor>();
-		featureDescriptors.add(getFeatureDescriptor(HEADER_REQUEST, String.class));
-		featureDescriptors.add(getFeatureDescriptor(HEADER_RESPONSE, String.class));
+		featureDescriptors.add(getFeatureDescriptor(HEADER_REQUEST, HeaderRequest.class));
+		featureDescriptors.add(getFeatureDescriptor(HEADER_RESPONSE, HeaderResponse.class));
 		featureDescriptors.addAll(featureDescriptors);
 		FEATURE_DESCRIPTORS_COMPAT = Collections.unmodifiableList(featureDescriptors);
 	}
@@ -65,7 +67,7 @@ public abstract class ELResolverCompatImpl extends ELResolver {
 		featureDescriptor.setHidden(false);
 		featureDescriptor.setPreferred(true);
 		featureDescriptor.setValue(ELResolver.TYPE, classType);
-		featureDescriptor.setValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME, true);
+		featureDescriptor.setValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME, Boolean.TRUE);
 
 		return featureDescriptor;
 	}
