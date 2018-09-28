@@ -31,7 +31,6 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_5_1;
 
-import java.beans.FeatureDescriptor;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -739,21 +738,25 @@ public class Tests {
 
 	}
 
-	private static final class RenderRequestELImpl extends RenderRequestWrapper {
-
-		public RenderRequestELImpl(RenderRequest wrappedRenderRequest) {
-			super(wrappedRenderRequest);
-		}
-
-		@Override
-		public Object getAttribute(String name) {
-
-			if ("javax.servlet.include.path_info".equals(name) || "javax.servlet.include.servlet_path".equals(name)) {
-				return "";
-			}
-			else {
-				return super.getAttribute(name);
-			}
-		}
-	}
+	//J-
+//	// Unfortunately ELResolver.getFeatureDescriptors() cannot be tested in the TCK due to JSF implementation
+//	// bugs. If you are an implementor, consider adding a unit test that tests the features below instead.
+//	private static final class RenderRequestELImpl extends RenderRequestWrapper {
+//
+//		public RenderRequestELImpl(RenderRequest wrappedRenderRequest) {
+//			super(wrappedRenderRequest);
+//		}
+//
+//		@Override
+//		public Object getAttribute(String name) {
+//
+//			if ("javax.servlet.include.path_info".equals(name) || "javax.servlet.include.servlet_path".equals(name)) {
+//				return "";
+//			}
+//			else {
+//				return super.getAttribute(name);
+//			}
+//		}
+//	}
+	//J+
 }
