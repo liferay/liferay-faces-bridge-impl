@@ -59,10 +59,10 @@ import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeConfigFactory;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.preference.Preference;
 
-import com.liferay.faces.bridge.BridgeConfigFactory;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
