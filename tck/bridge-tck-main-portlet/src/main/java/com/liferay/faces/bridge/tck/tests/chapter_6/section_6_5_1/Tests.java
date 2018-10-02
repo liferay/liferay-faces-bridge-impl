@@ -31,32 +31,42 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_5_1;
 
+import java.beans.FeatureDescriptor;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.RuntimeException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
+import javax.el.FunctionMapper;
 import javax.el.PropertyNotFoundException;
 import javax.el.PropertyNotWritableException;
+import javax.el.VariableMapper;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
-import javax.portlet.RenderRequest;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.preference.Preference;
-import javax.portlet.filter.RenderRequestWrapper;
 
+import com.liferay.faces.bridge.BridgeConfigFactory;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
+import com.liferay.faces.util.factory.FactoryExtensionFinder;
 
 
 /**
@@ -106,18 +116,93 @@ public class Tests {
 		}
 	}
 
-	//J-
-//	// Unfortunately ELResolver.getFeatureDescriptors() cannot be tested in the TCK due to JSF implementation
-//	// bugs. If you are an implementor, consider adding a unit test that tests the features below instead.
-//	private static boolean isFeatureDescriptorValid(String name, FeatureDescriptor featureDescriptor, Class<?> clazz) {
-//
-//		return (featureDescriptor != null) && clazz.equals(featureDescriptor.getValue(ELResolver.TYPE)) &&
-//			Boolean.TRUE.equals(featureDescriptor.getValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME)) &&
-//			name.equals(featureDescriptor.getName()) && name.equals(featureDescriptor.getName()) &&
-//			(featureDescriptor.getShortDescription() != null) && !featureDescriptor.isExpert() &&
-//			!featureDescriptor.isHidden() && featureDescriptor.isPreferred();
-//	}
-	//J+
+	private static void close(Closeable closeable) {
+
+		if (closeable != null) {
+
+			try {
+				closeable.close();
+			}
+			catch (IOException e) {
+				// Do nothing.
+			}
+		}
+	}
+
+	private static boolean equals(Object object1, Object object2) {
+		return ((object1 != null) && object1.equals(object2)) || ((object1 == null) && (object2 == null));
+	}
+
+	/**
+	 * Returns the Bridge Implementation's ELResolver implementation from the faces-config.xml file in an OSGi friendly
+	 * way.
+	 *
+	 * @param  externalContext
+	 */
+	private static ELResolver getBridgeImplELResolver(ExternalContext externalContext) {
+
+		InputStream inputStream = null;
+		Scanner scanner = null;
+
+		try {
+
+			BridgeConfigFactory bridgeConfigFactory = (BridgeConfigFactory) FactoryExtensionFinder.getFactory(
+					externalContext, BridgeConfigFactory.class);
+
+			while (bridgeConfigFactory.getWrapped() != null) {
+				bridgeConfigFactory = bridgeConfigFactory.getWrapped();
+			}
+
+			Class<?> bridgeImplClass = bridgeConfigFactory.getClass();
+			String bridgeImplClassSimpleName = bridgeImplClass.getSimpleName();
+			URL bridgeImplClassURL = bridgeImplClass.getResource(bridgeImplClassSimpleName + ".class");
+			ClassLoader bridgeImplClassLoader = bridgeImplClass.getClassLoader();
+			Enumeration<URL> facesConfigXMLs = bridgeImplClassLoader.getResources("/META-INF/faces-config.xml");
+
+			// Get the faces-config.xml from the Bridge Implementation jar.
+			while (facesConfigXMLs.hasMoreElements() && (inputStream == null)) {
+
+				URL facesConfigXML_URL = facesConfigXMLs.nextElement();
+
+				if (equals(bridgeImplClassURL.getAuthority(), facesConfigXML_URL.getAuthority()) &&
+						equals(bridgeImplClassURL.getHost(), facesConfigXML_URL.getHost()) &&
+						(bridgeImplClassURL.getPort() == facesConfigXML_URL.getPort()) &&
+						equals(bridgeImplClassURL.getProtocol(), facesConfigXML_URL.getProtocol()) &&
+						equals(bridgeImplClassURL.getUserInfo(), facesConfigXML_URL.getUserInfo())) {
+					inputStream = facesConfigXML_URL.openStream();
+				}
+			}
+
+			scanner = new Scanner(inputStream, "UTF-8").useDelimiter("\\A");
+
+			String facesConfig = scanner.next();
+			String bridgeELResolverClassName = facesConfig.replaceAll(
+					"[\\s\\S]+<application>[\\s\\S]*<el-resolver>([^<]+)</el-resolver>[\\s\\S]*</application>[\\s\\S]+",
+					"$1").trim();
+
+			return (ELResolver) Class.forName(bridgeELResolverClassName, true, bridgeImplClassLoader).newInstance();
+		}
+		catch (RuntimeException e) {
+			throw e;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		finally {
+
+			close(inputStream);
+			close(scanner);
+		}
+	}
+
+	private static boolean isFeatureDescriptorValid(String name, FeatureDescriptor featureDescriptor, Class<?> clazz) {
+
+		return (featureDescriptor != null) && clazz.equals(featureDescriptor.getValue(ELResolver.TYPE)) &&
+			Boolean.TRUE.equals(featureDescriptor.getValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME)) &&
+			name.equals(featureDescriptor.getName()) && name.equals(featureDescriptor.getName()) &&
+			(featureDescriptor.getShortDescription() != null) && !featureDescriptor.isExpert() &&
+			!featureDescriptor.isHidden() && featureDescriptor.isPreferred();
+	}
 
 	/**
 	 * Testing JSF EL - implicits are in alpha order.
@@ -349,10 +434,16 @@ public class Tests {
 				fail(testBean, "JSF EL failure in render request: " + t.getCause().toString());
 			}
 
+			// Get the Bridge Implementation's configured resolver so that the entire chain isn't consulted for this
+			// part of the test. Isolating the Bridge Impl's resolver removes issues that can occur with other resolvers
+			// and prevents false positives or negatives (due to other resolvers fulfilling the spec requirements).
+			ELResolver bridgeImplELResolver = getBridgeImplELResolver(externalContext);
+			elContext = new ELContextTestImpl(elContext, bridgeImplELResolver);
+
 			// Test ELResolver.getType()
 			try {
 
-				facesResolver.getType(elContext, null, null);
+				bridgeImplELResolver.getType(elContext, null, null);
 				fail(testBean, "PropertyNotFoundException not thrown when calling getType(elContext, null, null). ");
 			}
 			catch (PropertyNotFoundException e) {
@@ -362,7 +453,7 @@ public class Tests {
 			Set<Map.Entry<String, Class<?>>> entrySet = EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES.entrySet();
 			StringBuilder stringBuilder = new StringBuilder();
 			stringBuilder.append(
-				"getType() didn't return null or elContext.setPropertyResolved(true) wasn't called for the following values: ");
+				"getType() did not return null and/or elContext.setPropertyResolved(true) wasn't called for the following values: ");
 
 			boolean first = true;
 
@@ -370,7 +461,7 @@ public class Tests {
 
 				String name = entry.getKey();
 
-				if ((facesResolver.getType(elContext, null, name) != null) || !elContext.isPropertyResolved()) {
+				if ((bridgeImplELResolver.getType(elContext, null, name) != null) || !elContext.isPropertyResolved()) {
 
 					if (!first) {
 						stringBuilder.append(", ");
@@ -390,7 +481,7 @@ public class Tests {
 			// Test ELResolver.setValue()
 			try {
 
-				facesResolver.setValue(elContext, null, null, "facesContext");
+				bridgeImplELResolver.setValue(elContext, null, null, "facesContext");
 				fail(testBean,
 					"PropertyNotFoundException not thrown when calling setValue(elContext, null, null, value). ");
 			}
@@ -401,7 +492,7 @@ public class Tests {
 			Set<String> keySet = EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES.keySet();
 			stringBuilder.setLength(0);
 			stringBuilder.append(
-				"setValue(elContext, null, name, value) didn't throw PropertyNotWritableException when name was set to the following values: ");
+				"setValue(elContext, null, name, value) did not throw PropertyNotWritableException when name was set to the following values: ");
 
 			first = true;
 
@@ -414,14 +505,14 @@ public class Tests {
 					continue;
 				}
 
-				Object originalValue = facesResolver.getValue(elContext, null, name);
+				Object originalValue = bridgeImplELResolver.getValue(elContext, null, name);
 
 				try {
 
-					facesResolver.setValue(elContext, null, name, name);
+					bridgeImplELResolver.setValue(elContext, null, name, name);
 
 					// Reset the original value so other parts of the test don't fail.
-					facesResolver.setValue(elContext, null, name, originalValue);
+					bridgeImplELResolver.setValue(elContext, null, name, originalValue);
 
 					if (!first) {
 						stringBuilder.append(", ");
@@ -442,11 +533,17 @@ public class Tests {
 			}
 
 			// Test ELResolver.isReadOnly()
+			elContext.isPropertyResolved();
+
+			if (!bridgeImplELResolver.isReadOnly(elContext, "facesContext", null) || elContext.isPropertyResolved()) {
+				fail(testBean,
+					"isReadOnly() did not return true and/or ELContext.setPropertyResolved(true) was called when base was non-null. ");
+			}
+
 			try {
 
-				facesResolver.isReadOnly(elContext, "facesContext", "facesContext");
-				fail(testBean,
-					"PropertyNotFoundException not thrown when calling isReadOnly(elContext, base, value). ");
+				bridgeImplELResolver.isReadOnly(elContext, null, null);
+				fail(testBean, "PropertyNotFoundException not thrown when calling isReadOnly(elContext, null, null). ");
 			}
 			catch (PropertyNotFoundException e) {
 				// Passed.
@@ -454,13 +551,13 @@ public class Tests {
 
 			stringBuilder.setLength(0);
 			stringBuilder.append(
-				"isReadOnly(elContext, null, name) didn't return true and/or call elContext.setPropertyResolved() when name was set to the following values: ");
+				"isReadOnly(elContext, null, name) did not return true and/or call elContext.setPropertyResolved() when name was set to the following values: ");
 
 			first = true;
 
 			for (String name : keySet) {
 
-				if (!facesResolver.isReadOnly(elContext, null, name) || !elContext.isPropertyResolved()) {
+				if (!bridgeImplELResolver.isReadOnly(elContext, null, name) || !elContext.isPropertyResolved()) {
 
 					if (!first) {
 						stringBuilder.append(", ");
@@ -477,70 +574,60 @@ public class Tests {
 				fail(testBean, stringBuilder.toString());
 			}
 
-			//J-
-//			// Unfortunately ELResolver.getFeatureDescriptors() cannot be tested in the TCK due to JSF implementation
-//			// bugs. If you are an implementor, consider adding a unit test that tests the features below instead.
-//			if (facesResolver.getFeatureDescriptors(elContext, "facesContext") != null) {
-//				fail(testBean,
-//					"ELResolver.getFeatureDescriptors() did not return null when passed a non-null value for base. ");
-//			}
-//
-//			RenderRequest renderRequest = (RenderRequest) externalContext.getRequest();
-//
-//			// Workaround the fact that certain request attributes are null in a portlet environment. JSF
-//			// implementations expect certain request attributes such as "javax.servlet.include.path_info" to be
-//			// non-null so their classes can be obtained.
-//			externalContext.setRequest(new RenderRequestELImpl(renderRequest));
-//
-//			Iterator<FeatureDescriptor> iterator = facesResolver.getFeatureDescriptors(elContext, null);
-//			Map<String, FeatureDescriptor> featureDescriptors = new HashMap<String, FeatureDescriptor>();
-//
-//			while (iterator.hasNext()) {
-//
-//				FeatureDescriptor featureDescriptor = iterator.next();
-//				featureDescriptors.put(featureDescriptor.getName(), featureDescriptor);
-//			}
-//
-//			featureDescriptors = Collections.unmodifiableMap(featureDescriptors);
-//			externalContext.setRequest(renderRequest);
-//			stringBuilder.setLength(0);
-//			stringBuilder.append("The following EL key words had invalid feature descriptors:<br />");
-//
-//			first = true;
-//
-//			for (Map.Entry<String, Class<?>> entry : entrySet) {
-//
-//				String name = entry.getKey();
-//				FeatureDescriptor featureDescriptor = featureDescriptors.get(name);
-//
-//				if (!isFeatureDescriptorValid(name, featureDescriptor, entry.getValue())) {
-//
-//					if (!first) {
-//						stringBuilder.append(",<br />");
-//					}
-//
-//					stringBuilder.append(name);
-//					stringBuilder.append(" (expected ELResolver.TYPE \"");
-//					stringBuilder.append(EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES.get(name));
-//					stringBuilder.append("\")");
-//					first = false;
-//				}
-//			}
-//
-//			if (!first) {
-//
-//				stringBuilder.append(
-//					".<br />ELResolver.RESOLVABLE_AT_DESIGN_TIME must be Boolean.TRUE. getName() and getDisplayName() must return the same value. getShortDescription() must not be null. isExpert() and isHidden() must return false. isPreferred() must return true. ");
-//				fail(testBean, stringBuilder.toString());
-//			}
-//
-//			// Test ELResolver.getCommonPropertyType()
-//			if ((facesResolver.getCommonPropertyType(elContext, "facesContext") != null) ||
-//					!String.class.equals(facesResolver.getCommonPropertyType(elContext, null))) {
-//				fail(testBean,
-//					"ELResolver.getCommonPropertyType() should return String.class if base is null and null otherwise. ");
-//			}
-			//J+
+			if (bridgeImplELResolver.getFeatureDescriptors(elContext, "facesContext") != null) {
+				fail(testBean,
+					"ELResolver.getFeatureDescriptors() did not return null when passed a non-null value for base. ");
+			}
+
+			Iterator<FeatureDescriptor> iterator = bridgeImplELResolver.getFeatureDescriptors(elContext, null);
+			Map<String, FeatureDescriptor> featureDescriptors = new HashMap<String, FeatureDescriptor>();
+
+			while (iterator.hasNext()) {
+
+				FeatureDescriptor featureDescriptor = iterator.next();
+				featureDescriptors.put(featureDescriptor.getName(), featureDescriptor);
+			}
+
+			featureDescriptors = Collections.unmodifiableMap(featureDescriptors);
+			stringBuilder.setLength(0);
+			stringBuilder.append("The following EL key words had invalid feature descriptors:<br />");
+
+			first = true;
+
+			for (Map.Entry<String, Class<?>> entry : entrySet) {
+
+				String name = entry.getKey();
+				FeatureDescriptor featureDescriptor = featureDescriptors.get(name);
+
+				if (!isFeatureDescriptorValid(name, featureDescriptor, entry.getValue())) {
+
+					if (!first) {
+						stringBuilder.append(",<br />");
+					}
+
+					stringBuilder.append(name);
+					stringBuilder.append(" (expected ELResolver.TYPE \"");
+					stringBuilder.append(EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES.get(name));
+					stringBuilder.append("\")");
+					first = false;
+				}
+			}
+
+			if (!first) {
+
+				stringBuilder.append(
+					".<br />ELResolver.RESOLVABLE_AT_DESIGN_TIME must be Boolean.TRUE. getName() and getDisplayName() must return the same value. getShortDescription() must not be null. isExpert() and isHidden() must return false. isPreferred() must return true. ");
+				fail(testBean, stringBuilder.toString());
+			}
+
+			// Test ELResolver.getCommonPropertyType()
+			if (bridgeImplELResolver.getCommonPropertyType(elContext, "facesContext") != null) {
+				fail(testBean, "ELResolver.getCommonPropertyType() did not return null when base was non-null. ");
+			}
+
+			if (!String.class.equals(bridgeImplELResolver.getCommonPropertyType(elContext, null))) {
+				fail(testBean, "ELResolver.getCommonPropertyType() did not return String.class when base was null. ");
+			}
 
 			if (!testBean.isTestComplete()) {
 
@@ -636,7 +723,7 @@ public class Tests {
 				null, implicitObject);
 
 		if ((objectFromFacesEL == null) || !facesContext.getELContext().isPropertyResolved()) {
-			fail(testBean, "implicit object " + implicitObject + " didn't resolve using the Faces EL resolver.");
+			fail(testBean, "implicit object " + implicitObject + " did not resolve using the Faces EL resolver.");
 
 			return;
 		}
@@ -679,7 +766,7 @@ public class Tests {
 		Object objectFromFacesEL = resolver.getValue(facesContext.getELContext(), null, implicitObject);
 
 		if ((objectFromFacesEL == null) || !facesContext.getELContext().isPropertyResolved()) {
-			fail(testBean, "implicit object " + implicitObject + " didn't resolve using the Faces EL resolver.");
+			fail(testBean, "implicit object " + implicitObject + " did not resolve using the Faces EL resolver.");
 		}
 		else if ((objectFromFacesEL != compareTo) && !objectFromFacesEL.equals(compareTo)) {
 			fail(testBean,
@@ -694,7 +781,7 @@ public class Tests {
 				null, implicitObject);
 
 		if ((objectFromFacesEL == null) || !facesContext.getELContext().isPropertyResolved()) {
-			fail(testBean, "implicit object " + implicitObject + " didn't resolve using the Faces EL resolver.");
+			fail(testBean, "implicit object " + implicitObject + " did not resolve using the Faces EL resolver.");
 		}
 		else if (!arrayMapsEquals(objectFromFacesEL, compareTo)) {
 			fail(testBean,
@@ -709,7 +796,7 @@ public class Tests {
 				facesContext.getELContext(), null, implicitObject);
 
 		if ((objectFromFacesEL == null) || !facesContext.getELContext().isPropertyResolved()) {
-			fail(testBean, "implicit object " + implicitObject + " didn't resolve using the Faces EL resolver.");
+			fail(testBean, "implicit object " + implicitObject + " did not resolve using the Faces EL resolver.");
 
 			return;
 		}
@@ -735,28 +822,71 @@ public class Tests {
 					e.getKey());
 			}
 		}
-
 	}
 
-	//J-
-//	// Unfortunately ELResolver.getFeatureDescriptors() cannot be tested in the TCK due to JSF implementation
-//	// bugs. If you are an implementor, consider adding a unit test that tests the features below instead.
-//	private static final class RenderRequestELImpl extends RenderRequestWrapper {
-//
-//		public RenderRequestELImpl(RenderRequest wrappedRenderRequest) {
-//			super(wrappedRenderRequest);
-//		}
-//
-//		@Override
-//		public Object getAttribute(String name) {
-//
-//			if ("javax.servlet.include.path_info".equals(name) || "javax.servlet.include.servlet_path".equals(name)) {
-//				return "";
-//			}
-//			else {
-//				return super.getAttribute(name);
-//			}
-//		}
-//	}
-	//J+
+	private static final class ELContextTestImpl extends ELContext {
+
+		// Private Final Data Members
+		private final ELContext wrappedELContext;
+		private final ELResolver elResolver;
+
+		// Private Data Members
+		boolean resolved;
+
+		public ELContextTestImpl(ELContext elContext, ELResolver eLResolver) {
+			this.wrappedELContext = elContext;
+			this.elResolver = eLResolver;
+		}
+
+		@Override
+		public Object getContext(Class key) {
+			return wrappedELContext.getContext(key);
+		}
+
+		@Override
+		public ELResolver getELResolver() {
+			return elResolver;
+		}
+
+		@Override
+		public FunctionMapper getFunctionMapper() {
+			return wrappedELContext.getFunctionMapper();
+		}
+
+		@Override
+		public Locale getLocale() {
+			return wrappedELContext.getLocale();
+		}
+
+		@Override
+		public VariableMapper getVariableMapper() {
+			return wrappedELContext.getVariableMapper();
+		}
+
+		@Override
+		public boolean isPropertyResolved() {
+
+			boolean resolved = this.resolved;
+			this.resolved = false;
+
+			return resolved;
+		}
+
+		@Override
+		public void putContext(Class key, Object contextObject) {
+			wrappedELContext.putContext(key, contextObject);
+		}
+
+		@Override
+		public void setLocale(Locale locale) {
+			wrappedELContext.setLocale(locale);
+		}
+
+		@Override
+		public void setPropertyResolved(boolean resolved) {
+
+			this.resolved = resolved;
+			wrappedELContext.setPropertyResolved(resolved);
+		}
+	}
 }

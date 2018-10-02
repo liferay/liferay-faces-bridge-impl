@@ -226,14 +226,10 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 		}
 
 		if ((base == null) && canHandleVar(property)) {
-
 			elContext.setPropertyResolved(true);
+		}
 
-			return true;
-		}
-		else {
-			return false;
-		}
+		return true;
 	}
 
 	@Override
