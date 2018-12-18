@@ -129,6 +129,13 @@ public class Tests {
 		}
 	}
 
+	private static void close(Scanner scanner) {
+
+		if (scanner != null) {
+			scanner.close();
+		}
+	}
+
 	private static boolean equals(Object object1, Object object2) {
 		return ((object1 != null) && object1.equals(object2)) || ((object1 == null) && (object2 == null));
 	}
