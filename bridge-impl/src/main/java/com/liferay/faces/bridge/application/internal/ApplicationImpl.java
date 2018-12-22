@@ -48,8 +48,8 @@ public class ApplicationImpl extends ApplicationCompatImpl {
 	private static final String UIVIEWROOT_FQCN = UIViewRoot.class.getName();
 
 	// Private Data Members
-	private Boolean subscribeToEventsAtRuntime = Boolean.TRUE;
-	private Boolean wrapHandlerAtRuntime = Boolean.TRUE;
+	private volatile Boolean subscribeToEventsAtRuntime = Boolean.TRUE;
+	private volatile Boolean wrapHandlerAtRuntime = Boolean.TRUE;
 
 	public ApplicationImpl(Application application) {
 		super(application);
