@@ -94,7 +94,7 @@ public class FACES_3300PortletTester extends SimpleFACESPortletTester {
 			}
 			else if (container.startsWith("liferay")) {
 				waitingAsserter.assertTextPresentInElement("FACES-3300 is temporarily unavailable.",
-					"//div[contains(@class,'alert')][contains(@class,'alert-danger')]");
+					"//div[contains(@class,'alert')][contains(@class,'alert-danger') or contains(@class,'alert-error')]");
 			}
 		}
 	}
