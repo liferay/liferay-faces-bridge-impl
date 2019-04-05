@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -116,6 +116,30 @@ public class Tests {
 		}
 	}
 
+	private static boolean areFilesInSameJar(URL jarFileURL1, URL jarFileURL2) {
+
+		boolean filesInSameJar;
+
+		if (isJarProtocol(jarFileURL1) && isJarProtocol(jarFileURL2)) {
+
+			String fullJarPath1 = getFullJarPath(jarFileURL1);
+			String fullJarPath2 = getFullJarPath(jarFileURL2);
+			filesInSameJar = fullJarPath1.equals(fullJarPath2);
+		}
+
+		// Otherwise, assume it's an OSGi bundleresource URL and compare all URL properties to determine if the files
+		// are in the same jar.
+		else {
+			filesInSameJar = equals(jarFileURL1.getAuthority(), jarFileURL2.getAuthority()) &&
+				equals(jarFileURL1.getHost(), jarFileURL2.getHost()) &&
+				(jarFileURL1.getPort() == jarFileURL2.getPort()) &&
+				equals(jarFileURL1.getProtocol(), jarFileURL2.getProtocol()) &&
+				equals(jarFileURL1.getUserInfo(), jarFileURL2.getUserInfo());
+		}
+
+		return filesInSameJar;
+	}
+
 	private static void close(Closeable closeable) {
 
 		if (closeable != null) {
@@ -166,16 +190,17 @@ public class Tests {
 			ClassLoader bridgeImplClassLoader = bridgeImplClass.getClassLoader();
 			Enumeration<URL> facesConfigXMLs = bridgeImplClassLoader.getResources("/META-INF/faces-config.xml");
 
+			// Pluto 2.0 doesn't detect the faces-config.xml files with a leading slash.
+			if (!facesConfigXMLs.hasMoreElements()) {
+				facesConfigXMLs = bridgeImplClassLoader.getResources("META-INF/faces-config.xml");
+			}
+
 			// Get the faces-config.xml from the Bridge Implementation jar.
 			while (facesConfigXMLs.hasMoreElements() && (inputStream == null)) {
 
 				URL facesConfigXML_URL = facesConfigXMLs.nextElement();
 
-				if (equals(bridgeImplClassURL.getAuthority(), facesConfigXML_URL.getAuthority()) &&
-						equals(bridgeImplClassURL.getHost(), facesConfigXML_URL.getHost()) &&
-						(bridgeImplClassURL.getPort() == facesConfigXML_URL.getPort()) &&
-						equals(bridgeImplClassURL.getProtocol(), facesConfigXML_URL.getProtocol()) &&
-						equals(bridgeImplClassURL.getUserInfo(), facesConfigXML_URL.getUserInfo())) {
+				if (areFilesInSameJar(bridgeImplClassURL, facesConfigXML_URL)) {
 					inputStream = facesConfigXML_URL.openStream();
 				}
 			}
@@ -202,6 +227,19 @@ public class Tests {
 		}
 	}
 
+	private static String getFullJarPath(URL jarFileURL) {
+
+		if (!isJarProtocol(jarFileURL)) {
+			throw new UnsupportedOperationException();
+		}
+
+		String jarPathEndToken = ".jar!";
+		String jarFileURLAsString = jarFileURL.toString();
+		int fullJarPathEndIndex = (jarFileURLAsString.indexOf(jarPathEndToken) + jarPathEndToken.length());
+
+		return jarFileURLAsString.substring(0, fullJarPathEndIndex);
+	}
+
 	private static boolean isFeatureDescriptorValid(String name, FeatureDescriptor featureDescriptor, Class<?> clazz) {
 
 		return (featureDescriptor != null) && clazz.equals(featureDescriptor.getValue(ELResolver.TYPE)) &&
@@ -209,6 +247,10 @@ public class Tests {
 			name.equals(featureDescriptor.getName()) && name.equals(featureDescriptor.getName()) &&
 			(featureDescriptor.getShortDescription() != null) && !featureDescriptor.isExpert() &&
 			!featureDescriptor.isHidden() && featureDescriptor.isPreferred();
+	}
+
+	private static boolean isJarProtocol(URL url) {
+		return "jar".equalsIgnoreCase(url.getProtocol());
 	}
 
 	/**
