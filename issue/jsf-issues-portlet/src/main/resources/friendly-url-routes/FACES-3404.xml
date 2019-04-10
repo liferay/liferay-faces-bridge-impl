@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE routes PUBLIC "-//Liferay//DTD Friendly URL Routes 6.2.0//EN" "http://www.liferay.com/dtd/liferay-friendly-url-routes_6_2_0.dtd">
+
+<routes>
+	<route>
+		<pattern>/friendlyRenderURL/{doAsUserId}</pattern>
+		<generated-parameter name="doAsUserId">{doAsUserId}</generated-parameter>
+		<ignored-parameter name="p_p_id" />
+		<ignored-parameter name="p_p_state" />
+		<ignored-parameter name="p_p_mode" />
+		<ignored-parameter name="p_p_cacheability" />
+		<ignored-parameter name="p_p_col_id" />
+		<ignored-parameter name="p_p_col_count" />
+		<implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
+	</route>
+	<route>
+		<pattern>/friendlyActionURL/{doAsUserId}</pattern>
+		<generated-parameter name="doAsUserId">{doAsUserId}</generated-parameter>
+		<ignored-parameter name="p_p_id" />
+		<ignored-parameter name="p_p_state" />
+		<ignored-parameter name="p_p_mode" />
+		<ignored-parameter name="p_p_cacheability" />
+		<ignored-parameter name="p_p_col_id" />
+		<ignored-parameter name="p_p_col_count" />
+		<implicit-parameter name="p_p_lifecycle">1</implicit-parameter>
+	</route>
+	<route>
+		<pattern>/friendlyResourceURL/{doAsUserId}</pattern>
+		<generated-parameter name="doAsUserId">{doAsUserId}</generated-parameter>
+		<ignored-parameter name="_facesViewIdRender" />
+		<ignored-parameter name="p_p_id" />
+		<ignored-parameter name="p_p_state" />
+		<ignored-parameter name="p_p_mode" />
+		<ignored-parameter name="p_p_cacheability" />
+		<ignored-parameter name="p_p_col_id" />
+		<ignored-parameter name="p_p_col_count" />
+		<implicit-parameter name="p_p_lifecycle">2</implicit-parameter>
+	</route>
+	<route>
+		<pattern>/friendlyRenderURL</pattern>
+		<ignored-parameter name="p_p_id" />
+		<ignored-parameter name="p_p_state" />
+		<ignored-parameter name="p_p_mode" />
+		<ignored-parameter name="p_p_cacheability" />
+		<ignored-parameter name="p_p_col_id" />
+		<ignored-parameter name="p_p_col_count" />
+		<implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
+	</route>
+	<route>
+		<pattern>/friendlyActionURL</pattern>
+		<ignored-parameter name="p_p_id" />
+		<ignored-parameter name="p_p_state" />
+		<ignored-parameter name="p_p_mode" />
+		<ignored-parameter name="p_p_cacheability" />
+		<ignored-parameter name="p_p_col_id" />
+		<ignored-parameter name="p_p_col_count" />
+		<implicit-parameter name="p_p_lifecycle">1</implicit-parameter>
+	</route>
+	<route>
+		<pattern>/friendlyResourceURL</pattern>
+		<ignored-parameter name="_facesViewIdRender" />
+		<ignored-parameter name="p_p_id" />
+		<ignored-parameter name="p_p_state" />
+		<ignored-parameter name="p_p_mode" />
+		<ignored-parameter name="p_p_cacheability" />
+		<ignored-parameter name="p_p_col_id" />
+		<ignored-parameter name="p_p_col_count" />
+		<implicit-parameter name="p_p_lifecycle">2</implicit-parameter>
+	</route>
+</routes>

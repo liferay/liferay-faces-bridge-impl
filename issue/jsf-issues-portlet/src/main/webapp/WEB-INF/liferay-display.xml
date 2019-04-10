@@ -15,6 +15,8 @@
 		<portlet id="FACES-3231" />
 		<portlet id="FACES-3300" />
 		<portlet id="FACES-3356" />
+		<portlet id="FACES-3404" />
+		<portlet id="FACES-3404-friendlyURL" />
 		<portlet id="JSFSPEC-1433" />
 		<portlet id="MOJARRA-4340-workaround" />
 		<portlet id="MOJARRA-4345-workaround" />

@@ -21,10 +21,10 @@ import org.junit.Test;
 /**
  * @author  Kyle Stiemann
  */
-public class FACES_2958PortletTester extends FACES_URLPortletTesterBase {
+public class FACES_3404PortletTester extends FACES_URLPortletTesterBase {
 
 	@Test
-	public void runFACES_2958PortletTest() {
-		runFACES_URLPortletTest("faces-2958");
+	public void runFACES_3404PortletTest() {
+		runFACES_URLPortletTest("faces-3404");
 	}
 }
