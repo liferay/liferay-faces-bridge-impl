@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+		xmlns:portlet="http://java.sun.com/portlet_2_0">
+	<h:head />
+	<h:body>
+		<h:outputLink target="_blank" value="http://issues.liferay.com/browse/FACES-3404">
+			http://issues.liferay.com/browse/FACES-3404
+		</h:outputLink><br />
+		<br />
+		<h:link outcome="/WEB-INF/views/FACES-3404/result.xhtml" value="result.xhtml via GET" /><br />
+		<h:form>
+			<h:commandLink action="/WEB-INF/views/FACES-3404/result.xhtml" value="result.xhtml via Ajax">
+				<f:ajax render="@all" />
+			</h:commandLink><br />
+		</h:form>
+		<h:outputScript>// <![CDATA[
+			function removeDoAsUserId(url) {
+				return url.replace(/([?]|[&])doAsUserId=[^&]+/, '$1').replace(/(\/friendlyResourceURL)\/[^?]/, '$1');
+			}
+
+			var doAsUserIdElements = document.getElementsByClassName('liferay-faces-bridge-body')[0]
+				.querySelectorAll('[action*="doAsUserId="],[href*="doAsUserId="],[value*="doAsUserId="]');
+
+			for (var i = 0; i < doAsUserIdElements.length; i++) {
+
+				if (doAsUserIdElements[i].action) {
+					doAsUserIdElements[i].action = removeDoAsUserId(doAsUserIdElements[i].action);
+				}
+
+				if (doAsUserIdElements[i].href) {
+					doAsUserIdElements[i].href = removeDoAsUserId(doAsUserIdElements[i].href);
+				}
+
+				if (doAsUserIdElements[i].value) {
+					doAsUserIdElements[i].value = removeDoAsUserId(doAsUserIdElements[i].value);
+				}
+			}
+		// ]]></h:outputScript>
+	</h:body>
+</f:view>

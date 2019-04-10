@@ -69,6 +69,19 @@
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
+		<portlet-name>FACES-3404</portlet-name>
+		<instanceable>false</instanceable>
+		<ajaxable>false</ajaxable>
+	</portlet>
+	<portlet>
+		<portlet-name>FACES-3404-friendlyURL</portlet-name>
+		<friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
+		<friendly-url-mapping>FACES-3404</friendly-url-mapping>
+		<friendly-url-routes>friendly-url-routes/FACES-3404.xml</friendly-url-routes>
+		<instanceable>false</instanceable>
+		<ajaxable>false</ajaxable>
+	</portlet>
+	<portlet>
 		<portlet-name>JSFSPEC-790</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
