@@ -363,6 +363,74 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
+		<portlet-name>FACES-3404</portlet-name>
+		<display-name>FACES-3404</display-name>
+		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/WEB-INF/views/FACES-3404/start.xhtml</value>
+		</init-param>
+		<init-param>
+			<name>parameterValueWithCharactersThatMustBeEncoded</name>
+			<value><![CDATA[S%U:C?C&E=S#S]]></value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<portlet-info>
+			<title>FACES-3404</title>
+			<short-title>FACES-3404</short-title>
+			<keywords>FACES-3404</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	<portlet>
+		<portlet-name>FACES-3404-friendlyURL</portlet-name>
+		<display-name>FACES-3404-friendlyURL</display-name>
+		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/WEB-INF/views/FACES-3404/start.xhtml</value>
+		</init-param>
+		<init-param>
+			<name>parameterValueWithCharactersThatMustBeEncoded</name>
+			<value><![CDATA[S%U:C?C&E=S#S]]></value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<portlet-info>
+			<title>FACES-3404-friendlyURL</title>
+			<short-title>FACES-3404-friendlyURL</short-title>
+			<keywords>FACES-3404-friendlyURL</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+	<portlet>
 		<portlet-name>JSFSPEC-1433</portlet-name>
 		<display-name>JSFSPEC-1433</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
