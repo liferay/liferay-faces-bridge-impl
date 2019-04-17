@@ -25,6 +25,8 @@ import javax.portlet.ActionResponse;
 import javax.portlet.BaseURL;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
+import javax.portlet.HeaderRequest;
+import javax.portlet.HeaderResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
@@ -32,11 +34,11 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.ResourceURL;
+import javax.portlet.faces.BridgeConfig;
+import javax.portlet.faces.filter.BridgePortletResponseFactory;
+import javax.portlet.filter.HeaderResponseWrapper;
 import javax.portlet.filter.RenderResponseWrapper;
 import javax.portlet.filter.ResourceResponseWrapper;
-
-import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.filter.BridgePortletResponseFactory;
 
 
 /**
@@ -82,6 +84,21 @@ public final class BridgePortletResponseFactoryFACES_3404Impl extends BridgePort
 	public EventResponse getEventResponse(EventRequest eventRequest, EventResponse eventResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 		return getWrapped().getEventResponse(eventRequest, eventResponse, portletConfig, bridgeConfig);
+	}
+
+	@Override
+	public HeaderResponse getHeaderResponse(HeaderRequest renderRequest, HeaderResponse renderResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
+
+		String parameterValueWithCharactersThatMustBeEncoded = portletConfig.getInitParameter(
+				"parameterValueWithCharactersThatMustBeEncoded");
+
+		if (parameterValueWithCharactersThatMustBeEncoded != null) {
+			renderResponse = new HeaderResponseFACES_3404Impl(renderResponse,
+					parameterValueWithCharactersThatMustBeEncoded);
+		}
+
+		return getWrapped().getHeaderResponse(renderRequest, renderResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
@@ -145,6 +162,43 @@ public final class BridgePortletResponseFactoryFACES_3404Impl extends BridgePort
 			else {
 				return method.invoke(wrappedURL, args);
 			}
+		}
+	}
+
+	private static final class HeaderResponseFACES_3404Impl extends HeaderResponseWrapper {
+
+		// Private Constants
+		private final String parameterValueWithCharactersThatMustBeEncoded;
+
+		public HeaderResponseFACES_3404Impl(HeaderResponse wrappedHeaderResponse,
+			String parameterValueWithCharactersThatMustBeEncoded) {
+
+			super(wrappedHeaderResponse);
+			this.parameterValueWithCharactersThatMustBeEncoded = parameterValueWithCharactersThatMustBeEncoded;
+		}
+
+		@Override
+		public PortletURL createActionURL() throws IllegalStateException {
+
+			PortletURL actionURL = super.createActionURL();
+
+			return newURLProxy(actionURL, PortletURL.class, parameterValueWithCharactersThatMustBeEncoded);
+		}
+
+		@Override
+		public PortletURL createRenderURL() throws IllegalStateException {
+
+			PortletURL renderURL = super.createRenderURL();
+
+			return newURLProxy(renderURL, PortletURL.class, parameterValueWithCharactersThatMustBeEncoded);
+		}
+
+		@Override
+		public ResourceURL createResourceURL() throws IllegalStateException {
+
+			ResourceURL resourceURL = super.createResourceURL();
+
+			return newURLProxy(resourceURL, ResourceURL.class, parameterValueWithCharactersThatMustBeEncoded);
 		}
 	}
 
