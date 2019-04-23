@@ -10,7 +10,8 @@
 		<table>
 			<tr>
 				<td><h:outputLabel for="datePattern" value="#{i18n['date-format']}" /></td>
-				<td><h:inputText id="datePattern" value="#{mutablePortletPreferencesValues['datePattern'].value}" /></td>
+				<td><h:inputText id="datePattern" styleClass="form-control"
+					value="#{mutablePortletPreferencesValues['datePattern'].value}" /></td>
 				<td><h:message for="datePattern" /></td>
 			</tr>
 		</table>
