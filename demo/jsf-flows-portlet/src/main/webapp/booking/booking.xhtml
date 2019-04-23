@@ -12,7 +12,8 @@
 			<h:graphicImage styleClass="booking-type" value="#{resource[bookingTypeImage]}" />
 			<alloy:fieldset id="bookingTypeFieldSet">
 				<alloy:field id="bookingTypeIdField" label="#{i18n['booking-type']}">
-					<h:selectOneMenu id="bookingTypeId" value="#{bookingFlowModelBean.bookingTypeId}"
+					<h:selectOneMenu id="bookingTypeId" styleClass="form-control"
+						value="#{bookingFlowModelBean.bookingTypeId}"
 						valueChangeListener="#{bookingFlowBackingBean.bookingTypeIdChanged}">
 						<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
 						<f:selectItems itemValue="#{bookingType.bookingTypeId}" itemLabel="#{i18n[bookingType.bookingTypeName]}"

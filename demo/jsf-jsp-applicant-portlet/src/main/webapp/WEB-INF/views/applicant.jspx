@@ -13,17 +13,20 @@
 						<h:panelGroup id="c1a" layout="block" styleClass="span6">
 							<h:panelGroup id="firstNameField" layout="block" styleClass="control-group">
 								<h:outputLabel styleClass="control-label" value="#{i18n['first-name']}" />
-								<h:inputText id="firstName" required="true" value="#{applicantModelBean.firstName}" />
+								<h:inputText id="firstName" required="true" styleClass="form-control"
+									value="#{applicantModelBean.firstName}" />
 								<h:message for="firstName" />
 							</h:panelGroup>
 							<h:panelGroup id="lastNameField" layout="block" styleClass="control-group">
 								<h:outputLabel styleClass="control-label" value="#{i18n['last-name']}" />
-								<h:inputText id="lastName" required="true" value="#{applicantModelBean.lastName}" />
+								<h:inputText id="lastName" required="true" styleClass="form-control"
+									 value="#{applicantModelBean.lastName}" />
 								<h:message for="lastName" />
 							</h:panelGroup>
 							<h:panelGroup id="emailAddressField" layout="block" styleClass="control-group">
 								<h:outputLabel styleClass="control-label" value="#{i18n['email-address']}" />
-								<h:inputText id="emailAddress" required="true" validatorMessage="#{i18n['invalid-email-address']}"
+								<h:inputText id="emailAddress" required="true" styleClass="form-control"
+									validatorMessage="#{i18n['invalid-email-address']}"
 									value="#{applicantModelBean.emailAddress}">
 									<f:validateRegex pattern=".+[@].+[.].+" />
 								</h:inputText>
@@ -31,26 +34,30 @@
 							</h:panelGroup>
 							<h:panelGroup id="phoneNumberField" layout="block" styleClass="control-group">
 								<h:outputLabel styleClass="control-label" value="#{i18n['phone-number']}" />
-								<h:inputText id="phoneNumber" required="true" value="#{applicantModelBean.phoneNumber}" />
+								<h:inputText id="phoneNumber" required="true" styleClass="form-control"
+									value="#{applicantModelBean.phoneNumber}" />
 								<h:message for="phoneNumber" />
 							</h:panelGroup>
 						</h:panelGroup>
 						<h:panelGroup id="c1b" layout="block" styleClass="span6">
 							<h:panelGroup id="dateOfBirthField" layout="block" styleClass="control-group">
 								<h:outputLabel styleClass="control-label" value="#{i18n['birthday']}" />
-								<h:inputText id="dateOfBirth" required="true" value="#{applicantModelBean.dateOfBirth}">
+								<h:inputText id="dateOfBirth" required="true" styleClass="form-control"
+									value="#{applicantModelBean.dateOfBirth}">
 									<f:convertDateTime pattern="#{portletPreferencesValues['datePattern'][0]}" />
 								</h:inputText>
 								<h:message for="dateOfBirth" />
 							</h:panelGroup>
 							<h:panelGroup id="cityField" layout="block" styleClass="control-group">
 								<h:outputLabel styleClass="control-label" value="#{i18n['city']}" />
-								<h:inputText id="city" required="true" value="#{applicantModelBean.city}" />
+								<h:inputText id="city" required="true" styleClass="form-control"
+									value="#{applicantModelBean.city}" />
 								<h:message id="cityMessage" for="city" />
 							</h:panelGroup>
 							<h:panelGroup id="provinceIdField" layout="block" styleClass="control-group">
 								<h:outputLabel styleClass="control-label" value="#{i18n['state-province']}" />
-								<h:selectOneMenu id="provinceId" required="true" value="#{applicantModelBean.provinceId}">
+								<h:selectOneMenu id="provinceId" required="true" styleClass="form-control"
+									value="#{applicantModelBean.provinceId}">
 									<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
 									<f:selectItems value="#{listModelBean.provinceSelectItems}" />
 								</h:selectOneMenu>
@@ -58,8 +65,9 @@
 							</h:panelGroup>
 							<h:panelGroup id="postalCodeField" layout="block" styleClass="control-group">
 								<h:outputLabel styleClass="control-label" value="#{i18n['zip-postal']}" />
-								<h:inputText id="postalCode" immediate="true" onchange="this.form.submit()" required="true"
-									style="width: 100px;" value="#{applicantModelBean.postalCode}" />
+								<h:inputText id="postalCode" immediate="true" onchange="this.form.submit()"
+									required="true" style="width: 100px;" styleClass="form-control"
+									value="#{applicantModelBean.postalCode}" />
 								<h:graphicImage library="example" name="icon-help.png" title="#{i18n['postal-code-hint']}" />
 								<h:message id="postalCodeMessage" for="postalCode" />
 							</h:panelGroup>
