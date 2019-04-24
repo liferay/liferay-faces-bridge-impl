@@ -56,11 +56,11 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 		waitingAsserter.assertElementDisplayed(getProvinceIdFieldXpath());
 		waitingAsserter.assertElementDisplayed(getPostalCodeFieldXpath());
 		waitingAsserter.assertElementDisplayed(getAddAttachmentXpath());
-		assertLibraryElementDisplayed(waitingAsserter, "Mojarra", browserDriver);
-		assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Bridge Impl", browserDriver);
+		assertLibraryElementDisplayed(waitingAsserter, browserDriver, "Mojarra");
+		assertLibraryElementDisplayed(waitingAsserter, browserDriver, "Liferay Faces Bridge Impl");
 
 		if (TestUtil.getContainer().contains("liferay")) {
-			assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Bridge Ext", browserDriver);
+			assertLibraryElementDisplayed(waitingAsserter, browserDriver, "Liferay Faces Bridge Ext");
 		}
 	}
 
