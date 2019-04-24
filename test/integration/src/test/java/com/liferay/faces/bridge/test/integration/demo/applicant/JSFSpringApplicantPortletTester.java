@@ -15,14 +15,16 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
+import java.util.List;
+
 /**
  * @author  Kyle Stiemann
  */
 public class JSFSpringApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
-	protected String getExtraLibraryName() {
-		return "Spring";
+	protected List<String> getExtraLibraryNames() {
+		return unmodifiableList("Spring");
 	}
 
 	@Override

@@ -23,6 +23,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.TestUtil;
+import java.util.List;
 
 
 /**
@@ -64,8 +65,8 @@ public class BootsFacesApplicantPortletTester extends ApplicantTesterBase {
 	}
 
 	@Override
-	protected String getExtraLibraryName() {
-		return "BootsFaces";
+	protected List<String> getExtraLibraryNames() {
+		return unmodifiableList("BootsFaces");
 	}
 
 	@Override

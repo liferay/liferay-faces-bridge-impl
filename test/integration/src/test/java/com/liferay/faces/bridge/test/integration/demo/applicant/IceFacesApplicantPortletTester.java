@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
+import java.util.List;
 
 
 /**
@@ -24,8 +25,8 @@ import com.liferay.faces.test.selenium.browser.BrowserDriver;
 public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
-	protected String getExtraLibraryName() {
-		return "ICEfaces";
+	protected List<String> getExtraLibraryNames() {
+		return unmodifiableList("ICEfaces");
 	}
 
 	@Override
