@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package com.liferay.faces.bridge.renderkit.primefaces.internal;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.ViewHandler;
 import javax.faces.component.ActionSource;
@@ -37,6 +38,8 @@ import com.liferay.faces.bridge.BridgeURL;
 import com.liferay.faces.bridge.BridgeURLFactory;
 import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.RenderKitBridgeImpl;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
@@ -45,6 +48,9 @@ import com.liferay.faces.bridge.renderkit.html_basic.internal.RenderKitBridgeImp
  * @author  Neil Griffin
  */
 public class FormRendererPrimeFacesImpl extends RendererWrapper {
+
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(FormRendererPrimeFacesImpl.class);
 
 	// Public Constants
 	public static final String AJAX_FILE_UPLOAD = "ajax.file.upload";
@@ -56,14 +62,22 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 	private static final String PE_EXPORTER_FQCN = "org.primefaces.extensions.component.exporter.DataExporter";
 
 	// Private Data Members
-	private int majorVersion;
-	private int minorVersion;
-	private Renderer wrappedRenderer;
+	private final int majorVersion;
+	private final int minorVersion;
+	private final Renderer wrappedRenderer;
 
 	public FormRendererPrimeFacesImpl(int majorVersion, int minorVersion, Renderer renderer) {
 		this.majorVersion = majorVersion;
 		this.minorVersion = minorVersion;
 		this.wrappedRenderer = renderer;
+	}
+
+	private static boolean isSimpleMode(UIComponent fileUpload) {
+
+		Map<String, Object> attributes = fileUpload.getAttributes();
+		Object mode = attributes.get("mode");
+
+		return "simple".equals(mode);
 	}
 
 	@Override
@@ -80,7 +94,7 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 
 			if (childComponent != null) {
 
-				if (!FileUploadRendererPrimeFacesImpl.isSimpleMode(uiComponent)) {
+				if (!isSimpleMode(uiComponent)) {
 					hasPrimeFacesAjaxFileUploadChild = true;
 					facesContext.getAttributes().put(AJAX_FILE_UPLOAD, Boolean.TRUE);
 				}
@@ -124,7 +138,7 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 				facesContext.setResponseWriter(responseWriter);
 			}
 			catch (BridgeException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 		}
 

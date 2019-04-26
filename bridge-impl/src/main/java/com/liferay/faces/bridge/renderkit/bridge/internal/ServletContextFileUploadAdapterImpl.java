@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.context.internal;
+package com.liferay.faces.bridge.renderkit.bridge.internal;
 
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -37,17 +37,14 @@ import javax.servlet.descriptor.JspConfigDescriptor;
 
 
 /**
- * This class is part of a workaround for <a href="https://issues.liferay.com/browse/FACES-2638">FACES_2638</a> that
- * provides the renderer for rich:fileUpload with a ServletContext instead of a PortletContext.
- *
- * @author  Neil Griffin
+ * @author  Kyle Stiemann
  */
-public class ServletContextRichFacesImpl implements ServletContext {
+public final class ServletContextFileUploadAdapterImpl implements ServletContext {
 
-	// Private Data Members
-	private PortletContext portletContext;
+	// Private Final Data Members
+	private final PortletContext portletContext;
 
-	public ServletContextRichFacesImpl(PortletContext portletContext) {
+	public ServletContextFileUploadAdapterImpl(PortletContext portletContext) {
 		this.portletContext = portletContext;
 	}
 
@@ -128,7 +125,7 @@ public class ServletContextRichFacesImpl implements ServletContext {
 
 	@Override
 	public ClassLoader getClassLoader() {
-		throw new UnsupportedOperationException();
+		return Thread.currentThread().getContextClassLoader();
 	}
 
 	@Override
@@ -188,7 +185,7 @@ public class ServletContextRichFacesImpl implements ServletContext {
 
 	@Override
 	public int getMajorVersion() {
-		throw new UnsupportedOperationException();
+		return portletContext.getMajorVersion();
 	}
 
 	@Override
@@ -198,7 +195,7 @@ public class ServletContextRichFacesImpl implements ServletContext {
 
 	@Override
 	public int getMinorVersion() {
-		throw new UnsupportedOperationException();
+		return portletContext.getMinorVersion();
 	}
 
 	@Override
@@ -271,19 +268,23 @@ public class ServletContextRichFacesImpl implements ServletContext {
 		throw new UnsupportedOperationException();
 	}
 
+	public String getVirtualServerName() {
+		throw new UnsupportedOperationException();
+	}
+
 	@Override
 	public void log(String msg) {
 		portletContext.log(msg);
 	}
 
 	@Override
-	public void log(Exception exception, String message) {
-		portletContext.log(message, exception);
+	public void log(String message, Throwable throwable) {
+		portletContext.log(message, throwable);
 	}
 
 	@Override
-	public void log(String message, Throwable throwable) {
-		portletContext.log(message, throwable);
+	public void log(Exception exception, String msg) {
+		portletContext.log(msg, exception);
 	}
 
 	@Override
@@ -298,7 +299,7 @@ public class ServletContextRichFacesImpl implements ServletContext {
 
 	@Override
 	public boolean setInitParameter(String name, String value) {
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

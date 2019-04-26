@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.component.inputfile.internal;
+package com.liferay.faces.bridge.renderkit.bridge.internal;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,16 +29,16 @@ import com.liferay.faces.bridge.model.UploadedFile;
 /**
  * @author  Neil Griffin
  */
-public class HtmlInputFilePartImpl implements Part, FacesWrapper<UploadedFile>, Serializable {
+public final class PartFileUploadAdapterImpl implements Part, FacesWrapper<UploadedFile>, Serializable {
 
 	// serialVersionUID
-	private static final long serialVersionUID = 8623187629549586031L;
+	private static final long serialVersionUID = 9094557806016190724L;
 
-	// Private Data Members
-	private String clientId;
-	private UploadedFile wrappedUploadedFile;
+	// Private Final Data Members
+	private final String clientId;
+	private final UploadedFile wrappedUploadedFile;
 
-	public HtmlInputFilePartImpl(UploadedFile uploadedFile, String clientId) {
+	public PartFileUploadAdapterImpl(UploadedFile uploadedFile, String clientId) {
 		this.wrappedUploadedFile = uploadedFile;
 		this.clientId = clientId;
 	}
@@ -81,6 +81,10 @@ public class HtmlInputFilePartImpl implements Part, FacesWrapper<UploadedFile>, 
 	@Override
 	public long getSize() {
 		return getWrapped().getSize();
+	}
+
+	public String getSubmittedFileName() {
+		return getWrapped().getName();
 	}
 
 	@Override

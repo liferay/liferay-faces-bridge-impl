@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitWrapper;
 import javax.faces.render.Renderer;
 
+import com.liferay.faces.bridge.renderkit.bridge.internal.FileUploadRendererPortletImpl;
 import com.liferay.faces.bridge.renderkit.icefaces.internal.HeadRendererICEfacesImpl;
-import com.liferay.faces.bridge.renderkit.primefaces.internal.FileUploadRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.FormRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.HeadRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.richfaces.internal.FileUploadRendererRichFacesImpl;
@@ -89,11 +89,11 @@ public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 					renderer);
 		}
 		else if (PRIMEFACES_FAMILY.equals(family) && PRIMEFACES_FILE_UPLOAD_RENDERER_TYPE.equals(rendererType)) {
-			renderer = new FileUploadRendererPrimeFacesImpl(renderer);
+			renderer = new FileUploadRendererPortletImpl(renderer);
 		}
 		else if (RICHFACES_FILE_UPLOAD_FAMILY.equals(family) &&
 				RICHFACES_FILE_UPLOAD_RENDERER_TYPE.equals(rendererType)) {
-			renderer = new FileUploadRendererRichFacesImpl(renderer);
+			renderer = new FileUploadRendererPortletImpl(new FileUploadRendererRichFacesImpl(renderer));
 		}
 
 		return renderer;

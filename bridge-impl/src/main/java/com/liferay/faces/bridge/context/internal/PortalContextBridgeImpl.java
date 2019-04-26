@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -29,6 +30,7 @@ import javax.portlet.WindowState;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
+import com.liferay.faces.bridge.internal.PortletConfigParamUtil;
 
 
 /**
@@ -132,13 +134,8 @@ public class PortalContextBridgeImpl extends PortalContextBridgeCompatImpl {
 			// implementations that override this.
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			ExternalContext externalContext = facesContext.getExternalContext();
-			ableToSetHttpStatusCode = externalContext.getInitParameter(
-					PortletConfigParam.ContainerAbleToSetHttpStatusCode.getName());
-
-			if (ableToSetHttpStatusCode == null) {
-				ableToSetHttpStatusCode = externalContext.getInitParameter(
-						PortletConfigParam.ContainerAbleToSetHttpStatusCode.getAlternateName());
-			}
+			ableToSetHttpStatusCode = PortletConfigParamUtil.getStringValue(externalContext,
+					PortletConfigParam.ContainerAbleToSetHttpStatusCode);
 		}
 
 		return ableToSetHttpStatusCode;
