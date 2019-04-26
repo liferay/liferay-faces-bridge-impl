@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,6 +45,18 @@ import com.liferay.faces.bridge.model.UploadedFile;
 //J+
 public class InputFileRenderer extends InputFileRendererCompat {
 
+	/* package-private */ static Map<String, List<UploadedFile>> getUploadedFileMap(FacesContext facesContext) {
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletContext portletContext = (PortletContext) externalContext.getContext();
+		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
+				ContextMapFactory.class);
+
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+
+		return contextMapFactory.getUploadedFileMap(portletRequest);
+	}
+
 	@Override
 	public void decode(FacesContext facesContext, UIComponent uiComponent) {
 
@@ -52,7 +64,7 @@ public class InputFileRenderer extends InputFileRendererCompat {
 
 		Map<String, List<UploadedFile>> uploadedFileMap = getUploadedFileMap(facesContext);
 
-		if (uploadedFileMap != null) {
+		if (!uploadedFileMap.isEmpty()) {
 
 			String clientId = uiComponent.getClientId(facesContext);
 			List<UploadedFile> uploadedFiles = uploadedFileMap.get(clientId);
@@ -95,17 +107,5 @@ public class InputFileRenderer extends InputFileRendererCompat {
 		ResponseWriter responseWriter = facesContext.getResponseWriter();
 		ResponseWriter delegationResponseWriter = new InputFileDelegationResponseWriter(responseWriter);
 		super.encodeEnd(facesContext, uiComponent, delegationResponseWriter);
-	}
-
-	protected Map<String, List<UploadedFile>> getUploadedFileMap(FacesContext facesContext) {
-
-		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletContext portletContext = (PortletContext) externalContext.getContext();
-		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
-				ContextMapFactory.class);
-
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-
-		return contextMapFactory.getUploadedFileMap(portletRequest);
 	}
 }

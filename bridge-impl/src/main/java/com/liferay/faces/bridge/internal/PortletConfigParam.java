@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,19 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.util.Set;
+
 import javax.portlet.PortletConfig;
 import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.util.config.ConfigParam;
+import com.liferay.faces.util.config.WebConfigParam;
 import com.liferay.faces.util.helper.BooleanHelper;
 
 
 /**
  * This enumeration contains constant names for various implementation-specific context-param entries that portlet
- * developers can use in the WEB-INF/web.xml descriptor.
+ * developers can use in the WEB-INF/web.xml and WEB-INF/portlet.xml descriptors.
  *
  * @author  Neil Griffin
  */
@@ -34,16 +37,16 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	 * Flag indicating whether or not the bridge request scope is preserved after the RENDER_PHASE completes. Default
 	 * value is false. Set value to true in order to enable JSR 329 default behavior.
 	 */
-	BridgeRequestScopeActionEnabled(Bridge.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED,
-		"com.liferay.faces.bridge.bridgeRequestScopePreserved", false),
+	BridgeRequestScopeActionEnabled(false, Bridge.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED,
+		"com.liferay.faces.bridge.bridgeRequestScopePreserved"),
 
 	/**
 	 * Flag indicating whether or not the bridge should manage BridgeRequestScope during the RESOURCE_PHASE of the
 	 * portlet lifecycle when the {@link javax.portlet.faces.Bridge#FACES_AJAX_PARAMETER} resource request parameter is
 	 * "true". Default value is false.
 	 */
-	BridgeRequestScopeAjaxEnabled(Bridge.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED,
-		"com.liferay.faces.bridge.bridgeRequestScopeAjaxEnabled", false),
+	BridgeRequestScopeAjaxEnabled(false, Bridge.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED,
+		"com.liferay.faces.bridge.bridgeRequestScopeAjaxEnabled"),
 
 	/**
 	 * Integer indicating the initial cache capacity for the Bridge Request Scope. The default value of this param is
@@ -54,7 +57,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	 * @since  2.1
 	 * @since  3.1
 	 */
-	BridgeRequestScopeInitialCacheCapacity("com.liferay.faces.bridge.INITIAL_MANAGED_REQUEST_SCOPES", 16),
+	BridgeRequestScopeInitialCacheCapacity(16, "com.liferay.faces.bridge.INITIAL_MANAGED_REQUEST_SCOPES"),
 
 	/**
 	 * Integer indicating the maximum cache capacity for the Bridge Request Scope. According to Section 3.2 of the
@@ -66,95 +69,87 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	 * @since  2.1
 	 * @since  3.1
 	 */
-	BridgeRequestScopeMaxCacheCapacity(Bridge.MAX_MANAGED_REQUEST_SCOPES, 100),
+	BridgeRequestScopeMaxCacheCapacity(100, Bridge.MAX_MANAGED_REQUEST_SCOPES),
 
 	/**
 	 * Flag indicating whether or not the portlet container has the ability to set the HTTP status code for resources.
 	 * Default value is false.
 	 */
-	ContainerAbleToSetHttpStatusCode("com.liferay.faces.bridge.containerAbleToSetHttpStatusCode",
-		"org.portletfaces.bridge.containerAbleToSetHttpStatusCode", false),
+	ContainerAbleToSetHttpStatusCode(false, "com.liferay.faces.bridge.containerAbleToSetHttpStatusCode",
+		"org.portletfaces.bridge.containerAbleToSetHttpStatusCode"),
 
-	DefaultRenderKitId("javax.portlet.faces.defaultRenderKitId", null),
+	DefaultRenderKitId(null, "javax.portlet.faces.defaultRenderKitId"),
 
 	/**
 	 * Flag indicating whether or not the bridge should manage incongruities between the JSF lifecycle and the Portlet
 	 * lifecycle. The default is true.
 	 */
-	ManageIncongruities("com.liferay.faces.bridge.manageIncongruities", true),
+	ManageIncongruities(true, "com.liferay.faces.bridge.manageIncongruities"),
 
 	/**
 	 * Flag indicating whether or not methods annotated with the &#064;PreDestroy annotation are preferably invoked over
-	 * the &#064;BridgePreDestroy annotation. Default value is true.For more info, see:
+	 * the &#064;BridgePreDestroy annotation. Default value is true. For more info, see:
 	 * http://issues.liferay.com/browse/FACES-146
 	 */
-	PreferPreDestroy("com.liferay.faces.bridge.preferPreDestroy", "org.portletfaces.bridge.preferPreDestroy", true),
+	PreferPreDestroy(true, "com.liferay.faces.bridge.preferPreDestroy", "org.portletfaces.bridge.preferPreDestroy"),
 
 	/** Flag indicating the value of the "javax.portlet.faces.preserveActionParams" init-param. The default is false. */
-	PreserveActionParams("javax.portlet.faces.preserveActionParams", false),
+	PreserveActionParams(false, "javax.portlet.faces.preserveActionParams"),
 
 	/**
 	 * Flag indicating whether or not the render-redirect standard feature is enabled. Default value is false for the
 	 * sake of performance.
 	 */
-	RenderRedirectEnabled("com.liferay.faces.bridge.renderRedirectEnabled", false),
+	RenderRedirectEnabled(false, "com.liferay.faces.bridge.renderRedirectEnabled"),
 
 	/** Size in bytes for the buffer that is used to deliver resources back to the browser. Default value is 1024. */
-	ResourceBufferSize("com.liferay.faces.bridge.resourceBufferSize", "org.portletfaces.bridge.resourceBufferSize",
-		1024),
+	ResourceBufferSize(1024, "com.liferay.faces.bridge.resourceBufferSize",
+		"org.portletfaces.bridge.resourceBufferSize"),
 
 	/**
 	 * Absolute path to a directory (folder) in which the uploaded file data should be written to. Default value is the
 	 * value of the system property "java.io.tmpdir".
 	 */
-	UploadedFilesDir("com.liferay.faces.bridge.uploadedFilesDir", "javax.faces.UPLOADED_FILES_DIR",
-		System.getProperty("java.io.tmpdir")),
+	UploadedFilesDir(WebConfigParam.UploadedFilesDir.getDefaultStringValue(), WebConfigParam.UploadedFilesDir.getName(),
+		"com.liferay.faces.bridge.uploadedFilesDir", "javax.faces.UPLOADED_FILES_DIR"),
 
 	/** Maximum file size for an uploaded file. Default is 104,857,600 (~100MB), upper limit is 2,147,483,647 (~2GB) */
-	UploadedFileMaxSize("com.liferay.faces.bridge.uploadedFileMaxSize", "javax.faces.UPLOADED_FILE_MAX_SIZE",
-		104857600L),
+	UploadedFileMaxSize(WebConfigParam.UploadedFileMaxSize.getDefaultLongValue(),
+		WebConfigParam.UploadedFileMaxSize.getName(), "com.liferay.faces.bridge.uploadedFileMaxSize",
+		"javax.faces.UPLOADED_FILE_MAX_SIZE"),
 
 	/** Name of the render parameter used to encode the viewId. Default value is "_facesViewIdRender". */
-	ViewIdRenderParameterName("com.liferay.faces.bridge.viewIdRenderParameterName", "_facesViewIdRender"),
+	ViewIdRenderParameterName("_facesViewIdRender", "com.liferay.faces.bridge.viewIdRenderParameterName"),
 
 	/** Name of the resource request parameter used to encode the viewId Default value is "_facesViewIdResource" */
-	ViewIdResourceParameterName("com.liferay.faces.bridge.viewIdResourceParameterName", "_facesViewIdResource"),
+	ViewIdResourceParameterName("_facesViewIdResource", "com.liferay.faces.bridge.viewIdResourceParameterName"),
 
 	/** Flag indicating whether or not the JSF 2 "View Parameters" feature is enabled. Default value is true. */
-	ViewParametersEnabled("com.liferay.faces.bridge.viewParametersEnabled", true);
+	ViewParametersEnabled(true, "com.liferay.faces.bridge.viewParametersEnabled");
 
 	// Private Data Members
-	private String alternateName;
-	private boolean defaultBooleanValue;
-	private String defaultStringValue;
-	private int defaultIntegerValue;
-	private long defaultLongValue;
-	private String name;
+	private final String name;
+	private final String alternateName;
+	private final Set<String> names;
+	private final boolean defaultBooleanValue;
+	private final String defaultStringValue;
+	private final int defaultIntegerValue;
+	private final long defaultLongValue;
 
-	PortletConfigParam(String name, int defaultIntegerValue) {
-		this(name, null, defaultIntegerValue);
-	}
-
-	PortletConfigParam(String name, String defaultStringValue) {
-		this(name, null, defaultStringValue);
-	}
-
-	PortletConfigParam(String name, boolean defaultBooleanValue) {
-		this(name, null, defaultBooleanValue);
-	}
-
-	PortletConfigParam(String name, String alternateName, int defaultIntegerValue) {
-		this.name = name;
-		this.alternateName = alternateName;
+	PortletConfigParam(int defaultIntegerValue, String... names) {
+		this.name = names[0];
+		this.alternateName = PortletConfigParamUtil.getAlternateName(names);
+		this.names = PortletConfigParamUtil.asInsertionOrderedSet(names);
 		this.defaultBooleanValue = (defaultIntegerValue != 0);
 		this.defaultIntegerValue = defaultIntegerValue;
 		this.defaultLongValue = defaultIntegerValue;
 		this.defaultStringValue = Integer.toString(defaultIntegerValue);
 	}
 
-	PortletConfigParam(String name, String alternateName, long defaultLongValue) {
-		this.name = name;
-		this.alternateName = alternateName;
+	PortletConfigParam(long defaultLongValue, String... names) {
+		this.name = names[0];
+		this.alternateName = PortletConfigParamUtil.getAlternateName(names);
+		this.names = PortletConfigParamUtil.asInsertionOrderedSet(names);
 		this.defaultBooleanValue = (defaultLongValue != 0);
 
 		if (defaultLongValue < Integer.MIN_VALUE) {
@@ -171,9 +166,10 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		this.defaultStringValue = Long.toString(defaultLongValue);
 	}
 
-	PortletConfigParam(String name, String alternateName, String defaultStringValue) {
-		this.name = name;
-		this.alternateName = alternateName;
+	PortletConfigParam(String defaultStringValue, String... names) {
+		this.name = names[0];
+		this.alternateName = PortletConfigParamUtil.getAlternateName(names);
+		this.names = PortletConfigParamUtil.asInsertionOrderedSet(names);
 
 		if (BooleanHelper.isTrueToken(defaultStringValue)) {
 			this.defaultBooleanValue = true;
@@ -189,9 +185,10 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		this.defaultStringValue = defaultStringValue;
 	}
 
-	PortletConfigParam(String name, String alternateName, boolean defaultBooleanValue) {
-		this.name = name;
-		this.alternateName = alternateName;
+	PortletConfigParam(boolean defaultBooleanValue, String... names) {
+		this.name = names[0];
+		this.alternateName = PortletConfigParamUtil.getAlternateName(names);
+		this.names = PortletConfigParamUtil.asInsertionOrderedSet(names);
 		this.defaultBooleanValue = defaultBooleanValue;
 
 		if (defaultBooleanValue) {
@@ -213,12 +210,12 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 
 	@Override
 	public boolean getBooleanValue(PortletConfig portletConfig) {
-		return PortletConfigParamUtil.getBooleanValue(portletConfig, name, alternateName, defaultBooleanValue);
+		return PortletConfigParamUtil.getBooleanValue(portletConfig, this);
 	}
 
 	@Override
 	public String getConfiguredValue(PortletConfig portletConfig) {
-		return PortletConfigParamUtil.getConfiguredValue(portletConfig, name, alternateName);
+		return PortletConfigParamUtil.getConfiguredValue(portletConfig, this);
 	}
 
 	@Override
@@ -243,12 +240,12 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 
 	@Override
 	public int getIntegerValue(PortletConfig portletConfig) {
-		return PortletConfigParamUtil.getIntegerValue(portletConfig, name, alternateName, defaultIntegerValue);
+		return PortletConfigParamUtil.getIntegerValue(portletConfig, this);
 	}
 
 	@Override
 	public long getLongValue(PortletConfig portletConfig) {
-		return PortletConfigParamUtil.getLongValue(portletConfig, name, alternateName, defaultLongValue);
+		return PortletConfigParamUtil.getLongValue(portletConfig, this);
 	}
 
 	@Override
@@ -256,13 +253,17 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		return name;
 	}
 
+	public Set<String> getNames() {
+		return names;
+	}
+
 	@Override
 	public String getStringValue(PortletConfig portletConfig) {
-		return PortletConfigParamUtil.getStringValue(portletConfig, name, alternateName, defaultStringValue);
+		return PortletConfigParamUtil.getStringValue(portletConfig, this);
 	}
 
 	@Override
 	public boolean isConfigured(PortletConfig portletConfig) {
-		return PortletConfigParamUtil.isSpecified(portletConfig, name, alternateName);
+		return PortletConfigParamUtil.isSpecified(portletConfig, this);
 	}
 }

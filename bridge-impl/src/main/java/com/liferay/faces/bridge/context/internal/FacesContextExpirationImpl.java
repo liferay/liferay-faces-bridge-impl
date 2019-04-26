@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,8 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import java.util.Iterator;
-
-import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseStream;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.RenderKit;
 
 
 /**
@@ -32,7 +24,7 @@ import javax.faces.render.RenderKit;
  *
  * @author  Neil Griffin
  */
-public class FacesContextExpirationImpl extends FacesContext {
+public final class FacesContextExpirationImpl extends FacesContextUnsupportedImpl {
 
 	// Private Data Members
 	ExternalContext externalContext;
@@ -44,98 +36,13 @@ public class FacesContextExpirationImpl extends FacesContext {
 	}
 
 	@Override
-	public void addMessage(String clientId, FacesMessage message) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Application getApplication() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Iterator<String> getClientIdsWithMessages() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public ExternalContext getExternalContext() {
 		return externalContext;
-	}
-
-	@Override
-	public FacesMessage.Severity getMaximumSeverity() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Iterator<FacesMessage> getMessages() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Iterator<FacesMessage> getMessages(String clientId) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public RenderKit getRenderKit() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean getRenderResponse() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean getResponseComplete() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public ResponseStream getResponseStream() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public ResponseWriter getResponseWriter() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public UIViewRoot getViewRoot() {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void release() {
 		externalContext = null;
 		setCurrentInstance(null);
-	}
-
-	@Override
-	public void renderResponse() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void responseComplete() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void setResponseStream(ResponseStream responseStream) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void setResponseWriter(ResponseWriter responseWriter) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void setViewRoot(UIViewRoot root) {
-		throw new UnsupportedOperationException();
 	}
 }
