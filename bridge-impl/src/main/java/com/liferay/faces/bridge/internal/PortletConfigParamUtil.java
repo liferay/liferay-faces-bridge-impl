@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,13 @@
  */
 package com.liferay.faces.bridge.internal;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import javax.faces.context.ExternalContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.faces.Bridge;
@@ -30,12 +37,15 @@ import com.liferay.faces.util.helper.LongHelper;
  *
  * @author  Neil Griffin
  */
-public class PortletConfigParamUtil {
+public final class PortletConfigParamUtil {
 
-	public static boolean getBooleanValue(PortletConfig portletConfig, String name, String alternateName,
-		boolean defaultBooleanValue) {
+	// Package-Private Final Data Members
+	/* package-private */ static final String[] ALTERNATE_NAMES_EMPTY_ARRAY = new String[] {};
 
-		boolean booleanValue = defaultBooleanValue;
+	public static boolean getBooleanValue(PortletConfig portletConfig, PortletConfigParam portletConfigParam) {
+
+		boolean booleanValue = portletConfigParam.getDefaultBooleanValue();
+		String name = portletConfigParam.getName();
 
 		if (name.startsWith(Bridge.BRIDGE_PACKAGE_PREFIX)) {
 
@@ -61,7 +71,7 @@ public class PortletConfigParamUtil {
 			}
 		}
 
-		String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
+		String configuredValue = getConfiguredValue(portletConfig, portletConfigParam);
 
 		if (configuredValue != null) {
 			booleanValue = BooleanHelper.isTrueToken(configuredValue);
@@ -70,104 +80,112 @@ public class PortletConfigParamUtil {
 		return booleanValue;
 	}
 
-	public static String getConfiguredValue(PortletConfig portletConfig, String name, String alternateName) {
+	public static String getConfiguredValue(PortletConfig portletConfig, PortletConfigParam portletConfigParam) {
+		return getConfiguredValue((Object) portletConfig, portletConfigParam);
+	}
 
-		PortletContext portletContext = portletConfig.getPortletContext();
+	public static int getIntegerValue(PortletConfig portletConfig, PortletConfigParam portletConfigParam) {
 
-		String configuredValue = portletConfig.getInitParameter(name);
+		int integerValue = portletConfigParam.getDefaultIntegerValue();
+		String configuredValue = getConfiguredValue(portletConfig, portletConfigParam);
 
-		if (configuredValue == null) {
-			portletContext = portletConfig.getPortletContext();
-			configuredValue = portletContext.getInitParameter(name);
+		if (configuredValue != null) {
+			integerValue = IntegerHelper.toInteger(configuredValue);
 		}
 
-		if ((configuredValue == null) && (alternateName != null)) {
-			configuredValue = portletConfig.getInitParameter(alternateName);
+		return integerValue;
+	}
 
-			if (configuredValue == null) {
-				configuredValue = portletContext.getInitParameter(alternateName);
+	public static long getLongValue(PortletConfig portletConfig, PortletConfigParam portletConfigParam) {
+
+		long longValue = portletConfigParam.getDefaultLongValue();
+		String configuredValue = getConfiguredValue(portletConfig, portletConfigParam);
+
+		if (configuredValue != null) {
+			longValue = LongHelper.toLong(configuredValue);
+		}
+
+		return longValue;
+	}
+
+	public static String getStringValue(ExternalContext externalContext, PortletConfigParam portletConfigParam) {
+		return getStringValue((Object) externalContext, portletConfigParam);
+	}
+
+	public static String getStringValue(PortletConfig portletConfig, PortletConfigParam portletConfigParam) {
+		return getStringValue((Object) portletConfig, portletConfigParam);
+	}
+
+	public static boolean isSpecified(PortletConfig portletConfig, PortletConfigParam portletConfigParam) {
+		return (getConfiguredValue(portletConfig, portletConfigParam) != null);
+	}
+
+	/* package-private */ static Set<String> asInsertionOrderedSet(String... names) {
+		return Collections.unmodifiableSet(new LinkedHashSet<String>(Arrays.asList(names)));
+	}
+
+	/* package-private */ static String getAlternateName(String... names) {
+
+		if (names.length > 1) {
+			return names[1];
+		}
+		else {
+			return null;
+		}
+	}
+
+	private static String getConfiguredValue(Object initParamContainer, PortletConfigParam portletConfigParam) {
+
+		ExternalContext externalContext = null;
+		PortletConfig portletConfig = null;
+		PortletContext portletContext = null;
+
+		if (initParamContainer instanceof ExternalContext) {
+			externalContext = (ExternalContext) initParamContainer;
+		}
+		else if (initParamContainer instanceof PortletConfig) {
+
+			portletConfig = (PortletConfig) initParamContainer;
+			portletContext = portletConfig.getPortletContext();
+		}
+		else {
+			throw new UnsupportedOperationException(
+				"This method only supports ExternalContext and PortletConfig init params.");
+		}
+
+		String configuredValue = null;
+		Set<String> names = portletConfigParam.getNames();
+		Iterator<String> iterator = names.iterator();
+
+		while (iterator.hasNext() && (configuredValue == null)) {
+
+			String name = iterator.next();
+
+			if (externalContext != null) {
+				configuredValue = externalContext.getInitParameter(name);
+			}
+			else {
+
+				configuredValue = portletConfig.getInitParameter(name);
+
+				if (configuredValue == null) {
+					configuredValue = portletContext.getInitParameter(name);
+				}
 			}
 		}
 
 		return configuredValue;
 	}
 
-	public static int getIntegerValue(PortletConfig portletConfig, String name, String alternateName,
-		int defaultIntegerValue) {
+	private static String getStringValue(Object initParamContainer, PortletConfigParam portletConfigParam) {
 
-		int integerValue = defaultIntegerValue;
+		String stringValue = portletConfigParam.getDefaultStringValue();
+		String configuredValue = getConfiguredValue(initParamContainer, portletConfigParam);
 
-		String portletName = portletConfig.getPortletName();
-
-		if (portletName == null) {
-			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
-
-			if (configuredValue != null) {
-				integerValue = IntegerHelper.toInteger(configuredValue);
-			}
-		}
-		else {
-			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
-
-			if (configuredValue != null) {
-				integerValue = IntegerHelper.toInteger(configuredValue);
-			}
-		}
-
-		return integerValue;
-	}
-
-	public static long getLongValue(PortletConfig portletConfig, String name, String alternateName,
-		long defaultLongValue) {
-
-		long longValue = defaultLongValue;
-
-		String portletName = portletConfig.getPortletName();
-
-		if (portletName == null) {
-			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
-
-			if (configuredValue != null) {
-				longValue = LongHelper.toLong(configuredValue);
-			}
-		}
-		else {
-			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
-
-			if (configuredValue != null) {
-				longValue = LongHelper.toLong(configuredValue);
-			}
-		}
-
-		return longValue;
-	}
-
-	public static String getStringValue(PortletConfig portletConfig, String name, String alternateName,
-		String defaultStringValue) {
-
-		String stringValue = defaultStringValue;
-
-		String portletName = portletConfig.getPortletName();
-
-		if (portletName == null) {
-			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
-
-			if (configuredValue != null) {
-				stringValue = configuredValue;
-			}
-		}
-		else {
-			String configuredValue = getConfiguredValue(portletConfig, name, alternateName);
-
-			if (configuredValue != null) {
-				stringValue = configuredValue;
-			}
+		if (configuredValue != null) {
+			stringValue = configuredValue;
 		}
 
 		return stringValue;
-	}
-
-	public static boolean isSpecified(PortletConfig portletConfig, String name, String alternateName) {
-		return (getConfiguredValue(portletConfig, name, alternateName) != null);
 	}
 }

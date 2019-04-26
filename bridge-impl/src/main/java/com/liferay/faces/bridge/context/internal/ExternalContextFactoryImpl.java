@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,6 @@ import javax.portlet.PortletResponse;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -35,11 +33,6 @@ public class ExternalContextFactoryImpl extends ExternalContextFactory {
 
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ExternalContextFactoryImpl.class);
-
-	// Private Constants
-	private static final Product RICHFACES = ProductFactory.getProduct(Product.Name.RICHFACES);
-	private static final boolean FACES_2638 = RICHFACES.isDetected() && (RICHFACES.getMajorVersion() == 4) &&
-		(RICHFACES.getMinorVersion() == 5) && (RICHFACES.getPatchVersion() >= 16);
 
 	// Private Data Members
 	private ExternalContextFactory wrappedFactory;
@@ -67,11 +60,6 @@ public class ExternalContextFactoryImpl extends ExternalContextFactory {
 			// Workaround for FACES-2133
 			if ("org.richfaces.resource.MediaOutputResource".equals(resourceName)) {
 				return new ExternalContextRichFacesResourceImpl(externalContext);
-			}
-
-			// Workaround for FACES_2638
-			else if (FACES_2638) {
-				return new ExternalContextRichFacesImpl(portletContext, portletRequest, portletResponse);
 			}
 			else {
 				return externalContext;

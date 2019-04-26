@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,19 @@
  */
 package com.liferay.faces.bridge.component.inputfile.internal;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputFile;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.http.Part;
 
 import com.liferay.faces.bridge.component.inputfile.InputFile;
-import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.model.UploadedFile;
+import com.liferay.faces.bridge.renderkit.bridge.internal.PartFileUploadAdapterImpl;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 import com.liferay.faces.util.product.Product;
@@ -76,9 +71,9 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 
 		HtmlInputFile htmlInputFile = (HtmlInputFile) uiComponent;
 
-		Map<String, List<UploadedFile>> uploadedFileMap = getUploadedFileMap(facesContext);
+		Map<String, List<UploadedFile>> uploadedFileMap = InputFileRenderer.getUploadedFileMap(facesContext);
 
-		if (uploadedFileMap != null) {
+		if (!uploadedFileMap.isEmpty()) {
 
 			String clientId = uiComponent.getClientId(facesContext);
 
@@ -88,7 +83,7 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 
 				if ((uploadedFiles != null) && (uploadedFiles.size() > 0)) {
 
-					Part part = new HtmlInputFilePartImpl(uploadedFiles.get(0), clientId);
+					Part part = new PartFileUploadAdapterImpl(uploadedFiles.get(0), clientId);
 					htmlInputFile.setTransient(true);
 					htmlInputFile.setSubmittedValue(part);
 				}
@@ -126,17 +121,5 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 	@Override
 	public String getDelegateRendererType() {
 		return "javax.faces.File";
-	}
-
-	protected Map<String, List<UploadedFile>> getUploadedFileMap(FacesContext facesContext) {
-
-		ExternalContext externalContext = facesContext.getExternalContext();
-		PortletContext portletContext = (PortletContext) externalContext.getContext();
-		ContextMapFactory contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
-				ContextMapFactory.class);
-
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-
-		return contextMapFactory.getUploadedFileMap(portletRequest);
 	}
 }
