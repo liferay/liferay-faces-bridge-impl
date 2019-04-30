@@ -193,6 +193,21 @@ limitations under the License.
 		<page name="lsv-169" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.lsv.169.portlet" name="1"/>
 		</page>
+		<page name="lsv-485-alloy" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.485.alloy.portlet" name="1"/>
+		</page>
+		<page name="lsv-485-ice" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.485.icefaces.portlet" name="1"/>
+		</page>
+		<page name="lsv-485-bridge" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.485.bridge.portlet" name="1"/>
+		</page>
+		<page name="lsv-485-prime" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.485.primefaces.portlet" name="1"/>
+		</page>
+		<page name="lsv-485-rich" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.485.richfaces.portlet" name="1"/>
+		</page>
 
 		<!-- Bridge TCK -->
 		<page name="TestPage001" uri="/WEB-INF/themes/pluto-default-theme.jsp">
