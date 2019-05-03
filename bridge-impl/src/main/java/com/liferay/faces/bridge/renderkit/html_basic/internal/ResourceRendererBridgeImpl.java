@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -132,8 +132,7 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 		if (wrappedRenderer == null) {
 
 			try {
-				String wrappedRendererClassName = (String) state;
-				Class<?> wrappedRendererClass = Class.forName(wrappedRendererClassName);
+				Class<?> wrappedRendererClass = (Class<?>) state;
 				wrappedRenderer = (Renderer) wrappedRendererClass.newInstance();
 			}
 			catch (Exception e) {
@@ -144,7 +143,7 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 
 	@Override
 	public Object saveState(FacesContext facesContext) {
-		return wrappedRenderer.getClass().getName();
+		return wrappedRenderer.getClass();
 	}
 
 	@Override
