@@ -74,7 +74,7 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 		browserDriver.sendKeysToElement(firstNameFieldXpath, "asdf");
 
 		String submitButtonXpath = getSubmitButtonXpath();
-		browserDriver.clickElement(submitButtonXpath);
+		browserDriver.clickElementAndWaitForRerender(submitButtonXpath);
 
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		String firstNameFieldErrorXpath = getFieldErrorXpath(firstNameFieldXpath);
@@ -110,7 +110,7 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 		clearAllFields(browserDriver);
 
 		String submitButtonXpath = getSubmitButtonXpath();
-		browserDriver.clickElement(submitButtonXpath);
+		browserDriver.clickElementAndWaitForRerender(submitButtonXpath);
 
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		String postalCodeFieldXpath = getPostalCodeFieldXpath();
