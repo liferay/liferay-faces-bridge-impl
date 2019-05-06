@@ -31,7 +31,7 @@ public class RichFacesApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
 	protected String getExtraLibraryName() {
-		return "RichFaces 4.5.17.Final";
+		return "RichFaces 4.6.8.ayg";
 	}
 
 	@Override

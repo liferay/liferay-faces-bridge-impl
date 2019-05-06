@@ -135,7 +135,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.stage>Production</project.stage>
-		<richfaces.version>4.5.17.Final</richfaces.version>
+		<richfaces.version>4.6.8.ayg</richfaces.version>
 		<selenium.version>2.53.0</selenium.version>
 		<spring.version>4.2.5.RELEASE</spring.version>
 		<surefire.version>2.12</surefire.version>
@@ -913,7 +913,7 @@
 				</exclusions>
 			</dependency>
 			<dependency>
-				<groupId>org.richfaces</groupId>
+				<groupId>com.github.albfernandez.richfaces</groupId>
 				<artifactId>richfaces</artifactId>
 				<version>${richfaces.version}</version>
 				<exclusions>
