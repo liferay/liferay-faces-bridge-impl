@@ -73,7 +73,7 @@
 		<dependency>
 			<groupId>org.primefaces.extensions</groupId>
 			<artifactId>primefaces-extensions</artifactId>
-			<version>${primefaces.version}.3</version>
+			<version>${primefaces.version}</version>
 		</dependency>
 	</dependencies>
 
