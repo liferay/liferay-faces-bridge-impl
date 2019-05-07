@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,15 @@ import com.liferay.faces.bridge.application.internal.MissingResourceImpl;
  */
 public final class PortletResourceUtilCompat {
 
+	// Public Constants
+	public static final String PORTLET_RESOURCE_IDENTIFIER = "javax.faces.resource=";
+
 	private PortletResourceUtilCompat() {
 		throw new AssertionError();
 	}
 
 	public static boolean isPortletResourceURL(String url) {
 		return (url != null) &&
-			(url.contains("javax.faces.resource=") || url.equals(MissingResourceImpl.RES_NOT_FOUND));
+			(url.contains(PORTLET_RESOURCE_IDENTIFIER) || url.equals(MissingResourceImpl.RES_NOT_FOUND));
 	}
 }

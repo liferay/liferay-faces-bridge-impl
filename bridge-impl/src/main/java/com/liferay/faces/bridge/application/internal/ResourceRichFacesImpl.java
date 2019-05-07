@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,12 @@
 package com.liferay.faces.bridge.application.internal;
 
 import javax.faces.application.Resource;
+import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceWrapper;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import com.liferay.faces.bridge.util.internal.PortletResourceUtilCompat;
 
 
 /**
@@ -82,6 +85,20 @@ public class ResourceRichFacesImpl extends ResourceWrapper {
 				buf.append("/javax.faces.resource/");
 				buf.append(requestPath.substring(pos + RICHFACES_PATH_TOKEN.length()));
 				requestPath = externalContext.encodeResourceURL(buf.toString());
+			}
+
+			// FACES-3373 Albfernandez's RichFaces fork adds the portlet resource identifier (reproducable in Pluto with
+			// JQuery) causing ExternalContext.encodeResourceURL() to skip encoding.
+			if (requestPath.contains(ResourceHandler.RESOURCE_IDENTIFIER) &&
+					requestPath.contains(PortletResourceUtilCompat.PORTLET_RESOURCE_IDENTIFIER)) {
+
+				requestPath = requestPath.replaceFirst(PortletResourceUtilCompat.PORTLET_RESOURCE_IDENTIFIER + "[^&#]*",
+						"");
+				requestPath = requestPath.replace("?#", "#").replace("&#", "#").replace("?&", "?");
+
+				if (requestPath.endsWith("?") || requestPath.endsWith("&")) {
+					requestPath = requestPath.substring(0, requestPath.length() - 1);
+				}
 			}
 		}
 
