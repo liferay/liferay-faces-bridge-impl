@@ -13,29 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- *  Copyright 2009 .
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *  under the License.
- */
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_5_1;
 
 import java.beans.FeatureDescriptor;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.RuntimeException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
@@ -56,6 +41,7 @@ import javax.el.PropertyNotWritableException;
 import javax.el.VariableMapper;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
 import javax.portlet.faces.Bridge;
@@ -74,47 +60,8 @@ import com.liferay.faces.util.factory.FactoryExtensionFinder;
  */
 public class Tests {
 
-	private static final Map<String, Class<?>> EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES;
-
-	static {
-
-		Map<String, Class<?>> expectedElResolverFeatureDescriptorTypes = new HashMap<String, Class<?>>();
-		expectedElResolverFeatureDescriptorTypes.put("portletConfig", javax.portlet.PortletConfig.class);
-		expectedElResolverFeatureDescriptorTypes.put("actionRequest", javax.portlet.ActionRequest.class);
-		expectedElResolverFeatureDescriptorTypes.put("actionResponse", javax.portlet.ActionResponse.class);
-		expectedElResolverFeatureDescriptorTypes.put("eventRequest", javax.portlet.EventRequest.class);
-		expectedElResolverFeatureDescriptorTypes.put("eventResponse", javax.portlet.EventResponse.class);
-		addExpectedFeatureDescriptorTypeIfPossible("headerRequest", "javax.portlet.HeaderRequest",
-			expectedElResolverFeatureDescriptorTypes);
-		addExpectedFeatureDescriptorTypeIfPossible("headerResponse", "javax.portlet.HeaderResponse",
-			expectedElResolverFeatureDescriptorTypes);
-		expectedElResolverFeatureDescriptorTypes.put("renderRequest", javax.portlet.RenderRequest.class);
-		expectedElResolverFeatureDescriptorTypes.put("renderResponse", javax.portlet.RenderResponse.class);
-		expectedElResolverFeatureDescriptorTypes.put("resourceRequest", javax.portlet.ResourceRequest.class);
-		expectedElResolverFeatureDescriptorTypes.put("resourceResponse", javax.portlet.ResourceResponse.class);
-		expectedElResolverFeatureDescriptorTypes.put("portletSession", javax.portlet.PortletSession.class);
-		expectedElResolverFeatureDescriptorTypes.put("portletSessionScope", Map.class);
-		expectedElResolverFeatureDescriptorTypes.put("httpSessionScope", Map.class);
-		expectedElResolverFeatureDescriptorTypes.put("portletPreferences", javax.portlet.PortletPreferences.class);
-		expectedElResolverFeatureDescriptorTypes.put("portletPreferencesValues", Map.class);
-		expectedElResolverFeatureDescriptorTypes.put("mutablePortletPreferencesValues", Map.class);
-		EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES = Collections.unmodifiableMap(
-				expectedElResolverFeatureDescriptorTypes);
-	}
-
-	private static void addExpectedFeatureDescriptorTypeIfPossible(String key, String classNameValue,
-		Map<String, Class<?>> map) {
-
-		try {
-			map.put(key, Class.forName(classNameValue));
-		}
-		catch (ClassNotFoundException e) {
-			// no-op
-		}
-		catch (NoClassDefFoundError e) {
-			// no-op
-		}
-	}
+	// Private Constants
+	private static final int FIRST_PORTLET_MAJOR_VERSION_SUPPORTING_HEADER_PHASE = 3;
 
 	private static boolean areFilesInSameJar(URL jarFileURL1, URL jarFileURL2) {
 
@@ -227,6 +174,43 @@ public class Tests {
 		}
 	}
 
+	private static Map<String, Class<?>> getExpectedElResolverFeatureDescriptorTypes(ExternalContext externalContext) {
+
+		Map<String, Class<?>> expectedElResolverFeatureDescriptorTypes = new HashMap<String, Class<?>>();
+		expectedElResolverFeatureDescriptorTypes.put("portletConfig", javax.portlet.PortletConfig.class);
+		expectedElResolverFeatureDescriptorTypes.put("actionRequest", javax.portlet.ActionRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("actionResponse", javax.portlet.ActionResponse.class);
+		expectedElResolverFeatureDescriptorTypes.put("eventRequest", javax.portlet.EventRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("eventResponse", javax.portlet.EventResponse.class);
+
+		if (isHeaderPhaseSupported(externalContext)) {
+
+			try {
+
+				expectedElResolverFeatureDescriptorTypes.put("headerRequest",
+					Class.forName("javax.portlet.HeaderRequest"));
+				expectedElResolverFeatureDescriptorTypes.put("headerResponse",
+					Class.forName("javax.portlet.HeaderResponse"));
+			}
+			catch (ClassNotFoundException e) {
+				throw new RuntimeException(e);
+			}
+		}
+
+		expectedElResolverFeatureDescriptorTypes.put("renderRequest", javax.portlet.RenderRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("renderResponse", javax.portlet.RenderResponse.class);
+		expectedElResolverFeatureDescriptorTypes.put("resourceRequest", javax.portlet.ResourceRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("resourceResponse", javax.portlet.ResourceResponse.class);
+		expectedElResolverFeatureDescriptorTypes.put("portletSession", javax.portlet.PortletSession.class);
+		expectedElResolverFeatureDescriptorTypes.put("portletSessionScope", Map.class);
+		expectedElResolverFeatureDescriptorTypes.put("httpSessionScope", Map.class);
+		expectedElResolverFeatureDescriptorTypes.put("portletPreferences", javax.portlet.PortletPreferences.class);
+		expectedElResolverFeatureDescriptorTypes.put("portletPreferencesValues", Map.class);
+		expectedElResolverFeatureDescriptorTypes.put("mutablePortletPreferencesValues", Map.class);
+
+		return Collections.unmodifiableMap(expectedElResolverFeatureDescriptorTypes);
+	}
+
 	private static String getFullJarPath(URL jarFileURL) {
 
 		if (!isJarProtocol(jarFileURL)) {
@@ -247,6 +231,34 @@ public class Tests {
 			name.equals(featureDescriptor.getName()) && name.equals(featureDescriptor.getName()) &&
 			(featureDescriptor.getShortDescription() != null) && !featureDescriptor.isExpert() &&
 			!featureDescriptor.isHidden() && featureDescriptor.isPreferred();
+	}
+
+	private static boolean isHeaderPhaseSupported(ExternalContext externalContext) {
+
+		boolean headerPhaseSupported = false;
+		PortletContext portletContext = (PortletContext) externalContext.getContext();
+
+		if (portletContext.getMajorVersion() >= FIRST_PORTLET_MAJOR_VERSION_SUPPORTING_HEADER_PHASE) {
+
+			try {
+
+				Class<? extends PortletContext> portletContextClass = portletContext.getClass();
+				Method getEffectiveMajorVersionMethod = portletContextClass.getMethod("getEffectiveMajorVersion");
+				int effectiveMajorVersion = (Integer) getEffectiveMajorVersionMethod.invoke(portletContext);
+				headerPhaseSupported = effectiveMajorVersion >= FIRST_PORTLET_MAJOR_VERSION_SUPPORTING_HEADER_PHASE;
+			}
+			catch (IllegalAccessException e) {
+				throw new RuntimeException(e);
+			}
+			catch (InvocationTargetException e) {
+				// Do nothing.
+			}
+			catch (NoSuchMethodException e) {
+				// Do nothing.
+			}
+		}
+
+		return headerPhaseSupported;
 	}
 
 	private static boolean isJarProtocol(URL url) {
@@ -499,7 +511,9 @@ public class Tests {
 				// Passed.
 			}
 
-			Set<Map.Entry<String, Class<?>>> entrySet = EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES.entrySet();
+			Map<String, Class<?>> expectedElResolverFeatureDescriptorTypes =
+				getExpectedElResolverFeatureDescriptorTypes(externalContext);
+			Set<Map.Entry<String, Class<?>>> entrySet = expectedElResolverFeatureDescriptorTypes.entrySet();
 			StringBuilder stringBuilder = new StringBuilder();
 			stringBuilder.append(
 				"getType() did not return null and/or elContext.setPropertyResolved(true) wasn't called for the following values: ");
@@ -538,7 +552,7 @@ public class Tests {
 				// Passed.
 			}
 
-			Set<String> keySet = EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES.keySet();
+			Set<String> keySet = expectedElResolverFeatureDescriptorTypes.keySet();
 			stringBuilder.setLength(0);
 			stringBuilder.append(
 				"setValue(elContext, null, name, value) did not throw PropertyNotWritableException when name was set to the following values: ");
@@ -656,7 +670,7 @@ public class Tests {
 
 					stringBuilder.append(name);
 					stringBuilder.append(" (expected ELResolver.TYPE \"");
-					stringBuilder.append(EXPECTED_EL_RESOLVER_FEATURE_DESCRIPTOR_TYPES.get(name));
+					stringBuilder.append(expectedElResolverFeatureDescriptorTypes.get(name));
 					stringBuilder.append("\")");
 					first = false;
 				}
