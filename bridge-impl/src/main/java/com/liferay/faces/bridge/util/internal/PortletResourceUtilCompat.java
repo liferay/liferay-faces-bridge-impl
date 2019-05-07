@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,9 @@ import com.liferay.faces.util.product.ProductFactory;
  */
 public final class PortletResourceUtilCompat {
 
+	// Public Constants
+	public static final String PORTLET_RESOURCE_IDENTIFIER = "javax.faces.resource=";
+
 	// Private Constants
 	private static final boolean PLUTO_DETECTED = ProductFactory.getProduct(Product.Name.PLUTO).isDetected();
 
@@ -34,7 +37,7 @@ public final class PortletResourceUtilCompat {
 
 	public static boolean isPortletResourceURL(String url) {
 		return (url != null) &&
-			((PLUTO_DETECTED && url.contains("javax.faces.resource:")) || url.contains("javax.faces.resource=") ||
+			((PLUTO_DETECTED && url.contains("javax.faces.resource:")) || url.contains(PORTLET_RESOURCE_IDENTIFIER) ||
 				url.equals(MissingResourceImpl.RES_NOT_FOUND));
 	}
 }
