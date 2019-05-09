@@ -769,7 +769,7 @@
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.util</artifactId>
-				<version>3.1.0</version>
+				<version>3.2.0</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
