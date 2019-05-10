@@ -61,17 +61,22 @@ public final class BridgePortletResponseFactoryFACES_3404Impl extends BridgePort
 
 			Method setDoAsUserIdMethod = t.getClass().getMethod("setDoAsUserId", long.class);
 			setDoAsUserIdMethod.invoke(t, Long.MAX_VALUE);
+
+			// In Portlet 3.0 environments the proxy must have access to the
+			// javax.portlet.annotations.PortletSerializable class, but this WAR is limited to Portlet 2.0 classes due
+			// to the portlet.xml version. To work around this issue, use the portal's class loader to create the proxy.
+			Class<?> portalClassLoaderUtilClass = Class.forName("com.liferay.portal.kernel.util.PortalClassLoaderUtil");
+			Method getClassLoaderMethod = portalClassLoaderUtilClass.getMethod("getClassLoader");
+			ClassLoader classLoader = (ClassLoader) getClassLoaderMethod.invoke(null);
+			Class[] implementedInterfaces = new Class[] { proxyInterface };
+			InvocationHandlerURL_FACES_3404Impl invocationHandler = new InvocationHandlerURL_FACES_3404Impl(t,
+					parameterValueWithCharactersThatMustBeEncoded);
+
+			return (T) Proxy.newProxyInstance(classLoader, implementedInterfaces, invocationHandler);
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
-		ClassLoader classLoader = InvocationHandlerURL_FACES_3404Impl.class.getClassLoader();
-		Class[] implementedInterfaces = new Class[] { proxyInterface };
-		InvocationHandlerURL_FACES_3404Impl invocationHandler = new InvocationHandlerURL_FACES_3404Impl(t,
-				parameterValueWithCharactersThatMustBeEncoded);
-
-		return (T) Proxy.newProxyInstance(classLoader, implementedInterfaces, invocationHandler);
 	}
 
 	@Override
