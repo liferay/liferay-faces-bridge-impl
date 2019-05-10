@@ -382,6 +382,9 @@ limitations under the License.
 		<page name="lsv-485-rich" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.lsv.485.richfaces.portlet" name="1"/>
 		</page>
+		<page name="lsv-523" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.lsv.523" name="1"/>
+		</page>
 
 		<!-- Bridge TCK -->
 		<page name="TestPage001" uri="/WEB-INF/themes/pluto-default-theme.jsp">
