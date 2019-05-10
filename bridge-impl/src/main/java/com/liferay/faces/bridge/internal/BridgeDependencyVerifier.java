@@ -76,5 +76,13 @@ public final class BridgeDependencyVerifier {
 			logger.error("{0} {1} is designed to be used with JSF 2.2 but detected {2}.{3}", implementationTitle,
 				implementationVersion, JSF_MAJOR_VERSION, JSF_MINOR_VERSION);
 		}
+
+		String lsv485PatchVersion = externalContext.getInitParameter("com.liferay.faces.lsv.485.patch.version");
+
+		if ((lsv485PatchVersion != null) && !lsv485PatchVersion.equals("")) {
+			logger.error(
+				"{0} {1} contains fixes for LSV-485 so it is incompatible with com.liferay.faces.lsv.485.patch.jar. Please remove com.liferay.faces.lsv.485.patch.jar from the classpath.",
+				implementationTitle, implementationVersion);
+		}
 	}
 }
