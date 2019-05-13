@@ -216,10 +216,8 @@ public class JSF_JSPApplicantPortletTester extends JSFApplicantPortletTester {
 		browserDriver.clearElement(getCityFieldXpath());
 		clearProvince(browserDriver);
 
-		Keys[] clearPostalCodeKeys = {
-				Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE
-			};
-		submitPostalCodeAndWaitForPostback(browserDriver, clearPostalCodeKeys);
+		submitPostalCodeAndWaitForPostback(browserDriver, Keys.END, Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE,
+			Keys.BACK_SPACE, Keys.BACK_SPACE);
 	}
 
 	protected String getAddAttachmentXpath() {
