@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.liferay.faces.issue</groupId>
 		<artifactId>com.liferay.faces.issue.bridge.parent</artifactId>
-		<version>4.1.3-SNAPSHOT</version>
+		<version>4.1.3</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>com.liferay.faces.issue.primefaces.portlet</artifactId>
