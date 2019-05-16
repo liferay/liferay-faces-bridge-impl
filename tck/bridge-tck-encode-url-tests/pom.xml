@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.liferay.faces.test</groupId>
 		<artifactId>com.liferay.faces.test.bridge.tck.parent</artifactId>
-		<version>4.1.3</version>
+		<version>4.1.4-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
