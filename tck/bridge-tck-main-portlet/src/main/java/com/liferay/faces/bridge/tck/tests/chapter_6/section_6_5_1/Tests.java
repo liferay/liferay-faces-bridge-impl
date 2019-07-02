@@ -276,6 +276,7 @@ public class Tests {
 	public String JSF_ELTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
+		Object request = externalContext.getRequest();
 		ELContext elContext = facesContext.getELContext();
 		ELResolver facesResolver = elContext.getELResolver();
 
@@ -325,7 +326,7 @@ public class Tests {
 					externalContext.getRequestParameterValuesMap());
 
 				// request -> externalContext.getRequest()
-				testImplicitObject(testBean, facesResolver, facesContext, "request", externalContext.getRequest());
+				testImplicitObject(testBean, facesResolver, facesContext, "request", request);
 
 				// requestScope -> externalContext.getRequestScope()
 				testImplicitObject(testBean, facesResolver, facesContext, "requestScope",
@@ -349,8 +350,7 @@ public class Tests {
 				// mutablePortletPreferencesValues: mutable Map of type Map<String,
 				// javax.portlet.faces.preference.Preference>.
 				testMutablePortletPreferencesValues(testBean, facesResolver, facesContext,
-					"mutablePortletPreferencesValues",
-					((PortletRequest) externalContext.getRequest()).getPreferences().getMap());
+					"mutablePortletPreferencesValues", ((PortletRequest) request).getPreferences().getMap());
 
 				// portletConfig -> object of type javax.portlet.PortletConfig
 				testImplicitObject(testBean, facesResolver, facesContext, "portletConfig",
@@ -358,11 +358,11 @@ public class Tests {
 
 				// portletPreferences -> ExternalContext.getRequest().getPreferences() object.
 				testImplicitObject(testBean, facesResolver, facesContext, "portletPreferences",
-					((PortletRequest) externalContext.getRequest()).getPreferences());
+					((PortletRequest) request).getPreferences());
 
 				// portletPreferencesValues -> ExternalContext.getRequest()).getPreferences().getMap().
 				testImplicitObjectArrayMaps(testBean, facesResolver, facesContext, "portletPreferencesValues",
-					((PortletRequest) externalContext.getRequest()).getPreferences().getMap());
+					((PortletRequest) request).getPreferences().getMap());
 
 				// portletSession -> ExternalContext.getSession()
 				testImplicitObject(testBean, facesResolver, facesContext, "portletSession",
@@ -420,7 +420,7 @@ public class Tests {
 					externalContext.getRequestParameterValuesMap());
 
 				// request -> externalContext.getRequest()
-				testImplicitObject(testBean, facesResolver, facesContext, "request", externalContext.getRequest());
+				testImplicitObject(testBean, facesResolver, facesContext, "request", request);
 
 				// requestScope -> externalContext.getRequestScope()
 				testImplicitObject(testBean, facesResolver, facesContext, "requestScope",
@@ -444,8 +444,7 @@ public class Tests {
 				// mutablePortletPreferencesValues: mutable Map of type Map<String,
 				// javax.portlet.faces.preference.Preference>.
 				testMutablePortletPreferencesValues(testBean, facesResolver, facesContext,
-					"mutablePortletPreferencesValues",
-					((PortletRequest) externalContext.getRequest()).getPreferences().getMap());
+					"mutablePortletPreferencesValues", ((PortletRequest) request).getPreferences().getMap());
 
 				// portletConfig -> object of type javax.portlet.PortletConfig
 				testImplicitObject(testBean, facesResolver, facesContext, "portletConfig",
@@ -453,11 +452,11 @@ public class Tests {
 
 				// portletPreferences -> ExternalContext.getRequest().getPreferences() object.
 				testImplicitObject(testBean, facesResolver, facesContext, "portletPreferences",
-					((PortletRequest) externalContext.getRequest()).getPreferences());
+					((PortletRequest) request).getPreferences());
 
 				// portletPreferencesValues -> ExternalContext.getRequest()).getPreferences().getMap().
 				testImplicitObjectArrayMaps(testBean, facesResolver, facesContext, "portletPreferencesValues",
-					((PortletRequest) externalContext.getRequest()).getPreferences().getMap());
+					((PortletRequest) request).getPreferences().getMap());
 
 				// portletSession -> ExternalContext.getSession()
 				testImplicitObject(testBean, facesResolver, facesContext, "portletSession",
@@ -471,8 +470,7 @@ public class Tests {
 				if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RENDER_PHASE) {
 
 					// renderRequest -> object of type javax.portlet.RenderRequest
-					testImplicitObject(testBean, facesResolver, facesContext, "renderRequest",
-						externalContext.getRequest());
+					testImplicitObject(testBean, facesResolver, facesContext, "renderRequest", request);
 
 					// renderResponse -> object of type javax.portlet.RenderResponse
 					testImplicitObject(testBean, facesResolver, facesContext, "renderResponse",
@@ -483,8 +481,7 @@ public class Tests {
 				else {
 
 					// headerRequest -> object of type javax.portlet.HeaderRequest
-					testImplicitObject(testBean, facesResolver, facesContext, "headerRequest",
-						externalContext.getRequest());
+					testImplicitObject(testBean, facesResolver, facesContext, "headerRequest", request);
 
 					// headerResponse -> object of type javax.portlet.HeaderResponse
 					testImplicitObject(testBean, facesResolver, facesContext, "headerResponse",
@@ -565,6 +562,13 @@ public class Tests {
 						!(name.startsWith("render") || name.startsWith("header"))) {
 
 					// Cannot test EL keywords for different portlet phases.
+					continue;
+				}
+
+				if (name.equals("renderResponse")) {
+
+					// Cannot test the renderResponse keyword since the FacesBridge now executes the RENDER_RESPONSE
+					// phase of the JSF lifecycle in the HEADER_PHASE of the portlet lifecycle.
 					continue;
 				}
 
