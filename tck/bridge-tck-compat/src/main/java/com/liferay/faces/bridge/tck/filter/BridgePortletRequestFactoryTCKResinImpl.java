@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
+import com.liferay.faces.util.product.Product;
+import com.liferay.faces.util.product.ProductFactory;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
@@ -29,19 +32,16 @@ import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.filter.BridgePortletRequestFactory;
 
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
-
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFactoryTCKCompatImpl {
+public class BridgePortletRequestFactoryTCKResinImpl extends BridgePortletRequestFactoryTCKImpl {
 
 	// Private Data Members
 	private BridgePortletRequestFactory wrappedBridgePortletRequestFactory;
 
-	public BridgePortletRequestFactoryTCKImpl(BridgePortletRequestFactory bridgePortletRequestFactory) {
+	public BridgePortletRequestFactoryTCKResinImpl(BridgePortletRequestFactory bridgePortletRequestFactory) {
 		this.wrappedBridgePortletRequestFactory = bridgePortletRequestFactory;
 	}
 
@@ -88,7 +88,7 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 
 		PortletContext portletContext = portletConfig.getPortletContext();
 		ProductFactory productFactory = (ProductFactory) BridgeFactoryFinder.getFactory(portletContext,
-				ProductFactory.class);
+			ProductFactory.class);
 		final Product RESIN = productFactory.getProductInfo(Product.Name.RESIN);
 
 		return RESIN.isDetected();
