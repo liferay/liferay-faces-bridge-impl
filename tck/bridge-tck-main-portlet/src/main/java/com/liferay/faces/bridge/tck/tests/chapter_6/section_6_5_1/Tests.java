@@ -565,13 +565,6 @@ public class Tests {
 					continue;
 				}
 
-				if (name.equals("renderResponse")) {
-
-					// Cannot test the renderResponse keyword since the FacesBridge now executes the RENDER_RESPONSE
-					// phase of the JSF lifecycle in the HEADER_PHASE of the portlet lifecycle.
-					continue;
-				}
-
 				Object originalValue = bridgeImplELResolver.getValue(elContext, null, name);
 
 				try {
