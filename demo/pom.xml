@@ -36,6 +36,31 @@
 
 	<profiles>
 		<profile>
+			<id>adf</id>
+			<modules>
+				<module>adf-facelets-applicant-portlet</module>
+				<module>adf-jsp-applicant-portlet</module>
+				<module>alloy-showcase-portlet</module>
+				<module>bootsfaces-applicant-portlet</module>
+				<module>butterfaces-applicant-portlet</module>
+				<module>jsf-cdi-applicant-portlet</module>
+				<module>jsf-export-pdf-portlet</module>
+				<module>jsf-flows-portlet</module>
+				<module>jsf-html5-applicant-portlet</module>
+				<module>jsf-ipc-events-bookings-portlet</module>
+				<module>jsf-ipc-events-customers-portlet</module>
+				<module>jsf-ipc-pub-render-params-portlet</module>
+				<module>jsf-applicant-portlet</module>
+				<module>jsf-jsp-applicant-portlet</module>
+				<module>jsf-showcase-portlet</module>
+				<module>jsf-spring-applicant-portlet</module>
+				<module>icefaces-applicant-portlet</module>
+				<module>alloy-applicant-portlet</module>
+				<module>primefaces-applicant-portlet</module>
+				<module>richfaces-applicant-portlet</module>
+			</modules>
+		</profile>
+		<profile>
 			<id>licenses</id>
 			<properties>
 				<licenses.output.dir>${project.basedir}/src/main/resources/META-INF</licenses.output.dir>

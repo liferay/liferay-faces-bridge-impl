@@ -84,6 +84,9 @@
 	</modules>
 
 	<properties>
+		<adf.version>12.2.1.3.0</adf.version>
+		<adf.faces.version>12.2.1.3.42.170826.1039</adf.faces.version>
+		<adf.trinidad.version>2.2.1</adf.trinidad.version>
 		<app.server.type>tomcat</app.server.type>
 		<cdi.version>1.2</cdi.version>
 		<component.namespace>none</component.namespace>
@@ -98,6 +101,7 @@
 		<faces.spec.version>2.2</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
+		<gdk.version>12.2.0.1.0</gdk.version>
 		<icefaces.version>4.3.0</icefaces.version>
 		<jstl.version>1.2</jstl.version>
 		<log4j.version>1.2.14</log4j.version>
@@ -744,6 +748,11 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
+				<artifactId>com.liferay.faces.adf</artifactId>
+				<version>12.2.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.alloy</artifactId>
 				<version>${liferay.faces.alloy.version}</version>
 				<scope>runtime</scope>
@@ -771,6 +780,51 @@
 				<artifactId>com.liferay.faces.util</artifactId>
 				<version>3.2.0</version>
 				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.adf</groupId>
+				<artifactId>adf-richclient-api</artifactId>
+				<version>${adf.faces.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.adf</groupId>
+				<artifactId>adf-richclient-impl</artifactId>
+				<version>${adf.faces.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.adf</groupId>
+				<artifactId>adf-share-base</artifactId>
+				<version>${adf.faces.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.adf</groupId>
+				<artifactId>adf-share-ca</artifactId>
+				<version>${adf.faces.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.adf</groupId>
+				<artifactId>adflogginghandler</artifactId>
+				<version>${adf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.adf</groupId>
+				<artifactId>trinidad-api</artifactId>
+				<version>${adf.trinidad.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.adf</groupId>
+				<artifactId>trinidad-impl</artifactId>
+				<version>${adf.trinidad.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.adf</groupId>
+				<artifactId>xmlparser</artifactId>
+				<version>${adf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.gdk</groupId>
+				<artifactId>orai18n-mapping</artifactId>
+				<version>${gdk.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish</groupId>
@@ -845,6 +899,11 @@
 				<groupId>log4j</groupId>
 				<artifactId>log4j</artifactId>
 				<version>${log4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>4.5.9</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.myfaces.core</groupId>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+		xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<af:document>
+		<h:head />
+		<h:body>
+			<ui:include src="styling.xhtml" />
+			<ui:include src="applicant.xhtml" />
+			<br />
+			<af:panelGridLayout>
+				<af:gridRow>
+					<af:gridCell>
+						<af:panelList styleClass="product-list">
+							<af:outputText value="#{product.ADF_FACES}" />
+							<af:outputText value="#{product.JSF}" />
+							<af:outputText value="#{product.LIFERAY_FACES_BRIDGE}" />
+							<c:if test="${product.LIFERAY_FACES_BRIDGE_EXT.detected}">
+								<af:outputText value="#{product.LIFERAY_FACES_BRIDGE_EXT}" />
+							</c:if>
+							<af:outputText value="#{product.PORTLET_API}" />
+							<af:outputText value="#{product.PORTLET_CONTAINER}" />
+							<af:outputText value="#{product.SERVLET_CONTAINER}" />
+						</af:panelList>
+					</af:gridCell>
+				</af:gridRow>
+			</af:panelGridLayout>
+		</h:body>
+	</af:document>
+</f:view>
