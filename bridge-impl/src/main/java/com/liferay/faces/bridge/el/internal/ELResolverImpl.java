@@ -484,7 +484,7 @@ public class ELResolverImpl extends ELResolverCompatImpl {
 				FacesContext facesContext = FacesContext.getCurrentInstance();
 				Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
-				if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
+				if ((portletPhase == Bridge.PortletPhase.HEADER_PHASE) || (portletPhase == Bridge.PortletPhase.RENDER_PHASE)) {
 					value = getPortletResponse(facesContext);
 				}
 				else {
