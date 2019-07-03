@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+	xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core" version="2.1">
+
+	<jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
+
+	<f:view>
+		<af:document>
+			<jsp:include page="styling.jspx" />
+			<jsp:include page="portletPreferences.jspx" />
+		</af:document>
+	</f:view>
+
+</jsp:root>

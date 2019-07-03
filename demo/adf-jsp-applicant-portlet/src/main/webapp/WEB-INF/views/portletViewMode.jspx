@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+	version="2.1">
+
+	<jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
+	<f:view>
+		<af:document>
+			<jsp:include page="/WEB-INF/views/styling.jspx" />
+			<jsp:include page="/WEB-INF/views/applicant.jspx" />
+			<br />
+			<af:panelGridLayout>
+				<af:gridRow>
+					<af:gridCell>
+						<af:panelList styleClass="product-list">
+							<af:outputText value="#{product.ADF_FACES}" />
+							<af:outputText value="#{product.JSF}" />
+							<af:outputText value="#{product.LIFERAY_FACES_BRIDGE}" />
+							<c:if test="${product.LIFERAY_FACES_BRIDGE_EXT.detected}">
+								<af:outputText value="#{product.LIFERAY_FACES_BRIDGE_EXT}" />
+							</c:if>
+							<af:outputText value="#{product.PORTLET_API}" />
+							<af:outputText value="#{product.PORTLET_CONTAINER}" />
+							<af:outputText value="#{product.SERVLET_CONTAINER}" />
+						</af:panelList>
+					</af:gridCell>
+				</af:gridRow>
+			</af:panelGridLayout>
+		</af:document>
+	</f:view>
+
+</jsp:root>
