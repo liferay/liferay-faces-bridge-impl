@@ -181,13 +181,14 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 			ClientDataRequest clientDataRequest = (ClientDataRequest) portletRequest;
 			String contentType = clientDataRequest.getContentType();
 
-			// Note: ICEfaces ace:fileEntry relies on its own mechanism for handling file upload.
+			// Note: af:inputFile (ADF Faces) ace:fileEntry (ICEfaces) rely on their own mechanisms for handling file
+			// uploads.
 			ProductFactory productFactory = (ProductFactory) BridgeFactoryFinder.getFactory(portletContext,
 					ProductFactory.class);
-			final Product ICEFACES = productFactory.getProductInfo(Product.Name.ICEFACES);
-			final boolean ICEFACES_DETECTED = ICEFACES.isDetected();
+			Product ADF_FACES_RICH_CLIENT = productFactory.getProductInfo(Product.Name.ADF_FACES);
+			Product ICEFACES = productFactory.getProductInfo(Product.Name.ICEFACES);
 
-			if (!ICEFACES_DETECTED && (contentType != null) && contentType.toLowerCase().startsWith("multipart/")) {
+			if (!ADF_FACES_RICH_CLIENT.isDetected() && !ICEFACES.isDetected() && (contentType != null) && contentType.toLowerCase().startsWith("multipart/")) {
 
 				MultiPartFormData multiPartFormData = (MultiPartFormData) portletRequest.getAttribute(
 						MULTIPART_FORM_DATA_FQCN);
