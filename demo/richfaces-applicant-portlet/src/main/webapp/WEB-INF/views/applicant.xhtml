@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:alloy="http://liferay.com/faces/alloy" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:bridge="http://liferay.com/faces/bridge" xmlns:example-cc="http://xmlns.jcp.org/jsf/composite/example-cc"
 	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 	<h:outputScript library="issues" name="RF-12182.js" target="head" />
+	<c:set value="#{applicantBacking.model}" var="applicant" />
 	<example-cc:clipboard label="#{i18n['job-application']}" />
 	<example-cc:sponsorButton />
 	<example-cc:divider />
@@ -17,27 +19,27 @@
 					<alloy:row>
 						<alloy:column id="c1a" width="50">
 							<alloy:field id="firstNameField" label="#{i18n['first-name']}">
-								<h:inputText id="firstName" required="true" value="#{applicantModelBean.firstName}">
+								<h:inputText id="firstName" required="true" value="#{applicant.firstName}">
 									<a4j:ajax render="firstNameField" />
 								</h:inputText>
 								<rich:message for="firstName" />
 							</alloy:field>
 							<alloy:field id="lastNameField" label="#{i18n['last-name']}">
-								<h:inputText id="lastName" required="true" value="#{applicantModelBean.lastName}">
+								<h:inputText id="lastName" required="true" value="#{applicant.lastName}">
 									<a4j:ajax render="lastNameField" />
 								</h:inputText>
 								<rich:message for="lastName" />
 							</alloy:field>
 							<alloy:field id="emailAddressField" label="#{i18n['email-address']}">
 								<h:inputText id="emailAddress" required="true" validatorMessage="#{i18n['invalid-email-address']}"
-									value="#{applicantModelBean.emailAddress}">
+									value="#{applicant.emailAddress}">
 									<f:validateRegex pattern=".+[@].+[.].+" />
 									<a4j:ajax render="emailAddressField" />
 								</h:inputText>
 								<rich:message for="emailAddress" />
 							</alloy:field>
 							<alloy:field id="phoneNumberField" label="#{i18n['phone-number']}">
-								<h:inputText id="phoneNumber" required="true" value="#{applicantModelBean.phoneNumber}">
+								<h:inputText id="phoneNumber" required="true" value="#{applicant.phoneNumber}">
 									<a4j:ajax render="phoneNumberField" />
 								</h:inputText>
 								<rich:message for="phoneNumber" />
@@ -48,30 +50,30 @@
 								<rich:calendar id="dateOfBirth" datePattern="#{portletPreferencesValues['datePattern'][0]}"
 									enableManualInput="true" popup="true"
 									oninputchange="rf12182.workaround(event,'#{rich:clientId('dateOfBirth')}');" required="true"
-									showApplyButton="false" value="#{applicantModelBean.dateOfBirth}">
+									showApplyButton="false" value="#{applicant.dateOfBirth}">
 									<f:convertDateTime pattern="#{portletPreferencesValues['datePattern'][0]}" />
 									<a4j:ajax event="change" render="dateOfBirthField" />
 								</rich:calendar>
 								<rich:message for="dateOfBirth" />
 							</alloy:field>
 							<alloy:field id="cityField" label="#{i18n['city']}">
-								<h:inputText id="city" required="true" value="#{applicantModelBean.city}">
+								<h:inputText id="city" required="true" value="#{applicant.city}">
 									<a4j:ajax render="cityField" />
 								</h:inputText>
 								<rich:message id="cityMessage" for="city" />
 							</alloy:field>
 							<alloy:field id="provinceIdField" label="#{i18n['state-province']}">
-								<h:selectOneMenu id="provinceId" required="true" value="#{applicantModelBean.provinceId}">
+								<h:selectOneMenu id="provinceId" required="true" value="#{applicant.provinceId}">
 									<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
 									<f:selectItems itemValue="#{province.provinceId}" itemLabel="#{province.provinceName}"
-										value="#{listModelBean.provinces}" var="province" />
+										value="#{listManager.provinces}" var="province" />
 									<a4j:ajax render="provinceIdField" />
 								</h:selectOneMenu>
 								<rich:message id="provinceIdMessage" for="provinceId" />
 							</alloy:field>
 							<alloy:field id="postalCodeField" label="#{i18n['zip-postal']}">
-								<h:inputText id="postalCode" required="true" style="width: 100px;" value="#{applicantModelBean.postalCode}"
-									valueChangeListener="#{applicantBackingBean.postalCodeListener}">
+								<h:inputText id="postalCode" required="true" style="width: 100px;" value="#{applicant.postalCode}"
+									valueChangeListener="#{applicantBacking.postalCodeListener}">
 									<a4j:ajax render="cityField provinceIdField postalCodeField" />
 								</h:inputText>
 								<img src="#{resource['example:icon-help.png']}" title="#{i18n['postal-code-hint']}" />
@@ -85,13 +87,13 @@
 						<alloy:column>
 							<alloy:field id="commentsField" label="#{i18n['comments']}">
 								<h:panelGroup id="showHide" layout="block">
-									<a4j:commandLink actionListener="#{applicantViewBean.toggleComments}" immediate="true" render="commentsField"
-										rendered="#{!applicantViewBean.commentsRendered}" value="#{i18n['show']} #{i18n['comments']}" />
-									<a4j:commandLink actionListener="#{applicantViewBean.toggleComments}" immediate="true" render="commentsField"
-										rendered="#{applicantViewBean.commentsRendered}" value="#{i18n['hide']} #{i18n['comments']}" />
+									<a4j:commandLink actionListener="#{applicantView.toggleComments}" immediate="true" render="commentsField"
+										rendered="#{!applicantView.commentsRendered}" value="#{i18n['show']} #{i18n['comments']}" />
+									<a4j:commandLink actionListener="#{applicantView.toggleComments}" immediate="true" render="commentsField"
+										rendered="#{applicantView.commentsRendered}" value="#{i18n['hide']} #{i18n['comments']}" />
 								</h:panelGroup>
-								<h:inputTextarea id="comments" cols="50" rows="10" rendered="#{applicantViewBean.commentsRendered}"
-									value="#{applicantModelBean.comments}">
+								<h:inputTextarea id="comments" cols="50" rows="10" rendered="#{applicantView.commentsRendered}"
+									value="#{applicant.comments}">
 									<f:ajax />
 								</h:inputTextarea>
 							</alloy:field>
@@ -99,7 +101,7 @@
 					</alloy:row>
 				</alloy:fieldset>
 				<hr />
-				<a4j:commandButton action="#{applicantBackingBean.submit}" execute="@form" render="@all" value="#{i18n['submit']}" />
+				<a4j:commandButton action="#{applicantBacking.submit}" execute="@form" render="@all" value="#{i18n['submit']}" />
 				<!-- Test 5.4.2 Encoding PortletMode changes in Faces navigation -->
 				<h:commandButton
 					action="/WEB-INF/views/portletEditMode.xhtml?javax.portlet.faces.PortletMode=edit&amp;javax.portlet.faces.WindowState=maximized"
@@ -115,35 +117,35 @@
 						</f:facet>
 						<h:outputText value="#{i18n['are-you-sure-you-want-to-delete-this']}" />
 						<h:form>
-							<a4j:commandButton actionListener="#{applicantBackingBean.deleteUploadedFile}" execute="@form"
-								onclick="#{rich:component('popup')}.hide(); return true;" render="uploadedFilesTable" value="#{i18n['yes']}" />
+							<a4j:commandButton actionListener="#{applicantBacking.deleteUploadedFile}" execute="@form"
+								onclick="#{rich:component('popup')}.hide(); return true;" render="attachmentsTable" value="#{i18n['yes']}" />
 							<a4j:commandButton onclick="#{rich:component('popup')}.hide(); return false;" value="#{i18n['no']}" />
 						</h:form>
 					</rich:popupPanel>
 					<h:form id="f2">
 						<h3>#{i18n['attachments']}</h3>
-						<rich:dataTable id="uploadedFilesTable" value="#{applicantModelBean.uploadedFiles}" var="uploadedFile">
+						<rich:dataTable id="attachmentsTable" value="#{applicant.attachments}" var="attachment">
 							<rich:column>
 								<a4j:commandButton image="#{resource['example:icon-delete.png']}"
-									onclick="#{rich:component('popup')}.show(); return true;" value="#{uploadedFile.id}">
-									<f:setPropertyActionListener value="#{uploadedFile.id}" target="#{applicantViewBean.uploadedFileId}" />
+									onclick="#{rich:component('popup')}.show(); return true;" value="#{attachment.index}">
+									<f:setPropertyActionListener value="#{attachment.index}" target="#{applicantView.attachmentId}" />
 								</a4j:commandButton>
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="#{i18n['file-name']}" />
 								</f:facet>
-								<h:outputText value="#{uploadedFile.name}" />
+								<h:outputText value="#{attachment.name}" />
 							</rich:column>
 							<rich:column>
 								<f:facet name="header">
 									<h:outputText value="#{i18n['size']}" />
 								</f:facet>
-								<h:outputText value="#{uploadedFile.size}" />
+								<h:outputText value="#{attachment.size}" />
 							</rich:column>
 						</rich:dataTable>
-						<rich:fileUpload fileUploadListener="#{applicantBackingBean.handleFileUpload}">
-							<a4j:ajax event="uploadcomplete" execute="@none" render="uploadedFilesTable" />
+						<rich:fileUpload fileUploadListener="#{applicantBacking.handleFileUpload}">
+							<a4j:ajax event="uploadcomplete" execute="@none" render="attachmentsTable" />
 						</rich:fileUpload>
 					</h:form>
 				</alloy:column>
