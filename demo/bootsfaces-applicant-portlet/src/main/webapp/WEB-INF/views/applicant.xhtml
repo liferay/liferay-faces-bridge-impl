@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:example-cc="http://xmlns.jcp.org/jsf/composite/example-cc" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+	<c:set value="#{applicantBacking.model}" var="applicant" />
 	<example-cc:clipboard label="#{i18n['job-application']}" />
 	<example-cc:sponsorButton />
 	<example-cc:divider />
@@ -16,20 +18,20 @@
 							<b:column id="c1a">
 								<h:panelGroup id="firstNameField" layout="span">
 									<b:inputText id="firstName" label="#{i18n['first-name']}" required="true"
-										value="#{applicantModelBean.firstName}">
+										value="#{applicant.firstName}">
 										<f:ajax render="firstNameField" />
 									</b:inputText>
 									<b:message for="@previous" />
 								</h:panelGroup>
 								<h:panelGroup id="lastNameField">
-									<b:inputText id="lastName" label="#{i18n['last-name']}" required="true" value="#{applicantModelBean.lastName}">
+									<b:inputText id="lastName" label="#{i18n['last-name']}" required="true" value="#{applicant.lastName}">
 										<f:ajax render="lastNameField" />
 									</b:inputText>
 									<b:message for="@previous" />
 								</h:panelGroup>
 								<h:panelGroup id="emailAddressField">
 									<b:inputText id="emailAddress" label="#{i18n['email-address']}" required="true"
-										validatorMessage="#{i18n['invalid-email-address']}" value="#{applicantModelBean.emailAddress}">
+										validatorMessage="#{i18n['invalid-email-address']}" value="#{applicant.emailAddress}">
 										<f:validateRegex pattern=".+[@].+[.].+" />
 										<f:ajax render="emailAddressField" />
 									</b:inputText>
@@ -37,7 +39,7 @@
 								</h:panelGroup>
 								<h:panelGroup id="phoneNumberField">
 									<b:inputText id="phoneNumber" label="#{i18n['phone-number']}" required="true"
-										value="#{applicantModelBean.phoneNumber}">
+										value="#{applicant.phoneNumber}">
 										<f:ajax render="phoneNumberField" />
 									</b:inputText>
 									<b:message for="@previous" />
@@ -47,7 +49,7 @@
 								<h:panelGroup id="dateOfBirthField">
 									<b:dateTimePicker id="dateOfBirth" label="#{i18n['birthday']}"
 										format="#{portletPreferencesValues['datePattern'][0].toUpperCase()}"
-										required="true" styleClass="date-picker" value="#{applicantModelBean.dateOfBirth}">
+										required="true" styleClass="date-picker" value="#{applicant.dateOfBirth}">
 										<f:convertDateTime pattern="#{portletPreferencesValues['datePattern'][0]}" />
 										<!-- b:dateTimePicker normally uses the onclick attribute for ajax, so -->
 										<!-- manually specify ajax in the onchange attribute. -->
@@ -56,24 +58,24 @@
 									<b:message for="@previous" />
 								</h:panelGroup>
 								<h:panelGroup id="cityField">
-									<b:inputText id="city" label="#{i18n['city']}" required="true" value="#{applicantModelBean.city}">
+									<b:inputText id="city" label="#{i18n['city']}" required="true" value="#{applicant.city}">
 										<f:ajax render="cityField" />
 									</b:inputText>
 									<b:message for="@previous" />
 								</h:panelGroup>
 								<h:panelGroup id="provinceIdField">
 									<b:selectOneMenu id="provinceId" label="#{i18n['state-province']}" required="true"
-											value="#{applicantModelBean.provinceId}">
+											value="#{applicant.provinceId}">
 										<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
 										<f:selectItems itemValue="#{province.provinceId}" itemLabel="#{province.provinceName}"
-													   value="#{listModelBean.provinces}" var="province" />
+													   value="#{listManager.provinces}" var="province" />
 										<f:ajax render="provinceIdField" />
 									</b:selectOneMenu>
 									<b:message for="@previous" />
 								</h:panelGroup>
 								<h:panelGroup id="postalCodeField" layout="block" styleClass="postalCodeField">
 									<b:inputText id="postalCode" label="#{i18n['zip-postal']}" required="true" style="width: 100px;"
-										value="#{applicantModelBean.postalCode}" valueChangeListener="#{applicantBackingBean.postalCodeListener}">
+										value="#{applicant.postalCode}" valueChangeListener="#{applicantBacking.postalCodeListener}">
 										<f:ajax render="city provinceId postalCodeField" />
 									</b:inputText>
 									<img src="#{resource['example:icon-help.png']}" title="#{i18n['postal-code-hint']}" />
@@ -84,14 +86,14 @@
 										<h:outputText value="#{i18n['comments']}" />
 									</f:facet>
 									<b:inputTextarea id="comments" cols="50" rows="10"
-										value="#{applicantModelBean.comments}">
+										value="#{applicant.comments}">
 										<f:ajax />
 									</b:inputTextarea>
 								</b:panel>
 							</b:column>
 						</b:row>
 						<hr />
-						<b:commandButton action="#{applicantBackingBean.submit}" ajax="true"
+						<b:commandButton action="#{applicantBacking.submit}" ajax="true"
 							styleClass="btn btn-primary" update="@form" value="#{i18n['submit']}" />
 						<!-- Test 5.4.2 Encoding PortletMode changes in Faces navigation -->
 						<b:commandButton
@@ -109,40 +111,40 @@
 						<b:modal id="modal" styleClass="hiddenModal">
 							<h:outputText value="#{i18n['are-you-sure-you-want-to-delete-this']}" />
 							<f:facet name="footer">
-								<b:commandButton actionListener="#{applicantBackingBean.deleteUploadedFile}" ajax="true"
+								<b:commandButton actionListener="#{applicantBacking.deleteUploadedFile}" ajax="true"
 									look="primary" oncomplete="$('.modal').modal('hide')" process="@this"
-									update="uploadedFilesTable" value="#{i18n['yes']}" />
+									update="attachmentsTable" value="#{i18n['yes']}" />
 								<b:button value="#{i18n['no']}" dismiss="modal" />
 							</f:facet>
 						</b:modal>
-						<h:dataTable id="uploadedFilesTable" headerClass="portlet-section-header results-header"
+						<h:dataTable id="attachmentsTable" headerClass="portlet-section-header results-header"
 							rowClasses="portlet-section-body results-row, portlet-section-alternate results-row alt"
-							value="#{applicantModelBean.uploadedFiles}" var="uploadedFile">
+							value="#{applicant.attachments}" var="attachment">
 							<h:column>
 								<f:facet name="header">
 									<h:outputText />
 								</f:facet>
 								<b:commandButton ajax="true" icon="trash" oncomplete="$('.modal').modal('show')"
 									process="@this">
-									<f:setPropertyActionListener value="#{uploadedFile.id}"
-										target="#{applicantViewBean.uploadedFileId}" />
+									<f:setPropertyActionListener value="#{attachment.index}"
+										target="#{applicantView.attachmentId}" />
 								</b:commandButton>
 							</h:column>
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="#{i18n['file-name']}" />
 								</f:facet>
-								<h:outputText value="#{uploadedFile.name}" />
+								<h:outputText value="#{attachment.name}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="#{i18n['size']}" />
 								</f:facet>
-								<h:outputText value="#{uploadedFile.size}" />
+								<h:outputText value="#{attachment.size}" />
 							</h:column>
 						</h:dataTable>
 						<h:panelGrid columns="1">
-							<h:inputFile value="#{applicantBackingBean.uploadedPart}" />
+							<h:inputFile value="#{applicantBacking.uploadedPart}" />
 						</h:panelGrid>
 						<b:commandButton ajax="true" styleClass="btn btn-primary" update="@form" value="#{i18n['submit']}" />
 					</h:form>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:alloy="http://liferay.com/faces/alloy"
-	xmlns:b="http://butterfaces.org/components" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:b="http://butterfaces.org/components" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:example-cc="http://xmlns.jcp.org/jsf/composite/example-cc"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+	<c:set value="#{applicantBacking.model}" var="applicant" />
 	<example-cc:clipboard label="#{i18n['job-application']}" />
 	<example-cc:sponsorButton />
 	<example-cc:divider />
@@ -16,25 +18,25 @@
 						<alloy:column id="c1a" width="50">
 							<alloy:field id="firstNameField">
 								<b:text id="firstName" label="#{i18n['first-name']}" required="true"
-									value="#{applicantModelBean.firstName}">
+									value="#{applicant.firstName}">
 									<f:ajax event="change" render="firstNameField" />
 								</b:text>
 							</alloy:field>
 							<alloy:field id="lastNameField">
-								<b:text id="lastName" label="#{i18n['last-name']}" required="true" value="#{applicantModelBean.lastName}">
+								<b:text id="lastName" label="#{i18n['last-name']}" required="true" value="#{applicant.lastName}">
 									<f:ajax event="change" render="lastNameField" />
 								</b:text>
 							</alloy:field>
 							<alloy:field id="emailAddressField">
 								<b:text id="emailAddress" label="#{i18n['email-address']}" required="true" 
-									validatorMessage="#{i18n['invalid-email-address']}" value="#{applicantModelBean.emailAddress}">
+									validatorMessage="#{i18n['invalid-email-address']}" value="#{applicant.emailAddress}">
 									<f:validateRegex pattern=".+[@].+[.].+" />
 									<f:ajax event="change" render="emailAddressField" />
 								</b:text>
 							</alloy:field>
 							<alloy:field id="phoneNumberField">
 								<b:text id="phoneNumber" label="#{i18n['phone-number']}" required="true"
-									value="#{applicantModelBean.phoneNumber}">
+									value="#{applicant.phoneNumber}">
 									<f:ajax event="change" render="phoneNumberField" />
 								</b:text>
 							</alloy:field>
@@ -43,23 +45,23 @@
 							<alloy:field id="dateOfBirthField">
 								<b:calendar id="dateOfBirth" label="#{i18n['birthday']}"
 									format="#{portletPreferencesValues['datePattern'][0].toUpperCase()}" pickTime="false"
-									required="true" styleClass="date-picker" value="#{applicantModelBean.dateOfBirth}">
+									required="true" styleClass="date-picker" value="#{applicant.dateOfBirth}">
 									<f:convertDateTime pattern="#{portletPreferencesValues['datePattern'][0]}" />
 									<f:ajax event="change" render="dateOfBirthField" />
 								</b:calendar>
 							</alloy:field>
 							<alloy:field id="cityField">
-								<b:text id="city" label="#{i18n['city']}" required="true" value="#{applicantModelBean.city}">
+								<b:text id="city" label="#{i18n['city']}" required="true" value="#{applicant.city}">
 									<f:ajax event="change" render="cityField" />
 								</b:text>
 							</alloy:field>
 							<alloy:field id="provinceIdField">
 								<b:labeledContainer label="#{i18n['state-province']}">
 									<h:selectOneMenu id="provinceId" binding="#{provinceId}" label="#{i18n['state-province']}"
-											required="true" styleClass="province-id" value="#{applicantModelBean.provinceId}">
+											required="true" styleClass="province-id" value="#{applicant.provinceId}">
 										<f:selectItem itemLabel="#{i18n['select']}" itemValue="" />
 										<f:selectItems itemValue="#{province.provinceId}" itemLabel="#{province.provinceName}"
-													   value="#{listModelBean.provinces}" var="province" />
+													   value="#{listManager.provinces}" var="province" />
 										<f:ajax render="provinceIdField" />
 									</h:selectOneMenu>
 									<b:tooltip for=".province-id" rendered="#{!provinceId.valid}">
@@ -70,7 +72,7 @@
 							</alloy:field>
 							<alloy:field id="postalCodeField">
 								<b:text id="postalCode" label="#{i18n['zip-postal']}" required="true" style="width: 100px;"
-									value="#{applicantModelBean.postalCode}" valueChangeListener="#{applicantBackingBean.postalCodeListener}">
+									value="#{applicant.postalCode}" valueChangeListener="#{applicantBacking.postalCodeListener}">
 									<f:ajax event="change" render="cityField provinceIdField postalCodeField" />
 								</b:text>
 								<img src="#{resource['example:icon-help.png']}" title="#{i18n['postal-code-hint']}" />
@@ -84,14 +86,14 @@
 							<b:labeledContainer id="commentsField" label="#{i18n['comments']}">
 								<h:panelGroup id="showHide" layout="block">
 									<f:ajax render="commentsField">
-										<h:commandLink actionListener="#{applicantViewBean.toggleComments}"
-													   rendered="#{!applicantViewBean.commentsRendered}" value="#{i18n['show']} #{i18n['comments']}" />
-										<h:commandLink actionListener="#{applicantViewBean.toggleComments}"
-													   rendered="#{applicantViewBean.commentsRendered}" value="#{i18n['hide']} #{i18n['comments']}" />
+										<h:commandLink actionListener="#{applicantView.toggleComments}"
+													   rendered="#{!applicantView.commentsRendered}" value="#{i18n['show']} #{i18n['comments']}" />
+										<h:commandLink actionListener="#{applicantView.toggleComments}"
+													   rendered="#{applicantView.commentsRendered}" value="#{i18n['hide']} #{i18n['comments']}" />
 									</f:ajax>
 								</h:panelGroup>
-								<h:inputTextarea id="comments" cols="50" rows="10" rendered="#{applicantViewBean.commentsRendered}"
-												 value="#{applicantModelBean.comments}">
+								<h:inputTextarea id="comments" cols="50" rows="10" rendered="#{applicantView.commentsRendered}"
+												 value="#{applicant.comments}">
 									<f:ajax />
 								</h:inputTextarea>
 							</b:labeledContainer>
@@ -99,7 +101,7 @@
 					</alloy:row>
 				</alloy:fieldset>
 				<hr />
-				<h:commandButton action="#{applicantBackingBean.submit}" styleClass="btn btn-primary" value="#{i18n['submit']}">
+				<h:commandButton action="#{applicantBacking.submit}" styleClass="btn btn-primary" value="#{i18n['submit']}">
 					<f:ajax execute="@form" render="@form" />
 				</h:commandButton>
 				<!-- Test 5.4.2 Encoding PortletMode changes in Faces navigation -->
@@ -115,12 +117,12 @@
 						<h3>#{i18n['attachments']}</h3>
 						<h:dataTable headerClass="portlet-section-header results-header"
 									 rowClasses="portlet-section-body results-row, portlet-section-alternate results-row alt"
-									 value="#{applicantModelBean.uploadedFiles}" var="uploadedFile">
+									 value="#{applicant.attachments}" var="attachment">
 							<h:column>
-								<h:commandButton actionListener="#{applicantBackingBean.deleteUploadedFile}"
+								<h:commandButton actionListener="#{applicantBacking.deleteUploadedFile}"
 												 image="#{resource['example:icon-delete.png']}"
 												 onclick="if (! confirm('#{i18n['are-you-sure-you-want-to-delete-this']}')) {return false;}"
-												 styleClass="btn btn-primary" value="#{uploadedFile.id}">
+												 styleClass="btn btn-primary" value="#{attachment.index}">
 									<f:ajax render="@form" />
 								</h:commandButton>
 							</h:column>
@@ -128,17 +130,17 @@
 								<f:facet name="header">
 									<h:outputText value="#{i18n['file-name']}" />
 								</f:facet>
-								<h:outputText value="#{uploadedFile.name}" />
+								<h:outputText value="#{attachment.name}" />
 							</h:column>
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="#{i18n['size']}" />
 								</f:facet>
-								<h:outputText value="#{uploadedFile.size}" />
+								<h:outputText value="#{attachment.size}" />
 							</h:column>
 						</h:dataTable>
 						<h:panelGrid columns="1">
-							<h:inputFile value="#{applicantBackingBean.uploadedPart}" />
+							<h:inputFile value="#{applicantBacking.uploadedPart}" />
 						</h:panelGrid>
 						<b:commandLink styleClass="btn btn-primary" value="#{i18n['submit']}" >
 							<f:ajax execute="@form" render="@form" />
