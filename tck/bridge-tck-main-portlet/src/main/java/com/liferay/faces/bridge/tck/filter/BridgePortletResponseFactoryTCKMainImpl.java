@@ -38,7 +38,7 @@ import com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.DependencyTracki
 /**
  * @author  Kyle Stiemann
  */
-public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFactory implements Serializable {
+public class BridgePortletResponseFactoryTCKMainImpl extends BridgePortletResponseFactory implements Serializable {
 
 	// Serial Version UID
 	private static final long serialVersionUID = 2184921901586098823L;
@@ -49,7 +49,7 @@ public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFa
 	// Private Data Members
 	private BridgePortletResponseFactory wrappedBridgePortletResponseFactory;
 
-	public BridgePortletResponseFactoryTCKImpl(BridgePortletResponseFactory wrappedBridgePortletResponseFactory) {
+	public BridgePortletResponseFactoryTCKMainImpl(BridgePortletResponseFactory wrappedBridgePortletResponseFactory) {
 		this.wrappedBridgePortletResponseFactory = wrappedBridgePortletResponseFactory;
 	}
 
