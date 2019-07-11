@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -53,12 +54,17 @@ import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
  * @author  jhaley
  */
 public class Tests {
+
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(Tests.class);
 
 	// Private Constants
 	private static final int FIRST_PORTLET_MAJOR_VERSION_SUPPORTING_HEADER_PHASE = 3;
@@ -813,9 +819,20 @@ public class Tests {
 		Enumeration en = portletSession.getAttributeNames(PortletSession.APPLICATION_SCOPE);
 		int count = 0;
 
+		Set<String> keySet = new HashSet<>();
+
 		while (en.hasMoreElements()) {
-			en.nextElement();
-			count++;
+			Object nextElement = en.nextElement();
+
+			if (keySet.contains(nextElement.toString())) {
+				logger.warn(portletSession.getClass().getName() + " contains duplicate session attribute name: " +
+					nextElement.toString());
+			}
+			else {
+				count++;
+			}
+
+			keySet.add(nextElement.toString());
 		}
 
 		if (count != objectFromFacesEL.size()) {
