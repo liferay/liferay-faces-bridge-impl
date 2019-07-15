@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -121,14 +121,9 @@ public abstract class ELResolverCompatImpl extends ELResolver {
 
 	protected PortletConfig unwrapPortletConfig(PortletConfig portletConfig) {
 
-		// Unwrap the PortletConfigWrapper to conform to the TCK's expectations. Note that this is not necessary with
-		// JSR 378 since the TCK was modified to take BridgePortletConifigFactory into account. For more information,
+		// It is not necessary to unwrap the specified PortletConfig with JSR 378 since the TCK was modified to take
+		// BridgePortletConifigFactory into account. For more information,
 		// see: https://issues.liferay.com/browse/FACES-3108
-		while (portletConfig instanceof PortletConfigWrapper) {
-			PortletConfigWrapper portletConfigWrapper = (PortletConfigWrapper) portletConfig;
-			portletConfig = portletConfigWrapper.getWrapped();
-		}
-
 		return portletConfig;
 	}
 }

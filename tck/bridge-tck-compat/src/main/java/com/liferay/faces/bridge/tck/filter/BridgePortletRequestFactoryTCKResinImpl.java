@@ -36,12 +36,12 @@ import com.liferay.faces.util.product.ProductFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFactoryTCKCompatImpl {
+public class BridgePortletRequestFactoryTCKResinImpl extends BridgePortletRequestFactoryTCKCompatImpl {
 
 	// Private Data Members
 	private BridgePortletRequestFactory wrappedBridgePortletRequestFactory;
 
-	public BridgePortletRequestFactoryTCKImpl(BridgePortletRequestFactory bridgePortletRequestFactory) {
+	public BridgePortletRequestFactoryTCKResinImpl(BridgePortletRequestFactory bridgePortletRequestFactory) {
 		this.wrappedBridgePortletRequestFactory = bridgePortletRequestFactory;
 	}
 
