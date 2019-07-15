@@ -76,14 +76,9 @@ public abstract class ELResolverCompatImpl extends ELResolver {
 
 	protected PortletConfig unwrapPortletConfig(PortletConfig portletConfig) {
 
-		// Unwrap the PortletConfigWrapper to conform to the TCK's expectations. Note that this is not necessary with
-		// JSR 378 since the TCK was modified to take BridgePortletConifigFactory into account. For more information,
+		// It is not necessary to unwrap the specified PortletConfig with JSR 378 since the TCK was modified to take
+		// BridgePortletConifigFactory into account. For more information,
 		// see: https://issues.liferay.com/browse/FACES-3108
-		while ((portletConfig instanceof FacesWrapper) && (portletConfig instanceof PortletConfig)) {
-			FacesWrapper<PortletConfig> portletConfigWrapper = (FacesWrapper<PortletConfig>) portletConfig;
-			portletConfig = portletConfigWrapper.getWrapped();
-		}
-
 		return portletConfig;
 	}
 }

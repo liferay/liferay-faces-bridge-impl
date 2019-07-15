@@ -13,32 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.tck.portlet;
+package com.liferay.faces.bridge.tck.filter;
 
 import javax.portlet.PortletConfig;
-
-import com.liferay.faces.bridge.tck.filter.PortletConfigWrapper;
 
 
 /**
  * @author  Neil Griffin
  */
+public class PortletConfigTCKMainImpl extends PortletConfigWrapper {
 
-public class PortletConfigTCKCompat extends PortletConfigWrapper {
-
-	public PortletConfigTCKCompat(PortletConfig portletConfig) {
+	public PortletConfigTCKMainImpl(PortletConfig portletConfig) {
 		super(portletConfig);
-	}
-
-	@Override
-	public String getPortletName() {
-
-		String portletName = wrappedPortletConfig.getPortletName();
-
-		// Example: Transform "chapter5_2TestsisPostbackTestportlet" to "chapter5_2Tests-isPostbackTest-portlet"
-		portletName = portletName.replaceFirst("Tests", "Tests-");
-		portletName = portletName.replaceAll("portlet$", "-portlet");
-
-		return portletName;
 	}
 }

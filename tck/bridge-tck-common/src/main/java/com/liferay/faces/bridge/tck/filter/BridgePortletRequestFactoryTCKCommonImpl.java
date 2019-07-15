@@ -20,77 +20,56 @@ import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
 import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import com.liferay.faces.bridge.BridgeConfig;
-import com.liferay.faces.bridge.BridgeFactoryFinder;
 import com.liferay.faces.bridge.filter.BridgePortletRequestFactory;
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFactoryTCKCompatImpl {
+public class BridgePortletRequestFactoryTCKCommonImpl extends BridgePortletRequestFactory {
 
-	// Private Data Members
 	private BridgePortletRequestFactory wrappedBridgePortletRequestFactory;
 
-	public BridgePortletRequestFactoryTCKImpl(BridgePortletRequestFactory bridgePortletRequestFactory) {
-		this.wrappedBridgePortletRequestFactory = bridgePortletRequestFactory;
-	}
-
-	// Java 1.6+ @Override
-	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,
-		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return getWrapped().getActionRequest(actionRequest, actionResponse, portletConfig, bridgeConfig);
-	}
-
-	// Java 1.6+ @Override
-	public EventRequest getEventRequest(EventRequest eventRequest, EventResponse eventResponse,
-		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return getWrapped().getEventRequest(eventRequest, eventResponse, portletConfig, bridgeConfig);
-	}
-
-	// Java 1.6+ @Override
-	public RenderRequest getRenderRequest(RenderRequest renderRequest, RenderResponse renderResponse,
-		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-
-		renderRequest = getWrapped().getRenderRequest(renderRequest, renderResponse, portletConfig, bridgeConfig);
-
-		if (isResinDetected(portletConfig)) {
-
-			// Workaround for FACES-1629
-			renderRequest = new RenderRequestResinImpl(renderRequest);
-		}
-
-		return renderRequest;
-	}
-
-	// Java 1.6+ @Override
-	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
-		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return getWrapped().getResourceRequest(resourceRequest, resourceResponse, portletConfig, bridgeConfig);
-	}
-
-	// Java 1.6+ @Override
-	public BridgePortletRequestFactory getWrapped() {
-		return wrappedBridgePortletRequestFactory;
+	public BridgePortletRequestFactoryTCKCommonImpl(BridgePortletRequestFactory bridgePortletRequestFactory) {
+		wrappedBridgePortletRequestFactory = bridgePortletRequestFactory;
 	}
 
 	@Override
-	protected boolean isResinDetected(PortletConfig portletConfig) {
+	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
+		return wrappedBridgePortletRequestFactory.getActionRequest(actionRequest, actionResponse, portletConfig,
+				bridgeConfig);
+	}
 
-		PortletContext portletContext = portletConfig.getPortletContext();
-		ProductFactory productFactory = (ProductFactory) BridgeFactoryFinder.getFactory(portletContext,
-				ProductFactory.class);
-		final Product RESIN = productFactory.getProductInfo(Product.Name.RESIN);
+	@Override
+	public EventRequest getEventRequest(EventRequest eventRequest, EventResponse eventResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
+		return wrappedBridgePortletRequestFactory.getEventRequest(eventRequest, eventResponse, portletConfig,
+				bridgeConfig);
+	}
 
-		return RESIN.isDetected();
+	@Override
+	public RenderRequest getRenderRequest(RenderRequest headerRequest, RenderResponse headerResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
+		return new RenderRequestTCKCommonImpl(wrappedBridgePortletRequestFactory.getRenderRequest(headerRequest,
+					headerResponse, portletConfig, bridgeConfig));
+	}
+
+	@Override
+	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
+		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
+		return wrappedBridgePortletRequestFactory.getResourceRequest(resourceRequest, resourceResponse, portletConfig,
+				bridgeConfig);
+	}
+
+	@Override
+	public BridgePortletRequestFactory getWrapped() {
+		return wrappedBridgePortletRequestFactory;
 	}
 }

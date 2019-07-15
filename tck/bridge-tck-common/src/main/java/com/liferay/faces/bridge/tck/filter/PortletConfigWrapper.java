@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.tck.portlet;
+package com.liferay.faces.bridge.tck.filter;
 
 import java.util.Enumeration;
 import java.util.Locale;
@@ -26,14 +26,9 @@ import javax.xml.namespace.QName;
 
 
 /**
- * NOTE: This class intentionally does NOT implement FacesWrapper&lt;PortletConfig&gt; in order to prevent
- * ELResolverImpl.resolveVariable(ELContext,String) from unwrapping the PortletConfig too much, which would cause a TCK
- * failure in TestPage201 (JSF_ELTest). This will not be necessary with JSR 378. For more information, see:
- * https://issues.liferay.com/browse/FACES-3108
- *
  * @author  Neil Griffin
  */
-public abstract class PortletConfigWrapper implements PortletConfig {
+public class PortletConfigWrapper implements PortletConfig {
 
 	protected PortletConfig wrappedPortletConfig;
 
@@ -67,6 +62,11 @@ public abstract class PortletConfigWrapper implements PortletConfig {
 	}
 
 	@Override
+	public String getPortletName() {
+		return wrappedPortletConfig.getPortletName();
+	}
+
+	@Override
 	public Enumeration<QName> getProcessingEventQNames() {
 		return wrappedPortletConfig.getProcessingEventQNames();
 	}
@@ -89,5 +89,9 @@ public abstract class PortletConfigWrapper implements PortletConfig {
 	@Override
 	public Enumeration<Locale> getSupportedLocales() {
 		return wrappedPortletConfig.getSupportedLocales();
+	}
+
+	public PortletConfig getWrapped() {
+		return wrappedPortletConfig;
 	}
 }
