@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
-import java.io.Serializable;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.EventRequest;
@@ -31,26 +29,16 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.filter.BridgePortletResponseFactory;
 
-import com.liferay.faces.bridge.tck.common.Constants;
-import com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.DependencyTrackingHeaderResponse;
-
 
 /**
- * @author  Kyle Stiemann
+ * @author  Neil Griffin
  */
-public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFactory implements Serializable {
+public class BridgePortletResponseFactoryTCKCommonImpl extends BridgePortletResponseFactory {
 
-	// Serial Version UID
-	private static final long serialVersionUID = 2184921901586098823L;
-
-	// Private Constants
-	private static final String RESOURCES_RENDERED_IN_HEAD_TEST = "resourcesRenderedInHeadTest";
-
-	// Private Data Members
 	private BridgePortletResponseFactory wrappedBridgePortletResponseFactory;
 
-	public BridgePortletResponseFactoryTCKImpl(BridgePortletResponseFactory wrappedBridgePortletResponseFactory) {
-		this.wrappedBridgePortletResponseFactory = wrappedBridgePortletResponseFactory;
+	public BridgePortletResponseFactoryTCKCommonImpl(BridgePortletResponseFactory bridgePortletResponseFactory) {
+		this.wrappedBridgePortletResponseFactory = bridgePortletResponseFactory;
 	}
 
 	@Override
@@ -70,16 +58,8 @@ public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFa
 	@Override
 	public HeaderResponse getHeaderResponse(HeaderRequest headerRequest, HeaderResponse headerResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-
-		HeaderResponse returnHeaderResponse = wrappedBridgePortletResponseFactory.getHeaderResponse(headerRequest,
-				headerResponse, portletConfig, bridgeConfig);
-		String testName = (String) headerRequest.getAttribute(Constants.TEST_NAME);
-
-		if (RESOURCES_RENDERED_IN_HEAD_TEST.equals(testName)) {
-			returnHeaderResponse = new DependencyTrackingHeaderResponse(returnHeaderResponse);
-		}
-
-		return returnHeaderResponse;
+		return new HeaderResponseTCKCommonImpl(wrappedBridgePortletResponseFactory.getHeaderResponse(headerRequest,
+					headerResponse, portletConfig, bridgeConfig));
 	}
 
 	@Override

@@ -63,7 +63,9 @@
 		<faces-context-factory>com.liferay.faces.bridge.tck.common.util.faces.context.TCK_FacesContextFactoryImpl</faces-context-factory>
 		<lifecycle-factory>com.liferay.faces.bridge.tck.common.util.faces.application.TestSuiteLifecycleFactoryImpl</lifecycle-factory>
 		<factory-extension>
-			<bridge:bridge-portlet-response-factory>com.liferay.faces.bridge.tck.filter.BridgePortletResponseFactoryTCKImpl</bridge:bridge-portlet-response-factory>
+			<bridge:bridge-portlet-config-factory>com.liferay.faces.bridge.tck.filter.BridgePortletConfigFactoryTCKMainImpl</bridge:bridge-portlet-config-factory>
+			<bridge:bridge-portlet-request-factory>com.liferay.faces.bridge.tck.filter.BridgePortletRequestFactoryTCKMainImpl</bridge:bridge-portlet-request-factory>
+			<bridge:bridge-portlet-response-factory>com.liferay.faces.bridge.tck.filter.BridgePortletResponseFactoryTCKMainImpl</bridge:bridge-portlet-response-factory>
 		</factory-extension>
 	</factory>
 	<managed-bean>

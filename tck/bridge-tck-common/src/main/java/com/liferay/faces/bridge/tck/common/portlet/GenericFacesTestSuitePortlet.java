@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2018 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,7 +110,6 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 	private void initTestRequest(PortletRequest portletRequest) {
 		portletRequest.setAttribute(Constants.TEST_BEAN_NAME, mTestBeanName);
 		portletRequest.setAttribute(Constants.TEST_NAME, mTestName);
-		portletRequest.setAttribute(Constants.PORTLET_CONFIG, this.getPortletConfig());
 
 		if (portletRequest.getParameter(Bridge.VIEW_ID) != null) {
 			portletRequest.setAttribute(Bridge.VIEW_ID, portletRequest.getParameter(Bridge.VIEW_ID));
