@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.model.internal;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -22,6 +24,8 @@ import java.util.Collection;
 import java.util.Map;
 
 import com.liferay.faces.bridge.model.UploadedFile;
+import com.liferay.faces.util.factory.FactoryExtensionFinder;
+import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -33,15 +37,53 @@ public class UploadedFileBridgeImpl implements Serializable, UploadedFile {
 	private static final long serialVersionUID = 2492812271137403881L;
 
 	// Private Data Members
+	private boolean primeFacesDetected;
 	private com.liferay.faces.util.model.UploadedFile wrappedUploadedFile;
 
-	public UploadedFileBridgeImpl(com.liferay.faces.util.model.UploadedFile uploadedFile) {
+	public UploadedFileBridgeImpl(com.liferay.faces.util.model.UploadedFile uploadedFile, boolean primeFacesDetected) {
 		this.wrappedUploadedFile = uploadedFile;
+		this.primeFacesDetected = primeFacesDetected;
 	}
 
 	@Override
 	public void delete() throws IOException {
-		wrappedUploadedFile.delete();
+
+		try {
+			String tempDirPath = null;
+			String absolutePath = wrappedUploadedFile.getAbsolutePath();
+
+			if (absolutePath != null) {
+				File wrappedFile = new File(absolutePath);
+				tempDirPath = wrappedFile.getParent();
+
+				if (tempDirPath != null) {
+					File tempDir = new File(tempDirPath);
+					File[] files = tempDir.listFiles(new FilenameFilter() {
+								@Override
+								public boolean accept(File dir, String name) {
+									return ((name != null) && name.endsWith(".tmp"));
+								}
+							});
+
+					if (files != null) {
+
+						for (File file : files) {
+							file.delete();
+						}
+					}
+				}
+			}
+
+			wrappedUploadedFile.delete();
+		}
+		catch (Exception e) {
+
+			if (e instanceof IOException) {
+				throw e;
+			}
+
+			throw new IOException(e);
+		}
 	}
 
 	@Override
@@ -91,6 +133,11 @@ public class UploadedFileBridgeImpl implements Serializable, UploadedFile {
 
 	@Override
 	public InputStream getInputStream() throws IOException {
+
+		if (primeFacesDetected) {
+			return new DeletingInputStream(wrappedUploadedFile.getInputStream());
+		}
+
 		return wrappedUploadedFile.getInputStream();
 	}
 
@@ -120,5 +167,25 @@ public class UploadedFileBridgeImpl implements Serializable, UploadedFile {
 	@Override
 	public void write(String fileName) throws IOException {
 		wrappedUploadedFile.write(fileName);
+	}
+
+	private class DeletingInputStream extends InputStream {
+
+		private InputStream wrappedInputStream;
+
+		public DeletingInputStream(InputStream inputStream) {
+			this.wrappedInputStream = inputStream;
+		}
+
+		@Override
+		public void close() throws IOException {
+			wrappedInputStream.close();
+			UploadedFileBridgeImpl.this.delete();
+		}
+
+		@Override
+		public int read() throws IOException {
+			return wrappedInputStream.read();
+		}
 	}
 }
