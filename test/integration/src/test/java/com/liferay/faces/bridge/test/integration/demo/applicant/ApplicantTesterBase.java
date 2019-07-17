@@ -231,6 +231,7 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 			browserDriver.clickElementAndWaitForRerender(getSubmitButtonXpath());
 		}
 		else {
+			browserDriver.centerElementInCurrentWindow(getSubmitButtonXpath());
 			browserDriver.clickElement(getSubmitButtonXpath());
 		}
 
@@ -370,7 +371,7 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		selectDate(browserDriver);
 
 		if (!isViewScopedApplicantBacking()) {
-			browserDriver.sendKeysToElement(getPostalCodeFieldXpath(), "32802");
+			sendKeysTabAndWaitForRerender(browserDriver, getPostalCodeFieldXpath(), "32802");
 		}
 
 		browserDriver.sendKeysToElement(getCityFieldXpath(), "North Orlando");
