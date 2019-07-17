@@ -20,6 +20,9 @@ import javax.portlet.filter.PortletConfigWrapper;
 
 
 /**
+ * This class exists simply to make sure that the chain-of-delegation pattern is working for factories. See JSF_ELTest
+ * for more details.
+ *
  * @author  Neil Griffin
  */
 public class PortletConfigTCKMainImpl extends PortletConfigWrapper {

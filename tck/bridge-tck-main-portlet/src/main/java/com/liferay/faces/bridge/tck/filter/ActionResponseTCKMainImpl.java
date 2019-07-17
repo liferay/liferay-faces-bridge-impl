@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
-import javax.portlet.HeaderResponse;
-import javax.portlet.filter.HeaderResponseWrapper;
+import javax.portlet.ActionResponse;
+import javax.portlet.filter.ActionResponseWrapper;
 
 
 /**
@@ -25,9 +25,8 @@ import javax.portlet.filter.HeaderResponseWrapper;
  *
  * @author  Neil Griffin
  */
-public class HeaderResponseTCKMainImpl extends HeaderResponseWrapper {
-
-	public HeaderResponseTCKMainImpl(HeaderResponse headerResponse) {
-		super(headerResponse);
+public class ActionResponseTCKMainImpl extends ActionResponseWrapper {
+	public ActionResponseTCKMainImpl(ActionResponse response) {
+		super(response);
 	}
 }
