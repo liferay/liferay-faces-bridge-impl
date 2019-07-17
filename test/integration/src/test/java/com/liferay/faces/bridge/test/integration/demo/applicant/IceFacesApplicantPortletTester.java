@@ -53,6 +53,11 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 	}
 
 	@Override
+	protected boolean isViewScopedApplicantBacking() {
+		return true;
+	}
+
+	@Override
 	protected void selectDate(BrowserDriver browserDriver) {
 
 		browserDriver.clickElement(getDateOfBirthFieldXpath());

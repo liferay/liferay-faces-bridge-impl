@@ -15,10 +15,8 @@
  */
 package com.liferay.faces.demos.applicant.alloy.facelets.mbf;
 
-import java.io.File;
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -39,24 +37,24 @@ public class ApplicantView implements Serializable {
 	private static final long serialVersionUID = 6163667782815767889L;
 
 	// JavaBean Properties for UI
+	private int attachmentIndex;
 	private boolean commentsRendered;
 	private UploadedFile fileToDelete;
-	private String attachmentId;
 
-	public String getUploadedFileId() {
-		return attachmentId;
+	public int getAttachmentIndex() {
+		return attachmentIndex;
 	}
 
 	public boolean isCommentsRendered() {
 		return commentsRendered;
 	}
 
-	public void setCommentsRendered(boolean commentsRendered) {
-		this.commentsRendered = commentsRendered;
+	public void setAttachmentIndex(int attachmentIndex) {
+		this.attachmentIndex = attachmentIndex;
 	}
 
-	public void setUploadedFileId(String attachmentId) {
-		this.attachmentId = attachmentId;
+	public void setCommentsRendered(boolean commentsRendered) {
+		this.commentsRendered = commentsRendered;
 	}
 
 	public void toggleComments(ActionEvent actionEvent) {

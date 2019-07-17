@@ -33,7 +33,6 @@ import com.liferay.faces.demos.applicant.jsf.facelets.dto.Attachment;
  * @author  Neil Griffin
  */
 @ApplicationScoped
-@ManagedBean(name = "attachmentManager")
 public class AttachmentManager {
 
 	public File getAttachmentDir(FacesContext facesContext) {

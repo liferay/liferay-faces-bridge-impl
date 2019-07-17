@@ -16,12 +16,15 @@
 package com.liferay.faces.demos.applicant.jsf.jsp.mbf;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -57,14 +60,17 @@ public class ApplicantBacking {
 	private ListManager listManager;
 
 	// Private Data Members
+	private Applicant applicant;
 	private transient InputFile attachment1;
 	private transient InputFile attachment2;
 	private transient InputFile attachment3;
 
 	public void deleteUploadedFile(ActionEvent actionEvent) {
 
-		int attachmentIndex = (Integer) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-			.get("fileId");
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
+		int attachmentIndex = Integer.valueOf(requestParameterMap.get("fileId"));
 
 		try {
 			List<Attachment> attachments = applicant.getAttachments();
@@ -81,10 +87,9 @@ public class ApplicantBacking {
 			}
 
 			if (attachmentToDelete != null) {
-				File file = new File(attachmentToDelete.getAbsolutePath());
-				file.delete();
+				attachmentToDelete.getFile().delete();
 				attachments.remove(attachmentToDelete);
-				logger.debug("Deleted file=[{0}]", file);
+				logger.debug("Deleted file=[{0}]", attachmentToDelete.getName());
 			}
 		}
 		catch (Exception e) {
@@ -148,12 +153,6 @@ public class ApplicantBacking {
 		this.attachmentManager = attachmentManager;
 	}
 
-	public void setAttachmentManager(AttachmentManager attachmentManager) {
-
-		// Injected via @ManagedProperty annotation
-		this.attachmentManager = attachmentManager;
-	}
-
 	public void setListManager(ListManager listManager) {
 
 		// Injected via @ManagedProperty annotation
@@ -184,9 +183,8 @@ public class ApplicantBacking {
 			List<Attachment> attachments = applicant.getAttachments();
 
 			for (Attachment attachment : attachments) {
-				File file = new File(attachment.getAbsolutePath());
-				file.delete();
-				logger.debug("Deleted file=[{0}]", file);
+				attachment.getFile().delete();
+				logger.debug("Deleted file=[{0}]", attachment.getName());
 			}
 
 			// Store the applicant's first name in JSF 2 Flash Scope so that it can be picked up
@@ -210,26 +208,61 @@ public class ApplicantBacking {
 	@SuppressWarnings("unchecked")
 	public void uploadAttachments(ActionEvent actionEvent) {
 
-		List<Attachment> attachments = applicant.getAttachments();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		File attachmentDir = attachmentManager.getAttachmentDir(facesContext);
 
-		List<UploadedFile> attachments1 = (List<UploadedFile>) attachment1.getValue();
-
-		if (attachments1 != null) {
-			attachments.addAll(attachments1);
+		if (!attachmentDir.exists()) {
+			attachmentDir.mkdir();
 		}
 
-		List<UploadedFile> attachments2 = (List<UploadedFile>) attachment2.getValue();
+		try {
+			List<UploadedFile> attachments1 = (List<UploadedFile>) attachment1.getValue();
 
-		if (attachments2 != null) {
-			attachments.addAll(attachments2);
+			if (attachments1 != null) {
+
+				for (UploadedFile uploadedFile : attachments1) {
+					File copiedFile = new File(attachmentDir, uploadedFile.getName());
+					uploadedFile.write(copiedFile.getAbsolutePath());
+					uploadedFile.delete();
+					logger.debug("Received fileName=[{0}] absolutePath=[{1}]", copiedFile.getName(),
+						copiedFile.getAbsolutePath());
+				}
+			}
+
+			List<UploadedFile> attachments2 = (List<UploadedFile>) attachment2.getValue();
+
+			if (attachments2 != null) {
+
+				for (UploadedFile uploadedFile : attachments2) {
+					File copiedFile = new File(attachmentDir, uploadedFile.getName());
+					uploadedFile.write(copiedFile.getAbsolutePath());
+					uploadedFile.delete();
+					logger.debug("Received fileName=[{0}] absolutePath=[{1}]", copiedFile.getName(),
+						copiedFile.getAbsolutePath());
+				}
+			}
+
+			List<UploadedFile> attachments3 = (List<UploadedFile>) attachment3.getValue();
+
+			if (attachments3 != null) {
+
+				for (UploadedFile uploadedFile : attachments3) {
+					File copiedFile = new File(attachmentDir, uploadedFile.getName());
+					uploadedFile.write(copiedFile.getAbsolutePath());
+					uploadedFile.delete();
+					logger.debug("Received fileName=[{0}] absolutePath=[{1}]", copiedFile.getName(),
+						copiedFile.getAbsolutePath());
+				}
+			}
+
+			List<Attachment> attachments = attachmentManager.getAttachments(attachmentDir);
+			applicant.setAttachments(attachments);
 		}
-
-		List<UploadedFile> attachments3 = (List<UploadedFile>) attachment3.getValue();
-
-		if (attachments3 != null) {
-			attachments.addAll(attachments3);
+		catch (IOException e) {
+			logger.error(e);
 		}
 
 		applicantView.setFileUploaderRendered(false);
 	}
+
 }
