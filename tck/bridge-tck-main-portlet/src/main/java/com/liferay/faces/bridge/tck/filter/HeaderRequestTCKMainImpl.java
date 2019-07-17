@@ -16,15 +16,43 @@
 package com.liferay.faces.bridge.tck.filter;
 
 import javax.portlet.HeaderRequest;
+import javax.portlet.PortletPreferences;
+import javax.portlet.PortletSession;
 import javax.portlet.filter.HeaderRequestWrapper;
 
 
 /**
+ * This class exists simply to make sure that the chain-of-delegation pattern is working for factories. See JSF_ELTest
+ * for more details.
+ *
  * @author  Neil Griffin
  */
 public class HeaderRequestTCKMainImpl extends HeaderRequestWrapper {
 
+	private PortletPreferences portletPreferences;
+	private PortletSession portletSession;
+
 	public HeaderRequestTCKMainImpl(HeaderRequest headerRequest) {
 		super(headerRequest);
+	}
+
+	@Override
+	public PortletSession getPortletSession(boolean create) {
+
+		if (portletSession == null) {
+			portletSession = new PortletSessionTCKMainImpl(super.getPortletSession(create));
+			portletSession.setAttribute("portletSessionTCKMainImpl", Boolean.TRUE);
+		}
+
+		return portletSession;
+	}
+
+	public PortletPreferences getPreferences() {
+
+		if (portletPreferences == null) {
+			portletPreferences = new PortletPreferencesTCKMainImpl(super.getPreferences());
+		}
+
+		return portletPreferences;
 	}
 }

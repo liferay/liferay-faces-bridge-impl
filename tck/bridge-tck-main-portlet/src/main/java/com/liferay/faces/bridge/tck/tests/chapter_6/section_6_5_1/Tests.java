@@ -44,19 +44,27 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
+import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeConfigFactory;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.preference.Preference;
+import javax.portlet.filter.ActionRequestWrapper;
+import javax.portlet.filter.ActionResponseWrapper;
 import javax.portlet.filter.HeaderRequestWrapper;
 import javax.portlet.filter.HeaderResponseWrapper;
 import javax.portlet.filter.PortletConfigWrapper;
+import javax.portlet.filter.PortletSessionWrapper;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
+import com.liferay.faces.bridge.tck.filter.ActionRequestTCKCommonImpl;
+import com.liferay.faces.bridge.tck.filter.ActionRequestTCKMainImpl;
+import com.liferay.faces.bridge.tck.filter.ActionResponseTCKCommonImpl;
+import com.liferay.faces.bridge.tck.filter.ActionResponseTCKMainImpl;
 import com.liferay.faces.bridge.tck.filter.HeaderRequestTCKCommonImpl;
 import com.liferay.faces.bridge.tck.filter.HeaderRequestTCKMainImpl;
 import com.liferay.faces.bridge.tck.filter.HeaderResponseTCKCommonImpl;
@@ -64,6 +72,11 @@ import com.liferay.faces.bridge.tck.filter.HeaderResponseTCKMainImpl;
 import com.liferay.faces.bridge.tck.filter.PortletConfigTCKCommonImpl;
 import com.liferay.faces.bridge.tck.filter.PortletConfigTCKImpl;
 import com.liferay.faces.bridge.tck.filter.PortletConfigTCKMainImpl;
+import com.liferay.faces.bridge.tck.filter.PortletPreferencesTCKCommonImpl;
+import com.liferay.faces.bridge.tck.filter.PortletPreferencesTCKMainImpl;
+import com.liferay.faces.bridge.tck.filter.PortletPreferencesWrapper;
+import com.liferay.faces.bridge.tck.filter.PortletSessionTCKCommonImpl;
+import com.liferay.faces.bridge.tck.filter.PortletSessionTCKMainImpl;
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -300,7 +313,7 @@ public class Tests {
 		ELResolver facesResolver = elContext.getELResolver();
 
 		// Test that each implicit object is accessible and has the right value in
-		// both the action phase and render phase
+		// both the action phase and header phase
 		PortletConfig portletConfig = (PortletConfig) requestMap.get(PortletConfig.class.getName());
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
@@ -311,7 +324,8 @@ public class Tests {
 				// First ensure there are entries in the various scopes
 				ensureScopeEntries(externalContext);
 
-				// JSF Implicit Objects:
+				// JSF IMPLICIT OBJECTS:
+
 				// application -> ExternalContext.getContext();
 				testImplicitObject(testBean, facesResolver, facesContext, "application", externalContext.getContext());
 
@@ -362,7 +376,20 @@ public class Tests {
 				// view -> facesContext.getViewRoot()
 				testImplicitObject(testBean, facesResolver, facesContext, "view", facesContext.getViewRoot());
 
-				// Portlet implicit objects
+				// PORTLET IMPLICIT OBJECTS:
+
+				// actionRequest -> externalContext.getRequest()
+				Object elActionRequest = testImplicitObject(testBean, facesResolver, facesContext, "actionRequest",
+						request);
+
+				testDecoratedActionRequest(testBean, elActionRequest);
+
+				// actionResponse -> externalContext.getResponse()
+				Object elActionResponse = testImplicitObject(testBean, facesResolver, facesContext, "actionResponse",
+						response);
+
+				testDecoratedActionResponse(testBean, elActionResponse);
+
 				// httpSessionScope:  mutable Map containing PortletSession attribute/values at APPLICATION_SCOPE.
 				testHttpSessionScope(testBean, facesResolver, facesContext, "httpSessionScope",
 					(PortletSession) externalContext.getSession(true));
@@ -375,24 +402,22 @@ public class Tests {
 				// portletConfig -> object of type javax.portlet.PortletConfig
 				testImplicitObject(testBean, facesResolver, facesContext, "portletConfig", portletConfig);
 
-				if (!((portletConfig instanceof PortletConfigTCKMainImpl) &&
-							(((PortletConfigWrapper) portletConfig).getWrapped() instanceof PortletConfigTCKImpl)) &&
-						(((PortletConfigWrapper) ((PortletConfigWrapper) portletConfig).getWrapped()).getWrapped() instanceof
-							PortletConfigTCKCommonImpl)) {
-					fail(testBean, "Incorrect chain-of-responsibility for BridgePortletConfig");
-				}
+				testDecoratedPortletConfig(testBean, portletConfig);
 
 				// portletPreferences -> ExternalContext.getRequest().getPreferences() object.
-				testImplicitObject(testBean, facesResolver, facesContext, "portletPreferences",
-					((PortletRequest) request).getPreferences());
+				Object elPortletPreferences = testImplicitObject(testBean, facesResolver, facesContext,
+						"portletPreferences", ((PortletRequest) request).getPreferences());
+
+				testDecoratedPortletPreferences(testBean, elPortletPreferences);
 
 				// portletPreferencesValues -> ExternalContext.getRequest()).getPreferences().getMap().
-				testImplicitObjectArrayMaps(testBean, facesResolver, facesContext, "portletPreferencesValues",
-					((PortletRequest) request).getPreferences().getMap());
+				testPortletPreferencesValues(testBean, facesResolver, facesContext, ((PortletRequest) request));
 
 				// portletSession -> ExternalContext.getSession()
-				testImplicitObject(testBean, facesResolver, facesContext, "portletSession",
-					externalContext.getSession(true));
+				Object elPortletSession = testImplicitObject(testBean, facesResolver, facesContext, "portletSession",
+						externalContext.getSession(true));
+
+				testDecoratedPortletSession(testBean, elPortletSession);
 
 				// portletSessionScope -> ExternalContext.getSessionMap().
 				testImplicitObject(testBean, facesResolver, facesContext, "portletSessionScope",
@@ -410,7 +435,8 @@ public class Tests {
 
 			try {
 
-				// JSF Implicit Objects
+				// JSF IMPLICIT OBJECTS:
+
 				// application -> ExternalContext.getContext();
 				testImplicitObject(testBean, facesResolver, facesContext, "application", externalContext.getContext());
 
@@ -448,10 +474,7 @@ public class Tests {
 				// request -> externalContext.getRequest()
 				testImplicitObject(testBean, facesResolver, facesContext, "request", request);
 
-				if (!((request instanceof HeaderRequestTCKMainImpl) &&
-							(((HeaderRequestWrapper) request).getRequest() instanceof HeaderRequestTCKCommonImpl))) {
-					fail(testBean, "Incorrect chain-of-responsibility for BridgePortletRequestFactory");
-				}
+				testDecoratedHeaderRequest(testBean, request);
 
 				// requestScope -> externalContext.getRequestScope()
 				testImplicitObject(testBean, facesResolver, facesContext, "requestScope", requestMap);
@@ -466,7 +489,8 @@ public class Tests {
 				// view -> facesContext.getViewRoot()
 				testImplicitObject(testBean, facesResolver, facesContext, "view", facesContext.getViewRoot());
 
-				// Portlet implicit objects
+				// PORTLET IMPLICIT OBJECTS:
+
 				// httpSessionScope:  mutable Map containing PortletSession attribute/values at APPLICATION_SCOPE.
 				testHttpSessionScope(testBean, facesResolver, facesContext, "httpSessionScope",
 					(PortletSession) externalContext.getSession(true));
@@ -479,13 +503,14 @@ public class Tests {
 				// portletConfig -> object of type javax.portlet.PortletConfig
 				testImplicitObject(testBean, facesResolver, facesContext, "portletConfig", portletConfig);
 
+				testDecoratedPortletConfig(testBean, portletConfig);
+
 				// portletPreferences -> ExternalContext.getRequest().getPreferences() object.
 				testImplicitObject(testBean, facesResolver, facesContext, "portletPreferences",
 					((PortletRequest) request).getPreferences());
 
 				// portletPreferencesValues -> ExternalContext.getRequest()).getPreferences().getMap().
-				testImplicitObjectArrayMaps(testBean, facesResolver, facesContext, "portletPreferencesValues",
-					((PortletRequest) request).getPreferences().getMap());
+				testPortletPreferencesValues(testBean, facesResolver, facesContext, (PortletRequest) request);
 
 				// portletSession -> ExternalContext.getSession()
 				testImplicitObject(testBean, facesResolver, facesContext, "portletSession",
@@ -495,33 +520,26 @@ public class Tests {
 				testImplicitObject(testBean, facesResolver, facesContext, "portletSessionScope",
 					externalContext.getSessionMap());
 
-				// RenderRequest & RenderResponse
-				if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RENDER_PHASE) {
+				// renderRequest -> object of type javax.portlet.RenderRequest
+				Object elRenderRequest = testImplicitObject(testBean, facesResolver, facesContext, "renderRequest",
+						request);
 
-					// renderRequest -> object of type javax.portlet.RenderRequest
-					testImplicitObject(testBean, facesResolver, facesContext, "renderRequest", request);
+				testDecoratedRenderRequest(testBean, elRenderRequest);
 
-					// renderResponse -> object of type javax.portlet.RenderResponse
-					testImplicitObject(testBean, facesResolver, facesContext, "renderResponse",
-						externalContext.getResponse());
-				}
-
-				// HeaderRequest & HeaderResponse
-				else {
-
-					// headerRequest -> object of type javax.portlet.HeaderRequest
-					testImplicitObject(testBean, facesResolver, facesContext, "headerRequest", request);
-
-					// headerResponse -> object of type javax.portlet.HeaderResponse
-					testImplicitObject(testBean, facesResolver, facesContext, "headerResponse",
+				// renderResponse -> object of type javax.portlet.RenderResponse
+				Object elRenderResponse = testImplicitObject(testBean, facesResolver, facesContext, "renderResponse",
 						externalContext.getResponse());
 
-					if (!((externalContext.getResponse() instanceof HeaderResponseTCKMainImpl) &&
-								(((HeaderResponseWrapper) response).getResponse() instanceof
-									HeaderResponseTCKCommonImpl))) {
-						fail(testBean, "Incorrect chain-of-responsibility for BridgePortletResponseFactory");
-					}
-				}
+				testDecoratedRenderResponse(testBean, elRenderResponse);
+
+				// headerRequest -> object of type javax.portlet.HeaderRequest
+				testImplicitObject(testBean, facesResolver, facesContext, "headerRequest", request);
+
+				// headerResponse -> object of type javax.portlet.HeaderResponse
+				Object elHeaderResponse = testImplicitObject(testBean, facesResolver, facesContext, "headerResponse",
+						response);
+
+				testDecoratedHeaderResponse(testBean, elHeaderResponse);
 			}
 			catch (Throwable t) {
 				fail(testBean, "JSF EL failure in render request: " + t.getCause().toString());
@@ -812,6 +830,79 @@ public class Tests {
 		}
 	}
 
+	private void testDecoratedActionRequest(TestBean testBean, Object elActionRequest) {
+
+		if (!(((elActionRequest != null) && (elActionRequest instanceof ActionRequestTCKMainImpl)) &&
+					(((ActionRequestWrapper) elActionRequest).getRequest() instanceof ActionRequestTCKCommonImpl))) {
+			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletRequestFactory (ActionRequest)");
+		}
+	}
+
+	private void testDecoratedActionResponse(TestBean testBean, Object elActionResponse) {
+
+		if (!(((elActionResponse != null) && (elActionResponse instanceof ActionResponseTCKMainImpl)) &&
+					(((ActionResponseWrapper) elActionResponse).getResponse() instanceof
+						ActionResponseTCKCommonImpl))) {
+			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletResponseFactory (ActionResponse)");
+		}
+	}
+
+	private void testDecoratedHeaderRequest(TestBean testBean, Object elHeaderRequest) {
+
+		if (!(((elHeaderRequest != null) && (elHeaderRequest instanceof HeaderRequestTCKMainImpl)) &&
+					(((HeaderRequestWrapper) elHeaderRequest).getRequest() instanceof HeaderRequestTCKCommonImpl))) {
+			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletRequestFactory (HeaderRequest)");
+		}
+	}
+
+	private void testDecoratedHeaderResponse(TestBean testBean, Object elHeaderResponse) {
+
+		if (!(((elHeaderResponse != null) && (elHeaderResponse instanceof HeaderResponseTCKMainImpl)) &&
+					(((HeaderResponseWrapper) elHeaderResponse).getResponse() instanceof
+						HeaderResponseTCKCommonImpl))) {
+			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletResponseFactory (HeaderResponse)");
+		}
+	}
+
+	private void testDecoratedPortletConfig(TestBean testBean, PortletConfig portletConfig) {
+
+		if (!((portletConfig instanceof PortletConfigTCKMainImpl) &&
+					(((PortletConfigWrapper) portletConfig).getWrapped() instanceof PortletConfigTCKImpl)) &&
+				(((PortletConfigWrapper) ((PortletConfigWrapper) portletConfig).getWrapped()).getWrapped() instanceof
+					PortletConfigTCKCommonImpl)) {
+			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletConfig (PortletConfig)");
+		}
+	}
+
+	private void testDecoratedPortletPreferences(TestBean testBean, Object elPortletPreferences) {
+
+		if (!(((elPortletPreferences != null) && (elPortletPreferences instanceof PortletPreferencesTCKMainImpl)) &&
+					(((PortletPreferencesWrapper) elPortletPreferences).getWrapped() instanceof
+						PortletPreferencesTCKCommonImpl))) {
+			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletRequestFactory (PortletPreferences)");
+		}
+	}
+
+	private void testDecoratedPortletSession(TestBean testBean, Object elPortletSession) {
+
+		if (!(((elPortletSession != null) && (elPortletSession instanceof PortletSessionTCKMainImpl)) &&
+					(((PortletSessionWrapper) elPortletSession).getWrapped() instanceof PortletSessionTCKCommonImpl))) {
+			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletRequestFactory (PortletSession)");
+		}
+	}
+
+	private void testDecoratedRenderRequest(TestBean testBean, Object elRenderRequest) {
+
+		// For JSR 378, the decorated RenderRequest is a HeaderRequest
+		testDecoratedHeaderRequest(testBean, elRenderRequest);
+	}
+
+	private void testDecoratedRenderResponse(TestBean testBean, Object elRenderResponse) {
+
+		// For JSR 378, the decorated RenderResponse is a HeaderResponse
+		testDecoratedHeaderResponse(testBean, elRenderResponse);
+	}
+
 	private void testHttpSessionScope(TestBean testBean, ELResolver resolver, FacesContext facesContext,
 		String implicitObject, PortletSession portletSession) {
 		Map<String, Object> objectFromFacesEL = (Map<String, Object>) resolver.getValue(facesContext.getELContext(),
@@ -823,22 +914,46 @@ public class Tests {
 			return;
 		}
 
+		boolean foundPortletSessionTCKCommonImpl = false;
+		boolean foundPortletSessionTCKMainImpl = false;
+
 		// Now compare the result
 		// iterate over the Map and make sure each is in the portlet session app scope
 		for (Iterator<Map.Entry<String, Object>> i = objectFromFacesEL.entrySet().iterator(); i.hasNext();) {
 			Map.Entry<String, Object> e = i.next();
-			Object compareTo = portletSession.getAttribute(e.getKey(), PortletSession.APPLICATION_SCOPE);
+			String key = e.getKey();
+			Object compareTo = portletSession.getAttribute(key, PortletSession.APPLICATION_SCOPE);
+
+			if (!foundPortletSessionTCKCommonImpl) {
+				foundPortletSessionTCKCommonImpl = key.contains("portletSessionTCKCommonImpl");
+			}
+
+			if (!foundPortletSessionTCKMainImpl) {
+				foundPortletSessionTCKMainImpl = key.contains("portletSessionTCKMainImpl");
+			}
 
 			if (compareTo == null) {
 				fail(testBean,
 					"resolved implicit object httpSessionScope contains an entry that isn't in the portlet's session APPLICATION_SCOPE: " +
-					e.getKey());
+					key);
 			}
 			else if (!e.getValue().equals(compareTo)) {
 				fail(testBean,
 					"resolved implicit object httpSessionScope contains an entry whose value differs from the one in the portlet's session APPLICATION_SCOPE" +
-					e.getKey());
+					key);
 			}
+		}
+
+		if (!foundPortletSessionTCKCommonImpl) {
+			fail(testBean,
+				"The portletSessionTCKCommonImpl session attribute is not found which likely means that " +
+				"PortletSessionTCKCommonImpl.java class is not present in the chain-of-delegation");
+		}
+
+		if (!foundPortletSessionTCKMainImpl) {
+			fail(testBean,
+				"The portletSessionTCKMainImpl session attribute is not found which likely means that the " +
+				"PortletSessionTCKMainImpl.java class is not present in the chain-of-delegation");
 		}
 
 		// Now verify that the Map contained the correct number of entries
@@ -867,21 +982,27 @@ public class Tests {
 		}
 	}
 
-	private void testImplicitObject(TestBean testBean, ELResolver resolver, FacesContext facesContext,
+	private Object testImplicitObject(TestBean testBean, ELResolver resolver, FacesContext facesContext,
 		String implicitObject, Object compareTo) {
 		Object objectFromFacesEL = resolver.getValue(facesContext.getELContext(), null, implicitObject);
 
 		if ((objectFromFacesEL == null) || !facesContext.getELContext().isPropertyResolved()) {
 			fail(testBean, "implicit object " + implicitObject + " did not resolve using the Faces EL resolver.");
+
+			return null;
 		}
 		else if ((objectFromFacesEL != compareTo) && !objectFromFacesEL.equals(compareTo)) {
 			fail(testBean,
 				"implicit object  " + implicitObject +
 				" resolved using the Faces EL resolver but its not equal to what is expected.");
+
+			return null;
 		}
+
+		return objectFromFacesEL;
 	}
 
-	private void testImplicitObjectArrayMaps(TestBean testBean, ELResolver resolver, FacesContext facesContext,
+	private Object testImplicitObjectArrayMaps(TestBean testBean, ELResolver resolver, FacesContext facesContext,
 		String implicitObject, Map<String, String[]> compareTo) {
 		Map<String, String[]> objectFromFacesEL = (Map<String, String[]>) resolver.getValue(facesContext.getELContext(),
 				null, implicitObject);
@@ -894,6 +1015,8 @@ public class Tests {
 				"implicit object  " + implicitObject +
 				" resolved using the Faces EL resolver but its not equal to what is expected.");
 		}
+
+		return objectFromFacesEL;
 	}
 
 	private void testMutablePortletPreferencesValues(TestBean testBean, ELResolver resolver, FacesContext facesContext,
@@ -926,6 +1049,52 @@ public class Tests {
 				fail(testBean,
 					"resolved implicit object mutablePortletPreferencesValues contains an entry whose value differs from the one in the portlet's preference" +
 					e.getKey());
+			}
+		}
+
+		String[] expectedPreferenceNames = new String[] {
+				"portletPreferencesTCKCommonImpl", "portletPreferencesTCKMainImpl"
+			};
+
+		for (String expectedPreferenceName : expectedPreferenceNames) {
+			Preference preference = objectFromFacesEL.get(expectedPreferenceName);
+
+			if (preference == null) {
+				fail(testBean,
+					"Expected mutable preference named " + expectedPreferenceName + " to exist but was null");
+			}
+			else {
+				List<String> values = preference.getValues();
+
+				if (!((values != null) && (values.size() == 1) && values.get(0).equals("true"))) {
+					fail(testBean, "Invalid values for " + expectedPreferenceName + "=" + values);
+				}
+			}
+		}
+	}
+
+	private void testPortletPreferencesValues(TestBean testBean, ELResolver elResolver, FacesContext facesContext,
+		PortletRequest portletRequest) {
+		Object elPortletPreferencesValues = testImplicitObjectArrayMaps(testBean, elResolver, facesContext,
+				"portletPreferencesValues", portletRequest.getPreferences().getMap());
+
+		String[] expectedPreferenceNames = new String[] {
+				"portletPreferencesTCKCommonImpl", "portletPreferencesTCKMainImpl"
+			};
+
+		for (String expectedPreferenceName : expectedPreferenceNames) {
+
+			if ((elPortletPreferencesValues != null) && (elPortletPreferencesValues instanceof Map)) {
+				Map<String, String[]> portletPreferencesValues = (Map<String, String[]>) elPortletPreferencesValues;
+				String[] values = portletPreferencesValues.get(expectedPreferenceName);
+
+				if (!((values != null) && (values.length == 1) && values[0].equals("true"))) {
+					fail(testBean, "Invalid values for " + expectedPreferenceName + "=" + values);
+				}
+			}
+			else {
+				fail(testBean,
+					"Invalid EL object returned for portletPreferencesValues: " + elPortletPreferencesValues);
 			}
 		}
 	}

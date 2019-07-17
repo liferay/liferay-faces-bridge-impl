@@ -15,10 +15,10 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
-import javax.portlet.HeaderRequest;
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletSession;
-import javax.portlet.filter.HeaderRequestWrapper;
+import javax.portlet.filter.ActionRequestWrapper;
 
 
 /**
@@ -27,12 +27,12 @@ import javax.portlet.filter.HeaderRequestWrapper;
  *
  * @author  Neil Griffin
  */
-public class HeaderRequestTCKCommonImpl extends HeaderRequestWrapper {
+public class ActionRequestTCKCommonImpl extends ActionRequestWrapper {
 
 	private PortletPreferences portletPreferences;
 	private PortletSession portletSession;
 
-	public HeaderRequestTCKCommonImpl(HeaderRequest request) {
+	public ActionRequestTCKCommonImpl(ActionRequest request) {
 		super(request);
 	}
 
