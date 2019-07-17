@@ -185,6 +185,7 @@ public class ApplicantBacking {
 	}
 
 	public void setAttachmentManager(AttachmentManager attachmentManager) {
+
 		// Injected via @ManagedProperty annotation
 		this.attachmentManager = attachmentManager;
 	}

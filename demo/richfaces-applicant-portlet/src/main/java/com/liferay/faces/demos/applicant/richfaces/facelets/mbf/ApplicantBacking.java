@@ -16,6 +16,7 @@
 package com.liferay.faces.demos.applicant.richfaces.facelets.mbf;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -34,7 +35,6 @@ import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.demos.applicant.richfaces.facelets.dto.Applicant;
 import com.liferay.faces.demos.applicant.richfaces.facelets.dto.Attachment;
 import com.liferay.faces.demos.applicant.richfaces.facelets.dto.City;
-import com.liferay.faces.demos.applicant.richfaces.facelets.dto.UploadedFileWrapper;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -60,18 +60,21 @@ public class ApplicantBacking {
 	@ManagedProperty(value = "#{listManager}")
 	private ListManager listManager;
 
+	// Private Data Members
+	private Applicant applicant;
+
 	public void deleteUploadedFile(ActionEvent actionEvent) {
 
 		try {
 			List<Attachment> attachments = applicant.getAttachments();
 
-			String attachmentId = applicantView.getUploadedFileId();
+			int attachmentIndex = applicantView.getAttachmentIndex();
 
 			Attachment attachmentToDelete = null;
 
 			for (Attachment attachment : attachments) {
 
-				if (attachment.getId().equals(attachmentId)) {
+				if (attachment.getIndex() == attachmentIndex) {
 					attachmentToDelete = attachment;
 
 					break;
@@ -94,15 +97,29 @@ public class ApplicantBacking {
 	}
 
 	public void handleFileUpload(FileUploadEvent fileUploadEvent) throws Exception {
-		List<Attachment> attachments = applicant.getAttachments();
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		PortletSession portletSession = (PortletSession) externalContext.getSession(false);
-		String uniqueFolderName = portletSession.getId();
-		org.richfaces.model.UploadedFile attachment = fileUploadEvent.getUploadedFile();
-		UploadedFileWrapper attachmentWrapper = new UploadedFileWrapper(attachment, uniqueFolderName);
-		attachments.add(attachmentWrapper);
-		logger.debug("Received fileName=[{0}] absolutePath=[{1}]", attachmentWrapper.getName(),
-			attachmentWrapper.getAbsolutePath());
+		org.richfaces.model.UploadedFile uploadedFile = fileUploadEvent.getUploadedFile();
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		File attachmentDir = attachmentManager.getAttachmentDir(facesContext);
+
+		if (!attachmentDir.exists()) {
+			attachmentDir.mkdir();
+		}
+
+		File copiedFile = new File(attachmentDir, uploadedFile.getName());
+
+		try {
+			uploadedFile.write(copiedFile.getAbsolutePath());
+			uploadedFile.delete();
+			logger.debug("Received fileName=[{0}] absolutePath=[{1}]", copiedFile.getName(),
+				copiedFile.getAbsolutePath());
+
+			List<Attachment> attachments = attachmentManager.getAttachments(attachmentDir);
+			applicant.setAttachments(attachments);
+		}
+		catch (IOException e) {
+			logger.error(e);
+		}
 	}
 
 	public void postalCodeListener(ValueChangeEvent valueChangeEvent) {
@@ -142,12 +159,6 @@ public class ApplicantBacking {
 
 		// Injected via @ManagedProperty annotation
 		this.applicantView = applicantView;
-	}
-
-	public void setAttachmentManager(AttachmentManager attachmentManager) {
-
-		// Injected via @ManagedProperty annotation
-		this.attachmentManager = attachmentManager;
 	}
 
 	public void setAttachmentManager(AttachmentManager attachmentManager) {

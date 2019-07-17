@@ -118,7 +118,7 @@ public class BootsFacesApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
 	protected String getUploadedFileXpath() {
-		return "//table[contains(@id,':uploadedFilesTable')]/tbody/tr[1]/td[2]";
+		return "//table[contains(@id,':attachmentsTable')]/tbody/tr[1]/td[2]";
 	}
 
 	@Override

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:alloy="http://liferay.com/faces/alloy" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:bridge="http://liferay.com/faces/bridge" xmlns:example-cc="http://xmlns.jcp.org/jsf/composite/example-cc"
+	xmlns:example-cc="http://xmlns.jcp.org/jsf/composite/example-cc"
 	xmlns:rich="http://richfaces.org/rich" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 	<h:outputScript library="issues" name="RF-12182.js" target="head" />
@@ -128,7 +127,7 @@
 							<rich:column>
 								<a4j:commandButton image="#{resource['example:icon-delete.png']}"
 									onclick="#{rich:component('popup')}.show(); return true;" value="#{attachment.index}">
-									<f:setPropertyActionListener value="#{attachment.index}" target="#{applicantView.attachmentId}" />
+									<f:setPropertyActionListener value="#{attachment.index}" target="#{applicantView.attachmentIndex}" />
 								</a4j:commandButton>
 							</rich:column>
 							<rich:column>

@@ -19,12 +19,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.portlet.PortletContext;
 import javax.servlet.ServletContext;
+
+import org.springframework.context.annotation.Scope;
 
 import com.liferay.faces.demos.applicant.jsf.facelets.dto.Attachment;
 
@@ -32,8 +33,8 @@ import com.liferay.faces.demos.applicant.jsf.facelets.dto.Attachment;
 /**
  * @author  Neil Griffin
  */
-@ApplicationScoped
-@ManagedBean(name = "attachmentManager")
+@Named
+@Scope("singleton")
 public class AttachmentManager {
 
 	public File getAttachmentDir(FacesContext facesContext) {
