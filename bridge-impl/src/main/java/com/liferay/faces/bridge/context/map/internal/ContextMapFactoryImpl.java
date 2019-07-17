@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.ExternalContextWrapper;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
@@ -37,6 +39,7 @@ import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.bridge.util.internal.FacesRuntimeUtil;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.context.map.MultiPartFormData;
+import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
 
@@ -129,6 +132,16 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 				multiPartFormData.getUploadedFileMap();
 
 			if (uploadedFileMap != null) {
+
+				PortletSession portletSession = portletRequest.getPortletSession(true);
+				PortletContext portletContext = portletSession.getPortletContext();
+				Map<String, Object> applicationScopeMap = getApplicationScopeMap(portletContext, true);
+				ExternalContext externalContext = new ExternalContextProductImpl(applicationScopeMap);
+				ProductFactory productFactory = (ProductFactory) FactoryExtensionFinder.getFactory(externalContext,
+						ProductFactory.class);
+				Product PRIMEFACES = productFactory.getProductInfo(Product.Name.PRIMEFACES);
+				boolean primeFacesDetected = PRIMEFACES.isDetected();
+
 				bridgeUploadedFileMap = new HashMap<String, List<UploadedFile>>(uploadedFileMap.size());
 
 				Set<Map.Entry<String, List<com.liferay.faces.util.model.UploadedFile>>> entrySet =
@@ -142,7 +155,7 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 								uploadedFileList.size());
 
 						for (com.liferay.faces.util.model.UploadedFile uploadedFile : uploadedFileList) {
-							bridgeUploadedFileList.add(new UploadedFileBridgeImpl(uploadedFile));
+							bridgeUploadedFileList.add(new UploadedFileBridgeImpl(uploadedFile, primeFacesDetected));
 						}
 
 						bridgeUploadedFileMap.put(mapEntry.getKey(), bridgeUploadedFileList);
@@ -222,5 +235,24 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 		}
 
 		return facesRequestParameterMap;
+	}
+
+	private class ExternalContextProductImpl extends ExternalContextWrapper {
+
+		private Map<String, Object> applicationMap;
+
+		public ExternalContextProductImpl(Map<String, Object> applicationMap) {
+			this.applicationMap = applicationMap;
+		}
+
+		@Override
+		public Map<String, Object> getApplicationMap() {
+			return applicationMap;
+		}
+
+		@Override
+		public ExternalContext getWrapped() {
+			throw new UnsupportedOperationException();
+		}
 	}
 }
