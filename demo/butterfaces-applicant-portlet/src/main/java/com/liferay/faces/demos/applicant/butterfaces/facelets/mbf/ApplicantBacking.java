@@ -16,6 +16,7 @@
 package com.liferay.faces.demos.applicant.butterfaces.facelets.mbf;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,7 +32,7 @@ import javax.servlet.http.Part;
 import com.liferay.faces.demos.applicant.butterfaces.facelets.dto.Applicant;
 import com.liferay.faces.demos.applicant.butterfaces.facelets.dto.Attachment;
 import com.liferay.faces.demos.applicant.butterfaces.facelets.dto.City;
-import com.liferay.faces.demos.applicant.butterfaces.facelets.dto.UploadedFilePart;
+import com.liferay.faces.demos.applicant.butterfaces.facelets.util.PartUtil;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -145,12 +146,6 @@ public class ApplicantBacking {
 		this.attachmentManager = attachmentManager;
 	}
 
-	public void setAttachmentManager(AttachmentManager attachmentManager) {
-
-		// Injected via @ManagedProperty annotation
-		this.attachmentManager = attachmentManager;
-	}
-
 	public void setListManager(ListManager listManager) {
 
 		// Injected via @ManagedProperty annotation
@@ -158,8 +153,6 @@ public class ApplicantBacking {
 	}
 
 	public void setUploadedPart(Part uploadedPart) {
-		this.uploadedPart = uploadedPart;
-
 		this.uploadedPart = uploadedPart;
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();

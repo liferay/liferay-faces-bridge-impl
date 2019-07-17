@@ -16,12 +16,16 @@
 package com.liferay.faces.demos.applicant.icefaces.facelets.mbf;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -30,11 +34,9 @@ import org.icefaces.ace.component.fileentry.FileEntry;
 import org.icefaces.ace.component.fileentry.FileEntryEvent;
 import org.icefaces.ace.component.fileentry.FileEntryResults;
 
-import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.demos.applicant.icefaces.facelets.dto.Applicant;
 import com.liferay.faces.demos.applicant.icefaces.facelets.dto.Attachment;
 import com.liferay.faces.demos.applicant.icefaces.facelets.dto.City;
-import com.liferay.faces.demos.applicant.icefaces.facelets.dto.UploadedFileWrapper;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -46,7 +48,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
  * @author  "Neil Griffin"
  */
 @ManagedBean(name = "applicantBacking")
-@RequestScoped
+@ViewScoped
 public class ApplicantBacking {
 
 	// Logger
@@ -64,21 +66,21 @@ public class ApplicantBacking {
 	private ListManager listManager;
 
 	// Private Data Members
-	private String fileUploadAbsolutePath;
 	private Applicant applicant;
+	private String fileUploadAbsolutePath;
 
 	public void deleteUploadedFile(ActionEvent actionEvent) {
 
 		try {
 			List<Attachment> attachments = applicant.getAttachments();
 
-			String attachmentId = applicantView.getUploadedFileId();
+			int attachmentIndex = applicantView.getAttachmentIndex();
 
 			Attachment attachmentToDelete = null;
 
 			for (Attachment attachment : attachments) {
 
-				if (attachment.getId().equals(attachmentId)) {
+				if (attachment.getIndex() == attachmentIndex) {
 					attachmentToDelete = attachment;
 
 					break;
@@ -111,19 +113,30 @@ public class ApplicantBacking {
 
 	public void handleFileUpload(FileEntryEvent fileEntryEvent) {
 
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		File attachmentDir = attachmentManager.getAttachmentDir(facesContext);
+
+		if (!attachmentDir.exists()) {
+			attachmentDir.mkdir();
+		}
+
 		try {
-			List<Attachment> attachments = applicant.getAttachments();
 			FileEntry fileEntry = (FileEntry) fileEntryEvent.getSource();
 			FileEntryResults results = fileEntry.getResults();
 
 			for (FileEntryResults.FileInfo fileInfo : results.getFiles()) {
 
-				UploadedFileWrapper attachment = new UploadedFileWrapper(fileInfo);
-
-				if (attachment.getStatus() == UploadedFile.Status.FILE_SAVED) {
-					attachments.add(attachment);
-				}
+				File uploadedFile = fileInfo.getFile();
+				File copiedFile = new File(attachmentDir, fileInfo.getFileName());
+				copyFile(uploadedFile, copiedFile);
+				uploadedFile.delete();
+				logger.debug("Received fileName=[{0}] absolutePath=[{1}]", copiedFile.getName(),
+					copiedFile.getAbsolutePath());
 			}
+
+			List<Attachment> attachments = attachmentManager.getAttachments(attachmentDir);
+			applicant.setAttachments(attachments);
+
 		}
 		catch (Exception e) {
 			logger.error(e);
@@ -167,12 +180,6 @@ public class ApplicantBacking {
 
 		// Injected via @ManagedProperty annotation
 		this.applicantView = applicantView;
-	}
-
-	public void setAttachmentManager(AttachmentManager attachmentManager) {
-
-		// Injected via @ManagedProperty annotation
-		this.attachmentManager = attachmentManager;
 	}
 
 	public void setAttachmentManager(AttachmentManager attachmentManager) {
@@ -238,5 +245,15 @@ public class ApplicantBacking {
 
 			return "failure";
 		}
+	}
+
+	private void copyFile(File sourceFile, File destFile) throws IOException {
+		OutputStream outputStream = new FileOutputStream(destFile);
+		RandomAccessFile randomAccessFile = new RandomAccessFile(sourceFile, "r");
+		byte[] bytes = new byte[(int) randomAccessFile.length()];
+		randomAccessFile.readFully(bytes);
+		randomAccessFile.close();
+		outputStream.write(bytes);
+		outputStream.close();
 	}
 }

@@ -38,7 +38,7 @@ public class ApplicantView implements Serializable {
 	private static final long serialVersionUID = 2431684783762529783L;
 
 	// JavaBean Properties for UI
-	private boolean commentsRendered;
+	private transient boolean commentsRendered;
 
 	public boolean isCommentsRendered() {
 		return commentsRendered;

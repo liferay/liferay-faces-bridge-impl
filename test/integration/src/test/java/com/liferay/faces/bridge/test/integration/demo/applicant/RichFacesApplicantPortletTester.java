@@ -54,7 +54,7 @@ public class RichFacesApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
 	protected String getUploadedFileXpath() {
-		return "//tbody[contains(@id, ':uploadedFilesTable')]/tr/td[2]";
+		return "//tbody[contains(@id, ':attachmentsTable')]/tr/td[2]";
 	}
 
 	@Override

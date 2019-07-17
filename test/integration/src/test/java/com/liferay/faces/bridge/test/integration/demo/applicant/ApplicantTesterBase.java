@@ -177,14 +177,27 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 
 		String lastNameFieldXpath = getLastNameFieldXpath();
 		Action lastNameFieldClick = browserDriver.createClickElementAction(lastNameFieldXpath);
-		browserDriver.performAndWaitForRerender(lastNameFieldClick, firstNameFieldXpath);
+
+		if (isInputFieldPartialSubmitEnabled()) {
+			browserDriver.performAndWaitForRerender(lastNameFieldClick, firstNameFieldXpath);
+		}
+		else {
+			lastNameFieldClick.perform();
+		}
 
 		String firstNameFieldErrorXpath = getFieldErrorXpath(firstNameFieldXpath);
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		waitingAsserter.assertElementNotDisplayed(firstNameFieldErrorXpath);
 		browserDriver.clearElement(firstNameFieldXpath);
-		browserDriver.performAndWaitForRerender(lastNameFieldClick, firstNameFieldXpath);
-		waitingAsserter.assertTextPresentInElement("Value is required", firstNameFieldErrorXpath);
+
+		if (isInputFieldPartialSubmitEnabled()) {
+			browserDriver.performAndWaitForRerender(lastNameFieldClick, firstNameFieldXpath);
+		}
+		else {
+			lastNameFieldClick.perform();
+		}
+
+		waitingAsserter.assertTextPresentInElement(getValueIsRequiredMessage(), firstNameFieldErrorXpath);
 	}
 
 	@Test
@@ -193,7 +206,13 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		BrowserDriver browserDriver = getBrowserDriver();
 		String emailAddressFieldXpath = getEmailAddressFieldXpath();
 		browserDriver.centerElementInCurrentWindow(emailAddressFieldXpath);
-		sendKeysTabAndWaitForRerender(browserDriver, emailAddressFieldXpath, "test");
+
+		if (isInputFieldPartialSubmitEnabled()) {
+			sendKeysTabAndWaitForRerender(browserDriver, emailAddressFieldXpath, "test");
+		}
+		else {
+			sendKeysTab(browserDriver, emailAddressFieldXpath, "test");
+		}
 
 		String emailAddressFieldErrorXpath = getFieldErrorXpath(emailAddressFieldXpath);
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
@@ -207,18 +226,32 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 
 		BrowserDriver browserDriver = getBrowserDriver();
 		clearAllFields(browserDriver);
-		browserDriver.clickElementAndWaitForRerender(getSubmitButtonXpath());
+
+		if (isInputFieldPartialSubmitEnabled()) {
+			browserDriver.clickElementAndWaitForRerender(getSubmitButtonXpath());
+		}
+		else {
+			browserDriver.clickElement(getSubmitButtonXpath());
+		}
 
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
-		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getFirstNameFieldXpath()));
-		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getLastNameFieldXpath()));
-		waitingAsserter.assertTextPresentInElement("Value is required",
+		waitingAsserter.assertTextPresentInElement(getValueIsRequiredMessage(),
+			getFieldErrorXpath(getFirstNameFieldXpath()));
+		waitingAsserter.assertTextPresentInElement(getValueIsRequiredMessage(),
+			getFieldErrorXpath(getLastNameFieldXpath()));
+		waitingAsserter.assertTextPresentInElement(getValueIsRequiredMessage(),
 			getFieldErrorXpath(getEmailAddressFieldXpath()));
-		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getPhoneNumberFieldXpath()));
-		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getDateOfBirthFieldXpath()));
-		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getCityFieldXpath()));
-		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getProvinceIdFieldXpath()));
-		waitingAsserter.assertTextPresentInElement("Value is required", getFieldErrorXpath(getPostalCodeFieldXpath()));
+		waitingAsserter.assertTextPresentInElement(getValueIsRequiredMessage(),
+			getFieldErrorXpath(getPhoneNumberFieldXpath()));
+		waitingAsserter.assertTextPresentInElement(getValueIsRequiredMessage(),
+			getFieldErrorXpath(getDateOfBirthFieldXpath()));
+		waitingAsserter.assertTextPresentInElement(getValueIsRequiredMessage(),
+			getFieldErrorXpath(getCityFieldXpath()));
+		waitingAsserter.assertElementDisplayed(getFieldErrorXpath(getProvinceIdFieldXpath()));
+		waitingAsserter.assertTextPresentInElement(getProvinceIsRequiredMessage(),
+			getFieldErrorXpath(getProvinceIdFieldXpath()));
+		waitingAsserter.assertTextPresentInElement(getValueIsRequiredMessage(),
+			getFieldErrorXpath(getPostalCodeFieldXpath()));
 	}
 
 	@Test
@@ -231,6 +264,10 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		waitingAsserter.assertTextPresentInElementValue("Orlando", getCityFieldXpath());
 		waitingAsserter.assertTextPresentInElementValue("3", getProvinceIdFieldXpath());
+
+		if (!isViewScopedApplicantBacking() && isSubmitButtonRerendersWhenClicked()) {
+			browserDriver.clickElementAndWaitForRerender(getSubmitButtonXpath());
+		}
 	}
 
 	@Test
@@ -242,9 +279,23 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 
 		String commentsXpath = getCommentsXpath();
 		browserDriver.sendKeysToElement(commentsXpath, "testing 1, 2, 3");
+
+		if (!isViewScopedApplicantBacking()) {
+
+			if (isSubmitButtonRerendersWhenClicked()) {
+				browserDriver.clickElementAndWaitForRerender(getSubmitButtonXpath());
+			}
+			else {
+				browserDriver.clickElement(getSubmitButtonXpath());
+			}
+		}
+
 		browserDriver.clickElementAndWaitForRerender(showHideCommentsLinkXpath);
 		browserDriver.clickElementAndWaitForRerender(showHideCommentsLinkXpath);
-		getWaitingAsserter().assertTextPresentInElement("testing 1, 2, 3", commentsXpath);
+
+		if (isCommentsRetainedAfterShowHide()) {
+			getWaitingAsserter().assertTextPresentInElement("testing 1, 2, 3", commentsXpath);
+		}
 	}
 
 	@Test
@@ -254,13 +305,26 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		String dateOfBirthFieldXpath = getDateOfBirthFieldXpath();
 		browserDriver.centerElementInCurrentWindow(dateOfBirthFieldXpath);
 		browserDriver.clearElement(dateOfBirthFieldXpath);
-		sendKeysTabAndWaitForRerender(browserDriver, dateOfBirthFieldXpath, "12/34/5678");
+
+		if (isInputFieldPartialSubmitEnabled()) {
+			sendKeysTabAndWaitForRerender(browserDriver, dateOfBirthFieldXpath, "12/34/5678");
+		}
+		else {
+			sendKeysTab(browserDriver, dateOfBirthFieldXpath, "12/34/5678");
+		}
 
 		String dateOfBirthFieldErrorXpath = getFieldErrorXpath(dateOfBirthFieldXpath);
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
-		waitingAsserter.assertTextPresentInElement("Invalid date format", dateOfBirthFieldErrorXpath);
+		waitingAsserter.assertTextPresentInElement(getInvalidDateFormatMessage(), dateOfBirthFieldErrorXpath);
 		browserDriver.clearElement(dateOfBirthFieldXpath);
-		sendKeysTabAndWaitForRerender(browserDriver, dateOfBirthFieldXpath, "01/02/3456");
+
+		if (isInputFieldPartialSubmitEnabled()) {
+			sendKeysTabAndWaitForRerender(browserDriver, dateOfBirthFieldXpath, "01/02/3456");
+		}
+		else {
+			sendKeysTab(browserDriver, dateOfBirthFieldXpath, "01/02/3456");
+		}
+
 		waitingAsserter.assertElementNotDisplayed(dateOfBirthFieldErrorXpath);
 	}
 
@@ -302,18 +366,32 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		browserDriver.sendKeysToElement(firstNameFieldXpath, "David");
 		browserDriver.sendKeysToElement(getLastNameFieldXpath(), "Samuel");
 		browserDriver.sendKeysToElement(getEmailAddressFieldXpath(), "no_need@just.pray");
-		browserDriver.sendKeysToElement(getPhoneNumberFieldXpath(), "(way) too-good");
+		browserDriver.sendKeysToElement(getPhoneNumberFieldXpath(), "1112223333");
 		selectDate(browserDriver);
+
+		if (!isViewScopedApplicantBacking()) {
+			browserDriver.sendKeysToElement(getPostalCodeFieldXpath(), "32802");
+		}
+
 		browserDriver.sendKeysToElement(getCityFieldXpath(), "North Orlando");
 		selectProvince(browserDriver);
-		browserDriver.sendKeysToElement(getPostalCodeFieldXpath(), "32802");
+
+		if (isViewScopedApplicantBacking()) {
+			browserDriver.sendKeysToElement(getPostalCodeFieldXpath(), "32802");
+		}
 
 		String genesis11 =
 			"Indeed the people are one and they all have one language, and this is what they begin to do ...";
 		browserDriver.sendKeysToElement(getCommentsXpath(), genesis11);
 		browserDriver.waitForElementNotDisplayed(getFieldErrorXpath("//*"));
 		browserDriver.clickElement(getSubmitButtonXpath());
-		getWaitingAsserter().assertTextPresentInElement("Thank you David", getConfimationFormXpath());
+
+		if (isAjaxRedirectOnSubmit()) {
+			getWaitingAsserter().assertTextPresentInElement("Thank you David", getConfimationFormXpath());
+		}
+		else {
+			getWaitingAsserter().assertTextPresentInElement("Thank you", getConfimationFormXpath());
+		}
 	}
 
 	@Before
@@ -413,6 +491,10 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		return "//input[contains(@id,':firstName')]";
 	}
 
+	protected String getInvalidDateFormatMessage() {
+		return "Invalid date format";
+	}
+
 	protected String getLastNameFieldXpath() {
 		return "//input[contains(@id,':lastName')]";
 	}
@@ -445,6 +527,10 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		return "//select[contains(@id,':provinceId')]";
 	}
 
+	protected String getProvinceIsRequiredMessage() {
+		return getValueIsRequiredMessage();
+	}
+
 	protected String getShowHideCommentsLinkXpath() {
 		return "//a[contains(text(), 'Show Comments') or contains(text(), 'Hide Comments')]";
 	}
@@ -465,8 +551,32 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		return "//tr[@class='portlet-section-body results-row']/td[2]";
 	}
 
+	protected String getValueIsRequiredMessage() {
+		return "Value is required";
+	}
+
+	protected boolean isAjaxRedirectOnSubmit() {
+		return true;
+	}
+
+	protected boolean isCommentsRetainedAfterShowHide() {
+		return true;
+	}
+
+	protected boolean isInputFieldPartialSubmitEnabled() {
+		return true;
+	}
+
 	protected boolean isLiferayFacesAlloyIncluded() {
 		return true;
+	}
+
+	protected boolean isSubmitButtonRerendersWhenClicked() {
+		return true;
+	}
+
+	protected boolean isViewScopedApplicantBacking() {
+		return false;
 	}
 
 	protected void navigateWindowToDemo(BrowserDriver browserDriver) {
@@ -490,6 +600,17 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 
 	protected void selectProvince(BrowserDriver browserDriver) {
 		createSelect(browserDriver, getProvinceIdFieldXpath()).selectByVisibleText("FL");
+	}
+
+	protected final void sendKeysTab(BrowserDriver browserDriver, String elementXpath, CharSequence... keys) {
+
+		Actions actions = browserDriver.createActions(elementXpath);
+		WebElement element = browserDriver.findElementByXpath(elementXpath);
+		actions.sendKeys(element, keys);
+		actions.sendKeys(Keys.TAB);
+
+		Action action = actions.build();
+		action.perform();
 	}
 
 	protected final void sendKeysTabAndWaitForRerender(BrowserDriver browserDriver, String elementXpath,

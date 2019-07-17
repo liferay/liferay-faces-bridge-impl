@@ -16,6 +16,7 @@
 package com.liferay.faces.demos.applicant.jsf.facelets.spring;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -33,6 +34,7 @@ import org.springframework.context.annotation.Scope;
 import com.liferay.faces.demos.applicant.jsf.facelets.dto.Applicant;
 import com.liferay.faces.demos.applicant.jsf.facelets.dto.Attachment;
 import com.liferay.faces.demos.applicant.jsf.facelets.dto.City;
+import com.liferay.faces.demos.applicant.jsf.facelets.util.PartUtil;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -56,9 +58,9 @@ public class ApplicantBacking implements Serializable {
 
 	// Injections
 	@Inject
-	private transient Applicant applicant;
+	private AttachmentManager attachmentManager;
 	@Inject
-	private transient ListManager listManager;
+	private ListManager listManager;
 
 	// Private Data Members
 	private Applicant applicant;
@@ -94,6 +96,10 @@ public class ApplicantBacking implements Serializable {
 		}
 	}
 
+	public Applicant getModel() {
+		return applicant;
+	}
+
 	public Part getUploadedPart() {
 		return uploadedPart;
 	}
@@ -115,6 +121,16 @@ public class ApplicantBacking implements Serializable {
 		}
 	}
 
+	@PostConstruct
+	public void postConstruct() {
+		applicant = new Applicant();
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		File attachmentDir = attachmentManager.getAttachmentDir(facesContext);
+		List<Attachment> attachments = attachmentManager.getAttachments(attachmentDir);
+		applicant.setAttachments(attachments);
+	}
+
 	public void setApplicant(Applicant applicant) {
 
 		// Injected via @Inject annotation
@@ -123,7 +139,7 @@ public class ApplicantBacking implements Serializable {
 
 	public void setAttachmentManager(AttachmentManager attachmentManager) {
 
-		// Injected via @ManagedProperty annotation
+		// Injected via @Inject annotation
 		this.attachmentManager = attachmentManager;
 	}
 
@@ -134,8 +150,6 @@ public class ApplicantBacking implements Serializable {
 	}
 
 	public void setUploadedPart(Part uploadedPart) {
-		this.uploadedPart = uploadedPart;
-
 		this.uploadedPart = uploadedPart;
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();

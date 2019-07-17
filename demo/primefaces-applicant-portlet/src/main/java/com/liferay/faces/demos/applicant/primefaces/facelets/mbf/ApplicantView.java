@@ -34,23 +34,23 @@ public class ApplicantView implements Serializable {
 	private static final long serialVersionUID = 6063667782815767889L;
 
 	// JavaBean Properties for UI
+	private int attachmentIndex;
 	private boolean commentsRendered;
-	private String attachmentId;
 
-	public String getUploadedFileId() {
-		return attachmentId;
+	public int getAttachmentIndex() {
+		return attachmentIndex;
 	}
 
 	public boolean isCommentsRendered() {
 		return commentsRendered;
 	}
 
-	public void setCommentsRendered(boolean commentsRendered) {
-		this.commentsRendered = commentsRendered;
+	public void setAttachmentIndex(int attachmentIndex) {
+		this.attachmentIndex = attachmentIndex;
 	}
 
-	public void setUploadedFileId(String attachmentId) {
-		this.attachmentId = attachmentId;
+	public void setCommentsRendered(boolean commentsRendered) {
+		this.commentsRendered = commentsRendered;
 	}
 
 	public void toggleComments() {

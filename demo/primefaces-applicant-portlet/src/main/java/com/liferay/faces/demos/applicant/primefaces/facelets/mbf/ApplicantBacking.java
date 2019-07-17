@@ -16,28 +16,27 @@
 package com.liferay.faces.demos.applicant.primefaces.facelets.mbf;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
-import javax.portlet.PortletSession;
 
 import org.primefaces.event.FileUploadEvent;
 
 import com.liferay.faces.demos.applicant.primefaces.facelets.dto.Applicant;
 import com.liferay.faces.demos.applicant.primefaces.facelets.dto.Attachment;
 import com.liferay.faces.demos.applicant.primefaces.facelets.dto.City;
-import com.liferay.faces.demos.applicant.primefaces.facelets.dto.UploadedFileWrapper;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.faces.util.model.UploadedFile;
 
 
 /**
@@ -60,18 +59,21 @@ public class ApplicantBacking {
 	@ManagedProperty(value = "#{listManager}")
 	private ListManager listManager;
 
+	// Private Data Members
+	private Applicant applicant;
+
 	public void deleteUploadedFile(ActionEvent actionEvent) {
 
 		try {
 			List<Attachment> attachments = applicant.getAttachments();
 
-			String attachmentId = applicantView.getUploadedFileId();
+			int attachmentIndex = applicantView.getAttachmentIndex();
 
 			Attachment attachmentToDelete = null;
 
 			for (Attachment attachment : attachments) {
 
-				if (attachment.getId().equals(attachmentId)) {
+				if (attachment.getIndex() == attachmentIndex) {
 					attachmentToDelete = attachment;
 
 					break;
@@ -94,16 +96,32 @@ public class ApplicantBacking {
 	}
 
 	public void handleFileUpload(FileUploadEvent event) {
-		List<Attachment> attachments = applicant.getAttachments();
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		PortletSession portletSession = (PortletSession) externalContext.getSession(false);
-		String uniqueFolderName = portletSession.getId();
-		org.primefaces.model.UploadedFile attachment = event.getFile();
-		UploadedFileWrapper attachmentWrapper = new UploadedFileWrapper(attachment, UploadedFile.Status.FILE_SAVED,
-				uniqueFolderName);
-		attachments.add(attachmentWrapper);
-		logger.debug("Received fileName=[{0}] absolutePath=[{1}]", attachmentWrapper.getName(),
-			attachmentWrapper.getAbsolutePath());
+		org.primefaces.model.UploadedFile uploadedFile = event.getFile();
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		File attachmentDir = attachmentManager.getAttachmentDir(facesContext);
+
+		if (!attachmentDir.exists()) {
+			attachmentDir.mkdir();
+		}
+
+		File copiedFile = new File(attachmentDir, uploadedFile.getFileName());
+
+		try {
+
+			// Since the PrimeFaces UploadedFile interface does not provide a method for deleting the file, Liferay
+			// Faces Bridge automatically deletes it when the uploadedFile.getContents() method is called.
+			writeFile(uploadedFile.getContents(), copiedFile);
+
+			logger.debug("Received fileName=[{0}] absolutePath=[{1}]", copiedFile.getName(),
+				copiedFile.getAbsolutePath());
+
+			List<Attachment> attachments = attachmentManager.getAttachments(attachmentDir);
+			applicant.setAttachments(attachments);
+		}
+		catch (Exception e) {
+			logger.error(e);
+		}
 	}
 
 	public void postalCodeListener(ValueChangeEvent valueChangeEvent) {
@@ -143,12 +161,6 @@ public class ApplicantBacking {
 
 		// Injected via @ManagedProperty annotation
 		this.applicantView = applicantView;
-	}
-
-	public void setAttachmentManager(AttachmentManager attachmentManager) {
-
-		// Injected via @ManagedProperty annotation
-		this.attachmentManager = attachmentManager;
 	}
 
 	public void setAttachmentManager(AttachmentManager attachmentManager) {
@@ -208,5 +220,11 @@ public class ApplicantBacking {
 
 			return "failure";
 		}
+	}
+
+	private void writeFile(byte[] bytes, File destFile) throws IOException {
+		OutputStream outputStream = new FileOutputStream(destFile);
+		outputStream.write(bytes);
+		outputStream.close();
 	}
 }

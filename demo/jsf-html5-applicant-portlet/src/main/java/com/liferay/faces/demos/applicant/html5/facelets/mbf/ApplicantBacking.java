@@ -16,6 +16,7 @@
 package com.liferay.faces.demos.applicant.html5.facelets.mbf;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,7 +32,7 @@ import javax.servlet.http.Part;
 import com.liferay.faces.demos.applicant.html5.facelets.dto.Applicant;
 import com.liferay.faces.demos.applicant.html5.facelets.dto.Attachment;
 import com.liferay.faces.demos.applicant.html5.facelets.dto.City;
-import com.liferay.faces.demos.applicant.html5.facelets.dto.UploadedFilePart;
+import com.liferay.faces.demos.applicant.html5.facelets.util.PartUtil;
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -144,8 +145,6 @@ public class ApplicantBacking {
 	}
 
 	public void setUploadedPart(Part uploadedPart) {
-		this.uploadedPart = uploadedPart;
-
 		this.uploadedPart = uploadedPart;
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();

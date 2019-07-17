@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:alloy="http://liferay.com/faces/alloy"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:example-cc="http://xmlns.jcp.org/jsf/composite/example-cc"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:ace="http://www.icefaces.org/icefaces/components"
 	xmlns:icecore="http://www.icefaces.org/icefaces/core">
@@ -118,7 +117,7 @@
 							<ace:column>
 								<h:commandButton id="showDialogButton" image="#{resource['example:icon-delete.png']}"
 									onclick="ice.ace.instance('#{confirmDialog.clientId}').show();">
-									<f:setPropertyActionListener value="#{attachment.index}" target="#{applicantView.attachmentId}" />
+									<f:setPropertyActionListener value="#{attachment.index}" target="#{applicantView.attachmentIndex}" />
 								</h:commandButton>
 							</ace:column>
 							<ace:column headerText="#{i18n['file-name']}">
