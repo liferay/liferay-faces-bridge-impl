@@ -15,16 +15,44 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
+import javax.portlet.PortletPreferences;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.filter.RenderRequestWrapper;
 
 
 /**
+ * This class exists simply to make sure that the chain-of-delegation pattern is working for factories. See JSF_ELTest
+ * for more details.
+ *
  * @author  Neil Griffin
  */
 public class RenderRequestTCKMainImpl extends RenderRequestWrapper {
 
+	private PortletPreferences portletPreferences;
+	private PortletSession portletSession;
+
 	public RenderRequestTCKMainImpl(RenderRequest renderRequest) {
 		super(renderRequest);
+	}
+
+	@Override
+	public PortletSession getPortletSession(boolean create) {
+
+		if (portletSession == null) {
+			portletSession = new PortletSessionTCKMainImpl(super.getPortletSession(create));
+			portletSession.setAttribute("portletSessionTCKMainImpl", Boolean.TRUE);
+		}
+
+		return portletSession;
+	}
+
+	public PortletPreferences getPreferences() {
+
+		if (portletPreferences == null) {
+			portletPreferences = new PortletPreferencesTCKMainImpl(super.getPreferences());
+		}
+
+		return portletPreferences;
 	}
 }

@@ -15,10 +15,10 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletSession;
-import javax.portlet.RenderRequest;
-import javax.portlet.filter.RenderRequestWrapper;
+import javax.portlet.filter.ActionRequestWrapper;
 
 
 /**
@@ -27,21 +27,21 @@ import javax.portlet.filter.RenderRequestWrapper;
  *
  * @author  Neil Griffin
  */
-public class RenderRequestTCKCommonImpl extends RenderRequestWrapper {
+public class ActionRequestTCKMainImpl extends ActionRequestWrapper {
 
 	private PortletPreferences portletPreferences;
 	private PortletSession portletSession;
 
-	public RenderRequestTCKCommonImpl(RenderRequest renderRequest) {
-		super(renderRequest);
+	public ActionRequestTCKMainImpl(ActionRequest request) {
+		super(request);
 	}
 
 	@Override
 	public PortletSession getPortletSession(boolean create) {
 
 		if (portletSession == null) {
-			portletSession = new PortletSessionTCKCommonImpl(super.getPortletSession(create));
-			portletSession.setAttribute("portletSessionTCKCommonImpl", Boolean.TRUE);
+			portletSession = new PortletSessionTCKMainImpl(super.getPortletSession(create));
+			portletSession.setAttribute("portletSessionTCKMainImpl", Boolean.TRUE);
 		}
 
 		return portletSession;
@@ -50,7 +50,7 @@ public class RenderRequestTCKCommonImpl extends RenderRequestWrapper {
 	public PortletPreferences getPreferences() {
 
 		if (portletPreferences == null) {
-			portletPreferences = new PortletPreferencesTCKCommonImpl(super.getPreferences());
+			portletPreferences = new PortletPreferencesTCKMainImpl(super.getPreferences());
 		}
 
 		return portletPreferences;

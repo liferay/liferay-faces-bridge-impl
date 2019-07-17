@@ -15,7 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
-import javax.portlet.PortletConfig;
+import javax.portlet.ActionResponse;
+import javax.portlet.filter.ActionResponseWrapper;
 
 
 /**
@@ -24,9 +25,8 @@ import javax.portlet.PortletConfig;
  *
  * @author  Neil Griffin
  */
-public class PortletConfigTCKMainImpl extends PortletConfigWrapper {
-
-	public PortletConfigTCKMainImpl(PortletConfig portletConfig) {
-		super(portletConfig);
+public class ActionResponseTCKMainImpl extends ActionResponseWrapper {
+	public ActionResponseTCKMainImpl(ActionResponse response) {
+		super(response);
 	}
 }

@@ -43,8 +43,8 @@ public class BridgePortletResponseFactoryTCKCommonImpl extends BridgePortletResp
 	@Override
 	public ActionResponse getActionResponse(ActionRequest actionRequest, ActionResponse actionResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return wrappedBridgePortletResponseFactory.getActionResponse(actionRequest, actionResponse, portletConfig,
-				bridgeConfig);
+		return new ActionResponseTCKCommonImpl(wrappedBridgePortletResponseFactory.getActionResponse(actionRequest,
+					actionResponse, portletConfig, bridgeConfig));
 	}
 
 	@Override

@@ -43,8 +43,8 @@ public class BridgePortletRequestFactoryTCKMainImpl extends BridgePortletRequest
 	@Override
 	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return wrappedBridgePortletRequestFactory.getActionRequest(actionRequest, actionResponse, portletConfig,
-				bridgeConfig);
+		return new ActionRequestTCKMainImpl(wrappedBridgePortletRequestFactory.getActionRequest(actionRequest,
+					actionResponse, portletConfig, bridgeConfig));
 	}
 
 	@Override
