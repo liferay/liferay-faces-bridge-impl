@@ -29,6 +29,7 @@ import javax.servlet.http.Part;
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.bridge.renderkit.bridge.internal.PartFileUploadAdapterImpl;
+import com.liferay.faces.bridge.util.internal.TCCLUtil;
 import com.liferay.faces.util.lang.ThreadSafeAccessor;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -122,7 +123,7 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 
 			try {
 
-				Class<?> delegateRendererClass = Class.forName(delegateRendererFQCN);
+				Class<?> delegateRendererClass = TCCLUtil.loadClassFromContext(getClass(), delegateRendererFQCN);
 				delegateRenderer = (Renderer) delegateRendererClass.newInstance();
 			}
 			catch (Exception e) {

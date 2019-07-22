@@ -21,6 +21,7 @@ import javax.portlet.PortletConfig;
 import javax.portlet.faces.BridgePublicRenderParameterHandler;
 import javax.portlet.faces.BridgePublicRenderParameterHandlerFactory;
 
+import com.liferay.faces.bridge.util.internal.TCCLUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -48,11 +49,9 @@ public class BridgePublicRenderParameterHandlerFactoryImpl extends BridgePublicR
 
 		if (bridgePublicRenderParameterHandlerClass != null) {
 
-			ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-
 			try {
 
-				Class<?> clazz = contextClassLoader.loadClass(bridgePublicRenderParameterHandlerClass);
+				Class<?> clazz = TCCLUtil.loadClassFromContext(getClass(), bridgePublicRenderParameterHandlerClass);
 				bridgePublicRenderParameterHandler = (BridgePublicRenderParameterHandler) clazz.newInstance();
 			}
 			catch (Exception e) {
