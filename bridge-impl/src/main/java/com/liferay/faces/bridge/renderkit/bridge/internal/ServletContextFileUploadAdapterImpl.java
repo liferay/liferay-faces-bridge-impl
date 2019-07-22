@@ -35,6 +35,8 @@ import javax.servlet.SessionCookieConfig;
 import javax.servlet.SessionTrackingMode;
 import javax.servlet.descriptor.JspConfigDescriptor;
 
+import com.liferay.faces.bridge.util.internal.TCCLUtil;
+
 
 /**
  * @author  Kyle Stiemann
@@ -125,7 +127,7 @@ public final class ServletContextFileUploadAdapterImpl implements ServletContext
 
 	@Override
 	public ClassLoader getClassLoader() {
-		return Thread.currentThread().getContextClassLoader();
+		return TCCLUtil.getThreadContextClassLoaderOrDefault(getClass());
 	}
 
 	@Override
