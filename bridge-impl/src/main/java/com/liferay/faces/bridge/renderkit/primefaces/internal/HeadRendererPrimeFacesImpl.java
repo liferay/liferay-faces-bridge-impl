@@ -35,6 +35,7 @@ import javax.faces.render.Renderer;
 import com.liferay.faces.bridge.component.internal.ResourceComponent;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.HeadRendererBridgeImpl;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.InlineScript;
+import com.liferay.faces.bridge.util.internal.TCCLUtil;
 import com.liferay.faces.bridge.util.internal.URLUtil;
 import com.liferay.faces.util.lang.ThreadSafeAccessor;
 import com.liferay.faces.util.logging.Logger;
@@ -416,7 +417,8 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 			Renderer primeFacesHeadRenderer = null;
 
 			try {
-				Class<?> headRendererClass = Class.forName("org.primefaces.renderkit.HeadRenderer");
+				Class<?> headRendererClass = TCCLUtil.loadClassFromContext(getClass(),
+						"org.primefaces.renderkit.HeadRenderer");
 				primeFacesHeadRenderer = (Renderer) headRendererClass.newInstance();
 			}
 			catch (Exception e) {
@@ -435,7 +437,8 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 			Renderer primeFacesMobileHeadRenderer = null;
 
 			try {
-				Class<?> headRendererClass = Class.forName("org.primefaces.mobile.renderkit.HeadRenderer");
+				Class<?> headRendererClass = TCCLUtil.loadClassFromContext(getClass(),
+						"org.primefaces.mobile.renderkit.HeadRenderer");
 				primeFacesMobileHeadRenderer = (Renderer) headRendererClass.newInstance();
 			}
 			catch (Exception e) {

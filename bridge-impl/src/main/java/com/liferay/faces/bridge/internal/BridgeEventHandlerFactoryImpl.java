@@ -21,6 +21,7 @@ import javax.portlet.PortletConfig;
 import javax.portlet.faces.BridgeEventHandler;
 import javax.portlet.faces.BridgeEventHandlerFactory;
 
+import com.liferay.faces.bridge.util.internal.TCCLUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -46,10 +47,8 @@ public class BridgeEventHandlerFactoryImpl extends BridgeEventHandlerFactory imp
 
 		if (bridgeEventHandlerClass != null) {
 
-			ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-
 			try {
-				Class<?> clazz = contextClassLoader.loadClass(bridgeEventHandlerClass);
+				Class<?> clazz = TCCLUtil.loadClassFromContext(getClass(), bridgeEventHandlerClass);
 				bridgeEventHandler = (BridgeEventHandler) clazz.newInstance();
 			}
 			catch (Exception e) {
