@@ -22,13 +22,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-
 import com.liferay.faces.util.model.UploadedFile;
 
 
@@ -45,32 +38,14 @@ public class Applicant implements Serializable {
 	// Private Data Members
 	private List<Attachment> attachments;
 
-	@NotBlank
 	private String city;
 	private String comments;
-
-	@NotNull
 	private Date dateOfBirth;
-
-	@Email
-	@NotBlank
 	private String emailAddress;
-
-	@NotBlank
 	private String firstName;
-
-	@NotBlank
 	private String lastName;
-
-	@NotBlank
-	@Pattern(regexp = "([0-9]+)")
 	private String phoneNumber;
-
-	@NotBlank
 	private String postalCode;
-
-	@NotNull
-	@Positive
 	private Long provinceId;
 
 	public Applicant() {
