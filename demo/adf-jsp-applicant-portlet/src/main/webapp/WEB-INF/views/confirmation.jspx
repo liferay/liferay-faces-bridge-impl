@@ -6,12 +6,15 @@
 	<f:view>
 		<af:document>
 			<af:messages />
-			<af:form>
+			<af:form id="confirmation">
 				<!-- Test JSF 2 Flash scope -->
 				<af:outputText value="#{i18n.replace('thank-you-for-applying-for-a-job-with-our-organization', bridgeFlash['firstName'])}" />
 				<hr />
 				<!-- Test JSF 2 implicit navigation -->
-				<af:commandButton action="/WEB-INF/views/portletViewMode.jspx" text="#{i18n['submit-another-application']}" />
+				<!-- NOTE: When using ADF, must specify ?faces-redirect=true in order for the Mojarra -->
+				<!-- ComponentValidators.addDefaultValidatorsToComponent method to know that a new component -->
+				<!-- tree is being built and that default validators (like bean validation) should be added. -->
+				<af:commandButton action="/WEB-INF/views/portletViewMode.jspx?faces-redirect=true" text="#{i18n['submit-another-application']}" />
 			</af:form>
 		</af:document>
 	</f:view>

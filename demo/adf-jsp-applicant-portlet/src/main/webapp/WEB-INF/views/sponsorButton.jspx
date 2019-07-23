@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1">
+
+	<h:panelGrid columns="1">
+		<h:graphicImage library="example" name="liferay-logo.png" />
+		<h:panelGroup layout="block">
+			<h:outputLink id="viewLink" value="#{applicantBacking.viewModeURL}">
+				<h:outputText value="#{i18n['View']}" />
+			</h:outputLink>
+			<h:outputText value=" | " />
+			<h:outputLink id="editLink" value="#{applicantBacking.editModeURL}">
+				<h:outputText value="#{i18n['Edit']}" />
+			</h:outputLink>
+			<h:outputText value=" | " />
+			<h:outputLink id="helpLink" value="#{applicantBacking.helpModeURL}">
+				<h:outputText value="#{i18n['Help']}" />
+			</h:outputLink>
+		</h:panelGroup>
+	</h:panelGrid>
+
+</jsp:root>

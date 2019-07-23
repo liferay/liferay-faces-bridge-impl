@@ -30,6 +30,11 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.portlet.MimeResponse;
+import javax.portlet.PortletMode;
+import javax.portlet.PortletModeException;
+import javax.portlet.PortletResponse;
+import javax.portlet.PortletURL;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -69,6 +74,9 @@ public class ApplicantBacking {
 
 	// Private Data Members
 	private Applicant applicant;
+	private String editModeURL;
+	private String helpModeURL;
+	private String viewModeURL;
 
 	public void deleteUploadedFile(DialogEvent dialogEvent) {
 
@@ -96,8 +104,35 @@ public class ApplicantBacking {
 		}
 	}
 
+	public String getEditModeURL() {
+
+		if (editModeURL == null) {
+			initPortletURLs();
+		}
+
+		return editModeURL;
+	}
+
+	public String getHelpModeURL() {
+
+		if (helpModeURL == null) {
+			initPortletURLs();
+		}
+
+		return helpModeURL;
+	}
+
 	public Applicant getModel() {
 		return applicant;
+	}
+
+	public String getViewModeURL() {
+
+		if (viewModeURL == null) {
+			initPortletURLs();
+		}
+
+		return viewModeURL;
 	}
 
 	public void handleFileUpload(ValueChangeEvent valueChangeEvent) {
@@ -238,6 +273,29 @@ public class ApplicantBacking {
 			FacesContextHelperUtil.addGlobalUnexpectedErrorMessage();
 
 			return "failure";
+		}
+	}
+
+	protected void initPortletURLs() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Object response = externalContext.getResponse();
+
+		if (response instanceof MimeResponse) {
+			MimeResponse mimeResponse = (MimeResponse) response;
+			PortletURL portletURL = mimeResponse.createRenderURL();
+
+			try {
+				portletURL.setPortletMode(PortletMode.VIEW);
+				viewModeURL = portletURL.toString();
+				portletURL.setPortletMode(PortletMode.EDIT);
+				editModeURL = portletURL.toString();
+				portletURL.setPortletMode(PortletMode.HELP);
+				helpModeURL = portletURL.toString();
+			}
+			catch (PortletModeException e) {
+				logger.error(e);
+			}
 		}
 	}
 }
