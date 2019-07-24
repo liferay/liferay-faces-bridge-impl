@@ -8,7 +8,7 @@
 	<f:view>
 		<af:document>
 			<jsp:include page="styling.jspx" />
-			<jsp:include page="portletPreferences.jspx" />
+			<jsp:include page="preferences.jspx" />
 		</af:document>
 	</f:view>
 
