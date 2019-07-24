@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.demos.applicant.adf.jsp.bean;
+package com.liferay.faces.demos.applicant.adf.jsp.mbf;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -220,6 +220,8 @@ public class ApplicantBacking {
 	}
 
 	public void setAttachmentManager(AttachmentManager attachmentManager) {
+
+		// Injected via @ManagedProperty annotation
 		this.attachmentManager = attachmentManager;
 	}
 

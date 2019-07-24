@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.demos.applicant.adf.facelets.bean;
+package com.liferay.faces.demos.applicant.adf.facelets.mbf;
 
 import java.util.Enumeration;
 import java.util.Map;
@@ -41,8 +41,7 @@ import com.liferay.faces.util.context.FacesContextHelperUtil;
 public class PreferencesBacking {
 
 	/**
-	 * Resets/restores the values in the portletPreferences.xhtml Facelet composition with portlet preference default
-	 * values.
+	 * Resets/restores the values in the preferences.xhtml Facelet composition with portlet preference default values.
 	 */
 	public void reset() {
 
@@ -75,12 +74,12 @@ public class PreferencesBacking {
 	}
 
 	/**
-	 * Saves the values in the portletPreferences.xhtml Facelet composition as portlet preferences.
+	 * Saves the values in the preferences.xhtml Facelet composition as portlet preferences.
 	 */
 	public void submit() {
 
 		// The JSR 329 specification defines an EL variable named mutablePortletPreferencesValues that is being used in
-		// the portletPreferences.xhtml Facelet composition. This object is of type Map<String, Preference> and is
+		// the preferences.xhtml Facelet composition. This object is of type Map<String, Preference> and is
 		// designed to be a model managed-bean (in a sense) that contain preference values. However the only way to
 		// access this from a Java class is to evaluate an EL expression (effectively self-injecting) the map into
 		// this backing bean.
