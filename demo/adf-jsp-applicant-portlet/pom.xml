@@ -90,39 +90,39 @@
 			<artifactId>log4j</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.oracle.adf</groupId>
-			<artifactId>adf-richclient-api</artifactId>
+			<groupId>com.oracle.fmwshare</groupId>
+			<artifactId>adf-richclient-api-11</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.oracle.adf</groupId>
-			<artifactId>adf-richclient-impl</artifactId>
+			<groupId>com.oracle.fmwshare</groupId>
+			<artifactId>adf-richclient-impl-11</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.oracle.adf</groupId>
+			<groupId>com.oracle.fmwshare</groupId>
 			<artifactId>trinidad-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.oracle.adf</groupId>
+			<groupId>com.oracle.fmwshare</groupId>
 			<artifactId>trinidad-impl</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.oracle.adf</groupId>
+			<groupId>com.oracle.fmwshare</groupId>
 			<artifactId>adf-share-base</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.oracle.adf</groupId>
+			<groupId>com.oracle.fmwshare</groupId>
 			<artifactId>adf-share-ca</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.oracle.adf</groupId>
+			<groupId>com.oracle.fmwshare</groupId>
 			<artifactId>adflogginghandler</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.oracle.adf</groupId>
-			<artifactId>xmlparser</artifactId>
+			<groupId>com.oracle.fmwshare</groupId>
+			<artifactId>xmlparserv2</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.oracle.gdk</groupId>
+			<groupId>com.oracle.nlsoramapping.jrf</groupId>
 			<artifactId>orai18n-mapping</artifactId>
 		</dependency>
 		<dependency>
