@@ -99,6 +99,7 @@
 		<faces.spec.version>2.2</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
+		<gdk.version>12.2.0-1-0</gdk.version>
 		<icefaces.version>4.3.0</icefaces.version>
 		<jstl.version>1.2</jstl.version>
 		<log4j.version>1.2.14</log4j.version>
@@ -821,7 +822,7 @@
 			<dependency>
 				<groupId>com.oracle.nlsoramapping.jrf</groupId>
 				<artifactId>orai18n-mapping</artifactId>
-				<version>12.2.0-1-0</version>
+				<version>${gdk.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish</groupId>
