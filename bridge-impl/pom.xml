@@ -30,6 +30,12 @@
 			<artifactId>javax.el-api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<optional>true</optional>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>javax.faces</groupId>
 			<artifactId>javax.faces-api</artifactId>
 		</dependency>
