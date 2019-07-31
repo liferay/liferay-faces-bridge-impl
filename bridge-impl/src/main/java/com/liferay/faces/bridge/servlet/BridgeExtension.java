@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.bean.internal;
+package com.liferay.faces.bridge.servlet;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,14 +31,22 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.BeforeBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
-import javax.portlet.PortletConfig;
 import javax.portlet.faces.GenericFacesPortlet;
+
+import com.liferay.faces.util.logging.Logger;
+import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
+ * @author  Neil Griffin
+ * @author  Raymond Augé
+ * @author  Shuyang Zhou
  * @author  Kyle Stiemann
  */
-public class BridgeBeanPortletExtension implements Extension {
+public class BridgeExtension implements Extension {
+
+	// logger
+	private static final Logger logger = LoggerFactory.getLogger(BridgeExtension.class);
 
 	private void beforeBeanDiscovery(@Observes BeforeBeanDiscovery beforeBeanDiscovery, BeanManager beanManager) {
 		beforeBeanDiscovery.addAnnotatedType(beanManager.createAnnotatedType(GenericFacesPortlet.class));
@@ -55,12 +64,11 @@ public class BridgeBeanPortletExtension implements Extension {
 			Set<Annotation> annotations = new HashSet<Annotation>(annotatedType.getAnnotations());
 			annotations.add(new ApplicationScopedAnnotation());
 
-			Set<Type> typeClosures = new HashSet<Type>(annotatedType.getTypeClosure());
-
-			if (typeClosures.remove(PortletConfig.class) || !annotations.equals(annotatedType.getAnnotations())) {
+			if (!annotations.equals(annotatedType.getAnnotations())) {
 
 				processAnnotatedType.setAnnotatedType(new ModifiedAnnotatedType<>(annotatedType, annotations,
-						typeClosures));
+						annotatedType.getTypeClosure()));
+				logger.info("Automatically added @ApplicationScoped annotation to GenericFacesPortlet.");
 			}
 		}
 	}
@@ -82,8 +90,8 @@ public class BridgeBeanPortletExtension implements Extension {
 		public ModifiedAnnotatedType(AnnotatedType<X> annotatedType, Set<Annotation> annotations, Set<Type> types) {
 
 			this.annotatedType = annotatedType;
-			this.annotations = annotations;
-			this.types = types;
+			this.annotations = Collections.unmodifiableSet(annotations);
+			this.types = Collections.unmodifiableSet(types);
 		}
 
 		@Override
