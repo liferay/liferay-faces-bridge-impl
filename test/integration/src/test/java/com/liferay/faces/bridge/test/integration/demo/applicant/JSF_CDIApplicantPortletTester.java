@@ -22,7 +22,7 @@ public class JSF_CDIApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
 	protected String getExtraLibraryName() {
-		return "Weld";
+		return "CDI";
 	}
 
 	@Override

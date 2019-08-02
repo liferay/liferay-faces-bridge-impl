@@ -15,11 +15,36 @@
 	<profiles>
 		<profile>
 			<id>liferay</id>
+			<properties>
+				<dynamic.import.package>
+					DynamicImport-Package: \
+						org.richfaces.*, \
+						${default.liferay.faces.dynamic.import.package}
+				</dynamic.import.package>
+				<import.package>
+					Import-Package: \
+						org.richfaces.*, \
+						javax.enterprise.*;version="1.0.0";resolution:=optional,\
+						javax.inject.*;version="1.0.0";resolution:=optional,\
+						com.beust.jcommander.*;resolution:=optional,\
+                        com.google.appengine.*;resolution:=optional,\
+                        com.google.apphosting.*;resolution:=optional,\
+						com.opensymphony.oscache.*;resolution:=optional,\
+						com.yahoo.platform.yui.compressor.*;resolution:=optional,\
+						org.atmosphere.*;resolution:=optional,\
+						org.jboss.cache.*;resolution:=optional,\
+						org.jboss.el.*;resolution:=optional,\
+						org.mozilla.javascript.*;resolution:=optional,\
+						org.reflections.*;resolution:=optional,\
+						${default.liferay.faces.import.package}
+				</import.package>
+			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
 					<artifactId>com.liferay.faces.bridge.ext</artifactId>
 					<version>${liferay.faces.bridge.ext.version}</version>
+					<scope>${war.dependency.scope}</scope>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -85,7 +110,6 @@
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
 			<artifactId>com.liferay.faces.bridge.impl</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces</groupId>

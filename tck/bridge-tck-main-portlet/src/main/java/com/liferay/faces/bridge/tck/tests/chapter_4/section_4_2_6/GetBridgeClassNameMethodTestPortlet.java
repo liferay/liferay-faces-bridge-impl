@@ -115,6 +115,7 @@ public class GetBridgeClassNameMethodTestPortlet extends GenericFacesTestSuitePo
 
 		try {
 			ClassLoader cl = Thread.currentThread().getContextClassLoader();
+			cl = BridgeServiceUtil.getBridgeServiceClassLoader(cl);
 
 			if (cl == null) {
 				return null;
