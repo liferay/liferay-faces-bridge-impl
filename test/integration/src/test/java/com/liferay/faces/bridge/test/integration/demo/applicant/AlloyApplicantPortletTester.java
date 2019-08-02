@@ -81,5 +81,6 @@ public class AlloyApplicantPortletTester extends ApplicantTesterBase {
 			"//table[contains(@class, 'yui3-calendar-grid')]//td[contains(text(),'14')][not(contains(@class,'yui3-calendar-column-hidden'))]";
 		browserDriver.waitForElementEnabled(dateElementXpath);
 		browserDriver.clickElement(dateElementXpath);
+        browserDriver.waitForElementNotDisplayed(dateElementXpath);
 	}
 }

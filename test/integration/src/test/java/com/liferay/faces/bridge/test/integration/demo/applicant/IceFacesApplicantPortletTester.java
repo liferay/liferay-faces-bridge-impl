@@ -65,5 +65,6 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 		String dateElement = "//table[contains(@class, 'ui-datepicker-calendar')]//a[contains(text(), '14')]";
 		browserDriver.waitForElementEnabled(dateElement);
 		browserDriver.clickElement(dateElement);
+        browserDriver.waitForElementNotDisplayed(dateElement);
 	}
 }

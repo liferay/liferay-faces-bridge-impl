@@ -66,5 +66,6 @@ public class RichFacesApplicantPortletTester extends ApplicantTesterBase {
 		String dateCellXpath = "//table[contains(@class, 'rf-cal-popup')]//td[contains(text(), '14')][@onclick]";
 		browserDriver.waitForElementEnabled(dateCellXpath);
 		browserDriver.clickElement(dateCellXpath);
+        browserDriver.waitForElementNotDisplayed(dateCellXpath);
 	}
 }

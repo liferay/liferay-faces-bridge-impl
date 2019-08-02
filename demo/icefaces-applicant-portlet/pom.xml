@@ -15,11 +15,31 @@
 	<profiles>
 		<profile>
 			<id>liferay</id>
+			<properties>
+                <dynamic.import.package>
+                    DynamicImport-Package: \
+                        org.icefaces.*,\
+                        ${default.liferay.faces.dynamic.import.package}
+                </dynamic.import.package>
+				<import.package>
+					Import-Package: \
+                        org.icefaces.*,\
+						org.icepush.*;resolution:=optional,\
+                        com.liferay.portal.theme;resolution:=optional,\
+                        com.liferay.portal.util;resolution:=optional,\
+                        com.ibm.ws.*;resolution:=optional,\
+                        com.lowagie.text.*;resolution:=optional,\
+                        org.apache.myfaces.*;resolution:=optional,\
+                        org.apache.pluto.*;resolution:=optional,\
+						${default.liferay.faces.import.package}
+				</import.package>
+			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
 					<artifactId>com.liferay.faces.bridge.ext</artifactId>
 					<version>${liferay.faces.bridge.ext.version}</version>
+					<scope>${war.dependency.scope}</scope>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -66,7 +86,6 @@
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
 			<artifactId>com.liferay.faces.bridge.impl</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>

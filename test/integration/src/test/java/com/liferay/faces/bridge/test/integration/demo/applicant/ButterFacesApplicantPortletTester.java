@@ -145,6 +145,7 @@ public class ButterFacesApplicantPortletTester extends ApplicantTesterBase {
 		String dateCellXpath = "//div[contains(@class, 'datepicker-days')]//td[contains(text(), '14')]";
 		browserDriver.waitForElementEnabled(dateCellXpath);
 		browserDriver.clickElement(dateCellXpath);
+        browserDriver.waitForElementNotDisplayed(dateCellXpath);
 	}
 
 	private void assertFieldRequired(BrowserDriver browserDriver, WaitingAsserter waitingAsserter, String fieldXpath) {

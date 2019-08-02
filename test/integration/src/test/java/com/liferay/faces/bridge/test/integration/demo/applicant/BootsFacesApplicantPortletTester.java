@@ -138,6 +138,7 @@ public class BootsFacesApplicantPortletTester extends ApplicantTesterBase {
 		String dateCellXpath = "//div[contains(@class, 'datepicker-days')]//td[contains(text(), '14')]";
 		browserDriver.waitForElementEnabled(dateCellXpath);
 		browserDriver.clickElement(dateCellXpath);
+        browserDriver.waitForElementNotDisplayed(dateCellXpath);
 	}
 
 	@Override
