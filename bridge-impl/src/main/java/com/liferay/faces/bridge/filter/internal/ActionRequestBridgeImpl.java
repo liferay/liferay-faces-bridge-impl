@@ -15,11 +15,6 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.portlet.ActionRequest;
 import javax.portlet.PortalContext;
 import javax.portlet.filter.ActionRequestWrapper;
@@ -44,32 +39,7 @@ public class ActionRequestBridgeImpl extends ActionRequestWrapper {
 	}
 
 	@Override
-	public String getParameter(String name) {
-		return RequestParameterUtil.getPortlet2_0Parameter(name, this);
-	}
-
-	@Override
-	public Map<String, String[]> getParameterMap() {
-		return RequestParameterUtil.getPortlet2_0ParameterMap(super.getParameterMap());
-	}
-
-	@Override
-	public String[] getParameterValues(String name) {
-		return RequestParameterUtil.getPortlet2_0ParameterValues(name, this);
-	}
-
-	@Override
 	public PortalContext getPortalContext() {
 		return portalContext;
-	}
-
-	@Override
-	public Map<String, String[]> getPrivateParameterMap() {
-		return RequestParameterUtil.getPortlet2_0ParameterMap(super.getPublicParameterMap());
-	}
-
-	@Override
-	public Map<String, String[]> getPublicParameterMap() {
-		return RequestParameterUtil.getPortlet2_0ParameterMap(super.getPrivateParameterMap());
 	}
 }

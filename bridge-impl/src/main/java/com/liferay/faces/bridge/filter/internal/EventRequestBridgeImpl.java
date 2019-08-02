@@ -15,8 +15,6 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import java.util.Map;
-
 import javax.portlet.EventRequest;
 import javax.portlet.PortalContext;
 import javax.portlet.filter.EventRequestWrapper;
@@ -41,32 +39,7 @@ public class EventRequestBridgeImpl extends EventRequestWrapper {
 	}
 
 	@Override
-	public String getParameter(String name) {
-		return RequestParameterUtil.getPortlet2_0Parameter(name, this);
-	}
-
-	@Override
-	public Map<String, String[]> getParameterMap() {
-		return RequestParameterUtil.getPortlet2_0ParameterMap(super.getParameterMap());
-	}
-
-	@Override
-	public String[] getParameterValues(String name) {
-		return RequestParameterUtil.getPortlet2_0ParameterValues(name, this);
-	}
-
-	@Override
 	public PortalContext getPortalContext() {
 		return portalContext;
-	}
-
-	@Override
-	public Map<String, String[]> getPrivateParameterMap() {
-		return RequestParameterUtil.getPortlet2_0ParameterMap(super.getPublicParameterMap());
-	}
-
-	@Override
-	public Map<String, String[]> getPublicParameterMap() {
-		return RequestParameterUtil.getPortlet2_0ParameterMap(super.getPrivateParameterMap());
 	}
 }
