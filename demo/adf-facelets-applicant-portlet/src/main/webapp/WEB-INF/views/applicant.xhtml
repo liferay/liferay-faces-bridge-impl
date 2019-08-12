@@ -94,9 +94,9 @@
 					<h3>
 						<af:outputText value="#{i18n['attachments']}"/>
 					</h3>
-					<af:table inlineStyle="height: auto; width: auto;" partialTriggers="confirmDialog ::inputFile"
+					<af:table inlineStyle="height: auto; width: auto;" partialTriggers="::confirmDialog ::inputFile"
 							  value="#{applicant.attachments}" var="attachment">
-						<af:column id="tc1" width="20%">
+						<af:column id="tc1" headerText="" width="20%">
 							<af:commandButton immediate="true">
 								<h:graphicImage library="example" name="icon-delete.png" title="#{i18n['delete']}"/>
 								<af:clientAttribute name="attachmentIndex" value="#{attachment.index}"/>
