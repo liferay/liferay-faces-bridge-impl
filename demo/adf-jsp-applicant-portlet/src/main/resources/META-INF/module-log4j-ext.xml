@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<category name="com.liferay.faces.adf.internal.logging.LiferayADFLoggingInitializer">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.internal.BridgePhaseActionImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.internal.BridgePhaseEventImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.internal.BridgePhaseHeaderRenderCommon">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.internal.BridgePhaseResourceImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.bean.internal.BeanManagerMojarraImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.bean.internal.MojarraInjectionProvider">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.internal.BridgeConfigImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.application.internal.BridgeNavigationHandlerImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.application.internal.ResourceHandlerBridgeImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.application.internal.ResourceImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.application.internal.ViewHandlerImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.application.view.internal.BridgeAfterViewContentResponse=TRACE">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.application.view.internal.BridgeWriteBehindResponseMimeImpl=TRACE">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.application.view.internal.ViewDeclarationLanguageJspImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.internal.BridgeConfigImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.context.internal.BridgeContextImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.context.internal.ExternalContextImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.context.internal.FacesViewImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.context.map.internal.RequestHeaderMap">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.context.map.internal.MultiPartFormDataProcessorImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.context.map.internal.MultiPartFormDataProcessorCompatImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.scope.internal.BridgeRequestScopeImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.renderkit.html_basic.internal.BodyRendererBridgeImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.renderkit.html_basic.internal.HeadPhaseListener">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.renderkit.html_basic.internal.HeadRendererBridgeImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.renderkit.html_basic.internal.HeadResponseWriterImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.renderkit.html_basic.internal.HeadResponseWriterLiferayImpl">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.renderkit.html_basic.internal.ResourceRendererBridgeImpl=TRACE">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.bridge.servlet.BridgeSessionListener">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.demos.applicant.adf.jsp.mbf.ApplicantBacking">
+		<priority value="INFO" />
+	</category>
+	<category name="com.liferay.faces.util.lifecycle.DebugPhaseListener">
+		<priority value="INFO" />
+	</category>
+	<category name="oracle.adfinternal.view.rich.marshal.DefaultMarshalingService">
+		<priority value="OFF" />
+	</category>
+	<category name="oracle.as.jmx.framework.PortableMBeanFactory">
+		<priority value="OFF" />
+	</category>
+	<category name="oracle.dfw.framework">
+		<priority value="OFF" />
+	</category>
+	<category name="oracle.adfinternal.view.faces.partition.FeatureUtils">
+		<priority value="OFF" />
+	</category>
+	<category name="oracle.mds">
+		<priority value="OFF" />
+	</category>
+	<category name="org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl">
+		<priority value="OFF" />
+	</category>
+	<category name="org.apache.myfaces.trinidadinternal.skin.SkinStyleSheetParserUtils">
+		<priority value="OFF" />
+	</category>
+</log4j:configuration>
