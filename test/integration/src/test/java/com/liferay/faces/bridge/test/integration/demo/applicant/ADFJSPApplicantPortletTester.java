@@ -25,6 +25,11 @@ public class ADFJSPApplicantPortletTester extends ADFFaceletsApplicantPortletTes
 			   "/../../../../../../../tr[2]/td/div/div/table[contains(@class, 'af_message_container')]/tbody/tr[2]/td[2]";
 	}
 
+	protected String getDateFieldErrorXpath(String fieldXpath) {
+		return fieldXpath +
+			   "/../../../../../../../../tr[2]/td/div/div/table[contains(@class, 'af_message_container')]/tbody/tr[2]/td[2]";
+	}
+
 	protected String getInvalidDateFormatMessage() {
 		return "Enter a valid date or time";
 	}

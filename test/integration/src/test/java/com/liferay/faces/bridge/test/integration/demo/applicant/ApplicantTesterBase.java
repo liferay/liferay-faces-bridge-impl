@@ -245,7 +245,7 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		waitingAsserter.assertTextPresentInElement(getValueIsRequiredMessage(),
 			getFieldErrorXpath(getPhoneNumberFieldXpath()));
 		waitingAsserter.assertTextPresentInElement(getValueIsRequiredMessage(),
-			getFieldErrorXpath(getDateOfBirthFieldXpath()));
+			getDateFieldErrorXpath(getDateOfBirthFieldXpath()));
 		waitingAsserter.assertTextPresentInElement(getValueIsRequiredMessage(),
 			getFieldErrorXpath(getCityFieldXpath()));
 		waitingAsserter.assertElementDisplayed(getFieldErrorXpath(getProvinceIdFieldXpath()));
@@ -314,7 +314,7 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 			sendKeysTab(browserDriver, dateOfBirthFieldXpath, "12/34/5678");
 		}
 
-		String dateOfBirthFieldErrorXpath = getFieldErrorXpath(dateOfBirthFieldXpath);
+		String dateOfBirthFieldErrorXpath = getDateFieldErrorXpath(dateOfBirthFieldXpath);
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		waitingAsserter.assertTextPresentInElement(getInvalidDateFormatMessage(), dateOfBirthFieldErrorXpath);
 		browserDriver.clearElement(dateOfBirthFieldXpath);
@@ -482,6 +482,10 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 
 	protected String getFieldErrorXpath(String fieldXpath) {
 		return fieldXpath + "/../span[@class='portlet-msg-error']";
+	}
+
+	protected String getDateFieldErrorXpath(String fieldXpath) {
+		return getFieldErrorXpath(fieldXpath);
 	}
 
 	protected String getFileUploadChooserXpath() {
