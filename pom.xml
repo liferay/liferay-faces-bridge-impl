@@ -830,6 +830,11 @@
 			</dependency>
 			<dependency>
 				<groupId>com.oracle.fmwshare</groupId>
+				<artifactId>adfmportlet</artifactId>
+				<version>${adf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.oracle.fmwshare</groupId>
 				<artifactId>trinidad-api</artifactId>
 				<version>${adf.version}</version>
 			</dependency>
@@ -1107,6 +1112,17 @@
 				<artifactId>slf4j-log4j12</artifactId>
 				<version>1.7.25</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jul-to-slf4j</artifactId>
+				<version>1.7.27</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<!-- End integration test dependencies. -->
 		</dependencies>
