@@ -770,7 +770,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
-				<artifactId>com.liferay.faces.adf</artifactId>
+				<artifactId>com.liferay.faces.adf.base</artifactId>
 				<version>12.2.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>

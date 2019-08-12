@@ -36,7 +36,7 @@
 	</servlet>
 	<servlet>
 		<servlet-name>resources</servlet-name>
-		<servlet-class>com.liferay.faces.adf.ResourceServlet</servlet-class>
+		<servlet-class>com.liferay.faces.adf.base.servlet.ResourceServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
