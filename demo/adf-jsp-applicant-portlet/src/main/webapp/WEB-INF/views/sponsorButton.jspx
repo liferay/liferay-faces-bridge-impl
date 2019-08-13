@@ -5,15 +5,15 @@
 		<h:graphicImage library="example" name="liferay-logo.png" />
 		<h:panelGroup layout="block">
 			<h:outputLink id="viewLink" value="#{applicantBacking.viewModeURL}">
-				<h:outputText value="#{i18n['View']}" />
+				<h:outputText value="#{i18n['view']}" />
 			</h:outputLink>
 			<h:outputText value=" | " />
 			<h:outputLink id="editLink" value="#{applicantBacking.editModeURL}">
-				<h:outputText value="#{i18n['Edit']}" />
+				<h:outputText value="#{i18n['edit']}" />
 			</h:outputLink>
 			<h:outputText value=" | " />
 			<h:outputLink id="helpLink" value="#{applicantBacking.helpModeURL}">
-				<h:outputText value="#{i18n['Help']}" />
+				<h:outputText value="#{i18n['help']}" />
 			</h:outputLink>
 		</h:panelGroup>
 	</h:panelGrid>
