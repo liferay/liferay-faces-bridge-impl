@@ -106,18 +106,19 @@
 		<liferay.app.server.dir>${liferay.home}/tomcat-${liferay.tomcat.version}</liferay.app.server.dir>
 		<liferay.auto.deploy.dir>${liferay.home}/deploy</liferay.auto.deploy.dir>
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
-		<liferay.deploy.version>7.1.0-SNAPSHOT</liferay.deploy.version>
-		<liferay.home>${env.PORTALS_HOME}/liferay.com/liferay-portal-${liferay.deploy.version}-jsf-${faces.spec.version}</liferay.home>
+		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
+		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}</liferay.home>
 		<liferay.faces.alloy.version>3.0.2</liferay.faces.alloy.version>
 		<liferay.faces.bridge.ext.version>6.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
 		<liferay.faces.showcase.version>3.0.4</liferay.faces.showcase.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.jetty.version>8.1.10</liferay.jetty.version>
+		<liferay.platform>liferay-portal</liferay.platform>
 		<liferay.resin.version>4.0.33</liferay.resin.version>
 		<liferay.tomcat.version>8.0.30</liferay.tomcat.version>
-		<liferay.version>7.1.0</liferay.version>
-		<liferay.version.dtd>7.1</liferay.version.dtd>
+		<liferay.version>7.2.0</liferay.version>
+		<liferay.version.dtd>7.2</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.weblogic.version>12.2.1.2</liferay.weblogic.version>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
@@ -373,9 +374,10 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>ee</id>
+			<id>dxp</id>
 			<properties>
-				<liferay.deploy.version>7.0.10</liferay.deploy.version>
+				<liferay.deploy.version>7.2.10.1-sp1</liferay.deploy.version>
+				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
 		<profile>
@@ -599,8 +601,7 @@
 								</goals>
 								<configuration>
 									<target>
-										<copy file="${project.build.directory}/${project.build.finalName}.war"
-												tofile="${pluto.deploy.dir}/${project.artifactId}.war" />
+										<copy file="${project.build.directory}/${project.build.finalName}.war" tofile="${pluto.deploy.dir}/${project.artifactId}.war" />
 									</target>
 								</configuration>
 							</execution>
