@@ -479,6 +479,13 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>liferay73</id>
+			<properties>
+				<liferay.deploy.version>7.3.0-SNAPSHOT</liferay.deploy.version>
+				<liferay.faces.bridge.ext.version>6.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
+			</properties>
+		</profile>
+		<profile>
 			<id>liferay-portlet-war-redeploy</id>
 			<activation>
 				<file>
