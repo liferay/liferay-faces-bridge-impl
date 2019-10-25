@@ -415,7 +415,7 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 	protected void assertLibraryElementDisplayed(WaitingAsserter waitingAsserter, String libraryName,
 		BrowserDriver browserDriver) {
 
-		String libraryVersionXpath = "//li[contains(.,'" + libraryName + "')]";
+		String libraryVersionXpath = "//li/em[contains(.,'" + libraryName + "')]";
 		waitingAsserter.assertElementDisplayed(libraryVersionXpath);
 
 		if (logger.isInfoEnabled()) {
