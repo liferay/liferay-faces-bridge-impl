@@ -20,7 +20,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -88,9 +90,24 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 			portletParameters = resourceRequest.getResourceParameters();
 		}
 
+		Set<String> fullyQualifiedParameterNames = new HashSet<>(Collections.list(
+					clientDataRequest.getParameterNames()));
+
 		Set<String> portletParameterNames = portletParameters.getNames();
 
 		for (String parameterName : portletParameterNames) {
+
+			// FACES-3489: Workaround potential issue in Liferay Portal such
+			// that ActionParameters.getNames() and
+			// ResourceParameters.getNames() return names that are stripped of
+			// the portlet namespace.
+			if (!fullyQualifiedParameterNames.contains(parameterName)) {
+				String fullyQualifiedParameterName = facesRequestParameterMap.getNamespace() + parameterName;
+
+				if (fullyQualifiedParameterNames.contains(fullyQualifiedParameterName)) {
+					parameterName = fullyQualifiedParameterName;
+				}
+			}
 
 			String[] parameterValues = portletParameters.getValues(parameterName);
 
