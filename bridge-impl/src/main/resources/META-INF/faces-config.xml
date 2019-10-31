@@ -55,6 +55,14 @@
 		<component-class>javax.portlet.faces.component.PortletNamespace</component-class>
 	</component>
 	<component>
+		<component-type>javax.portlet.faces.Param</component-type>
+		<component-class>javax.portlet.faces.component.PortletParam</component-class>
+	</component>
+	<component>
+		<component-type>javax.portlet.faces.Property</component-type>
+		<component-class>javax.portlet.faces.component.PortletProperty</component-class>
+	</component>
+	<component>
 		<component-type>javax.portlet.faces.RenderURL</component-type>
 		<component-class>javax.portlet.faces.component.PortletRenderURL</component-class>
 	</component>
