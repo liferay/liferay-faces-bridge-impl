@@ -23,8 +23,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import com.liferay.faces.demos.applicant.jsf.facelets.dto.Applicant;
-import com.liferay.faces.demos.applicant.jsf.facelets.dto.Attachment;
 import com.liferay.faces.demos.applicant.jsf.facelets.dto.City;
 import com.liferay.faces.demos.applicant.jsf.facelets.dto.Province;
 
