@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
+import com.liferay.faces.test.selenium.browser.TestUtil;
+
 /**
  * @author  Kyle Stiemann
  */
@@ -22,6 +24,11 @@ public class JSF_CDIApplicantPortletTester extends ApplicantTesterBase {
 
 	@Override
 	protected String getExtraLibraryName() {
+
+		if (TestUtil.getContainer().contains("liferay")) {
+			return "JCDI";
+		}
+
 		return "Weld";
 	}
 
