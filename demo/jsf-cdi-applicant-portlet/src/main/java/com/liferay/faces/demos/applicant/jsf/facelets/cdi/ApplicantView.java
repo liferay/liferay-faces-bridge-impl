@@ -15,10 +15,8 @@
  */
 package com.liferay.faces.demos.applicant.jsf.facelets.cdi;
 
-import java.io.File;
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
