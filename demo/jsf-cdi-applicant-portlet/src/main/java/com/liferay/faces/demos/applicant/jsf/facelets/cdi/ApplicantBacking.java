@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UICommand;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.portlet.faces.annotation.BridgeRequestScoped;
 import javax.servlet.http.Part;
 
 import com.liferay.faces.demos.applicant.jsf.facelets.dto.Applicant;
@@ -46,7 +46,7 @@ import com.liferay.faces.util.model.UploadedFile;
  */
 
 @Named
-@RequestScoped
+@BridgeRequestScoped
 public class ApplicantBacking {
 
 	// Logger
