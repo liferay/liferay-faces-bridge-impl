@@ -23,7 +23,6 @@ import javax.portlet.ActionURL;
 import javax.portlet.BaseURL;
 import javax.portlet.MimeResponse;
 import javax.portlet.MutablePortletParameters;
-import javax.portlet.faces.component.PortletActionURL;
 import javax.portlet.faces.component.PortletParam;
 
 
@@ -51,17 +50,7 @@ public abstract class ActionURLRendererCompat extends ActionURLRendererBase {
 	@Override
 	protected void processParamChildren(UIComponent uiComponent, BaseURL baseURL) {
 
-		MutablePortletParameters mutablePortletParameters;
-
 		ActionURL actionURL = (ActionURL) baseURL;
-		PortletActionURL portletActionURL = (PortletActionURL) uiComponent;
-
-		if ("render".equalsIgnoreCase(portletActionURL.getType())) {
-			mutablePortletParameters = actionURL.getRenderParameters();
-		}
-		else {
-			mutablePortletParameters = actionURL.getActionParameters();
-		}
 
 		List<UIComponent> children = uiComponent.getChildren();
 
@@ -72,6 +61,14 @@ public abstract class ActionURLRendererCompat extends ActionURLRendererBase {
 				PortletParam portletParam = (PortletParam) child;
 				String name = portletParam.getName();
 				String value = portletParam.getValue();
+				MutablePortletParameters mutablePortletParameters;
+
+				if ("render".equalsIgnoreCase(portletParam.getType())) {
+					mutablePortletParameters = actionURL.getRenderParameters();
+				}
+				else {
+					mutablePortletParameters = actionURL.getActionParameters();
+				}
 
 				mutablePortletParameters.setValue(name, value);
 			}
