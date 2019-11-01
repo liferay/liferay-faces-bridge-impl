@@ -46,7 +46,7 @@ public class MessageAttributes extends AttributesWrapper {
 				value = getClassAttributeValue(value, "portlet-msg-info", styleClass);
 			}
 			else if ("warnClass".equals(key)) {
-				value = getClassAttributeValue(value, "portlet-msg-warn", styleClass);
+				value = getClassAttributeValue(value, "portlet-msg-alert portlet-msg-warn", styleClass);
 			}
 		}
 
