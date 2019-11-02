@@ -84,13 +84,19 @@
 			<component-type>javax.portlet.faces.Param</component-type>
 		</component>
 		<attribute>
-			<description><![CDATA[The name of the render parameter.]]></description>
+			<description><![CDATA[The name of the parameter.]]></description>
 			<name>name</name>
 			<required>true</required>
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<description><![CDATA[The value of the render parameter.]]></description>
+			<description><![CDATA[The type of the parameter.]]></description>
+			<name>type</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description><![CDATA[The value of the parameter.]]></description>
 			<name>value</name>
 			<required>true</required>
 			<type>java.lang.String</type>
