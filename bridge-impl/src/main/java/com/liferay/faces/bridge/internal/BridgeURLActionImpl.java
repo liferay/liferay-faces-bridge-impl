@@ -128,7 +128,6 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 	public BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException {
 
 		BaseURL baseURL;
-		String uri = bridgeURI.toString();
 
 		// If this is executing during the ACTION_PHASE of the portlet lifecycle, then
 		PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
@@ -144,6 +143,8 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 
 			// Otherwise, if the URI starts with a "#" character, or it's an absolute URL that is external to
 			// this portlet, then simply return the URI as required by the Bridge Spec.
+			String uri = bridgeURI.toString();
+
 			if (uri.startsWith("#") || (bridgeURI.isAbsolute() && bridgeURI.isExternal(contextPath))) {
 
 				// TCK: encodeActionURLPoundCharTest
