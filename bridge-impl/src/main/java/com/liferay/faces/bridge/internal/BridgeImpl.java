@@ -191,8 +191,17 @@ public class BridgeImpl extends BridgeCompatImpl {
 	public void init(PortletConfig portletConfig) throws BridgeException {
 		this.initialized = true;
 		this.portletConfig = portletConfig;
-		logger.info("Initializing {0} {1} for {2}:{3}", getTitle(), getVersion(),
-			portletConfig.getPortletContext().getPortletContextName(), portletConfig.getPortletName());
+
+		PortletContext portletContext = portletConfig.getPortletContext();
+		String portletContextName = portletContext.getPortletContextName();
+
+		if (portletContextName == null) {
+			logger.info("Initializing {0} {1} for {2}", getTitle(), getVersion(), portletConfig.getPortletName());
+		}
+		else {
+			logger.info("Initializing {0} {1} for {2}:{3}", getTitle(), getVersion(), portletContextName,
+				portletConfig.getPortletName());
+		}
 	}
 
 	@Override
