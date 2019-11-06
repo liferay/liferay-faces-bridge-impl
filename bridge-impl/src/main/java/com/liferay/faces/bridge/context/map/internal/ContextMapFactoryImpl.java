@@ -201,7 +201,8 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 			Product ADF_FACES_RICH_CLIENT = productFactory.getProductInfo(Product.Name.ADF_FACES);
 			Product ICEFACES = productFactory.getProductInfo(Product.Name.ICEFACES);
 
-			if (!ADF_FACES_RICH_CLIENT.isDetected() && !ICEFACES.isDetected() && (contentType != null) && contentType.toLowerCase().startsWith("multipart/")) {
+			if (!ADF_FACES_RICH_CLIENT.isDetected() && !ICEFACES.isDetected() && (contentType != null) &&
+					contentType.toLowerCase().startsWith("multipart/")) {
 
 				MultiPartFormData multiPartFormData = (MultiPartFormData) portletRequest.getAttribute(
 						MULTIPART_FORM_DATA_FQCN);
