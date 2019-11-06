@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.liferay.faces.bridge.cdi.internal;
+
+import java.lang.annotation.Annotation;
+import java.util.Map;
 
 import javax.enterprise.context.spi.Context;
 import javax.enterprise.context.spi.Contextual;
@@ -23,24 +25,22 @@ import javax.enterprise.inject.spi.Bean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.faces.annotation.BridgeRequestScoped;
-import java.lang.annotation.Annotation;
-import java.util.Map;
+
 
 /**
- * @author Neil Griffin
+ * @author  Neil Griffin
  */
 public class BridgeRequestBeanContext implements Context {
 
 	@Override
-	public Class<? extends Annotation> getScope() {
-		return BridgeRequestScoped.class;
+	public <T> T get(Contextual<T> contextual) {
+		return get(contextual, null);
 	}
 
 	@Override
-	public <T> T get(
-		Contextual<T> contextual, CreationalContext<T> creationalContext) {
+	public <T> T get(Contextual<T> contextual, CreationalContext<T> creationalContext) {
 
-		Bean<T> bean = (Bean<T>)contextual;
+		Bean<T> bean = (Bean<T>) contextual;
 
 		String attributeName = bean.getName();
 
@@ -73,8 +73,8 @@ public class BridgeRequestBeanContext implements Context {
 	}
 
 	@Override
-	public <T> T get(Contextual<T> contextual) {
-		return get(contextual, null);
+	public Class<? extends Annotation> getScope() {
+		return BridgeRequestScoped.class;
 	}
 
 	@Override
