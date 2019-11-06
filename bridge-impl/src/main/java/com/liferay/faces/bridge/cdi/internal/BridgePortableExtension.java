@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.liferay.faces.bridge.cdi.internal;
 
 import javax.enterprise.event.Observes;
@@ -22,19 +21,18 @@ import javax.enterprise.inject.spi.BeforeBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
 import javax.portlet.faces.annotation.BridgeRequestScoped;
 
+
 /**
- * @author Neil Griffin
+ * @author  Neil Griffin
  */
 public class BridgePortableExtension implements Extension {
 
-	public void step1BeforeBeanDiscovery(
-		@Observes BeforeBeanDiscovery beforeBeanDiscovery) {
+	public void step1BeforeBeanDiscovery(@Observes BeforeBeanDiscovery beforeBeanDiscovery) {
 
 		beforeBeanDiscovery.addScope(BridgeRequestScoped.class, true, false);
 	}
 
-	public void step2AfterBeanDiscovery(
-		@Observes AfterBeanDiscovery afterBeanDiscovery) {
+	public void step2AfterBeanDiscovery(@Observes AfterBeanDiscovery afterBeanDiscovery) {
 
 		afterBeanDiscovery.addContext(new BridgeRequestBeanContext());
 	}
