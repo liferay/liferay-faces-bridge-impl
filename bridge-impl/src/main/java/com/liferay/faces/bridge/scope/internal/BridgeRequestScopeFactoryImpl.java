@@ -32,6 +32,7 @@ public class BridgeRequestScopeFactoryImpl extends BridgeRequestScopeFactory {
 		return new BridgeRequestScopeImpl(portletRequest, portletConfig, bridgeConfig);
 	}
 
+	@Override
 	public BridgeRequestScopeFactory getWrapped() {
 
 		// Since this is the factory instance provided by the bridge, it will never wrap another factory.

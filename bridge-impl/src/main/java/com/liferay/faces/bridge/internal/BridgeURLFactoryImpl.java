@@ -62,10 +62,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 					clientWindowInfo.getUrlParameters(facesContext), contextInfo.portletConfig,
 					contextInfo.bridgeConfig);
 		}
-		catch (URISyntaxException e) {
-			throw new BridgeException(e);
-		}
-		catch (UnsupportedEncodingException e) {
+		catch (URISyntaxException | UnsupportedEncodingException e) {
 			throw new BridgeException(e);
 		}
 	}
@@ -86,10 +83,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 					clientWindowInfo.getUrlParameters(facesContext), contextInfo.portletConfig,
 					contextInfo.bridgeConfig);
 		}
-		catch (URISyntaxException e) {
-			throw new BridgeException(e);
-		}
-		catch (UnsupportedEncodingException e) {
+		catch (URISyntaxException | UnsupportedEncodingException e) {
 			throw new BridgeException(e);
 		}
 	}
@@ -109,10 +103,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 					clientWindowInfo.getUrlParameters(facesContext), contextInfo.portletConfig,
 					contextInfo.bridgeConfig);
 		}
-		catch (URISyntaxException e) {
-			throw new BridgeException(e);
-		}
-		catch (UnsupportedEncodingException e) {
+		catch (URISyntaxException | UnsupportedEncodingException e) {
 			throw new BridgeException(e);
 		}
 	}
@@ -132,10 +123,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 					clientWindowInfo.getId(), clientWindowInfo.getUrlParameters(facesContext),
 					contextInfo.portletConfig, contextInfo.bridgeConfig);
 		}
-		catch (URISyntaxException e) {
-			throw new BridgeException(e);
-		}
-		catch (UnsupportedEncodingException e) {
+		catch (URISyntaxException | UnsupportedEncodingException e) {
 			throw new BridgeException(e);
 		}
 	}
@@ -151,10 +139,7 @@ public class BridgeURLFactoryImpl extends BridgeURLFactory implements Serializab
 					contextInfo.encoding, contextInfo.facesURLEncoder, contextInfo.currentFacesViewId,
 					contextInfo.portletConfig, contextInfo.bridgeConfig);
 		}
-		catch (URISyntaxException e) {
-			throw new BridgeException(e);
-		}
-		catch (UnsupportedEncodingException e) {
+		catch (URISyntaxException | UnsupportedEncodingException e) {
 			throw new BridgeException(e);
 		}
 	}
