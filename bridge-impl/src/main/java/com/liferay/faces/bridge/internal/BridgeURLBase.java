@@ -67,6 +67,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 	private PortletConfig portletConfig;
 	private String viewId;
 
+	@SuppressWarnings("unchecked")
 	public BridgeURLBase(String uri, String contextPath, String namespace, String encoding,
 		FacesURLEncoder facesURLEncoder, String currentViewId, PortletConfig portletConfig, BridgeConfig bridgeConfig)
 		throws URISyntaxException, UnsupportedEncodingException {
