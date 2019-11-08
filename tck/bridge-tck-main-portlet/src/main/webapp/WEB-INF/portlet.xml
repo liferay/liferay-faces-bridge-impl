@@ -2976,14 +2976,11 @@
 	<portlet>
 		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
-
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/resourceAjaxResult.xhtml</value>
+			<value>/tests/resourceActionRenderTest.xhtml</value>
 		</init-param>
-
 		<expiration-cache>0</expiration-cache>
-
 		<supports>
 			<mime-type>text/html</mime-type>
 		</supports>
@@ -3128,6 +3125,22 @@
                 <title>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidSecurityResourceTest-portlet</title>
         </portlet-info>
     </portlet>
+
+	<portlet>
+		<portlet-name>chapter6_1_3_1EncodePartialActionURLTests-encodePartialActionURLTest-portlet</portlet-name>
+		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/resourceAjaxResult.xhtml</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<portlet-info>
+			<title>chapter6_1_3_1Tests-encodePartialActionURLTest-portlet</title>
+		</portlet-info>
+	</portlet>
 
 	<portlet>
 		<portlet-name>chapter6_1_3_1EncodeURLEscapingTests-encodeURLEscapingTest-portlet</portlet-name>

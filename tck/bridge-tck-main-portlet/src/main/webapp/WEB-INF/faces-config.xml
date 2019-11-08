@@ -381,6 +381,13 @@
 
 	<!-- Chapter 6 Tests -->
 	<navigation-rule>
+		<from-view-id>/tests/resourceActionRenderTest.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>encodeActionURLJSFViewResourceTest</from-outcome>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
 		<from-view-id>/tests/multiRequestTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>wrappedFacesContextTest</from-outcome>

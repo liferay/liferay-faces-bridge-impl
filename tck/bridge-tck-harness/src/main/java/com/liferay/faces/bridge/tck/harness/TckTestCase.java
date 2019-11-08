@@ -96,14 +96,16 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 	}
 
 	// Private Data Members
+	private String testModule;
 	private String pageName;
 	private String testName;
 	private String testPortletName;
 
-	public TckTestCase(String pageName, String testName, String testPortletName) {
+	public TckTestCase(String pageName, String testName, String testPortletName, String testModule) {
 		this.pageName = pageName;
 		this.testName = testName;
 		this.testPortletName = testPortletName;
+		this.testModule = testModule;
 	}
 
 	public static void main(String[] args) {
@@ -181,11 +183,12 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 			String[] propertyValues = propertyValue.split("[|]");
 			String testPortletName = propertyValues[0];
 			boolean testEnabled = Boolean.valueOf(propertyValues[1]);
+			String testModule = propertyValues[2];
 			String testName = extractTestNamePattern.matcher(testPortletName).replaceFirst("$1");
 
 			if (testEnabled && (exProps.getProperty(testName) == null) &&
 					((testFilterPattern == null) || testFilterPattern.matcher(testName).matches())) {
-				testList.add(new String[] { page, testName, testPortletName });
+				testList.add(new String[] { page, testName, testPortletName, testModule });
 			}
 		}
 
@@ -198,6 +201,10 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 
 	public String getPageName() {
 		return pageName;
+	}
+
+	public String getTestModule() {
+		return testModule;
 	}
 
 	public String getTestName() {
@@ -371,16 +378,23 @@ public class TckTestCase extends BrowserDriverManagingTesterBase {
 					browserDriver.clickElement(xpath);
 					switchToIFrameIfNecessary(browserDriver);
 
-					try {
+					String[] resultStatusXpaths = new String[] {
+							TEST_RESULT_AJAX_STATUS_XPATH, TEST_RESULT_STATUS_XPATH
+						};
 
-						String resultXpath = MessageFormat.format(TEST_RESULT_AJAX_STATUS_XPATH,
-								new Object[] { testName });
-						browserDriver.waitForElementDisplayed(resultXpath);
-						recordResult(browserDriver);
-						resultObtained = true;
-					}
-					catch (TimeoutException e) {
-						// continue.
+					for (String resultStatusXpath : resultStatusXpaths) {
+
+						try {
+							String resultXpath = MessageFormat.format(resultStatusXpath, new Object[] { testName });
+							browserDriver.waitForElementDisplayed(resultXpath);
+							recordResult(browserDriver);
+							resultObtained = true;
+
+							break;
+						}
+						catch (TimeoutException e) {
+							// continue.
+						}
 					}
 				}
 			}
