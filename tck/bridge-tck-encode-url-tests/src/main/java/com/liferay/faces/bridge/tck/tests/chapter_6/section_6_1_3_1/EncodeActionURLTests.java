@@ -20,6 +20,7 @@ import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.render.ResponseStateManager;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
@@ -148,18 +149,94 @@ public class EncodeActionURLTests {
 			// 2) Extracting portlet mode, window state, and render parameters (a.k.a. Portlet 3.0 "render state") from
 			// the action BridgeURL and setting them on the StateAwareResponse (in the RI, see the
 			// BridgeNavigationUtil.navigate(PortletRequest,StateAwareResponse,Map<String,String[]> method).
+			//
+			// Note that the client window id "jsfwid" parameter is encoded on the actionURL in #1 and set as a render
+			// parameter in #2 so that it will be picked up in the HEADER_PHASE.
 			return "encodeActionURLJSFViewActionTest"; // action Navigation result
 		}
 
-		// Otherwise, if this method is reached in the RENDER_PHASE of the portlet lifecycle then the bridge executed a
+		// Otherwise, if this method is reached in the HEADER_PHASE of the portlet lifecycle then the bridge executed a
 		// navigation-rule to viewId=multiRequestTestResultRenderCheck.xhtml in order to display the test results. This
-		// verifies that the action BridgeURL created in the ACTION_PHASE correctly encoded the viewId.
+		// verifies that the action BridgeURL created in the ACTION_PHASE correctly encoded the viewId (and if client
+		// window mode is enabled, the "jsfwid" parameter as well).
 		else {
-			testBean.setTestComplete(true);
-			testBean.setTestResult(true,
-				"encodeActionURL correctly encoded the viewId in the ACTION_PHASE of the portlet lifecycle.");
 
-			return Constants.TEST_SUCCESS;
+			ExternalContext externalContext = facesContext.getExternalContext();
+			Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
+			String clientWindowParam = requestParameterMap.get(ResponseStateManager.CLIENT_WINDOW_URL_PARAM);
+			String customClientWindowParam = requestParameterMap.get(
+					ClientWindowTestUtil.TCK_CUSTOM_CLIENT_WINDOW_PARAM_NAME);
+
+			if (ClientWindowTestUtil.isClientWindowEnabled(externalContext)) {
+
+				String clientWindowId = ClientWindowTestUtil.getClientWindowId(externalContext);
+
+				if ((clientWindowParam != null) && (clientWindowParam.length() > 0)) {
+
+					if (clientWindowParam.equals(clientWindowId)) {
+
+						if (ClientWindowTestUtil.TCK_CUSTOM_CLIENT_WINDOW_PARAM_VALUE.equals(customClientWindowParam)) {
+							testBean.setTestResult(true,
+								"encodeActionURL correctly encoded the viewId in the ACTION_PHASE of the portlet " +
+								"lifecycle and " + ResponseStateManager.CLIENT_WINDOW_URL_PARAM +
+								" request parameter value=[" + clientWindowParam +
+								"] is equal to ClientWindow.getId()." +
+								"It also included the expected custom client window parameter.");
+						}
+						else {
+							testBean.setTestResult(false,
+								"encodeActionURL returned a URL that did NOT include the request parameter name=[" +
+								ClientWindowTestUtil.TCK_CUSTOM_CLIENT_WINDOW_PARAM_NAME + "] expected value=[" +
+								ClientWindowTestUtil.TCK_CUSTOM_CLIENT_WINDOW_PARAM_VALUE + "] actual value=[" +
+								customClientWindowParam);
+						}
+					}
+					else {
+						testBean.setTestResult(false,
+							"encodeActionURL returned a URL such that the " +
+							ResponseStateManager.CLIENT_WINDOW_URL_PARAM + " request parameter value=[" +
+							clientWindowParam + "] did NOT equal ClientWindow.getId()=[" + clientWindowId + "].");
+					}
+				}
+				else {
+					testBean.setTestResult(false,
+						"encodeActionURL returned a URL that contained a null value for the " +
+						ResponseStateManager.CLIENT_WINDOW_URL_PARAM + " request parameter.");
+				}
+			}
+			else {
+
+				if (clientWindowParam == null) {
+
+					if (customClientWindowParam == null) {
+						testBean.setTestResult(true,
+							"encodeActionURL correctly encoded the viewId in the ACTION_PHASE of the portlet " +
+							" lifecycle and did NOT include the " + ResponseStateManager.CLIENT_WINDOW_URL_PARAM +
+							" and " + ClientWindowTestUtil.TCK_CUSTOM_CLIENT_WINDOW_PARAM_NAME + " parameters.");
+					}
+					else {
+						testBean.setTestResult(false,
+							"encodeActionURL returned a URL that did included the request parameter name=[" +
+							ClientWindowTestUtil.TCK_CUSTOM_CLIENT_WINDOW_PARAM_NAME + "] value=[" +
+							customClientWindowParam);
+					}
+				}
+				else {
+					testBean.setTestResult(false,
+						"encodeActionURL returned a URL that incorrectly included the " +
+						ResponseStateManager.CLIENT_WINDOW_URL_PARAM + " request parameter with value=[" +
+						clientWindowParam + "] even though the client window feature is disabled.");
+				}
+			}
+
+			testBean.setTestComplete(true);
+
+			if (testBean.getTestStatus()) {
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				return Constants.TEST_FAILED;
+			}
 		}
 	}
 
@@ -188,21 +265,71 @@ public class EncodeActionURLTests {
 			// 2) Extracting portlet mode, window state, and render parameters (a.k.a. Portlet 3.0 "render state") from
 			// the action BridgeURL and setting them on the StateAwareResponse (in the RI, see the
 			// BridgeNavigationUtil.navigate(PortletRequest,StateAwareResponse,Map<String,String[]> method).
+			//
+			// Note that the client window id "jsfwid" parameter is encoded on the actionURL in #1 and set as a render
+			// parameter in #2 so that it will be picked up in the HEADER_PHASE.
 			StateAwareResponse stateAwareResponse = (StateAwareResponse) externalContext.getResponse();
 			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
 
 			return Constants.TEST_SUCCESS; // action Navigation result
 		}
 
-		// Otherwise, if this method is reached in the RENDER_PHASE of the portlet lifecycle then the bridge executed a
+		// Otherwise, if this method is reached in the HEADER_PHASE of the portlet lifecycle then the bridge executed a
 		// navigation-rule to viewId=multiRequestTestResultRenderCheck.xhtml in order to display the test results. This
-		// verifies that the action BridgeURL created in the EVENT_PHASE correctly encoded the viewId.
+		// verifies that the action BridgeURL created in the EVENT_PHASE correctly encoded the viewId (and if client
+		// window mode is enabled, the "jsfwid" parameter as well).
 		else {
-			testBean.setTestComplete(true);
-			testBean.setTestResult(true,
-				"encodeActionURL correctly encoded the viewId in the EVENT_PHASE of the portlet lifecycle.");
 
-			return Constants.TEST_SUCCESS;
+			Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
+			String clientWindowParam = requestParameterMap.get(ResponseStateManager.CLIENT_WINDOW_URL_PARAM);
+
+			if (ClientWindowTestUtil.isClientWindowEnabled(externalContext)) {
+
+				String clientWindowId = ClientWindowTestUtil.getClientWindowId(externalContext);
+
+				if ((clientWindowParam != null) && (clientWindowParam.length() > 0)) {
+
+					if (clientWindowParam.equals(clientWindowId)) {
+						testBean.setTestResult(true,
+							"encodeActionURL correctly encoded the viewId in the EVENT_PHASE of the portlet " +
+							"lifecycle and " + ResponseStateManager.CLIENT_WINDOW_URL_PARAM +
+							" request parameter value=[" + clientWindowParam + "] is equal to ClientWindow.getId().");
+					}
+					else {
+						testBean.setTestResult(false,
+							"encodeActionURL returned a URL such that the " +
+							ResponseStateManager.CLIENT_WINDOW_URL_PARAM + " request parameter value=[" +
+							clientWindowParam + "] did NOT equal ClientWindow.getId()=[" + clientWindowId + "].");
+					}
+				}
+				else {
+					testBean.setTestResult(false,
+						"encodeActionURL returned a URL that contained a null value for the " +
+						ResponseStateManager.CLIENT_WINDOW_URL_PARAM + " request parameter.");
+				}
+			}
+			else {
+
+				if (clientWindowParam == null) {
+					testBean.setTestResult(true,
+						"encodeActionURL correctly encoded the viewId in the EVENT_PHASE of the portlet lifecycle.");
+				}
+				else {
+					testBean.setTestResult(false,
+						"encodeActionURL returned a URL that incorrectly included the " +
+						ResponseStateManager.CLIENT_WINDOW_URL_PARAM + " request parameter with value=[" +
+						clientWindowParam + "] even though the client window feature is disabled.");
+				}
+			}
+
+			testBean.setTestComplete(true);
+
+			if (testBean.getTestStatus()) {
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				return Constants.TEST_FAILED;
+			}
 		}
 	}
 
@@ -229,18 +356,69 @@ public class EncodeActionURLTests {
 			// 2) Extracting portlet mode, window state, and render parameters (a.k.a. Portlet 3.0 "render state") from
 			// the action BridgeURL and setting them on the StateAwareResponse (in the RI, see the
 			// BridgeNavigationUtil.navigate(PortletRequest,StateAwareResponse,Map<String,String[]> method).
+			//
+			// Note that the client window id "jsfwid" parameter is encoded on the actionURL in #1 and set as a render
+			// parameter in #2 so that it will be picked up in the HEADER_PHASE.
 			return "encodeActionURLJSFViewRenderTest"; // action Navigation result
 		}
 
-		// Otherwise, if this method is reached in the RENDER_PHASE of the portlet lifecycle then the bridge executed a
+		// Otherwise, if this method is reached in the HEADER_PHASE of the portlet lifecycle then the bridge executed a
 		// navigation-rule to viewId=multiRequestTestResultRenderCheck.xhtml in order to display the test results. This
-		// verifies that the action BridgeURL created in the ACTION_PHASE correctly encoded the viewId.
+		// verifies that the action BridgeURL created in the ACTION_PHASE correctly encoded the viewId (and if client
+		// window mode is enabled, the "jsfwid" parameter as well).
 		else {
-			testBean.setTestComplete(true);
-			testBean.setTestResult(true,
-				"encodeActionURL correctly encoded the viewId in the RENDER_PHASE of the portlet lifecycle.");
 
-			return Constants.TEST_SUCCESS;
+			ExternalContext externalContext = facesContext.getExternalContext();
+			Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
+			String clientWindowParam = requestParameterMap.get(ResponseStateManager.CLIENT_WINDOW_URL_PARAM);
+
+			if (ClientWindowTestUtil.isClientWindowEnabled(externalContext)) {
+
+				String clientWindowId = ClientWindowTestUtil.getClientWindowId(externalContext);
+
+				if ((clientWindowParam != null) && (clientWindowParam.length() > 0)) {
+
+					if (clientWindowParam.equals(clientWindowId)) {
+						testBean.setTestResult(true,
+							"encodeActionURL correctly encoded the viewId in the HEADER_PHASE of the portlet " +
+							"lifecycle and " + ResponseStateManager.CLIENT_WINDOW_URL_PARAM +
+							" request parameter value=[" + clientWindowParam + "] is equal to ClientWindow.getId().");
+					}
+					else {
+						testBean.setTestResult(false,
+							"encodeActionURL returned a URL such that the " +
+							ResponseStateManager.CLIENT_WINDOW_URL_PARAM + " request parameter value=[" +
+							clientWindowParam + "] did NOT equal ClientWindow.getId()=[" + clientWindowId + "].");
+					}
+				}
+				else {
+					testBean.setTestResult(false,
+						"encodeActionURL returned a URL that contained a null value for the " +
+						ResponseStateManager.CLIENT_WINDOW_URL_PARAM + " request parameter.");
+				}
+			}
+			else {
+
+				if (clientWindowParam == null) {
+					testBean.setTestResult(true,
+						"encodeActionURL correctly encoded the viewId in the HEADER_PHASE of the portlet lifecycle.");
+				}
+				else {
+					testBean.setTestResult(false,
+						"encodeActionURL returned a URL that incorrectly included the " +
+						ResponseStateManager.CLIENT_WINDOW_URL_PARAM + " request parameter with value=[" +
+						clientWindowParam + "] even though the client window feature is disabled.");
+				}
+			}
+
+			testBean.setTestComplete(true);
+
+			if (testBean.getTestStatus()) {
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				return Constants.TEST_FAILED;
+			}
 		}
 	}
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+	<factory>
+		<client-window-factory>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.ClientWindowFactoryTCKImpl</client-window-factory>
+	</factory>
+	<navigation-rule>
+		<from-view-id>/WEB-INF/views/resourceActionRenderTest.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>encodeActionURLJSFViewResourceTest</from-outcome>
+			<to-view-id>/WEB-INF/views/multiRequestTestResultRenderCheck.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/WEB-INF/views/multiRequestTest.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>encodeActionURLJSFViewActionTest</from-outcome>
+			<to-view-id>/WEB-INF/views/multiRequestTestResultRenderCheck.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>encodeActionURLJSFViewEventTest</from-outcome>
+			<to-view-id>/WEB-INF/views/multiRequestTestResultRenderCheck.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>encodeActionURLJSFViewRenderTest</from-outcome>
+			<to-view-id>/WEB-INF/views/multiRequestTestResultRenderCheck.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+</faces-config>

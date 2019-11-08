@@ -37,6 +37,7 @@ public class TestBean {
 	// testGroup corresponds to the managedBean name that holds the object containing the test.
 	// testName corresponds to the name of the Test that is the value of the
 	// test method annotation we look for to determine which method is called to run the test.
+	private boolean ajaxEnabled = true;
 	private BridgeTCKResultWriter mResultWriter;
 	private boolean mStatus = false;
 	private Object mTest;
@@ -192,6 +193,10 @@ public class TestBean {
 		return mStatus;
 	}
 
+	public boolean isAjaxEnabled() {
+		return ajaxEnabled;
+	}
+
 	public boolean isTestComplete() {
 		return mTestComplete;
 	}
@@ -223,6 +228,10 @@ public class TestBean {
 
 		// In resource case we use an action listener
 		runActionListener(action);
+	}
+
+	public void setAjaxEnabled(boolean ajaxEnabled) {
+		this.ajaxEnabled = ajaxEnabled;
 	}
 
 	public void setTestComplete(boolean complete) {
