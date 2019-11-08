@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<h:head/>
+	<h:body>
+		<h:form>
+			<h:messages globalOnly="true" layout="table" />
+			<h:panelGroup layout="block">
+				<!-- Ajaxified button rendered by default -->
+				<h:commandButton id="runPPR" action="#{testBean.runActionTest}" rendered="#{viewBean.ajaxEnabled}"
+					value="#{testBean.redisplayCommandName}" styleClass="run-ppr-button">
+					<f:ajax render="@form"/>
+				</h:commandButton>
+				<!-- Non-Ajaxified command link, rendered after the ajaxified button is clicked -->
+				<h:commandLink action="#{testBean.runActionTest}" rendered="#{!viewBean.ajaxEnabled}"
+					value="#{testBean.redisplayCommandName}" styleClass="ppr-redisplay-link">
+				</h:commandLink>
+			</h:panelGroup>
+		</h:form>
+	</h:body>
+</f:view>

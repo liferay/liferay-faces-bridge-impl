@@ -39,8 +39,8 @@ public class LiferayTckTestCase extends TckTestCase {
 	private static final String DEFAULT_LIFERAY_WINDOW_STATE = TestUtil.getSystemPropertyOrDefault(
 			"integration.default.liferay.window.state", "exclusive");
 
-	public LiferayTckTestCase(String pageName, String testName, String testPortletName) {
-		super(pageName, testName, testPortletName);
+	public LiferayTckTestCase(String pageName, String testName, String testPortletName, String testModule) {
+		super(pageName, testName, testPortletName, testModule);
 	}
 
 	//J-
@@ -66,14 +66,11 @@ public class LiferayTckTestCase extends TckTestCase {
 		String query = "";
 
 		if (useSpecialLiferayWindowState(DEFAULT_LIFERAY_WINDOW_STATE)) {
-
-			String testPortletName = getTestPortletName();
-			query = "?p_p_state=" + DEFAULT_LIFERAY_WINDOW_STATE + "&p_p_id=" + testPortletName.replace("-", "") +
-				"_WAR_comliferayfacestestbridgetckmainportlet";
+			query = "?p_p_state=" + DEFAULT_LIFERAY_WINDOW_STATE + "&p_p_id=" + getTestPortletName().replace("-", "") +
+				"_WAR_" + getTestModule().replaceAll("/", "").replaceAll("[.]", "");
 		}
 
-		String pageName = getPageName();
-		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + TCK_CONTEXT + pageName + query);
+		browserDriver.navigateWindowTo(TestUtil.DEFAULT_BASE_URL + TCK_CONTEXT + getPageName() + query);
 
 		if (useSpecialLiferayWindowState(DEFAULT_LIFERAY_WINDOW_STATE)) {
 			browserDriver.executeScriptInCurrentWindow(USE_DEFAULT_LIFERAY_WINDOW_STATE_SCRIPT);

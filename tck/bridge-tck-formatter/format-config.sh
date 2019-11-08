@@ -1,2 +1,16 @@
 #!/bin/sh
 mvn -P format-config clean package
+echo "******************"
+echo "*** NEXT STEPS ***"
+echo "******************"
+echo "1. Update test-setup-hook/pom.xml with a new pluto-portal-driver.xml URL and randomly change the MD5 hash"
+echo "     NOTE: Since pluto-portal-driver-config.xml lives in a download cache somewhere, you MUST change the MD5"
+echo "           value in test-setup-hook/pom.xml in order to shake things up and get the download plugin to recompare the MD5"
+echo "           and force a new download."
+echo "2. Run \"mvn clean install\" for the test-setup-hook to obtain the correct MD5 hash and then fix the hash in test-set-hook/pom.xml"
+echo "3. Shutdown the Liferay bundle"
+echo "4. Delete \$LIFERAY_HOME/data in order to delete all of the old TestPageXYZ pages (because portlets might be re-arranged on pages)"
+echo "5. Delete \$LIFERAY_HOME/osgi/state"
+echo "6. Delete \$LIFERAY_HOME/war/test-setup-hook.war"
+echo "7. Redeploy test-setup-hook.war"
+echo "8. Startup the Liferay bundle"

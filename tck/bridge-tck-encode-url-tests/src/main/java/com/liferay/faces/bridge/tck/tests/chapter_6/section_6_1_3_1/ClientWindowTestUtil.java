@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1;
 
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.faces.lifecycle.ClientWindow;
 
 
@@ -26,6 +25,9 @@ import javax.faces.lifecycle.ClientWindow;
  * @author  Neil Griffin
  */
 final class ClientWindowTestUtil {
+
+	static String TCK_CUSTOM_CLIENT_WINDOW_PARAM_NAME = "tckCustomClientWindowParam";
+	static String TCK_CUSTOM_CLIENT_WINDOW_PARAM_VALUE = "1234";
 
 	private ClientWindowTestUtil() {
 		throw new AssertionError();
