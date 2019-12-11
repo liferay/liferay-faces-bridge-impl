@@ -165,7 +165,6 @@
 					<configuration>
 						<!-- liferay.auto.deploy.dir is the location where WARs are copied for deployment -->
 						<autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
-						<configsDeployDir>${liferay.home}/osgi/configs</configsDeployDir>
 						<!-- liferay.deploy.dir is the location where extracted WARs are finally deployed -->
 						<liferayVersion>${liferay.version}</liferayVersion>
 					</configuration>
