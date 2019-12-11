@@ -166,6 +166,7 @@
 					<configuration>
 						<!-- liferay.auto.deploy.dir is the location where WARs are copied for deployment -->
 						<autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
+						<configsDeployDir>${liferay.home}/osgi/configs</configsDeployDir>
 						<!-- liferay.deploy.dir is the location where extracted WARs are finally deployed -->
 						<liferayVersion>${liferay.version}</liferayVersion>
 					</configuration>
@@ -377,7 +378,7 @@
 		<profile>
 			<id>dxp</id>
 			<properties>
-				<liferay.deploy.version>7.0.10-de-88</liferay.deploy.version>
+				<liferay.deploy.version>7.2.10.1-sp1</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
