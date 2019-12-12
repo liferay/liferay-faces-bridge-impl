@@ -117,7 +117,7 @@
 		<liferay.resin.version>4.0.33</liferay.resin.version>
 		<liferay.tomcat.version>8.0.30</liferay.tomcat.version>
 		<liferay.version>7.2.1</liferay.version>
-		<liferay.version.dtd>6.2</liferay.version.dtd>
+		<liferay.version.dtd>7.0</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.weblogic.version>12.2.1.2</liferay.weblogic.version>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
