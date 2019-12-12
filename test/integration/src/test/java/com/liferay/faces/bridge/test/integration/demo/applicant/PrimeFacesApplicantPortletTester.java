@@ -102,6 +102,16 @@ public class PrimeFacesApplicantPortletTester extends ApplicantTesterBase {
 		String dateCellXpath = "//table[contains(@class, 'ui-datepicker-calendar')]//a[contains(text(), '14')]";
 		browserDriver.waitForElementEnabled(dateCellXpath);
 		browserDriver.clickElement(dateCellXpath);
+
+		// Hack for intermittent problem with PrimeFaces, specifically the inability of
+		// ApplicantTesterBase.runApplicantPortletTest_J_Submit() to be able to send an invalid date of "32802"
+		// after selecting a date.
+		try {
+			Thread.sleep(500);
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
