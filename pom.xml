@@ -374,7 +374,21 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>dxp</id>
+			<id>dxp70</id>
+			<properties>
+				<liferay.deploy.version>7.0.10.11-sp11</liferay.deploy.version>
+				<liferay.platform>liferay-dxp</liferay.platform>
+			</properties>
+		</profile>
+		<profile>
+			<id>dxp71</id>
+			<properties>
+				<liferay.deploy.version>7.1.10.3-sp3</liferay.deploy.version>
+				<liferay.platform>liferay-dxp</liferay.platform>
+			</properties>
+		</profile>
+		<profile>
+			<id>dxp72</id>
 			<properties>
 				<liferay.deploy.version>7.2.10.1-sp1</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
@@ -484,6 +498,7 @@
 			<properties>
 				<liferay.deploy.version>7.3.0-SNAPSHOT</liferay.deploy.version>
 				<liferay.faces.bridge.ext.version>6.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
+				<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}-alt</liferay.home>
 			</properties>
 		</profile>
 		<profile>
