@@ -415,7 +415,7 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 	protected void assertLibraryElementDisplayed(WaitingAsserter waitingAsserter, String libraryName,
 		BrowserDriver browserDriver) {
 
-		String libraryVersionXpath = "//li/em[contains(.,'" + libraryName + "')]";
+		String libraryVersionXpath = getLibraryListItemXPath() + "[contains(.,'" + libraryName + "')]";
 		waitingAsserter.assertElementDisplayed(libraryVersionXpath);
 
 		if (logger.isInfoEnabled()) {
@@ -502,6 +502,10 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 
 	protected String getLastNameFieldXpath() {
 		return "//input[contains(@id,':lastName')]";
+	}
+
+	protected String getLibraryListItemXPath() {
+		return "//li/em";
 	}
 
 	protected String getLogoXpath() {
