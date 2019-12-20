@@ -108,7 +108,7 @@
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}</liferay.home>
 		<liferay.faces.alloy.version>3.0.3</liferay.faces.alloy.version>
-		<liferay.faces.bridge.ext.version>5.0.5</liferay.faces.bridge.ext.version>
+		<liferay.faces.bridge.ext.version>6.0.0</liferay.faces.bridge.ext.version>
 		<liferay.faces.showcase.version>3.0.5</liferay.faces.showcase.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
@@ -116,7 +116,7 @@
 		<liferay.platform>liferay-portal</liferay.platform>
 		<liferay.resin.version>4.0.33</liferay.resin.version>
 		<liferay.tomcat.version>8.0.30</liferay.tomcat.version>
-		<liferay.version>7.2.1</liferay.version>
+		<liferay.version>7.3.0-SNAPSHOT</liferay.version>
 		<liferay.version.dtd>7.0</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.weblogic.version>12.2.1.2</liferay.weblogic.version>
@@ -466,38 +466,23 @@
 			</activation>
 		</profile>
 		<profile>
-			<id>liferay62</id>
-			<properties>
-				<liferay.faces.alloy.version>2.0.1</liferay.faces.alloy.version>
-				<liferay.faces.bridge.ext.version>3.0.1</liferay.faces.bridge.ext.version>
-				<liferay.version>6.2.5</liferay.version>
-				<liferay.version.major>6</liferay.version.major>
-				<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
-				<liferay.jboss.version>7.1.1</liferay.jboss.version>
-				<liferay.jetty.version>8.1.10</liferay.jetty.version>
-				<liferay.resin.version>4.0.33</liferay.resin.version>
-				<liferay.tomcat.version>7.0.62</liferay.tomcat.version>
-				<liferay.weblogic.version>12.1.3.0</liferay.weblogic.version>
-				<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
-			</properties>
-		</profile>
-		<profile>
 			<id>liferay70</id>
 			<properties>
 				<liferay.version>7.0.6</liferay.version>
+				<liferay.faces.bridge.ext.version>5.0.5</liferay.faces.bridge.ext.version>
 			</properties>
 		</profile>
 		<profile>
 			<id>liferay71</id>
 			<properties>
 				<liferay.version>7.1.3</liferay.version>
+				<liferay.faces.bridge.ext.version>5.0.5</liferay.faces.bridge.ext.version>
 			</properties>
 		</profile>
 		<profile>
-			<id>liferay73</id>
+			<id>liferay72</id>
 			<properties>
-				<liferay.deploy.version>7.3.0-SNAPSHOT</liferay.deploy.version>
-				<liferay.faces.bridge.ext.version>6.0.0</liferay.faces.bridge.ext.version>
+				<liferay.deploy.version>7.2.1</liferay.deploy.version>
 			</properties>
 		</profile>
 		<profile>
