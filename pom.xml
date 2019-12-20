@@ -107,9 +107,9 @@
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}</liferay.home>
-		<liferay.faces.alloy.version>3.0.2</liferay.faces.alloy.version>
-		<liferay.faces.bridge.ext.version>5.0.4</liferay.faces.bridge.ext.version>
-		<liferay.faces.showcase.version>3.0.4</liferay.faces.showcase.version>
+		<liferay.faces.alloy.version>3.0.3</liferay.faces.alloy.version>
+		<liferay.faces.bridge.ext.version>5.0.5</liferay.faces.bridge.ext.version>
+		<liferay.faces.showcase.version>3.0.5</liferay.faces.showcase.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.jetty.version>8.1.10</liferay.jetty.version>
@@ -497,8 +497,7 @@
 			<id>liferay73</id>
 			<properties>
 				<liferay.deploy.version>7.3.0-SNAPSHOT</liferay.deploy.version>
-				<liferay.faces.bridge.ext.version>6.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
-				<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}-alt</liferay.home>
+				<liferay.faces.bridge.ext.version>6.0.0</liferay.faces.bridge.ext.version>
 			</properties>
 		</profile>
 		<profile>
@@ -836,7 +835,7 @@
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.util</artifactId>
-				<version>3.3.0-alpha2</version>
+				<version>3.3.0</version>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
@@ -1075,7 +1074,7 @@
 			<dependency>
 				<groupId>com.liferay.faces.test</groupId>
 				<artifactId>com.liferay.faces.test.selenium</artifactId>
-				<version>0.5.3</version>
+				<version>0.5.4</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
