@@ -102,6 +102,10 @@
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
+			<artifactId>com.liferay.faces.bridge.api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay.faces</groupId>
 			<artifactId>com.liferay.faces.bridge.impl</artifactId>
 		</dependency>
 		<dependency>
