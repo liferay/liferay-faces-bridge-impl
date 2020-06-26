@@ -822,12 +822,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			</activation>
 		</profile>
 		<profile>
-			<id>tomcat-liferay62</id>
-			<properties>
-				<faces.impl.scope>runtime</faces.impl.scope>
-			</properties>
-		</profile>
-		<profile>
 			<id>weblogic</id>
 			<properties>
 				<app.server.type>weblogic</app.server.type>
