@@ -22,7 +22,7 @@ import javax.faces.bean.RequestScoped;
 
 import org.primefaces.event.FileUploadEvent;
 
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.file.UploadedFile;
 
 
 /**
