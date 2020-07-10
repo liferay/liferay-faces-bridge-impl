@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.model.internal;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -24,8 +26,6 @@ import java.util.Collection;
 import java.util.Map;
 
 import com.liferay.faces.bridge.model.UploadedFile;
-import com.liferay.faces.util.factory.FactoryExtensionFinder;
-import com.liferay.faces.util.product.ProductFactory;
 
 
 /**
@@ -38,11 +38,15 @@ public class UploadedFileBridgeImpl implements Serializable, UploadedFile {
 
 	// Private Data Members
 	private boolean primeFacesDetected;
+	private int primeFacesMajorVersion;
+	private byte[] primeFacesFileContent;
 	private com.liferay.faces.util.model.UploadedFile wrappedUploadedFile;
 
-	public UploadedFileBridgeImpl(com.liferay.faces.util.model.UploadedFile uploadedFile, boolean primeFacesDetected) {
+	public UploadedFileBridgeImpl(com.liferay.faces.util.model.UploadedFile uploadedFile, boolean primeFacesDetected,
+		int primeFacesMajorVersion) {
 		this.wrappedUploadedFile = uploadedFile;
 		this.primeFacesDetected = primeFacesDetected;
+		this.primeFacesMajorVersion = primeFacesMajorVersion;
 	}
 
 	@Override
@@ -135,7 +139,31 @@ public class UploadedFileBridgeImpl implements Serializable, UploadedFile {
 	public InputStream getInputStream() throws IOException {
 
 		if (primeFacesDetected) {
-			return new DeletingInputStream(wrappedUploadedFile.getInputStream());
+
+			if (primeFacesMajorVersion >= 8) {
+
+				// PrimeFaces 8.0 fixed the following issue:
+				// https://github.com/primefaces/primefaces/issues/5408
+				// With the following commit:
+				// https://github.com/primefaces/primefaces/commit/bdfc969e60bdcfe077caafe0821388535cbb1551
+				// This change causes PrimeFaces to internally call this getInputStream() method before the
+				// PrimeFaces webapp code has an opportunity to do so. Since the PrimeFaces UploadedFile
+				// interface does not contain a delete() method, the legacy behavior here was to delete
+				// the file after the inputStream was closed. This was accomplished via the DeletingInputStream
+				// wrapper. But in the case of PrimeFaces 8.0, it is necessary to cache the file content
+				// before deleting the file, so that multiple calls to this getInputStream() method can be
+				// supported.
+				if (primeFacesFileContent == null) {
+					primeFacesFileContent = getBytes();
+				}
+
+				delete();
+
+				return new ByteArrayInputStream(primeFacesFileContent);
+			}
+			else {
+				return new DeletingInputStream(wrappedUploadedFile.getInputStream());
+			}
 		}
 
 		return wrappedUploadedFile.getInputStream();
