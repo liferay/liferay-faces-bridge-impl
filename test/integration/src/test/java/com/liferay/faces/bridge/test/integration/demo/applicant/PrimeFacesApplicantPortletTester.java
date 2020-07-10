@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
@@ -51,15 +53,24 @@ public class PrimeFacesApplicantPortletTester extends ApplicantTesterBase {
 	}
 
 	@Override
-	protected String getExtraLibraryName() {
-		return "PrimeFaces";
+	protected String getDateFieldErrorXpath(String fieldXpath) {
+
+		String errorMessage =
+			"/../div[contains(@class, 'ui-message-error')]/div/span[contains(@class, 'ui-message-error-detail')]";
+
+		return "(" + fieldXpath + errorMessage + "|" + fieldXpath + "/.." + errorMessage + ")";
+	}
+
+	@Override
+	protected List<String> getExtraLibraryNames() {
+		return unmodifiableList("PrimeFaces");
 	}
 
 	@Override
 	protected String getFieldErrorXpath(String fieldXpath) {
 
 		String errorMessage =
-			"/../div[contains(@class, 'ui-message-error')]/span[contains(@class, 'ui-message-error-detail')]";
+			"/div[contains(@class, 'ui-message-error')]/div/span[contains(@class, 'ui-message-error-detail')]";
 
 		return "(" + fieldXpath + errorMessage + "|" + fieldXpath + "/.." + errorMessage + ")";
 	}
@@ -92,6 +103,15 @@ public class PrimeFacesApplicantPortletTester extends ApplicantTesterBase {
 	@Override
 	protected String getUploadedFileXpath() {
 		return "//tbody[contains(@id, ':attachmentsTable')]/tr/td[2]";
+	}
+
+	@Override
+	protected boolean isRunDateValidation() {
+
+		// Unable to run this test with PrimeFaces 8.0 due to the following:
+		// https://github.com/primefaces/primefaces/issues/5923
+		// https://github.com/primefaces/primefaces/issues/6138
+		return false;
 	}
 
 	@Override

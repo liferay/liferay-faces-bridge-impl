@@ -17,10 +17,14 @@ package com.liferay.faces.bridge.test.integration.demo.applicant;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -53,6 +57,10 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(ApplicantTesterBase.class);
 
+	protected static <T> List<T> unmodifiableList(T... ts) {
+		return Collections.unmodifiableList(Arrays.asList(ts));
+	}
+
 	@Test
 	public void runApplicantPortletTest_A_ApplicantViewRendered() throws Exception {
 
@@ -72,22 +80,22 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		assertFileUploadChooserDisplayed(browserDriver, waitingAsserter);
 
 		String facesImplName = System.getProperty("faces.impl.name");
-		assertLibraryElementDisplayed(waitingAsserter, facesImplName, browserDriver);
+		assertLibraryElementDisplayed(waitingAsserter, browserDriver, facesImplName);
 
 		if (isLiferayFacesAlloyIncluded()) {
-			assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Alloy", browserDriver);
+			assertLibraryElementDisplayed(waitingAsserter, browserDriver, "Liferay Faces Alloy");
 		}
 
-		assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Bridge Impl", browserDriver);
+		assertLibraryElementDisplayed(waitingAsserter, browserDriver, "Liferay Faces Bridge Impl");
 
 		if (TestUtil.getContainer().contains("liferay")) {
-			assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Bridge Ext", browserDriver);
+			assertLibraryElementDisplayed(waitingAsserter, browserDriver, "Liferay Faces Bridge Ext");
 		}
 
-		String extraLibraryName = getExtraLibraryName();
+		List<String> extraLibraryNames = getExtraLibraryNames();
 
-		if (extraLibraryName != null) {
-			assertLibraryElementDisplayed(waitingAsserter, extraLibraryName, browserDriver);
+		if (!extraLibraryNames.isEmpty()) {
+			assertLibraryElementDisplayed(waitingAsserter, browserDriver, extraLibraryNames);
 		}
 	}
 
@@ -302,6 +310,8 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 	@Test
 	public void runApplicantPortletTest_H_DateValidation() {
 
+		Assume.assumeTrue(isRunDateValidation());
+
 		BrowserDriver browserDriver = getBrowserDriver();
 		String dateOfBirthFieldXpath = getDateOfBirthFieldXpath();
 		browserDriver.centerElementInCurrentWindow(dateOfBirthFieldXpath);
@@ -412,10 +422,31 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		waitingAsserter.assertElementDisplayed(getFileUploadChooserXpath());
 	}
 
-	protected void assertLibraryElementDisplayed(WaitingAsserter waitingAsserter, String libraryName,
-		BrowserDriver browserDriver) {
+	protected void assertLibraryElementDisplayed(WaitingAsserter waitingAsserter, BrowserDriver browserDriver,
+		String libraryName) {
+		assertLibraryElementDisplayed(waitingAsserter, browserDriver, unmodifiableList(libraryName));
+	}
 
-		String libraryVersionXpath = getLibraryListItemXPath() + "[contains(.,'" + libraryName + "')]";
+	protected void assertLibraryElementDisplayed(WaitingAsserter waitingAsserter, BrowserDriver browserDriver,
+		List<String> libraryNames) {
+
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append("//li[");
+
+		for (int i = 0; i < libraryNames.size(); i++) {
+
+			if (i > 0) {
+				stringBuilder.append(" or ");
+			}
+
+			stringBuilder.append("contains(.,'");
+			stringBuilder.append(libraryNames.get(i));
+			stringBuilder.append("')");
+		}
+
+		stringBuilder.append("]");
+
+		String libraryVersionXpath = stringBuilder.toString();
 		waitingAsserter.assertElementDisplayed(libraryVersionXpath);
 
 		if (logger.isInfoEnabled()) {
@@ -460,6 +491,10 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		return "//form[@method='post']";
 	}
 
+	protected String getDateFieldErrorXpath(String fieldXpath) {
+		return getFieldErrorXpath(fieldXpath);
+	}
+
 	protected String getDateOfBirthFieldXpath() {
 		return "//input[contains(@id,':dateOfBirth')]";
 	}
@@ -476,16 +511,12 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		return "//input[contains(@id,':emailAddress')]";
 	}
 
-	protected String getExtraLibraryName() {
-		return null;
+	protected List<String> getExtraLibraryNames() {
+		return Collections.emptyList();
 	}
 
 	protected String getFieldErrorXpath(String fieldXpath) {
 		return fieldXpath + "/../span[@class='portlet-msg-error']";
-	}
-
-	protected String getDateFieldErrorXpath(String fieldXpath) {
-		return getFieldErrorXpath(fieldXpath);
 	}
 
 	protected String getFileUploadChooserXpath() {
@@ -577,6 +608,10 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 	}
 
 	protected boolean isLiferayFacesAlloyIncluded() {
+		return true;
+	}
+
+	protected boolean isRunDateValidation() {
 		return true;
 	}
 
