@@ -144,7 +144,7 @@
 								<h:outputText value="#{attachment.size}" />
 							</p:column>
 						</p:dataTable>
-						<p:fileUpload fileUploadListener="#{applicantBacking.handleFileUpload}" mode="advanced" multiple="true"
+						<p:fileUpload listener="#{applicantBacking.handleFileUpload}" mode="advanced" multiple="true"
 							update="attachmentsTable" />
 					</h:form>
 				</alloy:column>
