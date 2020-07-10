@@ -141,6 +141,7 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 						ProductFactory.class);
 				Product PRIMEFACES = productFactory.getProductInfo(Product.Name.PRIMEFACES);
 				boolean primeFacesDetected = PRIMEFACES.isDetected();
+				int primeFacesMajorVersion = PRIMEFACES.getMajorVersion();
 
 				bridgeUploadedFileMap = new HashMap<String, List<UploadedFile>>(uploadedFileMap.size());
 
@@ -155,7 +156,8 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 								uploadedFileList.size());
 
 						for (com.liferay.faces.util.model.UploadedFile uploadedFile : uploadedFileList) {
-							bridgeUploadedFileList.add(new UploadedFileBridgeImpl(uploadedFile, primeFacesDetected));
+							bridgeUploadedFileList.add(new UploadedFileBridgeImpl(uploadedFile, primeFacesDetected,
+									primeFacesMajorVersion));
 						}
 
 						bridgeUploadedFileMap.put(mapEntry.getKey(), bridgeUploadedFileList);
