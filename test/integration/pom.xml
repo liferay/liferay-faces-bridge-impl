@@ -43,13 +43,6 @@
 			<properties>
 				<integration.browser.name>firefox</integration.browser.name>
 			</properties>
-			<dependencies>
-				<dependency>
-					<groupId>org.seleniumhq.selenium</groupId>
-					<artifactId>selenium-firefox-driver</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
 		</profile>
 		<profile>
 			<id>htmlunit</id>
