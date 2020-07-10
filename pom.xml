@@ -310,7 +310,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.stage>Production</project.stage>
 		<richfaces.version>4.6.8.ayg</richfaces.version>
-		<selenium.version>2.53.0</selenium.version>
+		<selenium.version>3.8.1</selenium.version>
 		<skip.thin.war.setup>true</skip.thin.war.setup>
 		<spring.version>4.2.5.RELEASE</spring.version>
 		<surefire.version>2.12</surefire.version>
@@ -1320,7 +1320,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>com.liferay.faces.test</groupId>
 				<artifactId>com.liferay.faces.test.selenium</artifactId>
-				<version>0.5.4</version>
+				<version>0.5.5-SNAPSHOT</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -1344,13 +1344,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-support</artifactId>
-				<version>${selenium.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<!-- Firefox 46.0 is required. -->
-				<groupId>org.seleniumhq.selenium</groupId>
-				<artifactId>selenium-firefox-driver</artifactId>
 				<version>${selenium.version}</version>
 				<scope>test</scope>
 			</dependency>
