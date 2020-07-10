@@ -675,8 +675,4 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		browserDriver.clickElement(getSubmitFileButtonXpath());
 		browserDriver.waitForElementDisplayed(getUploadedFileXpath());
 	}
-
-	protected static <T> List<T> unmodifiableList(T... ts) {
-		return Collections.unmodifiableList(Arrays.asList(ts));
-	}
 }
