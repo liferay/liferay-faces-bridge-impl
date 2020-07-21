@@ -19,6 +19,8 @@ import javax.portlet.PortletContext;
 import javax.servlet.ServletContext;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
+import com.liferay.faces.bridge.bean.PreDestroyInvoker;
+import com.liferay.faces.bridge.bean.PreDestroyInvokerFactory;
 import com.liferay.faces.bridge.context.internal.PortletContextAdapter;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;

@@ -23,10 +23,10 @@ import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
-import com.liferay.faces.bridge.bean.internal.BeanManager;
-import com.liferay.faces.bridge.bean.internal.BeanManagerFactory;
-import com.liferay.faces.bridge.bean.internal.PreDestroyInvoker;
-import com.liferay.faces.bridge.bean.internal.PreDestroyInvokerFactory;
+import com.liferay.faces.bridge.bean.BeanManager;
+import com.liferay.faces.bridge.bean.BeanManagerFactory;
+import com.liferay.faces.bridge.bean.PreDestroyInvoker;
+import com.liferay.faces.bridge.bean.PreDestroyInvokerFactory;
 import com.liferay.faces.util.config.ApplicationConfig;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 

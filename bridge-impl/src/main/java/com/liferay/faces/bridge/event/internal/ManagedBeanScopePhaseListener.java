@@ -31,8 +31,8 @@ import javax.portlet.faces.Bridge.PortletPhase;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.BridgeFactoryFinder;
-import com.liferay.faces.bridge.bean.internal.BeanManager;
-import com.liferay.faces.bridge.bean.internal.BeanManagerFactory;
+import com.liferay.faces.bridge.bean.BeanManager;
+import com.liferay.faces.bridge.bean.BeanManagerFactory;
 import com.liferay.faces.util.config.ApplicationConfig;
 
 

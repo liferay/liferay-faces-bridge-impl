@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.bean.internal;
 
+import com.liferay.faces.bridge.bean.BeanManager;
+import com.liferay.faces.bridge.bean.BeanManagerFactory;
 import com.liferay.faces.util.config.FacesConfig;
 
 

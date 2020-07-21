@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
 
 import javax.portlet.faces.annotation.BridgePreDestroy;
 
+import com.liferay.faces.bridge.bean.PreDestroyInvoker;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.bean.internal;
+package com.liferay.faces.bridge.bean;
 
 /**
  * This interface defines a contract for utility methods for beans that are managed by the JSF managed-bean facility.

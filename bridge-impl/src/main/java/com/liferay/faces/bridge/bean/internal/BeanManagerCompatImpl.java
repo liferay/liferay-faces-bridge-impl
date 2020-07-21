@@ -17,6 +17,8 @@ package com.liferay.faces.bridge.bean.internal;
 
 import javax.faces.bean.ManagedBean;
 
+import com.liferay.faces.bridge.bean.BeanManager;
+
 
 /**
  * This class provides a compatibility layer that isolates differences between JSF1 and JSF2.
