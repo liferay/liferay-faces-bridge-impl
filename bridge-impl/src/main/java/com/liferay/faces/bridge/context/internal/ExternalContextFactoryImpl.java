@@ -37,9 +37,17 @@ public class ExternalContextFactoryImpl extends ExternalContextFactory {
 
 	// Private Data Members
 	private ExternalContextFactory wrappedFactory;
+	private boolean wrappedFactoryLiferayFacesUtil = false;
 
 	public ExternalContextFactoryImpl(ExternalContextFactory externalContextFactory) {
 		this.wrappedFactory = externalContextFactory;
+
+		Class<? extends ExternalContextFactory> externalContextFactoryClass = externalContextFactory.getClass();
+		String externalContextFactoryClassName = externalContextFactoryClass.getName();
+
+		if (externalContextFactoryClassName.startsWith("com.liferay.faces.util")) {
+			wrappedFactoryLiferayFacesUtil = true;
+		}
 	}
 
 	@Override
@@ -55,7 +63,18 @@ public class ExternalContextFactoryImpl extends ExternalContextFactory {
 			PortletContext portletContext = (PortletContext) context;
 			PortletRequest portletRequest = (PortletRequest) request;
 			PortletResponse portletResponse = (PortletResponse) response;
-			ExternalContext externalContext = new ExternalContextImpl(portletContext, portletRequest, portletResponse);
+			ExternalContext externalContext = null;
+
+			if (wrappedFactoryLiferayFacesUtil) {
+				ExternalContext utilExternalContext = wrappedFactory.getExternalContext(portletContext, portletRequest,
+						portletResponse);
+				externalContext = new ExternalContextImpl(portletContext, portletRequest, portletResponse,
+						utilExternalContext);
+			}
+			else {
+				externalContext = new ExternalContextImpl(portletContext, portletRequest, portletResponse);
+			}
+
 			String resourceName = portletRequest.getParameter("javax.faces.resource");
 
 			// Workaround for FACES-2133
