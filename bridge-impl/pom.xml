@@ -42,6 +42,28 @@
 				<configuration>
 					<bnd>
 						<![CDATA[
+							# Consult individual package-info.java files to determine Export-Packages and versions.
+							-exportcontents: ${packages;VERSIONED}
+							Export-Package:\
+								com.liferay.faces.bridge.application.internal,\
+								com.liferay.faces.bridge.application.view.internal,\
+								com.liferay.faces.bridge.bean.internal,\
+								com.liferay.faces.bridge.client.internal,\
+								com.liferay.faces.bridge.component.behavior.internal,\
+								com.liferay.faces.bridge.component.html.internal,\
+								com.liferay.faces.bridge.component.inputfile.internal,\
+								com.liferay.faces.bridge.component.internal,\
+								com.liferay.faces.bridge.component.visit.internal,\
+								com.liferay.faces.bridge.context.internal,\
+								com.liferay.faces.bridge.context.map.internal,\
+								com.liferay.faces.bridge.el.internal,\
+								com.liferay.faces.bridge.event.internal,\
+								com.liferay.faces.bridge.filter.internal,\
+								com.liferay.faces.bridge.helper.internal,\
+								com.liferay.faces.bridge.i18n.internal,\
+								com.liferay.faces.bridge.internal,\
+								com.liferay.faces.bridge.renderkit.html_basic.internal,\
+								com.liferay.faces.bridge.scope.internal
 							# javax.el is automatically imported with the following versions:
 							# javax.el;version="[2.2.0,3.0.0)", but versions 3.0.0+ are also valid.
 							Import-Package: \
