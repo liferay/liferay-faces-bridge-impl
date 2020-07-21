@@ -108,7 +108,7 @@
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}</liferay.home>
-		<liferay.faces.alloy.version>3.0.2</liferay.faces.alloy.version>
+		<liferay.faces.alloy.version>4.1.0-SNAPSHOT</liferay.faces.alloy.version>
 		<liferay.faces.bridge.ext.version>8.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
 		<liferay.faces.showcase.version>4.0.0-SNAPSHOT</liferay.faces.showcase.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
