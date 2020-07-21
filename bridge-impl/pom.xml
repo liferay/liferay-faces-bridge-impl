@@ -80,6 +80,7 @@
 								com.liferay.faces.bridge.*;version="[5.0.0,6.0.0)",\
 								com.liferay.faces.portlet.*;version="[5.0.0,6.0.0)",\
 								javax.portlet.faces.*;version="[5.0.0,6.0.0)",\
+								org.icefaces.ace.component.fileentry.*;resolution:=optional,\
 								*
 							Require-Capability: osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"
 							Provide-Capability: \
