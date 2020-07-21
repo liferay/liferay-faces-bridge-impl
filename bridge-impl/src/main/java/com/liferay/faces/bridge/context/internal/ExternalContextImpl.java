@@ -119,12 +119,20 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	private StringWrapper requestPathInfo;
 	private String requestServletPath;
 	private Principal userPrincipal;
+	private ExternalContext utilExternalContext;
 	private String viewIdAndQueryString;
 
 	public ExternalContextImpl(PortletContext portletContext, PortletRequest portletRequest,
 		PortletResponse portletResponse) {
+		this(portletContext, portletRequest, portletResponse, null);
+	}
+
+	public ExternalContextImpl(PortletContext portletContext, PortletRequest portletRequest,
+		PortletResponse portletResponse, ExternalContext utilExternalContext) {
 
 		super(portletContext, portletRequest, portletResponse);
+
+		this.utilExternalContext = utilExternalContext;
 
 		this.contextMapFactory = (ContextMapFactory) BridgeFactoryFinder.getFactory(portletContext,
 				ContextMapFactory.class);
@@ -581,17 +589,42 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 	@Override
 	public URL getResource(String path) throws MalformedURLException {
-		return portletContext.getResource(path);
+
+		URL resource = portletContext.getResource(path);
+
+		if ((resource == null) && (utilExternalContext != null)) {
+			resource = utilExternalContext.getResource(path);
+		}
+
+		return resource;
 	}
 
 	@Override
 	public InputStream getResourceAsStream(String path) {
-		return portletContext.getResourceAsStream(path);
+
+		if (path == null) {
+			return null;
+		}
+
+		InputStream resourceAsStream = portletContext.getResourceAsStream(path);
+
+		if ((resourceAsStream == null) && (utilExternalContext != null)) {
+			resourceAsStream = utilExternalContext.getResourceAsStream(path);
+		}
+
+		return resourceAsStream;
 	}
 
 	@Override
 	public Set<String> getResourcePaths(String path) {
-		return portletContext.getResourcePaths(path);
+
+		Set<String> resourcePaths = portletContext.getResourcePaths(path);
+
+		if (((resourcePaths == null) || resourcePaths.isEmpty()) && (utilExternalContext != null)) {
+			resourcePaths = utilExternalContext.getResourcePaths(path);
+		}
+
+		return resourcePaths;
 	}
 
 	@Override
