@@ -15,14 +15,6 @@
 	<profiles>
 		<profile>
 			<id>liferay</id>
-			<properties>
-				<require.capability>
-					Require-Capability:\
-						osgi.extender;filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://java.sun.com/jsf/html))",\
-						osgi.extender;filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://java.sun.com/jsf/core))",\
-						osgi.extender;filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://liferay.com/faces/bridge))"
-				</require.capability>
-			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
@@ -31,6 +23,15 @@
 					<scope>${war.dependency.scope}</scope>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.require.capability>
+					Require-Capability:\
+						${osgi.require.capability.jsp}
+				</osgi.require.capability>
+			</properties>
 		</profile>
 	</profiles>
 

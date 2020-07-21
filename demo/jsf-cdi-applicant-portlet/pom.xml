@@ -15,16 +15,6 @@
 	<profiles>
 		<profile>
 			<id>liferay</id>
-			<properties>
-				<import.package>
-					Import-Package: \
-						${default.alloy.imported.packages}
-						${default.liferay.faces.imported.packages}
-						com.sun.faces,\
-						com.sun.faces.renderkit.html_basic,\
-						*
-				</import.package>
-			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
@@ -43,18 +33,45 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.dynamic.import.package>
+					DynamicImport-Package:\
+						${osgi.dynamic.import.package.liferay.faces.alloy},\
+						${osgi.dynamic.import.package.liferay.faces.bridge}
+				</osgi.dynamic.import.package>
+				<osgi.import.package>
+					Import-Package:\
+						${osgi.import.package.liferay.faces.alloy},\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+			</properties>
+		</profile>
+		<profile>
+			<id>tomcat</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.weld.servlet</groupId>
+					<artifactId>weld-servlet</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>weblogic</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.weld.servlet</groupId>
+					<artifactId>weld-servlet</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
 	</profiles>
 
-	<!--
 	<properties>
-		<filter.web.inf.properties>false</filter.web.inf.properties>
-		<faces.impl.scope>runtime</faces.impl.scope>
-		<skip.thin.war.setup>true</skip.thin.war.setup>
-		<war.dependency.scope>compile</war.dependency.scope>
 		<webapp.descriptor>web-${app.server.type}.xml</webapp.descriptor>
 	</properties>
-	-->
-	
+
 	<build>
 		<plugins>
 				<plugin>
@@ -110,8 +127,8 @@ com.sun.faces.flow.FlowDiscoveryCDIExtension
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<source>1.6</source>
-						<target>1.6</target>
+						<source>1.7</source>
+						<target>1.7</target>
 						<encoding>UTF-8</encoding>
 					</configuration>
 				</plugin>

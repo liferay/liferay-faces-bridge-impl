@@ -89,62 +89,188 @@
 		<bnd.version>4.1.0</bnd.version>
 		<cdi.version>1.2</cdi.version>
 		<component.namespace>none</component.namespace>
-		<default.liferay.faces.dynamic.import.package>
-            com.liferay.faces, \
-            com.liferay.faces.*, \
-            com.sun.faces, \
-            com.sun.faces.*, \
-            javax.faces, \
-            javax.faces.*, \
-            javax.portlet.faces, \
-            javax.portlet.faces.*
-		</default.liferay.faces.dynamic.import.package>
-		<!--
-			The optional imports are automatically added by Liferay but are not provided, they are not necessary
-			so mark them as optional to allow the portlet to deploy without them.
-		-->
-		<default.liferay.faces.import.package>
-			!com.liferay.faces.demos.*,\
-            com.liferay.faces.*, \
-            com.sun.faces, \
-            com.sun.faces.*, \
-            com.swabunga.spell;resolution:=optional, \
-            com.swabunga.spell.*;resolution:=optional, \
-            javax.annotation,\
-            javax.annotation.*,\
-            javax.faces, \
-            javax.faces.*, \
-            javax.portlet.faces, \
-            javax.portlet.faces.*, \
-            net.fortuna.ical4j;resolution:=optional, \
-            net.fortuna.ical4j.*;resolution:=optional, \
-            org.apache.axis.tools.ant;resolution:=optional, \
-            org.apache.axis.tools.ant.*;resolution:=optional, \
-            org.apache.poi;resolution:=optional, \
-            org.apache.poi.*;resolution:=optional, \
-            *
-		</default.liferay.faces.import.package>
-        <dynamic.import.package>
-            DynamicImport-Package: \
-                ${default.liferay.faces.dynamic.import.package}
-        </dynamic.import.package>
 		<faces.api.group.id>javax.faces</faces.api.group.id>
 		<faces.api.artifact.id>javax.faces-api</faces.api.artifact.id>
 		<faces.api.scope>provided</faces.api.scope>
 		<faces.api.version>${faces.spec.version}</faces.api.version>
 		<faces.impl.group.id>org.glassfish</faces.impl.group.id>
 		<faces.impl.artifact.id>javax.faces</faces.impl.artifact.id>
-		<faces.impl.scope>provided</faces.impl.scope>
+		<faces.impl.scope>runtime</faces.impl.scope>
+		<faces.servlet.container.initializer>com.sun.faces.config.FacesInitializer</faces.servlet.container.initializer>
 		<faces.spec.version>2.2</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
-		<filter.web.inf.properties>true</filter.web.inf.properties>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
 		<gdk.version>12.2.0-1-0</gdk.version>
 		<icefaces.version>4.3.0</icefaces.version>
-        <import.package>
-            Import-Package: \
-                ${default.liferay.faces.import.package}
-        </import.package>
+		<!-- Specifies the DynamicImport-Package directive for use with the "thin" Maven profile. -->
+		<osgi.dynamic.import.package></osgi.dynamic.import.package>
+		<!-- Ensures that the Liferay Faces Alloy component/renderer classes can be loaded dynamically via -->
+		<!-- Class.forName(String) -->
+		<osgi.dynamic.import.package.liferay.faces.alloy>
+			com.liferay.faces.alloy.*
+		</osgi.dynamic.import.package.liferay.faces.alloy>
+		<!-- Ensures that the ICEfaces component/renderer classes can be loaded dynamically via -->
+		<!-- Class.forName(String) -->
+		<osgi.dynamic.import.package.icefaces>
+			org.icefaces.*
+		</osgi.dynamic.import.package.icefaces>
+		<!-- Ensures that the Liferay Faces Bridge and JSF runtime (Mojarra) component/renderer classes can be -->
+		<!-- loadedu dynamically via Class.forName(String) -->
+		<osgi.dynamic.import.package.liferay.faces.bridge>
+			com.liferay.faces.bridge.*,\
+			com.liferay.faces.portlet.*,\
+			com.liferay.faces.util.*,\
+			com.sun.faces.*,\
+			javax.faces.*,\
+			javax.portlet.faces.*
+		</osgi.dynamic.import.package.liferay.faces.bridge>
+		<!-- Ensures that the PrimeFaces component/renderer classes can be loaded dynamically via -->
+		<!-- Class.forName(String) -->
+		<osgi.dynamic.import.package.primefaces>
+			org.primefaces.*
+		</osgi.dynamic.import.package.primefaces>
+		<!-- Specifies the Import-Package directive for use with the "thin" Maven profile. -->
+		<osgi.import.package></osgi.import.package>
+		<!-- Excludes unused ADF Faces transitive package dependencies so that a WAB can resolve. -->
+		<osgi.import.package.adf>
+			com.oracle.jrf.mt.tenant.*;resolution:=optional,\
+			com.sun.enterprise.config.serverbeans;resolution:=optional,\
+			com.sun.xml.fastinfoset.*;resolution:=optional,\
+			javax.enterprise.concurrent;resolution:=optional,\
+			oracle.adf.model;resolution:=optional,\
+			oracle.adf.share.http;resolution:=optional,\
+			oracle.core.ojdl.*;resolution:=optional,\
+			oracle.dms.context;resolution:=optional,\
+			oracle.dms.instrument.*;resolution:=optional,\
+			oracle.ide.net;resolution:=optional,\
+			oracle.javatools.annotations;resolution:=optional,\
+			oracle.jbo;resolution:=optional,\
+			oracle.jbo.common.*;resolution:=optional,\
+			oracle.jdbc.*;resolution:=optional,\
+			oracle.jdeveloper.java.*;resolution:=optional,\
+			oracle.jrf;resolution:=optional,\
+			oracle.jrf.i18n;resolution:=optional,\
+			oracle.jrf.wls;resolution:=optional,\
+			oracle.jsp.el;resolution:=optional,\
+			oracle.portlet.bridge.adf.lifecycle;resolution:=optional,\
+			oracle.sql;resolution:=optional,\
+			oracle.xdb;resolution:=optional,\
+			oracle.xml.schemavalidator;resolution:=optional,\
+			org.antlr.runtime.*;resolution:=optional,\
+			org.glassfish.hk2.*;resolution:=optional,\
+			org.glassfish.internal.api;resolution:=optional,\
+			org.jvnet.fastinfoset;resolution:=optional,\
+			weblogic.invocation;resolution:=optional,\
+			weblogic.server;resolution:=optional
+		</osgi.import.package.adf>
+		<!-- Excludes unused ButterFaces transitive package dependencies so that a WAB can resolve. -->
+		<osgi.import.package.butterfaces>
+			sun.reflect.*;resolution:=optional
+		</osgi.import.package.butterfaces>
+		<!-- Excludes unused Hibernate Validator transitive package dependencies so that a WAB can resolve. -->
+		<osgi.import.package.hibernate>
+			com.thoughtworks.paranamer;resolution:=optional,\
+			javafx.beans.*;resolution:=optional,\
+			javax.money;resolution:=optional,\
+			org.apache.logging.log4j.*;resolution:=optional,\
+			org.jboss.logmanager;resolution:=optional,\
+			org.joda.time;resolution:=optional
+		</osgi.import.package.hibernate>
+		<!-- Excludes unused ICEfaces transitive package dependencies so that a WAB can resolve. -->
+		<osgi.import.package.icefaces>
+			com.ibm.ws.portletcontainer;resolution:=optional,\
+			!com.liferay.portal.theme,\
+			!com.liferay.portal.util,\
+			com.lowagie.text.*;resolution:=optional,\
+			org.apache.myfaces.shared.config;resolution:=optional,\
+			org.apache.pluto.container;resolution:=optional,\
+			org.icepush.*;resolution:=optional
+		</osgi.import.package.icefaces>
+		<!-- Specifies that $LIFERAY_HOME/osgi/modules/com.liferay.faces.alloy.jar is required for a WAB to resolve, -->
+		<!-- and ensures that it will be included for scanning of descriptors like META-INF/faces-config.xml. -->
+		<osgi.import.package.liferay.faces.alloy>
+			com.liferay.faces.alloy
+		</osgi.import.package.liferay.faces.alloy>
+		<!-- Specifies that $LIFERAY_HOME/osgi/modules/com.liferay.faces.bridge.api.jar, -->
+		<!-- $LIFERAY_HOME/osgi/modules/com.liferay.faces.bridge.impl.jar, -->
+		<!-- $LIFERAY_HOME/osgi/modules/com.liferay.faces.bridge.ext.jar, -->
+		<!-- and javax.faces.jar (the JSF runtime) are required for a WAB to resolve, and ensures that each JAR -->
+		<!-- will be included for scanning of descriptors like META-INF/faces-config.xml. The optional imports are -->
+		<!-- unused transitive package dependencies. They are added automatically by the Liferay WAB generator at -->
+		<!-- deploy time, but must be marked as optional since they are not present in the runtime classpath. -->
+		<osgi.import.package.liferay.faces.bridge>
+			com.liferay.faces.bridge.ext,\
+			com.liferay.faces.bridge.impl,\
+			com.sun.faces,\
+			javax.annotation,\
+			javax.faces,\
+			javax.portlet.faces,\
+			net.fortuna.ical4j.*;resolution:=optional,\
+			org.apache.axis.tools.ant.*;resolution:=optional,\
+			org.apache.poi.*;resolution:=optional,\
+			*
+		</osgi.import.package.liferay.faces.bridge>
+		<!-- Specifies that $LIFERAY_HOME/osgi/modules/primefaces.jar is required for a WAB to resolve, and ensures -->
+		<!-- that it will be included for scanning of descriptors like META-INF/faces-config.xml. -->
+		<osgi.import.package.primefaces>
+			org.primefaces
+		</osgi.import.package.primefaces>
+		<!-- Excludes unused RichFaces transitive package dependencies so that a WAB can resolve. -->
+		<osgi.import.package.richfaces>
+			com.beust.jcommander;resolution:=optional,\
+			com.google.appengine.api;resolution:=optional,\
+			com.google.apphosting.api;resolution:=optional,\
+			com.opensymphony.oscache.*;resolution:=optional,\
+			com.yahoo.platform.yui.compressor;resolution:=optional,\
+			net.sf.ehcache.*;resolution:=optional,\
+			org.atmosphere.*;resolution:=optional,\
+			org.jboss.cache.*;resolution:=optional,\
+			org.jboss.el;resolution:=optional,\
+			org.mozilla.javascript;resolution:=optional,\
+			org.reflections.*;resolution:=optional
+		</osgi.import.package.richfaces>
+		<!-- Excludes unused Spring Framework transitive package dependencies so that a WAB can resolve. -->
+		<osgi.import.package.spring>
+			COM.newmonics.PercClassLoader.*;resolution:=optional,\
+			android.os.*;resolution:=optional,\
+			bsh.*;resolution:=optional,\
+			com.caucho.*;resolution:=optional,\
+			com.fasterxml.jackson.dataformat.xml;resolution:=optional,\
+			com.google.gson.*;resolution:=optional,\
+			com.google.protobuf.*;resolution:=optional,\
+			com.googlecode.protobuf.*;resolution:=optional,\
+			com.jamonapi.*;resolution:=optional,\
+			com.rometools.rome.*;resolution:=optional,\
+			com.squareup.okhttp.*;resolution:=optional,\
+			com.sun.net.httpserver;resolution:=optional,\
+			groovy.*;resolution:=optional,\
+			io.netty.*;resolution:=optional,\
+			javax.ejb.*;resolution:=optional,\
+			javax.enterprise.*;resolution:=optional,\
+			javax.money.*;resolution:=optional,\
+			joptsimple.*;resolution:=optional,\
+			jrockit.vm.*;resolution:=optional,\
+			org.apache.commons.pool.*;resolution:=optional,\
+			org.apache.commons.pool2.*;resolution:=optional,\
+			org.apache.http.*;resolution:=optional,\
+			org.aspectj.*;resolution:=optional,\
+			org.codehaus.groovy.*;resolution:=optional,\
+			org.hibernate.validator.*;resolution:=optional,\
+			org.joda.time.*;resolution:=optional,\
+			org.jruby.*;resolution:=optional,\
+			org.omg.CORBA.*;resolution:=optional,\
+			org.springframework.asm.util;resolution:=optional,\
+			org.springframework.instrument;resolution:=optional,\
+			org.yaml.snakeyaml.*;resolution:=optional,\
+			sun.reflect;resolution:=optional
+		</osgi.import.package.spring>
+		<osgi.require.capability></osgi.require.capability>
+		<!-- Specifies that JSP capabilities are required so that a WAB can resolve. -->
+		<osgi.require.capability.jsp>
+			osgi.extender;filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://java.sun.com/jsf/html))",\
+			osgi.extender;filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://java.sun.com/jsf/core))",\
+			osgi.extender;filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://liferay.com/faces/bridge))"
+		</osgi.require.capability.jsp>
 		<jstl.version>1.2</jstl.version>
 		<log4j.version>1.2.14</log4j.version>
 		<liferay.app.server.dir>${liferay.home}/tomcat-${liferay.tomcat.version}</liferay.app.server.dir>
@@ -184,13 +310,12 @@
 		<project.stage>Production</project.stage>
 		<richfaces.version>4.6.8.ayg</richfaces.version>
 		<selenium.version>2.53.0</selenium.version>
-		<skip.thin.war.setup>false</skip.thin.war.setup>
+		<skip.thin.war.setup>true</skip.thin.war.setup>
 		<spring.version>4.2.5.RELEASE</spring.version>
 		<surefire.version>2.12</surefire.version>
 		<tck.trinidad.version>2.0.1</tck.trinidad.version>
 		<use.jdk6.for.compile>false</use.jdk6.for.compile>
-		<filter.web.inf.properties>true</filter.web.inf.properties>
-		<war.dependency.scope>provided</war.dependency.scope>
+		<war.dependency.scope>compile</war.dependency.scope>
 		<war.packaging.excludes>
 			WEB-INF/glassfish-*.xml,
 			WEB-INF/ibm-*.xml,
@@ -241,7 +366,7 @@ com.liferay.faces.util.osgi.internal.FacesThinWabInitializer
 com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 </echo>
 									<echo
-                                        file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.AnnotationProvider"
+                                        file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.annotationprovider"
 >com.liferay.faces.util.osgi.mojarra.spi.internal.AnnotationProviderOSGiImpl
 </echo>
 									<echo
@@ -249,7 +374,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 >com.liferay.faces.util.osgi.mojarra.spi.internal.FaceletConfigResourceProviderOSGiImpl
 </echo>
 									<echo
-                                        file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.FacesConfigResourceProvider"
+										file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.FacesConfigResourceProvider"
 >com.liferay.faces.util.osgi.mojarra.spi.internal.FacesConfigResourceProviderOSGiImpl
 </echo>
 									<mkdir dir="${project.build.outputDirectory}/WEB-INF" />
@@ -331,7 +456,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 						<webResources>
 							<resource>
 								<directory>${basedir}/src/main/webapp/WEB-INF</directory>
-								<filtering>${filter.web.inf.properties}</filtering>
+								<filtering>true</filtering>
 								<targetPath>WEB-INF</targetPath>
 								<includes>
 									<include>**/*.properties</include>
@@ -478,14 +603,19 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			</dependencies>
 		</profile>
 		<profile>
-			<id>fatWar</id>
+			<id>thin</id>
 			<properties>
-				<faces.impl.scope>runtime</faces.impl.scope>
-				<filter.web.inf.properties>false</filter.web.inf.properties>
-				<skip.thin.war.setup>true</skip.thin.war.setup>
-				<war.dependency.scope>compile</war.dependency.scope>
-                <dynamic.import.package></dynamic.import.package>
-                <import.package></import.package>
+				<osgi.dynamic.import.package>
+					DynamicImport-Package: \
+						${osgi.dynamic.import.package.liferay.faces.bridge}
+				</osgi.dynamic.import.package>
+				<faces.impl.scope>provided</faces.impl.scope>
+				<osgi.import.package>
+					Import-Package: \
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+				<skip.thin.war.setup>false</skip.thin.war.setup>
+				<war.dependency.scope>provided</war.dependency.scope>
 			</properties>
 		</profile>
 		<profile>
@@ -618,7 +748,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<properties>
 				<faces.api.scope>provided</faces.api.scope>
 				<faces.impl.scope>runtime</faces.impl.scope>
-				<filter.web.inf.properties>false</filter.web.inf.properties>
 				<portal.type>pluto</portal.type>
 				<skip.thin.war.setup>true</skip.thin.war.setup>
 				<war.depedency.scope>compile</war.depedency.scope>
@@ -1103,6 +1232,20 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<artifactId>weld-servlet</artifactId>
 				<version>${weld.version}</version>
 				<scope>${war.dependency.scope}</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>osgi.annotation</artifactId>
+				<version>6.0.1</version>
+				<scope>provided</scope>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.core</artifactId>
+				<version>5.0.0</version>
+				<scope>provided</scope>
+				<optional>true</optional>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>

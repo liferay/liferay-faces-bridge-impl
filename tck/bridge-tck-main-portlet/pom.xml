@@ -80,9 +80,6 @@
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.core</artifactId>
-			<version>5.0.0</version>
-			<scope>provided</scope>
-			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
@@ -103,21 +100,9 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<import.package>
-					Import-Package: \
-						!org.apache.pluto.driver.*,\
-						${default.liferay.faces.import.package}
-				</import.package>
 				<integration.container>${portlet.container}</integration.container>
 				<portal.version.major>${liferay.version.major}</portal.version.major>
 				<portlet.container>liferay</portlet.container>
-				<!-- Test Page 019: chapter4_2_6Tests-getBridgeClassNameMethodTest-portlet -->
-				<require.capability>
-					Require-Capability: \
-						osgi.serviceloader;filter:="(osgi.serviceloader=javax.portlet.faces.Bridge)";\
-						cardinality:=multiple;resolution:=optional,\
-						osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)";resolution:=optional
-				</require.capability>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -166,6 +151,25 @@
 				<integration.container>${portlet.container}2</integration.container>
 				<portal.version.major>2</portal.version.major>
 				<tck.test.case.class>TckTestCase</tck.test.case.class>
+			</properties>
+		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<!-- The following Import-Package directive ensures that the bridge.tck.main.portlet module will -->
+				<!-- deploy correctly on Liferay, since the PlutoPortalDriverFilter is only required with Pluto. -->
+				<osgi.import.package>
+					Import-Package:\
+						org.apache.pluto.driver;resolution:=optional,\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+				<!-- Test Page 019: chapter4_2_6Tests-getBridgeClassNameMethodTest-portlet -->
+				<osgi.require.capability>
+					Require-Capability: \
+						osgi.serviceloader;filter:="(osgi.serviceloader=javax.portlet.faces.Bridge)";\
+						cardinality:=multiple;resolution:=optional,\
+						osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)";resolution:=optional
+				</osgi.require.capability>
 			</properties>
 		</profile>
 		<profile>

@@ -17,17 +17,6 @@
 			<id>liferay</id>
 			<properties>
 				<provide.bootstrap>false</provide.bootstrap>
-                <dynamic.import.package>
-                    DynamicImport-Package: \
-                        org.butterfaces.*, \
-                        ${default.liferay.faces.import.package}
-                </dynamic.import.package>
-				<import.package>
-					Import-Package: \
-                        org.butterfaces.*, \
-						sun.reflect.generics.reflectiveObjects.*;resolution:=optional,\
-						${default.liferay.faces.import.package}
-				</import.package>
 			</properties>
 			<dependencies>
 				<dependency>
@@ -48,6 +37,22 @@
 			</dependencies>
 			<properties>
 				<provide.bootstrap>true</provide.bootstrap>
+			</properties>
+		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.dynamic.import.package>
+					DynamicImport-Package:\
+						${osgi.dynamic.import.package.liferay.faces.alloy},\
+						${osgi.dynamic.import.package.liferay.faces.bridge}
+				</osgi.dynamic.import.package>
+				<osgi.import.package>
+					Import-Package:\
+						${osgi.import.package.butterfaces},\
+						${osgi.import.package.liferay.faces.alloy},\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
 			</properties>
 		</profile>
 	</profiles>
