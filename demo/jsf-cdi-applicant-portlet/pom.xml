@@ -85,11 +85,6 @@
 			<artifactId>com.liferay.faces.alloy</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces</groupId>
-			<artifactId>com.liferay.faces.cdi.osgi</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 		</dependency>
