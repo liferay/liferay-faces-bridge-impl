@@ -57,10 +57,6 @@
 			<id>liferay</id>
 			<properties>
 				<bridge.tck.portal>liferay</bridge.tck.portal>
-				<import.package>
-					Import-Package: \
-						${default.liferay.faces.import.package}
-				</import.package>
 			</properties>
 			<dependencies>
 				<dependency>

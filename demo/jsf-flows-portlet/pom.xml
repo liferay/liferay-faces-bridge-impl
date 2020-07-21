@@ -33,6 +33,39 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.dynamic.import.package>
+					DynamicImport-Package:\
+						${osgi.dynamic.import.package.liferay.faces.alloy},\
+						${osgi.dynamic.import.package.liferay.faces.bridge}
+				</osgi.dynamic.import.package>
+				<osgi.import.package>
+					Import-Package:\
+						${osgi.import.package.liferay.faces.alloy},\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+			</properties>
+		</profile>
+		<profile>
+			<id>tomcat</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.weld.servlet</groupId>
+					<artifactId>weld-servlet</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>weblogic</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.weld.servlet</groupId>
+					<artifactId>weld-servlet</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
 	</profiles>
 
 	<properties>

@@ -15,15 +15,6 @@
 	<profiles>
 		<profile>
 			<id>liferay</id>
-			<properties>
-				<import.package>
-					Import-Package: \
-						!org.xhtmlrenderer.test.*,\
-						!junit.*,\
-						com.apple.mrj.*;resolution:=optional,\
-						${default.liferay.faces.import.package}
-				</import.package>
-			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
@@ -32,6 +23,20 @@
 					<scope>${war.dependency.scope}</scope>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<!-- The following packages are imported by the PDF renderer for one reason or another, but are not -->
+				<!-- required for this portlet application to work correctly. -->
+				<osgi.import.package>
+					Import-Package:\
+						com.apple.mrj;resolution:=optional,\
+						junit.*;resolution:=optional,\
+						org.xhtmlrenderer.*;resolution:=optional,\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+			</properties>
 		</profile>
 	</profiles>
 

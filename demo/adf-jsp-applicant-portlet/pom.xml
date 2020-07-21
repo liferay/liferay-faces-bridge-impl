@@ -49,6 +49,20 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.import.package>
+					Import-Package:\
+						${osgi.import.package.adf},\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+				<osgi.require.capability>
+					Require-Capability:\
+						${osgi.require.capability.jsp}
+				</osgi.require.capability>
+			</properties>
+		</profile>
 	</profiles>
 
 	<dependencies>

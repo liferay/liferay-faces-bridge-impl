@@ -15,20 +15,6 @@
 	<profiles>
 		<profile>
 			<id>liferay</id>
-			<properties>
-				<dynamic.import.package>
-					DynamicImport-Package: \
-                        !org.primefaces.extensions.*,\
-						org.primefaces.*, \
-						${default.liferay.faces.dynamic.import.package}
-				</dynamic.import.package>
-				<import.package>
-					Import-Package: \
-                        !org.primefaces.extensions.*,\
-						org.primefaces.*, \
-						${default.liferay.faces.import.package}
-				</import.package>
-			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
@@ -46,6 +32,23 @@
 					<artifactId>com.liferay.faces.alloy.reslib</artifactId>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.dynamic.import.package>
+					DynamicImport-Package:\
+						${osgi.dynamic.import.package.primefaces},\
+						${osgi.dynamic.import.package.liferay.faces.alloy},\
+						${osgi.dynamic.import.package.liferay.faces.bridge}
+				</osgi.dynamic.import.package>
+				<osgi.import.package>
+					Import-Package:\
+						${osgi.import.package.primefaces},\
+						${osgi.import.package.liferay.faces.alloy},\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+			</properties>
 		</profile>
 	</profiles>
 

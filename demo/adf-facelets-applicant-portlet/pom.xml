@@ -49,6 +49,17 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.import.package>
+					Import-Package:\
+						${osgi.import.package.adf},\
+						${osgi.import.package.hibernate},\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+			</properties>
+		</profile>
 	</profiles>
 
 	<dependencies>
@@ -128,6 +139,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
