@@ -16,14 +16,6 @@
 	<profiles>
 		<profile>
 			<id>liferay</id>
-			<properties>
-				<import.package>
-					Import-Package: \
-						!com.liferay.faces.showcase,\
-						!com.liferay.faces.showcase.*,\
-						${default.liferay.faces.import.package}
-				</import.package>
-			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
@@ -62,6 +54,21 @@
 					<artifactId>com.liferay.faces.alloy.reslib</artifactId>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.dynamic.import.package>
+					DynamicImport-Package:\
+						${osgi.dynamic.import.package.liferay.faces.alloy},\
+						${osgi.dynamic.import.package.liferay.faces.bridge}
+				</osgi.dynamic.import.package>
+				<osgi.import.package>
+					Import-Package:\
+						${osgi.import.package.liferay.faces.alloy},\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+			</properties>
 		</profile>
 	</profiles>
 

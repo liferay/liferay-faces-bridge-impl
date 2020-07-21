@@ -16,11 +16,11 @@
 		<profile>
 			<id>liferay</id>
 			<properties>
-				<import.package>
+				<osgi.import.package>
 					Import-Package: \
 						!com.liferay.faces.issue.*,\
-						${default.liferay.faces.import.package}
-				</import.package>
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
 			</properties>
 			<dependencies>
 				<dependency>

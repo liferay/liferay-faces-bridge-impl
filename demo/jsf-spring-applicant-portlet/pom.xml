@@ -15,49 +15,6 @@
 	<profiles>
 		<profile>
 			<id>liferay</id>
-			<properties>
-				<import.package>
-					Import-Package: \
-						bsh.*;resolution:=optional,\
-						com.caucho.*;resolution:=optional,\
-						com.fasterxml.jackson.*;resolution:=optional,\
-						com.google.gson.*;resolution:=optional,\
-						com.google.protobuf.*;resolution:=optional,\
-						com.googlecode.protobuf.format.*;resolution:=optional,\
-						com.jamonapi.*;resolution:=optional,\
-						com.rometools.rome.*;resolution:=optional,\
-						com.squareup.okhttp.*;resolution:=optional,\
-						com.sun.net.httpserver.*;resolution:=optional,\
-						groovy.*;resolution:=optional,\
-						io.netty.bootstrap.*;resolution:=optional,\
-						io.netty.buffer.*;resolution:=optional,\
-						io.netty.channel.*;resolution:=optional,\
-						io.netty.handler.*;resolution:=optional,\
-						io.netty.util.*;resolution:=optional,\
-						javax.ejb.*;resolution:=optional,\
-						javax.enterprise.concurrent.*;resolution:=optional,\
-						javax.interceptor.*;resolution:=optional,\
-						javax.money.*;resolution:=optional,\
-						joptsimple.*;resolution:=optional,\
-						org.apache.commons.pool.*;resolution:=optional,\
-						org.apache.commons.pool2.*;resolution:=optional,\
-						org.apache.http.*;resolution:=optional,\
-						org.aspectj.*;resolution:=optional,\
-						org.codehaus.groovy.*;resolution:=optional,\
-						org.hibernate.validator.method.*;resolution:=optional,\
-						org.joda.time.*;resolution:=optional,\
-						org.jruby.*;resolution:=optional,\
-						org.springframework.instrument.*;resolution:=optional,\
-						org.yaml.snakeyaml.*;resolution:=optional,\
-						org.hibernate.validator.*;resolution:=optional,\
-                        COM.newmonics.PercClassLoader.*;resolution:=optional,\
-                        android.os.*;resolution:=optional,\
-                        jrockit.vm.*;resolution:=optional,\
-                        org.springframework.asm.util.*;resolution:=optional,\
-                        sun.reflect.*;resolution:=optional,\
-						${default.liferay.faces.import.package}
-				</import.package>
-			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
@@ -96,6 +53,22 @@
 					<artifactId>commons-io</artifactId>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.dynamic.import.package>
+					DynamicImport-Package:\
+						${osgi.dynamic.import.package.liferay.faces.alloy},\
+						${osgi.dynamic.import.package.liferay.faces.bridge}
+				</osgi.dynamic.import.package>
+				<osgi.import.package>
+					Import-Package:\
+						${osgi.import.package.spring},\
+						${osgi.import.package.liferay.faces.alloy},\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+			</properties>
 		</profile>
 	</profiles>
 

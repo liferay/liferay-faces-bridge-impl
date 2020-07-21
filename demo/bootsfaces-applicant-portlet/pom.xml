@@ -15,20 +15,6 @@
 	<profiles>
 		<profile>
 			<id>liferay</id>
-			<properties>
-                <dynamic.import.package>
-                    DynamicImport-Package: \
-                        net.bootsfaces.*, \
-                        ${default.liferay.faces.import.package}
-                </dynamic.import.package>
-				<exclude.bootstrap>true</exclude.bootstrap>
-				<exclude.fontawesome>true</exclude.fontawesome>
-				<import.package>
-					Import-Package: \
-                        net.bootsfaces.*, \
-						${default.liferay.faces.import.package}
-				</import.package>
-			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
@@ -54,6 +40,13 @@
 					<artifactId>commons-io</artifactId>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<exclude.bootstrap>true</exclude.bootstrap>
+				<exclude.fontawesome>true</exclude.fontawesome>
+			</properties>
 		</profile>
 	</profiles>
 

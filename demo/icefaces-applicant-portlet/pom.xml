@@ -15,25 +15,6 @@
 	<profiles>
 		<profile>
 			<id>liferay</id>
-			<properties>
-                <dynamic.import.package>
-                    DynamicImport-Package: \
-                        org.icefaces.*,\
-                        ${default.liferay.faces.dynamic.import.package}
-                </dynamic.import.package>
-				<import.package>
-					Import-Package: \
-                        org.icefaces.*,\
-						org.icepush.*;resolution:=optional,\
-                        com.liferay.portal.theme;resolution:=optional,\
-                        com.liferay.portal.util;resolution:=optional,\
-                        com.ibm.ws.*;resolution:=optional,\
-                        com.lowagie.text.*;resolution:=optional,\
-                        org.apache.myfaces.*;resolution:=optional,\
-                        org.apache.pluto.*;resolution:=optional,\
-						${default.liferay.faces.import.package}
-				</import.package>
-			</properties>
 			<dependencies>
 				<dependency>
 					<groupId>com.liferay.faces</groupId>
@@ -55,6 +36,23 @@
 					<artifactId>commons-logging</artifactId>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<osgi.dynamic.import.package>
+					DynamicImport-Package:\
+						${osgi.dynamic.import.package.icefaces},\
+						${osgi.dynamic.import.package.liferay.faces.alloy},\
+						${osgi.dynamic.import.package.liferay.faces.bridge}
+				</osgi.dynamic.import.package>
+				<osgi.import.package>
+					Import-Package:\
+						${osgi.import.package.icefaces},\
+						${osgi.import.package.liferay.faces.alloy},\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+			</properties>
 		</profile>
 	</profiles>
 
