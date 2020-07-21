@@ -46,6 +46,7 @@
 						${osgi.import.package.liferay.faces.alloy},\
 						${osgi.import.package.liferay.faces.bridge}
 				</osgi.import.package>
+				<webapp.descriptor>web-${app.server.type}-thin.xml</webapp.descriptor>
 			</properties>
 		</profile>
 		<profile>
