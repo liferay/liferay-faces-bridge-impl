@@ -155,14 +155,13 @@
 		<liferay.faces.alloy.version>4.1.0-SNAPSHOT</liferay.faces.alloy.version>
 		<liferay.faces.bridge.ext.version>7.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
 		<liferay.faces.showcase.version>3.1.0-SNAPSHOT</liferay.faces.showcase.version>
-		<liferay.faces.thin.wab.initializer>com.liferay.faces.bridge.ext.LiferayFacesThinWabInitializer</liferay.faces.thin.wab.initializer>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.jetty.version>8.1.10</liferay.jetty.version>
 		<liferay.platform>liferay-portal</liferay.platform>
 		<liferay.resin.version>4.0.33</liferay.resin.version>
 		<liferay.tomcat.version>8.0.30</liferay.tomcat.version>
-		<liferay.version>7.3.0-SNAPSHOT</liferay.version>
+		<liferay.version>7.3.x-SNAPSHOT</liferay.version>
 		<liferay.version.dtd>7.2</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.weblogic.version>12.2.1.2</liferay.weblogic.version>
@@ -453,9 +452,10 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			</properties>
 		</profile>
 		<profile>
-			<id>dxp</id>
+			<id>dxp72</id>
 			<properties>
 				<liferay.deploy.version>7.2.10.1-sp1</liferay.deploy.version>
+				<liferay.faces.alloy.version>3.1.0-SNAPSHOT</liferay.faces.alloy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
@@ -540,6 +540,13 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+		</profile>
+		<profile>
+			<id>liferay72</id>
+			<properties>
+				<liferay.deploy.version>7.2.1</liferay.deploy.version>
+				<liferay.faces.alloy.version>3.1.0-SNAPSHOT</liferay.faces.alloy.version>
+			</properties>
 		</profile>
 		<profile>
 			<id>liferay-portlet-war-redeploy</id>
@@ -1108,7 +1115,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>com.liferay.faces.test</groupId>
 				<artifactId>com.liferay.faces.test.selenium</artifactId>
-				<version>0.5.3</version>
+				<version>0.5.4</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
