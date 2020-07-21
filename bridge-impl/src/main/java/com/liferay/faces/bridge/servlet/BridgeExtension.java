@@ -38,6 +38,17 @@ import com.liferay.faces.util.logging.LoggerFactory;
 
 
 /**
+ * This class is a CDI {@link Extension} that registers {@link GenericFacesPortlet} as an @{@link ApplicationScoped}
+ * bean. This is necessary in order for a JSF portlet to be registered as a Portlet 3.0 "bean" portlet via CDI. An
+ * alternative approach would be to have a META-INF/beans.xml descriptor in the FacesBridge API jar. But this has at
+ * least three drawbacks: 1) From a Liferay perspective, when the FacesBridge API jar is deployed to
+ * $LIFERAY_HOME/osgi/modules, Liferay's CDI+OSGi integration can't find javax.faces.GenericFacesPortlet during
+ * classpath scanning. 2) If the FacesBridge is bundled in WEB-INF/lib, <a
+ * href="https://issues.liferay.com/browse/LPS-103984">LPS-103984</a> would prevent the META-INF/beans.xml descriptor
+ * from setting bean-discovery-mode="annotated". Because of this, bean-discover-mode="all" would be required, which
+ * means that all classes in the JAR would become CDI beans. 3) It would be highly irregular to have a
+ * META-INF/beans.xml descriptor in an API JAR.
+ *
  * @author  Neil Griffin
  * @author  Raymond Augé
  * @author  Shuyang Zhou
@@ -49,7 +60,7 @@ public class BridgeExtension implements Extension {
 	private static final Logger logger = LoggerFactory.getLogger(BridgeExtension.class);
 
 	private void beforeBeanDiscovery(@Observes BeforeBeanDiscovery beforeBeanDiscovery, BeanManager beanManager) {
-		beforeBeanDiscovery.addAnnotatedType(beanManager.createAnnotatedType(GenericFacesPortlet.class));
+		beforeBeanDiscovery.addAnnotatedType(beanManager.createAnnotatedType(GenericFacesPortlet.class), null);
 	}
 
 	private <T> void step2ProcessAnnotatedType(@Observes ProcessAnnotatedType<T> processAnnotatedType) {
