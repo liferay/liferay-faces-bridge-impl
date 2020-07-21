@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2020 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -145,7 +145,7 @@ public class ButterFacesApplicantPortletTester extends ApplicantTesterBase {
 		String dateCellXpath = "//div[contains(@class, 'datepicker-days')]//td[contains(text(), '14')]";
 		browserDriver.waitForElementEnabled(dateCellXpath);
 		browserDriver.clickElement(dateCellXpath);
-        browserDriver.waitForElementNotDisplayed(dateCellXpath);
+		browserDriver.waitForElementNotDisplayed(dateCellXpath);
 	}
 
 	private void assertFieldRequired(BrowserDriver browserDriver, WaitingAsserter waitingAsserter, String fieldXpath) {

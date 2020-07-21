@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2020 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
+import java.util.List;
+
 import org.junit.Assume;
 import org.junit.Before;
 
@@ -23,7 +25,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import com.liferay.faces.test.selenium.browser.TestUtil;
-import java.util.List;
 
 
 /**
@@ -139,7 +140,7 @@ public class BootsFacesApplicantPortletTester extends ApplicantTesterBase {
 		String dateCellXpath = "//div[contains(@class, 'datepicker-days')]//td[contains(text(), '14')]";
 		browserDriver.waitForElementEnabled(dateCellXpath);
 		browserDriver.clickElement(dateCellXpath);
-        browserDriver.waitForElementNotDisplayed(dateCellXpath);
+		browserDriver.waitForElementNotDisplayed(dateCellXpath);
 	}
 
 	@Override
