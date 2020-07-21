@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.bean.internal;
+package com.liferay.faces.bridge.bean;
 
 import javax.faces.FacesWrapper;
-import javax.portlet.PortletContext;
-import javax.servlet.ServletContext;
 
 
 /**
  * @author  Neil Griffin
  */
-public abstract class PreDestroyInvokerFactory implements FacesWrapper<PreDestroyInvokerFactory> {
+public abstract class BeanManagerWrapper implements BeanManager, FacesWrapper<BeanManager> {
 
-	public abstract PreDestroyInvoker getPreDestroyInvoker(ServletContext servletContext);
+	public abstract BeanManager getWrapped();
 
-	public abstract PreDestroyInvoker getPreDestroyInvoker(PortletContext portletContext);
+	public boolean isManagedBean(String name, Object value) {
+		return getWrapped().isManagedBean(name, value);
+	}
 }

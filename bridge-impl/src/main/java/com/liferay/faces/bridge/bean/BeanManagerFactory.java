@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.bean.internal;
+package com.liferay.faces.bridge.bean;
 
 import javax.faces.FacesWrapper;
+
+import com.liferay.faces.util.config.FacesConfig;
 
 
 /**
  * @author  Neil Griffin
  */
-public abstract class PreDestroyInvokerWrapper implements PreDestroyInvoker, FacesWrapper<PreDestroyInvoker> {
+public abstract class BeanManagerFactory implements FacesWrapper<BeanManagerFactory> {
 
-	public abstract PreDestroyInvoker getWrapped();
+	public abstract BeanManager getBeanManager(FacesConfig facesConfig);
 
-	@Override
-	public void invokeAnnotatedMethods(Object managedBean, boolean preferPreDestroy) {
-		getWrapped().invokeAnnotatedMethods(managedBean, preferPreDestroy);
-	}
 }

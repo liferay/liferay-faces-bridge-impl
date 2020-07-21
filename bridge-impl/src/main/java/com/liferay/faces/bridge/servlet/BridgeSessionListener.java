@@ -26,10 +26,10 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import com.liferay.faces.bridge.bean.internal.BeanManager;
-import com.liferay.faces.bridge.bean.internal.BeanManagerFactory;
-import com.liferay.faces.bridge.bean.internal.PreDestroyInvoker;
-import com.liferay.faces.bridge.bean.internal.PreDestroyInvokerFactory;
+import com.liferay.faces.bridge.bean.BeanManager;
+import com.liferay.faces.bridge.bean.BeanManagerFactory;
+import com.liferay.faces.bridge.bean.PreDestroyInvoker;
+import com.liferay.faces.bridge.bean.PreDestroyInvokerFactory;
 import com.liferay.faces.bridge.context.internal.PortletContextAdapter;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManager;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerFactory;
