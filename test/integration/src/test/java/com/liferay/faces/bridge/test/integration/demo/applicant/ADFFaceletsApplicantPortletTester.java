@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2020 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,14 +24,14 @@ public class ADFFaceletsApplicantPortletTester extends ApplicantTesterBase {
 		return "//form[contains(@id, 'confirmation')]";
 	}
 
-	protected String getFieldErrorXpath(String fieldXpath) {
-		return fieldXpath +
-			"/../../../../../../../tr[2]/td/div/div/table[contains(@class, 'af_message_container')]/tbody/tr[1]/td[2]";
-	}
-
 	protected String getDateFieldErrorXpath(String fieldXpath) {
 		return fieldXpath +
 			"/../../../../../../../../tr[2]/td/div/div/table[contains(@class, 'af_message_container')]/tbody/tr[1]/td[2]";
+	}
+
+	protected String getFieldErrorXpath(String fieldXpath) {
+		return fieldXpath +
+			"/../../../../../../../tr[2]/td/div/div/table[contains(@class, 'af_message_container')]/tbody/tr[1]/td[2]";
 	}
 
 	protected String getInvalidDateFormatMessage() {
