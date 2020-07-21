@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2019 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2020 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -141,35 +141,6 @@ public final class BridgePortletResponseFactoryFACES_3404Impl extends BridgePort
 		return wrappedBridgePortletResponseFactory;
 	}
 
-	private static final class InvocationHandlerURL_FACES_3404Impl<T extends BaseURL> implements InvocationHandler {
-
-		// Private Final Data Members
-		private final T wrappedURL;
-		private final String parameterValueWithCharactersThatMustBeEncoded;
-
-		public InvocationHandlerURL_FACES_3404Impl(T wrappedURL, String parameterValueWithCharactersThatMustBeEncoded) {
-			this.wrappedURL = wrappedURL;
-			this.parameterValueWithCharactersThatMustBeEncoded = parameterValueWithCharactersThatMustBeEncoded;
-		}
-
-		@Override
-		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
-			if ("toString".equals(method.getName()) && (args == null)) {
-
-				String urlString = (String) method.invoke(wrappedURL, args);
-				String encodedParameterValueWithCharactersThatMustBeEncoded = URLEncoder.encode(
-						parameterValueWithCharactersThatMustBeEncoded, "UTF-8");
-
-				return urlString.replace(Long.toString(Long.MAX_VALUE),
-						encodedParameterValueWithCharactersThatMustBeEncoded);
-			}
-			else {
-				return method.invoke(wrappedURL, args);
-			}
-		}
-	}
-
 	private static final class HeaderResponseFACES_3404Impl extends HeaderResponseWrapper {
 
 		// Private Constants
@@ -204,6 +175,35 @@ public final class BridgePortletResponseFactoryFACES_3404Impl extends BridgePort
 			ResourceURL resourceURL = super.createResourceURL();
 
 			return newURLProxy(resourceURL, ResourceURL.class, parameterValueWithCharactersThatMustBeEncoded);
+		}
+	}
+
+	private static final class InvocationHandlerURL_FACES_3404Impl<T extends BaseURL> implements InvocationHandler {
+
+		// Private Final Data Members
+		private final T wrappedURL;
+		private final String parameterValueWithCharactersThatMustBeEncoded;
+
+		public InvocationHandlerURL_FACES_3404Impl(T wrappedURL, String parameterValueWithCharactersThatMustBeEncoded) {
+			this.wrappedURL = wrappedURL;
+			this.parameterValueWithCharactersThatMustBeEncoded = parameterValueWithCharactersThatMustBeEncoded;
+		}
+
+		@Override
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+
+			if ("toString".equals(method.getName()) && (args == null)) {
+
+				String urlString = (String) method.invoke(wrappedURL, args);
+				String encodedParameterValueWithCharactersThatMustBeEncoded = URLEncoder.encode(
+						parameterValueWithCharactersThatMustBeEncoded, "UTF-8");
+
+				return urlString.replace(Long.toString(Long.MAX_VALUE),
+						encodedParameterValueWithCharactersThatMustBeEncoded);
+			}
+			else {
+				return method.invoke(wrappedURL, args);
+			}
 		}
 	}
 
