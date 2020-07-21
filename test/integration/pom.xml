@@ -16,6 +16,7 @@
 
 	<properties>
 		<maven.test.skip>true</maven.test.skip>
+		<cdi.library.name>Weld</cdi.library.name>
 		<faces.impl.name>Mojarra</faces.impl.name>
 		<integration.alloy.showcase.context>/web/guest/alloy-showcase/-/alloy-tag</integration.alloy.showcase.context>
 		<integration.container>liferay</integration.container>
@@ -131,6 +132,7 @@
 									<systemPropertyVariables>
 										<RUNNING_WITH_MAVEN>true</RUNNING_WITH_MAVEN>
 										<!-- Specify a property like so: -Dintegration.browser.name=phantomjs -->
+										<cdi.library.name>${cdi.library.name}</cdi.library.name>
 										<faces.impl.name>${faces.impl.name}</faces.impl.name>
 										<integration.browser.name>${integration.browser.name}</integration.browser.name>
 										<integration.browser.headless>${integration.browser.headless}</integration.browser.headless>
@@ -360,6 +362,12 @@
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<cdi.library.name>JCDI</cdi.library.name>
+			</properties>
 		</profile>
 		<profile>
 			<id>weblogic</id>

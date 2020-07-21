@@ -57,7 +57,9 @@ public class JSFFlowsPortletTester extends BrowserDriverManagingTesterBase {
 			assertLibraryElementDisplayed(waitingAsserter, "Liferay Faces Bridge Ext", browserDriver);
 		}
 
-		assertLibraryElementDisplayed(waitingAsserter, "CDI", browserDriver);
+		String cdiLibraryName = System.getProperty("cdi.library.name");
+
+		assertLibraryElementDisplayed(waitingAsserter, cdiLibraryName, browserDriver);
 
 		// Test that exiting the bookings flow scope causes beans to go out of scope.
 		String enterBookingFlowButtonXpath = "//input[@value='Enter Booking Flow']";

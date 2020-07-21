@@ -55,6 +55,7 @@
 						${osgi.import.package.liferay.faces.alloy},\
 						${osgi.import.package.liferay.faces.bridge}
 				</osgi.import.package>
+				<webapp.descriptor>web-${app.server.type}-thin.xml</webapp.descriptor>
 			</properties>
 		</profile>
 		<profile>
@@ -83,55 +84,55 @@
 
 	<build>
 		<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.7</version>
-					<executions>
-						<execution>
-							<id>thin-cdi-war-setup</id>
-							<phase>prepare-package</phase>
-							<goals>
-								<goal>run</goal>
-							</goals>
-							<configuration>
-								<skip>${skip.thin.war.setup}</skip>
-								<target>
-									<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
-									<echo
-                                        file="${project.build.outputDirectory}/META-INF/services/javax.enterprise.inject.spi.Extension"
->com.liferay.faces.bridge.servlet.BridgeExtension                                                                                                                                     
-com.liferay.faces.util.servlet.internal.UtilExtension                                                                                                                                
-com.sun.faces.application.view.ViewScopeExtension                                                                                                                                    
-com.sun.faces.flow.FlowCDIExtension                                                                                                                                                  
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>thin-cdi-war-setup</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<skip>${skip.thin.war.setup}</skip>
+							<target>
+								<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
+								<echo
+									file="${project.build.outputDirectory}/META-INF/services/javax.enterprise.inject.spi.Extension"
+>com.liferay.faces.bridge.servlet.BridgeExtension
+com.liferay.faces.util.servlet.internal.UtilExtension
+com.sun.faces.application.view.ViewScopeExtension
+com.sun.faces.flow.FlowCDIExtension
 com.sun.faces.flow.FlowDiscoveryCDIExtension
 </echo>
-									<mkdir dir="${project.build.outputDirectory}/WEB-INF" />
-								</target>
-							</configuration>
-						</execution>
-					</executions>
-					<dependencies>
-						<dependency>
-							<groupId>ant-contrib</groupId>
-							<artifactId>ant-contrib</artifactId>
-							<version>1.0b3</version>
-							<scope>runtime</scope>
-							<exclusions>
-								<exclusion>
-									<groupId>ant</groupId>
-									<artifactId>ant</artifactId>
-								</exclusion>
-							</exclusions>
-						</dependency>
-						<dependency>
-							<groupId>org.apache.ant</groupId>
-							<artifactId>ant-nodeps</artifactId>
-							<version>1.8.1</version>
-							<scope>runtime</scope>
-						</dependency>
-					</dependencies>
-				</plugin>
+								<mkdir dir="${project.build.outputDirectory}/WEB-INF" />
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>ant-contrib</groupId>
+						<artifactId>ant-contrib</artifactId>
+						<version>1.0b3</version>
+						<scope>runtime</scope>
+						<exclusions>
+							<exclusion>
+								<groupId>ant</groupId>
+								<artifactId>ant</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant-nodeps</artifactId>
+						<version>1.8.1</version>
+						<scope>runtime</scope>
+					</dependency>
+				</dependencies>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
