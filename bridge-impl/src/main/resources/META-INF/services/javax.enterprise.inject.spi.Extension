@@ -1,1 +1,1 @@
-com.liferay.faces.bridge.cdi.internal.BridgePortableExtension
+com.liferay.faces.bridge.servlet.BridgeExtension
