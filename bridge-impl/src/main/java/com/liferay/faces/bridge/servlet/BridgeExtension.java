@@ -23,6 +23,7 @@ import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.AfterBeanDiscovery;
 import javax.enterprise.inject.spi.AnnotatedConstructor;
 import javax.enterprise.inject.spi.AnnotatedField;
 import javax.enterprise.inject.spi.AnnotatedMethod;
@@ -32,7 +33,9 @@ import javax.enterprise.inject.spi.BeforeBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
 import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import javax.portlet.faces.GenericFacesPortlet;
+import javax.portlet.faces.annotation.BridgeRequestScoped;
 
+import com.liferay.faces.bridge.cdi.internal.BridgeRequestBeanContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -60,7 +63,12 @@ public class BridgeExtension implements Extension {
 	private static final Logger logger = LoggerFactory.getLogger(BridgeExtension.class);
 
 	private void beforeBeanDiscovery(@Observes BeforeBeanDiscovery beforeBeanDiscovery, BeanManager beanManager) {
+		beforeBeanDiscovery.addScope(BridgeRequestScoped.class, true, false);
 		beforeBeanDiscovery.addAnnotatedType(beanManager.createAnnotatedType(GenericFacesPortlet.class), null);
+	}
+
+	public void step2AfterBeanDiscovery(@Observes AfterBeanDiscovery afterBeanDiscovery) {
+		afterBeanDiscovery.addContext(new BridgeRequestBeanContext());
 	}
 
 	private <T> void step2ProcessAnnotatedType(@Observes ProcessAnnotatedType<T> processAnnotatedType) {
