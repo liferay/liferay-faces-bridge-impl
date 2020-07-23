@@ -789,7 +789,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<faces.impl.scope>runtime</faces.impl.scope>
 				<portal.type>pluto</portal.type>
 				<skip.thin.war.setup>true</skip.thin.war.setup>
-				<war.depedency.scope>compile</war.depedency.scope>
+				<war.dependency.scope>compile</war.dependency.scope>
 				<war.packaging.excludes>
 					WEB-INF/glassfish-*.xml,
 					WEB-INF/ibm-*.xml,
