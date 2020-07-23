@@ -753,7 +753,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>pluto</id>
 			<properties>
 				<faces.api.scope>provided</faces.api.scope>
-				<faces.impl.scope>runtime</faces.impl.scope>
+				<faces.impl.scope>provided</faces.impl.scope>
 				<portal.type>pluto</portal.type>
 				<skip.thin.war.setup>true</skip.thin.war.setup>
 				<war.dependency.scope>compile</war.dependency.scope>
