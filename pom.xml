@@ -549,7 +549,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>activate-portlet-war</id>
 			<activation>
 				<file>
-					<exists>src/main/webapp/WEB-INF/portlet.xml</exists>
+					<exists>src/main/webapp/WEB-INF/liferay-plugin-package.properties</exists>
 				</file>
 			</activation>
 			<build>
