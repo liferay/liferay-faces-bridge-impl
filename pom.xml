@@ -209,6 +209,7 @@
 			net.fortuna.ical4j.*;resolution:=optional,\
 			org.apache.axis.tools.ant.*;resolution:=optional,\
 			org.apache.poi.*;resolution:=optional,\
+			com.swabunga.spell.*;resolution:=optional,\
 			*
 		</osgi.import.package.liferay.faces.bridge>
 		<!-- Specifies that $LIFERAY_HOME/osgi/modules/primefaces.jar is required for a WAB to resolve, and ensures -->
