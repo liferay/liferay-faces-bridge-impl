@@ -89,7 +89,7 @@ public class JSFFlowsPortletTester extends BrowserDriverManagingTesterBase {
 		String searchFlightsButtonXpath = "//input[@value='Search Flights']";
 		browserDriver.clickElement(searchFlightsButtonXpath);
 
-		String addToCartButtonXpath = "(//input[@value='Add To Cart'])[1]";
+		String addToCartButtonXpath = "(//input[@value='Add to Cart'])[1]";
 		waitingAsserter.assertElementDisplayed(addToCartButtonXpath);
 
 		// Test that a flight can be added to the cart.
