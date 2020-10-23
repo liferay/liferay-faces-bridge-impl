@@ -100,11 +100,13 @@ public class LiferayTckTestCase extends TckTestCase {
 			String testName = getTestName();
 			useSpecialLiferayWindowState = !pageName.startsWith("jsr_329_testpage") &&
 				!(testName.equals("resourcesRenderedInHeadTest") || testName.equals("lifecycleTest") ||
+					testName.equals("encodeActionURLJSFViewResourceTest") ||
 					testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest") ||
 					testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest") ||
 					testName.equals("encodeActionURLWithInvalidWindowStateActionTest") ||
 					testName.equals("encodeActionURLWithInvalidWindowStateEventTest") ||
 					testName.equals("encodeActionURLWithInvalidWindowStateRenderTest") ||
+					testName.equals("encodePartialActionURLTest") ||
 					testName.equals("encodeResourceURLWithWindowStateTest"));
 		}
 
