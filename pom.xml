@@ -280,7 +280,7 @@
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}</liferay.home>
-		<liferay.faces.alloy.version>4.1.0-SNAPSHOT</liferay.faces.alloy.version>
+		<liferay.faces.alloy.version>4.1.0</liferay.faces.alloy.version>
 		<liferay.faces.bridge.ext.version>7.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
 		<liferay.faces.showcase.version>3.1.0</liferay.faces.showcase.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
@@ -586,7 +586,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>dxp72</id>
 			<properties>
 				<liferay.deploy.version>7.2.10.1-sp1</liferay.deploy.version>
-				<liferay.faces.alloy.version>3.1.0-SNAPSHOT</liferay.faces.alloy.version>
+				<liferay.faces.alloy.version>3.1.0</liferay.faces.alloy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
@@ -682,7 +682,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>liferay72</id>
 			<properties>
 				<liferay.deploy.version>7.2.1</liferay.deploy.version>
-				<liferay.faces.alloy.version>3.1.0-SNAPSHOT</liferay.faces.alloy.version>
+				<liferay.faces.alloy.version>3.1.0</liferay.faces.alloy.version>
 			</properties>
 		</profile>
 		<profile>
