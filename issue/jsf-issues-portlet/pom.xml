@@ -19,6 +19,19 @@
 				<osgi.import.package>
 					Import-Package: \
 						!com.liferay.faces.issue.*,\
+						com.sun.enterprise;resolution:=optional,\
+						com.sun.enterprise.deployment;resolution:=optional,\
+						groovy.lang;resolution:=optional,\
+						groovy.util;resolution:=optional,\
+						javax.ejb;resolution:=optional,\
+						javax.enterprise.*;resolution:=optional,\
+						javax.inject;resolution:=optional,\
+						org.apache;resolution:=optional,\
+						org.apache.bsf;resolution:=optional,\
+						org.apache.jasper.compiler;resolution:=optional,\
+						org.apache.portals.bridges.*;resolution:=optional,\
+						org.icefaces.ace.component.fileentry;resolution:=optional,\
+						org.mortbay.jetty.*;resolution:=optional,\
 						${osgi.import.package.liferay.faces.bridge}
 				</osgi.import.package>
 			</properties>

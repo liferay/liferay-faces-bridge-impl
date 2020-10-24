@@ -25,8 +25,28 @@
 					Import-Package: \
 						!com.liferay.faces.issue.*,\
                         org.primefaces.mobile.*;resolution:=optional,\
-						${osgi.dynamic.import.package.primefaces},\
-                        com.lowagie.text.*;resolution:=optional,\
+						${osgi.import.package.primefaces},\
+						com.google.i18n.*;resolution:=optional,\
+						com.google.zxing.*;resolution:=optional,\
+						com.hazelcast.*;resolution:=optional,\
+						com.lowagie.text.*;resolution:=optional,\
+						com.rometools.rome.*;resolution:=optional,\
+						com.sun.enterprise;resolution:=optional,\
+						com.sun.enterprise.deployment;resolution:=optional,\
+						groovy.lang;resolution:=optional,\
+						groovy.util;resolution:=optional,\
+						javax.ejb;resolution:=optional,\
+						javax.faces.component.search;resolution:=optional,\
+						net.glxn.qrgen.*;resolution:=optional,\
+						net.sf.ehcache;resolution:=optional,\
+						org.apache;resolution:=optional,\
+						org.apache.jasper.compiler;resolution:=optional,\
+						org.apache.xmlbeans.*;resolution:=optional,\
+						org.ehcache.*;resolution:=optional,\
+						org.icefaces.ace.component.fileentry;resolution:=optional,\
+						org.krysalis.barcode4j.*;resolution:=optional,\
+						org.mortbay.jetty.*;resolution:=optional,\
+						org.owasp.html;resolution:=optional,\
 						${osgi.import.package.liferay.faces.bridge}
 				</osgi.import.package>
 			</properties>
