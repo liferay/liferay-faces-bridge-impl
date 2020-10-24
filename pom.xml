@@ -279,7 +279,7 @@
 		<liferay.auto.deploy.dir>${liferay.home}/deploy</liferay.auto.deploy.dir>
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
-		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}</liferay.home>
+		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}-${thick.or.thin}</liferay.home>
 		<liferay.faces.alloy.version>4.1.0</liferay.faces.alloy.version>
 		<liferay.faces.bridge.ext.version>7.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
 		<liferay.faces.showcase.version>3.1.0</liferay.faces.showcase.version>
@@ -315,6 +315,7 @@
 		<skip.thin.war.setup>true</skip.thin.war.setup>
 		<spring.version>4.2.5.RELEASE</spring.version>
 		<surefire.version>2.12</surefire.version>
+		<thick.or.thin>thick</thick.or.thin>
 		<tck.trinidad.version>2.0.1</tck.trinidad.version>
 		<use.jdk6.for.compile>false</use.jdk6.for.compile>
 		<war.dependency.scope>compile</war.dependency.scope>
@@ -629,6 +630,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 						${osgi.import.package.liferay.faces.bridge}
 				</osgi.import.package>
 				<skip.thin.war.setup>false</skip.thin.war.setup>
+				<thick.or.thin>thin</thick.or.thin>
 				<war.dependency.scope>provided</war.dependency.scope>
 			</properties>
 		</profile>
