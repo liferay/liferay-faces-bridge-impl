@@ -593,7 +593,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 		<profile>
 			<id>dxp71</id>
 			<properties>
-				<liferay.deploy.version>7.1.10.3-sp3</liferay.deploy.version>
+				<liferay.deploy.version>7.1.10.4-sp4</liferay.deploy.version>
 				<liferay.faces.alloy.version>3.1.0</liferay.faces.alloy.version>
 				<liferay.faces.bridge.ext.version>5.1.0</liferay.faces.bridge.ext.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
