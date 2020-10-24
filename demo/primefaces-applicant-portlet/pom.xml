@@ -69,7 +69,7 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>${primefaces.version}</version>
-			<scope>${war.dependency.scope}</scope>
+			<scope>${war.dependency.scope.primefaces}</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces</groupId>

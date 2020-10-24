@@ -319,6 +319,9 @@
 		<tck.trinidad.version>2.0.1</tck.trinidad.version>
 		<use.jdk6.for.compile>false</use.jdk6.for.compile>
 		<war.dependency.scope>compile</war.dependency.scope>
+		<war.dependency.scope.commons.logging>${war.dependency.scope}</war.dependency.scope.commons.logging>
+		<war.dependency.scope.jstl>${war.dependency.scope}</war.dependency.scope.jstl>
+		<war.dependency.scope.primefaces>${war.dependency.scope}</war.dependency.scope.primefaces>
 		<war.packaging.excludes>
 			WEB-INF/glassfish-*.xml,
 			WEB-INF/ibm-*.xml,
@@ -767,6 +770,9 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<portal.type>pluto</portal.type>
 				<skip.thin.war.setup>true</skip.thin.war.setup>
 				<war.dependency.scope>provided</war.dependency.scope>
+				<war.dependency.scope.commons.logging>compile</war.dependency.scope.commons.logging>
+				<war.dependency.scope.jstl>compile</war.dependency.scope.jstl>
+				<war.dependency.scope.primefaces>compile</war.dependency.scope.primefaces>
 				<war.packaging.excludes>
 					WEB-INF/glassfish-*.xml,
 					WEB-INF/ibm-*.xml,
@@ -1085,7 +1091,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<groupId>commons-logging</groupId>
 				<artifactId>commons-logging</artifactId>
 				<version>1.1.1</version>
-				<scope>${war.dependency.scope}</scope>
+				<scope>${war.dependency.scope.commons.logging}</scope>
 			</dependency>
 			<dependency>
 				<groupId>javax.annotation</groupId>
@@ -1174,7 +1180,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<groupId>org.glassfish.web</groupId>
 				<artifactId>jstl-impl</artifactId>
 				<version>${jstl.version}</version>
-				<scope>${war.dependency.scope}</scope>
+				<scope>${war.dependency.scope.jstl}</scope>
 				<exclusions>
 				    <exclusion>
 				        <groupId>javax.servlet</groupId>
