@@ -65,6 +65,13 @@
 				</osgi.dynamic.import.package>
 				<osgi.import.package>
 					Import-Package:\
+						com.thoughtworks.paranamer;resolution:=optional,\
+						javafx.beans.*;resolution:=optional,\
+						javax.money;resolution:=optional,\
+						org.apache.logging.log4j.*;resolution:=optional,\
+						org.jboss.logmanager;resolution:=optional,\
+						org.joda.time;resolution:=optional,\
+						org.jsoup.*;resolution:=optional,\
 						${osgi.import.package.liferay.faces.alloy},\
 						${osgi.import.package.liferay.faces.bridge}
 				</osgi.import.package>
