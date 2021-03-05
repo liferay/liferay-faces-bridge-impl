@@ -215,5 +215,15 @@ public class UploadedFileBridgeImpl implements Serializable, UploadedFile {
 		public int read() throws IOException {
 			return wrappedInputStream.read();
 		}
+
+		@Override
+		public int read(byte[] b) throws IOException {
+			return wrappedInputStream.read(b);
+		}
+
+		@Override
+		public int read(byte[] b, int off, int len) throws IOException {
+			return wrappedInputStream.read(b, off, len);
+		}
 	}
 }
