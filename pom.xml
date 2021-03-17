@@ -116,7 +116,7 @@
 			org.icefaces.*
 		</osgi.dynamic.import.package.icefaces>
 		<!-- Ensures that the Liferay Faces Bridge and JSF runtime (Mojarra) component/renderer classes can be -->
-		<!-- loadedu dynamically via Class.forName(String) -->
+		<!-- loaded dynamically via Class.forName(String) -->
 		<osgi.dynamic.import.package.liferay.faces.bridge>
 			com.liferay.faces.bridge.*,\
 			com.liferay.faces.portlet.*,\
