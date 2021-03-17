@@ -110,7 +110,7 @@ public class ApplicantBacking {
 		try {
 
 			// Since the PrimeFaces UploadedFile interface does not provide a method for deleting the file, Liferay
-			// Faces Bridge automatically deletes it when the uploadedFile.getContents() method is called.
+			// Faces Bridge automatically deletes it when the uploadedFile.getContent() method is called.
 			writeFile(uploadedFile.getContent(), copiedFile);
 
 			logger.debug("Received fileName=[{0}] absolutePath=[{1}]", copiedFile.getName(),
