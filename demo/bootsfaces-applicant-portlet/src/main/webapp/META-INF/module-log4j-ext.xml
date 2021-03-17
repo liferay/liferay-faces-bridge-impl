@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<category name="com.liferay.faces.util.osgi.internal.FacesBundleUtil">
+		<priority value="DEBUG" />
+	</category>
+	<category name="com.liferay.faces.demos.applicant.bootsfaces.facelets.mbf">
+		<priority value="DEBUG" />
+	</category>
+</log4j:configuration>
