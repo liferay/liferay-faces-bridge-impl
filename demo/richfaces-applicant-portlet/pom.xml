@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.liferay.faces.demo</groupId>
 		<artifactId>com.liferay.faces.demo.bridge.parent</artifactId>
-		<version>4.2.1</version>
+		<version>4.2.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>com.liferay.faces.demo.richfaces.applicant.portlet</artifactId>
