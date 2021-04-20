@@ -68,6 +68,7 @@
 										<echo
 											file="${project.build.outputDirectory}/META-INF/services/javax.enterprise.inject.spi.Extension"
 >com.liferay.faces.bridge.servlet.BridgeExtension
+com.liferay.faces.bridge.servlet.BridgeRequestScopeExtension
 com.liferay.faces.util.servlet.internal.UtilExtension
 com.sun.faces.application.view.ViewScopeExtension
 com.sun.faces.flow.FlowCDIExtension
