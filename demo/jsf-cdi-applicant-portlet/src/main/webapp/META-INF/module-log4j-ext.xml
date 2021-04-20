@@ -8,4 +8,7 @@
 	<category name="com.liferay.faces.demos.applicant.jsf.facelets.cdi">
 		<priority value="DEBUG" />
 	</category>
+	<category name="com.liferay.faces.bridge.servlet.BridgeRequestScopeExtension">
+		<priority value="INFO" />
+	</category>
 </log4j:configuration>
