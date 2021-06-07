@@ -850,6 +850,11 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
+		<portlet-name>chapter6_1_3_6Tests-clientWindowTest-portlet</portlet-name>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
+	</portlet>
+	<portlet>
 		<portlet-name>chapter6_2_1Tests-isPortletNamingContainerTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
