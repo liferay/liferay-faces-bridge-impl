@@ -1056,6 +1056,9 @@ limitations under the License.
 		<page name="TestPage224" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_9Tests-usesConfiguredRenderKitTest-portlet"/>
 		</page>
+		<page name="TestPage225" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_6Tests-clientWindowTest-portlet"/>
+		</page>
 	</render-config>
 
 </pluto-portal-driver>
