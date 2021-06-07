@@ -1195,7 +1195,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>6.1.0.Final</version>
+				<version>6.1.5.Final</version>
 				<exclusions>
 					<exclusion>
 						<groupId>jakarta.validation</groupId>
