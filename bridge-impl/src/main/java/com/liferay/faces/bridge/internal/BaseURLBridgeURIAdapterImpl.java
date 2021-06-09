@@ -54,12 +54,16 @@ public class BaseURLBridgeURIAdapterImpl implements BaseURL {
 
 	@Override
 	public Appendable append(Appendable out) throws IOException {
-		return null; // TODO: FACES-2695
+
+		// no-op
+		return null;
 	}
 
 	@Override
 	public Appendable append(Appendable out, boolean escapeXML) throws IOException {
-		return null; // TODO: FACES-2695
+
+		// no-op
+		return null;
 	}
 
 	@Override
@@ -69,17 +73,23 @@ public class BaseURLBridgeURIAdapterImpl implements BaseURL {
 
 	@Override
 	public PortletMode getPortletMode() {
-		return null; // TODO: FACES-2695
+
+		// no-op
+		return null;
 	}
 
 	@Override
 	public RenderParameters getRenderParameters() {
-		return null; // TODO: FACES-2695
+
+		// no-op
+		return null;
 	}
 
 	@Override
 	public WindowState getWindowState() {
-		return null; // TODO: FACES-2695
+
+		// no-op
+		return null;
 	}
 
 	@Override
