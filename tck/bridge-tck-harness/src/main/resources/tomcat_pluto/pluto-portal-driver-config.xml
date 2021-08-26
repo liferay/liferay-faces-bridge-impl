@@ -1062,6 +1062,15 @@ limitations under the License.
 		<page name="TestPage225" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_6Tests-clientWindowTest-portlet"/>
 		</page>
+		<page name="TestPage226" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2Tests-bridgeRequestScopedBeanTest-portlet"/>
+		</page>
+		<page name="TestPage227" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2Tests-cdiRequestScopedBeanTest-portlet"/>
+		</page>
+		<page name="TestPage228" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2Tests-portletRequestScopedBeanTest-portlet"/>
+		</page>
 	</render-config>
 
 </pluto-portal-driver>
