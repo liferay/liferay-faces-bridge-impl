@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2020 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2021 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,6 +81,6 @@ public class AlloyApplicantPortletTester extends ApplicantTesterBase {
 			"//table[contains(@class, 'yui3-calendar-grid')]//td[contains(text(),'14')][not(contains(@class,'yui3-calendar-column-hidden'))]";
 		browserDriver.waitForElementEnabled(dateElementXpath);
 		browserDriver.clickElement(dateElementXpath);
-        browserDriver.waitForElementNotDisplayed(dateElementXpath);
+		browserDriver.waitForElementNotDisplayed(dateElementXpath);
 	}
 }
