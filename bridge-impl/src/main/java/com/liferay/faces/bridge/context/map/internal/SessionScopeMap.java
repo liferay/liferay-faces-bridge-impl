@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2020 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2021 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import javax.faces.context.ExternalContext;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletSession;
 import javax.portlet.faces.BridgeFactoryFinder;
-
 
 import com.liferay.faces.bridge.bean.BeanManager;
 import com.liferay.faces.bridge.bean.BeanManagerFactory;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2020 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2021 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,9 @@
  */
 package com.liferay.faces.bridge.test.integration.demo.applicant;
 
-import com.liferay.faces.test.selenium.browser.BrowserDriver;
 import java.util.List;
+
+import com.liferay.faces.test.selenium.browser.BrowserDriver;
 
 
 /**
@@ -66,6 +67,6 @@ public class IceFacesApplicantPortletTester extends ApplicantTesterBase {
 		String dateElement = "//table[contains(@class, 'ui-datepicker-calendar')]//a[contains(text(), '14')]";
 		browserDriver.waitForElementEnabled(dateElement);
 		browserDriver.clickElement(dateElement);
-        browserDriver.waitForElementNotDisplayed(dateElement);
+		browserDriver.waitForElementNotDisplayed(dateElement);
 	}
 }

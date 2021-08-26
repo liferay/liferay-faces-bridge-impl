@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2020 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2021 Liferay, Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,13 +62,13 @@ public class BridgeExtension implements Extension {
 	// logger
 	private static final Logger logger = LoggerFactory.getLogger(BridgeExtension.class);
 
+	public void step2AfterBeanDiscovery(@Observes AfterBeanDiscovery afterBeanDiscovery) {
+		afterBeanDiscovery.addContext(new BridgeRequestBeanContext());
+	}
+
 	private void beforeBeanDiscovery(@Observes BeforeBeanDiscovery beforeBeanDiscovery, BeanManager beanManager) {
 		beforeBeanDiscovery.addScope(BridgeRequestScoped.class, true, false);
 		beforeBeanDiscovery.addAnnotatedType(beanManager.createAnnotatedType(GenericFacesPortlet.class), null);
-	}
-
-	public void step2AfterBeanDiscovery(@Observes AfterBeanDiscovery afterBeanDiscovery) {
-		afterBeanDiscovery.addContext(new BridgeRequestBeanContext());
 	}
 
 	private <T> void step2ProcessAnnotatedType(@Observes ProcessAnnotatedType<T> processAnnotatedType) {
