@@ -1063,13 +1063,13 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_6Tests-clientWindowTest-portlet"/>
 		</page>
 		<page name="TestPage226" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2Tests-bridgeRequestScopedBeanTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-bridgeRequestScopedBeanTest-portlet"/>
 		</page>
 		<page name="TestPage227" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2Tests-cdiRequestScopedBeanTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-cdiRequestScopedBeanTest-portlet"/>
 		</page>
 		<page name="TestPage228" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2Tests-portletRequestScopedBeanTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletRequestScopedBeanTest-portlet"/>
 		</page>
 	</render-config>
 
