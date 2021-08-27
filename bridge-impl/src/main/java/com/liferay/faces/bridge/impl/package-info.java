@@ -13,5 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@org.osgi.annotation.versioning.Version("4.2.0")
+@org.osgi.annotation.versioning.Version("4.3.0")
 package com.liferay.faces.bridge.impl;

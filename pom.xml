@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.liferay.faces</groupId>
 	<artifactId>com.liferay.faces.bridge.impl.parent</artifactId>
-	<version>4.2.2-SNAPSHOT</version>
+	<version>4.3.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Liferay Faces Bridge Impl Parent</name>
 	<description>Parent POM for all Liferay Faces Bridge implementation modules</description>
@@ -1045,7 +1045,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.bridge.api</artifactId>
-				<version>4.2.0</version>
+				<version>4.3.0-SNAPSHOT</version>
 				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
