@@ -57,16 +57,16 @@ public class Tests {
 		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
 			testBean.setTestComplete(true);
 
-			if (bridgeRequestScopedBean.getFoo() == null) {
-				testBean.setTestResult(false, "@BridgeRequestScoped is behaving like @PortletRequestScoped");
-
-				return Constants.TEST_FAILED;
-			}
-			else {
+			if ("setInActionPhase".equals(bridgeRequestScopedBean.getFoo())) {
 				testBean.setTestResult(true,
 					"@BridgeRequestScoped is behaving like faces-config &lt;managed-bean&gt; &lt;scope&gt;request&lt/scope&gt; (bridge request scope)");
 
 				return Constants.TEST_SUCCESS;
+			}
+			else {
+				testBean.setTestResult(false, "@BridgeRequestScoped is behaving like @PortletRequestScoped");
+
+				return Constants.TEST_FAILED;
 			}
 		}
 
