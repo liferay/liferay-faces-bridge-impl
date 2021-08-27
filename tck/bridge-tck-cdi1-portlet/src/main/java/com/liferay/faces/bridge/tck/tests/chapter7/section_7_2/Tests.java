@@ -20,7 +20,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
-import javax.portlet.faces.annotation.BridgeRequestScoped;
+
+import com.liferay.faces.bridge.annotation.BridgeRequestScoped;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
@@ -54,7 +55,7 @@ public class Tests {
 
 			return "multiRequestTestResultRenderCheck";
 		}
-		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+		else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
 			testBean.setTestComplete(true);
 
 			if ("setInActionPhase".equals(bridgeRequestScopedBean.getFoo())) {
@@ -86,7 +87,7 @@ public class Tests {
 
 			return "multiRequestTestResultRenderCheck";
 		}
-		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+		else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
 			testBean.setTestComplete(true);
 
 			if (cdiRequestScopedBean.getFoo() == null) {
@@ -118,7 +119,7 @@ public class Tests {
 
 			return "multiRequestTestResultRenderCheck";
 		}
-		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+		else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
 			testBean.setTestComplete(true);
 
 			if (portletRequestScopedBean.getFoo() == null) {
