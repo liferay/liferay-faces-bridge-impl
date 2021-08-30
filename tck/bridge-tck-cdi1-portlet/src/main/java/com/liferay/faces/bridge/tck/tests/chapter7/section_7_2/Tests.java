@@ -18,6 +18,7 @@ package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.portlet.PortletConfig;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
@@ -40,6 +41,9 @@ public class Tests {
 
 	@Inject
 	private CDIRequestScopedBean cdiRequestScopedBean;
+
+	@Inject
+	private PortletConfig portletConfig;
 
 	@Inject
 	private PortletRequestScopedBean portletRequestScopedBean;
@@ -104,6 +108,23 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "portletConfigAlternativeTest")
+	public String portletConfigAlternativeTest(TestBean testBean) {
+		String initParameter = portletConfig.getInitParameter("tck");
+
+		// PortletConfigTCKImpl.getInitParameter(String) expects this condition.
+		if ("true".equals(initParameter)) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for PortletConfig was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for PortletConfig was not invoked");
 
 		return Constants.TEST_FAILED;
 	}

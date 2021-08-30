@@ -50,7 +50,14 @@ public class PortletConfigTCKImpl implements PortletConfig, FacesWrapper<Portlet
 
 	@Override
 	public String getInitParameter(String name) {
+
+		if ("tck".equals(name)) {
+
+			// portletConfigAlternativeTest
+			return "true";
+		}
 		return wrappedPortletConfig.getInitParameter(name);
+
 	}
 
 	@Override
