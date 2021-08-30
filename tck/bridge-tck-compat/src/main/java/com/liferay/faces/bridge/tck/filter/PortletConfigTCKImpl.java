@@ -36,4 +36,16 @@ public class PortletConfigTCKImpl extends PortletConfigWrapper {
 
 		return new PortletContextTCKImpl(wrappedPortletContext);
 	}
+
+	@Override
+	public String getInitParameter(String name) {
+
+		if ("tck".equals(name)) {
+
+			// portletConfigAlternativeTest
+			return "true";
+		}
+
+		return super.getInitParameter(name);
+	}
 }
