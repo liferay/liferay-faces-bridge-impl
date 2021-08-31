@@ -168,20 +168,4 @@ public class BridgeRequestScopeExtension implements Extension {
 		}
 
 	}
-
-	private static final class PortletRequestScopedAnnotation implements Annotation {
-
-		@Override
-		public Class<? extends Annotation> annotationType() {
-			return PortletRequestScoped.class;
-		}
-	}
-
-	private static final class RequestScopedAnnotation implements Annotation {
-
-		@Override
-		public Class<? extends Annotation> annotationType() {
-			return RequestScoped.class;
-		}
-	}
 }
