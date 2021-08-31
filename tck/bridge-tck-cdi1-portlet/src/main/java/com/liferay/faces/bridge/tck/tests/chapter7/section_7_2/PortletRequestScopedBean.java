@@ -15,13 +15,13 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
-import javax.enterprise.context.RequestScoped;
+import javax.portlet.annotations.PortletRequestScoped;
 
 
 /**
  * @author  Neil Griffin
  */
-@RequestScoped
+@PortletRequestScoped
 public class PortletRequestScopedBean {
 
 	private String foo;
