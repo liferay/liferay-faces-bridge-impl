@@ -25,6 +25,7 @@
 		<module>bridge-tck-lifecycle-set-portlet</module>
 		<module>bridge-tck-main-portlet</module>
 		<module>bridge-tck-cdi1-portlet</module>
+		<module>bridge-tck-cdi2-portlet</module>
 	</modules>
 
 	<build>
