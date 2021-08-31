@@ -15,12 +15,14 @@
  */
 package com.liferay.faces.bridge.cdi.internal;
 
+import javax.annotation.Priority;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.interceptor.Interceptor;
 import javax.portlet.PortletConfig;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
@@ -31,6 +33,7 @@ import com.liferay.faces.bridge.util.internal.RequestMapUtil;
  */
 @Alternative
 @Dependent
+@Priority(Interceptor.Priority.APPLICATION + 10)
 public class BridgeAlternativesProducer {
 
 	@Named(value = "portletConfig")

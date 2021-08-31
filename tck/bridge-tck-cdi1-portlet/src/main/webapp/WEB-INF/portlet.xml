@@ -6,7 +6,7 @@
 	version="3.0">
 	<portlet>
 		<portlet-name>chapter7_2CDITests-bridgeRequestScopedBeanTest-portlet</portlet-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.BridgeRequestScopedBeanTestPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
@@ -34,7 +34,7 @@
 	</portlet>
 	<portlet>
 		<portlet-name>chapter7_2CDITests-cdiRequestScopedBeanTest-portlet</portlet-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.CDIRequestScopedBeanTestPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
@@ -62,7 +62,7 @@
 	</portlet>
 	<portlet>
 		<portlet-name>chapter7_2CDITests-portletConfigAlternativeTest-portlet</portlet-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletConfigAlternativeTestPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
@@ -73,7 +73,7 @@
 			<portlet-mode>view</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>PortletRequestScopedBeanTestPortlet</title>
+			<title>chapter7_2CDITests-portletConfigAlternativeTest-portlet</title>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -90,7 +90,7 @@
 	</portlet>
 	<portlet>
 		<portlet-name>chapter7_2CDITests-portletRequestScopedBeanTest-portlet</portlet-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletRequestScopedBeanTestPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
