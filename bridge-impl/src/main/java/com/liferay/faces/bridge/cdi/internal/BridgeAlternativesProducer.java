@@ -23,7 +23,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.interceptor.Interceptor;
 import javax.portlet.PortletConfig;
-import javax.portlet.annotations.PortletRequestScoped;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
@@ -36,8 +35,8 @@ import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 @Priority(Interceptor.Priority.APPLICATION + 10)
 public class BridgeAlternativesProducer {
 
+	@Dependent
 	@Named(value = "portletConfig")
-	@PortletRequestScoped
 	@Produces
 	public PortletConfig getPortletConfig() {
 		FacesContext currentInstance = FacesContext.getCurrentInstance();
