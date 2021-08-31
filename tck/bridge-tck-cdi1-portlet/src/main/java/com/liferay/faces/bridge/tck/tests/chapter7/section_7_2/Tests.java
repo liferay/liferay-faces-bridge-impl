@@ -45,9 +45,6 @@ public class Tests {
 	@Inject
 	private PortletConfig portletConfig;
 
-	@Inject
-	private PortletRequestScopedBean portletRequestScopedBean;
-
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {
 
@@ -132,31 +129,8 @@ public class Tests {
 	@BridgeTest(test = "portletRequestScopedBeanTest")
 	public String portletRequestScopedBeanTest(TestBean testBean) {
 
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
-
-		if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
-			portletRequestScopedBean.setFoo("setInActionPhase");
-
-			return "multiRequestTestResultRenderCheck";
-		}
-		else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
-			testBean.setTestComplete(true);
-
-			if (portletRequestScopedBean.getFoo() == null) {
-				testBean.setTestResult(true, "@PortletRequestScoped is not behaving like @BridgeRequestScoped");
-
-				return Constants.TEST_SUCCESS;
-			}
-			else {
-				testBean.setTestResult(false, "@PortletRequestScoped is behaving like @BridgeRequestScoped");
-
-				return Constants.TEST_FAILED;
-			}
-		}
-
-		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
-
-		return Constants.TEST_FAILED;
+		// The @PortletRequestScoped annotation is not available in the Portlet 2.0 API, so return the same result as
+		// the cdiRequestScopedBeanExtensionTest.
+		return cdiRequestScopedBeanTest(testBean);
 	}
 }
