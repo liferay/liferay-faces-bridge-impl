@@ -82,6 +82,7 @@
 								com.liferay.faces.bridge.*;version="[4.2.0,4.4.0)",\
 								com.liferay.faces.portlet.*;version="[4.2.0,4.4.0)",\
 								javax.portlet;version="[2.0.0,4.0.0)",\
+								javax.portlet.annotations;resolution:=optional,\
 								javax.portlet.faces.*;version="[4.2.0,4.4.0)",\
 								org.apache.commons.io.*;resolution:=optional,\
 								org.icefaces.ace.component.fileentry.*;resolution:=optional,\
