@@ -36,8 +36,8 @@ import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 @Priority(Interceptor.Priority.APPLICATION + 10)
 public class BridgeAlternativesProducer {
 
+	@Dependent
 	@Named(value = "portletConfig")
-	@RequestScoped
 	@Produces
 	public PortletConfig getPortletConfig() {
 		FacesContext currentInstance = FacesContext.getCurrentInstance();
