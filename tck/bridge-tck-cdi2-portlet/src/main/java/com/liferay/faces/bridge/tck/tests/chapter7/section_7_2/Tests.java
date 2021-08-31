@@ -20,8 +20,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
-import javax.portlet.faces.annotation.BridgeRequestScoped;
 
+import com.liferay.faces.bridge.annotation.BridgeRequestScoped;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
@@ -37,9 +37,6 @@ public class Tests {
 	@Inject
 	private CDIRequestScopedBeanExtension cdiRequestScopedBeanExtension;
 
-	@Inject
-	private PortletRequestScopedBeanExtension portletRequestScopedBeanExtension;
-
 	@BridgeTest(test = "cdiRequestScopedBeanExtensionTest")
 	public String cdiRequestScopedBeanExtensionTest(TestBean testBean) {
 
@@ -51,7 +48,7 @@ public class Tests {
 
 			return "multiRequestTestResultRenderCheck";
 		}
-		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+		else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
 			testBean.setTestComplete(true);
 
 			if ("setInActionPhase".equals(cdiRequestScopedBeanExtension.getFoo())) {
@@ -76,34 +73,9 @@ public class Tests {
 	@BridgeTest(test = "portletRequestScopedBeanExtensionTest")
 	public String portletRequestScopedBeanExtensionTest(TestBean testBean) {
 
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
-
-		if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
-			portletRequestScopedBeanExtension.setFoo("setInActionPhase");
-
-			return "multiRequestTestResultRenderCheck";
-		}
-		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
-			testBean.setTestComplete(true);
-
-			if ("setInActionPhase".equals(portletRequestScopedBeanExtension.getFoo())) {
-				testBean.setTestResult(true,
-					"@PortletRequestScoped is behaving like faces-config &lt;managed-bean&gt; &lt;scope&gt;request&lt/scope&gt; (bridge request scope)");
-
-				return Constants.TEST_SUCCESS;
-			}
-			else {
-				testBean.setTestResult(false,
-					"@PortletRequestScoped is behaving like Portlet 3.0 @PortletRequestScoped rather than @BridgeRequestScoped");
-
-				return Constants.TEST_FAILED;
-			}
-		}
-
-		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
-
-		return Constants.TEST_FAILED;
+		// The @PortletRequestScoped annotation is not available in the Portlet 2.0 API, so return the same result as
+		// the cdiRequestScopedBeanExtensionTest.
+		return cdiRequestScopedBeanExtensionTest(testBean);
 	}
 
 }
