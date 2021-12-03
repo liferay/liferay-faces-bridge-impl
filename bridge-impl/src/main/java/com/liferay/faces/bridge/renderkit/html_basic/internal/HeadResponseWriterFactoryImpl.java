@@ -20,6 +20,7 @@ import java.io.Serializable;
 import javax.faces.context.ResponseWriter;
 import javax.portlet.HeaderResponse;
 import javax.portlet.PortletResponse;
+import javax.portlet.ResourceResponse;
 
 import com.liferay.faces.bridge.context.HeadResponseWriterFactory;
 
@@ -35,7 +36,14 @@ public class HeadResponseWriterFactoryImpl extends HeadResponseWriterFactory imp
 	@Override
 	public ResponseWriter getHeadResponseWriter(ResponseWriter responseWriter, PortletResponse portletResponse) {
 
-		HeaderResponse headerResponse = (HeaderResponse) portletResponse;
+		HeaderResponse headerResponse;
+
+		if (portletResponse instanceof ResourceResponse) {
+			headerResponse = new HeaderResponseResourceAdapter((ResourceResponse) portletResponse);
+		}
+		else {
+			headerResponse = (HeaderResponse) portletResponse;
+		}
 
 		return new HeadResponseWriterCompatImpl(responseWriter, headerResponse);
 	}
