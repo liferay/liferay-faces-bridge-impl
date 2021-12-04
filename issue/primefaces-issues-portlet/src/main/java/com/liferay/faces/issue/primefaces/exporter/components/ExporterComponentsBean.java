@@ -59,7 +59,7 @@ public class ExporterComponentsBean {
 			String dataTableAsCSV = stringBuilder.toString();
 			InputStream inputStream = new ByteArrayInputStream(dataTableAsCSV.getBytes("UTF-8"));
 
-			return new DefaultStreamedContent(inputStream, "text/csv", "p_fileDownloadUsers.csv");
+			return DefaultStreamedContent.builder().stream(() -> inputStream).contentType("text/csv").name("p_fileDownloadUsers.csv").build();
 		}
 		catch (Exception e) {
 			throw new FacesException(e);
