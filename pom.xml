@@ -224,6 +224,7 @@
 			com.google.apphosting.api;resolution:=optional,\
 			com.opensymphony.oscache.*;resolution:=optional,\
 			com.yahoo.platform.yui.compressor;resolution:=optional,\
+			javax.jms;resolution:=optional,\
 			net.sf.ehcache.*;resolution:=optional,\
 			org.atmosphere.*;resolution:=optional,\
 			org.jboss.cache.*;resolution:=optional,\
@@ -603,6 +604,13 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>dxp73</id>
 			<properties>
 				<liferay.deploy.version>7.3.10.2</liferay.deploy.version>
+				<liferay.platform>liferay-dxp</liferay.platform>
+			</properties>
+		</profile>
+		<profile>
+			<id>dxp74</id>
+			<properties>
+				<liferay.deploy.version>7.4.13-ga1</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
