@@ -307,7 +307,7 @@
 		<pluto.version>${pluto.version.major}.${pluto.version.minor}.${pluto.version.patch}</pluto.version>
 		<portal.type>liferay</portal.type>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
-		<primefaces.version>10.0.0</primefaces.version>
+		<primefaces.version>11.0.0</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.stage>Production</project.stage>
