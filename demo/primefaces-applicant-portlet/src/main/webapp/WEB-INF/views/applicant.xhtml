@@ -122,12 +122,12 @@
 							<p:commandButton id="decline" onclick="PF('confirmation').hide()" value="#{i18n['no']}" type="button" />
 						</p:confirmDialog>
 						<h3>#{i18n['attachments']}</h3>
-						<p:commandButton id="exportButton" ajax="false" icon="ui-icon-disk" value="#{i18n['export-as-csv']}">
+						<p:commandButton id="exportButton" ajax="false" icon="pi pi-download" value="#{i18n['export-as-csv']}">
 							<p:dataExporter fileName="uploaded-files" target="attachmentsTable" type="csv" />
 						</p:commandButton>
 						<p:dataTable id="attachmentsTable" value="#{applicant.attachments}" var="attachment">
 							<p:column exportable="false">
-								<p:commandButton id="showDialogButton" icon="ui-icon-trash" onclick="PF('confirmation').show()">
+								<p:commandButton id="showDialogButton" icon="pi pi-trash" onclick="PF('confirmation').show()">
 									<f:setPropertyActionListener value="#{attachment.index}" target="#{applicantView.attachmentIndex}" />
 								</p:commandButton>
 							</p:column>
