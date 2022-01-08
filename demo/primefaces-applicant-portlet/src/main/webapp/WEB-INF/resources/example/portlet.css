@@ -10,3 +10,7 @@
 .jsf-applicant-portlet .hasDatepicker {
 	width: 165px;
 }
+
+.ui-fileupload-filename {
+    word-break: unset !important;
+}
