@@ -280,17 +280,17 @@
 		<liferay.auto.deploy.dir>${liferay.home}/deploy</liferay.auto.deploy.dir>
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
-		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-jsf-${faces.spec.version}-${thick.or.thin}</liferay.home>
+		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-portlet-${portlet.spec.version}-jsf-${faces.spec.version}-${thick.or.thin}</liferay.home>
 		<liferay.faces.alloy.version>4.1.0</liferay.faces.alloy.version>
 		<liferay.faces.bridge.ext.version>7.0.0-SNAPSHOT</liferay.faces.bridge.ext.version>
 		<liferay.faces.showcase.version>3.1.0</liferay.faces.showcase.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.jetty.version>8.1.10</liferay.jetty.version>
-		<liferay.platform>liferay-portal</liferay.platform>
+		<liferay.platform>liferay-ce</liferay.platform>
 		<liferay.resin.version>4.0.33</liferay.resin.version>
 		<liferay.tomcat.version>8.0.30</liferay.tomcat.version>
-		<liferay.version>7.4.3</liferay.version>
+		<liferay.version>7.4.3.ga8</liferay.version>
 		<liferay.version.dtd>7.2</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.weblogic.version>12.2.1.2</liferay.weblogic.version>
@@ -306,6 +306,8 @@
 		<pluto.version.patch>1</pluto.version.patch>
 		<pluto.version>${pluto.version.major}.${pluto.version.minor}.${pluto.version.patch}</pluto.version>
 		<portal.type>liferay</portal.type>
+		<portlet.api.version>${portlet.spec.version}.0</portlet.api.version>
+		<portlet.spec.version>3.0</portlet.spec.version>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
 		<primefaces.version>11.0.0</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -590,7 +592,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 		<profile>
 			<id>dxp72</id>
 			<properties>
-				<liferay.deploy.version>7.2.10.2-sp5</liferay.deploy.version>
+				<liferay.deploy.version>7.2.10.sp5</liferay.deploy.version>
 				<liferay.faces.alloy.version>3.1.0</liferay.faces.alloy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
@@ -598,14 +600,14 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 		<profile>
 			<id>dxp73</id>
 			<properties>
-				<liferay.deploy.version>7.3.10.2</liferay.deploy.version>
+				<liferay.deploy.version>7.3.10.sp3</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
 		<profile>
-			<id>dxp74</id>
+			<id>dxp</id>
 			<properties>
-				<liferay.deploy.version>7.4.13-ga1</liferay.deploy.version>
+				<liferay.deploy.version>7.4.13.u4</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
@@ -699,16 +701,16 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			</activation>
 		</profile>
 		<profile>
-			<id>liferay72</id>
+			<id>ce72</id>
 			<properties>
-				<liferay.deploy.version>7.2.1</liferay.deploy.version>
+				<liferay.deploy.version>7.2.1.ga2</liferay.deploy.version>
 				<liferay.faces.alloy.version>3.1.0</liferay.faces.alloy.version>
 			</properties>
 		</profile>
 		<profile>
-			<id>liferay73</id>
+			<id>ce73</id>
 			<properties>
-				<liferay.deploy.version>7.3.7</liferay.deploy.version>
+				<liferay.deploy.version>7.3.7.ga8</liferay.deploy.version>
 			</properties>
 		</profile>
 		<profile>
@@ -1140,7 +1142,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>javax.portlet</groupId>
 				<artifactId>portlet-api</artifactId>
-				<version>3.0.0</version>
+				<version>${portlet.api.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
