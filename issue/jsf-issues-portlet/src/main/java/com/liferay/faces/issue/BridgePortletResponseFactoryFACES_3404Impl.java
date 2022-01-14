@@ -27,10 +27,12 @@ import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
 import javax.portlet.HeaderRequest;
 import javax.portlet.HeaderResponse;
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.RenderURL;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.ResourceURL;
@@ -170,6 +172,14 @@ public final class BridgePortletResponseFactoryFACES_3404Impl extends BridgePort
 		}
 
 		@Override
+		public RenderURL createRenderURL(MimeResponse.Copy copy) throws IllegalStateException {
+
+			RenderURL renderURL = super.createRenderURL(copy);
+
+			return newURLProxy(renderURL, RenderURL.class, parameterValueWithCharactersThatMustBeEncoded);
+		}
+
+		@Override
 		public ResourceURL createResourceURL() throws IllegalStateException {
 
 			ResourceURL resourceURL = super.createResourceURL();
@@ -270,6 +280,14 @@ public final class BridgePortletResponseFactoryFACES_3404Impl extends BridgePort
 			PortletURL renderURL = super.createRenderURL();
 
 			return newURLProxy(renderURL, PortletURL.class, parameterValueWithCharactersThatMustBeEncoded);
+		}
+
+		@Override
+		public RenderURL createRenderURL(MimeResponse.Copy copy) throws IllegalStateException {
+
+			RenderURL renderURL = super.createRenderURL(copy);
+
+			return newURLProxy(renderURL, RenderURL.class, parameterValueWithCharactersThatMustBeEncoded);
 		}
 
 		@Override
