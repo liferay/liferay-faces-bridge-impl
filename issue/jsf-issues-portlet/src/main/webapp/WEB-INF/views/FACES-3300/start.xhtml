@@ -33,24 +33,11 @@
 			</ol>
 			<br />
 			<h3>Invalid Test URLs</h3>
-			<ol id="invalidTestURLs">
-			<ui:repeat value="#{FACES_3300Bean.bridgeFacesViewParameterNames}" var="bridgeFacesViewParameterName">
-				<ui:repeat value="#{FACES_3300Bean.invalidViews}" var="invalidView">
-					<portlet:renderURL var="url">
-						<portlet:param name="#{bridgeFacesViewParameterName}" value="#{invalidView}" />
-					</portlet:renderURL>
-					<li>
-						<h:outputLink value="#{url}">
-							<span id="expectedResult"><strong><em>INVALID</em></strong></span>
-							<code>
-								<span style="display: inline-block; width: 20ch;">#{bridgeFacesViewParameterName}=</span>
-								<strong>#{invalidView}</strong>
-							</code>
-						</h:outputLink>
-					</li>
-				</ui:repeat>
-			</ui:repeat>
-			</ol>
+			<ul id="invalidTestURLs">
+				<li>Since JSR 378 runs the JSF lifecycle in the HEADER_PHASE of the portlet lifecycle, the "[portlet-name] is not available" message does not appear in the rendered markup. Instead, an error appears in the server log.</li>
+				<li>That's why there are no invalid test URLs for testing here in this branch.</li>
+				<li>For more info, consider the difference between header_portlet.jsp and render_portlet.jsp</li>
+			</ul>
 		</h:panelGroup>
 	</h:body>
 </f:view>
