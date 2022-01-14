@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <f:view xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	<h:head>
-		<h:outputScript library="FACES-3175" name="reproducer.js" />
+		<h:outputScript library="FACES-3175" name="reproducer.js" pt:data-senna-track="permanent" />
 	</h:head>
 	<h:body>
 		<h:link outcome="/WEB-INF/views/FACES-3175/result.xhtml" styleClass="testAction" value="result.xhtml">
