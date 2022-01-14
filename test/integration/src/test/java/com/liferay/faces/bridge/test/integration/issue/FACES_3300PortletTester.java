@@ -74,7 +74,7 @@ public class FACES_3300PortletTester extends SimpleFACESPortletTester {
 
 		String container = TestUtil.getContainer();
 		List<String> validURLs = getURLsFromLinks(browserDriver, "//ol[@id='validTestURLs']/li/a");
-		List<String> invalidURLs = getURLsFromLinks(browserDriver, "//ol[@id='invalidTestURLs']/li/a", container);
+		List<String> invalidURLs = Collections.emptyList();
 
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
 
