@@ -28,12 +28,12 @@ import javax.portlet.RenderResponse;
 /**
  * @author  Neil Griffin
  */
-public class PortletRequestDispatcherTCKImpl implements PortletRequestDispatcher {
+public class PortletRequestDispatcherTCKCompatImpl implements PortletRequestDispatcher {
 
 	// Private Data Members
 	private PortletRequestDispatcher wrappedPortletRequestDispatcher;
 
-	public PortletRequestDispatcherTCKImpl(PortletRequestDispatcher portletRequestDispatcher) {
+	public PortletRequestDispatcherTCKCompatImpl(PortletRequestDispatcher portletRequestDispatcher) {
 		this.wrappedPortletRequestDispatcher = portletRequestDispatcher;
 	}
 

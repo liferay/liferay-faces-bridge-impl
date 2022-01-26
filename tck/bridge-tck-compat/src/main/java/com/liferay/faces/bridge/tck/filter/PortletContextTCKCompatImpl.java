@@ -23,14 +23,14 @@ import javax.portlet.filter.PortletContextWrapper;
 /**
  * @author  Neil Griffin
  */
-public class PortletContextTCKImpl extends PortletContextWrapper {
+public class PortletContextTCKCompatImpl extends PortletContextWrapper {
 
-	public PortletContextTCKImpl(PortletContext portletContext) {
+	public PortletContextTCKCompatImpl(PortletContext portletContext) {
 		super(portletContext);
 	}
 
 	@Override
 	public PortletRequestDispatcher getRequestDispatcher(String path) {
-		return new PortletRequestDispatcherTCKImpl(getPortletContext().getRequestDispatcher(path));
+		return new PortletRequestDispatcherTCKCompatImpl(getPortletContext().getRequestDispatcher(path));
 	}
 }
