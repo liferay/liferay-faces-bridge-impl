@@ -19,10 +19,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.faces.render.ResponseStateManager;
+import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.MutableRenderParameters;
 import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
+import javax.portlet.RenderParameters;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.faces.GenericFacesPortlet;
@@ -37,18 +40,22 @@ public class ActionURLDemoPortlet extends GenericFacesPortlet {
 	public void processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException,
 		IOException {
 
-		String viewState = actionRequest.getParameter(ResponseStateManager.VIEW_STATE_PARAM);
+		ActionParameters actionParameters = actionRequest.getActionParameters();
 
-		String nonFacesPostback = actionRequest.getParameter("Non-Faces-Postback");
+		String viewState = actionParameters.getValue(ResponseStateManager.VIEW_STATE_PARAM);
+
+		String nonFacesPostback = actionParameters.getValue("Non-Faces-Postback");
 
 		if ((viewState == null) && ("true".equalsIgnoreCase(nonFacesPostback))) {
 
-			actionResponse.setRenderParameter("Non-Faces-Postback", nonFacesPostback);
+			MutableRenderParameters mutableRenderParameters = actionResponse.getRenderParameters();
 
-			String foo = actionRequest.getParameter("foo");
+			mutableRenderParameters.setValue("Non-Faces-Postback", nonFacesPostback);
+
+			String foo = actionParameters.getValue("foo");
 
 			if (foo != null) {
-				actionResponse.setRenderParameter("foo", foo);
+				mutableRenderParameters.setValue("foo", foo);
 			}
 		}
 		else {
@@ -60,7 +67,8 @@ public class ActionURLDemoPortlet extends GenericFacesPortlet {
 	protected void doView(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException,
 		IOException {
 
-		String nonFacesPostback = renderRequest.getParameter("Non-Faces-Postback");
+		RenderParameters renderParameters = renderRequest.getRenderParameters();
+		String nonFacesPostback = renderParameters.getValue("Non-Faces-Postback");
 
 		if (nonFacesPostback == null) {
 			super.doView(renderRequest, renderResponse);
@@ -73,17 +81,20 @@ public class ActionURLDemoPortlet extends GenericFacesPortlet {
 			writer.write(ActionURLDemoPortlet.class.getName());
 			writer.write("</p>");
 
-			String foo = renderRequest.getParameter("foo");
+			String foo = renderParameters.getValue("foo");
 			writer.write("<p>");
 			writer.write("Action Parameter:<pre>foo=" + foo + "</pre>");
 			writer.write("</p>");
 
 			PortletURL renderURL = renderResponse.createRenderURL();
-			renderURL.setParameter("componentPrefix", "portlet");
-			renderURL.setParameter("componentName", "actionurl");
-			renderURL.setParameter("componentUseCase", "general");
+			MutableRenderParameters mutableRenderParameters = renderURL.getRenderParameters();
+			mutableRenderParameters.setValue("componentPrefix", "portlet");
+			mutableRenderParameters.setValue("componentName", "actionurl");
+			mutableRenderParameters.setValue("componentUseCase", "general");
 			writer.write("<p>");
-			writer.write("<a href=\"" + renderURL.toString() + "\">");
+			writer.write("<a href=\"");
+			writer.write(renderURL.toString());
+			writer.write("\">");
 			writer.write("Return to portlet:actionURL in the Liferay Faces Showcase");
 			writer.write("</a>");
 			writer.write("</p>");
