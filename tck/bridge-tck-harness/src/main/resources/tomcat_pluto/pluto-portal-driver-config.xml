@@ -907,13 +907,13 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletRequestScopedBeanTest-portlet"/>
 		</page>
 		<page name="TestPage229" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletConfigAlternativeTest-portlet"/>
-		</page>
-		<page name="TestPage230" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.cdi2.portlet" name="chapter7_2CDITests-cdiRequestScopedBeanExtensionTest-portlet"/>
 		</page>
-		<page name="TestPage231" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+		<page name="TestPage230" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.cdi2.portlet" name="chapter7_2CDITests-portletRequestScopedBeanExtensionTest-portlet"/>
+		</page>
+		<page name="TestPage231" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletConfigAlternativeTest-portlet"/>
 		</page>
 	</render-config>
 
