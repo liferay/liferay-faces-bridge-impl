@@ -84,7 +84,7 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 
 		if (parts.length != 3) {
 			throw new IllegalStateException(
-				"Incorrect portletName syntax for a test:  should be testGroup-testName-portlet");
+				"Incorrect portletName syntax \"" + portletName + "\" for a test: should be testGroup-testName-portlet");
 		}
 
 		mTestBeanName = parts[0];
