@@ -23,9 +23,9 @@ import javax.portlet.filter.PortletConfigWrapper;
 /**
  * @author  Neil Griffin
  */
-public class PortletConfigTCKImpl extends PortletConfigWrapper {
+public class PortletConfigTCKCompatImpl extends PortletConfigWrapper {
 
-	public PortletConfigTCKImpl(PortletConfig portletConfig) {
+	public PortletConfigTCKCompatImpl(PortletConfig portletConfig) {
 		super(portletConfig);
 	}
 
@@ -34,18 +34,6 @@ public class PortletConfigTCKImpl extends PortletConfigWrapper {
 
 		PortletContext wrappedPortletContext = getWrapped().getPortletContext();
 
-		return new PortletContextTCKImpl(wrappedPortletContext);
-	}
-
-	@Override
-	public String getInitParameter(String name) {
-
-		if ("tck".equals(name)) {
-
-			// portletConfigAlternativeTest
-			return "true";
-		}
-
-		return super.getInitParameter(name);
+		return new PortletContextTCKCompatImpl(wrappedPortletContext);
 	}
 }

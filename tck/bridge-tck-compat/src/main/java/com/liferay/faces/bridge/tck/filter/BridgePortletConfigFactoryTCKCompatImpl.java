@@ -22,18 +22,18 @@ import javax.portlet.faces.filter.BridgePortletConfigFactory;
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletConfigFactoryTCKImpl extends BridgePortletConfigFactory {
+public class BridgePortletConfigFactoryTCKCompatImpl extends BridgePortletConfigFactory {
 
 	// Private Data Members
 	private BridgePortletConfigFactory wrappedBridgePortletConfigFactory;
 
-	public BridgePortletConfigFactoryTCKImpl(BridgePortletConfigFactory bridgePortletConfigFactory) {
+	public BridgePortletConfigFactoryTCKCompatImpl(BridgePortletConfigFactory bridgePortletConfigFactory) {
 		this.wrappedBridgePortletConfigFactory = bridgePortletConfigFactory;
 	}
 
 	@Override
 	public PortletConfig getPortletConfig(PortletConfig portletContext) {
-		return new PortletConfigTCKImpl(wrappedBridgePortletConfigFactory.getPortletConfig(portletContext));
+		return new PortletConfigTCKCompatImpl(wrappedBridgePortletConfigFactory.getPortletConfig(portletContext));
 	}
 
 	@Override

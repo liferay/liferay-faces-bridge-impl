@@ -44,7 +44,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
-import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
 import javax.portlet.faces.Bridge;
@@ -70,7 +69,7 @@ import com.liferay.faces.bridge.tck.filter.HeaderRequestTCKMainImpl;
 import com.liferay.faces.bridge.tck.filter.HeaderResponseTCKCommonImpl;
 import com.liferay.faces.bridge.tck.filter.HeaderResponseTCKMainImpl;
 import com.liferay.faces.bridge.tck.filter.PortletConfigTCKCommonImpl;
-import com.liferay.faces.bridge.tck.filter.PortletConfigTCKImpl;
+import com.liferay.faces.bridge.tck.filter.PortletConfigTCKCompatImpl;
 import com.liferay.faces.bridge.tck.filter.PortletConfigTCKMainImpl;
 import com.liferay.faces.bridge.tck.filter.PortletPreferencesTCKCommonImpl;
 import com.liferay.faces.bridge.tck.filter.PortletPreferencesTCKMainImpl;
@@ -867,7 +866,7 @@ public class Tests {
 	private void testDecoratedPortletConfig(TestBean testBean, PortletConfig portletConfig) {
 
 		if (!((portletConfig instanceof PortletConfigTCKMainImpl) &&
-					(((PortletConfigWrapper) portletConfig).getWrapped() instanceof PortletConfigTCKImpl)) &&
+					(((PortletConfigWrapper) portletConfig).getWrapped() instanceof PortletConfigTCKCompatImpl)) &&
 				(((PortletConfigWrapper) ((PortletConfigWrapper) portletConfig).getWrapped()).getWrapped() instanceof
 					PortletConfigTCKCommonImpl)) {
 			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletConfig (PortletConfig)");

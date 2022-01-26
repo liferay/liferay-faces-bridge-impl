@@ -2,7 +2,7 @@
 <faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
 	xmlns:bridge="http://www.liferay.com/xml/ns/liferay-faces-bridge-2.0-extension">
-	<name>LiferayFacesBridgeTCKCommon</name>
+	<name>LiferayFacesBridgeTCKCompat</name>
 	<ordering>
 		<after>
 			<name>LiferayFacesBridge</name>
@@ -15,7 +15,7 @@
 		<!-- TestPage082 (facesContextFactoryServiceProviderTest) loads factory from META-INF/services/javax.faces.context.FacesContextFactory 
 			<faces-context-factory>com.liferay.faces.bridge.tck.context.FacesContextFactoryTCKImpl</faces-context-factory> -->
 		<factory-extension>
-			<bridge:bridge-portlet-config-factory>com.liferay.faces.bridge.tck.filter.BridgePortletConfigFactoryTCKImpl</bridge:bridge-portlet-config-factory>
+			<bridge:bridge-portlet-config-factory>com.liferay.faces.bridge.tck.filter.BridgePortletConfigFactoryTCKCompatImpl</bridge:bridge-portlet-config-factory>
 			<bridge:bridge-portlet-request-factory>com.liferay.faces.bridge.tck.filter.BridgePortletRequestFactoryTCKResinImpl</bridge:bridge-portlet-request-factory>
 		</factory-extension>
 	</factory>
