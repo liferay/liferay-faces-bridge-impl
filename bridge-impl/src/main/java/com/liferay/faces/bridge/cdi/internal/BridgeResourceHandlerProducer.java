@@ -38,8 +38,6 @@ public class BridgeResourceHandlerProducer {
 	@PortletRequestScoped
 	@Produces
 	public ResourceHandler getResourceHandler() {
-		System.err.println("getResourceHandler: ");
-
 		return FacesContext.getCurrentInstance().getApplication().getResourceHandler();
 	}
 }
