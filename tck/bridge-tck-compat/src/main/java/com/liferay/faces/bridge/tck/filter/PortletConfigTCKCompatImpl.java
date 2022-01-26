@@ -29,12 +29,12 @@ import javax.xml.namespace.QName;
 /**
  * @author  Neil Griffin
  */
-public class PortletConfigTCKImpl implements PortletConfig, FacesWrapper<PortletConfig> {
+public class PortletConfigTCKCompatImpl implements PortletConfig, FacesWrapper<PortletConfig> {
 
 	// Private Data Members
 	private PortletConfig wrappedPortletConfig;
 
-	public PortletConfigTCKImpl(PortletConfig portletConfig) {
+	public PortletConfigTCKCompatImpl(PortletConfig portletConfig) {
 		this.wrappedPortletConfig = portletConfig;
 	}
 
@@ -50,14 +50,7 @@ public class PortletConfigTCKImpl implements PortletConfig, FacesWrapper<Portlet
 
 	@Override
 	public String getInitParameter(String name) {
-
-		if ("tck".equals(name)) {
-
-			// portletConfigAlternativeTest
-			return "true";
-		}
 		return wrappedPortletConfig.getInitParameter(name);
-
 	}
 
 	@Override
@@ -70,7 +63,7 @@ public class PortletConfigTCKImpl implements PortletConfig, FacesWrapper<Portlet
 
 		PortletContext wrappedPortletContext = wrappedPortletConfig.getPortletContext();
 
-		return new PortletContextTCKImpl(wrappedPortletContext);
+		return new PortletContextTCKCompatImpl(wrappedPortletContext);
 	}
 
 	@Override

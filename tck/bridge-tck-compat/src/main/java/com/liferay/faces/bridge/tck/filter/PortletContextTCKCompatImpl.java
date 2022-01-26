@@ -28,12 +28,12 @@ import javax.portlet.PortletRequestDispatcher;
 /**
  * @author  Neil Griffin
  */
-public class PortletContextTCKImpl implements PortletContext {
+public class PortletContextTCKCompatImpl implements PortletContext {
 
 	// Private Data Members
 	private PortletContext wrappedPortletContext;
 
-	public PortletContextTCKImpl(PortletContext portletContext) {
+	public PortletContextTCKCompatImpl(PortletContext portletContext) {
 		this.wrappedPortletContext = portletContext;
 	}
 
@@ -94,7 +94,7 @@ public class PortletContextTCKImpl implements PortletContext {
 
 	@Override
 	public PortletRequestDispatcher getRequestDispatcher(String path) {
-		return new PortletRequestDispatcherTCKImpl(wrappedPortletContext.getRequestDispatcher(path));
+		return new PortletRequestDispatcherTCKCompatImpl(wrappedPortletContext.getRequestDispatcher(path));
 	}
 
 	@Override
