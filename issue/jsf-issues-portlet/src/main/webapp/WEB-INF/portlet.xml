@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
 	<portlet>
-		<portlet-name>FACES-224</portlet-name>
+		<portlet-name>FACES224</portlet-name>
 		<display-name>FACES-224</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -33,7 +33,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-257</portlet-name>
+		<portlet-name>FACES257</portlet-name>
 		<display-name>FACES-257</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -63,7 +63,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-1470</portlet-name>
+		<portlet-name>FACES1470</portlet-name>
 		<display-name>FACES-1470</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -93,7 +93,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-1478</portlet-name>
+		<portlet-name>FACES1478</portlet-name>
 		<display-name>FACES-1478</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -123,7 +123,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-1618</portlet-name>
+		<portlet-name>FACES1618</portlet-name>
 		<display-name>FACES-1618</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -153,7 +153,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-1638</portlet-name>
+		<portlet-name>FACES1638</portlet-name>
 		<display-name>FACES-1638</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -183,7 +183,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-2958</portlet-name>
+		<portlet-name>FACES2958</portlet-name>
 		<display-name>FACES-2958</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -213,7 +213,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-2958-friendlyURL</portlet-name>
+		<portlet-name>FACES2958friendlyURL</portlet-name>
 		<display-name>FACES-2958-friendlyURL</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -243,7 +243,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3175</portlet-name>
+		<portlet-name>FACES3175</portlet-name>
 		<display-name>FACES-3175</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -273,7 +273,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3231</portlet-name>
+		<portlet-name>FACES3231</portlet-name>
 		<display-name>FACES-3231</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -303,7 +303,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3300</portlet-name>
+		<portlet-name>FACES3300</portlet-name>
 		<display-name>FACES-3300</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -333,7 +333,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3356</portlet-name>
+		<portlet-name>FACES3356</portlet-name>
 		<display-name>FACES-3356</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -363,7 +363,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3404</portlet-name>
+		<portlet-name>FACES3404</portlet-name>
 		<display-name>FACES-3404</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -397,7 +397,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3404-friendlyURL</portlet-name>
+		<portlet-name>FACES3404friendlyURL</portlet-name>
 		<display-name>FACES-3404-friendlyURL</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -431,7 +431,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>JSFSPEC-1433</portlet-name>
+		<portlet-name>JSFSPEC1433</portlet-name>
 		<display-name>JSFSPEC-1433</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -461,7 +461,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>MOJARRA-4340-workaround</portlet-name>
+		<portlet-name>MOJARRA4340workaround</portlet-name>
 		<display-name>MOJARRA-4340-workaround</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
@@ -491,7 +491,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>MOJARRA-4345-workaround</portlet-name>
+		<portlet-name>MOJARRA4345workaround</portlet-name>
 		<display-name>MOJARRA-4345-workaround</display-name>
 		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>

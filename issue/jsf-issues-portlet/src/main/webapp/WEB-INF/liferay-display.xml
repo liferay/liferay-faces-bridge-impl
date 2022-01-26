@@ -3,22 +3,22 @@
 
 <display>
 	<category name="category.sample">
-		<portlet id="FACES-224" />
-		<portlet id="FACES-257" />
-		<portlet id="FACES-1470" />
-		<portlet id="FACES-1478" />
-		<portlet id="FACES-1618" />
-		<portlet id="FACES-1638" />
-		<portlet id="FACES-2958" />
-		<portlet id="FACES-2958-friendlyURL" />
-		<portlet id="FACES-3175" />
-		<portlet id="FACES-3231" />
-		<portlet id="FACES-3300" />
-		<portlet id="FACES-3356" />
-		<portlet id="FACES-3404" />
-		<portlet id="FACES-3404-friendlyURL" />
-		<portlet id="JSFSPEC-1433" />
-		<portlet id="MOJARRA-4340-workaround" />
-		<portlet id="MOJARRA-4345-workaround" />
+		<portlet id="FACES224" />
+		<portlet id="FACES257" />
+		<portlet id="FACES1470" />
+		<portlet id="FACES1478" />
+		<portlet id="FACES1618" />
+		<portlet id="FACES1638" />
+		<portlet id="FACES2958" />
+		<portlet id="FACES2958friendlyURL" />
+		<portlet id="FACES3175" />
+		<portlet id="FACES3231" />
+		<portlet id="FACES3300" />
+		<portlet id="FACES3356" />
+		<portlet id="FACES3404" />
+		<portlet id="FACES3404friendlyURL" />
+		<portlet id="JSFSPEC1433" />
+		<portlet id="MOJARRA4340workaround" />
+		<portlet id="MOJARRA4345workaround" />
 	</category>
 </display>
