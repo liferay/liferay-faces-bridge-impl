@@ -36,7 +36,23 @@ import javax.portlet.faces.GenericFacesPortlet;
 import javax.portlet.faces.annotation.BridgeRequestScoped;
 
 import com.liferay.faces.bridge.cdi.internal.BridgeAlternativesProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeExternalContextProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeFacesContextProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeFlashProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeHeaderMapProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeHeaderValuesMapProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeInitParameterMapProducer;
 import com.liferay.faces.bridge.cdi.internal.BridgeRequestBeanContext;
+import com.liferay.faces.bridge.cdi.internal.BridgeRequestCookieMapProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeRequestMapProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeRequestParameterMapProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeRequestParameterValuesMapProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeRequestProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeResourceHandlerProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeSessionMapProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeSessionProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeViewMapProducer;
+import com.liferay.faces.bridge.cdi.internal.BridgeViewProducer;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -70,7 +86,15 @@ public class BridgeExtension implements Extension {
 	private void step1BeforeBeanDiscovery(@Observes BeforeBeanDiscovery beforeBeanDiscovery, BeanManager beanManager) {
 		beforeBeanDiscovery.addScope(BridgeRequestScoped.class, true, false);
 
-		Class<?>[] beanClasses = { BridgeAlternativesProducer.class, GenericFacesPortlet.class };
+		Class<?>[] beanClasses = {
+				BridgeAlternativesProducer.class, BridgeExternalContextProducer.class, BridgeFacesContextProducer.class,
+				BridgeFlashProducer.class, BridgeHeaderMapProducer.class, BridgeHeaderValuesMapProducer.class,
+				BridgeInitParameterMapProducer.class, BridgeRequestCookieMapProducer.class,
+				BridgeRequestMapProducer.class, BridgeRequestParameterMapProducer.class,
+				BridgeRequestParameterValuesMapProducer.class, BridgeRequestProducer.class,
+				BridgeResourceHandlerProducer.class, BridgeSessionMapProducer.class, BridgeSessionProducer.class,
+				BridgeViewMapProducer.class, BridgeViewProducer.class, GenericFacesPortlet.class
+			};
 
 		for (Class<?> beanClass : beanClasses) {
 			beforeBeanDiscovery.addAnnotatedType(beanManager.createAnnotatedType(beanClass), null);
