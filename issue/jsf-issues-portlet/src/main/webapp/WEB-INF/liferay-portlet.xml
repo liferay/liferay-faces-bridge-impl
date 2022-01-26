@@ -3,12 +3,12 @@
 
 <liferay-portlet-app>
 	<portlet>
-		<portlet-name>FACES-224</portlet-name>
+		<portlet-name>FACES224</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-257</portlet-name>
+		<portlet-name>FACES257</portlet-name>
 		<friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
 		<friendly-url-mapping>FACES-257</friendly-url-mapping>
 		<friendly-url-routes>friendly-url-routes/FACES-257.xml</friendly-url-routes>
@@ -16,32 +16,32 @@
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-1470</portlet-name>
+		<portlet-name>FACES1470</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-1478</portlet-name>
+		<portlet-name>FACES1478</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-1618</portlet-name>
+		<portlet-name>FACES1618</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-1638</portlet-name>
+		<portlet-name>FACES1638</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-2958</portlet-name>
+		<portlet-name>FACES2958</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-2958-friendlyURL</portlet-name>
+		<portlet-name>FACES2958friendlyURL</portlet-name>
 		<friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
 		<friendly-url-mapping>FACES-2958</friendly-url-mapping>
 		<friendly-url-routes>friendly-url-routes/FACES-2958.xml</friendly-url-routes>
@@ -49,32 +49,32 @@
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3175</portlet-name>
+		<portlet-name>FACES3175</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3231</portlet-name>
+		<portlet-name>FACES3231</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3300</portlet-name>
+		<portlet-name>FACES3300</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3356</portlet-name>
+		<portlet-name>FACES3356</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3404</portlet-name>
+		<portlet-name>FACES3404</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>FACES-3404-friendlyURL</portlet-name>
+		<portlet-name>FACES3404friendlyURL</portlet-name>
 		<friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
 		<friendly-url-mapping>FACES-3404</friendly-url-mapping>
 		<friendly-url-routes>friendly-url-routes/FACES-3404.xml</friendly-url-routes>
@@ -82,17 +82,17 @@
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>JSFSPEC-1433</portlet-name>
+		<portlet-name>JSFSPEC1433</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>MOJARRA-4340-workaround</portlet-name>
+		<portlet-name>MOJARRA4340workaround</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
 	<portlet>
-		<portlet-name>MOJARRA-4345-workaround</portlet-name>
+		<portlet-name>MOJARRA4345workaround</portlet-name>
 		<instanceable>false</instanceable>
 		<ajaxable>false</ajaxable>
 	</portlet>
