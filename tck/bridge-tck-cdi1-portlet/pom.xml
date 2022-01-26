@@ -113,6 +113,7 @@
 											file="${project.build.outputDirectory}/META-INF/services/javax.enterprise.inject.spi.Extension"
 >com.liferay.faces.bridge.servlet.BridgeExtension
 com.liferay.faces.util.servlet.internal.UtilExtension
+com.sun.faces.cdi.CdiExtension
 com.sun.faces.application.view.ViewScopeExtension
 </echo>
 										<mkdir dir="${project.build.outputDirectory}/WEB-INF" />

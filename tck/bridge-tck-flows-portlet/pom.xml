@@ -108,6 +108,7 @@
 >com.liferay.faces.bridge.servlet.BridgeExtension
 com.liferay.faces.util.servlet.internal.UtilExtension
 com.sun.faces.application.view.ViewScopeExtension
+com.sun.faces.cdi.CdiExtension
 com.sun.faces.flow.FlowCDIExtension
 com.sun.faces.flow.FlowDiscoveryCDIExtension
 </echo>

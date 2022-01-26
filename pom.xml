@@ -204,6 +204,7 @@
 			com.liferay.faces.bridge.impl,\
 			com.sun.faces,\
 			javax.annotation,\
+			javax.el,\
 			javax.faces,\
 			javax.portlet.faces,\
 			net.fortuna.ical4j.*;resolution:=optional,\

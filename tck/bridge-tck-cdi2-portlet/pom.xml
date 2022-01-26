@@ -114,6 +114,7 @@
 >com.liferay.faces.bridge.servlet.BridgeExtension
 com.liferay.faces.bridge.servlet.BridgeRequestScopeExtension
 com.liferay.faces.util.servlet.internal.UtilExtension
+com.sun.faces.cdi.CdiExtension
 com.sun.faces.application.view.ViewScopeExtension
 </echo>
 										<mkdir dir="${project.build.outputDirectory}/WEB-INF" />
