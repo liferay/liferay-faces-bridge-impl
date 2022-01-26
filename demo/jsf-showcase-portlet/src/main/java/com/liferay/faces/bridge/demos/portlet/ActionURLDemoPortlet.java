@@ -42,7 +42,20 @@ public class ActionURLDemoPortlet extends GenericFacesPortlet {
 
 		ActionParameters actionParameters = actionRequest.getActionParameters();
 
-		String viewState = actionParameters.getValue(ResponseStateManager.VIEW_STATE_PARAM);
+		String viewState = null;
+
+		for (String actionParameterName : actionParameters.getNames()) {
+
+			// With JSF 2.3, the "javax.faces.ViewState" parameter name is prepended with the portlet response
+			// namespace and the value of UINamingContainer.getSeparatorChar(facesContext), which is normally a colon.
+			// For this reason, and since we're not running within the JSF lifecyle (no access to FacesContext), it is
+			// necessary to iterate through the action parameter names in order to find the view state parameter.
+			if (actionParameterName.contains(ResponseStateManager.VIEW_STATE_PARAM)) {
+				viewState = actionParameters.getValue(actionParameterName);
+
+				break;
+			}
+		}
 
 		String nonFacesPostback = actionParameters.getValue("Non-Faces-Postback");
 
