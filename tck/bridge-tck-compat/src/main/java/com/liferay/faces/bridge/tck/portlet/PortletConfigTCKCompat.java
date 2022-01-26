@@ -34,6 +34,11 @@ public class PortletConfigTCKCompat extends PortletConfigWrapper {
 
 		String portletName = getWrapped().getPortletName();
 
+		// https://issues.liferay.com/browse/FACES-3625
+		// https://issues.liferay.com/browse/LPS-140788
+		portletName = portletName.replaceAll("[-][-]", "");
+		portletName = portletName.replaceAll("[-]", "");
+
 		// Example: Transform "chapter5_2TestsisPostbackTestportlet" to "chapter5_2Tests-isPostbackTest-portlet"
 		portletName = portletName.replaceFirst("Tests", "Tests-");
 		portletName = portletName.replaceAll("portlet$", "-portlet");
