@@ -274,20 +274,21 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 
 	protected abstract BaseURL toBaseURL(FacesContext facesContext) throws MalformedURLException;
 
-	protected void copyRenderParameters(PortletRequest portletRequest, BaseURL baseURL) {
+	protected void copyRenderParameters(PortletRequest portletRequest, BaseURL baseURL, String namespace,
+		char separatorChar) {
 
 		// Copy the public render parameters of the current view to the BaseURL.
 		Map<String, String[]> publicParameterMap = portletRequest.getPublicParameterMap();
 
 		if (publicParameterMap != null) {
-			copyParameterMapToBaseURL(publicParameterMap, baseURL);
+			copyParameterMapToBaseURL(publicParameterMap, baseURL, namespace, separatorChar);
 		}
 
 		// Copy the private render parameters of the current view to the BaseURL.
 		Map<String, String[]> privateParameterMap = portletRequest.getPrivateParameterMap();
 
 		if (privateParameterMap != null) {
-			copyParameterMapToBaseURL(privateParameterMap, baseURL);
+			copyParameterMapToBaseURL(privateParameterMap, baseURL, namespace, separatorChar);
 		}
 	}
 
@@ -372,7 +373,10 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		}
 	}
 
-	private void copyParameterMapToBaseURL(Map<String, String[]> parameterMap, BaseURL baseURL) {
+	private void copyParameterMapToBaseURL(Map<String, String[]> parameterMap, BaseURL baseURL, String namespace,
+		char separatorChar) {
+
+		String faces23Namespace = namespace + separatorChar;
 
 		Map<String, String[]> bridgeURLParameterMap = bridgeURI.getParameterMap();
 		Set<Map.Entry<String, String[]>> parameterMapEntrySet = parameterMap.entrySet();
@@ -380,6 +384,13 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 		for (Map.Entry<String, String[]> mapEntry : parameterMapEntrySet) {
 
 			String parameterName = mapEntry.getKey();
+
+			if (parameterName.startsWith(faces23Namespace)) {
+				parameterName = parameterName.substring(faces23Namespace.length());
+			}
+			else if (parameterName.startsWith(namespace)) {
+				parameterName = parameterName.substring(namespace.length());
+			}
 
 			// Note that preserved action parameters, parameters that already exist in the URL string,
 			// and "javax.faces.ViewState" must not be copied.

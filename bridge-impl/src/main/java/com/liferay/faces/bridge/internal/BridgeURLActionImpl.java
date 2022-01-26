@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Map;
 
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.render.ResponseStateManager;
@@ -206,7 +207,8 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 				if (selfReferencing) {
 					ExternalContext externalContext = facesContext.getExternalContext();
 					PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-					copyRenderParameters(portletRequest, baseURL);
+					copyRenderParameters(portletRequest, baseURL, externalContext.encodeNamespace(""),
+						UINamingContainer.getSeparatorChar(facesContext));
 				}
 
 				// If the portlet container created a PortletURL, then apply the PortletMode and WindowState to the

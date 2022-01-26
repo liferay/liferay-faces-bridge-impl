@@ -25,6 +25,7 @@ import java.util.Set;
 
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.BaseURL;
@@ -188,7 +189,8 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 				if (selfReferencing) {
 					ExternalContext externalContext = facesContext.getExternalContext();
 					PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-					copyRenderParameters(portletRequest, baseURL);
+					copyRenderParameters(portletRequest, baseURL, externalContext.encodeNamespace(""),
+						UINamingContainer.getSeparatorChar(facesContext));
 				}
 
 				// If the portlet container created a PortletURL, then apply the PortletMode and WindowState to the
