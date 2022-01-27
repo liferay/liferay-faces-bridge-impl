@@ -921,6 +921,87 @@ limitations under the License.
 		<page name="TestPage233" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletModeAlternativeTest-portlet"/>
 		</page>
+		<page name="TestPage234" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletNameAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage235" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletPreferencesAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage236" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletRequestAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage237" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletResponseAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage238" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletSessionAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage239" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-renderParamsAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage240" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-renderRequestAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage241" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-renderResponseAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage242" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-resourceRequestAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage243" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-resourceResponseAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage244" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-stateAwareResponseAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage245" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-windowIdAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage246" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-windowStateAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage247" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-actionParamsAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage248" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-actionRequestAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage249" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-actionResponseAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage250" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-clientDataRequestAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage251" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-contextPathAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage252" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-cookiesAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage253" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-eventRequestAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage254" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-eventResponseAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage255" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-headerRequestAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage256" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-headerResponseAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage257" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-localesAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage258" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-mimeResponseAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage259" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-mutableRenderParamsAlternativeTest-portlet"/>
+		</page>
+		<page name="TestPage260" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-namespaceAlternativeTest-portlet"/>
+		</page>
 	</render-config>
 
 </pluto-portal-driver>
