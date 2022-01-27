@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.portlet.PortletConfig;
+import javax.portlet.PortletContext;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
@@ -44,6 +45,11 @@ public class Tests {
 
 	@Inject
 	private PortletConfig portletConfig;
+
+	@Inject PortletContext portletContext;
+
+	@Inject
+	private PortletRequestScopedBean portletRequestScopedBean;
 
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {
@@ -111,10 +117,10 @@ public class Tests {
 
 	@BridgeTest(test = "portletConfigAlternativeTest")
 	public String portletConfigAlternativeTest(TestBean testBean) {
-		String initParameter = portletConfig.getInitParameter("tck");
+		String value = portletConfig.getInitParameter("tck");
 
 		// PortletConfigTCKImpl.getInitParameter(String) expects this condition.
-		if ("true".equals(initParameter)) {
+		if ("true".equals(value)) {
 
 			testBean.setTestResult(true, "The bridge's alternative producer for PortletConfig was properly invoked");
 
@@ -122,6 +128,24 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "The bridge's alternative producer for PortletConfig was not invoked");
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "portletContextAlternativeTest")
+	public String portletContextAlternativeTest(TestBean testBean) {
+
+		String value = String.valueOf(portletContext.getAttribute("tck"));
+
+		// PortletContextTCKImpl.getAttribute(String) expects this condition.
+		if ("true".equals(value)) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for PortletContext was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for PortletContext was not invoked");
 
 		return Constants.TEST_FAILED;
 	}

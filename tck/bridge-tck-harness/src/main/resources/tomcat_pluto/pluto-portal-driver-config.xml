@@ -915,6 +915,9 @@ limitations under the License.
 		<page name="TestPage231" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletConfigAlternativeTest-portlet"/>
 		</page>
+		<page name="TestPage232" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-portletContextAlternativeTest-portlet"/>
+		</page>
 	</render-config>
 
 </pluto-portal-driver>

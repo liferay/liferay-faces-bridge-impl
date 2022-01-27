@@ -15,37 +15,28 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
-import javax.portlet.filter.PortletConfigWrapper;
+import javax.portlet.filter.PortletContextWrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public class PortletConfigTCKImpl extends PortletConfigWrapper {
+public class PortletContextTCKImpl extends PortletContextWrapper {
 
-	private PortletContext portletContext;
-
-	public PortletConfigTCKImpl(PortletConfig portletConfig) {
-		super(portletConfig);
-		this.portletContext = new PortletContextTCKImpl(portletConfig.getPortletContext());
+	public PortletContextTCKImpl(PortletContext wrapped) {
+		super(wrapped);
 	}
 
 	@Override
-	public String getInitParameter(String name) {
+	public Object getAttribute(String name) {
 
 		if ("tck".equals(name)) {
 
-			// portletConfigAlternativeTest
+			// portletContextAlternativeTest
 			return "true";
 		}
 
-		return super.getInitParameter(name);
-	}
-
-	@Override
-	public PortletContext getPortletContext() {
-		return portletContext;
+		return super.getAttribute(name);
 	}
 }
