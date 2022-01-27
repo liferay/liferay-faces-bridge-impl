@@ -1002,6 +1002,66 @@ limitations under the License.
 		<page name="TestPage260" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.cdi1.portlet" name="chapter7_2CDITests-namespaceAlternativeTest-portlet"/>
 		</page>
+		<page name="TestPage261" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-bridgeFactoryFinderTest-portlet"/>
+		</page>
+		<page name="TestPage262" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-setResponseStatusTest-portlet"/>
+		</page>
+		<page name="TestPage263" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-addResponseCookieTest-portlet"/>
+		</page>
+		<page name="TestPage264" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-getMimeTypeTest-portlet"/>
+		</page>
+		<page name="TestPage265" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-getRequestSchemeTest-portlet"/>
+		</page>
+		<page name="TestPage266" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-getRequestServerNameTest-portlet"/>
+		</page>
+		<page name="TestPage267" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-getRequestServerPortTest-portlet"/>
+		</page>
+		<page name="TestPage268" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-getRealPathTest-portlet"/>
+		</page>
+		<page name="TestPage269" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-getRequestContentLengthTest-portlet"/>
+		</page>
+		<page name="TestPage270" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-invalidateSessionTest-portlet"/>
+		</page>
+		<page name="TestPage271" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-setResponseHeaderTest-portlet"/>
+		</page>
+		<page name="TestPage272" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-addResponseHeaderTest-portlet"/>
+		</page>
+		<page name="TestPage273" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-responseResetTest-portlet"/>
+		</page>
+		<page name="TestPage274" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-responseFlushBufferTest-portlet"/>
+		</page>
+		<page name="TestPage275" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-getSessionMaxInactiveIntervalTest-portlet"/>
+		</page>
+		<page name="TestPage276" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-setSessionMaxInactiveInterval-portlet"/>
+		</page>
+		<page name="TestPage277" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-isSecureTest-portlet"/>
+		</page>
+		<page name="TestPage278" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-getApplicationContextPath-portlet"/>
+		</page>
+		<page name="TestPage279" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-getSessionIdTest-portlet"/>
+		</page>
+		<page name="TestPage280" uri="/WEB-INF/themes/pluto-default-theme.jsp">
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter7_2CDITests-bodyTest-portlet"/>
+		</page>
 	</render-config>
 
 </pluto-portal-driver>
