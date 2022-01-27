@@ -24,7 +24,6 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.annotation.BridgeRequestScoped;
-
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
@@ -46,10 +45,8 @@ public class Tests {
 	@Inject
 	private PortletConfig portletConfig;
 
-	@Inject PortletContext portletContext;
-
 	@Inject
-	private PortletRequestScopedBean portletRequestScopedBean;
+	PortletContext portletContext;
 
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {

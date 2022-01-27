@@ -16,7 +16,8 @@
 package com.liferay.faces.bridge.tck.factories.filter;
 
 import javax.portlet.PortletContext;
-import javax.portlet.filter.PortletContextWrapper;
+
+import com.liferay.faces.bridge.tck.filter.PortletContextWrapper;
 
 
 /**
@@ -24,8 +25,11 @@ import javax.portlet.filter.PortletContextWrapper;
  */
 public class PortletContextTCKImpl extends PortletContextWrapper {
 
-	public PortletContextTCKImpl(PortletContext wrapped) {
-		super(wrapped);
+	// Private Data Members
+	private PortletContext wrappedPortletContext;
+
+	public PortletContextTCKImpl(PortletContext portletContext) {
+		this.wrappedPortletContext = portletContext;
 	}
 
 	@Override
@@ -38,5 +42,10 @@ public class PortletContextTCKImpl extends PortletContextWrapper {
 		}
 
 		return super.getAttribute(name);
+	}
+
+	@Override
+	public PortletContext getWrapped() {
+		return wrappedPortletContext;
 	}
 }

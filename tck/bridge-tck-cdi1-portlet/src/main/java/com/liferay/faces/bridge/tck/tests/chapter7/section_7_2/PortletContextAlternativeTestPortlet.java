@@ -15,34 +15,11 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
-import com.liferay.bean.portlet.LiferayPortletConfiguration;
 import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
-
-import javax.portlet.annotations.InitParameter;
-import javax.portlet.annotations.PortletConfiguration;
-import javax.portlet.annotations.SecurityRoleRef;
 
 
 /**
  * @author  Neil Griffin
  */
-@PortletConfiguration(
-	portletName = "chapter7_2CDITestsportletContextAlternativeTestportlet",
-	initParams = {
-			@InitParameter(
-				name = "javax.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/singleRequestTest.xhtml"
-			)
-		}, roleRefs = {
-			@SecurityRoleRef(roleName = "administrator"), @SecurityRoleRef(roleName = "guest"),
-			@SecurityRoleRef(roleName = "power-user"), @SecurityRoleRef(roleName = "user")
-		}
-)
-@LiferayPortletConfiguration(
-	portletName = "chapter7_2CDITestsportletContextAlternativeTestportlet",
-	properties = {
-			"com.liferay.portlet.header-request-attribute-prefix=false",
-			"com.liferay.portlet.requires-namespaced-parameters=false"
-		}
-)
 public class PortletContextAlternativeTestPortlet extends GenericFacesTestSuitePortlet {
 }
