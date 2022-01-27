@@ -20,11 +20,14 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.interceptor.Interceptor;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
+import javax.portlet.PortletMode;
+import javax.portlet.PortletRequest;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
@@ -41,9 +44,9 @@ public class BridgeAlternativesProducer {
 	@Named(value = "portletConfig")
 	@Produces
 	public PortletConfig getPortletConfig() {
-		FacesContext currentInstance = FacesContext.getCurrentInstance();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		return RequestMapUtil.getPortletConfig(currentInstance);
+		return RequestMapUtil.getPortletConfig(facesContext);
 	}
 
 	@Dependent
@@ -53,5 +56,17 @@ public class BridgeAlternativesProducer {
 		PortletConfig portletConfig = getPortletConfig();
 
 		return portletConfig.getPortletContext();
+	}
+
+	@Dependent
+	@Named(value = "portletMode")
+	@Produces
+	public PortletMode getPortletMode() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+
+		return portletRequest.getPortletMode();
 	}
 }

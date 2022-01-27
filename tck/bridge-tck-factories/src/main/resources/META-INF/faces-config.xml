@@ -11,6 +11,7 @@
 	<factory>
 		<factory-extension>
 			<bridge:bridge-portlet-config-factory>com.liferay.faces.bridge.tck.factories.filter.BridgePortletConfigFactoryTCKImpl</bridge:bridge-portlet-config-factory>
+			<bridge:bridge-portlet-request-factory>com.liferay.faces.bridge.tck.factories.filter.BridgePortletRequestFactoryTCKImpl</bridge:bridge-portlet-request-factory>
 		</factory-extension>
 	</factory>
 </faces-config>
