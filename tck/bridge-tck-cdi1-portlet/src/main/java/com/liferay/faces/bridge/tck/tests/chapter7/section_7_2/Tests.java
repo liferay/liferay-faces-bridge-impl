@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
+import javax.portlet.PortletMode;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.annotation.BridgeRequestScoped;
@@ -45,7 +46,11 @@ public class Tests {
 	@Inject
 	private PortletConfig portletConfig;
 
-	@Inject PortletContext portletContext;
+	@Inject
+	PortletContext portletContext;
+
+	@Inject
+	PortletMode portletMode;
 
 	@Inject
 	private PortletRequestScopedBean portletRequestScopedBean;
@@ -145,6 +150,22 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "The bridge's alternative producer for PortletContext was not invoked");
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "portletModeAlternativeTest")
+	public String portletModeAlternativeTest(TestBean testBean) {
+
+		// HeaderRequestTCKImpl.getPortletMode() expects this condition.
+		if (portletMode.getClass().getName().contains("PortletModeTCKViewImpl")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for PortletMode was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for PortletMode was not invoked");
 
 		return Constants.TEST_FAILED;
 	}
