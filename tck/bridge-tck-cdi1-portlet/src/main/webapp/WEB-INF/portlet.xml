@@ -89,7 +89,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter7_2CDITests-bridgeRequestScopedBeanTest-portlet</portlet-name>
+		<portlet-name>chapter7_2CDITestsbridgeRequestScopedBeanTestportlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.BridgeRequestScopedBeanTestPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
@@ -117,7 +117,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter7_2CDITests-cdiRequestScopedBeanTest-portlet</portlet-name>
+		<portlet-name>chapter7_2CDITestscdiRequestScopedBeanTestportlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.CDIRequestScopedBeanTestPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
@@ -481,7 +481,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter7_2CDITests-portletConfigAlternativeTest-portlet</portlet-name>
+		<portlet-name>chapter7_2CDITestsportletConfigAlternativeTestportlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletConfigAlternativeTestPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
@@ -649,7 +649,7 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter7_2CDITests-portletRequestScopedBeanTest-portlet</portlet-name>
+		<portlet-name>chapter7_2CDITestsportletRequestScopedBeanTestportlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletRequestScopedBeanTestPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>

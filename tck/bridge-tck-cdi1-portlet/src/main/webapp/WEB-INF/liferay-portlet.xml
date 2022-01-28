@@ -15,11 +15,11 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter7_2CDITests-bridgeRequestScopedBeanTest-portlet</portlet-name>
+		<portlet-name>chapter7_2CDITestsbridgeRequestScopedBeanTestportlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter7_2CDITests-cdiRequestScopedBeanTest-portlet</portlet-name>
+		<portlet-name>chapter7_2CDITestscdiRequestScopedBeanTestportlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
@@ -67,7 +67,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter7_2CDITests-portletConfigAlternativeTest-portlet</portlet-name>
+		<portlet-name>chapter7_2CDITestsportletConfigAlternativeTestportlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
@@ -91,7 +91,7 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter7_2CDITests-portletRequestScopedBeanTest-portlet</portlet-name>
+		<portlet-name>chapter7_2CDITestsportletRequestScopedBeanTestportlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
