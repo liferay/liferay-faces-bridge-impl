@@ -57,7 +57,8 @@ public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFa
 	@Override
 	public HeaderResponse getHeaderResponse(HeaderRequest headerRequest, HeaderResponse headerResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return wrappedFactory.getHeaderResponse(headerRequest, headerResponse, portletConfig, bridgeConfig);
+		return new HeaderResponseTCKImpl(wrappedFactory.getHeaderResponse(headerRequest, headerResponse, portletConfig,
+					bridgeConfig));
 	}
 
 	@Override
