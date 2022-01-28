@@ -57,10 +57,12 @@
 		<portlet-name>chapter3Tests-nullRequestRenderTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
+	<!--
 	<portlet>
 		<portlet-name>chapter4Tests-bridgeClassDefaultTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
+	-->
 	<portlet>
 		<portlet-name>chapter4_1Tests-portletInitializationParametersTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
