@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.tck.factories.filter;
 
 import javax.portlet.HeaderRequest;
 import javax.portlet.PortletMode;
+import javax.portlet.PortletPreferences;
 import javax.portlet.filter.HeaderRequestWrapper;
 
 
@@ -38,5 +39,10 @@ public class HeaderRequestTCKImpl extends HeaderRequestWrapper {
 		}
 
 		return portletMode;
+	}
+
+	@Override
+	public PortletPreferences getPreferences() {
+		return new PortletPreferencesTCKImpl(super.getPreferences());
 	}
 }
