@@ -10,7 +10,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>com.liferay.faces.test.bridge.tck.cdi2.portlet</artifactId>
-	<name>Bridge TCK CDI1 Portlet</name>
+	<name>Bridge TCK CDI2 Portlet</name>
 	<packaging>war</packaging>
 
 	<dependencies>
