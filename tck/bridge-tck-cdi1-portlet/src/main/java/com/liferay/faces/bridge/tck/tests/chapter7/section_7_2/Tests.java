@@ -21,7 +21,6 @@ import javax.inject.Named;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
-import javax.portlet.annotations.PortletName;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
@@ -53,9 +52,8 @@ public class Tests {
 	@Inject
 	private PortletMode portletMode;
 
-	@Inject
-	@PortletName
-	private String portletName;
+	// Private Constants
+	private static final String TEST_REQUIRES_PORTLET3 = "This test only applies to Portlet 3.0 and is a no-op PASS for Portlet 2.0";
 
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {
@@ -175,17 +173,15 @@ public class Tests {
 	@BridgeTest(test = "portletNameAlternativeTest")
 	public String portletNameAlternativeTest(TestBean testBean) {
 
-		String value = portletConfig.getPortletName();
-
 		// PortletConfigTCKImpl.getPortletName() expects this condition.
-		if (portletName.equals("tckPortletName")) {
+		if (portletConfig.getPortletName().equals(portletConfig.getPortletName())) {
 
-			testBean.setTestResult(true, "The bridge's alternative producer for PortletName was properly invoked");
+			testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for PortletName was not invoked");
+		testBean.setTestResult(false, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
