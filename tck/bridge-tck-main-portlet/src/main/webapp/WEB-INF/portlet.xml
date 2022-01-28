@@ -5086,6 +5086,22 @@
 		</portlet-info>
 	</portlet>
 
+	<portlet>
+		<portlet-name>chapter8_8Tests-bridgeFactoryFinderTest-portlet</portlet-name>
+		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/singleRequestTest.xhtml</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<portlet-info>
+			<title>chapter8_8Tests-bridgeFactoryFinderTest-portlet</title>
+		</portlet-info>
+	</portlet>
+
 	<filter>
 		<filter-name>nullContentTypePortletFilter</filter-name>
 		<filter-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.NullContentTypePortletFilter</filter-class>

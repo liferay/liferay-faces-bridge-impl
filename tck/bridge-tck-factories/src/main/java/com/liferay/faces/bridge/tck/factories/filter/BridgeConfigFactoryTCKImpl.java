@@ -15,28 +15,30 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.portlet.PortletMode;
-import javax.portlet.RenderRequest;
-import javax.portlet.filter.RenderRequestWrapper;
+import javax.portlet.PortletConfig;
+
+import com.liferay.faces.bridge.BridgeConfig;
+import com.liferay.faces.bridge.BridgeConfigFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class RenderRequestTCKImpl extends RenderRequestWrapper {
+public class BridgeConfigFactoryTCKImpl extends BridgeConfigFactory {
 
-	public RenderRequestTCKImpl(RenderRequest renderRequest) {
-		super(renderRequest);
+	private BridgeConfigFactory wrappedFactory;
+
+	public BridgeConfigFactoryTCKImpl(BridgeConfigFactory bridgeConfigFactory) {
+		this.wrappedFactory = bridgeConfigFactory;
 	}
 
 	@Override
-	public PortletMode getPortletMode() {
-		PortletMode portletMode = super.getPortletMode();
+	public BridgeConfig getBridgeConfig(PortletConfig portletConfig) {
+		return wrappedFactory.getBridgeConfig(portletConfig);
+	}
 
-		if (PortletMode.VIEW.equals(portletMode)) {
-			return new PortletModeTCKViewImpl();
-		}
-
-		return portletMode;
+	@Override
+	public BridgeConfigFactory getWrapped() {
+		return wrappedFactory;
 	}
 }
