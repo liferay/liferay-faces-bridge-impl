@@ -27,6 +27,11 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>com.liferay.faces.test.bridge.tck.factories</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>com.liferay.faces.test.bridge.tck.encode.url.tests</artifactId>
 			<version>${project.version}</version>
 		</dependency>
