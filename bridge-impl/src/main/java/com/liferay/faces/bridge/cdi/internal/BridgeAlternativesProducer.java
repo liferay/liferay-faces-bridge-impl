@@ -27,6 +27,7 @@ import javax.interceptor.Interceptor;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
+import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.annotations.PortletName;
 
@@ -71,7 +72,6 @@ public class BridgeAlternativesProducer {
 		return portletRequest.getPortletMode();
 	}
 
-
 	@Dependent
 	@Named("portletName")
 	@PortletName
@@ -80,5 +80,17 @@ public class BridgeAlternativesProducer {
 		PortletConfig portletConfig = getPortletConfig();
 
 		return portletConfig.getPortletName();
+	}
+
+	@Dependent
+	@Named(value = "portletPreferences")
+	@Produces
+	public PortletPreferences getPortletPreferences() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+
+		return portletRequest.getPreferences();
 	}
 }
