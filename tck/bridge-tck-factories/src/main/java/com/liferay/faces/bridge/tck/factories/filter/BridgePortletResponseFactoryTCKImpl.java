@@ -27,55 +27,53 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.filter.BridgePortletRequestFactory;
+import javax.portlet.faces.filter.BridgePortletResponseFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFactory {
+public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFactory {
 
 	// Private Data Members
-	private BridgePortletRequestFactory wrappedFactory;
+	private BridgePortletResponseFactory wrappedFactory;
 
-	public BridgePortletRequestFactoryTCKImpl(BridgePortletRequestFactory bridgePortletRequestFactory) {
-		this.wrappedFactory = bridgePortletRequestFactory;
+	public BridgePortletResponseFactoryTCKImpl(BridgePortletResponseFactory bridgePortletResponseFactory) {
+		this.wrappedFactory = bridgePortletResponseFactory;
 	}
 
 	@Override
-	public ActionRequest getActionRequest(ActionRequest actionRequest, ActionResponse actionResponse,
+	public ActionResponse getActionResponse(ActionRequest actionRequest, ActionResponse actionResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return wrappedFactory.getActionRequest(actionRequest, actionResponse, portletConfig, bridgeConfig);
+		return wrappedFactory.getActionResponse(actionRequest, actionResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
-	public EventRequest getEventRequest(EventRequest eventRequest, EventResponse eventResponse,
+	public EventResponse getEventResponse(EventRequest eventRequest, EventResponse eventResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return wrappedFactory.getEventRequest(eventRequest, eventResponse, portletConfig, bridgeConfig);
+		return wrappedFactory.getEventResponse(eventRequest, eventResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
-	public HeaderRequest getHeaderRequest(HeaderRequest headerRequest, HeaderResponse headerResponse,
+	public HeaderResponse getHeaderResponse(HeaderRequest headerRequest, HeaderResponse headerResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return new HeaderRequestTCKImpl(wrappedFactory.getHeaderRequest(headerRequest, headerResponse, portletConfig,
-					bridgeConfig));
+		return wrappedFactory.getHeaderResponse(headerRequest, headerResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
-	public RenderRequest getRenderRequest(RenderRequest renderRequest, RenderResponse renderResponse,
+	public RenderResponse getRenderResponse(RenderRequest renderRequest, RenderResponse renderResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-
-		return wrappedFactory.getRenderRequest(renderRequest, renderResponse, portletConfig, bridgeConfig);
+		return wrappedFactory.getRenderResponse(renderRequest, renderResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
-	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
+	public ResourceResponse getResourceResponse(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return wrappedFactory.getResourceRequest(resourceRequest, resourceResponse, portletConfig, bridgeConfig);
+		return wrappedFactory.getResourceResponse(resourceRequest, resourceResponse, portletConfig, bridgeConfig);
 	}
 
 	@Override
-	public BridgePortletRequestFactory getWrapped() {
+	public BridgePortletResponseFactory getWrapped() {
 		return wrappedFactory;
 	}
 }

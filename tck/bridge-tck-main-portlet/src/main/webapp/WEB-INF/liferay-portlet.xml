@@ -1126,6 +1126,11 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
+	<portlet>
+		<portlet-name>chapter8_8Tests-bridgeFactoryFinderTest-portlet</portlet-name>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
+	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>

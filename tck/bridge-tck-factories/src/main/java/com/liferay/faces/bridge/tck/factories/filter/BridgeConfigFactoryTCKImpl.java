@@ -16,28 +16,28 @@
 package com.liferay.faces.bridge.tck.factories.filter;
 
 import javax.portlet.PortletConfig;
-import javax.portlet.faces.filter.BridgePortletConfigFactory;
+import javax.portlet.faces.BridgeConfig;
+import javax.portlet.faces.BridgeConfigFactory;
 
 
 /**
  * @author  Neil Griffin
  */
-public class BridgePortletConfigFactoryTCKImpl extends BridgePortletConfigFactory {
+public class BridgeConfigFactoryTCKImpl extends BridgeConfigFactory {
 
-	// Private Data Members
-	private BridgePortletConfigFactory wrappedFactory;
+	private BridgeConfigFactory wrappedFactory;
 
-	public BridgePortletConfigFactoryTCKImpl(BridgePortletConfigFactory bridgePortletConfigFactory) {
-		this.wrappedFactory = bridgePortletConfigFactory;
+	public BridgeConfigFactoryTCKImpl(BridgeConfigFactory bridgeConfigFactory) {
+		this.wrappedFactory = bridgeConfigFactory;
 	}
 
 	@Override
-	public PortletConfig getPortletConfig(PortletConfig portletContext) {
-		return new PortletConfigTCKImpl(wrappedFactory.getPortletConfig(portletContext));
+	public BridgeConfig getBridgeConfig(PortletConfig portletConfig) {
+		return wrappedFactory.getBridgeConfig(portletConfig);
 	}
 
 	@Override
-	public BridgePortletConfigFactory getWrapped() {
+	public BridgeConfigFactory getWrapped() {
 		return wrappedFactory;
 	}
 }

@@ -169,6 +169,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>chapter8_8Tests</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_8.section_8_8.Tests</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>predestroyBean1</managed-bean-name>
 		<managed-bean-class>com.liferay.faces.bridge.tck.beans.PreDestroyBean1</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
