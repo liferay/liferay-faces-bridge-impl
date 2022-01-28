@@ -23,6 +23,7 @@ import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
@@ -40,7 +41,8 @@ import com.liferay.faces.bridge.tck.common.Constants;
 public class Tests {
 
 	// Private Constants
-	private static final String TEST_REQUIRES_PORTLET3 = "This test only applies to Portlet 3.0 and is a no-op PASS for Portlet 2.0";
+	private static final String TEST_REQUIRES_PORTLET3 =
+		"This test only applies to Portlet 3.0 and is a no-op PASS for Portlet 2.0";
 
 	@Inject
 	private BridgeRequestScopedBean bridgeRequestScopedBean;
@@ -62,6 +64,9 @@ public class Tests {
 
 	@Inject
 	private PortletRequest portletRequest;
+
+	@Inject
+	private PortletResponse portletResponse;
 
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {
@@ -232,5 +237,20 @@ public class Tests {
 		// The @PortletRequestScoped annotation is not available in the Portlet 2.0 API, so return the same result as
 		// the cdiRequestScopedBeanExtensionTest.
 		return cdiRequestScopedBeanTest(testBean);
+	}
+
+	@BridgeTest(test = "portletResponseAlternativeTest")
+	public String portletResponseAlternativeTest(TestBean testBean) {
+
+		if (portletResponse.getClass().getName().contains("RenderResponseTCKImpl")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for PortletResponse was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for PortletResponse was not invoked");
+
+		return Constants.TEST_FAILED;
 	}
 }
