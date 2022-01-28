@@ -63,10 +63,7 @@ public class BridgeAlternativesProducer {
 	@Named(value = "portletMode")
 	@Produces
 	public PortletMode getPortletMode() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+		PortletRequest portletRequest = getPortletRequest();
 
 		return portletRequest.getPortletMode();
 	}
@@ -85,11 +82,18 @@ public class BridgeAlternativesProducer {
 	@Named(value = "portletPreferences")
 	@Produces
 	public PortletPreferences getPortletPreferences() {
+		PortletRequest portletRequest = getPortletRequest();
+
+		return portletRequest.getPreferences();
+	}
+
+	@Named("portletRequest")
+	@Dependent
+	@Produces
+	public PortletRequest getPortletRequest() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
-		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
-
-		return portletRequest.getPreferences();
+		return (PortletRequest) externalContext.getRequest();
 	}
 }
