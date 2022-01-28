@@ -49,4 +49,16 @@ public class PortletConfigTCKImpl extends PortletConfigWrapper {
 	public PortletContext getPortletContext() {
 		return portletContext;
 	}
+
+	@Override
+	public String getPortletName() {
+
+		String portletName = super.getPortletName();
+
+		if (portletName.contains("portletNameAlternativeTest")) {
+			return "tckPortletName";
+		}
+
+		return portletName;
+	}
 }
