@@ -10,8 +10,14 @@
 	</ordering>
 	<factory>
 		<factory-extension>
+			<bridge:bridge-config-factory>com.liferay.faces.bridge.tck.factories.filter.BridgeConfigFactoryTCKImpl</bridge:bridge-config-factory>
 			<bridge:bridge-portlet-config-factory>com.liferay.faces.bridge.tck.factories.filter.BridgePortletConfigFactoryTCKImpl</bridge:bridge-portlet-config-factory>
+			<bridge:bridge-public-render-parameter-handler-factory>com.liferay.faces.bridge.tck.factories.filter.BridgePublicRenderParameterHandlerFactoryTCKImpl</bridge:bridge-public-render-parameter-handler-factory>
+			<bridge:bridge-event-handler-factory>com.liferay.faces.bridge.tck.factories.filter.BridgeEventHandlerFactoryTCKImpl</bridge:bridge-event-handler-factory>
 			<bridge:bridge-portlet-request-factory>com.liferay.faces.bridge.tck.factories.filter.BridgePortletRequestFactoryTCKImpl</bridge:bridge-portlet-request-factory>
+			<bridge:bridge-portlet-response-factory>com.liferay.faces.bridge.tck.factories.filter.BridgePortletResponseFactoryTCKImpl</bridge:bridge-portlet-response-factory>
+			<bridge:bridge-url-factory>com.liferay.faces.bridge.tck.factories.filter.BridgeURLFactoryTCKImpl</bridge:bridge-url-factory>
+			<bridge:request-attribute-inspector-factory>com.liferay.faces.bridge.tck.factories.filter.RequestAttributeInspectorFactoryTCKImpl</bridge:request-attribute-inspector-factory>
 		</factory-extension>
 	</factory>
 </faces-config>
