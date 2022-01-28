@@ -178,8 +178,6 @@ public class Tests {
 	@BridgeTest(test = "portletNameAlternativeTest")
 	public String portletNameAlternativeTest(TestBean testBean) {
 
-		String value = portletConfig.getPortletName();
-
 		// PortletConfigTCKImpl.getPortletName() expects this condition.
 		if (portletName.equals("tckPortletName")) {
 
