@@ -24,6 +24,7 @@ import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+import javax.portlet.PortletSession;
 import javax.portlet.annotations.PortletName;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
@@ -68,6 +69,9 @@ public class Tests {
 
 	@Inject
 	private PortletResponse portletResponse;
+
+	@Inject
+	private PortletSession portletSession;
 
 	@Inject
 	private PortletRequestScopedBean portletRequestScopedBean;
@@ -277,6 +281,21 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "The bridge's alternative producer for PortletResponse was not invoked");
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "portletSessionAlternativeTest")
+	public String portletSessionAlternativeTest(TestBean testBean) {
+
+		if (portletSession.getClass().getName().contains("PortletSessionTCKImpl")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for PortletSession was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for PortletSession was not invoked");
 
 		return Constants.TEST_FAILED;
 	}
