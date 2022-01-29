@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.tck.factories.filter;
 
 import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.filter.RenderRequestWrapper;
 
@@ -39,6 +40,16 @@ public class RenderRequestTCKImpl extends RenderRequestWrapper {
 		}
 
 		return portletMode;
+	}
+
+	@Override
+	public PortletSession getPortletSession() {
+		return new PortletSessionTCKImpl(super.getPortletSession());
+	}
+
+	@Override
+	public PortletSession getPortletSession(boolean create) {
+		return new PortletSessionTCKImpl(super.getPortletSession(create));
 	}
 
 	@Override

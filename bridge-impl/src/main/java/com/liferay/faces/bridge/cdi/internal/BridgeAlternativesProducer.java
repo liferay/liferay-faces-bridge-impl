@@ -30,6 +30,7 @@ import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+import javax.portlet.PortletSession;
 import javax.portlet.annotations.PortletName;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
@@ -107,5 +108,15 @@ public class BridgeAlternativesProducer {
 		ExternalContext externalContext = facesContext.getExternalContext();
 
 		return (PortletResponse) externalContext.getResponse();
+	}
+
+	@Named("portletSession")
+	@Dependent
+	@Produces
+	public PortletSession getPortletSession() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		return (PortletSession) externalContext.getSession(true);
 	}
 }
