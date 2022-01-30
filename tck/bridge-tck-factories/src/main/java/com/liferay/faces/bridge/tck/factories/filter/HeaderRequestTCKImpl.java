@@ -19,6 +19,7 @@ import javax.portlet.HeaderRequest;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletSession;
+import javax.portlet.RenderParameters;
 import javax.portlet.filter.HeaderRequestWrapper;
 
 
@@ -55,5 +56,10 @@ public class HeaderRequestTCKImpl extends HeaderRequestWrapper {
 	@Override
 	public PortletPreferences getPreferences() {
 		return new PortletPreferencesTCKImpl(super.getPreferences());
+	}
+
+	@Override
+	public RenderParameters getRenderParameters() {
+		return new RenderParametersTCKImpl(super.getRenderParameters());
 	}
 }
