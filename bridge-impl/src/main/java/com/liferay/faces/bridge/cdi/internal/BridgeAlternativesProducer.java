@@ -17,10 +17,8 @@ package com.liferay.faces.bridge.cdi.internal;
 
 import javax.annotation.Priority;
 import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.Typed;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -32,8 +30,6 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
-import javax.portlet.RenderParameters;
-import javax.portlet.annotations.PortletName;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
@@ -75,7 +71,6 @@ public class BridgeAlternativesProducer {
 
 	@Dependent
 	@Named("portletName")
-	@PortletName
 	@Produces
 	public String getPortletName() {
 		PortletConfig portletConfig = getPortletConfig();
@@ -120,15 +115,5 @@ public class BridgeAlternativesProducer {
 		ExternalContext externalContext = facesContext.getExternalContext();
 
 		return (PortletSession) externalContext.getSession(true);
-	}
-
-	@Named("renderParams")
-	@Dependent
-	@Produces
-	@Typed(RenderParameters.class)
-	public RenderParameters getRenderParameters() {
-		PortletRequest portletRequest = getPortletRequest();
-
-		return portletRequest.getRenderParameters();
 	}
 }
