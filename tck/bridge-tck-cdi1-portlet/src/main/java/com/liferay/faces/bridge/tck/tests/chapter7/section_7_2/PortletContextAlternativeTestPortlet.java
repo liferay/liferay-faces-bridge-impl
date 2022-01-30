@@ -15,12 +15,13 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
-import com.liferay.bean.portlet.LiferayPortletConfiguration;
-import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
-
 import javax.portlet.annotations.InitParameter;
 import javax.portlet.annotations.PortletConfiguration;
 import javax.portlet.annotations.SecurityRoleRef;
+
+import com.liferay.bean.portlet.LiferayPortletConfiguration;
+
+import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 
 
 /**
