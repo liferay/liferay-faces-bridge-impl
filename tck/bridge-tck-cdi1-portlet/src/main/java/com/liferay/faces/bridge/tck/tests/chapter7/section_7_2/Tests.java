@@ -272,4 +272,19 @@ public class Tests {
 
 		return Constants.TEST_FAILED;
 	}
+
+	@BridgeTest(test = "renderParamsAlternativeTest")
+	public String renderParamsAlternativeTest(TestBean testBean) {
+
+		if (portletConfig.getPortletName().equals(portletConfig.getPortletName())) {
+
+			testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, TEST_REQUIRES_PORTLET3);
+
+		return Constants.TEST_FAILED;
+	}
 }
