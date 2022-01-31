@@ -25,6 +25,7 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
@@ -71,6 +72,9 @@ public class Tests {
 
 	@Inject
 	private PortletSession portletSession;
+
+	@Inject
+	private RenderRequest renderRequest;
 
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {
@@ -284,6 +288,21 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, TEST_REQUIRES_PORTLET3);
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "renderRequestAlternativeTest")
+	public String renderRequestAlternativeTest(TestBean testBean) {
+
+		if (portletRequest.getClass().getName().contains("HeaderRequestTCKImpl")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for RenderRequest was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for RenderRequest was not invoked");
 
 		return Constants.TEST_FAILED;
 	}
