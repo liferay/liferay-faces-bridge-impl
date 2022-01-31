@@ -26,6 +26,7 @@ import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderParameters;
+import javax.portlet.RenderRequest;
 import javax.portlet.annotations.PortletName;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
@@ -69,6 +70,9 @@ public class Tests {
 	private PortletRequest portletRequest;
 
 	@Inject
+	private PortletRequestScopedBean portletRequestScopedBean;
+
+	@Inject
 	private PortletResponse portletResponse;
 
 	@Inject
@@ -78,7 +82,7 @@ public class Tests {
 	private RenderParameters renderParams;
 
 	@Inject
-	private PortletRequestScopedBean portletRequestScopedBean;
+	private RenderRequest renderRequest;
 
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {
@@ -315,6 +319,21 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "The bridge's alternative producer for RenderParameters was not invoked");
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "renderRequestAlternativeTest")
+	public String renderRequestAlternativeTest(TestBean testBean) {
+
+		if (portletRequest.getClass().getName().contains("HeaderRequestTCKImpl")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for RenderRequest was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for RenderRequest was not invoked");
 
 		return Constants.TEST_FAILED;
 	}
