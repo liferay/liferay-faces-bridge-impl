@@ -54,6 +54,10 @@
 		<portlet-name>chapter7_2CDITests-renderRequestAlternativeTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
+	<portlet>
+		<portlet-name>chapter7_2CDITests-renderResponseAlternativeTest-portlet</portlet-name>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>
