@@ -44,6 +44,10 @@ import com.liferay.faces.bridge.tck.common.Constants;
 @BridgeRequestScoped
 public class Tests {
 
+	// Private Constants
+	private static final String TEST_REQUIRES_PORTLET2 =
+		"This test only applies to Portlet 2.0 and is a no-op PASS for Portlet 3.0";
+
 	@Inject
 	private BridgeRequestScopedBean bridgeRequestScopedBean;
 
@@ -334,6 +338,21 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "The bridge's alternative producer for RenderRequest was not invoked");
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "renderResponseAlternativeTest")
+	public String renderResponseAlternativeTest(TestBean testBean) {
+
+		if (portletConfig.getPortletName().equals(portletConfig.getPortletName())) {
+
+			testBean.setTestResult(true, TEST_REQUIRES_PORTLET2);
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, TEST_REQUIRES_PORTLET2);
 
 		return Constants.TEST_FAILED;
 	}

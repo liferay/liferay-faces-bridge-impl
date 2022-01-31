@@ -33,6 +33,7 @@ import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderParameters;
 import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 import javax.portlet.annotations.PortletName;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
@@ -140,5 +141,15 @@ public class BridgeAlternativesProducer {
 		PortletRequest portletRequest = getPortletRequest();
 
 		return (RenderRequest) portletRequest;
+	}
+
+	@Named("renderResponse")
+	@Dependent
+	@Produces
+	@Typed(RenderResponse.class)
+	public RenderResponse getRenderResponse() {
+		PortletResponse portletResponse = getPortletResponse();
+
+		return (RenderResponse) portletResponse;
 	}
 }
