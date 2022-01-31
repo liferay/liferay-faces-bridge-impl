@@ -326,7 +326,7 @@ public class Tests {
 	@BridgeTest(test = "renderRequestAlternativeTest")
 	public String renderRequestAlternativeTest(TestBean testBean) {
 
-		if (portletRequest.getClass().getName().contains("HeaderRequestTCKImpl")) {
+		if (renderRequest.getClass().getName().contains("HeaderRequestTCKImpl")) {
 
 			testBean.setTestResult(true, "The bridge's alternative producer for RenderRequest was properly invoked");
 
