@@ -36,6 +36,7 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
+import javax.portlet.WindowState;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
@@ -182,5 +183,14 @@ public class BridgeAlternativesProducer {
 		}
 
 		return null;
+	}
+
+	@Dependent
+	@Named(value = "windowState")
+	@Produces
+	public WindowState getWindowState() {
+		PortletRequest portletRequest = getPortletRequest();
+
+		return portletRequest.getWindowState();
 	}
 }

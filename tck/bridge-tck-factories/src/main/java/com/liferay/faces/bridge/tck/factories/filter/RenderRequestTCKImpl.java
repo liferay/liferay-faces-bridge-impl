@@ -19,6 +19,7 @@ import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
+import javax.portlet.WindowState;
 import javax.portlet.filter.RenderRequestWrapper;
 
 
@@ -69,5 +70,17 @@ public class RenderRequestTCKImpl extends RenderRequestWrapper {
 		}
 
 		return super.getWindowID();
+	}
+
+	@Override
+	public WindowState getWindowState() {
+
+		WindowState windowState = super.getWindowState();
+
+		if (portletName.contains("windowStateAlternativeTest")) {
+			return new WindowStateTCKFooImpl();
+		}
+
+		return windowState;
 	}
 }
