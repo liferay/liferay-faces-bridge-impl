@@ -38,6 +38,7 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.annotations.PortletName;
+import javax.portlet.annotations.WindowId;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
@@ -204,5 +205,20 @@ public class BridgeAlternativesProducer {
 		}
 
 		return null;
+	}
+
+	@Dependent
+	@Named("windowId")
+	@Produces
+	@WindowId
+	public String getWindowID() {
+
+		PortletRequest portletRequest = getPortletRequest();
+
+		if (portletRequest == null) {
+			return null;
+		}
+
+		return portletRequest.getWindowID();
 	}
 }
