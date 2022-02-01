@@ -485,7 +485,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.WindowIdAlternativeTestPortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
+			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
