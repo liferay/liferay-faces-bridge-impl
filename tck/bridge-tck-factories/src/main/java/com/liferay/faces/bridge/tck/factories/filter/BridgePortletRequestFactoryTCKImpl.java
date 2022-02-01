@@ -58,7 +58,7 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 	public HeaderRequest getHeaderRequest(HeaderRequest headerRequest, HeaderResponse headerResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 		return new HeaderRequestTCKImpl(wrappedFactory.getHeaderRequest(headerRequest, headerResponse, portletConfig,
-					bridgeConfig));
+					bridgeConfig), portletConfig.getPortletName());
 	}
 
 	@Override

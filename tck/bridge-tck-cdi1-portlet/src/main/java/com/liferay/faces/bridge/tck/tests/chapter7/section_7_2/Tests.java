@@ -31,6 +31,7 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.annotations.PortletName;
+import javax.portlet.annotations.WindowId;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.annotation.BridgeRequestScoped;
@@ -99,6 +100,10 @@ public class Tests {
 
 	@Inject
 	private StateAwareResponse stateAwareResponse;
+
+	@Inject
+	@WindowId
+	private String windowId;
 
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {
@@ -445,6 +450,22 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "windowIdAlternativeTest")
+	public String windowIdAlternativeTest(TestBean testBean) {
+
+		// HeaderRequestTCKImpl.getWindowId() expects this condition.
+		if (windowId.equals("tckWindowId")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for WindowId was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for WindowId was not invoked");
 
 		return Constants.TEST_FAILED;
 	}
