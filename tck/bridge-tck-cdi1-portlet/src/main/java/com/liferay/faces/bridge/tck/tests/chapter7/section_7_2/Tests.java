@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -60,6 +61,9 @@ public class Tests {
 
 	@Inject
 	private ActionRequest actionRequest;
+
+	@Inject
+	private ActionResponse actionResponse;
 
 	@Inject
 	private BridgeRequestScopedBean bridgeRequestScopedBean;
@@ -172,6 +176,39 @@ public class Tests {
 			}
 			else {
 				testBean.setTestResult(false, "The bridge's alternative producer for ActionRequest was not invoked");
+
+				return Constants.TEST_FAILED;
+			}
+		}
+
+		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "actionResponseAlternativeTest")
+	public String actionResponseAlternativeTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+
+		if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
+
+			bridgeRequestScopedBean.setFoo(actionResponse.getClass().getSimpleName());
+
+			return "multiRequestTestResultRenderCheck";
+		}
+		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+
+			if ("ActionResponseTCKImpl".equals(bridgeRequestScopedBean.getFoo())) {
+
+				testBean.setTestResult(true,
+					"The bridge's alternative producer for ActionResponse was properly invoked");
+
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				testBean.setTestResult(false, "The bridge's alternative producer for ActionResponse was not invoked");
 
 				return Constants.TEST_FAILED;
 			}
