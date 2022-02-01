@@ -120,11 +120,14 @@ public class Tests {
 		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 		if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
+
+			bridgeRequestScopedBean.setFoo(actionParams.getClass().getSimpleName());
+
 			return "multiRequestTestResultRenderCheck";
 		}
 		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
 
-			if (actionParams.getClass().getName().contains("ActionParametersTCKImpl")) {
+			if ("ActionParametersTCKImpl".equals(bridgeRequestScopedBean.getFoo())) {
 
 				testBean.setTestResult(true, "The bridge's alternative producer for ActionParams was properly invoked");
 
