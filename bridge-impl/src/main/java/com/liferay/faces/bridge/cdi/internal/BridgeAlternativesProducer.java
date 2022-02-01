@@ -34,6 +34,7 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
@@ -158,6 +159,20 @@ public class BridgeAlternativesProducer {
 
 		if ((portletRequest != null) && (portletRequest instanceof ResourceRequest)) {
 			return (ResourceRequest) portletRequest;
+		}
+
+		return null;
+	}
+
+	@Named("resourceResponse")
+	@Dependent
+	@Produces
+	@Typed(ResourceResponse.class)
+	public ResourceResponse getResourceResponse() {
+		PortletResponse portletResponse = getPortletResponse();
+
+		if ((portletResponse != null) && (portletResponse instanceof ResourceResponse)) {
+			return (ResourceResponse) portletResponse;
 		}
 
 		return null;

@@ -28,6 +28,7 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 
@@ -83,6 +84,9 @@ public class Tests {
 
 	@Inject
 	private ResourceRequest resourceRequest;
+
+	@Inject
+	private ResourceResponse resourceResponse;
 
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {
@@ -346,6 +350,29 @@ public class Tests {
 			}
 
 			testBean.setTestResult(false, "The bridge's alternative producer for ResourceRequest was not invoked");
+
+			return Constants.TEST_FAILED;
+		}
+
+		return "";
+	}
+
+	@BridgeTest(test = "resourceResponseAlternativeTest")
+	public String resourceResponseAlternativeTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+
+			if (resourceResponse.getClass().getName().contains("ResourceResponseTCKImpl")) {
+
+				testBean.setTestResult(true,
+					"The bridge's alternative producer for ResourceResponse was properly invoked");
+
+				return Constants.TEST_SUCCESS;
+			}
+
+			testBean.setTestResult(false, "The bridge's alternative producer for ResourceResponse was not invoked");
 
 			return Constants.TEST_FAILED;
 		}
