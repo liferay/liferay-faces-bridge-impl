@@ -21,5 +21,5 @@ import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 /**
  * @author  Neil Griffin
  */
-public class RenderResponseAlternativeTestPortlet extends GenericFacesTestSuitePortlet {
+public class ResourceRequestAlternativeTestPortlet extends GenericFacesTestSuitePortlet {
 }

@@ -13,13 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
+package com.liferay.faces.bridge.tck.factories.filter;
 
-import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
+import javax.portlet.ResourceRequest;
+import javax.portlet.filter.ResourceRequestWrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-public class RenderResponseAlternativeTestPortlet extends GenericFacesTestSuitePortlet {
+public class ResourceRequestTCKImpl extends ResourceRequestWrapper {
+
+	public ResourceRequestTCKImpl(ResourceRequest request) {
+		super(request);
+	}
 }
