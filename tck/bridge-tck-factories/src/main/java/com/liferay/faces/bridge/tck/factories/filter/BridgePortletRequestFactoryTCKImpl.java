@@ -71,7 +71,8 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 	@Override
 	public ResourceRequest getResourceRequest(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return wrappedFactory.getResourceRequest(resourceRequest, resourceResponse, portletConfig, bridgeConfig);
+		return new ResourceRequestTCKImpl(wrappedFactory.getResourceRequest(resourceRequest, resourceResponse,
+					portletConfig, bridgeConfig));
 	}
 
 	@Override
