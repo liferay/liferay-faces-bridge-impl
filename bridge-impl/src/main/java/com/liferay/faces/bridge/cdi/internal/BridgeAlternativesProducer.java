@@ -24,6 +24,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.interceptor.Interceptor;
+import javax.portlet.ActionParameters;
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -48,6 +50,23 @@ import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 @Dependent
 @Priority(Interceptor.Priority.APPLICATION + 10)
 public class BridgeAlternativesProducer {
+
+	@Named("actionParams")
+	@Dependent
+	@Produces
+	@Typed(ActionParameters.class)
+	public ActionParameters getActionParameters() {
+		PortletRequest portletRequest = getPortletRequest();
+
+		if ((portletRequest != null) && (portletRequest instanceof ActionRequest)) {
+
+			ActionRequest actionRequest = (ActionRequest) portletRequest;
+
+			return actionRequest.getActionParameters();
+		}
+
+		return null;
+	}
 
 	@Dependent
 	@Named(value = "portletConfig")
