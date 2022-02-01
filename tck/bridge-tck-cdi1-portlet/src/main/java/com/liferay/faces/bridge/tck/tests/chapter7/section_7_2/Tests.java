@@ -18,6 +18,7 @@ package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.portlet.ActionParameters;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -52,6 +53,9 @@ public class Tests {
 	// Private Constants
 	private static final String TEST_REQUIRES_PORTLET2 =
 		"This test only applies to Portlet 2.0 and is a no-op PASS for Portlet 3.0";
+
+	@Inject
+	private ActionParameters actionParams;
 
 	@Inject
 	private BridgeRequestScopedBean bridgeRequestScopedBean;
@@ -108,6 +112,35 @@ public class Tests {
 
 	@Inject
 	private WindowState windowState;
+
+	@BridgeTest(test = "actionParamsAlternativeTest")
+	public String actionParamsAlternativeTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+
+		if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
+			return "multiRequestTestResultRenderCheck";
+		}
+		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+
+			if (actionParams.getClass().getName().contains("ActionParametersTCKImpl")) {
+
+				testBean.setTestResult(true, "The bridge's alternative producer for ActionParams was properly invoked");
+
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				testBean.setTestResult(false, "The bridge's alternative producer for ActionParams was not invoked");
+
+				return Constants.TEST_FAILED;
+			}
+		}
+
+		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
+
+		return Constants.TEST_FAILED;
+	}
 
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {
