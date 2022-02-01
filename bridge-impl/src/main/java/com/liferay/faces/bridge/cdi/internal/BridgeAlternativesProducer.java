@@ -76,15 +76,6 @@ public class BridgeAlternativesProducer {
 	}
 
 	@Dependent
-	@Named("portletName")
-	@Produces
-	public String getPortletName() {
-		PortletConfig portletConfig = getPortletConfig();
-
-		return portletConfig.getPortletName();
-	}
-
-	@Dependent
 	@Named(value = "portletPreferences")
 	@Produces
 	public PortletPreferences getPortletPreferences() {
