@@ -7,6 +7,10 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
+		<portlet-name>chapter7_2CDITests-actionRequestAlternativeTest-portlet</portlet-name>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+	</portlet>
+	<portlet>
 		<portlet-name>chapter7_2CDITests-bridgeRequestScopedBeanTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>

@@ -18,6 +18,7 @@ package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -50,6 +51,9 @@ public class Tests {
 	// Private Constants
 	private static final String TEST_REQUIRES_PORTLET3 =
 		"This test only applies to Portlet 3.0 and is a no-op PASS for Portlet 2.0";
+
+	@Inject
+	private ActionRequest actionRequest;
 
 	@Inject
 	private BridgeRequestScopedBean bridgeRequestScopedBean;
@@ -114,6 +118,39 @@ public class Tests {
 			}
 			else {
 				testBean.setTestResult(false, TEST_REQUIRES_PORTLET3);
+
+				return Constants.TEST_FAILED;
+			}
+		}
+
+		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "actionRequestAlternativeTest")
+	public String actionRequestAlternativeTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+
+		if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
+
+			bridgeRequestScopedBean.setFoo(actionRequest.getClass().getSimpleName());
+
+			return "multiRequestTestResultRenderCheck";
+		}
+		else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
+
+			if ("ActionRequestTCKImpl".equals(bridgeRequestScopedBean.getFoo())) {
+
+				testBean.setTestResult(true,
+					"The bridge's alternative producer for ActionRequest was properly invoked");
+
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				testBean.setTestResult(false, "The bridge's alternative producer for ActionRequest was not invoked");
 
 				return Constants.TEST_FAILED;
 			}
