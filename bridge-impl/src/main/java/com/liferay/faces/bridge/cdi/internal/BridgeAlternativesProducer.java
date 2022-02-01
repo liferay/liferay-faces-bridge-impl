@@ -37,6 +37,7 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
+import javax.portlet.WindowState;
 import javax.portlet.annotations.PortletName;
 import javax.portlet.annotations.WindowId;
 
@@ -220,5 +221,14 @@ public class BridgeAlternativesProducer {
 		}
 
 		return portletRequest.getWindowID();
+	}
+
+	@Dependent
+	@Named(value = "windowState")
+	@Produces
+	public WindowState getWindowState() {
+		PortletRequest portletRequest = getPortletRequest();
+
+		return portletRequest.getWindowState();
 	}
 }

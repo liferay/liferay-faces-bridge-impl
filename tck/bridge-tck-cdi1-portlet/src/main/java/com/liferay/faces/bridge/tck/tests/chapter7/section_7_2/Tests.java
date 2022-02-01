@@ -30,6 +30,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
+import javax.portlet.WindowState;
 import javax.portlet.annotations.PortletName;
 import javax.portlet.annotations.WindowId;
 import javax.portlet.faces.Bridge;
@@ -104,6 +105,9 @@ public class Tests {
 	@Inject
 	@WindowId
 	private String windowId;
+
+	@Inject
+	private WindowState windowState;
 
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {
@@ -466,6 +470,22 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "The bridge's alternative producer for WindowId was not invoked");
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "windowStateAlternativeTest")
+	public String windowStateAlternativeTest(TestBean testBean) {
+
+		// HeaderRequestTCKImpl.getWindowState() expects this condition.
+		if (windowState.getClass().getName().contains("WindowStateTCKFooImpl")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for WindowState was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for WindowState was not invoked");
 
 		return Constants.TEST_FAILED;
 	}
