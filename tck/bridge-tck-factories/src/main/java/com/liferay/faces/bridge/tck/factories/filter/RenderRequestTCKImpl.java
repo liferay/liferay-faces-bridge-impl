@@ -27,8 +27,12 @@ import javax.portlet.filter.RenderRequestWrapper;
  */
 public class RenderRequestTCKImpl extends RenderRequestWrapper {
 
-	public RenderRequestTCKImpl(RenderRequest renderRequest) {
+	private String portletName;
+
+	public RenderRequestTCKImpl(RenderRequest renderRequest, String portletName) {
 		super(renderRequest);
+
+		this.portletName = portletName;
 	}
 
 	@Override
@@ -55,5 +59,15 @@ public class RenderRequestTCKImpl extends RenderRequestWrapper {
 	@Override
 	public PortletPreferences getPreferences() {
 		return new PortletPreferencesTCKImpl(super.getPreferences());
+	}
+
+	@Override
+	public String getWindowID() {
+
+		if (portletName.contains("windowIdAlternativeTest")) {
+			return "tckWindowId";
+		}
+
+		return super.getWindowID();
 	}
 }

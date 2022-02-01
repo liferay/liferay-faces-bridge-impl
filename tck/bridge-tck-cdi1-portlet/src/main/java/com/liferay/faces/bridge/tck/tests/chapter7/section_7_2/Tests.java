@@ -417,4 +417,20 @@ public class Tests {
 
 		return Constants.TEST_FAILED;
 	}
+
+	@BridgeTest(test = "windowIdAlternativeTest")
+	public String windowIdAlternativeTest(TestBean testBean) {
+
+		// RenderRequestTCKImpl.getWindowId() expects this condition.
+		if (portletConfig.getPortletName().equals(portletConfig.getPortletName())) {
+
+			testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, TEST_REQUIRES_PORTLET3);
+
+		return Constants.TEST_FAILED;
+	}
 }

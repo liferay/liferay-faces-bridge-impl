@@ -58,7 +58,7 @@ public class BridgePortletRequestFactoryTCKImpl extends BridgePortletRequestFact
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 
 		return new RenderRequestTCKImpl(wrappedFactory.getRenderRequest(renderRequest, renderResponse, portletConfig,
-					bridgeConfig));
+					bridgeConfig), portletConfig.getPortletName());
 	}
 
 	@Override
