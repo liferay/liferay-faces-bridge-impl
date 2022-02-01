@@ -59,13 +59,27 @@ public class BridgeAlternativesProducer {
 	@Produces
 	@Typed(ActionParameters.class)
 	public ActionParameters getActionParameters() {
+		ActionRequest actionRequest = getActionRequest();
+
+		if (actionRequest == null) {
+			return null;
+		}
+
+		return actionRequest.getActionParameters();
+	}
+
+	@Named("actionRequest")
+	@Dependent
+	@Produces
+	@Typed(ActionRequest.class)
+	public ActionRequest getActionRequest() {
 		PortletRequest portletRequest = getPortletRequest();
 
 		if ((portletRequest != null) && (portletRequest instanceof ActionRequest)) {
 
 			ActionRequest actionRequest = (ActionRequest) portletRequest;
 
-			return actionRequest.getActionParameters();
+			return actionRequest;
 		}
 
 		return null;
