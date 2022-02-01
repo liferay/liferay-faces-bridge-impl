@@ -15,7 +15,6 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
 import javax.portlet.filter.ActionRequestWrapper;
 
@@ -27,10 +26,5 @@ public class ActionRequestTCKImpl extends ActionRequestWrapper {
 
 	public ActionRequestTCKImpl(ActionRequest request) {
 		super(request);
-	}
-
-	@Override
-	public ActionParameters getActionParameters() {
-		return new ActionParametersTCKImpl(super.getActionParameters());
 	}
 }
