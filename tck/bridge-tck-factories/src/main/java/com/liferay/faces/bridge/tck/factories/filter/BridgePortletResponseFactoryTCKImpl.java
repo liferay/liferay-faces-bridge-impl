@@ -44,7 +44,8 @@ public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFa
 	@Override
 	public ActionResponse getActionResponse(ActionRequest actionRequest, ActionResponse actionResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return wrappedFactory.getActionResponse(actionRequest, actionResponse, portletConfig, bridgeConfig);
+		return new ActionResponseTCKImpl(wrappedFactory.getActionResponse(actionRequest, actionResponse, portletConfig,
+					bridgeConfig));
 	}
 
 	@Override
