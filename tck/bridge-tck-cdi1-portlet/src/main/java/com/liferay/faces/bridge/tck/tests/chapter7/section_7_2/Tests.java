@@ -177,7 +177,7 @@ public class Tests {
 
 			return "multiRequestTestResultRenderCheck";
 		}
-		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+		else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
 
 			if ("ActionResponseTCKImpl".equals(bridgeRequestScopedBean.getFoo())) {
 
