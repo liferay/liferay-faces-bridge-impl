@@ -70,7 +70,8 @@ public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFa
 	@Override
 	public ResourceResponse getResourceResponse(ResourceRequest resourceRequest, ResourceResponse resourceResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return wrappedFactory.getResourceResponse(resourceRequest, resourceResponse, portletConfig, bridgeConfig);
+		return new ResourceResponseTCKImpl(wrappedFactory.getResourceResponse(resourceRequest, resourceResponse,
+					portletConfig, bridgeConfig));
 	}
 
 	@Override
