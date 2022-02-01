@@ -29,6 +29,7 @@ import javax.portlet.RenderParameters;
 import javax.portlet.RenderRequest;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.portlet.StateAwareResponse;
 import javax.portlet.annotations.PortletName;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
@@ -95,6 +96,9 @@ public class Tests {
 
 	@Inject
 	private ResourceResponse resourceResponse;
+
+	@Inject
+	private StateAwareResponse stateAwareResponse;
 
 	@BridgeTest(test = "bridgeRequestScopedBeanTest")
 	public String bridgeRequestScopedBeanTest(TestBean testBean) {
@@ -409,5 +413,39 @@ public class Tests {
 		}
 
 		return "";
+	}
+
+	@BridgeTest(test = "stateAwareResponseAlternativeTest")
+	public String stateAwareResponseAlternativeTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+
+		if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
+
+			bridgeRequestScopedBean.setFoo(stateAwareResponse.getClass().getSimpleName());
+
+			return "multiRequestTestResultRenderCheck";
+		}
+		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+
+			if ("ActionResponseTCKImpl".equals(bridgeRequestScopedBean.getFoo())) {
+
+				testBean.setTestResult(true,
+					"The bridge's alternative producer for StateAwareResponse was properly invoked");
+
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				testBean.setTestResult(false,
+					"The bridge's alternative producer for StateAwareResponse was not invoked");
+
+				return Constants.TEST_FAILED;
+			}
+		}
+
+		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
+
+		return Constants.TEST_FAILED;
 	}
 }
