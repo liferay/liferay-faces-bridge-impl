@@ -26,6 +26,7 @@ import javax.inject.Named;
 import javax.interceptor.Interceptor;
 import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -80,6 +81,20 @@ public class BridgeAlternativesProducer {
 			ActionRequest actionRequest = (ActionRequest) portletRequest;
 
 			return actionRequest;
+		}
+
+		return null;
+	}
+
+	@Named("actionResponse")
+	@Dependent
+	@Produces
+	@Typed(ActionResponse.class)
+	public ActionResponse getActionResponse() {
+		PortletResponse portletResponse = getPortletResponse();
+
+		if ((portletResponse != null) && (portletResponse instanceof ActionResponse)) {
+			return (ActionResponse) portletResponse;
 		}
 
 		return null;
