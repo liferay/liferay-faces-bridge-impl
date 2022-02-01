@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.ClientDataRequest;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -64,6 +65,9 @@ public class Tests {
 
 	@Inject
 	private CDIRequestScopedBean cdiRequestScopedBean;
+
+	@Inject
+	private ClientDataRequest clientDataRequest;
 
 	@Inject
 	private PortletConfig portletConfig;
@@ -252,6 +256,40 @@ public class Tests {
 			}
 			else {
 				testBean.setTestResult(false, "CDI @RequestScoped is behaving like @BridgeRequestScoped");
+
+				return Constants.TEST_FAILED;
+			}
+		}
+
+		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "clientDataRequestAlternativeTest")
+	public String clientDataRequestAlternativeTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+
+		if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
+
+			bridgeRequestScopedBean.setFoo(clientDataRequest.getClass().getSimpleName());
+
+			return "multiRequestTestResultRenderCheck";
+		}
+		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+
+			if ("ActionRequestTCKImpl".equals(bridgeRequestScopedBean.getFoo())) {
+
+				testBean.setTestResult(true,
+					"The bridge's alternative producer for ClientDataRequest was properly invoked");
+
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				testBean.setTestResult(false,
+					"The bridge's alternative producer for ClientDataRequest was not invoked");
 
 				return Constants.TEST_FAILED;
 			}
