@@ -64,7 +64,8 @@ public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFa
 	@Override
 	public RenderResponse getRenderResponse(RenderRequest renderRequest, RenderResponse renderResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return wrappedFactory.getRenderResponse(renderRequest, renderResponse, portletConfig, bridgeConfig);
+		return new RenderResponseTCKImpl(wrappedFactory.getRenderResponse(renderRequest, renderResponse, portletConfig,
+					bridgeConfig));
 	}
 
 	@Override
