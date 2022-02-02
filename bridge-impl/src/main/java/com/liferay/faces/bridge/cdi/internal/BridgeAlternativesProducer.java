@@ -32,6 +32,7 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.HeaderRequest;
+import javax.portlet.HeaderResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -162,6 +163,20 @@ public class BridgeAlternativesProducer {
 
 		if ((portletRequest != null) && (portletRequest instanceof HeaderRequest)) {
 			return (HeaderRequest) portletRequest;
+		}
+
+		return null;
+	}
+
+	@Named("headerResponse")
+	@Dependent
+	@Produces
+	@Typed(HeaderResponse.class)
+	public HeaderResponse getHeaderResponse() {
+		PortletResponse portletResponse = getPortletResponse();
+
+		if ((portletResponse != null) && (portletResponse instanceof HeaderResponse)) {
+			return (HeaderResponse) portletResponse;
 		}
 
 		return null;
