@@ -361,6 +361,21 @@ public class Tests {
 		return Constants.TEST_FAILED;
 	}
 
+	@BridgeTest(test = "headerResponseAlternativeTest")
+	public String headerResponseAlternativeTest(TestBean testBean) {
+
+		if (portletConfig.getPortletName().equals(portletConfig.getPortletName())) {
+
+			testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, TEST_REQUIRES_PORTLET3);
+
+		return Constants.TEST_FAILED;
+	}
+
 	@BridgeTest(test = "portletConfigAlternativeTest")
 	public String portletConfigAlternativeTest(TestBean testBean) {
 		String value = portletConfig.getInitParameter("tck");
