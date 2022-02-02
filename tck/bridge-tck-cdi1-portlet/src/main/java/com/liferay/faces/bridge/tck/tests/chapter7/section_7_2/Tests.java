@@ -24,6 +24,7 @@ import javax.inject.Named;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
+import javax.portlet.HeaderRequest;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -79,6 +80,9 @@ public class Tests {
 
 	@Inject
 	private PortletConfig portletConfig;
+
+	@Inject
+	private HeaderRequest headerRequest;
 
 	@Inject
 	private PortletContext portletContext;
@@ -342,6 +346,21 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "The bridge's alternative producer for List<Cookie> was not invoked");
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "headerRequestAlternativeTest")
+	public String headerRequestAlternativeTest(TestBean testBean) {
+
+		if (headerRequest.getClass().getName().contains("HeaderRequestTCKImpl")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for HeaderRequest was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for HeaderRequest was not invoked");
 
 		return Constants.TEST_FAILED;
 	}
