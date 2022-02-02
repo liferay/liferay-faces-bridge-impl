@@ -26,6 +26,7 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.HeaderRequest;
+import javax.portlet.HeaderResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -94,6 +95,9 @@ public class Tests {
 
 	@Inject
 	private HeaderRequest headerRequest;
+
+	@Inject
+	private HeaderResponse headerResponse;
 
 	@Inject
 	private PortletContext portletContext;
@@ -388,6 +392,21 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "The bridge's alternative producer for HeaderRequest was not invoked");
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "headerResponseAlternativeTest")
+	public String headerResponseAlternativeTest(TestBean testBean) {
+
+		if (headerResponse.getClass().getName().contains("HeaderResponseTCKImpl")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for HeaderResponse was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for HeaderResponse was not invoked");
 
 		return Constants.TEST_FAILED;
 	}
