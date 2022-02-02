@@ -15,6 +15,11 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import javax.portlet.HeaderRequest;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
@@ -22,6 +27,7 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderParameters;
 import javax.portlet.WindowState;
 import javax.portlet.filter.HeaderRequestWrapper;
+import javax.servlet.http.Cookie;
 
 
 /**
@@ -35,6 +41,26 @@ public class HeaderRequestTCKImpl extends HeaderRequestWrapper {
 		super(headerRequest);
 
 		this.portletName = portletName;
+	}
+
+	@Override
+	public Cookie[] getCookies() {
+
+		Cookie[] cookies = super.getCookies();
+
+		if (portletName.contains("cookiesAlternativeTest")) {
+
+			List<Cookie> cookieList = Collections.emptyList();
+
+			if ((cookies != null) && (cookies.length > 0)) {
+				cookieList = new ArrayList(Arrays.asList(cookies));
+				cookieList.add(new CookieTCKImpl("foo", "1234"));
+			}
+
+			cookies = cookieList.toArray(new Cookie[0]);
+		}
+
+		return cookies;
 	}
 
 	@Override
