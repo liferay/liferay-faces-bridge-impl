@@ -42,6 +42,7 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.WindowState;
+import javax.portlet.annotations.ContextPath;
 import javax.portlet.annotations.PortletName;
 import javax.portlet.annotations.WindowId;
 
@@ -116,6 +117,16 @@ public class BridgeAlternativesProducer {
 		}
 
 		return null;
+	}
+
+	@Dependent
+	@Named("contextPath")
+	@ContextPath
+	@Produces
+	public String getContextPath() {
+		PortletContext portletContext = getPortletContext();
+
+		return portletContext.getContextPath();
 	}
 
 	@Dependent

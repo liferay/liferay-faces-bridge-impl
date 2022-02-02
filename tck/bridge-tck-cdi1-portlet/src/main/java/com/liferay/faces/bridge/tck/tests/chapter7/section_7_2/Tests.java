@@ -35,6 +35,7 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.WindowState;
+import javax.portlet.annotations.ContextPath;
 import javax.portlet.annotations.PortletName;
 import javax.portlet.annotations.WindowId;
 import javax.portlet.faces.Bridge;
@@ -74,6 +75,10 @@ public class Tests {
 
 	@Inject
 	private ClientDataRequest clientDataRequest;
+
+	@Inject
+	@ContextPath
+	private String contextPath;
 
 	@Inject
 	private PortletConfig portletConfig;
@@ -317,6 +322,22 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "contextPathAlternativeTest")
+	public String contextPathAlternativeTest(TestBean testBean) {
+
+		// PortletContextTCKImpl.getContextPath() expects this condition.
+		if (contextPath.equals("tckPortletContextPath")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for ContextPath was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for ContextPath was not invoked");
 
 		return Constants.TEST_FAILED;
 	}
