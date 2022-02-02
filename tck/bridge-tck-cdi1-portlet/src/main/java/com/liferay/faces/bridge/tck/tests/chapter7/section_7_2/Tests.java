@@ -15,6 +15,9 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -36,6 +39,7 @@ import javax.portlet.StateAwareResponse;
 import javax.portlet.WindowState;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
+import javax.servlet.http.Cookie;
 
 import com.liferay.faces.bridge.annotation.BridgeRequestScoped;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
@@ -68,6 +72,10 @@ public class Tests {
 
 	@Inject
 	private ClientDataRequest clientDataRequest;
+
+	@Inject
+	@Resource(name = "cookies")
+	private List<Cookie> cookies;
 
 	@Inject
 	private PortletConfig portletConfig;
@@ -311,6 +319,29 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, TEST_REQUIRES_PORTLET3);
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "cookiesAlternativeTest")
+	public String cookiesAlternativeTest(TestBean testBean) {
+
+		// HeaderRequestTCKImpl.getCookies() expects this condition.
+		if ((cookies != null) && !cookies.isEmpty()) {
+
+			for (Cookie cookie : cookies) {
+
+				if (cookie.getClass().getName().contains("CookieTCKImpl")) {
+
+					testBean.setTestResult(true,
+						"The bridge's alternative producer for List<Cookie> was properly invoked");
+
+					return Constants.TEST_SUCCESS;
+				}
+			}
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for List<Cookie> was not invoked");
 
 		return Constants.TEST_FAILED;
 	}

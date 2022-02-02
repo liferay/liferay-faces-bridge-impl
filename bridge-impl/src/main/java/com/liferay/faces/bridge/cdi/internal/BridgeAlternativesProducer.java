@@ -15,6 +15,9 @@
  */
 package com.liferay.faces.bridge.cdi.internal;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.annotation.Priority;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Alternative;
@@ -40,6 +43,7 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.WindowState;
+import javax.servlet.http.Cookie;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 
@@ -98,6 +102,25 @@ public class BridgeAlternativesProducer {
 		}
 
 		return null;
+	}
+
+	@Dependent
+	@Named("cookies")
+	@Produces
+	public List<Cookie> getCookies() {
+		PortletRequest portletRequest = getPortletRequest();
+
+		if (portletRequest == null) {
+			return null;
+		}
+
+		Cookie[] cookies = portletRequest.getCookies();
+
+		if (cookies == null) {
+			return null;
+		}
+
+		return Arrays.asList(cookies);
 	}
 
 	@Dependent
