@@ -31,6 +31,7 @@ import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
+import javax.portlet.HeaderRequest;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -150,6 +151,20 @@ public class BridgeAlternativesProducer {
 		}
 
 		return Arrays.asList(cookies);
+	}
+
+	@Named("headerRequest")
+	@Dependent
+	@Produces
+	@Typed(HeaderRequest.class)
+	public HeaderRequest getHeaderRequest() {
+		PortletRequest portletRequest = getPortletRequest();
+
+		if ((portletRequest != null) && (portletRequest instanceof HeaderRequest)) {
+			return (HeaderRequest) portletRequest;
+		}
+
+		return null;
 	}
 
 	@Dependent
