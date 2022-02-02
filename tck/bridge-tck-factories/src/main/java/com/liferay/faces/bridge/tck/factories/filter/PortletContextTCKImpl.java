@@ -24,8 +24,12 @@ import javax.portlet.filter.PortletContextWrapper;
  */
 public class PortletContextTCKImpl extends PortletContextWrapper {
 
-	public PortletContextTCKImpl(PortletContext wrapped) {
-		super(wrapped);
+	private String portletName;
+
+	public PortletContextTCKImpl(PortletContext portletContext, String portletName) {
+		super(portletContext);
+
+		this.portletName = portletName;
 	}
 
 	@Override
@@ -38,5 +42,15 @@ public class PortletContextTCKImpl extends PortletContextWrapper {
 		}
 
 		return super.getAttribute(name);
+	}
+
+	@Override
+	public String getContextPath() {
+
+		if (portletName.contains("contextPathAlternativeTest")) {
+			return "tckPortletContextPath";
+		}
+
+		return super.getContextPath();
 	}
 }

@@ -29,7 +29,8 @@ public class PortletConfigTCKImpl extends PortletConfigWrapper {
 
 	public PortletConfigTCKImpl(PortletConfig portletConfig) {
 		super(portletConfig);
-		this.portletContext = new PortletContextTCKImpl(portletConfig.getPortletContext());
+		this.portletContext = new PortletContextTCKImpl(portletConfig.getPortletContext(),
+				portletConfig.getPortletName());
 	}
 
 	@Override
