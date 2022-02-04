@@ -135,7 +135,7 @@ public class TestsCDI1 {
 	private RenderRequest renderRequest;
 
 	@Inject
-	ResourceRequest resourceRequest;
+	private ResourceRequest resourceRequest;
 
 	@Inject
 	private ResourceResponse resourceResponse;
