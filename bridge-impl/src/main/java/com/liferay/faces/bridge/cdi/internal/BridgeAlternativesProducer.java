@@ -32,6 +32,7 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.EventRequest;
+import javax.portlet.EventResponse;
 import javax.portlet.HeaderRequest;
 import javax.portlet.HeaderResponse;
 import javax.portlet.PortletConfig;
@@ -164,6 +165,20 @@ public class BridgeAlternativesProducer {
 
 		if ((portletRequest != null) && (portletRequest instanceof EventRequest)) {
 			return (EventRequest) portletRequest;
+		}
+
+		return null;
+	}
+
+	@Named("eventResponse")
+	@Dependent
+	@Produces
+	@Typed(EventResponse.class)
+	public EventResponse getEventResponse() {
+		PortletResponse portletResponse = getPortletResponse();
+
+		if ((portletResponse != null) && (portletResponse instanceof EventResponse)) {
+			return (EventResponse) portletResponse;
 		}
 
 		return null;

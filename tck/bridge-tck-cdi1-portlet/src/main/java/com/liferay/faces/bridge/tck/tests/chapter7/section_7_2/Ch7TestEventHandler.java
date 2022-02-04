@@ -33,13 +33,19 @@ public class Ch7TestEventHandler implements BridgeEventHandler {
 
 		String testName = (String) event.getValue();
 
-		if ("eventRequestAlternativeTest".equals(testName)) {
+		if ("eventRequestAlternativeTest".equals(testName) || "eventResponseAlternativeTest".equals(testName)) {
 
 			ELContext elContext = facesContext.getELContext();
 			ELResolver elResolver = elContext.getELResolver();
 
 			TestsCDI1 tests = (TestsCDI1) elResolver.getValue(elContext, null, "chapter7_2CDITests");
-			tests.eventRequestAlternativeTest(null);
+
+			if ("eventRequestAlternativeTest".equals(testName)) {
+				tests.eventRequestAlternativeTest(null);
+			}
+			else {
+				tests.eventResponseAlternativeTest(null);
+			}
 		}
 
 		return null;
