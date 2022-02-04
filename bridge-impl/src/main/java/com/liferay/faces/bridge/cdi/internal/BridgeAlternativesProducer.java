@@ -30,6 +30,7 @@ import javax.interceptor.Interceptor;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
+import javax.portlet.EventRequest;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -121,6 +122,20 @@ public class BridgeAlternativesProducer {
 		}
 
 		return Arrays.asList(cookies);
+	}
+
+	@Named("eventRequest")
+	@Dependent
+	@Produces
+	@Typed(EventRequest.class)
+	public EventRequest getEventRequest() {
+		PortletRequest portletRequest = getPortletRequest();
+
+		if ((portletRequest != null) && (portletRequest instanceof EventRequest)) {
+			return (EventRequest) portletRequest;
+		}
+
+		return null;
 	}
 
 	@Dependent
