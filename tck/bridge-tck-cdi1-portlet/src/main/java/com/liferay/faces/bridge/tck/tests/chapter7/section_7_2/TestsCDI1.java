@@ -18,6 +18,8 @@ package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.el.ELContext;
+import javax.el.ELResolver;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,6 +27,7 @@ import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
+import javax.portlet.EventRequest;
 import javax.portlet.HeaderRequest;
 import javax.portlet.HeaderResponse;
 import javax.portlet.PortletConfig;
@@ -47,6 +50,7 @@ import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.annotation.BridgeRequestScoped;
 import javax.servlet.http.Cookie;
+import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
@@ -58,7 +62,7 @@ import com.liferay.faces.bridge.tck.common.Constants;
  */
 @Named("chapter7_2CDITests")
 @BridgeRequestScoped
-public class Tests {
+public class TestsCDI1 {
 
 	// Private Constants
 	private static final String TEST_REQUIRES_PORTLET2 =
@@ -131,7 +135,7 @@ public class Tests {
 	private RenderRequest renderRequest;
 
 	@Inject
-	private ResourceRequest resourceRequest;
+	ResourceRequest resourceRequest;
 
 	@Inject
 	private ResourceResponse resourceResponse;
@@ -377,6 +381,52 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "The bridge's alternative producer for List<Cookie> was not invoked");
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "eventRequestAlternativeTest")
+	public String eventRequestAlternativeTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+
+		if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
+
+			// Publish an event that gets handled by Ch7TestEventHandler.handleEvent(FacesContext,Event)
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) facesContext.getExternalContext()
+				.getResponse();
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
+
+			return "multiRequestTestResultRenderCheck";
+		}
+		else if (portletPhase == Bridge.PortletPhase.EVENT_PHASE) {
+
+			ELContext elContext = facesContext.getELContext();
+			ELResolver elResolver = elContext.getELResolver();
+			EventBean eventBean = (EventBean) elResolver.getValue(elContext, null, "eventBean");
+			bridgeRequestScopedBean.setFoo(eventBean.getInjectedEventRequestFQCN());
+
+			return null;
+		}
+		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+
+			String foo = bridgeRequestScopedBean.getFoo();
+
+			if ((foo != null) && foo.endsWith("EventRequestTCKImpl")) {
+
+				testBean.setTestResult(true, "The bridge's alternative producer for EventRequest was properly invoked");
+
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				testBean.setTestResult(false, "The bridge's alternative producer for EventRequest was not invoked");
+
+				return Constants.TEST_FAILED;
+			}
+		}
+
+		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
 
 		return Constants.TEST_FAILED;
 	}
