@@ -13,34 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
+package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
-
-import com.liferay.faces.bridge.annotation.BridgeRequestScoped;
+import javax.portlet.filter.EventResponseWrapper;
 
 
 /**
  * @author  Neil Griffin
  */
-@Named
-@BridgeRequestScoped
-public class EventBean {
+public class EventResponseTCKImpl extends EventResponseWrapper {
 
-	@Inject
-	private EventRequest eventRequest;
-
-	@Inject
-	private EventResponse eventResponse;
-
-	public String getInjectedEventRequestFQCN() {
-		return eventRequest.getClass().getName();
-	}
-
-	public String getInjectedEventResponseFQCN() {
-		return eventResponse.getClass().getName();
+	public EventResponseTCKImpl(EventResponse response) {
+		super(response);
 	}
 }

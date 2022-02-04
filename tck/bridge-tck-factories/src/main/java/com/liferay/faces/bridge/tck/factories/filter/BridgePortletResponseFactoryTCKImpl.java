@@ -51,7 +51,8 @@ public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFa
 	@Override
 	public EventResponse getEventResponse(EventRequest eventRequest, EventResponse eventResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
-		return wrappedFactory.getEventResponse(eventRequest, eventResponse, portletConfig, bridgeConfig);
+		return new EventResponseTCKImpl(wrappedFactory.getEventResponse(eventRequest, eventResponse, portletConfig,
+					bridgeConfig));
 	}
 
 	@Override

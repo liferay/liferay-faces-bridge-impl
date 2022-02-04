@@ -15,32 +15,11 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.portlet.EventRequest;
-import javax.portlet.EventResponse;
-
-import com.liferay.faces.bridge.annotation.BridgeRequestScoped;
+import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 
 
 /**
  * @author  Neil Griffin
  */
-@Named
-@BridgeRequestScoped
-public class EventBean {
-
-	@Inject
-	private EventRequest eventRequest;
-
-	@Inject
-	private EventResponse eventResponse;
-
-	public String getInjectedEventRequestFQCN() {
-		return eventRequest.getClass().getName();
-	}
-
-	public String getInjectedEventResponseFQCN() {
-		return eventResponse.getClass().getName();
-	}
+public class EventResponseAlternativeTestPortlet extends GenericFacesTestSuitePortlet {
 }

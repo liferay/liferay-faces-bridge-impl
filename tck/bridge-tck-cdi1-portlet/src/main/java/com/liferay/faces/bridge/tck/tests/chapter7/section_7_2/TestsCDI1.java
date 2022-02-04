@@ -395,6 +395,53 @@ public class TestsCDI1 {
 		return Constants.TEST_FAILED;
 	}
 
+	@BridgeTest(test = "eventResponseAlternativeTest")
+	public String eventResponseAlternativeTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+
+		if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
+
+			// Publish an event that gets handled by Ch7TestEventHandler.handleEvent(FacesContext,Event)
+			StateAwareResponse stateAwareResponse = (StateAwareResponse) facesContext.getExternalContext()
+				.getResponse();
+			stateAwareResponse.setEvent(new QName(Constants.EVENT_QNAME, Constants.EVENT_NAME), testBean.getTestName());
+
+			return "multiRequestTestResultRenderCheck";
+		}
+		else if (portletPhase == Bridge.PortletPhase.EVENT_PHASE) {
+
+			ELContext elContext = facesContext.getELContext();
+			ELResolver elResolver = elContext.getELResolver();
+			EventBean eventBean = (EventBean) elResolver.getValue(elContext, null, "eventBean");
+			bridgeRequestScopedBean.setFoo(eventBean.getInjectedEventResponseFQCN());
+
+			return null;
+		}
+		else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
+
+			String foo = bridgeRequestScopedBean.getFoo();
+
+			if ((foo != null) && foo.endsWith("EventResponseTCKImpl")) {
+
+				testBean.setTestResult(true,
+					"The bridge's alternative producer for EventResponse was properly invoked");
+
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				testBean.setTestResult(false, "The bridge's alternative producer for EventResponse was not invoked");
+
+				return Constants.TEST_FAILED;
+			}
+		}
+
+		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
+
+		return Constants.TEST_FAILED;
+	}
+
 	@BridgeTest(test = "headerRequestAlternativeTest")
 	public String headerRequestAlternativeTest(TestBean testBean) {
 
