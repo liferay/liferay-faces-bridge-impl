@@ -17,7 +17,6 @@ package com.liferay.faces.bridge.cdi.internal;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,7 +35,6 @@ import javax.portlet.ClientDataRequest;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
 import javax.portlet.MimeResponse;
-import javax.portlet.MutableRenderParameters;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -180,20 +178,6 @@ public class BridgeAlternativesProducer {
 
 		if ((portletResponse != null) && (portletResponse instanceof MimeResponse)) {
 			return (MimeResponse) portletResponse;
-		}
-
-		return null;
-	}
-
-	@Named("mutableRenderParams")
-	@Dependent
-	@Produces
-	@Typed(MutableRenderParameters.class)
-	public MutableRenderParameters getMutableRenderParameters() {
-		StateAwareResponse stateAwareResponse = getStateAwareResponse();
-
-		if (stateAwareResponse != null) {
-			return stateAwareResponse.getRenderParameters();
 		}
 
 		return null;

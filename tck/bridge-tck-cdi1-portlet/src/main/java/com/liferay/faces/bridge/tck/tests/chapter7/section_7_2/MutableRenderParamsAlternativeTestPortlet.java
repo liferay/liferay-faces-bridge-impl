@@ -15,35 +15,11 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
-import javax.portlet.annotations.InitParameter;
-import javax.portlet.annotations.PortletConfiguration;
-import javax.portlet.annotations.SecurityRoleRef;
-
-import com.liferay.bean.portlet.LiferayPortletConfiguration;
-
 import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 
 
 /**
  * @author  Neil Griffin
  */
-@PortletConfiguration(
-	portletName = "chapter7_2CDITestsmutableRenderParamsAlternativeTestportlet",
-	initParams = {
-			@InitParameter(
-				name = "javax.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/multiRequestTest.xhtml"
-			)
-		}, roleRefs = {
-			@SecurityRoleRef(roleName = "administrator"), @SecurityRoleRef(roleName = "guest"),
-			@SecurityRoleRef(roleName = "power-user"), @SecurityRoleRef(roleName = "user")
-		}
-)
-@LiferayPortletConfiguration(
-	portletName = "chapter7_2CDITestsmutableRenderParamsAlternativeTestportlet",
-	properties = {
-			"com.liferay.portlet.header-request-attribute-prefix=false",
-			"com.liferay.portlet.requires-namespaced-parameters=false"
-		}
-)
 public class MutableRenderParamsAlternativeTestPortlet extends GenericFacesTestSuitePortlet {
 }

@@ -16,7 +16,6 @@
 package com.liferay.faces.bridge.tck.factories.filter;
 
 import javax.portlet.ActionResponse;
-import javax.portlet.MutableRenderParameters;
 import javax.portlet.filter.ActionResponseWrapper;
 
 
@@ -27,10 +26,5 @@ public class ActionResponseTCKImpl extends ActionResponseWrapper {
 
 	public ActionResponseTCKImpl(ActionResponse response) {
 		super(response);
-	}
-
-	@Override
-	public MutableRenderParameters getRenderParameters() {
-		return new MutableRenderParametersTCKImpl(super.getRenderParameters());
 	}
 }

@@ -28,7 +28,6 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.MimeResponse;
-import javax.portlet.MutableRenderParameters;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -89,9 +88,6 @@ public class TestsCDI1 {
 
 	@Inject
 	private MimeResponse mimeResponse;
-
-	@Inject
-	private MutableRenderParameters mutableRenderParams;
 
 	@Inject
 	private PortletConfig portletConfig;
@@ -530,23 +526,18 @@ public class TestsCDI1 {
 		Bridge.PortletPhase portletPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
 		if (portletPhase == Bridge.PortletPhase.ACTION_PHASE) {
-
-			bridgeRequestScopedBean.setFoo(mutableRenderParams.getClass().getSimpleName());
-
 			return "multiRequestTestResultRenderCheck";
 		}
-		else if (portletPhase == Bridge.PortletPhase.HEADER_PHASE) {
+		else if (portletPhase == Bridge.PortletPhase.RENDER_PHASE) {
 
-			if ("MutableRenderParametersTCKImpl".equals(bridgeRequestScopedBean.getFoo())) {
+			if (portletConfig.getPortletName().equals(portletConfig.getPortletName())) {
 
-				testBean.setTestResult(true,
-					"The bridge's alternative producer for MutableRenderParameters was properly invoked");
+				testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testBean.setTestResult(false,
-					"The bridge's alternative producer for MutableRenderParameters was not invoked");
+				testBean.setTestResult(false, TEST_REQUIRES_PORTLET3);
 
 				return Constants.TEST_FAILED;
 			}
