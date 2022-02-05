@@ -35,6 +35,7 @@ import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -167,6 +168,20 @@ public class BridgeAlternativesProducer {
 		}
 
 		return Collections.list(portletRequest.getLocales());
+	}
+
+	@Named("mimeResponse")
+	@Dependent
+	@Produces
+	@Typed(MimeResponse.class)
+	public MimeResponse getMimeResponse() {
+		PortletResponse portletResponse = getPortletResponse();
+
+		if ((portletResponse != null) && (portletResponse instanceof MimeResponse)) {
+			return (MimeResponse) portletResponse;
+		}
+
+		return null;
 	}
 
 	@Dependent

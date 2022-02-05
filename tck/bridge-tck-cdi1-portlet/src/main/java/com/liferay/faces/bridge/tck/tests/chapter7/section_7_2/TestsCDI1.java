@@ -27,6 +27,7 @@ import javax.inject.Named;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -84,6 +85,9 @@ public class TestsCDI1 {
 	@Inject
 	@Resource(name = "locales")
 	private List<Locale> locales;
+
+	@Inject
+	private MimeResponse mimeResponse;
 
 	@Inject
 	private PortletConfig portletConfig;
@@ -496,6 +500,21 @@ public class TestsCDI1 {
 		}
 
 		testBean.setTestResult(false, "The bridge's alternative producer for List<Locale> was not invoked");
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "mimeResponseAlternativeTest")
+	public String mimeResponseAlternativeTest(TestBean testBean) {
+
+		if (mimeResponse.getClass().getName().contains("HeaderResponseTCKImpl")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for MimeResponse was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for MimeResponse was not invoked");
 
 		return Constants.TEST_FAILED;
 	}
