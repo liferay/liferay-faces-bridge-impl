@@ -45,5 +45,5 @@ import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 			"com.liferay.portlet.requires-namespaced-parameters=false"
 		}
 )
-public class CoookiesAlternativeTestPortlet extends GenericFacesTestSuitePortlet {
+public class CookiesAlternativeTestPortlet extends GenericFacesTestSuitePortlet {
 }
