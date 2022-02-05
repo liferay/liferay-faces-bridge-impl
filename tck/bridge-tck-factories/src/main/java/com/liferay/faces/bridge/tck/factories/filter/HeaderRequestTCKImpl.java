@@ -18,7 +18,9 @@ package com.liferay.faces.bridge.tck.factories.filter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 
 import javax.portlet.HeaderRequest;
 import javax.portlet.PortletMode;
@@ -61,6 +63,15 @@ public class HeaderRequestTCKImpl extends HeaderRequestWrapper {
 		}
 
 		return cookies;
+	}
+
+	@Override
+	public Enumeration<Locale> getLocales() {
+
+		ArrayList<Locale> locales = new ArrayList<>(Collections.list(super.getLocales()));
+		locales.add(new Locale("en_BW", "BWA"));
+
+		return Collections.enumeration(locales);
 	}
 
 	@Override

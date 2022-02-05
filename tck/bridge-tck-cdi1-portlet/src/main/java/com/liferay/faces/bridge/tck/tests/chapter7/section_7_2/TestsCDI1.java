@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.el.ELContext;
@@ -95,13 +96,17 @@ public class TestsCDI1 {
 	private List<Cookie> cookies;
 
 	@Inject
-	private PortletConfig portletConfig;
+	@Resource(name = "locales")
+	private List<Locale> locales;
 
 	@Inject
 	private HeaderRequest headerRequest;
 
 	@Inject
 	private HeaderResponse headerResponse;
+
+	@Inject
+	private PortletConfig portletConfig;
 
 	@Inject
 	private PortletContext portletContext;
@@ -504,6 +509,29 @@ public class TestsCDI1 {
 		}
 
 		testBean.setTestResult(false, "The bridge's alternative producer for HeaderResponse was not invoked");
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "localesAlternativeTest")
+	public String localesAlternativeTest(TestBean testBean) {
+
+		// HeaderRequestTCKImpl.getLocales() expects this condition.
+		if ((locales != null) && !locales.isEmpty()) {
+
+			for (Locale locale : locales) {
+
+				if (locale.getCountry().equalsIgnoreCase("BWA") && locale.getLanguage().equalsIgnoreCase("en_BW")) {
+
+					testBean.setTestResult(true,
+						"The bridge's alternative producer for List<Locale> was properly invoked");
+
+					return Constants.TEST_SUCCESS;
+				}
+			}
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for List<Locale> was not invoked");
 
 		return Constants.TEST_FAILED;
 	}
