@@ -16,7 +16,10 @@
 package com.liferay.faces.bridge.cdi.internal;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Priority;
 import javax.enterprise.context.Dependent;
@@ -151,6 +154,19 @@ public class BridgeAlternativesProducer {
 		}
 
 		return null;
+	}
+
+	@Dependent
+	@Named("locales")
+	@Produces
+	public List<Locale> getLocales() {
+		PortletRequest portletRequest = getPortletRequest();
+
+		if (portletRequest == null) {
+			return null;
+		}
+
+		return Collections.list(portletRequest.getLocales());
 	}
 
 	@Dependent
