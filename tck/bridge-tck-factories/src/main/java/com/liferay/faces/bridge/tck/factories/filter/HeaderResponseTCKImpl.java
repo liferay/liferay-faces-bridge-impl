@@ -24,7 +24,21 @@ import javax.portlet.filter.HeaderResponseWrapper;
  */
 public class HeaderResponseTCKImpl extends HeaderResponseWrapper {
 
-	public HeaderResponseTCKImpl(HeaderResponse response) {
-		super(response);
+	private String portletName;
+
+	public HeaderResponseTCKImpl(HeaderResponse headerResponse, String portletName) {
+		super(headerResponse);
+
+		this.portletName = portletName;
+	}
+
+	@Override
+	public String getNamespace() {
+
+		if (portletName.contains("namespaceAlternativeTest")) {
+			return "tckNamespace";
+		}
+
+		return super.getNamespace();
 	}
 }

@@ -55,6 +55,7 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.WindowState;
 import javax.portlet.annotations.ContextPath;
+import javax.portlet.annotations.Namespace;
 import javax.portlet.annotations.PortletName;
 import javax.portlet.annotations.WindowId;
 import javax.servlet.http.Cookie;
@@ -256,6 +257,16 @@ public class BridgeAlternativesProducer {
 		}
 
 		return null;
+	}
+
+	@Dependent
+	@Named("namespace")
+	@Namespace
+	@Produces
+	public String getNamespace() {
+		PortletResponse portletResponse = getPortletResponse();
+
+		return portletResponse.getNamespace();
 	}
 
 	@Dependent

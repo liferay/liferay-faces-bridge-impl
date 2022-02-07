@@ -28,7 +28,6 @@ import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
-import javax.portlet.EventRequest;
 import javax.portlet.HeaderRequest;
 import javax.portlet.HeaderResponse;
 import javax.portlet.MimeResponse;
@@ -47,6 +46,7 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.WindowState;
 import javax.portlet.annotations.ContextPath;
+import javax.portlet.annotations.Namespace;
 import javax.portlet.annotations.PortletName;
 import javax.portlet.annotations.WindowId;
 import javax.portlet.faces.Bridge;
@@ -112,6 +112,10 @@ public class TestsCDI1 {
 
 	@Inject
 	private MutableRenderParameters mutableRenderParams;
+
+	@Inject
+	@Namespace
+	private String namespace;
 
 	@Inject
 	private PortletConfig portletConfig;
@@ -589,6 +593,22 @@ public class TestsCDI1 {
 		}
 
 		testBean.setTestResult(false, "Unexpected portletPhase=" + portletPhase);
+
+		return Constants.TEST_FAILED;
+	}
+
+	@BridgeTest(test = "namespaceAlternativeTest")
+	public String namespaceAlternativeTest(TestBean testBean) {
+
+		// HeaderResponseTCKImpl.getNamespace() expects this condition.
+		if (namespace.equals("tckNamespace")) {
+
+			testBean.setTestResult(true, "The bridge's alternative producer for Namespace was properly invoked");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "The bridge's alternative producer for Namespace was not invoked");
 
 		return Constants.TEST_FAILED;
 	}

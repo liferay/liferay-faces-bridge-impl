@@ -60,7 +60,7 @@ public class BridgePortletResponseFactoryTCKImpl extends BridgePortletResponseFa
 	public HeaderResponse getHeaderResponse(HeaderRequest headerRequest, HeaderResponse headerResponse,
 		PortletConfig portletConfig, BridgeConfig bridgeConfig) {
 		return new HeaderResponseTCKImpl(wrappedFactory.getHeaderResponse(headerRequest, headerResponse, portletConfig,
-					bridgeConfig));
+					bridgeConfig), portletConfig.getPortletName());
 	}
 
 	@Override
