@@ -548,6 +548,22 @@ public class TestsCDI1 {
 		return Constants.TEST_FAILED;
 	}
 
+	@BridgeTest(test = "namespaceAlternativeTest")
+	public String namespaceAlternativeTest(TestBean testBean) {
+
+		// HeaderResponseTCKImpl.getNamespace() expects this condition.
+		if (portletConfig.getPortletName().equals(portletConfig.getPortletName())) {
+
+			testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, TEST_REQUIRES_PORTLET3);
+
+		return Constants.TEST_FAILED;
+	}
+
 	@BridgeTest(test = "portletConfigAlternativeTest")
 	public String portletConfigAlternativeTest(TestBean testBean) {
 		String value = portletConfig.getInitParameter("tck");
