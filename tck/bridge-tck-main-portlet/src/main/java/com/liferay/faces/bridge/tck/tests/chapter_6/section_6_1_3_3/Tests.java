@@ -20,11 +20,13 @@ import javax.faces.context.FacesContext;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
+import javax.portlet.filter.ResourceResponseWrapper;
 import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
+import com.liferay.faces.bridge.tck.factories.filter.ResourceResponseTCKImpl;
 
 
 /**
@@ -67,33 +69,55 @@ public class Tests {
 
 			ResourceResponse resourceResponse = (ResourceResponse) externalContext.getResponse();
 
-			int originalStatus = resourceResponse.getStatus();
+			while ((resourceResponse instanceof ResourceResponseWrapper) &&
+					!(resourceResponse instanceof ResourceResponseTCKImpl)) {
+				ResourceResponseWrapper resourceResponseWrapper = (ResourceResponseWrapper) resourceResponse;
+				resourceResponse = resourceResponseWrapper.getResponse();
+			}
 
-			boolean pass = true;
+			if (resourceResponse instanceof ResourceResponseTCKImpl) {
 
-			for (int statusCode : statusCodes) {
-				externalContext.setResponseStatus(statusCode);
+				ResourceResponseTCKImpl resourceResponseTCKImpl = (ResourceResponseTCKImpl) resourceResponse;
+				resourceResponseTCKImpl.getStatus();
 
-				if (resourceResponse.getStatus() != statusCode) {
-					pass = false;
-					testBean.setTestResult(false,
-						"externalContext.setResponseStatus(int) did not set the underlying status on the ResourceResponse");
+				int originalStatus = resourceResponseTCKImpl.getStatus();
+
+				boolean pass = true;
+
+				for (int statusCode : statusCodes) {
+					externalContext.setResponseStatus(statusCode);
+
+					if (resourceResponseTCKImpl.getStatus() != statusCode) {
+						pass = false;
+						testBean.setTestResult(false,
+							"externalContext.setResponseStatus(int) did not set the underlying status on the ResourceResponse");
+					}
+				}
+
+				if (pass) {
+					testBean.setTestResult(true,
+						"externalContext.setResponseStatus(int) correctly set the underlying status on the ResourceResponse");
+				}
+
+				// A value of zero indicates that the status was never set.
+				if (originalStatus != 0) {
+					externalContext.setResponseStatus(originalStatus);
+				}
+
+				testBean.setTestComplete(true);
+
+				if (testBean.getTestStatus()) {
+					return Constants.TEST_SUCCESS;
+				}
+				else {
+					return Constants.TEST_FAILED;
 				}
 			}
-
-			if (pass) {
-				testBean.setTestResult(true,
-					"externalContext.setResponseStatus(int) correctly set the underlying status on the ResourceResponse");
-			}
-
-			externalContext.setResponseStatus(originalStatus);
-
-			testBean.setTestComplete(true);
-
-			if (testBean.getTestStatus()) {
-				return Constants.TEST_SUCCESS;
-			}
 			else {
+				testBean.setTestComplete(true);
+
+				testBean.setTestResult(false, "resourceResponse is not an instance of ResourceResponseTCKImpl");
+
 				return Constants.TEST_FAILED;
 			}
 		}

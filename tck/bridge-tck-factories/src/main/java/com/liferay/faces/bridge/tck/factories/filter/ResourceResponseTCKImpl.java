@@ -24,7 +24,23 @@ import javax.portlet.filter.ResourceResponseWrapper;
  */
 public class ResourceResponseTCKImpl extends ResourceResponseWrapper {
 
+	private int status;
+
 	public ResourceResponseTCKImpl(ResourceResponse response) {
 		super(response);
+	}
+
+	@Override
+	public void setProperty(String key, String value) {
+
+		if (ResourceResponse.HTTP_STATUS_CODE.equals(key)) {
+			status = Integer.valueOf(key);
+		}
+
+		super.setProperty(key, value);
+	}
+
+	public int getStatus() {
+		return status;
 	}
 }
