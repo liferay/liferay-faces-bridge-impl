@@ -15,11 +15,15 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_3;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
@@ -31,6 +35,69 @@ import com.liferay.faces.bridge.tck.common.Constants;
  * @author  Neil Griffin
  */
 public class Tests {
+
+	// Test 6.138
+	@BridgeTest(test = "addResponseCookieTest")
+	public String addResponseCookieTest(TestBean testBean) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+
+		if (portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) {
+
+			ExternalContext externalContext = facesContext.getExternalContext();
+
+			Map<String, Object> properties = new HashMap<>();
+
+			// Note: There is no guarantee that the portlet container will carry any of the properties like comment,
+			// path, etc. through from the ACTION_PHASE to the HEADER_PHASE so that can't be tested. Instead, can only
+			// try to pass the property map to the addResponseCookie method without an exception being thrown.
+			properties.put("comment", "tckComment");
+			properties.put("domain", "tckDomain");
+			properties.put("httpOnly", true);
+			properties.put("maxAge", new Integer(1234));
+			properties.put("secure", Boolean.TRUE);
+			properties.put("path", "tckPath");
+
+			externalContext.addResponseCookie("tckCookie", "tck1234", properties);
+
+			return "multiRequestTestResultRenderCheck";
+		}
+		else if (portletRequestPhase == Bridge.PortletPhase.HEADER_PHASE) {
+
+			ExternalContext externalContext = facesContext.getExternalContext();
+
+			Map<String, Object> requestCookieMap = externalContext.getRequestCookieMap();
+
+			Object tckCookie = requestCookieMap.get("tckCookie");
+
+			if ((tckCookie != null) && (tckCookie instanceof Cookie)) {
+				Cookie cookie = (Cookie) tckCookie;
+
+				if ("tckCookie".equals(cookie.getName()) && "tck1234".equals(cookie.getValue())) {
+					testBean.setTestResult(true, "externalContext.addResponseCookie() set the expected cookie");
+				}
+				else {
+					testBean.setTestResult(false,
+						"externalContext.addResponseCookie() did not set the expected cookie value");
+				}
+			}
+			else {
+				testBean.setTestResult(false, "externalContext.addResponseCookie() did not set the expected cookie");
+			}
+
+			testBean.setTestComplete(true);
+
+			if (testBean.getTestStatus()) {
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				return Constants.TEST_FAILED;
+			}
+		}
+
+		return "";
+	}
 
 	// Test 6.151
 	@BridgeTest(test = "setResponseStatusTest")
