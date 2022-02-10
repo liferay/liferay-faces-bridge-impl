@@ -20,6 +20,7 @@ import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.portlet.PortletContext;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
@@ -99,6 +100,29 @@ public class Tests {
 		}
 
 		return "";
+	}
+
+	// Test 6.139
+	@BridgeTest(test = "getMimeTypeTest")
+	public String getMimeTypeTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		PortletContext portletContext = (PortletContext) externalContext.getContext();
+
+		String mimeType = portletContext.getMimeType("index.html");
+
+		if (mimeType.equals("text/html") && mimeType.equals(externalContext.getMimeType("index.html"))) {
+			testBean.setTestResult(true, "ExternalContext.getMimeType() returned the correct value");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "ExternalContext.getMimeType() returned an incorrect value");
+
+		return Constants.TEST_FAILED;
 	}
 
 	// Test 6.151
