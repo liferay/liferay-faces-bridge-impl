@@ -17,6 +17,7 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_3;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -122,6 +123,29 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "ExternalContext.getMimeType() returned an incorrect value");
+
+		return Constants.TEST_FAILED;
+	}
+
+	// Test 6.143
+	@BridgeTest(test = "getRealPathTest")
+	public String getRealPathTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		PortletContext portletContext = (PortletContext) externalContext.getContext();
+
+		String realPath = portletContext.getRealPath("/WEB-INF/faces-config.xml");
+
+		if (Objects.equals(realPath, externalContext.getRealPath("/WEB-INF/faces-config.xml"))) {
+			testBean.setTestResult(true, "ExternalContext.getRealPath() returned the correct value");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "ExternalContext.getRealPath() returned an incorrect value");
 
 		return Constants.TEST_FAILED;
 	}
