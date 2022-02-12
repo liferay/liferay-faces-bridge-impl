@@ -21,8 +21,14 @@ import java.util.Objects;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.ClientDataRequest;
+import javax.portlet.HeaderRequest;
+import javax.portlet.MutableRenderParameters;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
+import javax.portlet.RenderParameters;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
@@ -146,6 +152,54 @@ public class Tests {
 		testBean.setTestResult(false, "ExternalContext.getRealPath() returned an incorrect value");
 
 		return Constants.TEST_FAILED;
+	}
+
+	// Test 6.144
+	@BridgeTest(test = "getRequestContentLengthTest")
+	public String getRequestContentLengthTest(TestBean testBean) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
+
+		if (portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) {
+
+			ExternalContext externalContext = facesContext.getExternalContext();
+
+			ActionRequest actionRequest = (ActionRequest) externalContext.getRequest();
+			ActionResponse actionResponse = (ActionResponse) externalContext.getResponse();
+			MutableRenderParameters renderParameters = actionResponse.getRenderParameters();
+
+			renderParameters.setValue("getRequestContentLengthTest",
+				Boolean.valueOf(actionRequest.getContentLength() == externalContext.getRequestContentLength())
+					.toString());
+
+			return "multiRequestTestResultRenderCheck";
+		}
+		else if (portletRequestPhase == Bridge.PortletPhase.HEADER_PHASE) {
+
+			ExternalContext externalContext = facesContext.getExternalContext();
+			HeaderRequest headerRequest = (HeaderRequest) externalContext.getRequest();
+			RenderParameters renderParameters = headerRequest.getRenderParameters();
+
+			if (Boolean.valueOf(renderParameters.getValue("getRequestContentLengthTest"))) {
+				testBean.setTestResult(true, "externalContext.getRequestContentLength() returned the expected value");
+			}
+			else {
+				testBean.setTestResult(false,
+					"externalContext.getRequestContentLength() did not return the expected value");
+			}
+
+			testBean.setTestComplete(true);
+
+			if (testBean.getTestStatus()) {
+				return Constants.TEST_SUCCESS;
+			}
+			else {
+				return Constants.TEST_FAILED;
+			}
+		}
+
+		return "";
 	}
 
 	// Test 6.140
