@@ -4759,6 +4759,25 @@
 	</portlet>
 
 	<portlet>
+		<portlet-name>chapter6_1_3_3Tests-getRequestServerPortTest-portlet</portlet-name>
+		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
+
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/singleRequestTest.xhtml</value>
+		</init-param>
+
+		<expiration-cache>0</expiration-cache>
+
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<portlet-info>
+			<title>chapter6_1_3_3Tests-getRequestServerPortTest-portlet</title>
+		</portlet-info>
+	</portlet>
+
+	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-setResponseStatusTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
