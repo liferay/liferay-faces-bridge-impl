@@ -170,6 +170,27 @@ public class Tests {
 		return Constants.TEST_FAILED;
 	}
 
+	// Test 6.142
+	@BridgeTest(test = "getRequestServerPortTest")
+	public String getRequestServerPortTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+
+		if (portletRequest.getServerPort() == externalContext.getRequestServerPort()) {
+			testBean.setTestResult(true, "ExternalContext.getRequestServerPort() returned the correct value");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "ExternalContext.getRequestServerPort() returned an incorrect value");
+
+		return Constants.TEST_FAILED;
+	}
+
 	// Test 6.151
 	@BridgeTest(test = "setResponseStatusTest")
 	public String setResponseStatusTest(TestBean testBean) {
