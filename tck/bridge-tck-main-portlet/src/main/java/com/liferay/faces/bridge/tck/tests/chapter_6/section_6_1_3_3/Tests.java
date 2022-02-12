@@ -23,12 +23,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.ClientDataRequest;
-import javax.portlet.HeaderRequest;
-import javax.portlet.MutableRenderParameters;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
-import javax.portlet.RenderParameters;
+import javax.portlet.RenderRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
@@ -169,21 +166,19 @@ public class Tests {
 
 			ActionRequest actionRequest = (ActionRequest) externalContext.getRequest();
 			ActionResponse actionResponse = (ActionResponse) externalContext.getResponse();
-			MutableRenderParameters renderParameters = actionResponse.getRenderParameters();
 
-			renderParameters.setValue("getRequestContentLengthTest",
+			actionResponse.setRenderParameter("getRequestContentLengthTest",
 				Boolean.valueOf(actionRequest.getContentLength() == externalContext.getRequestContentLength())
 					.toString());
 
 			return "multiRequestTestResultRenderCheck";
 		}
-		else if (portletRequestPhase == Bridge.PortletPhase.HEADER_PHASE) {
+		else if (portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) {
 
 			ExternalContext externalContext = facesContext.getExternalContext();
-			HeaderRequest headerRequest = (HeaderRequest) externalContext.getRequest();
-			RenderParameters renderParameters = headerRequest.getRenderParameters();
+			RenderRequest renderRequest = (RenderRequest) externalContext.getRequest();
 
-			if (Boolean.valueOf(renderParameters.getValue("getRequestContentLengthTest"))) {
+			if (Boolean.valueOf(renderRequest.getParameter("getRequestContentLengthTest"))) {
 				testBean.setTestResult(true, "externalContext.getRequestContentLength() returned the expected value");
 			}
 			else {
