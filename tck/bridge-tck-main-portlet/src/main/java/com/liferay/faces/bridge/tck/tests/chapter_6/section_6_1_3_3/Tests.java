@@ -124,7 +124,7 @@ public class Tests {
 		return Constants.TEST_FAILED;
 	}
 
-	// Test 6.139
+	// Test 6.140
 	@BridgeTest(test = "getRequestSchemeTest")
 	public String getRequestSchemeTest(TestBean testBean) {
 
@@ -143,6 +143,29 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "ExternalContext.getRequestScheme() returned an incorrect value");
+
+		return Constants.TEST_FAILED;
+	}
+
+	// Test 6.141
+	@BridgeTest(test = "getRequestServerNameTest")
+	public String getRequestServerNameTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+
+		String serverName = portletRequest.getServerName();
+
+		if (serverName.equals("localhost") && serverName.equals(externalContext.getRequestServerName())) {
+			testBean.setTestResult(true, "ExternalContext.getRequestServerName() returned the correct value");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "ExternalContext.getRequestServerName() returned an incorrect value");
 
 		return Constants.TEST_FAILED;
 	}
