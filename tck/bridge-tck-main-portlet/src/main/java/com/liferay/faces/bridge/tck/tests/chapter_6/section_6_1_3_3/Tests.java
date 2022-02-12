@@ -21,6 +21,7 @@ import java.util.Map;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.portlet.PortletContext;
+import javax.portlet.PortletRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
@@ -119,6 +120,29 @@ public class Tests {
 		}
 
 		testBean.setTestResult(false, "ExternalContext.getMimeType() returned an incorrect value");
+
+		return Constants.TEST_FAILED;
+	}
+
+	// Test 6.139
+	@BridgeTest(test = "getRequestSchemeTest")
+	public String getRequestSchemeTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+
+		String scheme = portletRequest.getScheme();
+
+		if (scheme.equals("http") && scheme.equals(externalContext.getRequestScheme())) {
+			testBean.setTestResult(true, "ExternalContext.getRequestScheme() returned the correct value");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "ExternalContext.getRequestScheme() returned an incorrect value");
 
 		return Constants.TEST_FAILED;
 	}
