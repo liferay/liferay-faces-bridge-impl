@@ -266,6 +266,37 @@ public class Tests {
 		return Constants.TEST_FAILED;
 	}
 
+	// Test 6.147
+	@BridgeTest(test = "invalidateSessionTest")
+	public String invalidateSessionTest(TestBean testBean) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> sessionMap = externalContext.getSessionMap();
+
+		sessionMap.put("invalidateSessionTest", Boolean.TRUE);
+		externalContext.invalidateSession();
+
+		try {
+			sessionMap.get("invalidateSessionTest");
+			testBean.setTestResult(false,
+				"externalContext.invalidateSession() did not invalidate the underlying session");
+		}
+		catch (IllegalStateException illegalStateException) {
+			testBean.setTestResult(true, "externalContext.invalidateSession() invalidated the underlying session");
+			Map<Object, Object> attributes = facesContext.getAttributes();
+			attributes.put("invalidateSessionTest", Boolean.TRUE);
+		}
+
+		testBean.setTestComplete(true);
+
+		if (testBean.getTestStatus()) {
+			return Constants.TEST_SUCCESS;
+		}
+		else {
+			return Constants.TEST_FAILED;
+		}
+	}
+
 	// Test 6.151
 	@BridgeTest(test = "setResponseStatusTest")
 	public String setResponseStatusTest(TestBean testBean) {

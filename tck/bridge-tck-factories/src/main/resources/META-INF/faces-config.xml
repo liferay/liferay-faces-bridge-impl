@@ -9,6 +9,7 @@
 		</after>
 	</ordering>
 	<factory>
+		<render-kit-factory>com.liferay.faces.bridge.tck.factories.renderkit.RenderKitFactoryTCKImpl</render-kit-factory>
 		<factory-extension>
 			<bridge:bridge-config-factory>com.liferay.faces.bridge.tck.factories.filter.BridgeConfigFactoryTCKImpl</bridge:bridge-config-factory>
 			<bridge:bridge-portlet-config-factory>com.liferay.faces.bridge.tck.factories.filter.BridgePortletConfigFactoryTCKImpl</bridge:bridge-portlet-config-factory>
