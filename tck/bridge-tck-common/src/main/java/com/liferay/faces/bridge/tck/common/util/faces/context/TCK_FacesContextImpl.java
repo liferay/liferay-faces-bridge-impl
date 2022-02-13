@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.tck.common.util.faces.context;
 
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.el.ELContext;
 import javax.faces.application.Application;
@@ -100,7 +101,12 @@ public class TCK_FacesContextImpl extends FacesContext {
 	}
 
 	public void release() {
-		getExternalContext().getSessionMap().put("org.apache.portlet.faces.tck.facesContextReleased", Boolean.TRUE);
+		Map<Object, Object> attributes = getAttributes();
+
+		if (!attributes.containsKey("invalidateSessionTest")) {
+			getExternalContext().getSessionMap().put("org.apache.portlet.faces.tck.facesContextReleased", Boolean.TRUE);
+		}
+
 		mWrapped.release();
 	}
 
