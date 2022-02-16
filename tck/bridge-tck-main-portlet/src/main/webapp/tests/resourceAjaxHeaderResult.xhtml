@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<h:head/>
+	<h:body>
+		<h:form>
+			<h:panelGroup layout="block">
+				<h:outputLabel value="PPR Result: " />
+				<h:outputText id="pprResult" escape="false" value="#{testBean.testResourceResult}"/>
+				<h:commandButton id="runPPR" onclick="sendRequest(this); return false;" value="#{testBean.redisplayCommandName}" styleClass="run-ppr-button" />
+				<h:commandButton id="clearTest" value="Clear Test" />
+			</h:panelGroup>
+		</h:form>
+		<h:outputScript>
+			var sendRequest = function sendRequest(source) {
+				var paramPrefix = "#{facesContext.externalContext.encodeNamespace('')}#{facesContext.namingContainerSeparatorChar}";
+				var encodedURLHiddenInput = document.getElementsByName(paramPrefix + "javax.faces.encodedURL")[0];
+				var encodedURL = encodedURLHiddenInput.getAttribute("value");
+				var xmlHttpRequest = new XMLHttpRequest();
+				xmlHttpRequest.onreadystatechange = function() {
+					if (this.readyState == 4 &amp;&amp; this.status == 200) {
+						var responseXML = this.responseXML;
+						var fooHeader = this.getResponseHeader("foo");
+						var testName = "#{testBean.testName}";
+						if ((testName === 'setResponseHeaderTest') &amp;&amp; (fooHeader === '1234')) {
+							var responseType = responseXML.firstChild;
+							var partialResponse = responseXML.getElementsByTagName("partial-response")[0];
+							var responseType = partialResponse.firstChild;
+
+							if (responseType.nodeName === "changes") {
+								var changes = responseType.childNodes;
+								for (var i = 0; i &lt; changes.length; i++) {
+									if (changes[i].nodeName === "update") {
+										var updateElement = changes[i];
+										var updateElementId = changes[i].getAttribute("id");
+										var markup = '';
+										for (var j = 0; j &lt; updateElement.childNodes.length; j++) {
+											var content = updateElement.childNodes[j];
+											markup += content.nodeValue;
+										}
+										var elementToReplace = document.getElementById(updateElementId);
+										if (elementToReplace) {
+											elementToReplace.innerHTML = markup;
+										}
+									}
+								}
+							}
+						}
+					}
+				};
+				xmlHttpRequest.open("POST", encodedURL, true);
+				xmlHttpRequest.setRequestHeader("Faces-Request", "partial/ajax");
+				var formData = new FormData();
+				formData.append(paramPrefix + "javax.faces.source", source.name);
+				formData.append(paramPrefix + "javax.faces.partial.event", "click");
+				formData.append(paramPrefix + "javax.faces.partial.execute", source.name + " " + source.form.name);
+				formData.append(paramPrefix + "javax.faces.partial.render", source.form.name);
+				formData.append(paramPrefix + "javax.faces.behavior.event", "action");
+				formData.append(paramPrefix + "javax.faces.partial.ajax", "true");
+				xmlHttpRequest.send(formData);
+			}
+		</h:outputScript>
+	</h:body>
+</f:view>
