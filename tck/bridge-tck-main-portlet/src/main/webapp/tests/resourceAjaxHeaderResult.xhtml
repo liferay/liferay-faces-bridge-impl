@@ -23,7 +23,7 @@
 						var responseXML = this.responseXML;
 						var fooHeader = this.getResponseHeader("foo");
 						var testName = "#{testBean.testName}";
-						if ((testName === 'setResponseHeaderTest') &amp;&amp; (fooHeader === '1234')) {
+						if (((testName === 'setResponseHeaderTest') &amp;&amp; (fooHeader === '1234')) || ((testName === 'addResponseHeaderTest') &amp;&amp; (fooHeader === '1234, 6789'))) {
 							var responseType = responseXML.firstChild;
 							var partialResponse = responseXML.getElementsByTagName("partial-response")[0];
 							var responseType = partialResponse.firstChild;
