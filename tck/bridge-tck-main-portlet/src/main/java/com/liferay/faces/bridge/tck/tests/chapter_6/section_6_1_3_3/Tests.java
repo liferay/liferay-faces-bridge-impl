@@ -107,6 +107,25 @@ public class Tests {
 		return "";
 	}
 
+	// Test 6.149
+	@BridgeTest(test = "addResponseHeaderTest")
+	public String addResponseHeaderTest(TestBean testBean) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+			ExternalContext externalContext = facesContext.getExternalContext();
+
+			externalContext.addResponseHeader("foo", "1234");
+			externalContext.addResponseHeader("foo", "6789");
+			testBean.setTestResult(true, "externalContext.addResponseHeader(String,String) functioned properly");
+			testBean.setTestComplete(true);
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		return "";
+	}
+
 	// Test 6.139
 	@BridgeTest(test = "getMimeTypeTest")
 	public String getMimeTypeTest(TestBean testBean) {

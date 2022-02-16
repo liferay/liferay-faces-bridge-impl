@@ -857,6 +857,11 @@
 		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
+		<portlet-name>chapter6_1_3_3Tests-addResponseHeaderTest-portlet</portlet-name>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
+	</portlet>
+	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-getMimeTypeTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
