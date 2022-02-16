@@ -285,6 +285,7 @@ public class Tests {
 		}
 		catch (IllegalStateException illegalStateException) {
 			testBean.setTestResult(true, "externalContext.invalidateSession() invalidated the underlying session");
+
 			Map<Object, Object> attributes = facesContext.getAttributes();
 			attributes.put("invalidateSessionTest", Boolean.TRUE);
 		}
@@ -297,6 +298,24 @@ public class Tests {
 		else {
 			return Constants.TEST_FAILED;
 		}
+	}
+
+	// Test 6.148
+	@BridgeTest(test = "setResponseHeaderTest")
+	public String setResponseHeaderTest(TestBean testBean) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+			ExternalContext externalContext = facesContext.getExternalContext();
+
+			externalContext.setResponseHeader("foo", "1234");
+			testBean.setTestResult(true, "externalContext.setResponseHeader(String,String) functioned properly");
+			testBean.setTestComplete(true);
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		return "";
 	}
 
 	// Test 6.151
