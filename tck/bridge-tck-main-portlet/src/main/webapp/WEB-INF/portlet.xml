@@ -3988,6 +3988,21 @@
 		</portlet-info>
 	</portlet>
 	<portlet>
+		<portlet-name>chapter6_1_3_3Tests-responseResetTest-portlet</portlet-name>
+		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
+		<init-param>
+			<name>javax.portlet.faces.defaultViewId.view</name>
+			<value>/tests/resourceAjaxHeaderResult.xhtml</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<portlet-info>
+			<title>chapter6_1_3_3Tests-responseResetTest-portlet</title>
+		</portlet-info>
+	</portlet>
+	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-setResponseHeaderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>

@@ -17,35 +17,73 @@
 				var paramPrefix = "#{facesContext.externalContext.encodeNamespace('')}#{facesContext.namingContainerSeparatorChar}";
 				var encodedURLHiddenInput = document.getElementsByName(paramPrefix + "javax.faces.encodedURL")[0];
 				var encodedURL = encodedURLHiddenInput.getAttribute("value");
+				var sourceForm = source.form;
 				var xmlHttpRequest = new XMLHttpRequest();
 				xmlHttpRequest.onreadystatechange = function() {
 					if (this.readyState == 4 &amp;&amp; this.status == 200) {
 						var responseXML = this.responseXML;
 						var fooHeader = this.getResponseHeader("foo");
 						var testName = "#{testBean.testName}";
-						if (((testName === 'setResponseHeaderTest') &amp;&amp; (fooHeader === '1234')) || ((testName === 'addResponseHeaderTest') &amp;&amp; (fooHeader === '1234, 6789'))) {
-							var responseType = responseXML.firstChild;
-							var partialResponse = responseXML.getElementsByTagName("partial-response")[0];
-							var responseType = partialResponse.firstChild;
+						var pass = false;
+						var failureMessage = "";
+						if (testName === "responseResetTest") {
+							if (!fooHeader) {
+								pass = true;
+							}
+							else {
+								failureMessage = "Response header 'foo' was incorrectly present and had a value of '" + fooHeader + "'";
+							}
+						}
+						else if (testName === "setResponseHeaderTest") {
+							if (fooHeader === "1234") {
+								pass = true;
+							}
+							else {
+								failureMessage = "Response header 'foo' had a value of '" + fooHeader + "' instead of '1234'";
+							}
+						}
+						else if (testName === "addResponseHeaderTest") {
+							if (fooHeader === "1234, 6789") {
+								pass = true;
+							}
+							else {
+								failureMessage = "Response header 'foo' had a value of '" + fooHeader + "' instead of '1234, 6789'";
+							}
+						}
 
-							if (responseType.nodeName === "changes") {
-								var changes = responseType.childNodes;
-								for (var i = 0; i &lt; changes.length; i++) {
-									if (changes[i].nodeName === "update") {
-										var updateElement = changes[i];
-										var updateElementId = changes[i].getAttribute("id");
-										var markup = '';
-										for (var j = 0; j &lt; updateElement.childNodes.length; j++) {
-											var content = updateElement.childNodes[j];
-											markup += content.nodeValue;
-										}
-										var elementToReplace = document.getElementById(updateElementId);
-										if (elementToReplace) {
-											elementToReplace.innerHTML = markup;
+						var partialResponse = responseXML.getElementsByTagName("partial-response")[0];
+						var responseType = partialResponse.firstChild;
+
+						if (responseType.nodeName === "changes") {
+							var changes = responseType.childNodes;
+							for (var i = 0; i &lt; changes.length; i++) {
+								if (changes[i].nodeName === "update") {
+									var updateElement = changes[i];
+									var updateElementId = changes[i].getAttribute("id");
+									var markup = '';
+									for (var j = 0; j &lt; updateElement.childNodes.length; j++) {
+										var content = updateElement.childNodes[j];
+										markup += content.nodeValue;
+									}
+									var elementToReplace = document.getElementById(updateElementId);
+									if (elementToReplace) {
+										elementToReplace.innerHTML = markup;
+										if (testName === "responseResetTest") {
+											if (markup.includes("This will not be present in the output")) {
+												pass = false;
+												failureMessage += "<br/>The span containing text 'This will not be present in the output' was incorrectly present";
+											}
 										}
 									}
 								}
 							}
+						}
+						if (!pass) {
+							sourceForm.innerHTML =
+								'<span>Test: <span id="' + testName + '-test-name">' + testName +
+								'</span><p>Status: <span id="' + testName +
+								'-result-status">FAILURE</span></p><p>Detail: <span id="' + testName +
+								'-result-detail"></span></p><p>' + failureMessage + '</p></span>';
 						}
 					}
 				};
