@@ -15,6 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_3;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -317,6 +319,34 @@ public class Tests {
 		else {
 			return Constants.TEST_FAILED;
 		}
+	}
+
+	// Test 6.150
+	@BridgeTest(test = "responseResetTest")
+	public String responseResetTest(TestBean testBean) {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+			ExternalContext externalContext = facesContext.getExternalContext();
+
+			externalContext.setResponseHeader("foo", "1234");
+
+			try {
+				Writer responseOutputWriter = externalContext.getResponseOutputWriter();
+				responseOutputWriter.write("<span>This will not be present in the output</span>");
+			}
+			catch (IOException ioException) {
+				throw new IllegalStateException(ioException);
+			}
+
+			externalContext.responseReset();
+			testBean.setTestResult(true, "externalContext.responseReset() functioned properly");
+			testBean.setTestComplete(true);
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		return "";
 	}
 
 	// Test 6.148
