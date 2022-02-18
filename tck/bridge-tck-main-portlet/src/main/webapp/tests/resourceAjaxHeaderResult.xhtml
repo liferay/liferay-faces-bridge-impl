@@ -5,6 +5,7 @@
 	<h:head/>
 	<h:body>
 		<h:form>
+			<f:event listener="#{chapter6_1_3_3Tests.responseResetPreRenderEventHandler}" type="preRenderComponent" />
 			<h:panelGroup layout="block">
 				<h:outputLabel value="PPR Result: " />
 				<h:outputText id="pprResult" escape="false" value="#{testBean.testResourceResult}"/>

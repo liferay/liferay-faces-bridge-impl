@@ -15,6 +15,11 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+
 import javax.portlet.ResourceResponse;
 import javax.portlet.filter.ResourceResponseWrapper;
 
@@ -24,10 +29,66 @@ import javax.portlet.filter.ResourceResponseWrapper;
  */
 public class ResourceResponseTCKImpl extends ResourceResponseWrapper {
 
+	private PrintWriter printWriter;
 	private int status;
 
-	public ResourceResponseTCKImpl(ResourceResponse response) {
-		super(response);
+	public ResourceResponseTCKImpl(ResourceResponse resourceResponse) {
+		super(resourceResponse);
+	}
+
+	@Override
+	public PrintWriter getWriter() throws IOException {
+
+		if (printWriter == null) {
+			printWriter = new CapturingPrintWriter(super.getWriter());
+		}
+
+		return printWriter;
+	}
+
+	private class CapturingPrintWriter extends PrintWriter {
+
+		private StringWriter stringWriter = new StringWriter();
+
+		public CapturingPrintWriter(Writer out) {
+			super(out);
+		}
+
+		@Override
+		public String toString() {
+			return stringWriter.toString();
+		}
+
+		@Override
+		public void write(int c) {
+			stringWriter.write(c);
+			super.write(c);
+		}
+
+		@Override
+		public void write(String s) {
+			stringWriter.write(s);
+			super.write(s);
+		}
+
+		@Override
+		public void write(char[] buf) {
+
+			try {
+				stringWriter.write(buf);
+			}
+			catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
+
+			super.write(buf);
+		}
+
+		@Override
+		public void write(char[] buf, int off, int len) {
+			stringWriter.write(buf, off, len);
+			super.write(buf, off, len);
+		}
 	}
 
 	@Override
