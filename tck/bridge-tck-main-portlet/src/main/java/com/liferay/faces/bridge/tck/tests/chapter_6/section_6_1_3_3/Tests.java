@@ -16,16 +16,21 @@
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_3;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.el.ELContext;
+import javax.el.ELResolver;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.HeaderRequest;
+import javax.portlet.MimeResponse;
 import javax.portlet.MutableRenderParameters;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
@@ -321,25 +326,44 @@ public class Tests {
 		}
 	}
 
+	public void responseResetPreRenderEventHandler(ComponentSystemEvent componentSystemEvent) {
+		FacesContext facesContext = componentSystemEvent.getFacesContext();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+			ExternalContext externalContext = facesContext.getExternalContext();
+			ELContext elContext = facesContext.getELContext();
+			ELResolver elResolver = elContext.getELResolver();
+			TestBean testBean = (TestBean) elResolver.getValue(elContext, null, "testBean");
+			String testName = testBean.getTestName();
+
+			if ("responseResetTest".equals(testName)) {
+				MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();
+
+				try {
+					PrintWriter printWriter = mimeResponse.getWriter();
+					String capturedOutput = printWriter.toString();
+					Writer responseOutputWriter = externalContext.getResponseOutputWriter();
+					responseOutputWriter.write("<span>This will not be present in the output</span>");
+					externalContext.setResponseHeader("foo", "1234");
+					externalContext.responseReset();
+					responseOutputWriter.write(capturedOutput);
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	// Test 6.150
 	@BridgeTest(test = "responseResetTest")
 	public String responseResetTest(TestBean testBean) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
-			ExternalContext externalContext = facesContext.getExternalContext();
 
-			externalContext.setResponseHeader("foo", "1234");
-
-			try {
-				Writer responseOutputWriter = externalContext.getResponseOutputWriter();
-				responseOutputWriter.write("<span>This will not be present in the output</span>");
-			}
-			catch (IOException ioException) {
-				throw new IllegalStateException(ioException);
-			}
-
-			externalContext.responseReset();
+			// The call to ResourceResponse.responseReset() takes place in the
+			// responseResetPreRenderEventHandler(ComponentSystemEvent) method.
 			testBean.setTestResult(true, "externalContext.responseReset() functioned properly");
 			testBean.setTestComplete(true);
 
