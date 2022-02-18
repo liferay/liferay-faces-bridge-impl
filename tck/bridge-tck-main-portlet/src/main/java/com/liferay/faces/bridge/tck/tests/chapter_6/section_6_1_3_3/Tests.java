@@ -327,7 +327,7 @@ public class Tests {
 	}
 
 	public void responseResetPreRenderEventHandler(ComponentSystemEvent componentSystemEvent) {
-		FacesContext facesContext = componentSystemEvent.getFacesContext();
+		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
 			ExternalContext externalContext = facesContext.getExternalContext();
