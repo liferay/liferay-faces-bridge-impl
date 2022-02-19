@@ -27,7 +27,16 @@
 						var testName = "#{testBean.testName}";
 						var pass = false;
 						var failureMessage = "";
-						if (testName === "responseResetTest") {
+						if (testName === "responseFlushBufferTest") {
+							var barHeader = this.getResponseHeader("bar");
+							if (fooHeader &amp;&amp; (fooHeader === "1234") &amp;&amp; !barHeader) {
+								pass = true;
+							}
+							else {
+								failureMessage = "Response header 'bar' was incorrectly present and had a value of '" + barHeader + "'";
+							}
+						}
+						else if (testName === "responseResetTest") {
 							if (!fooHeader) {
 								pass = true;
 							}
