@@ -326,6 +326,27 @@ public class Tests {
 		}
 	}
 
+	// Test 6.152
+	@BridgeTest(test = "responseFlushBufferTest")
+	public String responseFlushBufferTest(TestBean testBean) throws IOException {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.RESOURCE_PHASE) {
+
+			ExternalContext externalContext = facesContext.getExternalContext();
+			externalContext.setResponseHeader("foo", "1234");
+			externalContext.responseFlushBuffer();
+			externalContext.setResponseHeader("bar", "6789");
+
+			testBean.setTestResult(true, "externalContext.responseFlushBuffer() functioned properly");
+			testBean.setTestComplete(true);
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		return "";
+	}
+
 	public void responseResetPreRenderEventHandler(ComponentSystemEvent componentSystemEvent) {
 		FacesContext facesContext = componentSystemEvent.getFacesContext();
 
