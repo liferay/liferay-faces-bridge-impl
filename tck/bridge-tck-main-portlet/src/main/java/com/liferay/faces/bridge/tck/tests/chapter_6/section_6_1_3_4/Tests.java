@@ -49,4 +49,27 @@ public class Tests {
 
 		return Constants.TEST_FAILED;
 	}
+
+	// Test 6.158
+	@BridgeTest(test = "setSessionMaxInactiveIntervalTest")
+	public String setSessionMaxInactiveIntervalTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		int sessionMaxInactiveInterval = externalContext.getSessionMaxInactiveInterval() + 1;
+
+		externalContext.setSessionMaxInactiveInterval(sessionMaxInactiveInterval);
+
+		if (sessionMaxInactiveInterval == externalContext.getSessionMaxInactiveInterval()) {
+			testBean.setTestResult(true, "ExternalContext.setSessionMaxInactiveInterval() returned the correct value");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "ExternalContext.setSessionMaxInactiveInterval() returned an incorrect value");
+
+		return Constants.TEST_FAILED;
+	}
 }
