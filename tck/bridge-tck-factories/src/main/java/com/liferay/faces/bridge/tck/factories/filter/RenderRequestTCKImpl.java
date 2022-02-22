@@ -120,4 +120,14 @@ public class RenderRequestTCKImpl extends RenderRequestWrapper {
 
 		return windowState;
 	}
+
+	@Override
+	public boolean isSecure() {
+
+		if (portletName.contains("isSecureTest")) {
+			return true;
+		}
+
+		return super.isSecure();
+	}
 }
