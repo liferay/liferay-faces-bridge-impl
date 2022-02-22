@@ -1222,7 +1222,8 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_5Tests-getSessionIdTest-portlet"/>
 		</page>
 		<page name="TestPage280" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter9_1Tests-bodyTest-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter9_1Tests-body1Test-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter9_1Tests-body2Test-portlet"/>
 		</page>
 	</render-config>
 
