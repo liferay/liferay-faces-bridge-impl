@@ -56,6 +56,10 @@
 				</bridge:public-parameter-mapping>
 			</bridge:public-parameter-mappings>
 		</application-extension>
+		<system-event-listener>
+			<system-event-listener-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_5.TCKApplicationStartupListener</system-event-listener-class>
+			<system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+		</system-event-listener>
 	</application>
 	<factory>
 		<application-factory>com.liferay.faces.bridge.tck.common.util.faces.application.TestSuiteApplicationFactoryImpl</application-factory>
@@ -146,6 +150,11 @@
 	<managed-bean>
 		<managed-bean-name>chapter6_1_3_4Tests</managed-bean-name>
 		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_4.Tests</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>chapter6_1_3_5Tests</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_5.Tests</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
