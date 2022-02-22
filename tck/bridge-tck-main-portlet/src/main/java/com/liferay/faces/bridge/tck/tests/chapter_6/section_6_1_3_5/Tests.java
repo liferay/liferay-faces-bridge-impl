@@ -16,6 +16,7 @@
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_5;
 
 import java.util.Map;
+import java.util.Objects;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -41,12 +42,51 @@ public class Tests {
 		String tckInitApplicationContextPath = (String) applicationMap.get("tckInitApplicationContextPath");
 
 		if (externalContext.getApplicationContextPath().equals(tckInitApplicationContextPath)) {
-			testBean.setTestResult(true, "ExternalContext.getApplicationContextPathTest() returned the correct value");
+			testBean.setTestResult(true, "ExternalContext.getApplicationContextPath() returned the correct value");
 
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "ExternalContext.getApplicationContextPathTest() returned an incorrect value");
+		testBean.setTestResult(false, "ExternalContext.getApplicationContextPath() returned an incorrect value");
+
+		return Constants.TEST_FAILED;
+	}
+
+	// Test 6.160
+	@BridgeTest(test = "getSessionIdTest")
+	public String getSessionIdTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		PortletSession portletSession = (PortletSession) externalContext.getSession(false);
+
+		if (portletSession == null) {
+
+			if (!externalContext.getSessionId(false).equals("")) {
+				testBean.setTestResult(false, "ExternalContext.getSessionId(false) was not an empty String");
+
+				return Constants.TEST_FAILED;
+			}
+		}
+
+		if (!Objects.equals(portletSession.getId(), externalContext.getSessionId(false))) {
+			testBean.setTestResult(false,
+				"ExternalContext.getSessionId(false) did not return the same value as PortletSession.getId()");
+
+			return Constants.TEST_FAILED;
+		}
+
+		portletSession = (PortletSession) externalContext.getSession(true);
+
+		if (Objects.equals(portletSession.getId(), externalContext.getSessionId(true))) {
+			testBean.setTestResult(true,
+				"ExternalContext.getSessionId() returned the same value as PortletSession.getId()");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false,
+			"ExternalContext.getSessionId(false) did not return the same value as PortletSession.getId()");
 
 		return Constants.TEST_FAILED;
 	}
