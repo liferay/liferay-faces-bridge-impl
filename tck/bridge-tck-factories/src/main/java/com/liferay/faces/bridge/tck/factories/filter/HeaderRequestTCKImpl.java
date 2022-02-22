@@ -126,4 +126,14 @@ public class HeaderRequestTCKImpl extends HeaderRequestWrapper {
 
 		return windowState;
 	}
+
+	@Override
+	public boolean isSecure() {
+
+		if (portletName.contains("isSecureTest")) {
+			return true;
+		}
+
+		return super.isSecure();
+	}
 }
