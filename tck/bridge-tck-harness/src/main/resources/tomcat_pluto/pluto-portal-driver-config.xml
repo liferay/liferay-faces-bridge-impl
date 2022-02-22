@@ -1213,13 +1213,13 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_4Tests-getSessionMaxInactiveIntervalTest-portlet"/>
 		</page>
 		<page name="TestPage276" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_4Tests-setSessionMaxInactiveInterval-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_4Tests-setSessionMaxInactiveIntervalTest-portlet"/>
 		</page>
 		<page name="TestPage277" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_4Tests-isSecureTest-portlet"/>
 		</page>
 		<page name="TestPage278" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_5Tests-getApplicationContextPath-portlet"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_5Tests-getApplicationContextPathTest-portlet"/>
 		</page>
 		<page name="TestPage279" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter6_1_3_5Tests-getSessionIdTest-portlet"/>
