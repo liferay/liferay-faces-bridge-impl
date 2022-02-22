@@ -50,6 +50,25 @@ public class Tests {
 		return Constants.TEST_FAILED;
 	}
 
+	// Test 6.159
+	@BridgeTest(test = "isSecureTest")
+	public String isSecureTest(TestBean testBean) {
+
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		if (externalContext.isSecure()) {
+			testBean.setTestResult(true, "ExternalContext.isSecure() returned the correct value");
+
+			return Constants.TEST_SUCCESS;
+		}
+
+		testBean.setTestResult(false, "ExternalContext.isSecure() returned an incorrect value");
+
+		return Constants.TEST_FAILED;
+	}
+
 	// Test 6.158
 	@BridgeTest(test = "setSessionMaxInactiveIntervalTest")
 	public String setSessionMaxInactiveIntervalTest(TestBean testBean) {
