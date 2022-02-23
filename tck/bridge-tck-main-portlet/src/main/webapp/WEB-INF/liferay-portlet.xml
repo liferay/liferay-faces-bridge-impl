@@ -1223,6 +1223,16 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
+	<portlet>
+		<portlet-name>chapter9_1Tests-body1Test-portlet</portlet-name>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
+	</portlet>
+	<portlet>
+		<portlet-name>chapter9_1Tests-body2Test-portlet</portlet-name>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
+	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>

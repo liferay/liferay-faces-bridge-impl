@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<h:head>
+		<h:outputScript rendered="#{!chapter9_1Tests.isResourcePhase(facesContext)}">
+			//<![CDATA[
+			var countViewStateFields = function countViewStateFields(portletNamespace) {
+				var inputs = document.getElementsByTagName("input");
+				var totalViewStateFields = 0;
+				for (i = 0 ; i < inputs.length; i++) {
+					var inputName = inputs[i].getAttribute("name");
+					if (inputName.indexOf("javax.faces.ViewState") > 0) {
+						if (portletNamespace) {
+							if (inputName.indexOf(portletNamespace) >= 0) {
+								totalViewStateFields++;
+							}
+						}
+						else {
+							totalViewStateFields++;
+						}
+					}
+				}
+				return totalViewStateFields;
+			}
+			var statusUpdate = function statusUpdate(data) {
+				if (data.status === "success") {
+					var portletNamespace = "#{facesContext.externalContext.encodeNamespace('')}";
+					var testName = "#{testBean.testName}";
+					var totalViewStateFieldsThisPortlet = countViewStateFields(portletNamespace);
+					var totalViewStateFieldsAllPortlets = countViewStateFields();
+					var status = "";
+					var statusMessage = "";
+					if ((totalViewStateFieldsThisPortlet == 3) && (totalViewStateFieldsAllPortlets == 4)) {
+						status = "SUCCESS";
+						statusMessage = "Found 3 expected ViewState fields for this portlet (formA, formB, formC)" +
+							" and found 4 expected ViewState fields for the entire page";
+					}
+					else  {
+						status = "FAILURE";
+						statusMessage = "Expected 3 ViewState fields for this portlet but found " + totalViewStateFieldsThisPortlet +
+							" and expected 4 ViewState fields for the entire page but found " + totalViewStateFieldsAllPortlets;
+					}
+					var sourceElement = document.getElementById(data.source.id);
+					var sourceForm = sourceElement.form;
+					sourceForm.innerHTML =
+						'<span>Test: <span id="' + testName + '-test-name">' + testName +
+								'</span><p>Status: <span id="' + testName +
+								'-result-status">' + status + '</span></p><p>Detail: <span id="' + testName +
+								'-result-detail"></span></p><p>' + statusMessage + '</p></span>';
+				}
+			}
+			jsf.ajax.addOnEvent(statusUpdate);
+			//]]>
+		</h:outputScript>
+	</h:head>
+	<h:body>
+		<h:form id="formA">
+			<h:panelGroup layout="block">
+				<h:outputLabel value="PPR Result: " />
+				<h:outputText id="pprResult" escape="false" value="#{testBean.testResourceResult}"/>
+				<h:commandButton id="runPPR" value="#{testBean.redisplayCommandName}" styleClass="run-ppr-button">
+					<f:ajax render="@all"/>
+				</h:commandButton>
+				<h:commandButton id="clearTest" value="Clear Test" />
+			</h:panelGroup>
+		</h:form>
+		<h:form id="formB">
+			<p><h:outputText value="Form B"/></p>
+		</h:form>
+		<h:form id="formC" rendered="#{chapter9_1Tests.isResourcePhase(facesContext)}">
+			<p><h:outputText value="Form C"/></p>
+		</h:form>
+	</h:body>
+</f:view>
