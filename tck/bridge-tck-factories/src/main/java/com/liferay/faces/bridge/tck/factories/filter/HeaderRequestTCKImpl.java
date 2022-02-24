@@ -68,10 +68,14 @@ public class HeaderRequestTCKImpl extends HeaderRequestWrapper {
 	@Override
 	public Enumeration<Locale> getLocales() {
 
-		ArrayList<Locale> locales = new ArrayList<>(Collections.list(super.getLocales()));
-		locales.add(new Locale("en_BW", "BWA"));
+		if (portletName.contains("localesAlternativeTest")) {
+			ArrayList<Locale> locales = new ArrayList<>(Collections.list(super.getLocales()));
+			locales.add(new Locale("en_BW", "BWA"));
 
-		return Collections.enumeration(locales);
+			return Collections.enumeration(locales);
+		}
+
+		return super.getLocales();
 	}
 
 	@Override
