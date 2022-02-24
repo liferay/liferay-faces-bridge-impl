@@ -15,16 +15,23 @@
  */
 package com.liferay.faces.bridge.event.internal;
 
+import java.util.Map;
+
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.portlet.PortletConfig;
+import javax.portlet.PortletMode;
+import javax.portlet.PortletRequest;
 import javax.portlet.faces.Bridge;
+import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
+import com.liferay.faces.bridge.util.internal.ViewUtil;
 import com.liferay.faces.util.lang.ThreadSafeAccessor;
 
 
@@ -57,7 +64,28 @@ public class HeaderRequestPhaseListener implements PhaseListener {
 
 	@Override
 	public void beforePhase(PhaseEvent phaseEvent) {
-		// This method is required by the PhaseListener interfaces but is not used.
+
+		FacesContext facesContext = phaseEvent.getFacesContext();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		String viewId = externalContext.getRequestPathInfo();
+
+		if (viewId == null) {
+			viewId = externalContext.getRequestServletPath();
+		}
+
+		if (viewId != null) {
+			PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
+			PortletConfig portletConfig = RequestMapUtil.getPortletConfig(portletRequest);
+			Map<String, String> defaultViewIdMap = ViewUtil.getDefaultViewIdMap(portletConfig);
+
+			if (viewId.equals(defaultViewIdMap.get(PortletMode.EDIT.toString()))) {
+				boolean portletModeAllowed = portletRequest.isPortletModeAllowed(PortletMode.EDIT);
+
+				if (!portletModeAllowed) {
+					throw new BridgeException("Portlet EDIT_MODE is not allowed");
+				}
+			}
+		}
 	}
 
 	@Override
