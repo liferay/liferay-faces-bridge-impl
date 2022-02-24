@@ -50,7 +50,7 @@ public class HeaderRequestTCKImpl extends HeaderRequestWrapper {
 
 		Cookie[] cookies = super.getCookies();
 
-		if (portletName.contains("addResponseCookieTest") || portletName.contains("cookiesAlternativeTest")) {
+		if (portletName.contains("cookiesAlternativeTest")) {
 
 			List<Cookie> cookieList = Collections.emptyList();
 
