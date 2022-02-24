@@ -58,6 +58,10 @@ import com.liferay.faces.bridge.BridgeConfigFactory;
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
 import com.liferay.faces.bridge.tck.common.Constants;
+import com.liferay.faces.bridge.tck.factories.filter.ActionRequestTCKImpl;
+import com.liferay.faces.bridge.tck.factories.filter.ActionResponseTCKImpl;
+import com.liferay.faces.bridge.tck.factories.filter.RenderRequestTCKImpl;
+import com.liferay.faces.bridge.tck.factories.filter.RenderResponseTCKImpl;
 import com.liferay.faces.bridge.tck.filter.ActionRequestTCKCommonImpl;
 import com.liferay.faces.bridge.tck.filter.ActionRequestTCKMainImpl;
 import com.liferay.faces.bridge.tck.filter.ActionResponseTCKCommonImpl;
@@ -823,7 +827,7 @@ public class Tests {
 	private void testDecoratedActionRequest(TestBean testBean, Object elActionRequest) {
 
 		if (!(((elActionRequest != null) && (elActionRequest instanceof ActionRequestTCKMainImpl)) &&
-					(((ActionRequestWrapper) elActionRequest).getRequest() instanceof ActionRequestTCKCommonImpl))) {
+					(((ActionRequestWrapper) elActionRequest).getRequest() instanceof ActionRequestTCKImpl))) {
 			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletRequestFactory (ActionRequest)");
 		}
 	}
@@ -831,8 +835,7 @@ public class Tests {
 	private void testDecoratedActionResponse(TestBean testBean, Object elActionResponse) {
 
 		if (!(((elActionResponse != null) && (elActionResponse instanceof ActionResponseTCKMainImpl)) &&
-					(((ActionResponseWrapper) elActionResponse).getResponse() instanceof
-						ActionResponseTCKCommonImpl))) {
+					(((ActionResponseWrapper) elActionResponse).getResponse() instanceof ActionResponseTCKImpl))) {
 			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletResponseFactory (ActionResponse)");
 		}
 	}
@@ -867,7 +870,7 @@ public class Tests {
 	private void testDecoratedRenderRequest(TestBean testBean, Object elRenderRequest) {
 
 		if (!(((elRenderRequest != null) && (elRenderRequest instanceof RenderRequestTCKMainImpl)) &&
-					(((RenderRequestWrapper) elRenderRequest).getRequest() instanceof RenderRequestTCKCommonImpl))) {
+					(((RenderRequestWrapper) elRenderRequest).getRequest() instanceof RenderRequestTCKImpl))) {
 			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletRequestFactory (RenderRequest)");
 		}
 	}
@@ -876,7 +879,7 @@ public class Tests {
 
 		if (!(((elRenderResponse != null) && (elRenderResponse instanceof RenderResponseTCKMainImpl)) &&
 					(((RenderResponseWrapper) elRenderResponse).getResponse() instanceof
-						RenderResponseTCKCommonImpl))) {
+						RenderResponseTCKImpl))) {
 			fail(testBean, "Incorrect chain-of-responsibility for BridgePortletResponseFactory (RenderResponse)");
 		}
 	}
