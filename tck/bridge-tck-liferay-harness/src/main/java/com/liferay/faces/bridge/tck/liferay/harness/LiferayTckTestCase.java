@@ -99,15 +99,19 @@ public class LiferayTckTestCase extends TckTestCase {
 			String pageName = getPageName();
 			String testName = getTestName();
 			useSpecialLiferayWindowState = !pageName.startsWith("jsr_329_testpage") &&
-				!(testName.equals("resourcesRenderedInHeadTest") || testName.equals("lifecycleTest") ||
-					testName.equals("encodeActionURLJSFViewResourceTest") ||
+				!(testName.equals("body2Test") || testName.equals("encodeActionURLJSFViewResourceTest") ||
 					testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest") ||
 					testName.equals("encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest") ||
+					testName.equals("encodeActionURLNonJSFViewWithModeResourceTest") ||
 					testName.equals("encodeActionURLWithInvalidWindowStateActionTest") ||
 					testName.equals("encodeActionURLWithInvalidWindowStateEventTest") ||
 					testName.equals("encodeActionURLWithInvalidWindowStateRenderTest") ||
 					testName.equals("encodePartialActionURLTest") ||
-					testName.equals("encodeResourceURLWithWindowStateTest"));
+					testName.equals("encodeResourceURLWithWindowStateTest") ||
+					testName.equals("getRequestHeaderMapActionTest") || testName.equals("lifecycleTest") ||
+					testName.equals("resourceRequestAlternativeTest") ||
+					testName.equals("resourceResponseAlternativeTest") ||
+					testName.equals("resourcesRenderedInHeadTest"));
 		}
 
 		return useSpecialLiferayWindowState;
