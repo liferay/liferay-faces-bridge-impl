@@ -118,14 +118,38 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 		WebConfigParam.UploadedFileMaxSize.getName(), "com.liferay.faces.bridge.uploadedFileMaxSize",
 		"javax.faces.UPLOADED_FILE_MAX_SIZE"),
 
+	/**
+	 * Flag indicating whether or not the {@link Bridge#FACES_VIEW_ID_PARAMETER} value will be consulted when
+	 * determining the JSF viewId. Default value is true.
+	 */
+	ViewIdParameterEnabled(true, "com.liferay.faces.bridge.jsfBridgeViewIdParameterEnabled"),
+
+	/**
+	 * Flag indicating whether or not the render parameter value will be consulted when determining the JSF viewId.
+	 * Default value is true.
+	 */
+	ViewIdRenderParameterEnabled(true, "com.liferay.faces.bridge.viewIdRenderParameterEnabled"),
+
 	/** Name of the render parameter used to encode the viewId. Default value is "_facesViewIdRender". */
 	ViewIdRenderParameterName("_facesViewIdRender", "com.liferay.faces.bridge.viewIdRenderParameterName"),
+
+	/**
+	 * Flag indicating whether or not the resource parameter value will be consulted when determining the JSF viewId.
+	 * Default value is true.
+	 */
+	ViewIdResourceParameterEnabled(true, "com.liferay.faces.bridge.viewIdResourceParameterEnabled"),
 
 	/** Name of the resource request parameter used to encode the viewId Default value is "_facesViewIdResource" */
 	ViewIdResourceParameterName("_facesViewIdResource", "com.liferay.faces.bridge.viewIdResourceParameterName"),
 
 	/** Flag indicating whether or not the JSF 2 "View Parameters" feature is enabled. Default value is true. */
-	ViewParametersEnabled(true, "com.liferay.faces.bridge.viewParametersEnabled");
+	ViewParametersEnabled(true, "com.liferay.faces.bridge.viewParametersEnabled"),
+
+	/**
+	 * Flag indicating whether or not the {@link Bridge#FACES_VIEW_PATH_PARAMETER} value will be consulted when
+	 * determining the JSF viewId. Default value is true.
+	 */
+	ViewPathParameterEnabled(true, "com.liferay.faces.bridge.jsfBridgeViewPathParameterEnabled");
 
 	// Private Data Members
 	private final String name;

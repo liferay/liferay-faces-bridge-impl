@@ -1171,12 +1171,18 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 		if (viewIdAndQueryString == null) {
 
 			// Try#1: Get the viewId the "javax.portlet.faces.viewId" request attribute.
-			viewIdAndQueryString = getFacesViewIdRequestAttribute(Bridge.VIEW_ID);
+			if (PortletConfigParam.ViewIdParameterEnabled.getBooleanValue(portletConfig)) {
+				viewIdAndQueryString = getFacesViewIdRequestAttribute(Bridge.VIEW_ID);
+			}
 
 			if (viewIdAndQueryString == null) {
 
 				// Try#2: Get the viewId from the "javax.portlet.faces.viewPath" request attribute.
-				String viewPath = getFacesViewIdRequestAttribute(Bridge.VIEW_PATH);
+				String viewPath = null;
+
+				if (PortletConfigParam.ViewPathParameterEnabled.getBooleanValue(portletConfig)) {
+					viewPath = getFacesViewIdRequestAttribute(Bridge.VIEW_PATH);
+				}
 
 				if (viewPath != null) {
 
@@ -1222,16 +1228,19 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 						// Try#4: Get the viewId from a request parameter, the name of which is dynamic depending on
 						// the portlet phase.
-						String requestParameterName;
+						String requestParameterName = null;
 
-						if (portletPhase == Bridge.PortletPhase.RESOURCE_PHASE) {
+						if ((portletPhase == Bridge.PortletPhase.RESOURCE_PHASE) &&
+								PortletConfigParam.ViewIdResourceParameterEnabled.getBooleanValue(portletConfig)) {
 							requestParameterName = bridgeConfig.getViewIdResourceParameterName();
 						}
-						else {
+						else if (PortletConfigParam.ViewIdRenderParameterEnabled.getBooleanValue(portletConfig)) {
 							requestParameterName = bridgeConfig.getViewIdRenderParameterName();
 						}
 
-						viewIdAndQueryString = getFacesViewIdRequestParameter(requestParameterName);
+						if (requestParameterName != null) {
+							viewIdAndQueryString = getFacesViewIdRequestParameter(requestParameterName);
+						}
 
 						if (viewIdAndQueryString == null) {
 
