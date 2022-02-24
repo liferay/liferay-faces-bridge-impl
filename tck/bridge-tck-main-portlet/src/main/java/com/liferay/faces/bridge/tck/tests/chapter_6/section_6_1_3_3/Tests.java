@@ -58,29 +58,28 @@ public class Tests {
 
 		Bridge.PortletPhase portletRequestPhase = BridgeUtil.getPortletRequestPhase(facesContext);
 
-		if (portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) {
+		ExternalContext externalContext = facesContext.getExternalContext();
 
-			ExternalContext externalContext = facesContext.getExternalContext();
+		if (portletRequestPhase == Bridge.PortletPhase.ACTION_PHASE) {
 
 			Map<String, Object> properties = new HashMap<>();
 
-			// Note: There is no guarantee that the portlet container will carry any of the properties like comment,
-			// path, etc. through from the ACTION_PHASE to the HEADER_PHASE so that can't be tested. Instead, can only
-			// try to pass the property map to the addResponseCookie method without an exception being thrown.
 			properties.put("comment", "tckComment");
-			properties.put("domain", "tckDomain");
 			properties.put("httpOnly", true);
 			properties.put("maxAge", new Integer(1234));
-			properties.put("secure", Boolean.TRUE);
+			properties.put("secure", Boolean.FALSE);
 			properties.put("path", "tckPath");
 
 			externalContext.addResponseCookie("tckCookie", "tck1234", properties);
 
-			return "multiRequestTestResultRenderCheck";
+			return "requestRenderRedisplayTest";
 		}
 		else if (portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) {
 
-			ExternalContext externalContext = facesContext.getExternalContext();
+			// If redisplay hasn't been invoked yet -- merely return
+			if (externalContext.getRequestParameterMap().get("org.apache.portlet.faces.tck.redisplay") == null) {
+				return "requestRenderRedisplayTest";
+			}
 
 			Map<String, Object> requestCookieMap = externalContext.getRequestCookieMap();
 
