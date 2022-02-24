@@ -254,20 +254,6 @@
 	<!-- * Tests: Chapter 4                                            * -->
 	<!-- *                                                             * -->
 	<!-- *************************************************************** -->
-	<!--
-	<portlet>
-        <portlet-name>chapter4Tests-bridgeClassDefaultTest-portlet</portlet-name>
-        <portlet-class>BridgeClassDefaultTestPortlet</portlet-class>
-        <expiration-cache>0</expiration-cache>
-        <supports>
-            <mime-type>text/html</mime-type>
-        </supports>
-        <portlet-info>
-            <title>chapter4Tests-bridgeClassDefaultTest-portlet</title>
-        </portlet-info>
-    </portlet>
-	-->
-
 	<portlet>
 		<portlet-name>chapter4_1Tests-portletInitializationParametersTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
