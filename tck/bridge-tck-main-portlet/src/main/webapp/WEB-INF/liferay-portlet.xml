@@ -57,12 +57,6 @@
 		<portlet-name>chapter3Tests-nullRequestRenderTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
-	<!--
-	<portlet>
-		<portlet-name>chapter4Tests-bridgeClassDefaultTest-portlet</portlet-name>
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-	</portlet>
-	-->
 	<portlet>
 		<portlet-name>chapter4_1Tests-portletInitializationParametersTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
@@ -854,97 +848,78 @@
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-addResponseCookieTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-addResponseHeaderTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-getMimeTypeTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-getRequestSchemeTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-getRequestServerNameTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-getRequestServerPortTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-getRealPathTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-getRequestContentLengthTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-invalidateSessionTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-responseFlushBufferTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-responseResetTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-setResponseHeaderTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_3Tests-setResponseStatusTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_4Tests-getSessionMaxInactiveIntervalTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_4Tests-isSecureTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_4Tests-setSessionMaxInactiveIntervalTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_5Tests-getApplicationContextPathTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_5Tests-getSessionIdTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_6Tests-clientWindowTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_2_1Tests-isPortletNamingContainerTest-portlet</portlet-name>
@@ -1003,23 +978,20 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter5_2Tests-bridgeSetsContentTypeTest-portlet</portlet-name>
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-	</portlet>
-	<portlet>
 		<portlet-name>chapter8_8Tests-bridgeFactoryFinderTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter9_1Tests-body1Test-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter9_1Tests-body2Test-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
+	</portlet>
+	<portlet>
+		<portlet-name>chapter5_2Tests-bridgeSetsContentTypeTest-portlet</portlet-name>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
