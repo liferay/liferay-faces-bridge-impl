@@ -71,13 +71,6 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
-	<!--
-	<portlet>
-		<portlet-name>chapter4Tests-bridgeClassDefaultTest-portlet</portlet-name>
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
-	</portlet>
-	-->
 	<portlet>
 		<portlet-name>chapter4_1Tests-portletInitializationParametersTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
@@ -1214,11 +1207,6 @@
 		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter5_2Tests-bridgeSetsContentTypeTest-portlet</portlet-name>
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
-	</portlet>
-	<portlet>
 		<portlet-name>chapter8_8Tests-bridgeFactoryFinderTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
@@ -1230,6 +1218,11 @@
 	</portlet>
 	<portlet>
 		<portlet-name>chapter9_1Tests-body2Test-portlet</portlet-name>
+		<requires-namespaced-parameters>false</requires-namespaced-parameters>
+		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
+	</portlet>
+	<portlet>
+		<portlet-name>chapter5_2Tests-bridgeSetsContentTypeTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
