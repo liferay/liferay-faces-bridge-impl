@@ -53,7 +53,7 @@ NOTE:
 	<entry key="TestPage041">chapter5_1_2Tests-requestRenderRedisplayNonRetainedTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage042">chapter5_1_2Tests-requestScopeContentsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage043">chapter5_1_2Tests-requestScopeRestartedOnActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
-	<entry key="TestPage044">chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage044">chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage045">chapter5_2Tests-bridgeSetsContentTypeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage046">chapter5_2Tests-eventControllerTest-portlet|false|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage047">chapter5_2Tests-eventNoHandlerPRPPreservedTest-portlet|false|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
