@@ -757,13 +757,14 @@
 		</portlet-info>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter5_1_2Tests-requestRenderRedisplayRetainedTest-portlet</portlet-name>
+		<portlet-name>chapter5_1_2ScopeCommonTests-requestRenderRedisplayTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
+			<!-- FACES-3089: ACTION_ENABLED is false by default -->
 			<name>javax.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED</name>
 			<value>true</value>
 		</init-param>
@@ -773,7 +774,7 @@
 			<portlet-mode>VIEW</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>chapter5_1_2Tests-requestRenderRedisplayRetainedTest-portlet</title>
+			<title>chapter5_1_2ScopeCommonTests-requestRenderRedisplayTest-portlet</title>
 		</portlet-info>
 	</portlet>
 	<portlet>
@@ -1354,17 +1355,19 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter5_2Tests-resourceAttrNotRetainedAfterRedisplayPPRTest-resourceAttrRetainedAfterRedisplayPPRTest-portlet</title>
+			<!-- NOTE: Fixed typo, can get rid of this comment later before committing -->
+			<title>chapter5_2Tests-resourceAttrNotRetainedAfterRedisplayPPRTest-portlet</title>
 		</portlet-info>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter5_2Tests-resourceAttrRetainedAfterRedisplayPPRTest-portlet</portlet-name>
+		<portlet-name>chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>
 			<value>/tests/redisplayResourceAjaxResult.xhtml</value>
 		</init-param>
 		<init-param>
+			<!-- FACES-3089: AJAX_ENABLED is false by default -->
 			<name>javax.portlet.faces.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED</name>
 			<value>true</value>
 		</init-param>
@@ -1373,7 +1376,7 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>chapter5_2Tests-resourceAttrRetainedAfterRedisplayPPRTest-resourceAttrRetainedAfterRedisplayPPRTest-portlet</title>
+			<title>chapter5_2Tests-scopeAfterRedisplayResourcePPRTest-portlet</title>
 		</portlet-info>
 	</portlet>
 	<portlet>

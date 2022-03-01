@@ -41,7 +41,7 @@
 	<entry key="TestPage038">chapter5_1_2Tests-requestRedisplayOutOfScopeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage039">chapter5_1_2Tests-requestRenderIgnoresScopeViaCreateViewTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage040">chapter5_1_2Tests-requestRenderRedisplayNonRetainedTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
-	<entry key="TestPage041">chapter5_1_2Tests-requestRenderRedisplayRetainedTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage041">chapter5_1_2ScopeCommonTests-requestRenderRedisplayTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage042">chapter5_1_2Tests-requestScopeContentsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage043">chapter5_1_2Tests-requestScopeRestartedOnActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage044">chapter5_2Tests-bridgeSetsContentTypeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
@@ -69,7 +69,7 @@
 	<entry key="TestPage066">chapter5_2Tests-prpUpdatedFromActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage067">chapter5_2Tests-renderRedirectTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage068">chapter5_2Tests-resourceAttrNotRetainedAfterRedisplayPPRTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
-	<entry key="TestPage069">chapter5_2Tests-resourceAttrRetainedAfterRedisplayPPRTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage069">chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage070">chapter5_2Tests-resourcesRenderedInHeadTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage071">chapter5_2Tests-scopeNotRestoredResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage072">chapter5_2Tests-verifyPortletObjectsTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
