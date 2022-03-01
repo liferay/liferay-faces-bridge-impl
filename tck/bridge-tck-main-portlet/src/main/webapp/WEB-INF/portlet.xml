@@ -1360,7 +1360,7 @@
 		</portlet-info>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest</portlet-name>
+		<portlet-name>chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
 			<name>javax.portlet.faces.defaultViewId.view</name>

@@ -517,7 +517,7 @@ limitations under the License.
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_1_2Tests-requestScopeRestartedOnActionTest-portlet"/>
 		</page>
 		<page name="TestPage044" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest"/>
+			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest-portlet"/>
 		</page>
 		<page name="TestPage045" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.test.bridge.tck.main.portlet" name="chapter5_2Tests-bridgeSetsContentTypeTest-portlet"/>
