@@ -83,8 +83,8 @@ public class GenericFacesTestSuitePortlet extends GenericFacesPortlet {
 		String[] parts = portletName.split("-");
 
 		if (parts.length != 3) {
-			throw new IllegalStateException(
-				"Incorrect portletName syntax \"" + portletName + "\" for a test: should be testGroup-testName-portlet");
+			throw new IllegalStateException("Incorrect portletName syntax \"" + portletName +
+				"\" for a test: should be testGroup-testName-portlet");
 		}
 
 		mTestBeanName = parts[0];

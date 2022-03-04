@@ -15,4 +15,22 @@
 		<managed-bean-class>com.liferay.faces.bridge.tck.beans.TestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>chapter5_1_2ScopeCommonTests</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_1_2.ScopeCommonTests</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>chapter5_2ScopeCommonTests</managed-bean-name>
+		<managed-bean-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ScopeCommonTests</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<!-- Chapter 5 Tests -->
+	<navigation-rule>
+		<from-view-id>/tests/multiRequestTest.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>requestRenderRedisplayTest</from-outcome>
+			<to-view-id>/tests/redisplayRenderRequestTest.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>
