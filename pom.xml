@@ -290,7 +290,7 @@
 		<liferay.platform>liferay-ce</liferay.platform>
 		<liferay.resin.version>4.0.33</liferay.resin.version>
 		<liferay.tomcat.version>8.0.30</liferay.tomcat.version>
-		<liferay.version>7.4.3.ga8</liferay.version>
+		<liferay.version>7.4.3.ga14</liferay.version>
 		<liferay.version.dtd>7.0</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.weblogic.version>12.2.1.2</liferay.weblogic.version>
@@ -612,7 +612,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 		<profile>
 			<id>dxp</id>
 			<properties>
-				<liferay.deploy.version>7.4.13.u4</liferay.deploy.version>
+				<liferay.deploy.version>7.4.13.u10</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
