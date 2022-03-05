@@ -54,7 +54,7 @@ public class ScopeCommonTests {
 		}
 
 		// Otherwise, if this method is reached in the HEADER_PHASE of the portlet lifecycle, then
-		else if (portletRequestPhase == Bridge.PortletPhase.HEADER_PHASE) {
+		else if (portletRequestPhase == Bridge.PortletPhase.RENDER_PHASE) {
 
 			// If the page is being redisplayed due to clicking the "Run Test" link, then
 			if (externalContext.getRequestParameterMap().get("org.apache.portlet.faces.tck.redisplay") != null) {
@@ -62,7 +62,7 @@ public class ScopeCommonTests {
 				testBean.setTestComplete(true);
 
 				String bridgeRequestScopeActionEnabledParam = externalContext.getInitParameter(
-						Bridge.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED);
+						"javax.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED");
 				boolean bridgeRequestScopeActionEnabled = "true".equalsIgnoreCase(bridgeRequestScopeActionEnabledParam);
 				String requestScopedAttribute = (String) requestMap.get(
 						"com.liferay.faces.bridge.tck.TestRequestScope_a");

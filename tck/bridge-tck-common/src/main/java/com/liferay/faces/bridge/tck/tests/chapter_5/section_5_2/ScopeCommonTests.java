@@ -55,10 +55,10 @@ public class ScopeCommonTests {
 		}
 
 		// Otherwise, if this method is reached in the HEADER_PHASE of the portlet lifecycle, then
-		else if (Bridge.PortletPhase.HEADER_PHASE.equals(portletRequestPhase)) {
+		else if (Bridge.PortletPhase.RENDER_PHASE.equals(portletRequestPhase)) {
 
 			String bridgeRequestScopeAjaxEnabledParam = externalContext.getInitParameter(
-					Bridge.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED);
+					"javax.portlet.faces.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED");
 
 			boolean bridgeRequestScopeAjaxEnabled = "true".equalsIgnoreCase(bridgeRequestScopeAjaxEnabledParam);
 
