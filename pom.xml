@@ -580,7 +580,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<properties>
 				<liferay.deploy.version>7.0.10.14-sp14</liferay.deploy.version>
 				<liferay.faces.alloy.version>3.1.1-SNAPSHOT</liferay.faces.alloy.version>
-				<liferay.faces.bridge.ext.version>5.1.0</liferay.faces.bridge.ext.version>
+				<liferay.faces.bridge.ext.version>5.1.1-SNAPSHOT</liferay.faces.bridge.ext.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
