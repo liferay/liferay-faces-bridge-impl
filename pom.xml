@@ -732,7 +732,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>ce73</id>
 			<properties>
 				<liferay.deploy.version>7.3.7.ga8</liferay.deploy.version>
-				<liferay.faces.bridge.ext.version>6.1.0</liferay.faces.bridge.ext.version>
+				<liferay.faces.bridge.ext.version>6.1.1-SNAPSHOT</liferay.faces.bridge.ext.version>
 				<liferay.deploy.version>7.3.7</liferay.deploy.version>
 			</properties>
 		</profile>
