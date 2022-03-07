@@ -579,7 +579,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>dxp70</id>
 			<properties>
 				<liferay.deploy.version>7.0.10.14-sp14</liferay.deploy.version>
-				<liferay.faces.alloy.version>3.1.0</liferay.faces.alloy.version>
+				<liferay.faces.alloy.version>3.1.1-SNAPSHOT</liferay.faces.alloy.version>
 				<liferay.faces.bridge.ext.version>5.1.0</liferay.faces.bridge.ext.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
@@ -588,7 +588,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>dxp71</id>
 			<properties>
 				<liferay.deploy.version>7.1.10.4-sp4</liferay.deploy.version>
-				<liferay.faces.alloy.version>3.1.0</liferay.faces.alloy.version>
+				<liferay.faces.alloy.version>3.1.1-SNAPSHOT</liferay.faces.alloy.version>
 				<liferay.faces.bridge.ext.version>5.1.0</liferay.faces.bridge.ext.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
@@ -597,7 +597,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>dxp72</id>
 			<properties>
 				<liferay.deploy.version>7.2.10.sp5</liferay.deploy.version>
-				<liferay.faces.alloy.version>3.1.0</liferay.faces.alloy.version>
+				<liferay.faces.alloy.version>3.1.1-SNAPSHOT</liferay.faces.alloy.version>
 				<liferay.faces.bridge.ext.version>5.1.0</liferay.faces.bridge.ext.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
@@ -709,7 +709,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>ce70</id>
 			<properties>
 				<liferay.version>7.0.6.ga7</liferay.version>
-				<liferay.faces.alloy.version>3.1.0</liferay.faces.alloy.version>
+				<liferay.faces.alloy.version>3.1.1-SNAPSHOT</liferay.faces.alloy.version>
 				<liferay.faces.bridge.ext.version>5.1.0</liferay.faces.bridge.ext.version>
 			</properties>
 		</profile>
@@ -717,7 +717,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>ce71</id>
 			<properties>
 				<liferay.version>7.1.3.ga4</liferay.version>
-				<liferay.faces.alloy.version>3.1.0</liferay.faces.alloy.version>
+				<liferay.faces.alloy.version>3.1.1-SNAPSHOT</liferay.faces.alloy.version>
 				<liferay.faces.bridge.ext.version>5.1.0</liferay.faces.bridge.ext.version>
 			</properties>
 		</profile>
@@ -725,7 +725,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>ce72</id>
 			<properties>
 				<liferay.deploy.version>7.2.1.ga2</liferay.deploy.version>
-				<liferay.faces.alloy.version>3.1.0</liferay.faces.alloy.version>
+				<liferay.faces.alloy.version>3.1.1-SNAPSHOT</liferay.faces.alloy.version>
 			</properties>
 		</profile>
 		<profile>
