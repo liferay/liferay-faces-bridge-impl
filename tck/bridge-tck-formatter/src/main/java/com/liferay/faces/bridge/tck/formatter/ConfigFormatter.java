@@ -250,6 +250,17 @@ public class ConfigFormatter {
 					writer.write("\t\t<page name=\"TestPage");
 					writer.write(LEADING_ZEROS_FORMAT.format(i + 1));
 					writer.write("\" uri=\"/WEB-INF/themes/pluto-default-theme.jsp\">\n");
+
+					if (entry.getPortletName().contains("body2")) {
+						String portletName = entry.getPortletName();
+						portletName = portletName.replaceAll("body2", "body1");
+						writer.write("\t\t\t<portlet context=\"");
+						writer.write(entry.getContext());
+						writer.write("\" name=\"");
+						writer.write(portletName);
+						writer.write("\"/>\n");
+					}
+
 					writer.write("\t\t\t<portlet context=\"");
 					writer.write(entry.getContext());
 					writer.write("\" name=\"");
