@@ -112,7 +112,8 @@ public class LiferayTckTestCase extends TckTestCase {
 					testName.equals("requestRenderRedisplayNonRetainedTest") ||
 					testName.equals("resourceRequestAlternativeTest") ||
 					testName.equals("resourceResponseAlternativeTest") ||
-					testName.equals("resourcesRenderedInHeadTest"));
+					testName.equals("resourcesRenderedInHeadTest") ||
+					testName.equals("scopeAfterRedisplayResourcePPRTest"));
 		}
 
 		return useSpecialLiferayWindowState;
