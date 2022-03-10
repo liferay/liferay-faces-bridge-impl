@@ -197,11 +197,6 @@
 		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter5_1_2Tests-requestRenderRedisplayNonRetainedTest-portlet</portlet-name>
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
-	</portlet>
-	<portlet>
 		<portlet-name>chapter5_1_2Tests-requestRedisplayOutOfScopeTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
