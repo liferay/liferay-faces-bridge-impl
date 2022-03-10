@@ -778,22 +778,6 @@
 		</portlet-info>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter5_1_2Tests-requestRenderRedisplayNonRetainedTest-portlet</portlet-name>
-		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
-		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
-			<value>/tests/multiRequestTest.xhtml</value>
-		</init-param>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-			<portlet-mode>VIEW</portlet-mode>
-		</supports>
-		<portlet-info>
-			<title>chapter5_1_2Tests-requestRenderRedisplayNonRetainedTest-portlet</title>
-		</portlet-info>
-	</portlet>
-	<portlet>
 		<portlet-name>chapter5_1_2Tests-requestRedisplayOutOfScopeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
