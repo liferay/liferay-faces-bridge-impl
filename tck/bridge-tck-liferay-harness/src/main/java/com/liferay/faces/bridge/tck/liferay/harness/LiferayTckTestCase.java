@@ -109,7 +109,6 @@ public class LiferayTckTestCase extends TckTestCase {
 					testName.equals("encodePartialActionURLTest") ||
 					testName.equals("encodeResourceURLWithWindowStateTest") ||
 					testName.equals("getRequestHeaderMapActionTest") || testName.equals("lifecycleTest") ||
-					testName.equals("requestRenderRedisplayNonRetainedTest") ||
 					testName.equals("resourceRequestAlternativeTest") ||
 					testName.equals("resourceResponseAlternativeTest") ||
 					testName.equals("resourcesRenderedInHeadTest") ||
