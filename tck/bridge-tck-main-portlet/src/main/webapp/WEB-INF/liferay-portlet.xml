@@ -174,10 +174,6 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter5_1_2Tests-requestRenderRedisplayNonRetainedTest-portlet</portlet-name>
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-	</portlet>
-	<portlet>
 		<portlet-name>chapter5_1_2Tests-requestRedisplayOutOfScopeTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
