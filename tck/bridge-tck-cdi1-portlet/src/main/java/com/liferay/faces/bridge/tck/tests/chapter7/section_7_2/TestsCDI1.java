@@ -82,7 +82,6 @@ public class TestsCDI1 {
 	private List<Cookie> cookies;
 
 	@Inject
-	@Resource(name = "locales")
 	private List<Locale> locales;
 
 	@Inject
