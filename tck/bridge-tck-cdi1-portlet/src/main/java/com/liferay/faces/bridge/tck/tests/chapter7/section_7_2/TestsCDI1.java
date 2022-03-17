@@ -79,7 +79,6 @@ public class TestsCDI1 {
 	private ClientDataRequest clientDataRequest;
 
 	@Inject
-	@Resource(name = "cookies")
 	private List<Cookie> cookies;
 
 	@Inject
