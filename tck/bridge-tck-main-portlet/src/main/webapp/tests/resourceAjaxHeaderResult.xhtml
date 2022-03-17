@@ -15,7 +15,7 @@
 		</h:form>
 		<h:outputScript>
 			var sendRequest = function sendRequest(source) {
-				var paramPrefix = "#{facesContext.externalContext.encodeNamespace('')}#{facesContext.namingContainerSeparatorChar}";
+				var paramPrefix = "";
 				var encodedURLHiddenInput = document.getElementsByName(paramPrefix + "javax.faces.encodedURL")[0];
 				var encodedURL = encodedURLHiddenInput.getAttribute("value");
 				var sourceForm = source.form;
