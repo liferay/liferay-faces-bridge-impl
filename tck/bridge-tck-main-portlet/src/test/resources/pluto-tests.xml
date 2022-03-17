@@ -221,7 +221,7 @@ NOTE:
 	<entry key="TestPage209">chapter6_1_3_2Tests-getSessionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage210">chapter6_1_3_2Tests-sessionMapPreDestroyRemoveTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage211">chapter6_1_3_2Tests-setResponseCharacterEncodingTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
-	<entry key="TestPage212">chapter6_1_3_3Tests-addResponseCookieTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<entry key="TestPage212">chapter6_1_3_3Tests-addResponseCookieTest-portlet|false|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage213">chapter6_1_3_3Tests-addResponseHeaderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage214">chapter6_1_3_3Tests-getMimeTypeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage215">chapter6_1_3_3Tests-getRealPathTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
@@ -262,8 +262,8 @@ NOTE:
 	<entry key="TestPage250">chapter7_2CDITests-clientDataRequestAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage251">chapter7_2CDITests-contextPathAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage252">chapter7_2CDITests-cookiesAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
-	<entry key="TestPage253">chapter7_2CDITests-eventRequestAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
-	<entry key="TestPage254">chapter7_2CDITests-eventResponseAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
+	<entry key="TestPage253">chapter7_2CDITests-eventRequestAlternativeTest-portlet|false|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
+	<entry key="TestPage254">chapter7_2CDITests-eventResponseAlternativeTest-portlet|false|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage255">chapter7_2CDITests-headerRequestAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage256">chapter7_2CDITests-headerResponseAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage257">chapter7_2CDITests-localesAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
