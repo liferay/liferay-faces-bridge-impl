@@ -28,7 +28,7 @@ import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
  * @author  Neil Griffin
  */
 @PortletConfiguration(
-	portletName = "chapter7_2CDITestsclientDataRequestAlternativeTestportlet",
+	portletName = "chapter7_2CDITests-clientDataRequestAlternativeTest-portlet",
 	initParams = {
 			@InitParameter(
 				name = "javax.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/multiRequestTest.xhtml"
@@ -39,7 +39,7 @@ import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 		}
 )
 @LiferayPortletConfiguration(
-	portletName = "chapter7_2CDITestsclientDataRequestAlternativeTestportlet",
+	portletName = "chapter7_2CDITests-clientDataRequestAlternativeTest-portlet",
 	properties = {
 			"com.liferay.portlet.header-request-attribute-prefix=false",
 			"com.liferay.portlet.requires-namespaced-parameters=false"
