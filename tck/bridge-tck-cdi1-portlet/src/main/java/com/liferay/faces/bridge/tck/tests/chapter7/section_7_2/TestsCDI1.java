@@ -94,7 +94,6 @@ public class TestsCDI1 {
 	private String contextPath;
 
 	@Inject
-	@Resource(name = "cookies")
 	private List<Cookie> cookies;
 
 	@Inject
