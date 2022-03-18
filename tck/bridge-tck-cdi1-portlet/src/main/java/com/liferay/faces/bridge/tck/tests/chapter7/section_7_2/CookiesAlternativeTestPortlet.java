@@ -26,7 +26,6 @@ import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 @LiferayPortletConfiguration(
 	portletName = "chapter7_2CDITestscookiesAlternativeTestportlet",
 	properties = {
-			"com.liferay.portlet.header-request-attribute-prefix=false",
 			"com.liferay.portlet.requires-namespaced-parameters=false"
 		}
 )
