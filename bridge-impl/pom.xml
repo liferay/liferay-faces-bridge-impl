@@ -78,6 +78,7 @@
 								javax.enterprise.event;version="[2.0.0,3.0.0)",\
 								javax.enterprise.inject;version="[2.0.0,3.0.0)",\
 								javax.enterprise.inject.spi;version="[2.0.0,3.0.0)",\
+								javax.enterprise.util;version="[1.1.0,3.0.0)",\
 								com.liferay.faces.util.*;version="[4.0.0,5.0.0)",\
 								com.liferay.faces.bridge.*;version="[6.0.0,7.0.0)",\
 								com.liferay.faces.portlet.*;version="[6.0.0,7.0.0)",\
