@@ -360,6 +360,13 @@ public class BridgeAlternativesProducer {
 		return portletRequest.getPreferences();
 	}
 
+	@Named("portletRequest")
+	@Dependent
+	@Produces
+	public PortletRequest getPortletRequest() {
+		return _getPortletRequest();
+	}
+
 	@Named("portletResponse")
 	@Dependent
 	@Produces
@@ -492,13 +499,6 @@ public class BridgeAlternativesProducer {
 		}
 
 		return portletRequest.getWindowState();
-	}
-
-	@Named("portletRequest")
-	@Dependent
-	@Produces
-	public PortletRequest ggetPortletRequest() {
-		return _getPortletRequest();
 	}
 
 	/**
