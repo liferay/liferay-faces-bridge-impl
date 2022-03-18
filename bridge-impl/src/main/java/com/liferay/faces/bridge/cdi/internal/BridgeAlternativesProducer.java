@@ -255,10 +255,7 @@ public class BridgeAlternativesProducer {
 	@Dependent
 	@Produces
 	public PortletRequest getPortletRequest() {
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		ExternalContext externalContext = facesContext.getExternalContext();
-
-		return (PortletRequest) externalContext.getRequest();
+		return _getPortletRequest();
 	}
 
 	@Named("portletResponse")
@@ -364,13 +361,6 @@ public class BridgeAlternativesProducer {
 		}
 
 		return portletRequest.getWindowState();
-	}
-
-	@Named("portletRequest")
-	@Dependent
-	@Produces
-	public PortletRequest ggetPortletRequest() {
-		return _getPortletRequest();
 	}
 
 	/**
