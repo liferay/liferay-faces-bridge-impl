@@ -4,27 +4,22 @@
 	<portlet>
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewActionTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewEventTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewRenderTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<portlet>
 		<portlet-name>chapter6_1_3_1EncodePartialActionURLTests-encodePartialActionURLTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-		<header-request-attribute-prefix>com.liferay.faces.bridge.tck</header-request-attribute-prefix>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
