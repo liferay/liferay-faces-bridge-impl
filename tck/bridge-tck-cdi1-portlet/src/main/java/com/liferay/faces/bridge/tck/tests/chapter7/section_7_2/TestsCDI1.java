@@ -505,7 +505,7 @@ public class TestsCDI1 {
 	@BridgeTest(test = "mimeResponseAlternativeTest")
 	public String mimeResponseAlternativeTest(TestBean testBean) {
 
-		if (mimeResponse.getClass().getName().contains("HeaderResponseTCKImpl")) {
+		if (mimeResponse.getClass().getName().contains("RenderResponseTCKImpl")) {
 
 			testBean.setTestResult(true, "The bridge's alternative producer for MimeResponse was properly invoked");
 
@@ -717,7 +717,7 @@ public class TestsCDI1 {
 	@BridgeTest(test = "renderRequestAlternativeTest")
 	public String renderRequestAlternativeTest(TestBean testBean) {
 
-		if (renderRequest.getClass().getName().contains("HeaderRequestTCKImpl")) {
+		if (renderRequest.getClass().getName().contains("RenderRequestTCKImpl")) {
 
 			testBean.setTestResult(true, "The bridge's alternative producer for RenderRequest was properly invoked");
 
