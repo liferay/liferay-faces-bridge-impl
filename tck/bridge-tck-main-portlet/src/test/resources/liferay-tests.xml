@@ -257,7 +257,7 @@
 	<entry key="TestPage254">chapter7_2CDITests-contextPathAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage255">chapter7_2CDITests-cookiesAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage256">chapter7_2CDITests-eventRequestAlternativeTest-portlet|false|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
-	<entry key="TestPage257">chapter7_2CDITests-eventResponseAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
+	<entry key="TestPage257">chapter7_2CDITests-eventResponseAlternativeTest-portlet|false|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage258">chapter7_2CDITests-headerRequestAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage259">chapter7_2CDITests-headerResponseAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage260">chapter7_2CDITests-localesAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
