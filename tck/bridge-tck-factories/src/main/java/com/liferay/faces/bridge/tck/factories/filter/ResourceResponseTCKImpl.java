@@ -39,6 +39,10 @@ public class ResourceResponseTCKImpl extends ResourceResponseWrapper {
 		super(resourceResponse);
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
 	@Override
 	public PrintWriter getWriter() throws IOException {
 
@@ -49,8 +53,20 @@ public class ResourceResponseTCKImpl extends ResourceResponseWrapper {
 		return printWriter;
 	}
 
+	@Override
+	public void setProperty(String key, String value) {
+
+		if (ResourceResponse.HTTP_STATUS_CODE.equals(key)) {
+			this.status = Integer.valueOf(value);
+		}
+
+		super.setProperty(key, value);
+	}
+
 	/**
-	 * @see {@link com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_3.Tests#responseResetPreRenderEventHandler(javax.faces.event.ComponentSystemEvent)}
+	 * @see  {@link
+	 *       com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_3.Tests#responseResetPreRenderEventHandler(javax.faces.event.ComponentSystemEvent)
+	 *       }
 	 */
 	private class CapturingPrintWriter extends PrintWriter {
 
@@ -95,19 +111,5 @@ public class ResourceResponseTCKImpl extends ResourceResponseWrapper {
 			stringWriter.write(buf, off, len);
 			super.write(buf, off, len);
 		}
-	}
-
-	@Override
-	public void setProperty(String key, String value) {
-
-		if (ResourceResponse.HTTP_STATUS_CODE.equals(key)) {
-			this.status = Integer.valueOf(value);
-		}
-
-		super.setProperty(key, value);
-	}
-
-	public int getStatus() {
-		return status;
 	}
 }
