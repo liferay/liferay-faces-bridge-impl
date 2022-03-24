@@ -22,6 +22,7 @@ import java.io.Writer;
 
 import javax.portlet.ResourceResponse;
 import javax.portlet.filter.ResourceResponseWrapper;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -30,7 +31,9 @@ import javax.portlet.filter.ResourceResponseWrapper;
 public class ResourceResponseTCKImpl extends ResourceResponseWrapper {
 
 	private PrintWriter printWriter;
-	private int status;
+
+	// Since Portlet 2.0 does not have ResourceResponse.getStatus() method, assume HTTP 200 (OK).
+	private int status = HttpServletResponse.SC_OK;
 
 	public ResourceResponseTCKImpl(ResourceResponse resourceResponse) {
 		super(resourceResponse);
