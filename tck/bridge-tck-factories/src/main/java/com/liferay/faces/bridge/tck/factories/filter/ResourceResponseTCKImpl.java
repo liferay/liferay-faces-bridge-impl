@@ -98,7 +98,7 @@ public class ResourceResponseTCKImpl extends ResourceResponseWrapper {
 	public void setProperty(String key, String value) {
 
 		if (ResourceResponse.HTTP_STATUS_CODE.equals(key)) {
-			status = Integer.valueOf(key);
+			this.status = Integer.valueOf(value);
 		}
 
 		super.setProperty(key, value);
