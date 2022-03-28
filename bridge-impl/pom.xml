@@ -85,7 +85,7 @@
 								javax.portlet;version="[2.0.0,4.0.0)",\
 								javax.portlet.annotations;resolution:=optional,\
 								javax.portlet.faces.*;version="[4.2.0,4.4.0)",\
-								org.apache.commons.io.*;resolution:=optional,\
+								org.apache.commons.io.*;resolution:=optional;version="[1.4,3)",\
 								org.icefaces.ace.component.fileentry.*;resolution:=optional,\
 								*
 							Require-Capability: osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"
