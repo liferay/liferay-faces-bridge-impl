@@ -201,6 +201,16 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 			name = Integer.toString(node.hashCode()) + Integer.toString(headerResponse.hashCode());
 		}
 
+		// FACES-3570: If the dependency is from BootsFaces and is incompatible with the Liferay and Pluto
+		// implementations of PortletResponse#addDependency then to not attempt to add the dependency.
+		if ((nodeString == null) || (nodeString.startsWith("<!--[") && nodeString.endsWith("]>")) ||
+				(nodeString.startsWith("<![>") || nodeString.endsWith("]-->")) || nodeString.startsWith("<meta")) {
+
+			logger.debug("Not adding BootsFaces dependency: [{0}]", nodeString);
+
+			return;
+		}
+
 		headerResponse.addDependency(name, scope, version, nodeString);
 
 		if (logger.isDebugEnabled()) {
