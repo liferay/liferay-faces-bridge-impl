@@ -70,6 +70,10 @@ public class AlloyApplicantPortletTester extends ApplicantTesterBase {
 			"//h3[contains(text(),'Attachments')]/following-sibling::table[contains(@class,'alloy-data-table')]/tbody/tr/td[2]/span";
 	}
 
+	protected boolean isRetrySubmitOnAllFieldsRequired() {
+		return true;
+	}
+
 	@Override
 	protected void selectDate(BrowserDriver browserDriver) {
 
