@@ -236,7 +236,16 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 		clearAllFields(browserDriver);
 
 		if (isInputFieldPartialSubmitEnabled()) {
-			browserDriver.clickElementAndWaitForRerender(getSubmitButtonXpath());
+
+			try {
+				browserDriver.clickElementAndWaitForRerender(getSubmitButtonXpath());
+			}
+			catch (TimeoutException e) {
+
+				if (isRetrySubmitOnAllFieldsRequired()) {
+					browserDriver.clickElementAndWaitForRerender(getSubmitButtonXpath());
+				}
+			}
 		}
 		else {
 			browserDriver.centerElementInCurrentWindow(getSubmitButtonXpath());
@@ -609,6 +618,10 @@ public abstract class ApplicantTesterBase extends FileUploadTesterBase {
 
 	protected boolean isLiferayFacesAlloyIncluded() {
 		return true;
+	}
+
+	protected boolean isRetrySubmitOnAllFieldsRequired() {
+		return false;
 	}
 
 	protected boolean isRunDateValidation() {
