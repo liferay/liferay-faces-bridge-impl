@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.portlet.MutableRenderParameters;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 import javax.portlet.StateAwareResponse;
@@ -311,7 +312,10 @@ public class IPCPhaseListener implements PhaseListener {
 										logger.debug(
 											"Setting render parameter=[{0}] in response because modelValue=[{1}] has changed",
 											nonPrefixedParameterName, modelValue);
-										stateAwareResponse.setRenderParameter(nonPrefixedParameterName, modelValue);
+
+										MutableRenderParameters mutableRenderParameters =
+											stateAwareResponse.getRenderParameters();
+										mutableRenderParameters.setValue(nonPrefixedParameterName, modelValue);
 									}
 									else {
 										logger.debug(
