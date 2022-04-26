@@ -42,7 +42,7 @@ public class MultiPartFormDataProcessorImpl extends MultiPartFormDataProcessorCo
 
 	@Override
 	public Map<String, List<UploadedFile>> process(ClientDataRequest clientDataRequest, PortletConfig portletConfig,
-		FacesRequestParameterMap facesRequestParameterMap) {
+		FacesRequestParameterMap facesRequestParameterMap, long maxFileSize) {
 
 		PortletSession portletSession = clientDataRequest.getPortletSession();
 
@@ -64,7 +64,7 @@ public class MultiPartFormDataProcessorImpl extends MultiPartFormDataProcessorCo
 			}
 		}
 
-		return iterateOver(clientDataRequest, portletConfig, facesRequestParameterMap, uploadedFilesPath);
+		return iterateOver(clientDataRequest, portletConfig, facesRequestParameterMap, uploadedFilesPath, maxFileSize);
 	}
 
 	protected void addUploadedFile(Map<String, List<UploadedFile>> uploadedFileMap, String fieldName,

@@ -24,6 +24,7 @@ import java.util.Set;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.ExternalContextWrapper;
+import javax.faces.webapp.FacesServlet;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
@@ -33,10 +34,15 @@ import javax.portlet.PortletSession;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.ServletContext;
 
+import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.bridge.model.internal.UploadedFileBridgeImpl;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.bridge.util.internal.FacesRuntimeUtil;
+import com.liferay.faces.util.config.ApplicationConfig;
+import com.liferay.faces.util.config.ConfiguredServlet;
+import com.liferay.faces.util.config.MultiPartConfig;
+import com.liferay.faces.util.config.WebConfig;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.context.map.MultiPartFormData;
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
@@ -50,6 +56,7 @@ import com.liferay.faces.util.product.ProductFactory;
 public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 
 	// Private Constants
+	private static final String FACES_SERVLET_FQCN = FacesServlet.class.getName();
 	private static final String MULTIPART_FORM_DATA_FQCN = MultiPartFormData.class.getName();
 
 	@Override
@@ -216,7 +223,7 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 
 					MultiPartFormDataProcessor multiPartFormDataProcessor = new MultiPartFormDataProcessorImpl();
 					Map<String, List<com.liferay.faces.util.model.UploadedFile>> uploadedFileMap =
-						multiPartFormDataProcessor.process(clientDataRequest, portletConfig, facesRequestParameterMap);
+						multiPartFormDataProcessor.process(clientDataRequest, portletConfig, facesRequestParameterMap, getMaxFileSize(portletConfig, portletContext));
 
 					multiPartFormData = new MultiPartFormDataImpl(facesRequestParameterMap, uploadedFileMap);
 
@@ -238,6 +245,49 @@ public class ContextMapFactoryImpl extends ContextMapFactoryCompatImpl {
 		}
 
 		return facesRequestParameterMap;
+	}
+
+	protected long getMaxFileSize(PortletConfig portletConfig, PortletContext portletContext) {
+
+		// Determine the max file upload size threshold (in bytes).
+		long defaultMaxFileSize = PortletConfigParam.UploadedFileMaxSize.getDefaultLongValue();
+		long maxFileSize = defaultMaxFileSize;
+
+		MultiPartConfig multiPartConfig = getFacesServletMultiPartConfig(portletContext);
+		if (multiPartConfig != null) {
+			long multiPartConfigMaxFileSize = multiPartConfig.getMaxFileSize();
+
+			if (multiPartConfigMaxFileSize != defaultMaxFileSize) {
+				maxFileSize = multiPartConfigMaxFileSize;
+			}
+		}
+
+		long uploadedFileMaxSize = PortletConfigParam.UploadedFileMaxSize.getLongValue(portletConfig);
+
+		if (uploadedFileMaxSize != defaultMaxFileSize) {
+			maxFileSize = uploadedFileMaxSize;
+		}
+
+		return maxFileSize;
+	}
+
+	protected MultiPartConfig getFacesServletMultiPartConfig(PortletContext portletContext) {
+
+		MultiPartConfig facesServletMultiPartConfig = null;
+
+		String appConfigAttrName = ApplicationConfig.class.getName();
+		ApplicationConfig applicationConfig = (ApplicationConfig) portletContext.getAttribute(appConfigAttrName);
+		WebConfig webConfig = applicationConfig.getWebConfig();
+		List<ConfiguredServlet> configuredServlets = webConfig.getConfiguredServlets();
+
+		for (ConfiguredServlet configuredServlet : configuredServlets) {
+
+			if (FACES_SERVLET_FQCN.equals(configuredServlet.getServletClass())) {
+				facesServletMultiPartConfig = configuredServlet.getMultiPartConfig();
+			}
+		}
+
+		return facesServletMultiPartConfig;
 	}
 
 	private class ExternalContextProductImpl extends ExternalContextWrapper {
