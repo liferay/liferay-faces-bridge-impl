@@ -24,8 +24,10 @@
 				<osgi.import.package>
 					Import-Package: \
 						!com.liferay.faces.issue.*,\
-                        org.primefaces.mobile.*;resolution:=optional,\
+						org.primefaces.extensions.model.monacoeditor.*;resolution:=optional,\
+						org.primefaces.mobile.*;resolution:=optional,\
 						${osgi.import.package.primefaces},\
+						com.google.gson.*;resolution:=optional,\
 						com.google.i18n.*;resolution:=optional,\
 						com.google.zxing.*;resolution:=optional,\
 						com.hazelcast.*;resolution:=optional,\
