@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +35,6 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.faces.BridgeFactoryFinder;
 import javax.servlet.http.Part;
 
-import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -58,19 +56,10 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 	protected abstract String stripIllegalCharacters(String fileName);
 
 	/* package-private */ Map<String, List<UploadedFile>> iterateOver(ClientDataRequest clientDataRequest, PortletConfig portletConfig,
-		FacesRequestParameterMap facesRequestParameterMap, File uploadedFilesPath) {
+		FacesRequestParameterMap facesRequestParameterMap, File uploadedFilesPath, long maxFileSize) {
 
 		// Parse the request parameters and save all uploaded files in a map.
 		Map<String, List<UploadedFile>> uploadedFileMap = new HashMap<>();
-
-		// Determine the max file upload size threshold (in bytes).
-		long defaultMaxFileSize = PortletConfigParam.UploadedFileMaxSize.getDefaultLongValue();
-		long uploadedFileMaxSize = PortletConfigParam.UploadedFileMaxSize.getLongValue(portletConfig);
-
-		if (defaultMaxFileSize != uploadedFileMaxSize) {
-			logger.warn("Ignoring init param {0}=[{1}] since it has been replaced by <multipart-config> in web.xml",
-				PortletConfigParam.UploadedFileMaxSize.getName(), uploadedFileMaxSize);
-		}
 
 		// FACES-271: Include name+value pairs found in the ActionRequest/ResourceRequest.
 		PortletParameters portletParameters;
@@ -139,76 +128,84 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 			// For each field found in the request:
 			for (Part part : parts) {
 
-				String fieldName = part.getName();
-				fileUploadFieldNames.add(fieldName);
+				if (part.getSize() <= maxFileSize) {
+					String fieldName = part.getName();
+					fileUploadFieldNames.add(fieldName);
 
-				try {
-					totalFiles++;
+					try {
+						totalFiles++;
 
-					String characterEncoding = clientDataRequest.getCharacterEncoding();
-					String contentDispositionHeader = part.getHeader("content-disposition");
-					String fileName = getValidFileName(contentDispositionHeader);
+						String characterEncoding = clientDataRequest.getCharacterEncoding();
+						String contentDispositionHeader = part.getHeader("content-disposition");
+						String fileName = getValidFileName(contentDispositionHeader);
 
-					// If the current field is a simple form-field, then save the form field value in the map.
-					if ((fileName != null) && (fileName.length() > 0)) {
+						// If the current field is a simple form-field, then save the form field value in the map.
+						if ((fileName != null) && (fileName.length() > 0)) {
 
-						File uploadedFilePath = new File(uploadedFilesPath, fileName);
-						String uploadedFilePathAbsolutePath = uploadedFilePath.getAbsolutePath();
-						part.write(uploadedFilePathAbsolutePath);
+							File uploadedFilePath = new File(uploadedFilesPath, fileName);
+							String uploadedFilePathAbsolutePath = uploadedFilePath.getAbsolutePath();
+							part.write(uploadedFilePathAbsolutePath);
 
-						// If the copy was successful, then
-						if (uploadedFilePath.exists()) {
+							// If the copy was successful, then
+							if (uploadedFilePath.exists()) {
 
-							// If present, build up a map of headers. According to Hypertext Transfer Protocol --
-							// HTTP/1.1 (http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2), header names
-							// are case-insensitive. In order to support this, use a TreeMap with case insensitive
-							// keys.
-							Map<String, List<String>> headersMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+								// If present, build up a map of headers. According to Hypertext Transfer Protocol --
+								// HTTP/1.1 (http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2), header names
+								// are case-insensitive. In order to support this, use a TreeMap with case insensitive
+								// keys.
+								Map<String, List<String>> headersMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 
-							Collection<String> headerNames = part.getHeaderNames();
+								Collection<String> headerNames = part.getHeaderNames();
 
-							for (String headerName : headerNames) {
-								Collection<String> headerValues = part.getHeaders(headerName);
-								List<String> headerValueList = new ArrayList<>();
+								for (String headerName : headerNames) {
+									Collection<String> headerValues = part.getHeaders(headerName);
+									List<String> headerValueList = new ArrayList<>();
 
-								for (String headerValue : headerValues) {
-									headerValueList.add(headerValue);
+									for (String headerValue : headerValues) {
+										headerValueList.add(headerValue);
+									}
+
+									headersMap.put(headerName, headerValueList);
 								}
 
-								headersMap.put(headerName, headerValueList);
-							}
-
-							// Put a valid UploadedFile instance into the map that contains all of the
-							// uploaded file's attributes, along with a successful status.
-							Map<String, Object> attributeMap = new HashMap<>();
-							String id = Long.toString(((long) hashCode()) + System.currentTimeMillis());
-							com.liferay.faces.util.model.UploadedFile uploadedFile =
-								uploadedFileFactory.getUploadedFile(uploadedFilePathAbsolutePath, attributeMap,
-									characterEncoding, part.getContentType(), headersMap, id, null, fileName,
-									part.getSize(), com.liferay.faces.util.model.UploadedFile.Status.FILE_SAVED);
-
-							facesRequestParameterMap.addValue(fieldName, uploadedFilePathAbsolutePath);
-							addUploadedFile(uploadedFileMap, fieldName, uploadedFile);
-							logger.debug("Received uploaded file fieldName=[{0}] fileName=[{1}]", fieldName, fileName);
-						}
-						else {
-
-							if (fileName.trim().length() > 0) {
-								Exception e = new IOException("Failed to copy the stream of uploaded file=[" +
-										fileName + "] to a temporary file (possibly a zero-length uploaded file)");
+								// Put a valid UploadedFile instance into the map that contains all of the
+								// uploaded file's attributes, along with a successful status.
+								Map<String, Object> attributeMap = new HashMap<>();
+								String id = Long.toString(((long) hashCode()) + System.currentTimeMillis());
 								com.liferay.faces.util.model.UploadedFile uploadedFile =
-									uploadedFileFactory.getUploadedFile(e);
+									uploadedFileFactory.getUploadedFile(uploadedFilePathAbsolutePath, attributeMap,
+										characterEncoding, part.getContentType(), headersMap, id, null, fileName,
+										part.getSize(), com.liferay.faces.util.model.UploadedFile.Status.FILE_SAVED);
+
+								facesRequestParameterMap.addValue(fieldName, uploadedFilePathAbsolutePath);
 								addUploadedFile(uploadedFileMap, fieldName, uploadedFile);
+								logger.debug("Received uploaded file fieldName=[{0}] fileName=[{1}]", fieldName,
+									fileName);
+							}
+							else {
+
+								if (fileName.trim().length() > 0) {
+									Exception e = new IOException("Failed to copy the stream of uploaded file=[" +
+											fileName + "] to a temporary file (possibly a zero-length uploaded file)");
+									com.liferay.faces.util.model.UploadedFile uploadedFile =
+										uploadedFileFactory.getUploadedFile(e);
+									addUploadedFile(uploadedFileMap, fieldName, uploadedFile);
+								}
 							}
 						}
 					}
-				}
-				catch (Exception e) {
-					logger.error(e);
+					catch (Exception e) {
+						logger.error(e);
 
-					com.liferay.faces.util.model.UploadedFile uploadedFile = uploadedFileFactory.getUploadedFile(e);
-					String totalFilesfieldName = Integer.toString(totalFiles);
-					addUploadedFile(uploadedFileMap, totalFilesfieldName, uploadedFile);
+						com.liferay.faces.util.model.UploadedFile uploadedFile = uploadedFileFactory.getUploadedFile(e);
+						String totalFilesfieldName = Integer.toString(totalFiles);
+						addUploadedFile(uploadedFileMap, totalFilesfieldName, uploadedFile);
+					}
+				}
+				else {
+					logger.warn("Rejecting file name=[{0}] size=[{1}] since it is larger than maxFileSize[{2}]",
+						part.getName(), part.getSize(), maxFileSize);
+					part.delete();
 				}
 			}
 
@@ -267,4 +264,5 @@ public abstract class MultiPartFormDataProcessorCompatImpl {
 
 		return null;
 	}
+
 }

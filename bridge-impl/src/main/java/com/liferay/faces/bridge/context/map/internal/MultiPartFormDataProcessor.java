@@ -38,9 +38,10 @@ public interface MultiPartFormDataProcessor {
 	 * @param   clientDataRequest         The client data request that is to be processed.
 	 * @param   portletConfig             The portlet configuration.
 	 * @param   facesRequestParameterMap  The mutable namespaced paramter map that is to be populated.
+	 * @param   maxFileSize               The maximum permitted file size.
 	 *
 	 * @return  The map of uploaded files.
 	 */
 	public Map<String, List<UploadedFile>> process(ClientDataRequest clientDataRequest, PortletConfig portletConfig,
-		FacesRequestParameterMap facesRequestParameterMap);
+		FacesRequestParameterMap facesRequestParameterMap, long maxFileSize);
 }
