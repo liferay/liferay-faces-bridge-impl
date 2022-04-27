@@ -102,6 +102,7 @@
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
 		<gdk.version>12.2.0-1-0</gdk.version>
+		<hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
 		<icefaces.version>4.3.0</icefaces.version>
 		<!-- Specifies the DynamicImport-Package directive for use with the "thin" Maven profile. -->
 		<osgi.dynamic.import.package></osgi.dynamic.import.package>
@@ -785,6 +786,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<properties>
 				<faces.api.scope>provided</faces.api.scope>
 				<faces.impl.scope>provided</faces.impl.scope>
+				<hibernate.validator.version>5.4.3.Final</hibernate.validator.version>
 				<portal.type>pluto</portal.type>
 				<skip.thin.war.setup>true</skip.thin.war.setup>
 				<war.dependency.scope>provided</war.dependency.scope>
@@ -1213,7 +1215,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
-				<version>6.1.5.Final</version>
+				<version>${hibernate.validator.version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>jakarta.validation</groupId>
