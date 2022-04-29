@@ -30,6 +30,12 @@
 			</dependencies>
 		</profile>
 		<profile>
+			<id>pluto</id>
+			<properties>
+				<war.dependency.scope.jstl>provided</war.dependency.scope.jstl>
+			</properties>
+		</profile>
+		<profile>
 			<id>thin</id>
 			<properties>
 				<osgi.import.package>
