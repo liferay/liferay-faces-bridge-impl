@@ -1049,7 +1049,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<groupId>javax.inject</groupId>
 				<artifactId>javax.inject</artifactId>
 				<version>1</version>
-				<scope>${war.dependency.scope}</scope>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>javax.portlet</groupId>

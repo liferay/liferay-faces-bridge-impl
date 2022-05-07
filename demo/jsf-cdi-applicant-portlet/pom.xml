@@ -101,6 +101,12 @@ com.sun.faces.flow.FlowDiscoveryCDIExtension
 							</dependency>
 						</dependencies>
 					</plugin>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<packagingExcludes>WEB-INF/liferay-display.xml,WEB-INF/liferay-portlet.xml,WEB-INF/portlet.xml</packagingExcludes>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
