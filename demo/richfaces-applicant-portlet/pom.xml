@@ -49,16 +49,6 @@
 				</osgi.import.package>
 			</properties>
 		</profile>
-		<profile>
-			<id>weblogic</id>
-			<dependencies>
-				<dependency>
-					<groupId>com.sun.xml.bind</groupId>
-					<artifactId>jaxb-impl</artifactId>
-					<version>${weblogic.jaxb.version}</version>
-				</dependency>
-			</dependencies>
-		</profile>
 	</profiles>
 
 	<dependencies>
