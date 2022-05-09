@@ -290,7 +290,7 @@
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.platform>liferay-ce</liferay.platform>
 		<liferay.tomcat.version>8.0.30</liferay.tomcat.version>
-		<liferay.version>7.4.3.ga16</liferay.version>
+		<liferay.version>7.4.3.ga22</liferay.version>
 		<liferay.version.dtd>7.2</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
