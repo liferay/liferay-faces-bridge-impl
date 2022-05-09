@@ -118,15 +118,6 @@ com.sun.faces.flow.FlowDiscoveryCDIExtension
 				</dependency>
 			</dependencies>
 		</profile>
-		<profile>
-			<id>weblogic</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.weld.servlet</groupId>
-					<artifactId>weld-servlet</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
 	</profiles>
 
 	<properties>

@@ -21,16 +21,6 @@
 			<id>release</id>
 			<modules>
 				<module>thick-cdi</module>
-				<module>weblogic</module>
-			</modules>
-		</profile>
-
-		<!-- The weblogic profile provides a way for developers to manually build the weblogic related -->
-		<!-- modules since they are not deployed during the release process. -->
-		<profile>
-			<id>weblogic</id>
-			<modules>
-				<module>weblogic</module>
 			</modules>
 		</profile>
 

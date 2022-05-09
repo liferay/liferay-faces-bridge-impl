@@ -178,12 +178,6 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>weblogic</id>
-			<properties>
-				<integration.port>7001</integration.port>
-			</properties>
-		</profile>
-		<profile>
 			<id>websphere</id>
 			<properties>
 				<integration.host>192.168.10.110</integration.host>
