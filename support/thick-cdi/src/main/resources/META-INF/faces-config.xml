@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	xmlns:bridge="http://www.liferay.com/xml/ns/liferay-faces-bridge-2.0-extension"
+	xmlns:util="http://www.liferay.com/xml/ns/liferay-faces-util-extension">
+	<name>LiferayFacesThickCDI</name>
+	<ordering>
+		<before>
+			<name>LiferayFacesBridge</name>
+		</before>
+	</ordering>
+	<application>
+		<application-extension>
+			<bridge:excluded-attributes>
+				<bridge:excluded-attribute>com.liferay.faces.thick.cdi.*</bridge:excluded-attribute>
+			</bridge:excluded-attributes>
+		</application-extension>
+	</application>
+</faces-config>
