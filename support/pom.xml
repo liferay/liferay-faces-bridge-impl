@@ -20,6 +20,7 @@
 		<profile>
 			<id>release</id>
 			<modules>
+				<module>thick-cdi</module>
 				<module>weblogic</module>
 			</modules>
 		</profile>
@@ -34,5 +35,9 @@
 		</profile>
 
 	</profiles>
+
+	<modules>
+		<module>thick-cdi</module>
+	</modules>
 
 </project>

@@ -101,6 +101,16 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>thick-cdi</id>
+			<dependencies>
+				<dependency>
+					<groupId>com.liferay.faces.support</groupId>
+					<artifactId>com.liferay.faces.support.thick.cdi</artifactId>
+					<version>${project.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
 			<id>thin</id>
 			<properties>
 				<webapp.descriptor>web-${app.server.type}-thin.xml</webapp.descriptor>
@@ -154,10 +164,53 @@ com.sun.faces.application.view.ViewScopeExtension
 							</dependency>
 						</dependencies>
 					</plugin>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<packagingExcludes>WEB-INF/liferay-display.xml,WEB-INF/liferay-portlet.xml,WEB-INF/portlet.xml</packagingExcludes>
+							<webXml>${basedir}/src/main/webapp/WEB-INF/${webapp.descriptor}</webXml>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>tomcat</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.weld.servlet</groupId>
+					<artifactId>weld-servlet</artifactId>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<dependentWarExcludes>WEB-INF/lib/*</dependentWarExcludes>
+							<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+							<packagingExcludes>${war.packaging.excludes}</packagingExcludes>
+							<webXml>${basedir}/src/main/webapp/WEB-INF/${webapp.descriptor}</webXml>
+							<webResources>
+								<resource>
+									<directory>${basedir}/src/main/webapp/WEB-INF</directory>
+									<filtering>true</filtering>
+									<targetPath>WEB-INF</targetPath>
+									<includes>
+										<include>**/*.properties</include>
+									</includes>
+								</resource>
+							</webResources>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
 	</profiles>
+
+	<properties>
+		<webapp.descriptor>web-${app.server.type}.xml</webapp.descriptor>
+	</properties>
 
 	<build>
 		<plugins>

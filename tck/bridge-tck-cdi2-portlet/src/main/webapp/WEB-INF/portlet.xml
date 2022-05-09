@@ -17,7 +17,7 @@
 			<portlet-mode>view</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>CDIRequestScopedBeanExtensionTestPortlet</title>
+			<title>chapter7_2CDITests-cdiRequestScopedBeanExtensionTest-portlet</title>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -45,7 +45,7 @@
 			<portlet-mode>view</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>PortletRequestScopedBeanExtensionTestPortlet</title>
+			<title>chapter7_2CDITests-portletRequestScopedBeanExtensionTest-portlet</title>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
