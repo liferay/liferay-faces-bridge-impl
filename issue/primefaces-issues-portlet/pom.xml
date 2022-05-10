@@ -12,6 +12,11 @@
 	<packaging>war</packaging>
 	<name>primefaces-issues</name>
 
+	<properties>
+		<thick.or.thin.begin.comment>--&gt;</thick.or.thin.begin.comment>
+		<thick.or.thin.end.comment>&lt;!--</thick.or.thin.end.comment>
+	</properties>
+
 	<profiles>
 		<profile>
 			<id>liferay</id>
@@ -39,6 +44,7 @@
 						groovy.util;resolution:=optional,\
 						javax.ejb;resolution:=optional,\
 						javax.faces.component.search;resolution:=optional,\
+						io.nayuki.qrcodegen;resolution:=optional,\
 						net.glxn.qrgen.*;resolution:=optional,\
 						net.sf.ehcache;resolution:=optional,\
 						org.apache;resolution:=optional,\
@@ -61,6 +67,13 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<thick.or.thin.begin.comment></thick.or.thin.begin.comment>
+				<thick.or.thin.end.comment></thick.or.thin.end.comment>
+			</properties>
+		</profile>
 	</profiles>
 
 	<build>
@@ -72,6 +85,22 @@
 					<configuration>
 						<source>1.8</source>
 						<target>1.8</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<webResources>
+							<resource>
+								<directory>${basedir}/src/main/webapp/WEB-INF</directory>
+								<filtering>true</filtering>
+								<targetPath>WEB-INF</targetPath>
+								<includes>
+									<include>**.xml</include>
+									<include>**.properties</include>
+								</includes>
+							</resource>
+						</webResources>
 					</configuration>
 				</plugin>
 			</plugins>
