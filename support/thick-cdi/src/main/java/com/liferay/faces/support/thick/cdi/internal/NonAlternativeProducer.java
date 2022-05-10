@@ -15,28 +15,23 @@
  */
 package com.liferay.faces.support.thick.cdi.internal;
 
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.Typed;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
 import javax.portlet.MimeResponse;
-import javax.portlet.MutableRenderParameters;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -44,19 +39,12 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
-import javax.portlet.RenderParameters;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.portlet.ResourceParameters;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.WindowState;
-import javax.portlet.annotations.ContextPath;
-import javax.portlet.annotations.Namespace;
-import javax.portlet.annotations.PortletName;
-import javax.portlet.annotations.PortletRequestScoped;
-import javax.portlet.annotations.WindowId;
 import javax.servlet.http.Cookie;
 
 import com.liferay.faces.util.logging.Logger;
@@ -74,22 +62,8 @@ public class NonAlternativeProducer {
 	// Logger
 	private static final Logger logger = LoggerFactory.getLogger(NonAlternativeProducer.class);
 
-	@Named("actionParams")
-	@PortletRequestScoped
-	@Produces
-	@Typed(ActionParameters.class)
-	public ActionParameters getActionParameters() {
-		ActionRequest actionRequest = getActionRequest();
-
-		if (actionRequest == null) {
-			return null;
-		}
-
-		return actionRequest.getActionParameters();
-	}
-
 	@Named("actionRequest")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(ActionRequest.class)
 	public ActionRequest getActionRequest() {
@@ -103,7 +77,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("actionResponse")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(ActionResponse.class)
 	public ActionResponse getActionResponse() {
@@ -117,7 +91,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("clientDataRequest")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(ClientDataRequest.class)
 	public ClientDataRequest getClientDataRequest() {
@@ -130,24 +104,8 @@ public class NonAlternativeProducer {
 		return null;
 	}
 
-	@ContextPath
-	@Dependent
-	@Named("contextPath")
-	@Produces
-	public String getContextPath() {
-		PortletRequest portletRequest = getPortletRequest();
-
-		if (portletRequest == null) {
-			logger.error(new IllegalStateException(getDependentStringErrorMessage(ContextPath.class)));
-
-			return null;
-		}
-
-		return portletRequest.getContextPath();
-	}
-
 	@Named("cookies")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	public List<Cookie> getCookies() {
 		PortletRequest portletRequest = getPortletRequest();
@@ -166,7 +124,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("eventRequest")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(EventRequest.class)
 	public EventRequest getEventRequest() {
@@ -180,7 +138,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("eventResponse")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(EventResponse.class)
 	public EventResponse getEventResponse() {
@@ -193,36 +151,8 @@ public class NonAlternativeProducer {
 		return null;
 	}
 
-	@Named("headerRequest")
-	@PortletRequestScoped
-	@Produces
-	@Typed(HeaderRequest.class)
-	public HeaderRequest getHeaderRequest() {
-		PortletRequest portletRequest = getPortletRequest();
-
-		if (portletRequest instanceof HeaderRequest) {
-			return (HeaderRequest) portletRequest;
-		}
-
-		return null;
-	}
-
-	@Named("headerResponse")
-	@PortletRequestScoped
-	@Produces
-	@Typed(HeaderResponse.class)
-	public HeaderResponse getHeaderResponse() {
-		PortletResponse portletResponse = getPortletResponse();
-
-		if (portletResponse instanceof HeaderResponse) {
-			return (HeaderResponse) portletResponse;
-		}
-
-		return null;
-	}
-
 	@Named("locales")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	public List<Locale> getLocales() {
 		PortletRequest portletRequest = getPortletRequest();
@@ -235,7 +165,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("mimeResponse")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(MimeResponse.class)
 	public MimeResponse getMimeResponse() {
@@ -248,39 +178,8 @@ public class NonAlternativeProducer {
 		return null;
 	}
 
-	@Named("mutableRenderParams")
-	@PortletRequestScoped
-	@Produces
-	@Typed(MutableRenderParameters.class)
-	public MutableRenderParameters getMutableRenderParameters() {
-		StateAwareResponse stateAwareResponse = getStateAwareResponse();
-
-		if (stateAwareResponse == null) {
-			return null;
-		}
-
-		return stateAwareResponse.getRenderParameters();
-	}
-
-	@Dependent
-	@Named("namespace")
-	@Namespace
-	@Produces
-	public String getNamespace() {
-
-		PortletResponse portletResponse = getPortletResponse();
-
-		if (portletResponse == null) {
-			logger.error(new IllegalStateException(getDependentStringErrorMessage(Namespace.class)));
-
-			return null;
-		}
-
-		return portletResponse.getNamespace();
-	}
-
 	@Named("portletConfig")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	public PortletConfig getPortletConfig() {
 
@@ -290,7 +189,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("portletContext")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	public PortletContext getPortletContext() {
 		PortletConfig portletConfig = getPortletConfig();
@@ -303,7 +202,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("portletMode")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	public PortletMode getPortletMode() {
 		PortletRequest portletRequest = getPortletRequest();
@@ -315,24 +214,8 @@ public class NonAlternativeProducer {
 		return portletRequest.getPortletMode();
 	}
 
-	@Dependent
-	@Named("portletName")
-	@PortletName
-	@Produces
-	public String getPortletName() {
-		PortletConfig portletConfig = getPortletConfig();
-
-		if (portletConfig == null) {
-			logger.error(new IllegalStateException(getDependentStringErrorMessage(PortletName.class)));
-
-			return null;
-		}
-
-		return portletConfig.getPortletName();
-	}
-
 	@Named("portletPreferences")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	public PortletPreferences getPortletPreferences() {
 		PortletRequest portletRequest = getPortletRequest();
@@ -345,7 +228,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("portletRequest")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	public PortletRequest getPortletRequest() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -355,7 +238,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("portletResponse")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	public PortletResponse getPortletResponse() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -365,7 +248,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("portletSession")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	public PortletSession getPortletSession() {
 		PortletRequest portletRequest = getPortletRequest();
@@ -377,28 +260,14 @@ public class NonAlternativeProducer {
 		return portletRequest.getPortletSession();
 	}
 
-	@Named("renderParams")
-	@PortletRequestScoped
-	@Produces
-	@Typed(RenderParameters.class)
-	public RenderParameters getRenderParameters() {
-		PortletRequest portletRequest = getPortletRequest();
-
-		if (portletRequest == null) {
-			return null;
-		}
-
-		return portletRequest.getRenderParameters();
-	}
-
 	@Named("renderRequest")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(RenderRequest.class)
 	public RenderRequest getRenderRequest() {
 		PortletRequest portletRequest = getPortletRequest();
 
-		if ((portletRequest instanceof RenderRequest) && !(portletRequest instanceof HeaderRequest)) {
+		if (portletRequest instanceof RenderRequest) {
 
 			return (RenderRequest) portletRequest;
 		}
@@ -407,7 +276,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("renderResponse")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(RenderResponse.class)
 	public RenderResponse getRenderResponse() {
@@ -420,22 +289,8 @@ public class NonAlternativeProducer {
 		return null;
 	}
 
-	@Named("resourceParams")
-	@PortletRequestScoped
-	@Produces
-	@Typed(ResourceParameters.class)
-	public ResourceParameters getResourceParameters() {
-		ResourceRequest resourceRequest = getResourceRequest();
-
-		if (resourceRequest == null) {
-			return null;
-		}
-
-		return resourceRequest.getResourceParameters();
-	}
-
 	@Named("resourceRequest")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(ResourceRequest.class)
 	public ResourceRequest getResourceRequest() {
@@ -449,7 +304,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("resourceResponse")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(ResourceResponse.class)
 	public ResourceResponse getResourceResponse() {
@@ -463,7 +318,7 @@ public class NonAlternativeProducer {
 	}
 
 	@Named("stateAwareResponse")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(StateAwareResponse.class)
 	public StateAwareResponse getStateAwareResponse() {
@@ -476,24 +331,8 @@ public class NonAlternativeProducer {
 		return null;
 	}
 
-	@Dependent
-	@Named("windowId")
-	@Produces
-	@WindowId
-	public String getWindowID() {
-		PortletRequest portletRequest = getPortletRequest();
-
-		if (portletRequest == null) {
-			logger.error(new IllegalStateException(getDependentStringErrorMessage(WindowId.class)));
-
-			return null;
-		}
-
-		return portletRequest.getWindowID();
-	}
-
 	@Named("windowState")
-	@PortletRequestScoped
+	@RequestScoped
 	@Produces
 	@Typed(WindowState.class)
 	public WindowState getWindowState() {
@@ -504,12 +343,5 @@ public class NonAlternativeProducer {
 		}
 
 		return portletRequest.getWindowState();
-	}
-
-	private String getDependentStringErrorMessage(Class<? extends Annotation> annotationClass) {
-
-		return "Unable to @Inject " + annotationClass + " into field because it is " +
-			"a @Dependent String that can only be injected during a request. " +
-			"Annotate the parent class with @PortletRequestScoped instead of " + "@ApplicationScoped.";
 	}
 }
