@@ -2,6 +2,7 @@
 <portlet-app xmlns="http://xmlns.jcp.org/xml/ns/portlet" version="3.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/portlet http://xmlns.jcp.org/xml/ns/portlet/portlet-app_3_0.xsd">
+	<!-- BEGIN: THICK ${thick.or.thin.begin.comment}
 	<portlet>
 		<portlet-name>FACES224</portlet-name>
 		<display-name>FACES-224</display-name>
@@ -242,6 +243,7 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
+	${thick.or.thin.end.comment} END: THICK -->
 	<portlet>
 		<portlet-name>FACES3175</portlet-name>
 		<display-name>FACES-3175</display-name>
@@ -272,6 +274,7 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
+	<!-- BEGIN: THICK ${thick.or.thin.begin.comment}
 	<portlet>
 		<portlet-name>FACES3231</portlet-name>
 		<display-name>FACES-3231</display-name>
@@ -362,6 +365,7 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
+	${thick.or.thin.end.comment} END: THICK -->
 	<portlet>
 		<portlet-name>FACES3404</portlet-name>
 		<display-name>FACES-3404</display-name>
@@ -430,6 +434,7 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
+	<!-- BEGIN: THICK ${thick.or.thin.begin.comment}
 	<portlet>
 		<portlet-name>JSFSPEC1433</portlet-name>
 		<display-name>JSFSPEC-1433</display-name>
@@ -520,4 +525,5 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
+	${thick.or.thin.end.comment} END: THICK -->
 </portlet-app>

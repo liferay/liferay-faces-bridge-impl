@@ -12,6 +12,11 @@
 	<packaging>war</packaging>
 	<name>jsf-issues-portlet</name>
 
+	<properties>
+		<thick.or.thin.begin.comment>--&gt;</thick.or.thin.begin.comment>
+		<thick.or.thin.end.comment>&lt;!--</thick.or.thin.end.comment>
+	</properties>
+
 	<profiles>
 		<profile>
 			<id>liferay</id>
@@ -44,8 +49,35 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<thick.or.thin.begin.comment></thick.or.thin.begin.comment>
+				<thick.or.thin.end.comment></thick.or.thin.end.comment>
+			</properties>
+		</profile>
 	</profiles>
 
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>${basedir}/src/main/webapp/WEB-INF</directory>
+							<filtering>true</filtering>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>portlet.xml</include>
+								<include>**.properties</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<dependencies>
 		<dependency>
 			<groupId>javax.portlet</groupId>

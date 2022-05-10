@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/portlet http://xmlns.jcp.org/xml/ns/portlet/portlet-app_3_0.xsd">
 
+	<!-- BEGIN: THICK ${thick.or.thin.begin.comment}
 	<portlet>
 		<portlet-name>FACES-1513-2185</portlet-name>
 		<display-name>FACES-1513-2185</display-name>
@@ -157,6 +158,7 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>
+	${thick.or.thin.end.comment} END: THICK -->
 
 	<portlet>
 		<portlet-name>FACES-3328</portlet-name>
