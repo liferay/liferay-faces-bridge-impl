@@ -613,7 +613,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 		<profile>
 			<id>dxp</id>
 			<properties>
-				<liferay.deploy.version>7.4.13.u16</liferay.deploy.version>
+				<liferay.deploy.version>7.4.13.u23</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
@@ -1075,7 +1075,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.util</artifactId>
-				<version>3.4.1-SNAPSHOT</version>
+				<version>3.4.1</version>
 				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
