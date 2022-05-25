@@ -302,8 +302,6 @@ public class Tests {
 	 * Testing JSF EL - implicits are in alpha order.
 	 *
 	 * @param   testBean  the bean for testing
-	 *
-	 * @return
 	 */
 	@BridgeTest(test = "JSF_ELTest")
 	public String JSF_ELTest(TestBean testBean) {
@@ -765,8 +763,6 @@ public class Tests {
 	 * Testing JSP EL.
 	 *
 	 * @param   testBean  the bean for testing
-	 *
-	 * @return
 	 */
 
 	@BridgeTest(test = "JSP_ELTest")
