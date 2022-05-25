@@ -88,8 +88,9 @@ public class ResourcesRenderedInHeadTestBean {
 
 	/**
 	 * Determines whether or not the {@link javax.portlet.HeaderResponse#addProperty(String, org.w3c.dom.Element)}
-	 * method was called in order to add a resource to the <head>...</head> section of the page. Since the FacesBridge
-	 * is not supposed to do this, returning a value of <code>true</code> would indicate a test condition failure.
+	 * method was called in order to add a resource to the &lt;head&gt;...&lt;/head&gt; section of the page. Since the
+	 * FacesBridge is not supposed to do this, returning a value of <code>true</code> would indicate a test condition
+	 * failure.
 	 */
 	public boolean isAddPropertyMarkupHeadElementCalled() {
 
