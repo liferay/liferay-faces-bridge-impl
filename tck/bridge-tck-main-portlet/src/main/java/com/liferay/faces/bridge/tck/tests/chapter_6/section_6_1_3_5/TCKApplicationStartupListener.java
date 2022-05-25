@@ -38,7 +38,7 @@ public class TCKApplicationStartupListener implements SystemEventListener {
 	}
 
 	/**
-	 * @see  {@link Tests#getApplicationContextPathTest(TestBean)}
+	 * @see  Tests#getApplicationContextPathTest(TestBean)
 	 */
 	@Override
 	public void processEvent(SystemEvent systemEvent) throws AbortProcessingException {
