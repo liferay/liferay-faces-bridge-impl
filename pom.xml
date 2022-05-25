@@ -926,7 +926,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.adf.base</artifactId>
-				<version>12.2.1-SNAPSHOT</version>
+				<version>12.2.1</version>
 			</dependency>
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
