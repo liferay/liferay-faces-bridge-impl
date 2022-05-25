@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.liferay.faces.test</groupId>
 		<artifactId>com.liferay.faces.test.bridge.tck.parent</artifactId>
-		<version>5.0.0-SNAPSHOT</version>
+		<version>5.0.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -119,9 +119,7 @@
 									<skip>${skip.thin.war.setup}</skip>
 									<target>
 										<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
-										<echo
-											file="${project.build.outputDirectory}/META-INF/services/javax.enterprise.inject.spi.Extension"
->com.liferay.faces.bridge.servlet.BridgeExtension
+										<echo file="${project.build.outputDirectory}/META-INF/services/javax.enterprise.inject.spi.Extension">com.liferay.faces.bridge.servlet.BridgeExtension
 com.liferay.faces.bridge.servlet.BridgeRequestScopeExtension
 com.liferay.faces.util.servlet.internal.UtilExtension
 com.sun.faces.application.view.ViewScopeExtension
