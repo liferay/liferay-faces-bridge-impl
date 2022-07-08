@@ -91,10 +91,6 @@
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
 	<portlet>
-		<portlet-name>chapter7_2CDITestsportletRequestScopedBeanTestportlet</portlet-name>
-		<requires-namespaced-parameters>false</requires-namespaced-parameters>
-	</portlet>
-	<portlet>
 		<portlet-name>chapter7_2CDITests-portletResponseAlternativeTest-portlet</portlet-name>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 	</portlet>
