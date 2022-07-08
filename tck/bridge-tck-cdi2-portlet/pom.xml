@@ -41,6 +41,12 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>com.liferay.faces.support</groupId>
+			<artifactId>com.liferay.faces.support.thick.cdi</artifactId>
+			<version>${project.version}</version>
+			<scope>${thick.cdi.scope}</scope>
+		</dependency>
+		<dependency>
 			<groupId>${faces.api.group.id}</groupId>
 			<artifactId>${faces.api.artifact.id}</artifactId>
 		</dependency>
@@ -92,18 +98,9 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>thick-cdi</id>
-			<dependencies>
-				<dependency>
-					<groupId>com.liferay.faces.support</groupId>
-					<artifactId>com.liferay.faces.support.thick.cdi</artifactId>
-					<version>${project.version}</version>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
 			<id>thin</id>
 			<properties>
+				<thick.cdi.scope>provided</thick.cdi.scope>
 				<webapp.descriptor>web-${app.server.type}-thin.xml</webapp.descriptor>
 			</properties>
 			<build>
@@ -198,6 +195,10 @@ com.sun.faces.application.view.ViewScopeExtension
 			</build>
 		</profile>
 	</profiles>
+
+	<properties>
+		<thick.cdi.scope>compile</thick.cdi.scope>
+	</properties>
 
 	<build>
 		<plugins>

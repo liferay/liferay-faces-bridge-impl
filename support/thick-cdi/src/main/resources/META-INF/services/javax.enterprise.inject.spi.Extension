@@ -1,1 +1,4 @@
+com.liferay.faces.bridge.servlet.BridgeExtension
 com.liferay.faces.support.thick.cdi.internal.ThickExtension
+com.liferay.faces.util.servlet.internal.UtilExtension
+com.sun.faces.application.view.ViewScopeExtension
