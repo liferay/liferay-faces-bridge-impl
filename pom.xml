@@ -253,6 +253,7 @@
 			javax.ejb.*;resolution:=optional,\
 			javax.enterprise.*;resolution:=optional,\
 			javax.money.*;resolution:=optional,\
+			javax.rmi.*;resolution:=optional,\
 			joptsimple.*;resolution:=optional,\
 			jrockit.vm.*;resolution:=optional,\
 			org.apache.commons.pool.*;resolution:=optional,\
@@ -267,6 +268,7 @@
 			org.omg.CORBA.*;resolution:=optional,\
 			org.springframework.asm.util;resolution:=optional,\
 			org.springframework.instrument;resolution:=optional,\
+			org.springframework.oxm;resolution:=optional,\
 			org.yaml.snakeyaml.*;resolution:=optional,\
 			sun.reflect;resolution:=optional
 		</osgi.import.package.spring>
