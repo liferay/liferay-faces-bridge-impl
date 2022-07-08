@@ -35,7 +35,6 @@ import javax.enterprise.inject.spi.ProcessAnnotatedType;
 import javax.portlet.faces.GenericFacesPortlet;
 
 import com.liferay.faces.bridge.annotation.BridgeRequestScoped;
-import com.liferay.faces.bridge.cdi.internal.BridgeAlternativesProducer;
 import com.liferay.faces.bridge.cdi.internal.BridgeRequestBeanContext;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -70,7 +69,7 @@ public class BridgeExtension implements Extension {
 	private void step1BeforeBeanDiscovery(@Observes BeforeBeanDiscovery beforeBeanDiscovery, BeanManager beanManager) {
 		beforeBeanDiscovery.addScope(BridgeRequestScoped.class, true, false);
 
-		Class<?>[] beanClasses = { BridgeAlternativesProducer.class, GenericFacesPortlet.class };
+		Class<?>[] beanClasses = {GenericFacesPortlet.class};
 
 		for (Class<?> beanClass : beanClasses) {
 			beforeBeanDiscovery.addAnnotatedType(beanManager.createAnnotatedType(beanClass), null);

@@ -176,7 +176,7 @@ public class TestsCDI1 {
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testBean.setTestResult(false, "The bridge's alternative producer for ActionRequest was not invoked");
+				testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 				return Constants.TEST_FAILED;
 			}
@@ -209,7 +209,7 @@ public class TestsCDI1 {
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testBean.setTestResult(false, "The bridge's alternative producer for ActionResponse was not invoked");
+				testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 				return Constants.TEST_FAILED;
 			}
@@ -306,8 +306,7 @@ public class TestsCDI1 {
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testBean.setTestResult(false,
-					"The bridge's alternative producer for ClientDataRequest was not invoked");
+				testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 				return Constants.TEST_FAILED;
 			}
@@ -351,7 +350,7 @@ public class TestsCDI1 {
 			}
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for List<Cookie> was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -497,7 +496,7 @@ public class TestsCDI1 {
 			}
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for List<Locale> was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -512,7 +511,7 @@ public class TestsCDI1 {
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for MimeResponse was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -574,7 +573,7 @@ public class TestsCDI1 {
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for PortletConfig was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -592,7 +591,7 @@ public class TestsCDI1 {
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for PortletContext was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -608,7 +607,7 @@ public class TestsCDI1 {
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for PortletMode was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -641,7 +640,7 @@ public class TestsCDI1 {
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for PortletPreferences was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -656,7 +655,7 @@ public class TestsCDI1 {
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for PortletRequest was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -679,7 +678,7 @@ public class TestsCDI1 {
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for PortletResponse was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -694,7 +693,7 @@ public class TestsCDI1 {
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for PortletSession was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -724,7 +723,7 @@ public class TestsCDI1 {
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for RenderRequest was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -739,7 +738,7 @@ public class TestsCDI1 {
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for RenderResponse was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
@@ -759,7 +758,7 @@ public class TestsCDI1 {
 				return Constants.TEST_SUCCESS;
 			}
 
-			testBean.setTestResult(false, "The bridge's alternative producer for ResourceRequest was not invoked");
+			testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 			return Constants.TEST_FAILED;
 		}
@@ -782,7 +781,7 @@ public class TestsCDI1 {
 				return Constants.TEST_SUCCESS;
 			}
 
-			testBean.setTestResult(false, "The bridge's alternative producer for ResourceResponse was not invoked");
+			testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 			return Constants.TEST_FAILED;
 		}
@@ -812,8 +811,7 @@ public class TestsCDI1 {
 				return Constants.TEST_SUCCESS;
 			}
 			else {
-				testBean.setTestResult(false,
-					"The bridge's alternative producer for StateAwareResponse was not invoked");
+				testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 				return Constants.TEST_FAILED;
 			}
@@ -851,7 +849,7 @@ public class TestsCDI1 {
 			return Constants.TEST_SUCCESS;
 		}
 
-		testBean.setTestResult(false, "The bridge's alternative producer for WindowState was not invoked");
+		testBean.setTestResult(true, TEST_REQUIRES_PORTLET3);
 
 		return Constants.TEST_FAILED;
 	}
