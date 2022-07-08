@@ -84,7 +84,6 @@
 	</modules>
 
 	<properties>
-		<adf.version>12.2.1-3-0</adf.version>
 		<app.server.type>tomcat</app.server.type>
 		<aries.cdi.options>-cdiannotations:</aries.cdi.options>
 		<bnd.version>4.1.0</bnd.version>
@@ -132,38 +131,6 @@
 		</osgi.dynamic.import.package.primefaces>
 		<!-- Specifies the Import-Package directive for use with the "thin" Maven profile. -->
 		<osgi.import.package />
-		<!-- Excludes unused ADF Faces transitive package dependencies so that a WAB can resolve. -->
-		<osgi.import.package.adf>
-			com.oracle.jrf.mt.tenant.*;resolution:=optional,\
-			com.sun.enterprise.config.serverbeans;resolution:=optional,\
-			com.sun.xml.fastinfoset.*;resolution:=optional,\
-			javax.enterprise.concurrent;resolution:=optional,\
-			oracle.adf.model;resolution:=optional,\
-			oracle.adf.share.http;resolution:=optional,\
-			oracle.core.ojdl.*;resolution:=optional,\
-			oracle.dms.context;resolution:=optional,\
-			oracle.dms.instrument.*;resolution:=optional,\
-			oracle.ide.net;resolution:=optional,\
-			oracle.javatools.annotations;resolution:=optional,\
-			oracle.jbo;resolution:=optional,\
-			oracle.jbo.common.*;resolution:=optional,\
-			oracle.jdbc.*;resolution:=optional,\
-			oracle.jdeveloper.java.*;resolution:=optional,\
-			oracle.jrf;resolution:=optional,\
-			oracle.jrf.i18n;resolution:=optional,\
-			oracle.jrf.wls;resolution:=optional,\
-			oracle.jsp.el;resolution:=optional,\
-			oracle.portlet.bridge.adf.lifecycle;resolution:=optional,\
-			oracle.sql;resolution:=optional,\
-			oracle.xdb;resolution:=optional,\
-			oracle.xml.schemavalidator;resolution:=optional,\
-			org.antlr.runtime.*;resolution:=optional,\
-			org.glassfish.hk2.*;resolution:=optional,\
-			org.glassfish.internal.api;resolution:=optional,\
-			org.jvnet.fastinfoset;resolution:=optional,\
-			weblogic.invocation;resolution:=optional,\
-			weblogic.server;resolution:=optional
-		</osgi.import.package.adf>
 		<!-- Excludes unused ButterFaces transitive package dependencies so that a WAB can resolve. -->
 		<osgi.import.package.butterfaces>
 			sun.reflect.*;resolution:=optional
@@ -1047,11 +1014,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 		<dependencies>
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
-				<artifactId>com.liferay.faces.adf.base</artifactId>
-				<version>12.2.0</version>
-			</dependency>
-			<dependency>
-				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.alloy</artifactId>
 				<version>${liferay.faces.alloy.version}</version>
 				<scope>${war.dependency.scope}</scope>
@@ -1079,56 +1041,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<artifactId>com.liferay.faces.util</artifactId>
 				<version>3.4.1</version>
 				<scope>${war.dependency.scope}</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.oracle.fmwshare</groupId>
-				<artifactId>adf-richclient-api-11</artifactId>
-				<version>${adf.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.oracle.fmwshare</groupId>
-				<artifactId>adf-richclient-impl-11</artifactId>
-				<version>${adf.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.oracle.fmwshare</groupId>
-				<artifactId>adf-share-base</artifactId>
-				<version>${adf.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.oracle.fmwshare</groupId>
-				<artifactId>adf-share-ca</artifactId>
-				<version>${adf.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.oracle.fmwshare</groupId>
-				<artifactId>adflogginghandler</artifactId>
-				<version>${adf.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.oracle.fmwshare</groupId>
-				<artifactId>adfmportlet</artifactId>
-				<version>${adf.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.oracle.fmwshare</groupId>
-				<artifactId>trinidad-api</artifactId>
-				<version>${adf.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.oracle.fmwshare</groupId>
-				<artifactId>trinidad-impl</artifactId>
-				<version>${adf.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.oracle.fmwshare</groupId>
-				<artifactId>xmlparserv2</artifactId>
-				<version>${adf.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.oracle.nlsoramapping.jrf</groupId>
-				<artifactId>orai18n-mapping</artifactId>
-				<version>${gdk.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish</groupId>
