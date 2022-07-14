@@ -142,6 +142,12 @@
 				<portal.version.major>2</portal.version.major>
 				<tck.test.case.class>TckTestCase</tck.test.case.class>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>commons-fileupload</groupId>
+					<artifactId>commons-fileupload</artifactId>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<id>thin</id>
