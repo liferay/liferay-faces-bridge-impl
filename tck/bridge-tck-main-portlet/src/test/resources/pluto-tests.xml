@@ -97,7 +97,9 @@ NOTE:
 	<entry key="TestPage085">chapter6_1_1Tests-facesContextFactoryServiceProviderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage086">chapter6_1_1Tests-wrappedFacesContextTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage087">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<!--
 	<entry key="TestPage088">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.flows.portlet</entry>
+	-->
 	<entry key="TestPage089">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage090">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidModeResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage091">chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLNonJSFViewWithInvalidWindowStateResourceTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
@@ -114,11 +116,17 @@ NOTE:
 	<entry key="TestPage102">chapter6_1_3_1EncodeActionURLTests-encodeActionURLDirectLinkFalseTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage103">chapter6_1_3_1EncodeActionURLTests-encodeActionURLDirectLinkTrueTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage104">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<!--
 	<entry key="TestPage105">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.flows.portlet</entry>
+	-->
 	<entry key="TestPage106">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewEventTest-portlet|false|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<!--
 	<entry key="TestPage107">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewEventTest-portlet|true|/com.liferay.faces.test.bridge.tck.flows.portlet</entry>
+	-->
 	<entry key="TestPage108">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<!--
 	<entry key="TestPage109">chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.flows.portlet</entry>
+	-->
 	<entry key="TestPage110">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage111">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidModeRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage112">chapter6_1_3_1EncodeActionURLTests-encodeActionURLNonJSFViewWithInvalidWindowStateRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
@@ -147,7 +155,9 @@ NOTE:
 	<entry key="TestPage135">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateActionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage136">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateEventTest-portlet|false|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage137">chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateRenderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<!--
 	<entry key="TestPage138">chapter6_1_3_1EncodePartialActionURLTests-encodePartialActionURLTest-portlet|true|/com.liferay.faces.test.bridge.tck.flows.portlet</entry>
+	-->
 	<entry key="TestPage139">chapter6_1_3_1EncodePartialActionURLTests-encodePartialActionURLTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage140">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLBackLinkTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage141">chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLForeignExternalURLBackLinkTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
@@ -225,17 +235,23 @@ NOTE:
 	<entry key="TestPage213">chapter6_1_3_2Tests-sessionMapPreDestroyRemoveTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage214">chapter6_1_3_2Tests-setResponseCharacterEncodingTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage215">chapter6_1_3_3Tests-addResponseCookieTest-portlet|false|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<!--
 	<entry key="TestPage216">chapter6_1_3_3Tests-addResponseHeaderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	-->
 	<entry key="TestPage217">chapter6_1_3_3Tests-getMimeTypeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage218">chapter6_1_3_3Tests-getRealPathTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage219">chapter6_1_3_3Tests-getRequestContentLengthTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage220">chapter6_1_3_3Tests-getRequestSchemeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage221">chapter6_1_3_3Tests-getRequestServerNameTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage222">chapter6_1_3_3Tests-getRequestServerPortTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<!--
 	<entry key="TestPage223">chapter6_1_3_3Tests-invalidateSessionTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage224">chapter6_1_3_3Tests-responseFlushBufferTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	-->
 	<entry key="TestPage225">chapter6_1_3_3Tests-responseResetTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<!--
 	<entry key="TestPage226">chapter6_1_3_3Tests-setResponseHeaderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	-->
 	<entry key="TestPage227">chapter6_1_3_3Tests-setResponseStatusTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage228">chapter6_1_3_4Tests-getSessionMaxInactiveIntervalTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage229">chapter6_1_3_4Tests-isSecureTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
@@ -256,6 +272,7 @@ NOTE:
 	<entry key="TestPage244">chapter6_7Tests-restoredViewStateParameterTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage245">chapter6_7Tests-setsIsPostbackAttributeTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage246">chapter6_9Tests-usesConfiguredRenderKitTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
+	<!--
 	<entry key="TestPage247">chapter7_2CDITests-actionParamsAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage248">chapter7_2CDITests-actionRequestAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage249">chapter7_2CDITests-actionResponseAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
@@ -290,6 +307,7 @@ NOTE:
 	<entry key="TestPage278">chapter7_2CDITests-stateAwareResponseAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage279">chapter7_2CDITests-windowIdAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
 	<entry key="TestPage280">chapter7_2CDITests-windowStateAlternativeTest-portlet|true|/com.liferay.faces.test.bridge.tck.cdi1.portlet</entry>
+	-->
 	<entry key="TestPage281">chapter8_8Tests-bridgeFactoryFinderTest-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 	<entry key="TestPage282">chapter9_1Tests-body2Test-portlet|true|/com.liferay.faces.test.bridge.tck.main.portlet</entry>
 </properties>
