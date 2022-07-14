@@ -252,7 +252,7 @@
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-portlet-${portlet.spec.version}-jsf-${faces.spec.version}-${thick.or.thin}</liferay.home>
 		<liferay.faces.alloy.version>4.1.1</liferay.faces.alloy.version>
-		<liferay.faces.bridge.ext.version>6.1.1-SNAPSHOT</liferay.faces.bridge.ext.version>
+		<liferay.faces.bridge.ext.version>6.1.1</liferay.faces.bridge.ext.version>
 		<liferay.faces.showcase.version>3.1.1</liferay.faces.showcase.version>
 		<liferay.glassfish.version>3.1.2.2</liferay.glassfish.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
@@ -702,7 +702,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>ce73</id>
 			<properties>
 				<liferay.deploy.version>7.3.7.ga8</liferay.deploy.version>
-				<liferay.faces.bridge.ext.version>6.1.1-SNAPSHOT</liferay.faces.bridge.ext.version>
+				<liferay.faces.bridge.ext.version>6.1.1</liferay.faces.bridge.ext.version>
 			</properties>
 		</profile>
 		<profile>
