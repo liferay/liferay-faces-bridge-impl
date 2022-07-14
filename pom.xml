@@ -1027,7 +1027,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.bridge.api</artifactId>
-				<version>4.3.0-SNAPSHOT</version>
+				<version>4.3.0</version>
 				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
