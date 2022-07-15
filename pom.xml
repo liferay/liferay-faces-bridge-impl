@@ -290,7 +290,7 @@
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.platform>liferay-ce</liferay.platform>
 		<liferay.tomcat.version>8.0.30</liferay.tomcat.version>
-		<liferay.version>7.4.3.ga22</liferay.version>
+		<liferay.version>7.4.3.ga31</liferay.version>
 		<liferay.version.dtd>7.2</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
@@ -588,24 +588,9 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			</properties>
 		</profile>
 		<profile>
-			<id>dxp72</id>
-			<properties>
-				<liferay.deploy.version>7.2.10.sp5</liferay.deploy.version>
-				<liferay.faces.alloy.version>3.1.1</liferay.faces.alloy.version>
-				<liferay.platform>liferay-dxp</liferay.platform>
-			</properties>
-		</profile>
-		<profile>
-			<id>dxp73</id>
-			<properties>
-				<liferay.deploy.version>7.3.10.sp3</liferay.deploy.version>
-				<liferay.platform>liferay-dxp</liferay.platform>
-			</properties>
-		</profile>
-		<profile>
 			<id>dxp</id>
 			<properties>
-				<liferay.deploy.version>7.4.13.u23</liferay.deploy.version>
+				<liferay.deploy.version>7.4.13.u31</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
