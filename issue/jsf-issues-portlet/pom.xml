@@ -50,7 +50,7 @@
 			</dependencies>
 		</profile>
 		<profile>
-			<id>thin</id>
+			<id>pluto</id>
 			<properties>
 				<thick.or.thin.begin.comment />
 				<thick.or.thin.end.comment />
