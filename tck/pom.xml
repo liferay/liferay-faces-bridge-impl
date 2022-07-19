@@ -30,6 +30,7 @@
 		<module>bridge-tck-scope-portlet</module>
 	</modules>
 
+	<!--
 	<build>
 		<plugins>
 			<plugin>
@@ -48,5 +49,6 @@
 			</plugin>
 		</plugins>
 	</build>
+	-->
 
 </project>

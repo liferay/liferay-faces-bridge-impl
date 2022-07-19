@@ -236,6 +236,7 @@
 		</profile>
 	</profiles>
 	<build>
+		<!--
 		<plugins>
 			<plugin>
 				<artifactId>maven-install-plugin</artifactId>
@@ -244,6 +245,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		-->
 	</build>
 
 </project>
