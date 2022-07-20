@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.liferay.faces</groupId>
 	<artifactId>com.liferay.faces.bridge.impl.parent</artifactId>
-	<version>6.0.0-SNAPSHOT</version>
+	<version>6.0.0</version>
 	<packaging>pom</packaging>
 	<name>Liferay Faces Bridge Impl Parent</name>
 	<description>Parent POM for all Liferay Faces Bridge implementation modules</description>
@@ -71,7 +71,7 @@
 		<connection>scm:git:https://github.com/liferay/liferay-faces-bridge-impl</connection>
 		<developerConnection>scm:git:https://github.com/liferay/liferay-faces-bridge-impl</developerConnection>
 		<url>scm:git:https://github.com/liferay/liferay-faces-bridge-impl</url>
-		<tag>HEAD</tag>
+		<tag>6.0.0</tag>
 	</scm>
 
 	<modules>
@@ -105,7 +105,7 @@
 		<hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
 		<icefaces.version>4.3.0</icefaces.version>
 		<!-- Specifies the DynamicImport-Package directive for use with the "thin" Maven profile. -->
-		<osgi.dynamic.import.package></osgi.dynamic.import.package>
+		<osgi.dynamic.import.package />
 		<!-- Ensures that the Liferay Faces Alloy component/renderer classes can be loaded dynamically via -->
 		<!-- Class.forName(String) -->
 		<osgi.dynamic.import.package.liferay.faces.alloy>
@@ -132,7 +132,7 @@
 			org.primefaces.*
 		</osgi.dynamic.import.package.primefaces>
 		<!-- Specifies the Import-Package directive for use with the "thin" Maven profile. -->
-		<osgi.import.package></osgi.import.package>
+		<osgi.import.package />
 		<!-- Excludes unused ADF Faces transitive package dependencies so that a WAB can resolve. -->
 		<osgi.import.package.adf>
 			com.oracle.jrf.mt.tenant.*;resolution:=optional,\
@@ -272,7 +272,7 @@
 			org.yaml.snakeyaml.*;resolution:=optional,\
 			sun.reflect;resolution:=optional
 		</osgi.import.package.spring>
-		<osgi.require.capability></osgi.require.capability>
+		<osgi.require.capability />
 		<!-- Specifies that JSP capabilities are required so that a WAB can resolve. -->
 		<osgi.require.capability.jsp>
 			osgi.extender;filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://java.sun.com/jsf/html))",\
@@ -368,27 +368,17 @@
 								<skip>${skip.thin.war.setup}</skip>
 								<target>
 									<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
-									<echo
-                                        file="${project.build.outputDirectory}/META-INF/services/javax.servlet.ServletContainerInitializer"
->com.sun.faces.config.FacesInitializer
+									<echo file="${project.build.outputDirectory}/META-INF/services/javax.servlet.ServletContainerInitializer">com.sun.faces.config.FacesInitializer
 com.liferay.faces.util.osgi.internal.FacesThinWabInitializer
 com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 </echo>
-									<echo
-                                        file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.annotationprovider"
->com.liferay.faces.util.osgi.mojarra.spi.internal.AnnotationProviderOSGiImpl
+									<echo file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.annotationprovider">com.liferay.faces.util.osgi.mojarra.spi.internal.AnnotationProviderOSGiImpl
 </echo>
-									<echo
-                                        file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.FaceletConfigResourceProvider"
->com.liferay.faces.util.osgi.mojarra.spi.internal.FaceletConfigResourceProviderOSGiImpl
+									<echo file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.FaceletConfigResourceProvider">com.liferay.faces.util.osgi.mojarra.spi.internal.FaceletConfigResourceProviderOSGiImpl
 </echo>
-									<echo
-										file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.FacesConfigResourceProvider"
->com.liferay.faces.util.osgi.mojarra.spi.internal.FacesConfigResourceProviderOSGiImpl
+									<echo file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.spi.FacesConfigResourceProvider">com.liferay.faces.util.osgi.mojarra.spi.internal.FacesConfigResourceProviderOSGiImpl
 </echo>
-									<echo
-                                        file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.util.cdi11.CDIUtil"
->com.sun.faces.util.cdi11.CDIUtilImpl
+									<echo file="${project.build.outputDirectory}/META-INF/services/com.sun.faces.util.cdi11.CDIUtil">com.sun.faces.util.cdi11.CDIUtilImpl
 </echo>
 									<mkdir dir="${project.build.outputDirectory}/WEB-INF" />
 								</target>
@@ -617,7 +607,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 		<profile>
 			<id>thin</id>
 			<properties>
-				<aries.cdi.options></aries.cdi.options>
+				<aries.cdi.options />
 				<osgi.dynamic.import.package>
 					DynamicImport-Package: \
 						${osgi.dynamic.import.package.liferay.faces.bridge}
@@ -783,8 +773,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 								<configuration>
 									<target>
 										<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
-										<echo message="${faces.servlet.container.initializer}"
-											  file="${project.build.outputDirectory}/META-INF/services/javax.servlet.ServletContainerInitializer" />
+										<echo message="${faces.servlet.container.initializer}" file="${project.build.outputDirectory}/META-INF/services/javax.servlet.ServletContainerInitializer" />
 									</target>
 								</configuration>
 							</execution>
