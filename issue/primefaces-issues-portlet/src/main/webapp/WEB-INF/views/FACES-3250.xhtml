@@ -10,7 +10,7 @@
 	<h:body>
 		<h:form id="advancedModeForm" enctype="multipart/form-data">
 			<p:fileUpload id="advancedModeFileUpload" auto="true"
-				fileUploadListener="#{FACES_3250Bean.handleAdvancedModeFileUpload}" multiple="false"
+				listener="#{FACES_3250Bean.handleAdvancedModeFileUpload}" multiple="false"
 				update="advancedModeFileName" />
 			<br />
 			<h:outputText value="Uploaded file name: " />
