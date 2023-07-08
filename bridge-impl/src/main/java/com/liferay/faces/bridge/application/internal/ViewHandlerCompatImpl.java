@@ -191,7 +191,7 @@ public abstract class ViewHandlerCompatImpl extends ViewHandlerWrapper {
 		ViewHandler wrappedViewHandler = null;
 
 		try {
-			Method getWrappedMethod = viewHandlerWrapper.getClass().getMethod("getWrapped");
+			Method getWrappedMethod = viewHandlerWrapper.getClass().getDeclaredMethod("getWrapped");
 
 			// ViewHandlerWrapper.getWrapped() is public in JSF 2.x but is protected in JSF 1.2
 			getWrappedMethod.setAccessible(true);
