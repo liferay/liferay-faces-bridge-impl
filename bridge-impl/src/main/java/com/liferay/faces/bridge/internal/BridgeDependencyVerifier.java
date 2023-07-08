@@ -48,14 +48,14 @@ public class BridgeDependencyVerifier {
 			}
 		}
 
-		Product portletApi = ProductFactory.getProduct(Product.Name.PORTLET_API);
-		int portletApiMajorVersion = portletApi.getMajorVersion();
-		int portletApiMinorVersion = portletApi.getMinorVersion();
+		final Product PORTLET_API = ProductFactory.getProduct(Product.Name.PORTLET_API);
+		final int PORTLET_API_MAJOR_VERSION = PORTLET_API.getMajorVersion();
+		final int PORTLET_API_MINOR_VERSION = PORTLET_API.getMinorVersion();
 
-		if (!((portletApiMajorVersion == 2) && (portletApiMinorVersion >= 0))) {
-
-			logger.error("{0} {1} is designed to be used with Portlet 2.0 but detected {2}.{3}", implementationTitle,
-				implementationVersion, portletApiMajorVersion, portletApiMinorVersion);
+		if (!((PORTLET_API_MAJOR_VERSION > 2) ||
+			((PORTLET_API_MAJOR_VERSION == 2) && (PORTLET_API_MINOR_VERSION >= 0)))) {
+			logger.error("{0} {1} is designed to be used with Portlet 2.0+ but detected {2}.{3}", implementationTitle,
+				implementationVersion, PORTLET_API_MAJOR_VERSION, PORTLET_API_MINOR_VERSION);
 		}
 
 		Product jsf = ProductFactory.getProduct(Product.Name.JSF);
