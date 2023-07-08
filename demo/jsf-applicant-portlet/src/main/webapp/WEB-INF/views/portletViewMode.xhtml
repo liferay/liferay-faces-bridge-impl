@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <f:view xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:alloy="http://liferay.com/faces/alloy"
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -10,8 +9,8 @@
 		<ui:include src="applicant.xhtml" />
 	</h:panelGroup>
 	<br />
-	<alloy:row>
-		<alloy:column>
+	<h:panelGroup layout="block" styleClass="row">
+		<h:panelGroup layout="block" styleClass="col">
 			<ul>
 				<li><em><h:outputText value="#{product.JSF}" /></em></li>
 				<li><em><h:outputText value="#{product.LIFERAY_FACES_ALLOY}" /></em></li>
@@ -23,6 +22,6 @@
 				<li><em><h:outputText value="#{product.PORTLET_CONTAINER}" /></em></li>
 				<li><em><h:outputText value="#{product.SERVLET_CONTAINER}" /></em></li>
 			</ul>
-		</alloy:column>
-	</alloy:row>
+		</h:panelGroup>
+	</h:panelGroup>
 </f:view>
