@@ -63,6 +63,12 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 	</servlet>
 
+	<!-- resource loader servlet -->
+	<servlet>
+		<servlet-name>resources</servlet-name>
+		<servlet-class>org.apache.myfaces.trinidad.webapp.ResourceServlet</servlet-class>
+	</servlet>
+
 	<!-- nonFaces resource used by a test -->
 	<servlet>
 		<servlet-name>nonFacesResource</servlet-name>
@@ -78,6 +84,11 @@
 	<servlet-mapping>
 		<servlet-name>faces</servlet-name>
 		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>resources</servlet-name>
+		<url-pattern>/adf/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
