@@ -15,6 +15,11 @@
 		<param-name>portletConfigWrapperClass</param-name>
 		<param-value>com.liferay.faces.bridge.tck.portlet.PortletConfigTCKCompat</param-value>
 	</context-param>
+	<!-- Instruct Mojarra to utilize JBoss-EL instead of the EL implementation provided by the servlet container. -->
+	<context-param>
+		<param-name>com.sun.faces.expressionFactory</param-name>
+		<param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+	</context-param>
 	<!-- END: LIFERAY PORTAL -->
 	<!-- BEGIN: LIFERAY FACES BRIDGE -->
 	<context-param>
