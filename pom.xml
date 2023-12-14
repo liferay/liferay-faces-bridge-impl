@@ -287,7 +287,7 @@
 		<liferay.deploy.version>${liferay.version}</liferay.deploy.version>
 		<liferay.home>${env.PORTALS_HOME}/liferay.com/${liferay.platform}-${liferay.deploy.version}-portlet-${portlet.spec.version}-jsf-${faces.spec.version}-${thick.or.thin}</liferay.home>
 		<liferay.faces.alloy.version>4.1.2-SNAPSHOT</liferay.faces.alloy.version>
-		<liferay.faces.bridge.ext.version>8.0.0</liferay.faces.bridge.ext.version>
+		<liferay.faces.bridge.ext.version>8.0.2-SNAPSHOT</liferay.faces.bridge.ext.version>
 		<liferay.faces.showcase.version>4.0.1-SNAPSHOT</liferay.faces.showcase.version>
 		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.platform>liferay-ce</liferay.platform>
