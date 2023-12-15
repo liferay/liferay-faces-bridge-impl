@@ -25,15 +25,6 @@
 				<module>lsv</module>
 			</modules>
 		</profile>
-		<profile>
-			<id>pluto</id>
-			<dependencies>
-				<dependency>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
 	</profiles>
 
 	<build>

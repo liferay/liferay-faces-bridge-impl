@@ -177,10 +177,6 @@ com.sun.faces.flow.FlowDiscoveryCDIExtension
 			<groupId>javax.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
 	</dependencies>
 
 </project>
