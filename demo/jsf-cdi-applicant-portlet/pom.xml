@@ -172,10 +172,6 @@ com.sun.faces.flow.FlowDiscoveryCDIExtension
 			<groupId>com.liferay.faces</groupId>
 			<artifactId>com.liferay.faces.alloy</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
 	</dependencies>
 
 </project>

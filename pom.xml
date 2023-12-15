@@ -280,7 +280,6 @@
 			osgi.extender;filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://liferay.com/faces/bridge))"
 		</osgi.require.capability.jsp>
 		<jstl.version>1.2</jstl.version>
-		<log4j.version>1.2.14</log4j.version>
 		<liferay.app.server.dir>${liferay.home}/tomcat-${liferay.tomcat.version}</liferay.app.server.dir>
 		<liferay.auto.deploy.dir>${liferay.home}/deploy</liferay.auto.deploy.dir>
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
@@ -1056,12 +1055,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<artifactId>junit</artifactId>
 				<version>4.13.2</version>
 				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>${log4j.version}</version>
-				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
