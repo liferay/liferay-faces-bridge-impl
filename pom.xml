@@ -298,7 +298,7 @@
 		<pluto.deploy.dir>${pluto.tomcat.dir}/webapps</pluto.deploy.dir>
 		<pluto.home>${env.PORTALS_HOME}/liferay.com/pluto-${pluto.version}-jsf-${faces.spec.version}</pluto.home>
 		<pluto.tomcat.dir>${pluto.home}/tomcat-${pluto.tomcat.version}</pluto.tomcat.dir>
-		<pluto.tomcat.version>8.5.69</pluto.tomcat.version>
+		<pluto.tomcat.version>9.0.83</pluto.tomcat.version>
 		<pluto.version.major>3</pluto.version.major>
 		<pluto.version.minor>1</pluto.version.minor>
 		<pluto.version.patch>2</pluto.version.patch>
