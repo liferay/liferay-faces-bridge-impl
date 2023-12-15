@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration strict="true">
+	<Loggers>
+		<!--
+		<Logger name="com.liferay.faces.bridge.application.internal.BridgeNavigationHandlerImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.application.internal.ResourceHandlerBridgeImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.application.internal.ResourceImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.application.internal.ViewHandlerImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.bean.internal.BeanManagerMojarraImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.bean.internal.MojarraInjectionProvider" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.context.internal.ExternalContextImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.context.map.internal.RequestHeaderMap" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.context.map.internal.MultiPartFormDataProcessorImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.context.map.internal.MultiPartFormDataProcessorCompatImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.BridgeConfigImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseActionImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseEventImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseHeaderRenderCommon" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseResourceImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.renderkit.html_basic.internal.BodyRendererBridgeImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.renderkit.html_basic.internal.HeadPhaseListener" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.renderkit.html_basic.internal.HeadRendererBridgeImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.renderkit.html_basic.internal.HeadResponseWriterImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.renderkit.html_basic.internal.HeadResponseWriterLiferayImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.renderkit.html_basic.internal.ResourceRendererBridgeImpl" level="TRACE" />
+		<Logger name="com.liferay.faces.bridge.scope.internal.BridgeRequestScopeImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.servlet.BridgeSessionListener" level="DEBUG" />
+		-->
+		<Logger name="com.liferay.faces.demos.applicant.butterfaces.facelets.mbf.ApplicantBacking" level="DEBUG" />
+		<Logger name="com.liferay.faces.util.lifecycle.DebugPhaseListener" level="DEBUG" />
+	</Loggers>
+</Configuration>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration strict="true">
+	<Loggers>
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseActionImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseEventImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseHeaderRenderCommon" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.BridgePhaseResourceImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.IPCPhaseListener" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.internal.PublicRenderParameter" level="DEBUG" />
+		<Logger name="com.liferay.faces.bridge.scope.internal.BridgeRequestScopeManagerImpl" level="DEBUG" />
+		<Logger name="com.liferay.faces.demos" level="TRACE" />
+		<Logger name="com.liferay.faces.util.lifecycle.DebugPhaseListener" level="DEBUG" />
+	</Loggers>
+</Configuration>
