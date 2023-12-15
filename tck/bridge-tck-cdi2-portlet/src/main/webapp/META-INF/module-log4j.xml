@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration strict="true">
+	<Loggers>
+		<!--
+		<Logger name="com.liferay.faces.bridge.scope.internal" level="TRACE" />
+		<Logger name="com.liferay.faces.util.lifecycle.DebugPhaseListener" level="DEBUG" />
+		-->
+	</Loggers>
+</Configuration>
