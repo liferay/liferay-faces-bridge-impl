@@ -72,6 +72,27 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>thin</id>
+			<properties>
+				<!-- The following Import-Package directive ensures that the bridge.tck.main.portlet module will -->
+				<!-- deploy correctly on Liferay, since the PlutoPortalDriverFilter is only required with Pluto. -->
+				<osgi.import.package>
+					Import-Package:\
+						org.apache.pluto.driver;resolution:=optional,\
+						${osgi.import.package.liferay.faces.bridge}
+				</osgi.import.package>
+				<!-- Test Page 019: chapter4_2_6Tests-getBridgeClassNameMethodTest-portlet -->
+				<osgi.require.capability>
+					Require-Capability: \
+						osgi.serviceloader;filter:="(osgi.serviceloader=javax.portlet.faces.Bridge)";\
+						cardinality:=multiple;resolution:=optional,\
+						osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)";resolution:=optional,\
+						osgi.extender; filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://java.sun.com/jsf/html))",\
+						osgi.extender; filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://java.sun.com/jsf/core))"
+				</osgi.require.capability>
+			</properties>
+		</profile>
 	</profiles>
 
 	<build>

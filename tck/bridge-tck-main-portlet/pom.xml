@@ -160,7 +160,9 @@
 					Require-Capability: \
 						osgi.serviceloader;filter:="(osgi.serviceloader=javax.portlet.faces.Bridge)";\
 						cardinality:=multiple;resolution:=optional,\
-						osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)";resolution:=optional
+						osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)";resolution:=optional,\
+						osgi.extender; filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://java.sun.com/jsf/html))",\
+						osgi.extender; filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://java.sun.com/jsf/core))"
 				</osgi.require.capability>
 			</properties>
 		</profile>
