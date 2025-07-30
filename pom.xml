@@ -138,6 +138,9 @@
 			com.oracle.jrf.mt.tenant.*;resolution:=optional,\
 			com.sun.enterprise.config.serverbeans;resolution:=optional,\
 			com.sun.xml.fastinfoset.*;resolution:=optional,\
+			com.sun.org.apache.xalan.internal.res.*;resolution:=optional,\
+			com.sun.org.apache.xml.internal.utils.*;resolution:=optional,\
+			com.sun.org.apache.xpath.internal.*;resolution:=optional,\
 			javax.enterprise.concurrent;resolution:=optional,\
 			oracle.adf.model;resolution:=optional,\
 			oracle.adf.share.http;resolution:=optional,\
