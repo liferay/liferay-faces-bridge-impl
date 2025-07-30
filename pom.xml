@@ -285,7 +285,7 @@
 		<richfaces.version>4.6.8.ayg</richfaces.version>
 		<selenium.version>3.8.1</selenium.version>
 		<skip.thin.war.setup>true</skip.thin.war.setup>
-		<spring.version>4.2.5.RELEASE</spring.version>
+		<spring.version>5.3.39</spring.version>
 		<surefire.version>2.12</surefire.version>
 		<thick.or.thin>thick</thick.or.thin>
 		<tck.trinidad.version>2.0.1</tck.trinidad.version>
@@ -1235,6 +1235,11 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<version>5.0.0</version>
 				<scope>provided</scope>
 				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
