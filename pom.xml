@@ -224,9 +224,11 @@
 		<!-- Excludes unused RichFaces transitive package dependencies so that a WAB can resolve. -->
 		<osgi.import.package.richfaces>
 			com.beust.jcommander;resolution:=optional,\
+			com.ibm.uvm.tools;resolution:=optional,\
 			com.google.appengine.api;resolution:=optional,\
 			com.google.apphosting.api;resolution:=optional,\
 			com.opensymphony.oscache.*;resolution:=optional,\
+			com.sun.jdmk.comm;resolution:=optional,\
 			com.yahoo.platform.yui.compressor;resolution:=optional,\
 			javax.jms;resolution:=optional,\
 			net.sf.ehcache.*;resolution:=optional,\
