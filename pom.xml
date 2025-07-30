@@ -599,7 +599,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 		<profile>
 			<id>dxp</id>
 			<properties>
-				<liferay.deploy.version>7.4.13.2023q4</liferay.deploy.version>
+				<liferay.deploy.version>2025.q1.15</liferay.deploy.version>
 				<liferay.platform>liferay-dxp</liferay.platform>
 			</properties>
 		</profile>
