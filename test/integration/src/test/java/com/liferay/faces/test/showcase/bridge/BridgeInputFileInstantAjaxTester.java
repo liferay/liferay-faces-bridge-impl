@@ -19,6 +19,9 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.liferay.faces.test.showcase.inputfile.InputFileTester;
 
 
@@ -26,13 +29,17 @@ import com.liferay.faces.test.showcase.inputfile.InputFileTester;
  * @author  Kyle Stiemann
  * @author  Philip White
  */
-public class InputFileMultipleTester extends InputFileTester {
+public class BridgeInputFileInstantAjaxTester extends InputFileTester {
+
+	// Logger
+	private static final Logger logger = LoggerFactory.getLogger(BridgeInputFileInstantAjaxTester.class);
 
 	@Test
-	public void runBridgeInputFileMultipleTest() throws IOException {
+	public void runBridgeInputFileInstantAjaxTest() throws IOException {
 
-		// Multiple file upload is currently unsupported on Selenium, so this test only tests uploading a single file.
-		// https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/2239
-		runInputFileTest("bridge", "multiple");
+		logger.warn(
+			"File Upload Instant Ajax use-case does not exist for Liferay 6.2, so this test will always fail on Liferay 6.2. See FACES-3199 for more details.");
+
+		runInputFileTest("bridge", "instant-ajax");
 	}
 }
