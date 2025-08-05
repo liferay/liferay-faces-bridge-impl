@@ -26,10 +26,13 @@ import com.liferay.faces.test.showcase.inputfile.InputFileTester;
  * @author  Kyle Stiemann
  * @author  Philip White
  */
-public class InputFileGeneralTester extends InputFileTester {
+public class BridgeInputFileMultipleTester extends InputFileTester {
 
 	@Test
-	public void runBridgeInputFileGeneralTest() throws IOException {
-		runInputFileTest("bridge", "general");
+	public void runBridgeInputFileMultipleTest() throws IOException {
+
+		// Multiple file upload is currently unsupported on Selenium, so this test only tests uploading a single file.
+		// https://github.com/seleniumhq/selenium-google-code-issue-archive/issues/2239
+		runInputFileTest("bridge", "multiple");
 	}
 }
