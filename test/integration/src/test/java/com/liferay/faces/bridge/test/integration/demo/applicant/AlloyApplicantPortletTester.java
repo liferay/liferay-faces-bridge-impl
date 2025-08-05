@@ -78,11 +78,12 @@ public class AlloyApplicantPortletTester extends ApplicantTesterBase {
 	protected void selectDate(BrowserDriver browserDriver) {
 
 		String calendarButtonXpath =
-			"//button[contains(@id,'dateOfBirth')]/span[contains(@class,'calendar')][not(text())]";
+			"//button[contains(@id,'dateOfBirth_button')]";
 		browserDriver.clickElement(calendarButtonXpath);
 
 		String dateElementXpath =
-			"//table[contains(@class, 'yui3-calendar-grid')]//td[contains(text(),'14')][not(contains(@class,'yui3-calendar-column-hidden'))]";
+				"//table[contains(@class, 'yui3-calendar-grid')]//td[not(contains(@class,'yui3-calendar-column-hidden'))]//button[normalize-space(text())='14']";
+
 		browserDriver.waitForElementEnabled(dateElementXpath);
 		browserDriver.clickElement(dateElementXpath);
 		browserDriver.waitForElementNotDisplayed(dateElementXpath);
