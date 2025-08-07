@@ -1071,7 +1071,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>commons-fileupload</groupId>
 				<artifactId>commons-fileupload</artifactId>
-				<version>1.3.3</version>
+				<version>1.6.0</version>
 				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
