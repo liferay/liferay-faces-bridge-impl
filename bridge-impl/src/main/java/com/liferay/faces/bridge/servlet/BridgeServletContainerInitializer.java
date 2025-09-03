@@ -23,8 +23,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HandlesTypes;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 
 /**
  * @author  Kyle Stiemann
