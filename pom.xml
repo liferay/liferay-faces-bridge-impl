@@ -332,7 +332,7 @@
 		<portlet.api.version>${portlet.spec.version}.0</portlet.api.version>
 		<portlet.spec.version>3.0</portlet.spec.version>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
-		<primefaces.version>13.0.6</primefaces.version>
+		<primefaces.version>15.0.6.LIFERAY-PATCHED-1</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.stage>Production</project.stage>
