@@ -22,6 +22,14 @@
 					<version>${liferay.faces.bridge.ext.version}</version>
 					<scope>${war.dependency.scope}</scope>
 				</dependency>
+				<dependency>
+					<groupId>commons-fileupload</groupId>
+					<artifactId>commons-fileupload</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</dependency>
 			</dependencies>
 		</profile>
 		<profile>
