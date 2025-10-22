@@ -1204,7 +1204,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>com.liferay.faces.test</groupId>
 				<artifactId>com.liferay.faces.test.selenium</artifactId>
-				<version>0.5.6-SNAPSHOT</version>
+				<version>0.5.6</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
