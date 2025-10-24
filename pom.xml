@@ -678,7 +678,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<id>ce72</id>
 			<properties>
 				<liferay.deploy.version>7.2.1.ga2</liferay.deploy.version>
-				<liferay.faces.alloy.version>3.1.2-SNAPSHOT</liferay.faces.alloy.version>
+				<liferay.faces.alloy.version>3.1.1</liferay.faces.alloy.version>
 			</properties>
 		</profile>
 		<profile>
