@@ -102,7 +102,6 @@
 		<full.version>${project.version} (${timestamp} AD)</full.version>
 		<gdk.version>12.2.0-1-0</gdk.version>
 		<hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
-		<icefaces.version>4.3.0</icefaces.version>
 		<!-- Specifies the DynamicImport-Package directive for use with the "thin" Maven profile. -->
 		<osgi.dynamic.import.package />
 		<!-- Ensures that the Liferay Faces Alloy component/renderer classes can be loaded dynamically via -->
@@ -110,11 +109,6 @@
 		<osgi.dynamic.import.package.liferay.faces.alloy>
 			com.liferay.faces.alloy.*
 		</osgi.dynamic.import.package.liferay.faces.alloy>
-		<!-- Ensures that the ICEfaces component/renderer classes can be loaded dynamically via -->
-		<!-- Class.forName(String) -->
-		<osgi.dynamic.import.package.icefaces>
-			org.icefaces.*
-		</osgi.dynamic.import.package.icefaces>
 		<!-- Ensures that the Liferay Faces Bridge and JSF runtime (Mojarra) component/renderer classes can be -->
 		<!-- loaded dynamically via Class.forName(String) -->
 		<osgi.dynamic.import.package.liferay.faces.bridge>
@@ -145,16 +139,6 @@
 			org.jboss.logmanager;resolution:=optional,\
 			org.joda.time;resolution:=optional
 		</osgi.import.package.hibernate>
-		<!-- Excludes unused ICEfaces transitive package dependencies so that a WAB can resolve. -->
-		<osgi.import.package.icefaces>
-			com.ibm.ws.portletcontainer;resolution:=optional,\
-			!com.liferay.portal.theme,\
-			!com.liferay.portal.util,\
-			com.lowagie.text.*;resolution:=optional,\
-			org.apache.myfaces.shared.config;resolution:=optional,\
-			org.apache.pluto.container;resolution:=optional,\
-			org.icepush.*;resolution:=optional
-		</osgi.import.package.icefaces>
 		<!-- Specifies that $LIFERAY_HOME/osgi/modules/com.liferay.faces.alloy.jar is required for a WAB to resolve, -->
 		<!-- and ensures that it will be included for scanning of descriptors like META-INF/faces-config.xml. -->
 		<osgi.import.package.liferay.faces.alloy>
@@ -1029,41 +1013,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 					<exclusion>
 						<groupId>jakarta.validation</groupId>
 						<artifactId>jakarta.validation-api</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.icefaces</groupId>
-				<artifactId>icefaces</artifactId>
-				<version>${icefaces.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.glassfish</groupId>
-						<artifactId>javax.faces</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>javax.mail</groupId>
-						<artifactId>mail</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>javax.activation</groupId>
-						<artifactId>javax.activation</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.icefaces</groupId>
-				<artifactId>icefaces-ace</artifactId>
-				<version>${icefaces.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.icepush</groupId>
-				<artifactId>icepush</artifactId>
-				<version>${icefaces.version}</version>
-				<exclusions>
-					<exclusion>
-						<artifactId>jsp-api</artifactId>
-						<groupId>javax.servlet.jsp</groupId>
 					</exclusion>
 				</exclusions>
 			</dependency>
