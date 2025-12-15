@@ -219,38 +219,6 @@
 							</execution>
 						</executions>
 					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.2.1</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>java</goal>
-								</goals>
-								<phase>generate-sources</phase>
-								<configuration>
-									<includeProjectDependencies>false</includeProjectDependencies>
-									<includePluginDependencies>true</includePluginDependencies>
-									<mainClass>com.liferay.faces.generator.Generator</mainClass>
-									<arguments>
-										<argument>${project.build.directory}/${short.namespace}-tags.xml</argument>
-									</arguments>
-									<executableDependency>
-										<groupId>com.liferay.faces</groupId>
-										<artifactId>com.liferay.faces.generator</artifactId>
-									</executableDependency>
-								</configuration>
-							</execution>
-						</executions>
-						<dependencies>
-							<dependency>
-								<groupId>com.liferay.faces</groupId>
-								<artifactId>com.liferay.faces.generator</artifactId>
-								<version>1.1.1</version>
-							</dependency>
-						</dependencies>
-					</plugin>
 				</plugins>
 			</build>
 		</profile>
