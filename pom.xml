@@ -166,23 +166,6 @@
 		<osgi.import.package.primefaces>
 			org.primefaces
 		</osgi.import.package.primefaces>
-		<!-- Excludes unused RichFaces transitive package dependencies so that a WAB can resolve. -->
-		<osgi.import.package.richfaces>
-			com.beust.jcommander;resolution:=optional,\
-			com.ibm.uvm.tools;resolution:=optional,\
-			com.google.appengine.api;resolution:=optional,\
-			com.google.apphosting.api;resolution:=optional,\
-			com.opensymphony.oscache.*;resolution:=optional,\
-			com.sun.jdmk.comm;resolution:=optional,\
-			com.yahoo.platform.yui.compressor;resolution:=optional,\
-			javax.jms;resolution:=optional,\
-			net.sf.ehcache.*;resolution:=optional,\
-			org.atmosphere.*;resolution:=optional,\
-			org.jboss.cache.*;resolution:=optional,\
-			org.jboss.el;resolution:=optional,\
-			org.mozilla.javascript;resolution:=optional,\
-			org.reflections.*;resolution:=optional
-		</osgi.import.package.richfaces>
 		<!-- Excludes unused Spring Framework transitive package dependencies so that a WAB can resolve. -->
 		<osgi.import.package.spring>
 			COM.newmonics.PercClassLoader.*;resolution:=optional,\
@@ -280,7 +263,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.stage>Production</project.stage>
-		<richfaces.version>4.6.8.ayg</richfaces.version>
 		<selenium.version>3.8.1</selenium.version>
 		<skip.thin.war.setup>true</skip.thin.war.setup>
 		<spring.version>5.3.39</spring.version>
@@ -1009,17 +991,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 					<exclusion>
 						<groupId>jakarta.validation</groupId>
 						<artifactId>jakarta.validation-api</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>com.github.albfernandez.richfaces</groupId>
-				<artifactId>richfaces</artifactId>
-				<version>${richfaces.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.jboss.spec.javax.el</groupId>
-						<artifactId>jboss-el-api_3.0_spec</artifactId>
 					</exclusion>
 				</exclusions>
 			</dependency>

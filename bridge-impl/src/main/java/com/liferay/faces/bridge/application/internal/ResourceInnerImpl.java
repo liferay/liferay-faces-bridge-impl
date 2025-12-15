@@ -183,22 +183,6 @@ public class ResourceInnerImpl extends ResourceWrapper implements Serializable {
 					}
 				}
 			}
-
-			// If the wrapped request path ends with "org.richfaces" then
-			if (wrappedRequestPath.endsWith(ResourceRichFacesImpl.ORG_RICHFACES)) {
-
-				// Check to see if the resource physically exists in the META-INF/resources/org.richfaces folder of the
-				// RichFaces JAR. If it does, then this qualifies as a special case in which the
-				// ResourceHandlerImpl#fixRichFacesImageURLs(FacesContext, String) method is unable to handle resources
-				// such as "node_icon.gif" and the library name must be "org.richfaces.images" instead of
-				// "org.richfaces".
-				String resourcePath = "META-INF/resources/org.richfaces/" + getResourceName();
-				URL resourceURL = getClass().getClassLoader().getResource(resourcePath);
-
-				if (resourceURL != null) {
-					wrappedRequestPath = wrappedRequestPath + ".images";
-				}
-			}
 		}
 
 		return wrappedRequestPath;
