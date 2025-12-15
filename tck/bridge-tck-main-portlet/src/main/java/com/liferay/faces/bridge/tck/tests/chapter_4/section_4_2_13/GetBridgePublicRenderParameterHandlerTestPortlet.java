@@ -19,10 +19,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.faces.BridgePublicRenderParameterHandler;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.faces.BridgePublicRenderParameterHandler;
 
 import com.liferay.faces.bridge.tck.common.portlet.NonRenderResponseCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
@@ -32,7 +32,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
  * Checks that GenericFacesPortlet#getBridgePublicRenderParameterHandler method works as stated in section 4.2.13. - The
  * GenericFacesPortlet getBridgePublicRenderParameterHandler getBridgeEventHandler by returning an instance of the
  * configured prp handler corresponding to the value of the portlet initialization parameter
- * javax.portlet.faces.bridgePublicRenderParameter or null if this parameter doesn't exist.
+ * jakarta.portlet.faces.bridgePublicRenderParameter or null if this parameter doesn't exist.
  */
 public class GetBridgePublicRenderParameterHandlerTestPortlet extends NonRenderResponseCompatPortlet {
 

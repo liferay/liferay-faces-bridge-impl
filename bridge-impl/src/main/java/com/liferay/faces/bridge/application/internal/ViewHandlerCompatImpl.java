@@ -25,10 +25,10 @@ import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewDeclarationLanguage;
-import javax.portlet.PortletResponse;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.Bridge.PortletPhase;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.Bridge.PortletPhase;
+import jakarta.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.util.product.Product;

@@ -19,9 +19,9 @@ import java.util.Map;
 
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.render.ResponseStateManager;
-import javax.portlet.PortalContext;
-import javax.portlet.PortletContext;
-import javax.portlet.faces.BridgeFactoryFinder;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.faces.BridgeFactoryFinder;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.util.factory.FactoryExtensionFinder;

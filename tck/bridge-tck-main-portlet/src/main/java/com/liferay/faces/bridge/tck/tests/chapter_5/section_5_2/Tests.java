@@ -25,15 +25,15 @@ import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.PhaseEvent;
 import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;
-import javax.portlet.Event;
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletSession;
-import javax.portlet.RenderRequest;
-import javax.portlet.StateAwareResponse;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.Event;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletSession;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.StateAwareResponse;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeUtil;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
@@ -974,7 +974,7 @@ public class Tests extends HeaderTests implements PhaseListener {
 		testBean.setTestComplete(true);
 
 		// Are we in the rightview???
-		String s = (String) requestMap.get("javax.portlet.faces.tck.verifyPortletObjectsPass");
+		String s = (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletObjectsPass");
 
 		if (s != null) {
 			testBean.setTestResult(true, s);
@@ -982,7 +982,7 @@ public class Tests extends HeaderTests implements PhaseListener {
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testBean.setTestResult(false, (String) requestMap.get("javax.portlet.faces.tck.verifyPortletObjectsFail"));
+			testBean.setTestResult(false, (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletObjectsFail"));
 
 			return Constants.TEST_FAILED;
 		}
@@ -1007,8 +1007,8 @@ public class Tests extends HeaderTests implements PhaseListener {
 
 			// Now verify that what should have been carried forward has and what shouldn't hasn't.
 
-			String s = (String) requestMap.get("javax.portlet.faces.tck.verifyPortletPhaseDuringActionPass");
-			String s1 = (String) requestMap.get("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderPass");
+			String s = (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletPhaseDuringActionPass");
+			String s1 = (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletPhaseDuringRenderPass");
 
 			if ((s != null) && (s1 != null)) {
 				testBean.setTestResult(true, s + s1);
@@ -1017,11 +1017,11 @@ public class Tests extends HeaderTests implements PhaseListener {
 			}
 
 			if (s == null) {
-				s = (String) requestMap.get("javax.portlet.faces.tck.verifyPortletPhaseDuringActionFail");
+				s = (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletPhaseDuringActionFail");
 			}
 
 			if (s1 == null) {
-				s1 = (String) requestMap.get("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderFail");
+				s1 = (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletPhaseDuringRenderFail");
 			}
 
 			testBean.setTestResult(false, s + s1);

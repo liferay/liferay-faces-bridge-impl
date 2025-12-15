@@ -18,11 +18,11 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_6;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.MimeResponse;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
-import javax.portlet.faces.annotation.PortletNamingContainer;
-import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeUtil;
+import jakarta.portlet.faces.annotation.PortletNamingContainer;
+import jakarta.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
@@ -107,7 +107,7 @@ public class Tests {
 		}
 		else {
 			testBean.setTestResult(false,
-				"UIViewRoot is not annotated with javax.portlet.faces.annotation.PortletNamingContainer.");
+				"UIViewRoot is not annotated with jakarta.portlet.faces.annotation.PortletNamingContainer.");
 
 			return Constants.TEST_FAILED;
 		}

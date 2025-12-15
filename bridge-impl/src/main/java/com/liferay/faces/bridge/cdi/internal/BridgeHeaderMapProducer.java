@@ -26,7 +26,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import jakarta.inject.Qualifier;
 import jakarta.interceptor.Interceptor;
-import javax.portlet.annotations.PortletRequestScoped;
+import jakarta.portlet.annotations.PortletRequestScoped;
 
 
 /**

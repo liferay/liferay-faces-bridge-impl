@@ -6,9 +6,9 @@
 	<portlet>
 		<portlet-name>FACES224</portlet-name>
 		<display-name>FACES-224</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-224/view1.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -36,9 +36,9 @@
 	<portlet>
 		<portlet-name>FACES257</portlet-name>
 		<display-name>FACES-257</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-257.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -66,9 +66,9 @@
 	<portlet>
 		<portlet-name>FACES1470</portlet-name>
 		<display-name>FACES-1470</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-1470/as7LeakTracker.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -96,9 +96,9 @@
 	<portlet>
 		<portlet-name>FACES1478</portlet-name>
 		<display-name>FACES-1478</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-1478.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -126,9 +126,9 @@
 	<portlet>
 		<portlet-name>FACES1618</portlet-name>
 		<display-name>FACES-1618</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-1618/immediateTrueView.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -156,9 +156,9 @@
 	<portlet>
 		<portlet-name>FACES1638</portlet-name>
 		<display-name>FACES-1638</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-1638.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -186,9 +186,9 @@
 	<portlet>
 		<portlet-name>FACES2958</portlet-name>
 		<display-name>FACES-2958</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-2958/index.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -216,9 +216,9 @@
 	<portlet>
 		<portlet-name>FACES2958friendlyURL</portlet-name>
 		<display-name>FACES-2958-friendlyURL</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-2958/index.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -247,9 +247,9 @@
 	<portlet>
 		<portlet-name>FACES3175</portlet-name>
 		<display-name>FACES-3175</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>WEB-INF/views/FACES-3175/start.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -278,9 +278,9 @@
 	<portlet>
 		<portlet-name>FACES3231</portlet-name>
 		<display-name>FACES-3231</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-3231.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -308,9 +308,9 @@
 	<portlet>
 		<portlet-name>FACES3300</portlet-name>
 		<display-name>FACES-3300</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>WEB-INF/views/FACES-3300/start.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -338,9 +338,9 @@
 	<portlet>
 		<portlet-name>FACES3356</portlet-name>
 		<display-name>FACES-3356</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>WEB-INF/views/FACES-3356/start.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -369,9 +369,9 @@
 	<portlet>
 		<portlet-name>FACES3404</portlet-name>
 		<display-name>FACES-3404</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-3404/start.xhtml</value>
 		</init-param>
 		<init-param>
@@ -403,9 +403,9 @@
 	<portlet>
 		<portlet-name>FACES3404friendlyURL</portlet-name>
 		<display-name>FACES-3404-friendlyURL</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-3404/start.xhtml</value>
 		</init-param>
 		<init-param>
@@ -438,9 +438,9 @@
 		<portlet>
 		<portlet-name>JSFSPEC1433</portlet-name>
 		<display-name>JSFSPEC-1433</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/JSFSPEC-1433.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -468,9 +468,9 @@
 		<portlet>
 		<portlet-name>MOJARRA4340workaround</portlet-name>
 		<display-name>MOJARRA-4340-workaround</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/MOJARRA-4340-workaround/start.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -498,9 +498,9 @@
 	<portlet>
 		<portlet-name>MOJARRA4345workaround</portlet-name>
 		<display-name>MOJARRA-4345-workaround</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/MOJARRA-4345-workaround/start.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -528,9 +528,9 @@
 	<portlet>
 		<portlet-name>JSFSPEC790</portlet-name>
 		<display-name>JSFSPEC-790</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/JSFSPEC-790.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>

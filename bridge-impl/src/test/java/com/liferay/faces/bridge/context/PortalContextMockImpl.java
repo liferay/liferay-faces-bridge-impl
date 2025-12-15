@@ -20,9 +20,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.portlet.PortalContext;
-import javax.portlet.PortletMode;
-import javax.portlet.WindowState;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.WindowState;
 
 
 /**

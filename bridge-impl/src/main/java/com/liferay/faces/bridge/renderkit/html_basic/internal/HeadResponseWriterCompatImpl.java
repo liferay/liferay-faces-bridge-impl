@@ -24,7 +24,7 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import javax.portlet.HeaderResponse;
+import jakarta.portlet.HeaderResponse;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

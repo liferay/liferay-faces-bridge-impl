@@ -157,7 +157,7 @@ com.sun.faces.flow.FlowDiscoveryCDIExtension
 			<artifactId>cdi-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.portlet</groupId>
+			<groupId>jakarta.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 	</dependencies>

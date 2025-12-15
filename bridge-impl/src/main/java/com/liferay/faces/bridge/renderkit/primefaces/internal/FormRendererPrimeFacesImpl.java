@@ -29,12 +29,12 @@ import jakarta.faces.context.ResponseWriter;
 import jakarta.faces.event.ActionListener;
 import jakarta.faces.render.Renderer;
 import jakarta.faces.render.RendererWrapper;
-import javax.portlet.PortletContext;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeException;
-import javax.portlet.faces.BridgeFactoryFinder;
-import javax.portlet.faces.BridgeURL;
-import javax.portlet.faces.BridgeURLFactory;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeException;
+import jakarta.portlet.faces.BridgeFactoryFinder;
+import jakarta.portlet.faces.BridgeURL;
+import jakarta.portlet.faces.BridgeURLFactory;
 
 import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.RenderKitBridgeImpl;
@@ -112,8 +112,8 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 		}
 
 		// Otherwise, if the specified form has a non-Ajax action listener child like p:dataExporter or p:fileDownload,
-		// then ensure that the value of "action" attribute of the rendered form is a javax.portlet.ResourceURL that
-		// will invoke the RESOURCE_PHASE portlet lifecycle rather than a default javax.portlet.ActionURL that invokes
+		// then ensure that the value of "action" attribute of the rendered form is a jakarta.portlet.ResourceURL that
+		// will invoke the RESOURCE_PHASE portlet lifecycle rather than a default jakarta.portlet.ActionURL that invokes
 		// the ACTION_PHASE of the portlet lifecycle.
 		else if (hasNonAjaxActionListener(uiComponent)) {
 			ViewHandler viewHandler = facesContext.getApplication().getViewHandler();

@@ -15,10 +15,10 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.portlet.PortalContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.Bridge;
-import javax.portlet.filter.PortalContextWrapper;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.filter.PortalContextWrapper;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 

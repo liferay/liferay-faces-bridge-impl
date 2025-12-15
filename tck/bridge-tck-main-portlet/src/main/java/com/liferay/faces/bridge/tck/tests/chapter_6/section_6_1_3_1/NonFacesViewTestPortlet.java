@@ -18,12 +18,12 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletException;
-import javax.portlet.PortletMode;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.WindowState;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.WindowState;
 
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 

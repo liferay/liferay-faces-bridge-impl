@@ -24,9 +24,9 @@ import jakarta.enterprise.context.spi.CreationalContext;
 import jakarta.enterprise.inject.spi.Bean;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.annotations.PortletRequestScoped;
-import javax.portlet.filter.PortletRequestWrapper;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.annotations.PortletRequestScoped;
+import jakarta.portlet.filter.PortletRequestWrapper;
 
 
 /**

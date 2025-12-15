@@ -18,13 +18,13 @@ package com.liferay.faces.bridge.tck.common.portlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.MimeResponse;
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 

@@ -21,8 +21,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Enumeration;
 
-import javax.portlet.PortletRequest;
-import javax.portlet.filter.PortletRequestWrapper;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.filter.PortletRequestWrapper;
 import jakarta.servlet.AsyncContext;
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.RequestDispatcher;

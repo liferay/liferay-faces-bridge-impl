@@ -7,7 +7,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/SingleRequestTest.jsp</value>
 		</init-param>
 

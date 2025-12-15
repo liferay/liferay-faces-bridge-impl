@@ -21,7 +21,7 @@
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
-					<groupId>javax.portlet</groupId>
+					<groupId>jakarta.portlet</groupId>
 					<artifactId>portlet-api</artifactId>
 				</exclusion>
 			</exclusions>
@@ -75,7 +75,7 @@
 			<artifactId>jakarta.servlet.jsp-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.portlet</groupId>
+			<groupId>jakarta.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 		<dependency>
@@ -167,7 +167,7 @@
 				<!-- Test Page 019: chapter4_2_6Tests-getBridgeClassNameMethodTest-portlet -->
 				<osgi.require.capability>
 					Require-Capability: \
-						osgi.serviceloader;filter:="(osgi.serviceloader=javax.portlet.faces.Bridge)";\
+						osgi.serviceloader;filter:="(osgi.serviceloader=jakarta.portlet.faces.Bridge)";\
 						cardinality:=multiple;resolution:=optional,\
 						osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)";resolution:=optional,\
 						osgi.extender; filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://java.sun.com/jsf/html))",\
@@ -306,7 +306,7 @@
 					<scope>test</scope>
 				</dependency>
 				<dependency>
-					<groupId>javax.portlet</groupId>
+					<groupId>jakarta.portlet</groupId>
 					<artifactId>portlet-api</artifactId>
 					<scope>test</scope>
 				</dependency>

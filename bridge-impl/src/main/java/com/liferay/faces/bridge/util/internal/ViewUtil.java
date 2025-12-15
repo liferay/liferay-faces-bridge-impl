@@ -17,10 +17,10 @@ package com.liferay.faces.bridge.util.internal;
 
 import java.util.Map;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletMode;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.faces.Bridge;
 
 
 /**
@@ -34,15 +34,15 @@ public class ViewUtil {
 	 * <code>
 	 * <pre>
 	 &lt;init-param&gt;
-	 &lt;name&gt;javax.portlet.faces.defaultViewId.view&lt;/name&gt;
+	 &lt;name&gt;jakarta.portlet.faces.defaultViewId.view&lt;/name&gt;
 	 &lt;value&gt;/xhtml/portletViewMode.xhtml&lt;/value&gt;
 	 &lt;/init-param&gt;
 	 &lt;init-param&gt;
-	 &lt;name&gt;javax.portlet.faces.defaultViewId.edit&lt;/name&gt;
+	 &lt;name&gt;jakarta.portlet.faces.defaultViewId.edit&lt;/name&gt;
 	 &lt;value&gt;/xhtml/portletEditMode.xhtml&lt;/value&gt;
 	 &lt;/init-param&gt;
 	 &lt;init-param&gt;
-	 &lt;name&gt;javax.portlet.faces.defaultViewId.help&lt;/name&gt;
+	 &lt;name&gt;jakarta.portlet.faces.defaultViewId.help&lt;/name&gt;
 	 &lt;value&gt;/xhtml/portletHelpMode.xhtml&lt;/value&gt;
 	 &lt;/init-param&gt;
 	 * </pre>

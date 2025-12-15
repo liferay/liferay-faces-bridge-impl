@@ -35,7 +35,7 @@ import jakarta.faces.application.Resource;
 import jakarta.faces.application.ResourceHandler;
 import jakarta.faces.application.ResourceWrapper;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeConfig;
 
 import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;

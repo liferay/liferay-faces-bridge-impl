@@ -90,7 +90,7 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>javax.portlet</groupId>
+			<groupId>jakarta.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 		<dependency>

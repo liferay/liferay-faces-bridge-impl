@@ -18,9 +18,9 @@ package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 import jakarta.el.ELContext;
 import jakarta.el.ELResolver;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.Event;
-import javax.portlet.faces.BridgeEventHandler;
-import javax.portlet.faces.event.EventNavigationResult;
+import jakarta.portlet.Event;
+import jakarta.portlet.faces.BridgeEventHandler;
+import jakarta.portlet.faces.event.EventNavigationResult;
 
 
 /**

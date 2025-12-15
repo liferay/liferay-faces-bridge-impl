@@ -24,7 +24,7 @@ under `src/main/java/com/liferay/faces/issue`. The package name should be the is
 underscores). Add all the beans to the new package. For example, since multiple beans are needed to test FACES-1470, all
 beans were added under `src/main/java/com/liferay/faces/issue/FACES_1470`.
 
-4. Add the `<portlet>` to the `src/main/webapp/WEB-INF/portlet.xml`, and add a `javax.portlet.faces.defaultViewId.view`
+4. Add the `<portlet>` to the `src/main/webapp/WEB-INF/portlet.xml`, and add a `jakarta.portlet.faces.defaultViewId.view`
 for the portlet. Examples can be found in the `portlet.xml`.
 
 5. Add the `<portlet>` to the `src/main/webapp/WEB-INF/liferay-portlet.xml`. Examples can be found in the

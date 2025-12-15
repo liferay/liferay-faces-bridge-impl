@@ -31,10 +31,10 @@ import java.util.Map;
 import java.util.Set;
 
 import jakarta.faces.context.ExternalContext;
-import javax.portlet.ClientDataRequest;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletException;
-import javax.portlet.filter.PortletRequestWrapper;
+import jakarta.portlet.ClientDataRequest;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.filter.PortletRequestWrapper;
 import jakarta.servlet.AsyncContext;
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.RequestDispatcher;

@@ -21,11 +21,11 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.RenderKitFactory;
 import jakarta.faces.render.ResponseStateManager;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletRequest;
-import javax.portlet.StateAwareResponse;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.StateAwareResponse;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeUtil;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
@@ -147,18 +147,18 @@ public class Tests {
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// Lifecycle check done in the FacesContextFactory -- so test/results set on every request
-		msg = (String) requestMap.get("javax.portlet.faces.tck.testLifecyclePass");
+		msg = (String) requestMap.get("jakarta.portlet.faces.tck.testLifecyclePass");
 
 		if (msg != null) {
 			pass = true;
 		}
 		else {
-			msg = (String) requestMap.get("javax.portlet.faces.tck.testLifecycleFail");
+			msg = (String) requestMap.get("jakarta.portlet.faces.tck.testLifecycleFail");
 		}
 
 		// remove them in case we are called to render more than once
-		requestMap.remove("javax.portlet.faces.tck.testLifecyclePass");
-		requestMap.remove("javax.portlet.faces.tck.testLifecycleFail");
+		requestMap.remove("jakarta.portlet.faces.tck.testLifecyclePass");
+		requestMap.remove("jakarta.portlet.faces.tck.testLifecycleFail");
 
 		testBean.setTestResult(pass, msg);
 

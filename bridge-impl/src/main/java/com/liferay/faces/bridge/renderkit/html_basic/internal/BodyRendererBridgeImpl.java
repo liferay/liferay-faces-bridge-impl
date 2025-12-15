@@ -26,7 +26,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
 import jakarta.faces.render.Renderer;
 import jakarta.faces.render.RendererWrapper;
-import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
+import jakarta.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.util.application.ResourceUtil;
 import com.liferay.faces.util.product.Product;

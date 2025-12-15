@@ -19,10 +19,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.RenderParameters;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.RenderParameters;
+import jakarta.portlet.faces.Bridge;
 
 
 /**

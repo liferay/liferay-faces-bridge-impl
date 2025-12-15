@@ -6,7 +6,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -21,11 +21,11 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -46,7 +46,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -61,7 +61,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/resourceActionRenderTest.xhtml</value>
 		</init-param>
 		<init-param>
@@ -80,7 +80,7 @@
 		<portlet-name>chapter6_1_3_1EncodePartialActionURLTests-encodePartialActionURLTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>

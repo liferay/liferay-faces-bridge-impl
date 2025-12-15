@@ -21,7 +21,7 @@ import jakarta.faces.application.Application;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.RenderKit;
 import jakarta.faces.render.RenderKitFactory;
-import javax.portlet.PortletConfig;
+import jakarta.portlet.PortletConfig;
 
 import com.liferay.faces.util.application.ApplicationUtil;
 

@@ -24,7 +24,7 @@ import jakarta.enterprise.context.spi.CreationalContext;
 import jakarta.enterprise.inject.spi.Bean;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.faces.annotation.BridgeRequestScoped;
+import jakarta.portlet.faces.annotation.BridgeRequestScoped;
 
 
 /**

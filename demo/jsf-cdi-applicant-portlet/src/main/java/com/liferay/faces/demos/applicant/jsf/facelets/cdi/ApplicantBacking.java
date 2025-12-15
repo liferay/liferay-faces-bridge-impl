@@ -26,7 +26,7 @@ import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.ValueChangeEvent;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import javax.portlet.faces.annotation.BridgeRequestScoped;
+import jakarta.portlet.faces.annotation.BridgeRequestScoped;
 import jakarta.servlet.http.Part;
 
 import com.liferay.faces.demos.applicant.jsf.facelets.dto.Applicant;

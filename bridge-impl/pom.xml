@@ -82,13 +82,13 @@
 								com.liferay.faces.util.*;version="[4.0.0,5.0.0)",\
 								com.liferay.faces.bridge.*;version="[6.0.0,7.0.0)",\
 								com.liferay.faces.portlet.*;version="[6.0.0,7.0.0)",\
-								javax.portlet;version="[3.0.0,4.0.0)",\
-								javax.portlet.faces.*;version="[6.0.0,7.0.0)",\
+								jakarta.portlet;version="[3.0.0,4.0.0)",\
+								jakarta.portlet.faces.*;version="[6.0.0,7.0.0)",\
 								*
 							Require-Capability: osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"
 							Provide-Capability: \
-								osgi.serviceloader;osgi.serviceloader=javax.portlet.faces.Bridge,\
-								osgi.serviceloader;osgi.serviceloader=javax.portlet.faces.BridgeFactoryFinder,\
+								osgi.serviceloader;osgi.serviceloader=jakarta.portlet.faces.Bridge,\
+								osgi.serviceloader;osgi.serviceloader=jakarta.portlet.faces.BridgeFactoryFinder,\
 								osgi.extender;osgi.extender="jsp.taglib";uri="http://liferay.com/faces/bridge";\
 								version:Version="1.0.0"
 						]]>
@@ -153,7 +153,7 @@
 			<artifactId>jakarta.faces-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.portlet</groupId>
+			<groupId>jakarta.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 		<dependency>

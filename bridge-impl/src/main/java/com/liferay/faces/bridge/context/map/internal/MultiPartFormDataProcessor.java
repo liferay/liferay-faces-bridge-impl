@@ -18,8 +18,8 @@ package com.liferay.faces.bridge.context.map.internal;
 import java.util.List;
 import java.util.Map;
 
-import javax.portlet.ClientDataRequest;
-import javax.portlet.PortletConfig;
+import jakarta.portlet.ClientDataRequest;
+import jakarta.portlet.PortletConfig;
 
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.model.UploadedFile;

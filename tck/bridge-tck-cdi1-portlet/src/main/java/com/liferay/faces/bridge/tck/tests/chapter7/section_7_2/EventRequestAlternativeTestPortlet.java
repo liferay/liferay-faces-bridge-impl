@@ -17,17 +17,17 @@ package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
 import java.io.IOException;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.EventRequest;
-import javax.portlet.EventResponse;
-import javax.portlet.PortletException;
-import javax.portlet.annotations.ActionMethod;
-import javax.portlet.annotations.EventMethod;
-import javax.portlet.annotations.InitParameter;
-import javax.portlet.annotations.PortletConfiguration;
-import javax.portlet.annotations.PortletQName;
-import javax.portlet.annotations.SecurityRoleRef;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.EventRequest;
+import jakarta.portlet.EventResponse;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.annotations.ActionMethod;
+import jakarta.portlet.annotations.EventMethod;
+import jakarta.portlet.annotations.InitParameter;
+import jakarta.portlet.annotations.PortletConfiguration;
+import jakarta.portlet.annotations.PortletQName;
+import jakarta.portlet.annotations.SecurityRoleRef;
 
 import com.liferay.bean.portlet.LiferayPortletConfiguration;
 
@@ -41,10 +41,10 @@ import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 	portletName = "chapter7_2CDITests-eventRequestAlternativeTest-portlet",
 	initParams = {
 			@InitParameter(
-				name = "javax.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/multiRequestTest.xhtml"
-			), @InitParameter(name = "javax.portlet.faces.autoDispatchEvents", value = "true"),
+				name = "jakarta.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/multiRequestTest.xhtml"
+			), @InitParameter(name = "jakarta.portlet.faces.autoDispatchEvents", value = "true"),
 			@InitParameter(
-				name = "javax.portlet.faces.bridgeEventHandler",
+				name = "jakarta.portlet.faces.bridgeEventHandler",
 				value = "com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.Ch7TestEventHandler"
 			)
 		}, roleRefs = {

@@ -60,8 +60,8 @@ public class GenericFacesPortletSignatureTest {
 	public void getFacesBridge() {
 
 		try {
-			testSignature("getFacesBridge", Class.forName("javax.portlet.faces.Bridge"),
-				Class.forName("javax.portlet.PortletRequest"), Class.forName("javax.portlet.PortletResponse"));
+			testSignature("getFacesBridge", Class.forName("jakarta.portlet.faces.Bridge"),
+				Class.forName("jakarta.portlet.PortletRequest"), Class.forName("jakarta.portlet.PortletResponse"));
 		}
 		catch (ClassNotFoundException cnfe) {
 		}
@@ -76,7 +76,7 @@ public class GenericFacesPortletSignatureTest {
 		Class actualReturnType = null;
 
 		try {
-			Class facesClass = Class.forName("javax.portlet.faces.GenericFacesPortlet");
+			Class facesClass = Class.forName("jakarta.portlet.faces.GenericFacesPortlet");
 			Method method = facesClass.getMethod(methodName, parameters);
 
 			actualReturnType = method.getReturnType();

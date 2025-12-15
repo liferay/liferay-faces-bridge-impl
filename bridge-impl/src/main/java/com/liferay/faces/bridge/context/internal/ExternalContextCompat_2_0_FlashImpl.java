@@ -18,9 +18,9 @@ package com.liferay.faces.bridge.context.internal;
 import jakarta.faces.FactoryFinder;
 import jakarta.faces.context.Flash;
 import jakarta.faces.context.FlashFactory;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
 import jakarta.servlet.http.HttpServletResponse;
 
 

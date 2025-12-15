@@ -20,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.portlet.ClientDataRequest;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletSession;
+import jakarta.portlet.ClientDataRequest;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletSession;
 
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;

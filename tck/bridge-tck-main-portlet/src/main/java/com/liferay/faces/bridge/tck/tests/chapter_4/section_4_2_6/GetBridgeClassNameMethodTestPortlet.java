@@ -22,10 +22,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-import javax.portlet.PortletContext;
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
 
 import com.liferay.faces.bridge.tck.common.portlet.NonRenderResponseCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
@@ -42,7 +42,7 @@ public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompat
 	private static String TEST_RUN = "testRun";
 	private static String TEST_FAIL = "testFailMsg";
 	private static String TEST_PASS = "testPassMsg";
-	private static String TEST_BRIDGE_SERVICE_CLASSPATH = "META-INF/services/javax.portlet.faces.Bridge";
+	private static String TEST_BRIDGE_SERVICE_CLASSPATH = "META-INF/services/jakarta.portlet.faces.Bridge";
 
 	public String getBridgeClassName() {
 		String bridgeClassName = super.getBridgeClassName();
@@ -54,7 +54,7 @@ public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompat
 
 			// Get expected class name from PortletContext attribute
 			String expectedClassName = getPortletConfig().getPortletContext().getInitParameter(
-					"javax.portlet.faces.BridgeClassName");
+					"jakarta.portlet.faces.BridgeClassName");
 
 			StringBuilder failMsg = new StringBuilder();
 

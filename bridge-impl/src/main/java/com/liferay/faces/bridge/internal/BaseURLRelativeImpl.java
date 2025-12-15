@@ -17,7 +17,7 @@ package com.liferay.faces.bridge.internal;
 
 import java.io.Writer;
 
-import javax.portlet.BaseURL;
+import jakarta.portlet.BaseURL;
 
 
 /**

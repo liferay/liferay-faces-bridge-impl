@@ -15,11 +15,11 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.ResourceResponse;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.ResourceResponse;
+import jakarta.portlet.faces.Bridge;
 
 
 /**

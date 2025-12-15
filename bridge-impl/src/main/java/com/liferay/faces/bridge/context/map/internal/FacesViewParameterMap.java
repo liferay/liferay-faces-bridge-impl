@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.internal.PortletURLHelper;
 import com.liferay.faces.util.logging.Logger;

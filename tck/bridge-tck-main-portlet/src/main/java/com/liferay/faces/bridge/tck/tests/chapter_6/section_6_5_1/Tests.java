@@ -42,20 +42,20 @@ import jakarta.el.PropertyNotWritableException;
 import jakarta.el.VariableMapper;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletSession;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfigFactory;
-import javax.portlet.faces.BridgeUtil;
-import javax.portlet.faces.preference.Preference;
-import javax.portlet.filter.ActionRequestWrapper;
-import javax.portlet.filter.ActionResponseWrapper;
-import javax.portlet.filter.HeaderRequestWrapper;
-import javax.portlet.filter.HeaderResponseWrapper;
-import javax.portlet.filter.PortletConfigWrapper;
-import javax.portlet.filter.PortletSessionWrapper;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletSession;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfigFactory;
+import jakarta.portlet.faces.BridgeUtil;
+import jakarta.portlet.faces.preference.Preference;
+import jakarta.portlet.filter.ActionRequestWrapper;
+import jakarta.portlet.filter.ActionResponseWrapper;
+import jakarta.portlet.filter.HeaderRequestWrapper;
+import jakarta.portlet.filter.HeaderResponseWrapper;
+import jakarta.portlet.filter.PortletConfigWrapper;
+import jakarta.portlet.filter.PortletSessionWrapper;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
@@ -210,34 +210,34 @@ public class Tests {
 	private static Map<String, Class<?>> getExpectedElResolverFeatureDescriptorTypes(ExternalContext externalContext) {
 
 		Map<String, Class<?>> expectedElResolverFeatureDescriptorTypes = new HashMap<String, Class<?>>();
-		expectedElResolverFeatureDescriptorTypes.put("portletConfig", javax.portlet.PortletConfig.class);
-		expectedElResolverFeatureDescriptorTypes.put("actionRequest", javax.portlet.ActionRequest.class);
-		expectedElResolverFeatureDescriptorTypes.put("actionResponse", javax.portlet.ActionResponse.class);
-		expectedElResolverFeatureDescriptorTypes.put("eventRequest", javax.portlet.EventRequest.class);
-		expectedElResolverFeatureDescriptorTypes.put("eventResponse", javax.portlet.EventResponse.class);
+		expectedElResolverFeatureDescriptorTypes.put("portletConfig", jakarta.portlet.PortletConfig.class);
+		expectedElResolverFeatureDescriptorTypes.put("actionRequest", jakarta.portlet.ActionRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("actionResponse", jakarta.portlet.ActionResponse.class);
+		expectedElResolverFeatureDescriptorTypes.put("eventRequest", jakarta.portlet.EventRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("eventResponse", jakarta.portlet.EventResponse.class);
 
 		if (isHeaderPhaseSupported(externalContext)) {
 
 			try {
 
 				expectedElResolverFeatureDescriptorTypes.put("headerRequest",
-					Class.forName("javax.portlet.HeaderRequest"));
+					Class.forName("jakarta.portlet.HeaderRequest"));
 				expectedElResolverFeatureDescriptorTypes.put("headerResponse",
-					Class.forName("javax.portlet.HeaderResponse"));
+					Class.forName("jakarta.portlet.HeaderResponse"));
 			}
 			catch (ClassNotFoundException e) {
 				throw new RuntimeException(e);
 			}
 		}
 
-		expectedElResolverFeatureDescriptorTypes.put("renderRequest", javax.portlet.RenderRequest.class);
-		expectedElResolverFeatureDescriptorTypes.put("renderResponse", javax.portlet.RenderResponse.class);
-		expectedElResolverFeatureDescriptorTypes.put("resourceRequest", javax.portlet.ResourceRequest.class);
-		expectedElResolverFeatureDescriptorTypes.put("resourceResponse", javax.portlet.ResourceResponse.class);
-		expectedElResolverFeatureDescriptorTypes.put("portletSession", javax.portlet.PortletSession.class);
+		expectedElResolverFeatureDescriptorTypes.put("renderRequest", jakarta.portlet.RenderRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("renderResponse", jakarta.portlet.RenderResponse.class);
+		expectedElResolverFeatureDescriptorTypes.put("resourceRequest", jakarta.portlet.ResourceRequest.class);
+		expectedElResolverFeatureDescriptorTypes.put("resourceResponse", jakarta.portlet.ResourceResponse.class);
+		expectedElResolverFeatureDescriptorTypes.put("portletSession", jakarta.portlet.PortletSession.class);
 		expectedElResolverFeatureDescriptorTypes.put("portletSessionScope", Map.class);
 		expectedElResolverFeatureDescriptorTypes.put("httpSessionScope", Map.class);
-		expectedElResolverFeatureDescriptorTypes.put("portletPreferences", javax.portlet.PortletPreferences.class);
+		expectedElResolverFeatureDescriptorTypes.put("portletPreferences", jakarta.portlet.PortletPreferences.class);
 		expectedElResolverFeatureDescriptorTypes.put("portletPreferencesValues", Map.class);
 		expectedElResolverFeatureDescriptorTypes.put("mutablePortletPreferencesValues", Map.class);
 
@@ -396,11 +396,11 @@ public class Tests {
 					(PortletSession) externalContext.getSession(true));
 
 				// mutablePortletPreferencesValues: mutable Map of type Map<String,
-				// javax.portlet.faces.preference.Preference>.
+				// jakarta.portlet.faces.preference.Preference>.
 				testMutablePortletPreferencesValues(testBean, facesResolver, facesContext,
 					"mutablePortletPreferencesValues", ((PortletRequest) request).getPreferences().getMap());
 
-				// portletConfig -> object of type javax.portlet.PortletConfig
+				// portletConfig -> object of type jakarta.portlet.PortletConfig
 				testImplicitObject(testBean, facesResolver, facesContext, "portletConfig", portletConfig);
 
 				testDecoratedPortletConfig(testBean, portletConfig);
@@ -497,11 +497,11 @@ public class Tests {
 					(PortletSession) externalContext.getSession(true));
 
 				// mutablePortletPreferencesValues: mutable Map of type Map<String,
-				// javax.portlet.faces.preference.Preference>.
+				// jakarta.portlet.faces.preference.Preference>.
 				testMutablePortletPreferencesValues(testBean, facesResolver, facesContext,
 					"mutablePortletPreferencesValues", ((PortletRequest) request).getPreferences().getMap());
 
-				// portletConfig -> object of type javax.portlet.PortletConfig
+				// portletConfig -> object of type jakarta.portlet.PortletConfig
 				testImplicitObject(testBean, facesResolver, facesContext, "portletConfig", portletConfig);
 
 				testDecoratedPortletConfig(testBean, portletConfig);
@@ -521,22 +521,22 @@ public class Tests {
 				testImplicitObject(testBean, facesResolver, facesContext, "portletSessionScope",
 					externalContext.getSessionMap());
 
-				// renderRequest -> object of type javax.portlet.RenderRequest
+				// renderRequest -> object of type jakarta.portlet.RenderRequest
 				Object elRenderRequest = testImplicitObject(testBean, facesResolver, facesContext, "renderRequest",
 						request);
 
 				testDecoratedRenderRequest(testBean, elRenderRequest);
 
-				// renderResponse -> object of type javax.portlet.RenderResponse
+				// renderResponse -> object of type jakarta.portlet.RenderResponse
 				Object elRenderResponse = testImplicitObject(testBean, facesResolver, facesContext, "renderResponse",
 						externalContext.getResponse());
 
 				testDecoratedRenderResponse(testBean, elRenderResponse);
 
-				// headerRequest -> object of type javax.portlet.HeaderRequest
+				// headerRequest -> object of type jakarta.portlet.HeaderRequest
 				testImplicitObject(testBean, facesResolver, facesContext, "headerRequest", request);
 
-				// headerResponse -> object of type javax.portlet.HeaderResponse
+				// headerResponse -> object of type jakarta.portlet.HeaderResponse
 				Object elHeaderResponse = testImplicitObject(testBean, facesResolver, facesContext, "headerResponse",
 						response);
 

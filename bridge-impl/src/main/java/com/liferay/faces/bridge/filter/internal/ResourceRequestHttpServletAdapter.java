@@ -21,10 +21,10 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-import javax.portlet.PortletAsyncContext;
-import javax.portlet.ResourceParameters;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
+import jakarta.portlet.PortletAsyncContext;
+import jakarta.portlet.ResourceParameters;
+import jakarta.portlet.ResourceRequest;
+import jakarta.portlet.ResourceResponse;
 import jakarta.servlet.http.HttpServletRequest;
 
 

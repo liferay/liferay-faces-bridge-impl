@@ -17,9 +17,9 @@ package com.liferay.faces.bridge.tck.common.portlet;
 
 import java.io.IOException;
 
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.PortletException;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.PortletException;
 
 
 /**

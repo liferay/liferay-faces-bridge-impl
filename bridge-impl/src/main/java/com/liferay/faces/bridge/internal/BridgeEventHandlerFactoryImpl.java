@@ -17,9 +17,9 @@ package com.liferay.faces.bridge.internal;
 
 import java.io.Serializable;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.faces.BridgeEventHandler;
-import javax.portlet.faces.BridgeEventHandlerFactory;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.faces.BridgeEventHandler;
+import jakarta.portlet.faces.BridgeEventHandlerFactory;
 
 import com.liferay.faces.bridge.util.internal.TCCLUtil;
 import com.liferay.faces.util.logging.Logger;
@@ -43,7 +43,7 @@ public class BridgeEventHandlerFactoryImpl extends BridgeEventHandlerFactory imp
 		BridgeEventHandler bridgeEventHandler = null;
 
 		// TCK: initMethodTest
-		String bridgeEventHandlerClass = portletConfig.getInitParameter("javax.portlet.faces.bridgeEventHandler");
+		String bridgeEventHandlerClass = portletConfig.getInitParameter("jakarta.portlet.faces.bridgeEventHandler");
 
 		if (bridgeEventHandlerClass != null) {
 

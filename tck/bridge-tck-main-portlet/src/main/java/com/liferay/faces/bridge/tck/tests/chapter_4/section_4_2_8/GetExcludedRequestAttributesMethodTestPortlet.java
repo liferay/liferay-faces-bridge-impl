@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
 
 import com.liferay.faces.bridge.tck.common.portlet.NonRenderResponseCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
@@ -30,14 +30,14 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 /**
  * Checks that GenericFacesPortlet#getExcludedRequestAttributes method works as stated in section 4.2.8. - Excluded
  * request attributes are defined in a portlet initialisation parameter with name
- * javax.portlet.faces.excludedRequestAttributes and value one or more comma separated strings. This test confirms that
+ * jakarta.portlet.faces.excludedRequestAttributes and value one or more comma separated strings. This test confirms that
  * the method returns a list of string values based on parsing the initialisation parameter value.
  */
 public class GetExcludedRequestAttributesMethodTestPortlet extends NonRenderResponseCompatPortlet {
 
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";
-	private static String EXCLUDED_REQUEST_ATTRIBUTES_INIT_PARAM = "javax.portlet.faces.excludedRequestAttributes";
+	private static String EXCLUDED_REQUEST_ATTRIBUTES_INIT_PARAM = "jakarta.portlet.faces.excludedRequestAttributes";
 
 	public List<String> getExcludedRequestAttributes() {
 		List<String> returnList = super.getExcludedRequestAttributes();

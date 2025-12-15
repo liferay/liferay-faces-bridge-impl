@@ -18,13 +18,13 @@ package com.liferay.faces.bridge.application.internal;
 import java.util.Map;
 import java.util.Set;
 
-import javax.portlet.PortletMode;
-import javax.portlet.PortletModeException;
-import javax.portlet.PortletRequest;
-import javax.portlet.StateAwareResponse;
-import javax.portlet.WindowState;
-import javax.portlet.WindowStateException;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletModeException;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.StateAwareResponse;
+import jakarta.portlet.WindowState;
+import jakarta.portlet.WindowStateException;
+import jakarta.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 
@@ -37,8 +37,8 @@ public class BridgeNavigationUtil {
 	/**
 	 * Convenience method that applies the parameters found in the specified URL to the specified {@link
 	 * StateAwareResponse} by calling methods such as {@link
-	 * StateAwareResponse#setPortletMode(javax.portlet.PortletMode)} and {@link
-	 * StateAwareResponse#setWindowState(javax.portlet.WindowState)}, etc.
+	 * StateAwareResponse#setPortletMode(jakarta.portlet.PortletMode)} and {@link
+	 * StateAwareResponse#setWindowState(jakarta.portlet.WindowState)}, etc.
 	 */
 	public static void navigate(PortletRequest portletRequest, StateAwareResponse stateAwareResponse,
 		Map<String, String[]> parameterMap) throws PortletModeException, WindowStateException {
@@ -56,7 +56,7 @@ public class BridgeNavigationUtil {
 				firstParameterValue = parameterValues[0];
 			}
 
-			// If the URL contains the "javax.portlet.faces.PortletMode" parameter, then set the
+			// If the URL contains the "jakarta.portlet.faces.PortletMode" parameter, then set the
 			// PortletMode on the ActionResponse.
 			if (Bridge.PORTLET_MODE_PARAMETER.equals(parameterName)) {
 
@@ -68,7 +68,7 @@ public class BridgeNavigationUtil {
 				}
 			}
 
-			// Otherwise, if the URL contains the "javax.portlet.faces.WindowState" parameter, then
+			// Otherwise, if the URL contains the "jakarta.portlet.faces.WindowState" parameter, then
 			// set the WindowState on the ActionResponse.
 			else if (Bridge.PORTLET_WINDOWSTATE_PARAMETER.equals(parameterName)) {
 

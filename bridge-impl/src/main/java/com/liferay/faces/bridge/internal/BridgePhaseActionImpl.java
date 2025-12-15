@@ -15,17 +15,17 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletModeException;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
-import javax.portlet.faces.BridgeException;
-import javax.portlet.faces.filter.BridgePortletRequestFactory;
-import javax.portlet.faces.filter.BridgePortletResponseFactory;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletModeException;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeDefaultViewNotSpecifiedException;
+import jakarta.portlet.faces.BridgeException;
+import jakarta.portlet.faces.filter.BridgePortletRequestFactory;
+import jakarta.portlet.faces.filter.BridgePortletResponseFactory;
 
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.logging.Logger;
@@ -69,7 +69,7 @@ public class BridgePhaseActionImpl extends BridgePhaseCompat_2_2_Impl {
 			// PROPOSED-FOR-BRIDGE3-API: https://issues.apache.org/jira/browse/PORTLETBRIDGE-202
 			bridgeRequestScope.setPortletMode(actionRequest.getPortletMode());
 
-			// If the "javax.portlet.faces.PortletMode" request parameter has a value, then the developer probably
+			// If the "jakarta.portlet.faces.PortletMode" request parameter has a value, then the developer probably
 			// specified a URL like <h:outputLink value="portlet:render"> using f:param to set the request parameter
 			// for switching modes. This is one of the tests in the TCK.
 			String portletModeParam = actionRequest.getParameter(Bridge.PORTLET_MODE_PARAMETER);

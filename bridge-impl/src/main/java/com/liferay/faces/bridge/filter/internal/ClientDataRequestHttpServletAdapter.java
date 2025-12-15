@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
-import javax.portlet.ClientDataRequest;
-import javax.portlet.PortletException;
+import jakarta.portlet.ClientDataRequest;
+import jakarta.portlet.PortletException;
 import jakarta.servlet.http.Part;
 
 

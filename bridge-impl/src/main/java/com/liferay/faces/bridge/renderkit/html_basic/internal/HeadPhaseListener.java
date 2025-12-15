@@ -24,9 +24,9 @@ import jakarta.faces.context.Flash;
 import jakarta.faces.event.PhaseEvent;
 import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

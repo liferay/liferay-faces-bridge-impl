@@ -15,11 +15,11 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.filter.BridgePortletRequestFactory;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.filter.BridgePortletRequestFactory;
 
 
 /**

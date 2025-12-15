@@ -19,10 +19,10 @@ import java.util.Map;
 
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.lifecycle.ClientWindow;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletSession;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletSession;
 import jakarta.servlet.http.Cookie;
 
 import com.liferay.faces.util.config.ApplicationConfig;

@@ -22,7 +22,7 @@ import java.util.List;
 import jakarta.faces.bean.ApplicationScoped;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.PortletContext;
+import jakarta.portlet.PortletContext;
 import jakarta.servlet.ServletContext;
 
 import com.liferay.faces.demos.applicant.jsf.facelets.dto.Attachment;

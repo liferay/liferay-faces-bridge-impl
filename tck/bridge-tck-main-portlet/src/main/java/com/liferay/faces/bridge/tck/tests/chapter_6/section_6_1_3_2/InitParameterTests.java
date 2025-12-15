@@ -25,8 +25,8 @@ import jakarta.el.ELContext;
 import jakarta.el.ELResolver;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;

@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.portlet.EventResponse;
-import javax.portlet.filter.EventResponseWrapper;
+import jakarta.portlet.EventResponse;
+import jakarta.portlet.filter.EventResponseWrapper;
 
 
 /**

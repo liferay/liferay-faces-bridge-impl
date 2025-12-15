@@ -19,10 +19,10 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionURL;
-import javax.portlet.PortletURL;
-import javax.portlet.faces.component.PortletActionURL;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.ActionURL;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.faces.component.PortletActionURL;
 
 
 /**
@@ -30,7 +30,7 @@ import javax.portlet.faces.component.PortletActionURL;
  */
 
 //J-
-@FacesRenderer(componentFamily = PortletActionURL.COMPONENT_FAMILY, rendererType = "javax.portlet.faces.ActionURL")
+@FacesRenderer(componentFamily = PortletActionURL.COMPONENT_FAMILY, rendererType = "jakarta.portlet.faces.ActionURL")
 //J+
 public class ActionURLRenderer extends ActionURLRendererCompat {
 

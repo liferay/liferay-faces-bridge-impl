@@ -6,11 +6,11 @@
 	<description><![CDATA[The Liferay Faces Bridge facelet component tags with the <code>portlet:</code> tag name prefix. These tags are designed to conform as closely as possible to the Java Portlet Specification (JSR-286) section PLT.26.]]></description>
 	<namespace>http://xmlns.jcp.org/portlet_3_0</namespace>
 	<tag>
-		<description><![CDATA[Creates a URL that points to the current portlet and triggers an action request with the supplied parameters. If the <code>var</code> attribute is present, the <code>portlet:actionURL</code> tag introduces an EL variable that contains a <code>javax.portlet.ActionURL</code> adequate for postbacks. Otherwise, the URL is written to the response.]]></description>
+		<description><![CDATA[Creates a URL that points to the current portlet and triggers an action request with the supplied parameters. If the <code>var</code> attribute is present, the <code>portlet:actionURL</code> tag introduces an EL variable that contains a <code>jakarta.portlet.ActionURL</code> adequate for postbacks. Otherwise, the URL is written to the response.]]></description>
 		<tag-name>actionURL</tag-name>
 		<component>
-			<component-type>javax.portlet.faces.ActionURL</component-type>
-			<renderer-type>javax.portlet.faces.ActionURL</renderer-type>
+			<component-type>jakarta.portlet.faces.ActionURL</component-type>
+			<renderer-type>jakarta.portlet.faces.ActionURL</renderer-type>
 		</component>
 		<attribute>
 			<description><![CDATA[When true, copy the current request's render parameters to the URL. Defaults to false.]]></description>
@@ -63,8 +63,8 @@
 		<description><![CDATA[Creates a namespace that will be unique for the current portlet resources. If the <code>var</code> attribute is present, the <code>portlet:namespace</code> tag introduces an EL variable that contains the portlet namespace. Otherwise, the namespace is written to the response.]]></description>
 		<tag-name>namespace</tag-name>
 		<component>
-			<component-type>javax.portlet.faces.Namespace</component-type>
-			<renderer-type>javax.portlet.faces.Namespace</renderer-type>
+			<component-type>jakarta.portlet.faces.Namespace</component-type>
+			<renderer-type>jakarta.portlet.faces.Namespace</renderer-type>
 		</component>
 		<attribute>
 			<description><![CDATA[Introduces an EL variable that contains the portlet namespace.]]></description>
@@ -81,7 +81,7 @@
 		<description><![CDATA[The <code>portlet:param</code> tag provides the ability to add a request parameter name=value pair when nested inside a <code>portlet:actionURL</code>, a <code>portletRenderURL</code>, or a <code>portlet:resourceURL</code> tag.]]></description>
 		<tag-name>param</tag-name>
 		<component>
-			<component-type>javax.portlet.faces.Param</component-type>
+			<component-type>jakarta.portlet.faces.Param</component-type>
 		</component>
 		<attribute>
 			<description><![CDATA[The name of the parameter.]]></description>
@@ -110,7 +110,7 @@
 		<description><![CDATA[The <code>portlet:property</code> tag provides the ability to add a portlet property name=value pair when nested inside a <code>portlet:actionURL</code>, a <code>portletRenderURL</code>, or a <code>portlet:resourceURL</code> tag. Using <code>portlet:property</code> is equivalent to calling the <code>BaseURL.addProperty()</code> method.]]></description>
 		<tag-name>property</tag-name>
 		<component>
-			<component-type>javax.portlet.faces.Property</component-type>
+			<component-type>jakarta.portlet.faces.Property</component-type>
 		</component>
 		<attribute>
 			<description><![CDATA[The name of the portlet property.]]></description>
@@ -130,11 +130,11 @@
 		</tag-extension>
 	</tag>
 	<tag>
-		<description><![CDATA[Creates a URL that points to the current portlet and triggers a render request with the supplied parameters. If the <code>var</code> attribute is present, the <code>portlet:renderURL</code> tag introduces an EL variable that contains a <code>javax.portlet.PortletURL</code> adequate for rendering. Otherwise, the URL is written to the response.]]></description>
+		<description><![CDATA[Creates a URL that points to the current portlet and triggers a render request with the supplied parameters. If the <code>var</code> attribute is present, the <code>portlet:renderURL</code> tag introduces an EL variable that contains a <code>jakarta.portlet.PortletURL</code> adequate for rendering. Otherwise, the URL is written to the response.]]></description>
 		<tag-name>renderURL</tag-name>
 		<component>
-			<component-type>javax.portlet.faces.RenderURL</component-type>
-			<renderer-type>javax.portlet.faces.RenderURL</renderer-type>
+			<component-type>jakarta.portlet.faces.RenderURL</component-type>
+			<renderer-type>jakarta.portlet.faces.RenderURL</renderer-type>
 		</component>
 		<attribute>
 			<description><![CDATA[When true, copy the current request's render parameters to the URL. Defaults to false.]]></description>
@@ -178,11 +178,11 @@
 		</tag-extension>
 	</tag>
 	<tag>
-		<description><![CDATA[Creates a URL that points to the current portlet and triggers a resource request with the supplied parameters. If the <code>var</code> attribute is present, the <code>portlet:resourceURL</code> tag introduces an EL variable that contains a <code>javax.portlet.ResourceURL</code> adequate for obtaining resources. Otherwise, the URL is written to the response.]]></description>
+		<description><![CDATA[Creates a URL that points to the current portlet and triggers a resource request with the supplied parameters. If the <code>var</code> attribute is present, the <code>portlet:resourceURL</code> tag introduces an EL variable that contains a <code>jakarta.portlet.ResourceURL</code> adequate for obtaining resources. Otherwise, the URL is written to the response.]]></description>
 		<tag-name>resourceURL</tag-name>
 		<component>
-			<component-type>javax.portlet.faces.ResourceURL</component-type>
-			<renderer-type>javax.portlet.faces.ResourceURL</renderer-type>
+			<component-type>jakarta.portlet.faces.ResourceURL</component-type>
+			<renderer-type>jakarta.portlet.faces.ResourceURL</renderer-type>
 		</component>
 		<attribute>
 			<description><![CDATA[The cacheability of the resource returned by the resourceURL. Valid values include <code>ResourceURL.FULL</code>, <code>ResourceURL.PAGE</code>, and <code>ResourceURL.PORTLET</code>. Defaults to <code>ResourceURL.PAGE</code>.]]></description>

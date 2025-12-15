@@ -22,7 +22,7 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
 import jakarta.faces.render.FacesRenderer;
-import javax.portlet.faces.component.PortletNamespace;
+import jakarta.portlet.faces.component.PortletNamespace;
 
 
 /**
@@ -30,7 +30,7 @@ import javax.portlet.faces.component.PortletNamespace;
  */
 
 //J-
-@FacesRenderer(componentFamily = PortletNamespace.COMPONENT_FAMILY, rendererType = "javax.portlet.faces.Namespace")
+@FacesRenderer(componentFamily = PortletNamespace.COMPONENT_FAMILY, rendererType = "jakarta.portlet.faces.Namespace")
 //J+
 public class NamespaceRenderer extends NamespaceRendererBase {
 

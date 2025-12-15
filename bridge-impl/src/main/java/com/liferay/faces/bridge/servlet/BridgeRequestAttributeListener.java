@@ -19,10 +19,10 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 import jakarta.faces.context.FacesContext;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.Bridge.PortletPhase;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.annotation.BridgeRequestScopeAttributeAdded;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.Bridge.PortletPhase;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.annotation.BridgeRequestScopeAttributeAdded;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletRequestAttributeEvent;
 import jakarta.servlet.ServletRequestAttributeListener;

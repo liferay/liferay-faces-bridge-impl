@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_7;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.ResponseStateManager;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
@@ -79,11 +79,11 @@ public class Tests {
 
 			// Now see if isPostback returns true as it should
 			Boolean isPostback = (Boolean) facesContext.getExternalContext().getRequestMap().get(
-					"javax.portlet.faces.isPostback");
+					"jakarta.portlet.faces.isPostback");
 
 			if (isPostback == null) {
 				testBean.setTestResult(false,
-					"Didn't set the javax.portlet.faces.isPostback attribute in render request following an action (Postback).");
+					"Didn't set the jakarta.portlet.faces.isPostback attribute in render request following an action (Postback).");
 
 				return Constants.TEST_FAILED;
 			}
@@ -91,13 +91,13 @@ public class Tests {
 
 				if (isPostback.booleanValue()) {
 					testBean.setTestResult(true,
-						"Correctly set the javax.portlet.faces.isPostback attribute as TRUE in render request following an action (Postback).");
+						"Correctly set the jakarta.portlet.faces.isPostback attribute as TRUE in render request following an action (Postback).");
 
 					return Constants.TEST_SUCCESS;
 				}
 				else {
 					testBean.setTestResult(false,
-						"Incorrectly set the javax.portlet.faces.isPostback attribute as FALSE in render request following an action (Postback).");
+						"Incorrectly set the jakarta.portlet.faces.isPostback attribute as FALSE in render request following an action (Postback).");
 
 					return Constants.TEST_FAILED;
 				}

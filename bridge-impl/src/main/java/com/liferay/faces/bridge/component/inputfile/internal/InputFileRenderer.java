@@ -26,9 +26,9 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
 import jakarta.faces.render.FacesRenderer;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.BridgeFactoryFinder;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.BridgeFactoryFinder;
 
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;

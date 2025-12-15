@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.portlet.PortletMode;
+import jakarta.portlet.PortletMode;
 
 
 /**

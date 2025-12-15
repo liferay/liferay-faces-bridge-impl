@@ -23,12 +23,12 @@ import jakarta.faces.bean.ManagedBean;
 import jakarta.faces.bean.RequestScoped;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-import javax.portlet.WindowState;
-import javax.portlet.faces.preference.Preference;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.WindowState;
+import jakarta.portlet.faces.preference.Preference;
 
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 

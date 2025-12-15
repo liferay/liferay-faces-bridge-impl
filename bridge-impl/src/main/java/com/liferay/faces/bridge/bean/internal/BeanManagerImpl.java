@@ -28,7 +28,7 @@ import com.liferay.faces.util.config.ConfiguredManagedBean;
 public class BeanManagerImpl extends BeanManagerCompatImpl {
 
 	// Private Constants
-	private static final String JAVAX_PORTLET_P = "javax.portlet.p.";
+	private static final String JAVAX_PORTLET_P = "jakarta.portlet.p.";
 
 	// Private Data Members
 	private Map<String, ConfiguredManagedBean> configuredManagedBeanSet;
@@ -60,7 +60,7 @@ public class BeanManagerImpl extends BeanManagerCompatImpl {
 
 					// Section PLT.18.3 of the Portlet 2.0 Specification titled "Binding Attributes into a Session"
 					// requires that PortletSession attribute names be namespaced/prefixed with the
-					// "javax.portlet.p.<ID>?" pattern. In order to determine if the specified name is a SessionScoped
+					// "jakarta.portlet.p.<ID>?" pattern. In order to determine if the specified name is a SessionScoped
 					// managed-bean, it is necessary to first strip the pattern from it.
 					if (name.startsWith(JAVAX_PORTLET_P)) {
 						int pos = name.indexOf("?");

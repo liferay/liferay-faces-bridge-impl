@@ -20,14 +20,14 @@ import java.io.Writer;
 import java.util.List;
 
 import jakarta.faces.context.ExternalContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeException;
-import javax.portlet.faces.filter.BridgePortletRequestFactory;
-import javax.portlet.faces.filter.BridgePortletResponseFactory;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeException;
+import jakarta.portlet.faces.filter.BridgePortletRequestFactory;
+import jakarta.portlet.faces.filter.BridgePortletResponseFactory;
 
 import com.liferay.faces.bridge.context.internal.WriterOperation;
 

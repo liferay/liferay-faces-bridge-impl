@@ -18,10 +18,10 @@ package com.liferay.faces.bridge.tck.tests.chapter_3;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.portlet.GenericPortlet;
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import jakarta.portlet.GenericPortlet;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
 
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
@@ -46,7 +46,7 @@ public class BridgeVersionTestPortlet extends GenericPortlet {
 
 		// Get the version info from the Bridge class
 		try {
-			Class c = Class.forName("javax.portlet.faces.Bridge");
+			Class c = Class.forName("jakarta.portlet.faces.Bridge");
 
 			String name = c.getPackage().getSpecificationTitle();
 			String version = c.getPackage().getSpecificationVersion();
@@ -68,7 +68,7 @@ public class BridgeVersionTestPortlet extends GenericPortlet {
 		}
 		catch (ClassNotFoundException e) {
 			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
-			resultWriter.setDetail("javax.portlet.faces.Bridge class not found.");
+			resultWriter.setDetail("jakarta.portlet.faces.Bridge class not found.");
 		}
 
 		responsePrintWriter.println(resultWriter.toString());

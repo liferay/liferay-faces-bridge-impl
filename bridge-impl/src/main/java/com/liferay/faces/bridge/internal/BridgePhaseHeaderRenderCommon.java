@@ -29,16 +29,16 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PhaseEvent;
 import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;
-import javax.portlet.MimeResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletSession;
-import javax.portlet.RenderRequest;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeException;
-import javax.portlet.faces.BridgeInvalidViewPathException;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletSession;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeException;
+import jakarta.portlet.faces.BridgeInvalidViewPathException;
 
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandler;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandlerImpl;
@@ -334,7 +334,7 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 	}
 
 	/**
-	 * Sets the "javax.portlet.faces.viewIdHistory.<code>portletMode</code>" session attribute according to the
+	 * Sets the "jakarta.portlet.faces.viewIdHistory.<code>portletMode</code>" session attribute according to the
 	 * requirements in Section 5.4.3 of the Bridge Spec. There is no corresponding getter method, because the value is
 	 * meant to be retrieved by developers via an EL expression.
 	 *

@@ -17,9 +17,9 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1;
 
 import java.io.IOException;
 
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.PortletException;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.PortletException;
 
 import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 

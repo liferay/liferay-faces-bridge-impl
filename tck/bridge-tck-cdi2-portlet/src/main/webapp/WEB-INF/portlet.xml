@@ -8,7 +8,7 @@
 		<portlet-name>chapter7_2CDITests-cdiRequestScopedBeanExtensionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.CDIRequestScopedBeanExtensionTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -36,7 +36,7 @@
 		<portlet-name>chapter7_2CDITests-portletRequestScopedBeanExtensionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletRequestScopedBeanExtensionTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>

@@ -36,7 +36,7 @@
 		<portlet-name>chapter3Tests-renderPolicyTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -51,7 +51,7 @@
 		<portlet-name>chapter3Tests-lifecycleTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -66,11 +66,11 @@
 		<portlet-name>chapter3Tests-defaultRenderKitIdTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultRenderKitId</name>
+			<name>jakarta.portlet.faces.defaultRenderKitId</name>
 			<value>HTML_BASIC</value>
 		</init-param>
 		<init-param>
@@ -89,11 +89,11 @@
 		<portlet-name>chapter3Tests-modeViewIDTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/modeViewIdTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/modeViewIdResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -110,7 +110,7 @@
 		<portlet-name>chapter3Tests-actionDestroyTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_3.BridgeDestroyTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -125,7 +125,7 @@
 		<portlet-name>chapter3Tests-eventDestroyTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_3.BridgeDestroyTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -146,7 +146,7 @@
 		<portlet-name>chapter3Tests-renderDestroyTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_3.BridgeDestroyTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -161,7 +161,7 @@
 		<portlet-name>chapter3Tests-resourceDestroyTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_3.BridgeDestroyTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceDestroyTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -176,7 +176,7 @@
 		<portlet-name>chapter3Tests-doubleDestroyTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_3.BridgeDestroyTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -191,7 +191,7 @@
 		<portlet-name>chapter3Tests-portletSetsViewIdTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_3.PortletSetsViewTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/portletSetsViewIdTestFailed.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -206,7 +206,7 @@
 		<portlet-name>chapter3Tests-portletSetsViewPathTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_3.PortletSetsViewTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/portletSetsViewIdTestFailed.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -221,7 +221,7 @@
 		<portlet-name>chapter3Tests-nullRequestActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_3.BridgeDestroyTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -236,7 +236,7 @@
 		<portlet-name>chapter3Tests-nullRequestRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_3.BridgeDestroyTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -258,43 +258,43 @@
 		<portlet-name>chapter4_1Tests-portletInitializationParametersTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.help</name>
+			<name>jakarta.portlet.faces.defaultViewId.help</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.initializeNamespacedContextAttributes</name>
+			<name>jakarta.portlet.faces.initializeNamespacedContextAttributes</name>
 			<value>true</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.excludedRequestAttributes</name>
+			<name>jakarta.portlet.faces.excludedRequestAttributes</name>
 			<value>exclude1,exclude2</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.preserveActionParams</name>
+			<name>jakarta.portlet.faces.preserveActionParams</name>
 			<value>true</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.Ch5TestEventHandler</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgePublicRenderParameterHandler</name>
+			<name>jakarta.portlet.faces.bridgePublicRenderParameterHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_3.Tests</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.autoDispatchEvents</name>
+			<name>jakarta.portlet.faces.autoDispatchEvents</name>
 			<value>true</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultRenderKitId</name>
+			<name>jakarta.portlet.faces.defaultRenderKitId</name>
 			<value>HTML_BASIC</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -309,43 +309,43 @@
 		<portlet-name>chapter4_2_1Tests-initMethodTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_1.InitMethodTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.help</name>
+			<name>jakarta.portlet.faces.defaultViewId.help</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.initializeNamespacedContextAttributes</name>
+			<name>jakarta.portlet.faces.initializeNamespacedContextAttributes</name>
 			<value>true</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.excludedRequestAttributes</name>
+			<name>jakarta.portlet.faces.excludedRequestAttributes</name>
 			<value>exclude1,exclude2</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.preserveActionParams</name>
+			<name>jakarta.portlet.faces.preserveActionParams</name>
 			<value>true</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.Ch5TestEventHandler</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgePublicRenderParameterHandler</name>
+			<name>jakarta.portlet.faces.bridgePublicRenderParameterHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_3.Tests</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.autoDispatchEvents</name>
+			<name>jakarta.portlet.faces.autoDispatchEvents</name>
 			<value>true</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultRenderKitId</name>
+			<name>jakarta.portlet.faces.defaultRenderKitId</name>
 			<value>HTML_BASIC</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -360,11 +360,11 @@
 		<portlet-name>chapter4_2_5Tests-requestProcessingNonFacesTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.automaticNonFacesViewDispatching</name>
+			<name>jakarta.portlet.faces.automaticNonFacesViewDispatching</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -392,19 +392,19 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_7.GetDefaultViewIdMapMethodTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.help</name>
+			<name>jakarta.portlet.faces.defaultViewId.help</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.initializeNamespacedContextAttributes</name>
+			<name>jakarta.portlet.faces.initializeNamespacedContextAttributes</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -421,7 +421,7 @@
 			com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_8.GetExcludedRequestAttributesMethodTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.excludedRequestAttributes</name>
+			<name>jakarta.portlet.faces.excludedRequestAttributes</name>
 			<value>excludeListValue1,excludeListValue2</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -438,7 +438,7 @@
 			com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_8.GetExcludedRequestAttributesMethodTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.excludedRequestAttributes</name>
+			<name>jakarta.portlet.faces.excludedRequestAttributes</name>
 			<value>excludeSingleValue</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -468,7 +468,7 @@
 			com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_9.IsPreserveActionParametersMethodTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.preserveActionParams</name>
+			<name>jakarta.portlet.faces.preserveActionParams</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -485,7 +485,7 @@
 			com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_9.IsPreserveActionParametersMethodTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.preserveActionParams</name>
+			<name>jakarta.portlet.faces.preserveActionParams</name>
 			<value>false</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -514,7 +514,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_12.GetBridgeEventHandlerTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.Ch5TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -543,7 +543,7 @@
 			com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_13.GetBridgePublicRenderParameterHandlerTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.bridgePublicRenderParameterHandler</name>
+			<name>jakarta.portlet.faces.bridgePublicRenderParameterHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_3.Tests</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -572,11 +572,11 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_14.IsAutoDispatchEventsTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.autoDispatchEvents</name>
+			<name>jakarta.portlet.faces.autoDispatchEvents</name>
 			<value>false</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -598,7 +598,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_14.IsAutoDispatchEventsTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -620,7 +620,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_15.GetFacesBridgeMethodTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -643,7 +643,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_1_2.BridgeClearRequestScopePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/redisplayActionRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -669,7 +669,7 @@
 		<portlet-name>chapter5_1_2Tests-requestScopeRestartedOnActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -684,7 +684,7 @@
 		<portlet-name>chapter5_1_2Tests-requestNoScopeOnRedirectTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -699,11 +699,11 @@
 		<portlet-name>chapter5_1_2Tests-requestNoScopeOnModeChangeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -720,11 +720,11 @@
 		<portlet-name>chapter5_1_2Tests-requestPreserveActionParamsTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.preserveActionParams</name>
+			<name>jakarta.portlet.faces.preserveActionParams</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -739,11 +739,11 @@
 		<portlet-name>chapter5_1_2Tests-requestRenderIgnoresScopeViaCreateViewTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -760,12 +760,12 @@
 		<portlet-name>chapter5_1_2ScopeCommonTests-requestRenderRedisplayTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
 			<!-- FACES-3089: ACTION_ENABLED is false by default -->
-			<name>javax.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED</name>
+			<name>jakarta.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -781,11 +781,11 @@
 		<portlet-name>chapter5_1_2Tests-requestRedisplayOutOfScopeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -802,11 +802,11 @@
 		<portlet-name>chapter5_1_2Tests-excludedAttributesTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.excludedRequestAttributes</name>
+			<name>jakarta.portlet.faces.excludedRequestAttributes</name>
 			<value>com.liferay.faces.bridge.tck.WildcardPortletXmlTest.*,
 				com.liferay.faces.bridge.tck.ExcludeByPortletXmlRef
 			</value>
@@ -823,7 +823,7 @@
 		<portlet-name>chapter5_2Tests-verifyPortletObjectsTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -838,7 +838,7 @@
 		<portlet-name>chapter5_2Tests-verifyPortletPhaseTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -853,7 +853,7 @@
 		<portlet-name>chapter5_2Tests-portletSetsInvalidViewPathTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_3.PortletSetsViewTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/portletSetsViewIdTestFailed.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -868,7 +868,7 @@
 		<portlet-name>chapter5_2Tests-renderRedirectTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -883,11 +883,11 @@
 		<portlet-name>chapter5_2Tests-ignoreCurrentViewIdModeChangeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/redisplayRenderNewModeRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -905,11 +905,11 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ManualBridgeInvokePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/redisplayRenderNewModeRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED</name>
+			<name>jakarta.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -927,7 +927,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ManualBridgeInvokePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 			<!-- Test overrides and sets initial view explicitly in portlet -->
 		</init-param>
@@ -943,7 +943,7 @@
 		<portlet-name>chapter5_2Tests-viewIdWithParam_2_Test-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml?param1=testValue</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -958,7 +958,7 @@
 		<portlet-name>chapter5_2Tests-prpUpdatedFromActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -975,7 +975,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ManualBridgeInvokePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -991,7 +991,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ManualBridgeInvokePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1007,7 +1007,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ManualBridgeInvokePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1022,7 +1022,7 @@
 		<portlet-name>chapter5_2Tests-isPostbackTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1037,7 +1037,7 @@
 		<portlet-name>chapter5_2Tests-headerPhaseListenerTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1052,11 +1052,11 @@
 		<portlet-name>chapter5_2Tests-eventPhaseListenerTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.Ch5TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1077,11 +1077,11 @@
 		<portlet-name>chapter5_2Tests-eventScopeRestoredTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.Ch5TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1102,11 +1102,11 @@
 		<portlet-name>chapter5_2Tests-eventScopeNotRestoredRedirectTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.Ch5TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1127,15 +1127,15 @@
 		<portlet-name>chapter5_2Tests-eventScopeNotRestoredModeChangedTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.Ch5TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1158,11 +1158,11 @@
 		<portlet-name>chapter5_2Tests-eventControllerTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.Ch5TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1184,7 +1184,7 @@
 		<portlet-name>chapter5_2Tests-eventNoHandlerPRPPreservedTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1207,7 +1207,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ManualBridgeInvokePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1229,7 +1229,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ManualBridgeInvokePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1251,7 +1251,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ManualBridgeInvokePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1267,7 +1267,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ManualBridgeInvokePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1282,7 +1282,7 @@
 		<portlet-name>chapter5_2Tests-verifyResourcePhaseTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1297,11 +1297,11 @@
 		<portlet-name>chapter5_2Tests-nonFacesResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonFacesResourceTestStartPage.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.automaticResourceDispatching</name>
+			<name>jakarta.portlet.automaticResourceDispatching</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1316,7 +1316,7 @@
 		<portlet-name>chapter5_2Tests-scopeNotRestoredResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1331,12 +1331,12 @@
 		<portlet-name>chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/redisplayResourceAjaxResult.xhtml</value>
 		</init-param>
 		<init-param>
 			<!-- FACES-3089: AJAX_ENABLED is false by default -->
-			<name>javax.portlet.faces.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED</name>
+			<name>jakarta.portlet.faces.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1352,7 +1352,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ManualBridgeInvokePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1368,7 +1368,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.ManualBridgeInvokePortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1383,11 +1383,11 @@
 		<portlet-name>chapter5_3Tests-noViewStateParamOnModeChangeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1404,15 +1404,15 @@
 		<portlet-name>chapter5_3Tests-checkViewHistoryTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.help</name>
+			<name>jakarta.portlet.faces.defaultViewId.help</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1430,11 +1430,11 @@
 		<portlet-name>chapter5_3Tests-navigateToLastViewTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1451,7 +1451,7 @@
 		<portlet-name>chapter5_3Tests-processPRPInRestoreViewPhaseTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestPRPTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1468,11 +1468,11 @@
 		<portlet-name>chapter5_3Tests-prpModelUpdateTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestPRPTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgePublicRenderParameterHandler</name>
+			<name>jakarta.portlet.faces.bridgePublicRenderParameterHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_3.Tests</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1516,7 +1516,7 @@
 		<portlet-name>chapter6_1_1Tests-wrappedFacesContextTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1539,7 +1539,7 @@
 		<portlet-name>chapter6_1_3_1Tests-dispatchUsesForwardTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/dispatchTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1561,7 +1561,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLPoundCharTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1576,7 +1576,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLAbsoluteURLTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1591,7 +1591,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLDirectLinkTrueTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1606,7 +1606,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLDirectLinkFalseTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1621,11 +1621,11 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED</name>
+			<name>jakarta.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1640,11 +1640,11 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLPortletActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED</name>
+			<name>jakarta.portlet.faces.BRIDGE_REQUEST_SCOPE_ACTION_ENABLED</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1659,7 +1659,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLPortletResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1674,7 +1674,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1689,7 +1689,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1704,11 +1704,11 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1725,7 +1725,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1740,7 +1740,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1755,7 +1755,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1774,7 +1774,7 @@
         <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
         <expiration-cache>0</expiration-cache>
@@ -1792,7 +1792,7 @@
         <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
         <expiration-cache>0</expiration-cache>
@@ -1809,7 +1809,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1825,7 +1825,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1841,11 +1841,11 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1863,7 +1863,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1879,7 +1879,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1896,7 +1896,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1912,7 +1912,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1928,7 +1928,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1944,11 +1944,11 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1966,7 +1966,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1982,7 +1982,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -1999,7 +1999,7 @@
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.NonFacesViewTestPortlet
 		</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/nonJSFViewResourceTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2014,11 +2014,11 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2039,11 +2039,11 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2064,15 +2064,15 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2095,11 +2095,11 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2120,11 +2120,11 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2145,11 +2145,11 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2176,12 +2176,12 @@
         <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
         
         <init-param>
-          <name>javax.portlet.faces.bridgeEventHandler</name>
+          <name>jakarta.portlet.faces.bridgeEventHandler</name>
           <value>Ch6TestEventHandler</value>
         </init-param>
         <expiration-cache>0</expiration-cache>
@@ -2205,12 +2205,12 @@
         <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
         
         <init-param>
-          <name>javax.portlet.faces.bridgeEventHandler</name>
+          <name>jakarta.portlet.faces.bridgeEventHandler</name>
           <value>Ch6TestEventHandler</value>
         </init-param>
         <expiration-cache>0</expiration-cache>
@@ -2232,7 +2232,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLJSFViewRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2247,7 +2247,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithParamRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2262,11 +2262,11 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithModeRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.ActionURLWithModePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/tests/multiRequestTestResultRenderCheck.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2283,7 +2283,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidModeRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2298,7 +2298,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithWindowStateRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2313,7 +2313,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLTests-encodeActionURLWithInvalidWindowStateRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2333,7 +2333,7 @@
         <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2350,7 +2350,7 @@
         <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2365,7 +2365,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLJSFViewResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceActionRenderTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2380,7 +2380,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithParamResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2395,7 +2395,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithModeResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2410,7 +2410,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidModeResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2425,7 +2425,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithWindowStateResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2440,7 +2440,7 @@
 		<portlet-name>chapter6_1_3_1EncodeActionURLResourceTests-encodeActionURLWithInvalidWindowStateResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2461,7 +2461,7 @@
         <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
         <expiration-cache>0</expiration-cache>
@@ -2478,7 +2478,7 @@
         <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2493,7 +2493,7 @@
 		<portlet-name>chapter6_1_3_1EncodePartialActionURLTests-encodePartialActionURLTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2508,7 +2508,7 @@
 		<portlet-name>chapter6_1_3_1EncodeURLEscapingTests-encodeURLEscapingTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2530,7 +2530,7 @@
 		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLOpaqueTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2545,7 +2545,7 @@
 		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLForeignExternalURLTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2560,7 +2560,7 @@
 		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLForeignExternalURLBackLinkTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2575,7 +2575,7 @@
 		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLRelativeURLTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2590,7 +2590,7 @@
 		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLRelativeURLBackLinkTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2605,7 +2605,7 @@
 		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2620,7 +2620,7 @@
 		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLBackLinkTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2635,7 +2635,7 @@
 		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLViewLinkTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2650,7 +2650,7 @@
 		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLViewLinkWithBackLinkTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2665,7 +2665,7 @@
 		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLWithModeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2680,7 +2680,7 @@
 		<portlet-name>chapter6_1_3_1EncodeResourceURLTests-encodeResourceURLWithWindowStateTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2701,7 +2701,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getSetRequestObjectTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2723,7 +2723,7 @@
 		<portlet-name>chapter6_1_3_1Tests-setRequestCharacterEncodingRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2738,7 +2738,7 @@
 		<portlet-name>chapter6_1_3_1Tests-setRequestCharacterEncodingActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2760,7 +2760,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestHeaderMapRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2775,11 +2775,11 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestHeaderMapEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2800,7 +2800,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestHeaderMapActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2815,7 +2815,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestHeaderMapResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2836,7 +2836,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestHeaderValuesMapRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2851,11 +2851,11 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestHeaderValuesMapEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2876,7 +2876,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestHeaderValuesMapActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2891,7 +2891,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestHeaderValuesMapResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2912,7 +2912,7 @@
 		<portlet-name>chapter6_1_3_1Tests-requestMapCoreTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2927,11 +2927,11 @@
 		<portlet-name>chapter6_1_3_1Tests-requestMapRequestScopeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.excludedRequestAttributes</name>
+			<name>jakarta.portlet.faces.excludedRequestAttributes</name>
 			<value>myExcludedNamespace.*, myExcludedKey</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2955,7 +2955,7 @@
         <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2977,7 +2977,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestParameterMapCoreTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -2992,11 +2992,11 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestParameterPreserveParamsTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.preserveActionParams</name>
+			<name>jakarta.portlet.faces.preserveActionParams</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3011,7 +3011,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestParameterDefaultViewParamsTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3033,7 +3033,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestParameterNamesCoreTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3048,11 +3048,11 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestParameterNamesPreserveParamsTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.preserveActionParams</name>
+			<name>jakarta.portlet.faces.preserveActionParams</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3067,7 +3067,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestParameterNamesDefaultViewParamsTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3089,7 +3089,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestPathInfoTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3104,7 +3104,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestServletPathTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3127,7 +3127,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestCharacterEncodingRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3142,11 +3142,11 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestCharacterEncodingEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3167,7 +3167,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestCharacterEncodingActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3182,7 +3182,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestCharacterEncodingResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3197,7 +3197,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestContentTypeRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3212,7 +3212,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestContentTypeActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3227,11 +3227,11 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestContentTypeEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3252,7 +3252,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getRequestContentTypeResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3267,7 +3267,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getResponseCharacterEncodingRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3282,7 +3282,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getResponseCharacterEncodingActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3297,11 +3297,11 @@
 		<portlet-name>chapter6_1_3_1Tests-getResponseCharacterEncodingEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3322,7 +3322,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getResponseCharacterEncodingResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3337,7 +3337,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getResponseContentTypeRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml?field1=value1&amp;field2=value2</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3352,7 +3352,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getResponseContentTypeActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3367,11 +3367,11 @@
 		<portlet-name>chapter6_1_3_1Tests-getResponseContentTypeEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3392,7 +3392,7 @@
 		<portlet-name>chapter6_1_3_1Tests-getResponseContentTypeResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceRequestTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3416,7 +3416,7 @@
 		<portlet-name>chapter6_1_3_1Tests-redirectActionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3431,11 +3431,11 @@
 		<portlet-name>chapter6_1_3_1Tests-redirectEventTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1.Ch6TestEventHandler</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3456,7 +3456,7 @@
 		<portlet-name>chapter6_1_3_1Tests-redirectRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3471,7 +3471,7 @@
 		<portlet-name>chapter6_1_3_1Tests-redirectRenderPRP1Test-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3487,7 +3487,7 @@
 		<portlet-name>chapter6_1_3_1Tests-redirectRenderPRP2Test-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3503,7 +3503,7 @@
 		<portlet-name>chapter6_1_3_1Tests-illegalRedirectRenderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3526,7 +3526,7 @@
 		<portlet-name>chapter6_1_3_2Tests-encodeNamespaceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3541,7 +3541,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getApplicationMapTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3556,7 +3556,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getAuthTypeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3571,7 +3571,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getContextTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3586,7 +3586,7 @@
 		<portlet-name>chapter6_1_3_2InitParameterTests-getInitParameterTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
@@ -3605,7 +3605,7 @@
 		<portlet-name>chapter6_1_3_2InitParameterTests-getInitParameterMapTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
@@ -3624,7 +3624,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getRemoteUserTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3639,7 +3639,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getRequestContextPathTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3654,7 +3654,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getRequestCookieMapTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3669,7 +3669,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getRequestLocaleTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3684,7 +3684,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getRequestLocalesTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3699,7 +3699,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getResourceTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3714,7 +3714,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getResourceAsStreamTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3729,7 +3729,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getResourcePathsTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3744,7 +3744,7 @@
 		<portlet-name>chapter6_1_3_2Tests-setResponseCharacterEncodingTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3759,7 +3759,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getSessionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3774,7 +3774,7 @@
 		<portlet-name>chapter6_1_3_2Tests-getSessionMapTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3798,7 +3798,7 @@
         <portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
         
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param> 
 		<expiration-cache>0</expiration-cache>
@@ -3813,7 +3813,7 @@
 		<portlet-name>chapter6_1_3_3Tests-addResponseCookieTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3828,7 +3828,7 @@
 		<portlet-name>chapter6_1_3_3Tests-addResponseHeaderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxHeaderResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3843,7 +3843,7 @@
 		<portlet-name>chapter6_1_3_3Tests-getMimeTypeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3858,7 +3858,7 @@
 		<portlet-name>chapter6_1_3_3Tests-getRequestSchemeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3873,7 +3873,7 @@
 		<portlet-name>chapter6_1_3_3Tests-getRequestServerNameTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3888,7 +3888,7 @@
 		<portlet-name>chapter6_1_3_3Tests-getRequestServerPortTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3903,7 +3903,7 @@
 		<portlet-name>chapter6_1_3_3Tests-getRealPathTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3918,7 +3918,7 @@
 		<portlet-name>chapter6_1_3_3Tests-getRequestContentLengthTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3933,7 +3933,7 @@
 		<portlet-name>chapter6_1_3_3Tests-invalidateSessionTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3948,7 +3948,7 @@
 		<portlet-name>chapter6_1_3_3Tests-responseFlushBufferTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxHeaderResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3963,7 +3963,7 @@
 		<portlet-name>chapter6_1_3_3Tests-responseResetTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxHeaderResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3978,7 +3978,7 @@
 		<portlet-name>chapter6_1_3_3Tests-setResponseHeaderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxHeaderResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -3993,7 +3993,7 @@
 		<portlet-name>chapter6_1_3_3Tests-setResponseStatusTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4008,7 +4008,7 @@
 		<portlet-name>chapter6_1_3_4Tests-getSessionMaxInactiveIntervalTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4023,7 +4023,7 @@
 		<portlet-name>chapter6_1_3_4Tests-isSecureTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4038,7 +4038,7 @@
 		<portlet-name>chapter6_1_3_4Tests-setSessionMaxInactiveIntervalTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4053,7 +4053,7 @@
 		<portlet-name>chapter6_1_3_5Tests-getApplicationContextPathTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4068,7 +4068,7 @@
 		<portlet-name>chapter6_1_3_5Tests-getSessionIdTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4083,7 +4083,7 @@
 		<portlet-name>chapter6_1_3_6Tests-clientWindowTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4105,7 +4105,7 @@
 		<portlet-name>chapter6_2_1Tests-isPortletNamingContainerTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4120,7 +4120,7 @@
 		<portlet-name>chapter6_2_1Tests-hasRenderContentAfterViewAttributeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestAfterContentTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4135,7 +4135,7 @@
 		<portlet-name>chapter6_2_1Tests-renderContentAfterViewTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestAfterContentTest.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4150,7 +4150,7 @@
 		<portlet-name>chapter6_2_1Tests-implementsBridgeWriteBehindResponseTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4172,11 +4172,11 @@
 		<portlet-name>chapter6_5_1Tests-JSF_ELTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestFormDataTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.preserveActionParams</name>
+			<name>jakarta.portlet.faces.preserveActionParams</name>
 			<value>true</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4203,7 +4203,7 @@
 		<portlet-name>chapter6_5_1Tests-JSP_ELTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/chapter6_5.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4237,7 +4237,7 @@
 		<portlet-name>chapter6_6Tests-portletNamingContainerClientIdTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4252,7 +4252,7 @@
 		<portlet-name>chapter6_6Tests-portletNamingContainerClientIdConsistentTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4267,7 +4267,7 @@
 		<portlet-name>chapter6_6Tests-portletNamingContainerUIViewRootTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4282,7 +4282,7 @@
 		<portlet-name>chapter6_6Tests-portletNamingContainerUIViewRootClientIdTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4297,7 +4297,7 @@
 		<portlet-name>chapter6_7Tests-restoredViewStateParameterTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4312,7 +4312,7 @@
 		<portlet-name>chapter6_7Tests-setsIsPostbackAttributeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4327,11 +4327,11 @@
 		<portlet-name>chapter6_9Tests-usesConfiguredRenderKitTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultRenderKitId</name>
+			<name>jakarta.portlet.faces.defaultRenderKitId</name>
 			<value>TestRenderKit</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4346,7 +4346,7 @@
 		<portlet-name>chapter5_2Tests-resourcesRenderedInHeadTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourcesRenderedInHeadTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4361,7 +4361,7 @@
 		<portlet-name>chapter5_2Tests-markupRenderedInRenderPhaseTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.MarkupRenderedInRenderPhasePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/markupRenderedInRenderPhaseTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4376,7 +4376,7 @@
 		<portlet-name>chapter8_8Tests-bridgeFactoryFinderTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4391,7 +4391,7 @@
 		<portlet-name>chapter9_1Tests-body1Test-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -4406,7 +4406,7 @@
 		<portlet-name>chapter9_1Tests-body2Test-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/resourceAjaxBodyResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>

@@ -28,7 +28,7 @@ import java.util.Set;
 
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.ResponseWriter;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.internal.BridgeURLBaseCompat;
 import com.liferay.faces.util.logging.Logger;

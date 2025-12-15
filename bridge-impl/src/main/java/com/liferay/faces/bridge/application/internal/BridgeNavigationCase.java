@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Map;
 
 import jakarta.faces.application.NavigationCase;
-import javax.portlet.PortletMode;
-import javax.portlet.WindowState;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.WindowState;
+import jakarta.portlet.faces.Bridge;
 
 
 /**

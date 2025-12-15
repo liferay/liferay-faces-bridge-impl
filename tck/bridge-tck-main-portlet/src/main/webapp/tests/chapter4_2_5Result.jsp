@@ -24,9 +24,9 @@
 	String contentType = renderResponse.getContentType();
 	String contentTypeMsg = "Expected response content type is " + renderRequest.getResponseContentType() + ", actual value is " + contentType + ".  ";
 
-	String[] dispatcherAttributes = {"javax.portlet.config",
-		"javax.portlet.request",
-		"javax.portlet.response"};
+	String[] dispatcherAttributes = {"jakarta.portlet.config",
+		"jakarta.portlet.request",
+		"jakarta.portlet.response"};
 
 	boolean dispatcherPass = true;
 	for (String attr : dispatcherAttributes) {

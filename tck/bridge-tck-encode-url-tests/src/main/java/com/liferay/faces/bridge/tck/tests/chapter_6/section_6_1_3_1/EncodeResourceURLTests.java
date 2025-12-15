@@ -20,12 +20,12 @@ import java.io.UnsupportedEncodingException;
 import jakarta.faces.application.ViewHandler;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.WindowState;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.WindowState;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
@@ -44,7 +44,7 @@ public class EncodeResourceURLTests {
 	public String encodeResourceURLBackLinkTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		final String URL_BACKLINK_TEST_STRING = "/resources/myImage.jpg?javax.portlet.faces.BackLink=myBackLinkParam";
+		final String URL_BACKLINK_TEST_STRING = "/resources/myImage.jpg?jakarta.portlet.faces.BackLink=myBackLinkParam";
 		final String URL_BACKLINK_VERIFY_STRING = "/resources/myImage.jpg?myBackLinkParam=";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -91,7 +91,7 @@ public class EncodeResourceURLTests {
 		testBean.setTestComplete(true);
 
 		final String FOREIGNEXTERNALURL_BACKLINK_TEST_STRING =
-			"http://www.apache.org?javax.portlet.faces.BackLink=myBackLinkParam";
+			"http://www.apache.org?jakarta.portlet.faces.BackLink=myBackLinkParam";
 		final String FOREIGNEXTERNALURL_BACKLINK_VERIFY_STRING = "http://www.apache.org?myBackLinkParam=";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -193,7 +193,7 @@ public class EncodeResourceURLTests {
 		testBean.setTestComplete(true);
 
 		final String RELATIVEURL_BACKLINK_TEST_STRING =
-			"../resources/myImage.jpg?javax.portlet.faces.BackLink=myBackLinkParam";
+			"../resources/myImage.jpg?jakarta.portlet.faces.BackLink=myBackLinkParam";
 		final String RELATIVEURL_BACKLINK_VERIFY_STRING = "/resources/myImage.jpg?myBackLinkParam=";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -298,7 +298,7 @@ public class EncodeResourceURLTests {
 
 		// assume web.xml does Faces suffix mapping of .jsf to .jsp
 		final String URL_VIEWLINK_TEST_STRING =
-			"/tests/viewLink.jsf?javax.portlet.faces.ViewLink=true&param1=testValue";
+			"/tests/viewLink.jsf?jakarta.portlet.faces.ViewLink=true&param1=testValue";
 		final String URL_VIEWLINK_VERIFY_STRING = "/tests/viewLink.jsf?param1=testValue";
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -330,7 +330,7 @@ public class EncodeResourceURLTests {
 		testBean.setTestComplete(true);
 
 		final String URL_VIEWLINK_BACKLINK_TEST_STRING =
-			"/tests/viewLink.jsf?javax.portlet.faces.ViewLink=true&param1=testValue&javax.portlet.faces.BackLink=myBackLinkParam";
+			"/tests/viewLink.jsf?jakarta.portlet.faces.ViewLink=true&param1=testValue&jakarta.portlet.faces.BackLink=myBackLinkParam";
 		final String URL_VIEWLINK_BACKLINK_VERIFY_STRING = "/tests/viewLink.jsf?param1=testValue&myBackLinkParam=";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();

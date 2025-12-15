@@ -21,14 +21,14 @@ import java.util.Map;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.ResponseStateManager;
-import javax.portlet.MimeResponse;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
-import javax.portlet.StateAwareResponse;
-import javax.portlet.WindowState;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.StateAwareResponse;
+import jakarta.portlet.WindowState;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeUtil;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
@@ -74,21 +74,21 @@ public class EncodeActionURLTests {
 		testBean.setTestComplete(true);
 
 		final String DIRECTLINK_FALSE_TEST_STRING =
-			"/test.jsp?firstParam=value&javax.portlet.faces.DirectLink=false&anotherParam=value";
+			"/test.jsp?firstParam=value&jakarta.portlet.faces.DirectLink=false&anotherParam=value";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 
 		String testString = externalContext.getRequestContextPath() + DIRECTLINK_FALSE_TEST_STRING;
 
-		if (!externalContext.encodeActionURL(testString).contains("javax.portlet.faces.DirectLink")) {
+		if (!externalContext.encodeActionURL(testString).contains("jakarta.portlet.faces.DirectLink")) {
 			testBean.setTestResult(true,
-				"encodeActionURL correctly returned an url string without the javax.portlet.faces.DirectLink parameter when its value was false.");
+				"encodeActionURL correctly returned an url string without the jakarta.portlet.faces.DirectLink parameter when its value was false.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"encodeActionURL didn't return an url string without the javax.portlet.faces.DirectLink parameter when its value was false.  Test parameter: " +
+				"encodeActionURL didn't return an url string without the jakarta.portlet.faces.DirectLink parameter when its value was false.  Test parameter: " +
 				testString + " and encodeActionURL returned: " + externalContext.encodeActionURL(testString));
 
 			return Constants.TEST_FAILED;
@@ -102,7 +102,7 @@ public class EncodeActionURLTests {
 		testBean.setTestComplete(true);
 
 		final String DIRECTLINK_TRUE_TEST_STRING =
-			"/test.jsp?firstParam=value&javax.portlet.faces.DirectLink=true&anotherParam=value";
+			"/test.jsp?firstParam=value&jakarta.portlet.faces.DirectLink=true&anotherParam=value";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
@@ -114,13 +114,13 @@ public class EncodeActionURLTests {
 
 		if (externalContext.encodeActionURL(testString).equalsIgnoreCase(absoluteURL)) {
 			testBean.setTestResult(true,
-				"encodeActionURL correctly returned an absolute URL representing the DirectLink url and it correctly contains the javax.portlet.faces.DirectLink parameter with a value of true.");
+				"encodeActionURL correctly returned an absolute URL representing the DirectLink url and it correctly contains the jakarta.portlet.faces.DirectLink parameter with a value of true.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"encodeActionURL didn't return an absolute URL representing the DirectLink url or it didn't contain the javax.portlet.faces.DirectLink parameter with a value of true.  Expected: " +
+				"encodeActionURL didn't return an absolute URL representing the DirectLink url or it didn't contain the jakarta.portlet.faces.DirectLink parameter with a value of true.  Expected: " +
 				absoluteURL + " and encodeActionURL returned: " + externalContext.encodeActionURL(testString));
 
 			return Constants.TEST_FAILED;

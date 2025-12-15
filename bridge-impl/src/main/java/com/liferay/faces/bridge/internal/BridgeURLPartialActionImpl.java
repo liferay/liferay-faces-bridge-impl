@@ -22,10 +22,10 @@ import java.util.Map;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.ResponseStateManager;
-import javax.portlet.BaseURL;
-import javax.portlet.PortletConfig;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfig;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

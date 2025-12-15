@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.internal;
 
 import java.util.Set;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.faces.Bridge;
 
 import com.liferay.faces.util.config.ConfigParam;
 import com.liferay.faces.util.config.WebConfigParam;
@@ -42,7 +42,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 
 	/**
 	 * Flag indicating whether or not the bridge should manage BridgeRequestScope during the RESOURCE_PHASE of the
-	 * portlet lifecycle when the {@link javax.portlet.faces.Bridge#FACES_AJAX_PARAMETER} resource request parameter is
+	 * portlet lifecycle when the {@link jakarta.portlet.faces.Bridge#FACES_AJAX_PARAMETER} resource request parameter is
 	 * "true". Default value is false.
 	 */
 	BridgeRequestScopeAjaxEnabled(false, Bridge.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED,
@@ -78,7 +78,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	ContainerAbleToSetHttpStatusCode(false, "com.liferay.faces.bridge.containerAbleToSetHttpStatusCode",
 		"org.portletfaces.bridge.containerAbleToSetHttpStatusCode"),
 
-	DefaultRenderKitId(null, "javax.portlet.faces.defaultRenderKitId"),
+	DefaultRenderKitId(null, "jakarta.portlet.faces.defaultRenderKitId"),
 
 	/**
 	 * Flag indicating whether or not the bridge should manage incongruities between the JSF lifecycle and the Portlet
@@ -93,8 +93,8 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	 */
 	PreferPreDestroy(true, "com.liferay.faces.bridge.preferPreDestroy", "org.portletfaces.bridge.preferPreDestroy"),
 
-	/** Flag indicating the value of the "javax.portlet.faces.preserveActionParams" init-param. The default is false. */
-	PreserveActionParams(false, "javax.portlet.faces.preserveActionParams"),
+	/** Flag indicating the value of the "jakarta.portlet.faces.preserveActionParams" init-param. The default is false. */
+	PreserveActionParams(false, "jakarta.portlet.faces.preserveActionParams"),
 
 	/**
 	 * Flag indicating whether or not the render-redirect standard feature is enabled. Default value is false for the

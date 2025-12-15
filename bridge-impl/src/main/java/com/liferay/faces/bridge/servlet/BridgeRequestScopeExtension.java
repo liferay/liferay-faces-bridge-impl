@@ -29,8 +29,8 @@ import jakarta.enterprise.inject.spi.AnnotatedMethod;
 import jakarta.enterprise.inject.spi.AnnotatedType;
 import jakarta.enterprise.inject.spi.Extension;
 import jakarta.enterprise.inject.spi.ProcessAnnotatedType;
-import javax.portlet.annotations.PortletRequestScoped;
-import javax.portlet.faces.annotation.BridgeRequestScoped;
+import jakarta.portlet.annotations.PortletRequestScoped;
+import jakarta.portlet.faces.annotation.BridgeRequestScoped;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

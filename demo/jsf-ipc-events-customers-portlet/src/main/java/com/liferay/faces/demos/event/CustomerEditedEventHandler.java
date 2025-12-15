@@ -18,9 +18,9 @@ package com.liferay.faces.demos.event;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.Event;
-import javax.portlet.faces.BridgeEventHandler;
-import javax.portlet.faces.event.EventNavigationResult;
+import jakarta.portlet.Event;
+import jakarta.portlet.faces.BridgeEventHandler;
+import jakarta.portlet.faces.event.EventNavigationResult;
 
 import com.liferay.faces.demos.dto.Customer;
 import com.liferay.faces.demos.service.CustomerService;

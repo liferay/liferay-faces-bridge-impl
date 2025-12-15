@@ -16,7 +16,7 @@
 package com.liferay.faces.bridge.scope.internal;
 
 import jakarta.faces.FacesWrapper;
-import javax.portlet.PortletConfig;
+import jakarta.portlet.PortletConfig;
 import jakarta.servlet.http.HttpSession;
 
 

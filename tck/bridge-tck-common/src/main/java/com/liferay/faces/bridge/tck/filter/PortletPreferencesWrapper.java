@@ -20,10 +20,10 @@ import java.util.Enumeration;
 import java.util.Map;
 
 import jakarta.faces.FacesWrapper;
-import javax.portlet.Portlet;
-import javax.portlet.PortletPreferences;
-import javax.portlet.ReadOnlyException;
-import javax.portlet.ValidatorException;
+import jakarta.portlet.Portlet;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.ReadOnlyException;
+import jakarta.portlet.ValidatorException;
 
 
 /**

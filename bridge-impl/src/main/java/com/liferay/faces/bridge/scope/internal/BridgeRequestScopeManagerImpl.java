@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.portlet.PortletConfig;
+import jakarta.portlet.PortletConfig;
 import jakarta.servlet.http.HttpSession;
 
 import com.liferay.faces.bridge.servlet.BridgeSessionListener;

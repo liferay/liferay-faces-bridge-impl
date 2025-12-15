@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.portlet.WindowState;
+import jakarta.portlet.WindowState;
 
 
 /**

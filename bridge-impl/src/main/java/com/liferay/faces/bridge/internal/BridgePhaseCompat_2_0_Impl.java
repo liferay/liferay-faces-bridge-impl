@@ -26,11 +26,11 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ExceptionQueuedEvent;
 import jakarta.faces.event.ExceptionQueuedEventContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeException;
-import javax.portlet.faces.BridgeInvalidViewPathException;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeException;
+import jakarta.portlet.faces.BridgeInvalidViewPathException;
 
 import com.liferay.faces.bridge.renderkit.html_basic.internal.HeadManagedBean;
 

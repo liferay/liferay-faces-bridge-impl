@@ -25,17 +25,17 @@ import java.util.Set;
 
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.PortalContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletSession;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.RequestAttributeInspector;
-import javax.portlet.faces.annotation.ExcludeFromManagedRequestScope;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletSession;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.RequestAttributeInspector;
+import jakarta.portlet.faces.annotation.ExcludeFromManagedRequestScope;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletRequest;
@@ -59,8 +59,8 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 
 	// Private Constants for EXCLUDED namespaces listed in Section 5.1.2 of the JSR 329 Spec
 	private static final String EXCLUDED_NAMESPACE_JAVAX_FACES = "jakarta.faces";
-	private static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET = "javax.portlet";
-	private static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET_FACES = "javax.portlet.faces";
+	private static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET = "jakarta.portlet";
+	private static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET_FACES = "jakarta.portlet.faces";
 	private static final String EXCLUCED_NAMESPACE_JAVAX_SERVLET = "jakarta.servlet";
 	private static final String EXCLUCED_NAMESPACE_JAVAX_SERVLET_INCLUDE = "javax.servlet.include";
 

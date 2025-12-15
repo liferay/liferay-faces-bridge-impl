@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.portlet.RenderParameters;
-import javax.portlet.filter.RenderParametersWrapper;
+import jakarta.portlet.RenderParameters;
+import jakarta.portlet.filter.RenderParametersWrapper;
 
 
 /**

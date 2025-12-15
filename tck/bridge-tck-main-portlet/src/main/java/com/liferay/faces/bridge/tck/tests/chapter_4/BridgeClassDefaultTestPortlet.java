@@ -18,17 +18,17 @@ package com.liferay.faces.bridge.tck.tests.chapter_4;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.faces.GenericFacesPortlet;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.faces.GenericFacesPortlet;
 
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
 /**
  * Checks that a bridge implementation class name has been picked up from either: - A portlet context attribute,
- * javax.portlet.faces.BridgeClassName - the resource META-INF/services/javax.portlet.faces.Bridge (default) bridge
+ * jakarta.portlet.faces.BridgeClassName - the resource META-INF/services/jakarta.portlet.faces.Bridge (default) bridge
  * implementation jar.
  */
 public class BridgeClassDefaultTestPortlet extends GenericFacesPortlet {

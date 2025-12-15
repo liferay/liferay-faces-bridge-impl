@@ -102,7 +102,7 @@ limitations under the License.
 		<page-resource>
 			<identifier>
 				<name>PortletHub</name>
-				<scope>javax.portlet</scope>
+				<scope>jakarta.portlet</scope>
 				<version>3.0.0</version>
 			</identifier>
 			<source type="script">/javascript/portletHub.js</source>

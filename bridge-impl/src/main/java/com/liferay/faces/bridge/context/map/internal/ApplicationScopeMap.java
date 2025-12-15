@@ -20,8 +20,8 @@ import java.util.Map;
 import java.util.Set;
 
 import jakarta.faces.context.ExternalContext;
-import javax.portlet.PortletContext;
-import javax.portlet.faces.BridgeFactoryFinder;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.faces.BridgeFactoryFinder;
 
 import com.liferay.faces.bridge.bean.BeanManager;
 import com.liferay.faces.bridge.bean.BeanManagerFactory;

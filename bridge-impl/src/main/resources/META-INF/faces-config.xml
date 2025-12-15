@@ -47,28 +47,28 @@
 		</component-extension>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.ActionURL</component-type>
-		<component-class>javax.portlet.faces.component.PortletActionURL</component-class>
+		<component-type>jakarta.portlet.faces.ActionURL</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletActionURL</component-class>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.Namespace</component-type>
-		<component-class>javax.portlet.faces.component.PortletNamespace</component-class>
+		<component-type>jakarta.portlet.faces.Namespace</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletNamespace</component-class>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.Param</component-type>
-		<component-class>javax.portlet.faces.component.PortletParam</component-class>
+		<component-type>jakarta.portlet.faces.Param</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletParam</component-class>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.Property</component-type>
-		<component-class>javax.portlet.faces.component.PortletProperty</component-class>
+		<component-type>jakarta.portlet.faces.Property</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletProperty</component-class>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.RenderURL</component-type>
-		<component-class>javax.portlet.faces.component.PortletRenderURL</component-class>
+		<component-type>jakarta.portlet.faces.RenderURL</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletRenderURL</component-class>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.ResourceURL</component-type>
-		<component-class>javax.portlet.faces.component.PortletResourceURL</component-class>
+		<component-type>jakarta.portlet.faces.ResourceURL</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletResourceURL</component-class>
 	</component>
 	<factory>
 		<application-factory>com.liferay.faces.bridge.application.internal.ApplicationFactoryImpl</application-factory>

@@ -23,7 +23,7 @@ import java.util.EventListener;
 import java.util.Map;
 import java.util.Set;
 
-import javax.portlet.PortletContext;
+import jakarta.portlet.PortletContext;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterRegistration;
 import jakarta.servlet.RequestDispatcher;

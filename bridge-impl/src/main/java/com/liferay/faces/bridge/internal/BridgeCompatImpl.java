@@ -15,18 +15,18 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeConfigFactory;
-import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
-import javax.portlet.faces.BridgeException;
-import javax.portlet.faces.BridgeUninitializedException;
-import javax.portlet.faces.filter.BridgePortletConfigFactory;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeConfigFactory;
+import jakarta.portlet.faces.BridgeDefaultViewNotSpecifiedException;
+import jakarta.portlet.faces.BridgeException;
+import jakarta.portlet.faces.BridgeUninitializedException;
+import jakarta.portlet.faces.filter.BridgePortletConfigFactory;
 
 
 /**

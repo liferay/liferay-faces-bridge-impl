@@ -18,9 +18,9 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 import java.io.Serializable;
 
 import jakarta.faces.context.ResponseWriter;
-import javax.portlet.HeaderResponse;
-import javax.portlet.PortletResponse;
-import javax.portlet.ResourceResponse;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.ResourceResponse;
 
 import com.liferay.faces.bridge.context.HeadResponseWriterFactory;
 

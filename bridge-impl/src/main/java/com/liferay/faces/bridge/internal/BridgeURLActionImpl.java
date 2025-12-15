@@ -24,14 +24,14 @@ import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.ResponseStateManager;
-import javax.portlet.BaseURL;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.Bridge.PortletPhase;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.Bridge.PortletPhase;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.render.FacesURLEncoder;
@@ -79,7 +79,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 		// Otherwise,
 		else {
 
-			// If the URI has a "javax.portlet.faces.DirectLink" parameter with a value of "false", then the
+			// If the URI has a "jakarta.portlet.faces.DirectLink" parameter with a value of "false", then the
 			// parameter must be removed from the URI's query-string.
 			String directLinkParam = bridgeURI.getParameter(Bridge.DIRECT_LINK);
 
@@ -152,7 +152,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 				baseURL = new BaseURLBridgeURIAdapterImpl(bridgeURI);
 			}
 
-			// Otherwise, if the URI has a "javax.portlet.faces.DirectLink" parameter with a value of "true",
+			// Otherwise, if the URI has a "jakarta.portlet.faces.DirectLink" parameter with a value of "true",
 			// then return an absolute path (to the path in the URI) as required by the Bridge Spec.
 			else if (directLink || bridgeURI.isExternal(contextPath)) {
 				ExternalContext externalContext = facesContext.getExternalContext();
@@ -165,7 +165,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 			else {
 
 				// Determine whether or not the portlet mode is to be changed by examining the
-				// "javax.portlet.faces.PortletMode" parameter.
+				// "jakarta.portlet.faces.PortletMode" parameter.
 				boolean modeChanged = false;
 				String portletMode = getParameter(Bridge.PORTLET_MODE_PARAMETER);
 
@@ -220,7 +220,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 					PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 					PortletURLHelper.setPortletMode(portletURL, portletMode, portletRequest);
 
-					// According to the Bridge Spec, the "javax.portlet.faces.PortletMode"" parameter must not be
+					// According to the Bridge Spec, the "jakarta.portlet.faces.PortletMode"" parameter must not be
 					// "carried forward to the generated reference." According to a clarification in the Portlet 3.0
 					// JavaDoc for BaseURL#setProperty(String,String), setting the parameter to null will remove it.
 					portletURL.setParameter(Bridge.PORTLET_MODE_PARAMETER, (String) null);
@@ -228,7 +228,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 					String windowState = getParameter(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
 					PortletURLHelper.setWindowState(portletURL, windowState, portletRequest);
 
-					// According to the Bridge Spec, the "javax.portlet.faces.WindowState" parameter must not be
+					// According to the Bridge Spec, the "jakarta.portlet.faces.WindowState" parameter must not be
 					// "carried forward to the generated reference." According to a clarification in the Portlet 3.0
 					// JavaDoc for BaseURL#setProperty(String,String), setting the parameter to null will remove it.
 					portletURL.setParameter(Bridge.PORTLET_WINDOWSTATE_PARAMETER, (String) null);
@@ -238,7 +238,7 @@ public class BridgeURLActionImpl extends BridgeURLBase {
 				String secure = getParameter(Bridge.PORTLET_SECURE_PARAMETER);
 				PortletURLHelper.setSecure(baseURL, secure);
 
-				// According to the Bridge Spec, the "javax.portlet.faces.Secure" parameter must not be "carried
+				// According to the Bridge Spec, the "jakarta.portlet.faces.Secure" parameter must not be "carried
 				// forward to the generated reference." According to a clarification in the Portlet 3.0 JavaDoc for
 				// BaseURL#setProperty(String,String), setting the parameter to null will remove it.
 				baseURL.setParameter(Bridge.PORTLET_SECURE_PARAMETER, (String) null);

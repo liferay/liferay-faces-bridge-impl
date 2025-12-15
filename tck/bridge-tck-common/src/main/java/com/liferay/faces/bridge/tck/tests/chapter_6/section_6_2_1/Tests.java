@@ -19,7 +19,7 @@ import java.util.Map;
 
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.faces.annotation.PortletNamingContainer;
+import jakarta.portlet.faces.annotation.PortletNamingContainer;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
@@ -64,13 +64,13 @@ public class Tests {
 
 		if (uiViewRoot.getClass().getAnnotation(PortletNamingContainer.class) != null) {
 			testBean.setTestResult(true,
-				"UIViewRoot is correctly annotated with javax.portlet.faces.annotation.PortletNamingContainer.");
+				"UIViewRoot is correctly annotated with jakarta.portlet.faces.annotation.PortletNamingContainer.");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"UIViewRoot is not annotated with javax.portlet.faces.annotation.PortletNamingContainer.");
+				"UIViewRoot is not annotated with jakarta.portlet.faces.annotation.PortletNamingContainer.");
 
 			return Constants.TEST_FAILED;
 		}

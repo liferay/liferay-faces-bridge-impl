@@ -34,29 +34,29 @@ import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
-import javax.portlet.ActionResponse;
-import javax.portlet.ClientDataRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.MimeResponse;
-import javax.portlet.PortalContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletException;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletRequestDispatcher;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletSession;
-import javax.portlet.ResourceResponse;
-import javax.portlet.StateAwareResponse;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
-import javax.portlet.faces.BridgeException;
-import javax.portlet.faces.BridgeFactoryFinder;
-import javax.portlet.faces.BridgeInvalidViewPathException;
-import javax.portlet.faces.BridgeURL;
-import javax.portlet.faces.GenericFacesPortlet;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.ClientDataRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletRequestDispatcher;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletSession;
+import jakarta.portlet.ResourceResponse;
+import jakarta.portlet.StateAwareResponse;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeDefaultViewNotSpecifiedException;
+import jakarta.portlet.faces.BridgeException;
+import jakarta.portlet.faces.BridgeFactoryFinder;
+import jakarta.portlet.faces.BridgeInvalidViewPathException;
+import jakarta.portlet.faces.BridgeURL;
+import jakarta.portlet.faces.GenericFacesPortlet;
 import jakarta.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.application.internal.BridgeNavigationUtil;
@@ -92,7 +92,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	private static final Logger logger = LoggerFactory.getLogger(ExternalContextImpl.class);
 
 	// Private Constants
-	private static final String REQUEST_ATTR_PORTLET_REQUEST = "javax.portlet.request";
+	private static final String REQUEST_ATTR_PORTLET_REQUEST = "jakarta.portlet.request";
 	private static final String REQUEST_ATTR_QUERY_STRING = "jakarta.servlet.forward.query_string";
 
 	// Pre-initialized Data Members
@@ -276,7 +276,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 	/**
 	 * NOTE: PROPOSE-FOR-BRIDGE3-API Returns the value of the specified initialization parameter. If found, return the
-	 * value of the {@link javax.portlet.PortletConfig#getInitParameter(String)} method. Otherwise, return the value of
+	 * value of the {@link jakarta.portlet.PortletConfig#getInitParameter(String)} method. Otherwise, return the value of
 	 * the {@link PortletContext#getInitParameter(String)} method. This provides a way for init-param values found in
 	 * the WEB-INF/portlet.xml descriptor to override context-param values found in the WEB-INF/web.xml descriptor.
 	 */
@@ -756,7 +756,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 					(portletPhase == Bridge.PortletPhase.RENDER_PHASE)) {
 
 				// If the specified URL starts with a "#" character, is external to this application, or has a
-				// "javax.portlet.faces.DirectLink" parameter value of "true", then
+				// "jakarta.portlet.faces.DirectLink" parameter value of "true", then
 				try {
 
 					FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -959,7 +959,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			preInitializeObjects();
 		}
 		else {
-			throw new IllegalArgumentException("Must be an instance of javax.portlet.PortletRequest");
+			throw new IllegalArgumentException("Must be an instance of jakarta.portlet.PortletRequest");
 		}
 	}
 
@@ -1040,7 +1040,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			}
 			else {
 				throw new IllegalArgumentException("response=[" + response +
-					"] is not an instance of javax.portlet.PortletResponse");
+					"] is not an instance of jakarta.portlet.PortletResponse");
 			}
 		}
 		else {
@@ -1132,11 +1132,11 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	 * <p>This method returns the target view (and optional query string) as described in section 5.2.3 of the Bridge
 	 * Spec titled "Determining the Target View".</p>
 	 *
-	 * <p>Try#1: Get the viewId from the {@link Bridge#VIEW_ID} (javax.portlet.faces.viewId) request attribute. As
+	 * <p>Try#1: Get the viewId from the {@link Bridge#VIEW_ID} (jakarta.portlet.faces.viewId) request attribute. As
 	 * described in sections 3.4 and 4.2.5 of the bridge spec, this attribute is set by the {@link GenericFacesPortlet}
 	 * when it encounters the {@link Bridge#FACES_VIEW_ID_PARAMETER} request parameter.</p>
 	 *
-	 * <p>Try#2: Get the viewId from the {@link Bridge#VIEW_PATH} (javax.portlet.faces.viewPath) request attribute. As
+	 * <p>Try#2: Get the viewId from the {@link Bridge#VIEW_PATH} (jakarta.portlet.faces.viewPath) request attribute. As
 	 * described in sections 3.4 and 4.2.5 of the bridge spec, this attribute is set by the {@link GenericFacesPortlet}
 	 * when it encounters the {@link Bridge#FACES_VIEW_PATH_PARAMETER} request parameter. If the viewId cannot be
 	 * determined, then {@link BridgeInvalidViewPathException} is thrown.</p>
@@ -1159,14 +1159,14 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 		if (viewIdAndQueryString == null) {
 
-			// Try#1: Get the viewId the "javax.portlet.faces.viewId" request attribute.
+			// Try#1: Get the viewId the "jakarta.portlet.faces.viewId" request attribute.
 			if (PortletConfigParam.ViewIdParameterEnabled.getBooleanValue(portletConfig)) {
 				viewIdAndQueryString = getFacesViewIdRequestAttribute(Bridge.VIEW_ID);
 			}
 
 			if (viewIdAndQueryString == null) {
 
-				// Try#2: Get the viewId from the "javax.portlet.faces.viewPath" request attribute.
+				// Try#2: Get the viewId from the "jakarta.portlet.faces.viewPath" request attribute.
 				String viewPath = null;
 
 				if (PortletConfigParam.ViewPathParameterEnabled.getBooleanValue(portletConfig)) {
@@ -1269,7 +1269,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 				}
 			}
 			else {
-				logger.debug("javax.portlet.faces.viewId=[{0}]", viewIdAndQueryString);
+				logger.debug("jakarta.portlet.faces.viewId=[{0}]", viewIdAndQueryString);
 			}
 		}
 
@@ -1390,7 +1390,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			// Some portlet bridges wrap the portal's PortletRequest implementation instance (which prevents us from
 			// getting the query_string). As a workaround, we might still be able to get  the original
 			// PortletRequest instance, because the Portlet spec says it must be stored in the
-			// "javax.portlet.request" attribute.
+			// "jakarta.portlet.request" attribute.
 			Object portletRequestAsObject = portletRequest.getAttribute(REQUEST_ATTR_PORTLET_REQUEST);
 
 			if ((portletRequestAsObject != null) && (portletRequestAsObject instanceof PortletRequest)) {

@@ -20,8 +20,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 
-import javax.portlet.ResourceResponse;
-import javax.portlet.filter.ResourceResponseWrapper;
+import jakarta.portlet.ResourceResponse;
+import jakarta.portlet.filter.ResourceResponseWrapper;
 
 
 /**

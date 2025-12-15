@@ -22,8 +22,8 @@ import jakarta.faces.application.ViewHandler;
 import jakarta.faces.application.ViewHandlerWrapper;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.common.Constants;
 
@@ -70,23 +70,23 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 			}
 			else if (testName.equals("encodeActionURLWithModeRenderTest") ||
 					testName.equals("encodeResourceURLWithModeTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.PortletMode=edit&param1=testValue");
+				return appendQueryString(resultURL, "jakarta.portlet.faces.PortletMode=edit&param1=testValue");
 			}
 			else if (testName.equals("encodeActionURLWithInvalidModeRenderTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.PortletMode=blue&param1=testValue");
+				return appendQueryString(resultURL, "jakarta.portlet.faces.PortletMode=blue&param1=testValue");
 			}
 			else if (testName.equals("encodeActionURLWithWindowStateRenderTest") ||
 					testName.equals("encodeResourceURLWithWindowStateTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.WindowState=maximized&param1=testValue");
+				return appendQueryString(resultURL, "jakarta.portlet.faces.WindowState=maximized&param1=testValue");
 			}
 			else if (testName.equals("encodeActionURLWithInvalidWindowStateRenderTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.WindowState=blue&param1=testValue");
+				return appendQueryString(resultURL, "jakarta.portlet.faces.WindowState=blue&param1=testValue");
 			}
 			else if (testName.equals("encodeActionURLWithSecurityRenderTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.Secure=true&param1=testValue");
+				return appendQueryString(resultURL, "jakarta.portlet.faces.Secure=true&param1=testValue");
 			}
 			else if (testName.equals("encodeActionURLWithInvalidSecurityRenderTest")) {
-				return appendQueryString(resultURL, "javax.portlet.faces.Secure=blue&param1=testValue");
+				return appendQueryString(resultURL, "jakarta.portlet.faces.Secure=blue&param1=testValue");
 			}
 		}
 

@@ -17,9 +17,9 @@ package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import javax.portlet.EventRequest;
-import javax.portlet.EventResponse;
-import javax.portlet.annotations.PortletRequestScoped;
+import jakarta.portlet.EventRequest;
+import jakarta.portlet.EventResponse;
+import jakarta.portlet.annotations.PortletRequestScoped;
 
 
 /**

@@ -23,12 +23,12 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.PortalContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.AnnotatedExcludedBean;
@@ -175,7 +175,7 @@ public class Tests {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Add elements that should be preserved but won't be because we are navigating from VIEW to EDIT mode
-			// due to the presence of javax.portlet.faces.PortletMode=edit in the navigation-rule.
+			// due to the presence of jakarta.portlet.faces.PortletMode=edit in the navigation-rule.
 			requestMap.put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
 
 			return "requestNoScopeOnModeChangeTest"; // action Navigation result
@@ -426,8 +426,8 @@ public class Tests {
 
 			// Note:  no way to test the servlet objects
 
-			requestMap.put("javax.portlet.TestRequestScope", REQUEST_ATTR_VALUE);
-			requestMap.put("javax.portlet.faces.TestRequestScope", REQUEST_ATTR_VALUE);
+			requestMap.put("jakarta.portlet.TestRequestScope", REQUEST_ATTR_VALUE);
+			requestMap.put("jakarta.portlet.faces.TestRequestScope", REQUEST_ATTR_VALUE);
 			requestMap.put("jakarta.faces.TestRequestScope", REQUEST_ATTR_VALUE);
 			requestMap.put("jakarta.servlet.TestRequestScope", REQUEST_ATTR_VALUE);
 			requestMap.put("javax.servlet.include.TestRequestScope", REQUEST_ATTR_VALUE);
@@ -570,20 +570,20 @@ public class Tests {
 
 			// Note:  no way to test the servlet objects
 
-			o = requestMap.get("javax.portlet.TestRequestScope");
+			o = requestMap.get("jakarta.portlet.TestRequestScope");
 
 			if (o != null) {
 				testBean.setTestResult(false,
-					"Attribute in the javax.portlet namesapce unexpectedly retained: javax.portlet.TestRequestScope.");
+					"Attribute in the jakarta.portlet namesapce unexpectedly retained: jakarta.portlet.TestRequestScope.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			o = requestMap.get("javax.portlet.faces.TestRequestScope");
+			o = requestMap.get("jakarta.portlet.faces.TestRequestScope");
 
 			if (o != null) {
 				testBean.setTestResult(false,
-					"Attribute in the javax.portlet.faces namesapce unexpectedly retained: javax.portlet.faces.TestRequestScope.");
+					"Attribute in the jakarta.portlet.faces namesapce unexpectedly retained: jakarta.portlet.faces.TestRequestScope.");
 
 				return Constants.TEST_FAILED;
 			}

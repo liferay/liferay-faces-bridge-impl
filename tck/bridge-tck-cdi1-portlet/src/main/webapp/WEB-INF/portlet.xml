@@ -8,7 +8,7 @@
 		<portlet-name>chapter7_2CDITests-actionParamsAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.ActionParamsAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -36,7 +36,7 @@
 		<portlet-name>chapter7_2CDITests-actionRequestAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.ActionRequestAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -64,7 +64,7 @@
 		<portlet-name>chapter7_2CDITests-actionResponseAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.ActionResponseAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -92,7 +92,7 @@
 		<portlet-name>chapter7_2CDITests-bridgeRequestScopedBeanTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.BridgeRequestScopedBeanTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -120,7 +120,7 @@
 		<portlet-name>chapter7_2CDITests-cdiRequestScopedBeanTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.CDIRequestScopedBeanTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -148,7 +148,7 @@
 		<portlet-name>chapter7_2CDITests-clientDataRequestAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.ClientDataRequestAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -176,7 +176,7 @@
 		<portlet-name>chapter7_2CDITests-contextPathAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.ContextPathAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -204,7 +204,7 @@
 		<portlet-name>chapter7_2CDITests-cookiesAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.CookiesAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -232,15 +232,15 @@
 		<portlet-name>chapter7_2CDITests-eventRequestAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.EventRequestAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.autoDispatchEvents</name>
+			<name>jakarta.portlet.faces.autoDispatchEvents</name>
 			<value>true</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.Ch7TestEventHandler</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -274,15 +274,15 @@
 		<portlet-name>chapter7_2CDITests-eventResponseAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.EventResponseAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.autoDispatchEvents</name>
+			<name>jakarta.portlet.faces.autoDispatchEvents</name>
 			<value>true</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.Ch7TestEventHandler</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -316,7 +316,7 @@
 		<portlet-name>chapter7_2CDITests-headerRequestAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.HeaderRequestAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -344,7 +344,7 @@
 		<portlet-name>chapter7_2CDITests-headerResponseAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.HeaderResponseAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -372,7 +372,7 @@
 		<portlet-name>chapter7_2CDITests-localesAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.LocalesAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -400,7 +400,7 @@
 		<portlet-name>chapter7_2CDITests-mimeResponseAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.MimeResponseAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -428,7 +428,7 @@
 		<portlet-name>chapter7_2CDITests-mutableRenderParamsAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.MutableRenderParamsAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -456,7 +456,7 @@
 		<portlet-name>chapter7_2CDITests-namespaceAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.NamespaceAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -484,7 +484,7 @@
 		<portlet-name>chapter7_2CDITests-portletConfigAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletConfigAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -512,7 +512,7 @@
 		<portlet-name>chapter7_2CDITests-portletContextAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletContextAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -540,7 +540,7 @@
 		<portlet-name>chapter7_2CDITests-portletModeAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletModeAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -568,7 +568,7 @@
 		<portlet-name>chapter7_2CDITests-portletNameAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletNameAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -596,7 +596,7 @@
 		<portlet-name>chapter7_2CDITests-portletPreferencesAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletPreferencesAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -624,7 +624,7 @@
 		<portlet-name>chapter7_2CDITests-portletRequestAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletRequestAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -652,7 +652,7 @@
 		<portlet-name>chapter7_2CDITests-portletRequestScopedBeanTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletRequestScopedBeanTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -680,7 +680,7 @@
 		<portlet-name>chapter7_2CDITests-portletResponseAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletResponseAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -708,7 +708,7 @@
 		<portlet-name>chapter7_2CDITests-portletSessionAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.PortletSessionAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -736,7 +736,7 @@
 		<portlet-name>chapter7_2CDITests-renderParamsAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.RenderParamsAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -764,7 +764,7 @@
 		<portlet-name>chapter7_2CDITests-renderRequestAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.RenderRequestAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -792,7 +792,7 @@
 		<portlet-name>chapter7_2CDITests-renderResponseAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.RenderResponseAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -820,7 +820,7 @@
 		<portlet-name>chapter7_2CDITests-resourceRequestAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.ResourceRequestAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -848,7 +848,7 @@
 		<portlet-name>chapter7_2CDITests-resourceResponseAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.ResourceResponseAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/resourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -876,7 +876,7 @@
 		<portlet-name>chapter7_2CDITests-stateAwareResponseAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.StateAwareResponseAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -904,7 +904,7 @@
 		<portlet-name>chapter7_2CDITests-windowIdAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.WindowIdAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -932,7 +932,7 @@
 		<portlet-name>chapter7_2CDITests-windowStateAlternativeTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.WindowStateAlternativeTestPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/singleRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>

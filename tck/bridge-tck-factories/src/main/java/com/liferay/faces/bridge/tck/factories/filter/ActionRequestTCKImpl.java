@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.portlet.ActionParameters;
-import javax.portlet.ActionRequest;
-import javax.portlet.filter.ActionRequestWrapper;
+import jakarta.portlet.ActionParameters;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.filter.ActionRequestWrapper;
 
 
 /**

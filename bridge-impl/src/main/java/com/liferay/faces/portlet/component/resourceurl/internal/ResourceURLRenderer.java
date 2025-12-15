@@ -21,9 +21,9 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
-import javax.portlet.BaseURL;
-import javax.portlet.MimeResponse;
-import javax.portlet.faces.component.PortletResourceURL;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.faces.component.PortletResourceURL;
 
 
 /**
@@ -31,7 +31,7 @@ import javax.portlet.faces.component.PortletResourceURL;
  */
 
 //J-
-@FacesRenderer(componentFamily = PortletResourceURL.COMPONENT_FAMILY, rendererType = "javax.portlet.faces.ResourceURL")
+@FacesRenderer(componentFamily = PortletResourceURL.COMPONENT_FAMILY, rendererType = "jakarta.portlet.faces.ResourceURL")
 //J+
 public class ResourceURLRenderer extends ResourceURLRendererBase {
 
@@ -40,7 +40,7 @@ public class ResourceURLRenderer extends ResourceURLRendererBase {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
 		MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();
-		javax.portlet.ResourceURL resourceURL = mimeResponse.createResourceURL();
+		jakarta.portlet.ResourceURL resourceURL = mimeResponse.createResourceURL();
 		PortletResourceURL resourceURLComponent = (PortletResourceURL) uiComponent;
 		String cacheability = resourceURLComponent.getCacheability();
 		resourceURL.setCacheability(cacheability);

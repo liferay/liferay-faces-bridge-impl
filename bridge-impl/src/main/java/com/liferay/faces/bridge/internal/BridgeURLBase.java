@@ -28,17 +28,17 @@ import java.util.Set;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.ResponseStateManager;
-import javax.portlet.BaseURL;
-import javax.portlet.MimeResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
-import javax.portlet.ResourceURL;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeURL;
-import javax.portlet.faces.BridgeUtil;
-import javax.portlet.filter.PortletURLWrapper;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.ResourceURL;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeURL;
+import jakarta.portlet.faces.BridgeUtil;
+import jakarta.portlet.filter.PortletURLWrapper;
 
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
@@ -618,7 +618,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 			// Otherwise,
 			else {
 
-				// Note that if the "javax.portlet.faces.PortletMode" parameter is specified, then a mode change is
+				// Note that if the "jakarta.portlet.faces.PortletMode" parameter is specified, then a mode change is
 				// being requested and the target Faces viewId parameter must NOT be added.
 				if (!modeChanged) {
 

@@ -16,8 +16,8 @@
 package com.liferay.faces.bridge.context.internal;
 
 import jakarta.faces.FacesWrapper;
-import javax.portlet.PortletContext;
-import javax.portlet.faces.BridgeFactoryFinder;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.faces.BridgeFactoryFinder;
 
 
 /**

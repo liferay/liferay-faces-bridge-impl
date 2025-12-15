@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
-import javax.portlet.RenderRequest;
-import javax.portlet.filter.RenderRequestWrapper;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.filter.RenderRequestWrapper;
 
 
 /**

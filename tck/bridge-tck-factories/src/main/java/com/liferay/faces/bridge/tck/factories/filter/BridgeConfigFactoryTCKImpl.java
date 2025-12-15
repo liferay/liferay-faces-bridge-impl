@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeConfigFactory;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeConfigFactory;
 
 
 /**

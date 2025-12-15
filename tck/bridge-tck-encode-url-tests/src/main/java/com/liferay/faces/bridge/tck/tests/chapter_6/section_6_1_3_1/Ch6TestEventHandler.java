@@ -23,10 +23,10 @@ import java.util.Set;
 
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.Event;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.BridgeEventHandler;
-import javax.portlet.faces.event.EventNavigationResult;
+import jakarta.portlet.Event;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.BridgeEventHandler;
+import jakarta.portlet.faces.event.EventNavigationResult;
 
 import com.liferay.faces.bridge.tck.common.Constants;
 

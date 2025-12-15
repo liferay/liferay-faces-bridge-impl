@@ -17,12 +17,12 @@ package com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_15;
 
 import java.io.IOException;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.faces.BridgeException;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.faces.BridgeException;
 
 import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 

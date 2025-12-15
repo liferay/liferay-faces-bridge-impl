@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Map;
 
-import javax.portlet.PortletPreferences;
-import javax.portlet.ReadOnlyException;
-import javax.portlet.ValidatorException;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.ReadOnlyException;
+import jakarta.portlet.ValidatorException;
 
 
 /**

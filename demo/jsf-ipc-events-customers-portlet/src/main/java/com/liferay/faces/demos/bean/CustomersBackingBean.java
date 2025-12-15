@@ -25,7 +25,7 @@ import jakarta.faces.component.UICommand;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ActionEvent;
-import javax.portlet.ActionResponse;
+import jakarta.portlet.ActionResponse;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.demos.dto.Customer;

@@ -23,8 +23,8 @@ import java.util.Set;
 
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.PortalContext;
-import javax.portlet.PortletRequest;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.PortletRequest;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;

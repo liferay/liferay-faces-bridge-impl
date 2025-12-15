@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import jakarta.faces.render.ResponseStateManager;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
@@ -396,7 +396,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 
 			// If not found in the request, Section 6.9 of the Bridge spec requires that the value of the
 			// ResponseStateManager.RENDER_KIT_ID_PARAM request parameter be set to the value of the
-			// "javax.portlet.faces.<portletName>.defaultRenderKitId" PortletContext attribute.
+			// "jakarta.portlet.faces.<portletName>.defaultRenderKitId" PortletContext attribute.
 			specialParameterValue = defaultRenderKitId;
 		}
 		else if (ResponseStateManager.VIEW_STATE_PARAM.equals(nonPrefixedParameterName)) {

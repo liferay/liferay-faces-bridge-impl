@@ -22,9 +22,9 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import jakarta.faces.context.ExternalContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.faces.Bridge;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.helper.IntegerHelper;

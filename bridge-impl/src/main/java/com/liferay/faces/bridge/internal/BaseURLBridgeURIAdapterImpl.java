@@ -19,11 +19,11 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
-import javax.portlet.BaseURL;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletSecurityException;
-import javax.portlet.RenderParameters;
-import javax.portlet.WindowState;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletSecurityException;
+import jakarta.portlet.RenderParameters;
+import jakarta.portlet.WindowState;
 
 import com.liferay.faces.bridge.util.internal.XMLUtil;
 import com.liferay.faces.util.logging.Logger;

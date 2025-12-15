@@ -21,7 +21,7 @@ import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.Set;
 
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.util.internal.URLUtil;
 import com.liferay.faces.util.logging.Logger;
@@ -203,7 +203,7 @@ public class BridgeURI {
 	}
 
 	/**
-	 * Returns the {@link javax.portlet.faces.Bridge.PortletPhase} associated with this URI. Note that the value will be
+	 * Returns the {@link jakarta.portlet.faces.Bridge.PortletPhase} associated with this URI. Note that the value will be
 	 * null if the URI does not begin with the "portlet:" scheme/prefix.
 	 */
 	public Bridge.PortletPhase getPortletPhase() {

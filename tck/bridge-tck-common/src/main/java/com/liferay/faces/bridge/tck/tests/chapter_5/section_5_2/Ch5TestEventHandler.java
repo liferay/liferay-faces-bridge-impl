@@ -18,10 +18,10 @@ package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 import java.util.Map;
 
 import jakarta.faces.context.FacesContext;
-import javax.portlet.Event;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeEventHandler;
-import javax.portlet.faces.event.EventNavigationResult;
+import jakarta.portlet.Event;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeEventHandler;
+import jakarta.portlet.faces.event.EventNavigationResult;
 
 import com.liferay.faces.bridge.tck.common.Constants;
 

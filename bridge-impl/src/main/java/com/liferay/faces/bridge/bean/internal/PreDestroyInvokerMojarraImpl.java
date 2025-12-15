@@ -17,7 +17,7 @@ package com.liferay.faces.bridge.bean.internal;
 
 import java.lang.reflect.Method;
 
-import javax.portlet.PortletContext;
+import jakarta.portlet.PortletContext;
 import jakarta.servlet.ServletContext;
 
 import com.liferay.faces.util.logging.Logger;

@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.faces.Bridge;
 
 
 /**
@@ -40,7 +40,7 @@ public interface FacesView {
 	 * Bridge#NONFACES_TARGET_PATH_PARAMETER}, {@link Bridge#PORTLET_SECURE_PARAMETER}, {@link
 	 * Bridge#PORTLET_WINDOWSTATE_PARAMETER}, {@link Bridge#FACES_VIEW_ID_PARAMETER}, or {@link
 	 * Bridge#FACES_VIEW_PATH_PARAMETER}. Note that "navigation" does not refer to JSF navigation-rules, but rather
-	 * changes in {@link javax.portlet.PortletMode}, {@link javax.portlet.WindowState}, etc. It could also contain
+	 * changes in {@link jakarta.portlet.PortletMode}, {@link jakarta.portlet.WindowState}, etc. It could also contain
 	 * user-define name=value parameters specified in a {@link Bridge#VIEW_ID} request attribute.
 	 */
 	String getQueryString();

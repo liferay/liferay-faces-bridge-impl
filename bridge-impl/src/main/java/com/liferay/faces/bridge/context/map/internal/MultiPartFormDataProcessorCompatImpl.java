@@ -27,12 +27,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ClientDataRequest;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletParameters;
-import javax.portlet.ResourceRequest;
-import javax.portlet.faces.BridgeFactoryFinder;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.ClientDataRequest;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletParameters;
+import jakarta.portlet.ResourceRequest;
+import jakarta.portlet.faces.BridgeFactoryFinder;
 import jakarta.servlet.http.Part;
 
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;

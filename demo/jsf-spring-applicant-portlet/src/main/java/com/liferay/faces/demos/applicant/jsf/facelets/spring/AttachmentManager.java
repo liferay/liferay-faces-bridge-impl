@@ -22,7 +22,7 @@ import java.util.List;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
-import javax.portlet.PortletContext;
+import jakarta.portlet.PortletContext;
 import jakarta.servlet.ServletContext;
 
 import org.springframework.context.annotation.Scope;

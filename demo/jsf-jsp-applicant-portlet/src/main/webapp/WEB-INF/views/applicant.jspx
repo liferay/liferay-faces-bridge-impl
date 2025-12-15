@@ -79,7 +79,7 @@
 				<h:commandButton action="#{applicantBacking.submit}" value="#{i18n['submit']}" />
 				<!-- Test 5.4.2 Encoding PortletMode changes in Faces navigation -->
 				<h:commandButton
-					action="/WEB-INF/views/portletEditMode.faces?javax.portlet.faces.PortletMode=edit&amp;javax.portlet.faces.WindowState=maximized"
+					action="/WEB-INF/views/portletEditMode.faces?jakarta.portlet.faces.PortletMode=edit&amp;jakarta.portlet.faces.WindowState=maximized"
 					immediate="true" value="#{i18n['edit-preferences']}" />
 			</h:form>
 		</h:panelGroup>

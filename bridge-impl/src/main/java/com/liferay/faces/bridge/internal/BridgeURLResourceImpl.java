@@ -28,15 +28,15 @@ import jakarta.faces.application.ViewHandler;
 import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.BaseURL;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletURL;
-import javax.portlet.ResourceURL;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.ResourceURL;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.util.internal.PortletResourceUtilCompat;
 import com.liferay.faces.util.helper.BooleanHelper;
@@ -70,16 +70,16 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		this.inProtocol = (bridgeURI.getParameter(Bridge.IN_PROTOCOL_RESOURCE_LINK) != null);
 		this.viewLink = BooleanHelper.isTrueToken(bridgeURI.getParameter(Bridge.VIEW_LINK));
 
-		// If the "javax.portlet.faces.ViewLink" parameter is found and set to "true", then
+		// If the "jakarta.portlet.faces.ViewLink" parameter is found and set to "true", then
 		String viewLinkParam = bridgeURI.getParameter(Bridge.VIEW_LINK);
 
 		if (BooleanHelper.isTrueToken(viewLinkParam)) {
 
 			// Since this is going to be a URL that represents navigation to a different viewId, the
-			// "javax.portlet.faces.ViewLink" parameter must be removed from the URI's query-string.
+			// "jakarta.portlet.faces.ViewLink" parameter must be removed from the URI's query-string.
 			bridgeURI.removeParameter(Bridge.VIEW_LINK);
 
-			// If the "javax.portlet.faces.BackLink" parameter is found in the URI query-string, then replace it's value
+			// If the "jakarta.portlet.faces.BackLink" parameter is found in the URI query-string, then replace it's value
 			// with an encoded URL that can cause navigation back to the current view.
 			if (bridgeURI.getParameter(Bridge.BACK_LINK) != null) {
 				String newParamName = bridgeURI.removeParameter(Bridge.BACK_LINK);
@@ -117,7 +117,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// Otherwise, if the URI is hierarchical and targets an external resource, then
 		else if (bridgeURI.isHierarchical() && bridgeURI.isExternal(contextPath)) {
 
-			// If the "javax.portlet.faces.BackLink" parameter is found, then replace it's value with an encoded URL
+			// If the "jakarta.portlet.faces.BackLink" parameter is found, then replace it's value with an encoded URL
 			// that can cause navigation back to the current view.
 			if (bridgeURI.getParameter(Bridge.BACK_LINK) != null) {
 				String newParamName = bridgeURI.removeParameter(Bridge.BACK_LINK);
@@ -128,18 +128,18 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// Otherwise, if the URI is hierarchical and targets a resource internal to this application, then
 		else if (bridgeURI.isHierarchical() && !bridgeURI.isExternal(contextPath)) {
 
-			// If the "javax.portlet.faces.BackLink" parameter is found, then replace it's value with an encoded URL
+			// If the "jakarta.portlet.faces.BackLink" parameter is found, then replace it's value with an encoded URL
 			// that can cause navigation back to the current view.
 			if (bridgeURI.getParameter(Bridge.BACK_LINK) != null) {
 				String newParamName = bridgeURI.removeParameter(Bridge.BACK_LINK);
 				bridgeURI.setParameter(newParamName, getBackLinkURL(facesContext));
 			}
 
-			// If the "javax.portlet.faces.InProtocolResourceLink" parameter is found, then
+			// If the "jakarta.portlet.faces.InProtocolResourceLink" parameter is found, then
 			if ((bridgeURI.getParameter(Bridge.IN_PROTOCOL_RESOURCE_LINK) != null)) {
 
-				// Since an in-protocol-resource URL must be a ResourceURL, the "javax.portlet.faces.PortletMode" and
-				// "javax.portlet.faces.WindowState" parameters must be removed from the URI query-string (if present)
+				// Since an in-protocol-resource URL must be a ResourceURL, the "jakarta.portlet.faces.PortletMode" and
+				// "jakarta.portlet.faces.WindowState" parameters must be removed from the URI query-string (if present)
 				// because it is not possible to change a PortletMode or WindowState in a ResourceRequest.
 				bridgeURI.removeParameter(Bridge.PORTLET_MODE_PARAMETER);
 				bridgeURI.removeParameter(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
@@ -210,7 +210,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 				String secure = getParameter(Bridge.PORTLET_SECURE_PARAMETER);
 				PortletURLHelper.setSecure(baseURL, secure);
 
-				// According to the Bridge Spec, the "javax.portlet.faces.Secure" parameter must not be "carried
+				// According to the Bridge Spec, the "jakarta.portlet.faces.Secure" parameter must not be "carried
 				// forward to the generated reference." According to a clarification in the Portlet 3.0 JavaDoc for
 				// BaseURL#setProperty(String,String), setting the parameter to null will remove it.
 				baseURL.setParameter(Bridge.PORTLET_SECURE_PARAMETER, (String) null);
@@ -257,7 +257,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			baseURL = new BaseURLPortletResponseEncodedImpl(bridgeURI, portletResponse);
 		}
 
-		// Otherwise, if the URL originally contained the "javax.portlet.faces.ViewLink" which represents navigation
+		// Otherwise, if the URL originally contained the "jakarta.portlet.faces.ViewLink" which represents navigation
 		// to a different Faces view, then
 		else if (viewLink) {
 
@@ -279,7 +279,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 				PortletURLHelper.setWindowState(actionURL, windowState, portletRequest);
 				PortletURLHelper.setSecure(actionURL, secure);
 
-				// According to the Bridge Spec, the "javax.portlet.faces.Secure" parameter must not be "carried
+				// According to the Bridge Spec, the "jakarta.portlet.faces.Secure" parameter must not be "carried
 				// forward to the generated reference." According to a clarification in the Portlet 3.0 JavaDoc for
 				// BaseURL#setProperty(String,String), setting the parameter to null will remove it.
 				actionURL.setParameter(Bridge.PORTLET_SECURE_PARAMETER, (String) null);
@@ -317,7 +317,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 					PortletURLHelper.setWindowState(renderURL, windowState, portletRequest);
 					PortletURLHelper.setSecure(renderURL, secure);
 
-					// According to the Bridge Spec, the "javax.portlet.faces.Secure" parameter must not be "carried
+					// According to the Bridge Spec, the "jakarta.portlet.faces.Secure" parameter must not be "carried
 					// forward to the generated reference." According to a clarification in the Portlet 3.0 JavaDoc for
 					// BaseURL#setProperty(String,String), setting the parameter to null will remove it.
 					renderURL.setParameter(Bridge.PORTLET_SECURE_PARAMETER, (String) null);

@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.filter.internal;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.PartialViewContext;
-import javax.portlet.ActionResponse;
-import javax.portlet.filter.ActionResponseWrapper;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.filter.ActionResponseWrapper;
 
 
 /**

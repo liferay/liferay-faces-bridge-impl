@@ -18,13 +18,13 @@ package com.liferay.faces.bridge.context.internal;
 import java.util.List;
 
 import jakarta.faces.context.ExternalContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeFactoryFinder;
-import javax.portlet.faces.BridgeURLFactory;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeFactoryFinder;
+import jakarta.portlet.faces.BridgeURLFactory;
 
 import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.internal.PortletConfigParam;

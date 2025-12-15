@@ -27,11 +27,11 @@ import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.enterprise.inject.spi.BeforeBeanDiscovery;
 import jakarta.enterprise.inject.spi.Extension;
 import jakarta.enterprise.inject.spi.ProcessAnnotatedType;
-import javax.portlet.annotations.ContextPath;
-import javax.portlet.annotations.Namespace;
-import javax.portlet.annotations.PortletName;
-import javax.portlet.annotations.PortletRequestScoped;
-import javax.portlet.annotations.WindowId;
+import jakarta.portlet.annotations.ContextPath;
+import jakarta.portlet.annotations.Namespace;
+import jakarta.portlet.annotations.PortletName;
+import jakarta.portlet.annotations.PortletRequestScoped;
+import jakarta.portlet.annotations.WindowId;
 
 
 /**

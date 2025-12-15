@@ -281,7 +281,7 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>requestNoScopeOnModeChangeTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>requestRenderIgnoresScopeViaCreateViewTest</from-outcome>
@@ -321,7 +321,7 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>noViewStateParamOnModeChangeTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=edit</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.PortletMode=edit</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>eventPhaseListenerTest</from-outcome>
@@ -338,7 +338,7 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>eventScopeNotRestoredModeChangedTestEventNavigation</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=edit</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.PortletMode=edit</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>eventControllerTest</from-outcome>
@@ -396,7 +396,7 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>navigateToLastViewTest3</from-outcome>
-			<to-view-id>#{sessionScope['javax.portlet.faces.viewIdHistory.view']}</to-view-id>
+			<to-view-id>#{sessionScope['jakarta.portlet.faces.viewIdHistory.view']}</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -404,7 +404,7 @@
 		<from-view-id>/tests/redisplayActionRequestTest.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>navigateToLastViewTest2</from-outcome>
-			<to-view-id>/tests/multiRequestTest.xhtml?javax.portlet.faces.PortletMode=edit</to-view-id>
+			<to-view-id>/tests/multiRequestTest.xhtml?jakarta.portlet.faces.PortletMode=edit</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -433,27 +433,27 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithModeActionTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidModeActionTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.PortletMode=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithWindowStateActionTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.WindowState=maximized&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.WindowState=maximized&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidWindowStateActionTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.WindowState=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.WindowState=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithSecurityActionTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.Secure=true&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.Secure=true&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidSecurityActionTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.Secure=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.Secure=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLJSFViewEventTest</from-outcome>
@@ -465,27 +465,27 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithModeEventTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.PortletMode=edit&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidModeEventTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.PortletMode=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.PortletMode=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithWindowStateEventTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.WindowState=maximized&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.WindowState=maximized&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidWindowStateEventTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.WindowState=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.WindowState=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithSecurityEventTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.Secure=true&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.Secure=true&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLWithInvalidSecurityEventTest</from-outcome>
-			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?javax.portlet.faces.Secure=blue&amp;param1=testValue</to-view-id>
+			<to-view-id>/tests/multiRequestTestResultRenderCheck.xhtml?jakarta.portlet.faces.Secure=blue&amp;param1=testValue</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>encodeActionURLJSFViewRenderTest</from-outcome>

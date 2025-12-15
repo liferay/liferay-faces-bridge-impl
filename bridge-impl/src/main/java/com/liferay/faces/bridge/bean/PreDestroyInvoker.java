@@ -22,15 +22,15 @@ public interface PreDestroyInvoker {
 
 	/**
 	 * This method services as a convenience routine for invoking all methods of the specified managed-bean are marked
-	 * with the {@link jakarta.annotation.PreDestroy} or {@link javax.portlet.faces.annotation.BridgePreDestroy}
+	 * with the {@link jakarta.annotation.PreDestroy} or {@link jakarta.portlet.faces.annotation.BridgePreDestroy}
 	 * annotation. The JavaDocs state that if an exception is thrown by any of the pre-destroy annotated methods, they
 	 * are required to be caught and NOT re-thrown. Instead, exceptions are logged.
 	 *
 	 * @param  managedBean       The managed-bean that is to have its {@link jakarta.annotation.PreDestroy} or {@link
-	 *                           javax.portlet.faces.annotation.BridgePreDestroy} annotated method(s) invoked, if any.
+	 *                           jakarta.portlet.faces.annotation.BridgePreDestroy} annotated method(s) invoked, if any.
 	 * @param  preferPreDestroy  Flag indicating that methods annotated with {@link jakarta.annotation.PreDestroy} should
 	 *                           be preferably invoked over those annotated with {@link
-	 *                           javax.portlet.faces.annotation.BridgePreDestroy}.
+	 *                           jakarta.portlet.faces.annotation.BridgePreDestroy}.
 	 */
 	public void invokeAnnotatedMethods(Object managedBean, boolean preferPreDestroy);
 }

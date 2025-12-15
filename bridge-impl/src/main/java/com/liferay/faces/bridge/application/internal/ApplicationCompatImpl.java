@@ -24,7 +24,7 @@ import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
-import javax.portlet.faces.BridgeUtil;
+import jakarta.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.component.internal.UIViewRootBridgeImpl;
 import com.liferay.faces.bridge.util.internal.TCCLUtil;

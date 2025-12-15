@@ -18,8 +18,8 @@ package com.liferay.faces.bridge.filter.internal;
 import java.util.Enumeration;
 import java.util.Map;
 
-import javax.portlet.PortletContext;
-import javax.portlet.PortletSession;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletSession;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpSessionContext;

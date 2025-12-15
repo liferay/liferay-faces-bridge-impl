@@ -16,10 +16,10 @@
 package com.liferay.faces.bridge.context.internal;
 
 import jakarta.faces.context.ExternalContext;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletSession;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletSession;
 
 
 /**

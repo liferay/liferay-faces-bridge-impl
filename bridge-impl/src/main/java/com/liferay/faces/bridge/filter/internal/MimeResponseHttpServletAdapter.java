@@ -19,8 +19,8 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Locale;
 
-import javax.portlet.MimeResponse;
-import javax.portlet.filter.MimeResponseWrapper;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.filter.MimeResponseWrapper;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;

@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
-import javax.portlet.annotations.EventDefinition;
-import javax.portlet.annotations.PortletApplication;
-import javax.portlet.annotations.PortletQName;
+import jakarta.portlet.annotations.EventDefinition;
+import jakarta.portlet.annotations.PortletApplication;
+import jakarta.portlet.annotations.PortletQName;
 
 
 /**

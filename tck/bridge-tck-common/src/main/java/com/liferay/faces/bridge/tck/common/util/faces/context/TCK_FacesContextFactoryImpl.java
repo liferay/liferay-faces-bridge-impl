@@ -21,11 +21,11 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.FacesContextFactory;
 import jakarta.faces.lifecycle.Lifecycle;
 import jakarta.faces.lifecycle.LifecycleFactory;
-import javax.portlet.ActionRequest;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.faces.Bridge;
 import jakarta.servlet.ServletRequest;
 
 
@@ -94,11 +94,11 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 			Lifecycle l = lifecycleFactory.getLifecycle(id);
 
 			if (l == lifecycle) {
-				portletRequest.setAttribute("javax.portlet.faces.tck.testLifecyclePass",
+				portletRequest.setAttribute("jakarta.portlet.faces.tck.testLifecyclePass",
 					"Correctly used the configured lifcycle: " + id);
 			}
 			else {
-				portletRequest.setAttribute("javax.portlet.faces.tck.testLifecycleFail",
+				portletRequest.setAttribute("jakarta.portlet.faces.tck.testLifecycleFail",
 					"Didn't use the configured lifecycle: " + id);
 			}
 		}
@@ -106,11 +106,11 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 			Lifecycle l = lifecycleFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
 
 			if (l == lifecycle) {
-				portletRequest.setAttribute("javax.portlet.faces.tck.testLifecyclePass",
+				portletRequest.setAttribute("jakarta.portlet.faces.tck.testLifecyclePass",
 					"Correctly used the default lifcycle as none was configured.");
 			}
 			else {
-				portletRequest.setAttribute("javax.portlet.faces.tck.testLifecycleFail",
+				portletRequest.setAttribute("jakarta.portlet.faces.tck.testLifecycleFail",
 					"Didn't use the default lifecycle when none was configured.");
 			}
 		}
@@ -120,37 +120,37 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 
 		if ((context instanceof PortletContext) && (request instanceof PortletRequest) &&
 				(response instanceof PortletResponse)) {
-			((PortletRequest) request).setAttribute("javax.portlet.faces.tck.verifyPortletObjectsPass",
+			((PortletRequest) request).setAttribute("jakarta.portlet.faces.tck.verifyPortletObjectsPass",
 				"Correctly passed a PortletContext, PortletRequest, and PortletResponse in acquiring a FacesContext");
 		}
 		else {
-			((PortletRequest) request).setAttribute("javax.portlet.faces.tck.verifyPortletObjectsFail",
+			((PortletRequest) request).setAttribute("jakarta.portlet.faces.tck.verifyPortletObjectsFail",
 				"At least one of the objects passed to acquire a FacesContext wasn't a  PortletContext, PortletRequest, or PortletResponse");
 		}
 	}
 
 	private void verifyPortletPhase(PortletRequest portletRequest) {
-		Bridge.PortletPhase phase = (Bridge.PortletPhase) portletRequest.getAttribute("javax.portlet.faces.phase");
+		Bridge.PortletPhase phase = (Bridge.PortletPhase) portletRequest.getAttribute("jakarta.portlet.faces.phase");
 
 		if (portletRequest instanceof ActionRequest) {
 
 			if ((phase != null) && (phase == Bridge.PortletPhase.ACTION_PHASE)) {
-				portletRequest.setAttribute("javax.portlet.faces.tck.verifyPortletPhaseDuringActionPass",
+				portletRequest.setAttribute("jakarta.portlet.faces.tck.verifyPortletPhaseDuringActionPass",
 					"Phase attribute correctly set during action ... ");
 			}
 			else {
-				portletRequest.setAttribute("javax.portlet.faces.tck.verifyPortletPhaseDuringActionFail",
+				portletRequest.setAttribute("jakarta.portlet.faces.tck.verifyPortletPhaseDuringActionFail",
 					"Phase attribute either not set or has incorrect value during action ... ");
 			}
 		}
 		else {
 
 			if (Bridge.PortletPhase.HEADER_PHASE.equals(phase)) {
-				portletRequest.setAttribute("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderPass",
+				portletRequest.setAttribute("jakarta.portlet.faces.tck.verifyPortletPhaseDuringRenderPass",
 					"Phase attribute correctly set during render.");
 			}
 			else {
-				portletRequest.setAttribute("javax.portlet.faces.tck.verifyPortletPhaseDuringRenderFail",
+				portletRequest.setAttribute("jakarta.portlet.faces.tck.verifyPortletPhaseDuringRenderFail",
 					"Phase attribute either not set or has incorrect value during render.");
 			}
 		}

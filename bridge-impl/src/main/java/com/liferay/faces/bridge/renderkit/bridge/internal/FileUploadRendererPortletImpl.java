@@ -23,7 +23,7 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.Renderer;
 import jakarta.faces.render.RendererWrapper;
-import javax.portlet.ClientDataRequest;
+import jakarta.portlet.ClientDataRequest;
 
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 import com.liferay.faces.bridge.model.UploadedFile;

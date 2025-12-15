@@ -24,10 +24,10 @@ import java.util.Set;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.ResponseStateManager;
-import javax.portlet.BaseURL;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletURL;
-import javax.portlet.faces.BridgeConfig;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.faces.BridgeConfig;
 
 import com.liferay.faces.util.render.FacesURLEncoder;
 

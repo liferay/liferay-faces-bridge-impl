@@ -19,9 +19,9 @@ import java.util.Enumeration;
 import java.util.Map;
 
 import jakarta.faces.context.ExternalContext;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.BridgeFactoryFinder;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.BridgeFactoryFinder;
 
 import com.liferay.faces.bridge.bean.BeanManager;
 import com.liferay.faces.bridge.bean.BeanManagerFactory;

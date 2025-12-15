@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.portlet.ResourceRequest;
-import javax.portlet.filter.ResourceRequestWrapper;
+import jakarta.portlet.ResourceRequest;
+import jakarta.portlet.filter.ResourceRequestWrapper;
 
 
 /**

@@ -21,7 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URISyntaxException;
 
-import javax.portlet.BaseURL;
+import jakarta.portlet.BaseURL;
 
 import org.junit.Assert;
 import org.junit.Test;

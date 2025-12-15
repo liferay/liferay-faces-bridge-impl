@@ -15,10 +15,10 @@
  */
 package com.liferay.faces.issue;
 
-import javax.portlet.annotations.InitParameter;
-import javax.portlet.annotations.PortletConfiguration;
-import javax.portlet.annotations.SecurityRoleRef;
-import javax.portlet.faces.GenericFacesPortlet;
+import jakarta.portlet.annotations.InitParameter;
+import jakarta.portlet.annotations.PortletConfiguration;
+import jakarta.portlet.annotations.SecurityRoleRef;
+import jakarta.portlet.faces.GenericFacesPortlet;
 
 
 /**
@@ -28,7 +28,7 @@ import javax.portlet.faces.GenericFacesPortlet;
 	portletName = "FACES2958-friendlyURL",
 	initParams = {
 			@InitParameter(
-				name = "javax.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/FACES-2958/index.xhtml"
+				name = "jakarta.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/FACES-2958/index.xhtml"
 			)
 		}, roleRefs = {
 			@SecurityRoleRef(roleName = "administrator"), @SecurityRoleRef(roleName = "guest"),

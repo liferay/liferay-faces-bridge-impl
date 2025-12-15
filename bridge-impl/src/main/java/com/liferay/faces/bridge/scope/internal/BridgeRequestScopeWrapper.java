@@ -19,8 +19,8 @@ import java.util.Map;
 
 import jakarta.faces.FacesWrapper;
 import jakarta.faces.context.FacesContext;
-import javax.portlet.PortletMode;
-import javax.portlet.faces.Bridge.PortletPhase;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.faces.Bridge.PortletPhase;
 
 
 /**

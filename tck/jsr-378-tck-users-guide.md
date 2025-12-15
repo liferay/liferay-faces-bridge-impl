@@ -493,12 +493,12 @@ http://www.jcp.org/en/jsr/detail?id=378
 
 The following packages constitute the required class libraries for FacesBridge 5.x:
 
-- javax.portlet.faces
-- javax.portlet.faces.annotation
-- javax.portlet.faces.component
-- javax.portlet.faces.event
-- javax.portlet.faces.filter
-- javax.portlet.faces.preference
+- jakarta.portlet.faces
+- jakarta.portlet.faces.annotation
+- jakarta.portlet.faces.component
+- jakarta.portlet.faces.event
+- jakarta.portlet.faces.filter
+- jakarta.portlet.faces.preference
 
 ---
 

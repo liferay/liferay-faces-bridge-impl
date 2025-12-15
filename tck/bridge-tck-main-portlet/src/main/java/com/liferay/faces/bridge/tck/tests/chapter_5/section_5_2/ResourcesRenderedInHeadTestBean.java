@@ -31,8 +31,8 @@ import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.ComponentSystemEventListener;
 import jakarta.faces.event.PreRenderComponentEvent;
-import javax.portlet.PortletResponse;
-import javax.portlet.filter.PortletResponseWrapper;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.filter.PortletResponseWrapper;
 
 
 /**
@@ -54,8 +54,8 @@ public class ResourcesRenderedInHeadTestBean {
 
 	/**
 	 * This method returns the elements that were EXPECTED to be added via {@link
-	 * javax.portlet.HeaderResponse#addDependency(String, String, String)} or {@link
-	 * javax.portlet.HeaderResponse#addDependency(String, String, String, String)} but were not. If this method returns
+	 * jakarta.portlet.HeaderResponse#addDependency(String, String, String)} or {@link
+	 * jakarta.portlet.HeaderResponse#addDependency(String, String, String, String)} but were not. If this method returns
 	 * a non-empty value then that would indicate a test condition failure.
 	 */
 	public String getTestHeadElementsNotAddedViaAddDependency() {
@@ -87,7 +87,7 @@ public class ResourcesRenderedInHeadTestBean {
 	}
 
 	/**
-	 * Determines whether or not the {@link javax.portlet.HeaderResponse#addProperty(String, org.w3c.dom.Element)}
+	 * Determines whether or not the {@link jakarta.portlet.HeaderResponse#addProperty(String, org.w3c.dom.Element)}
 	 * method was called in order to add a resource to the &lt;head&gt;...&lt;/head&gt; section of the page. Since the
 	 * FacesBridge is not supposed to do this, returning a value of <code>true</code> would indicate a test condition
 	 * failure.

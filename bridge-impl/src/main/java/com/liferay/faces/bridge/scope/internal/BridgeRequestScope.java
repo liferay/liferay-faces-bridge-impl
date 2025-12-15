@@ -18,10 +18,10 @@ package com.liferay.faces.bridge.scope.internal;
 import java.util.Map;
 
 import jakarta.faces.context.FacesContext;
-import javax.portlet.ActionRequest;
-import javax.portlet.PortletMode;
-import javax.portlet.RenderRequest;
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.faces.Bridge;
 
 
 /**
@@ -58,10 +58,10 @@ public interface BridgeRequestScope {
 	}
 
 	/**
-	 * Determines the {@link javax.portlet.faces.Bridge.PortletPhase} in which the bridge request scope instance was
+	 * Determines the {@link jakarta.portlet.faces.Bridge.PortletPhase} in which the bridge request scope instance was
 	 * created.
 	 *
-	 * @return  The {@link javax.portlet.faces.Bridge.PortletPhase} in which the bridge request scope instance was
+	 * @return  The {@link jakarta.portlet.faces.Bridge.PortletPhase} in which the bridge request scope instance was
 	 *          created.
 	 */
 	public Bridge.PortletPhase getBeganInPhase();
@@ -77,7 +77,7 @@ public interface BridgeRequestScope {
 	public PortletMode getPortletMode();
 
 	/**
-	 * If the javax.portlet.faces.preserveActionParams init-param is set to <code>true</code> in WEB-INF/portlet.xml
+	 * If the jakarta.portlet.faces.preserveActionParams init-param is set to <code>true</code> in WEB-INF/portlet.xml
 	 * then this returns the action parameters that were found in the ACTION_PHASE.
 	 */
 	public Map<String, String> getPreservedActionParameterMap();
@@ -136,7 +136,7 @@ public interface BridgeRequestScope {
 
 	/**
 	 * This method preserves the scoped data (as defined in Section 5.1.2 of the Bridge Spec). It should only be called
-	 * during the {@link javax.portlet.PortletRequest#ACTION_PHASE} and {@link javax.portlet.PortletRequest#EVENT_PHASE}
+	 * during the {@link jakarta.portlet.PortletRequest#ACTION_PHASE} and {@link jakarta.portlet.PortletRequest#EVENT_PHASE}
 	 * of the portlet lifecycle.
 	 *
 	 * @param  facesContext  The current {@link FacesContext}.

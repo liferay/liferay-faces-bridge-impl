@@ -19,11 +19,11 @@ import java.util.List;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ExternalContext;
-import javax.portlet.ActionURL;
-import javax.portlet.BaseURL;
-import javax.portlet.MimeResponse;
-import javax.portlet.MutablePortletParameters;
-import javax.portlet.faces.component.PortletParam;
+import jakarta.portlet.ActionURL;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.MutablePortletParameters;
+import jakarta.portlet.faces.component.PortletParam;
 
 
 /**

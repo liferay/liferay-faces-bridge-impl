@@ -28,8 +28,8 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ExceptionQueuedEvent;
 import jakarta.faces.event.ExceptionQueuedEventContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.BridgeInvalidViewPathException;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.BridgeInvalidViewPathException;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 

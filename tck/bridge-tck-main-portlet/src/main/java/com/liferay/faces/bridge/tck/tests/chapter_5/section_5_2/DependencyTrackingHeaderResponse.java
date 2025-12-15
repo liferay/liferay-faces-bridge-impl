@@ -18,9 +18,9 @@ package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.portlet.HeaderResponse;
-import javax.portlet.MimeResponse;
-import javax.portlet.filter.HeaderResponseWrapper;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.filter.HeaderResponseWrapper;
 
 import org.w3c.dom.Element;
 

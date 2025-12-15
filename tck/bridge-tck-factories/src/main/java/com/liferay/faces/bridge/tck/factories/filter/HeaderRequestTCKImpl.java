@@ -22,13 +22,13 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 
-import javax.portlet.HeaderRequest;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletSession;
-import javax.portlet.RenderParameters;
-import javax.portlet.WindowState;
-import javax.portlet.filter.HeaderRequestWrapper;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.PortletSession;
+import jakarta.portlet.RenderParameters;
+import jakarta.portlet.WindowState;
+import jakarta.portlet.filter.HeaderRequestWrapper;
 import jakarta.servlet.http.Cookie;
 
 
