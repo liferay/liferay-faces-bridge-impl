@@ -103,8 +103,6 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 		if (headResourcesToRenderInBody != null) {
 
 			ExternalContext externalContext = facesContext.getExternalContext();
-			final Product BOOTSFACES = ProductFactory.getProductInstance(externalContext, Product.Name.BOOTSFACES);
-			final boolean BOOTSFACES_DETECTED = BOOTSFACES.isDetected();
 
 			for (UIComponent headResource : headResourcesToRenderInBody) {
 
@@ -115,7 +113,7 @@ public class BodyRendererBridgeImpl extends RendererWrapper {
 				// (and reloaded if necessary), we do not need to track them when they are rendered to the body section.
 				// However, scripts cannot be unloaded, so relocated scripts rendered in the body section must be
 				// tracked as if they were rendered in the <head> section so that they are not loaded multiple times.
-				if (RenderKitUtil.isScriptResource(headResource, BOOTSFACES_DETECTED)) {
+				if (RenderKitUtil.isScriptResource(headResource)) {
 					headResourceIds.add(ResourceUtil.getResourceId(headResource));
 				}
 			}

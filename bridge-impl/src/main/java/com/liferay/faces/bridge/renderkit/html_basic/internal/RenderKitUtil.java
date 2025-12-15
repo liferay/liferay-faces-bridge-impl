@@ -55,48 +55,22 @@ import com.liferay.faces.bridge.application.internal.ResourceRichFacesImpl;
 		return headResourceIds;
 	}
 
-	/* package-private */ static boolean isScriptResource(UIComponent componentResource, final boolean BOOTSFACES_DETECTED) {
+	/* package-private */ static boolean isScriptResource(UIComponent componentResource) {
 
 		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
 		String resourceName = (String) componentResourceAttributes.get("name");
 		String resourceLibrary = (String) componentResourceAttributes.get("library");
 
 		return ((resourceName != null) && (resourceName.endsWith("js") || resourceName.contains(".js?"))) ||
-			isRichFacesReslibResource(resourceName, resourceLibrary) ||
-			isBootsFacesNonJSFResource(resourceName, componentResourceAttributes, "js", BOOTSFACES_DETECTED);
+			isRichFacesReslibResource(resourceName, resourceLibrary);
 	}
 
-	/* package-private */ static boolean isStyleSheetResource(UIComponent componentResource, final boolean BOOTSFACES_DETECTED) {
+	/* package-private */ static boolean isStyleSheetResource(UIComponent componentResource) {
 
 		Map<String, Object> componentResourceAttributes = componentResource.getAttributes();
 		String resourceName = (String) componentResourceAttributes.get("name");
 
-		return ((resourceName != null) && (resourceName.endsWith("css") || resourceName.contains(".css?"))) ||
-			isBootsFacesNonJSFResource(resourceName, componentResourceAttributes, "css", BOOTSFACES_DETECTED);
-	}
-
-	private static boolean isBootsFacesNonJSFResource(String resourceName,
-		Map<String, Object> componentResourceAttributes, String resourceExtension, final boolean BOOTSFACES_DETECTED) {
-
-		boolean bootsFacesResource = false;
-
-		if ((resourceName == null) && BOOTSFACES_DETECTED) {
-
-			String url = (String) componentResourceAttributes.get("url");
-
-			if (url != null) {
-
-				int indexOfQuerySection = url.indexOf("?");
-
-				if (indexOfQuerySection > -1) {
-					url = url.substring(0, indexOfQuerySection);
-				}
-
-				bootsFacesResource = url.endsWith(resourceExtension);
-			}
-		}
-
-		return bootsFacesResource;
+		return ((resourceName != null) && (resourceName.endsWith("css") || resourceName.contains(".css?")));
 	}
 
 	private static boolean isRichFacesReslibResource(String resourceName, String resourceLibrary) {

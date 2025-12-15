@@ -50,7 +50,6 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 
 	// Private Final Data Members
 	private final HeaderResponse headerResponse;
-	private final BootsFacesDetectedAccessor bootsFacesDetectedAccessor = new BootsFacesDetectedAccessor();
 
 	public HeadResponseWriterCompatImpl(ResponseWriter wrappedResponseWriter, HeaderResponse headerResponse) {
 		super(wrappedResponseWriter);
@@ -143,8 +142,8 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 			Element element = (Element) node;
 
 			if ((componentResource != null) &&
-					(RenderKitUtil.isScriptResource(componentResource, bootsFacesDetectedAccessor.get(null)) ||
-						RenderKitUtil.isStyleSheetResource(componentResource, bootsFacesDetectedAccessor.get(null)))) {
+					(RenderKitUtil.isScriptResource(componentResource) ||
+						RenderKitUtil.isStyleSheetResource(componentResource))) {
 
 				Map<String, Object> attributes = componentResource.getAttributes();
 				name = (String) attributes.get("name");
@@ -201,16 +200,6 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 			name = Integer.toString(node.hashCode()) + Integer.toString(headerResponse.hashCode());
 		}
 
-		// FACES-3570: If the dependency is from BootsFaces and is incompatible with the Liferay and Pluto
-		// implementations of PortletResponse#addDependency then to not attempt to add the dependency.
-		if ((nodeString == null) || (nodeString.startsWith("<!--[") && nodeString.endsWith("]>")) ||
-				(nodeString.startsWith("<![>") || nodeString.endsWith("]-->")) || nodeString.startsWith("<meta")) {
-
-			logger.debug("Not adding BootsFaces dependency: [{0}]", nodeString);
-
-			return;
-		}
-
 		headerResponse.addDependency(name, scope, version, nodeString);
 
 		if (logger.isDebugEnabled()) {
@@ -249,18 +238,5 @@ public class HeadResponseWriterCompatImpl extends HeadResponseWriterBase {
 		}
 
 		return parameterValueStartIndex;
-	}
-
-	private static final class BootsFacesDetectedAccessor extends ThreadSafeAccessor<Boolean, Void> {
-
-		@Override
-		protected Boolean computeValue(Void null_) {
-
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = facesContext.getExternalContext();
-			final Product BOOTSFACES = ProductFactory.getProductInstance(externalContext, Product.Name.BOOTSFACES);
-
-			return BOOTSFACES.isDetected();
-		}
 	}
 }

@@ -82,19 +82,17 @@ public class HeadRendererBridgeImpl extends Renderer {
 		// Sort the components that are in the view root into stylesheets, scripts, and other.
 		List<UIComponent> headComponentResources = uiViewRoot.getComponentResources(facesContext, "head");
 		ExternalContext externalContext = facesContext.getExternalContext();
-		final Product BOOTSFACES = ProductFactory.getProductInstance(externalContext, Product.Name.BOOTSFACES);
-		final boolean BOOTSFACES_DETECTED = BOOTSFACES.isDetected();
 		List<UIComponent> styleSheetResources = new ArrayList<UIComponent>();
 		List<UIComponent> scriptResources = new ArrayList<UIComponent>();
 		List<UIComponent> otherHeadResources = new ArrayList<UIComponent>();
 
 		for (UIComponent headComponentResource : headComponentResources) {
 
-			if (RenderKitUtil.isStyleSheetResource(headComponentResource, BOOTSFACES_DETECTED) ||
+			if (RenderKitUtil.isStyleSheetResource(headComponentResource) ||
 					isInlineStyleSheet(headComponentResource)) {
 				styleSheetResources.add(headComponentResource);
 			}
-			else if (RenderKitUtil.isScriptResource(headComponentResource, BOOTSFACES_DETECTED) ||
+			else if (RenderKitUtil.isScriptResource(headComponentResource) ||
 					isInlineScript(headComponentResource)) {
 				scriptResources.add(headComponentResource);
 			}
@@ -111,10 +109,10 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 		for (UIComponent child : children) {
 
-			if (RenderKitUtil.isStyleSheetResource(child, BOOTSFACES_DETECTED) || isInlineStyleSheet(child)) {
+			if (RenderKitUtil.isStyleSheetResource(child) || isInlineStyleSheet(child)) {
 				styleSheetResources.add(child);
 			}
-			else if (RenderKitUtil.isScriptResource(child, BOOTSFACES_DETECTED) || isInlineScript(child)) {
+			else if (RenderKitUtil.isScriptResource(child) || isInlineScript(child)) {
 				scriptResources.add(child);
 			}
 			else {
@@ -164,7 +162,7 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 			// If the portlet container does not have the ability to add the resource to the <head> section of the
 			// portal page, then
-			if (!ableToAddResourceToHead(portalContext, headResource, BOOTSFACES_DETECTED)) {
+			if (!ableToAddResourceToHead(portalContext, headResource)) {
 
 				// Add it to the list of resources that are to be rendered in the body section by the body renderer.
 				headResourcesToRenderInBody.add(headResource);
@@ -216,8 +214,8 @@ public class HeadRendererBridgeImpl extends Renderer {
 
 				headResource.encodeAll(facesContext);
 
-				if (RenderKitUtil.isScriptResource(headResource, BOOTSFACES_DETECTED) ||
-						RenderKitUtil.isStyleSheetResource(headResource, BOOTSFACES_DETECTED)) {
+				if (RenderKitUtil.isScriptResource(headResource) ||
+						RenderKitUtil.isStyleSheetResource(headResource)) {
 					headResourceIds.add(ResourceUtil.getResourceId(headResource));
 				}
 			}
@@ -279,13 +277,12 @@ public class HeadRendererBridgeImpl extends Renderer {
 		return resources;
 	}
 
-	private boolean ableToAddResourceToHead(PortalContext portalContext, UIComponent componentResource,
-		final boolean BOOTSFACES_DETECTED) {
+	private boolean ableToAddResourceToHead(PortalContext portalContext, UIComponent componentResource) {
 
-		if (RenderKitUtil.isStyleSheetResource(componentResource, BOOTSFACES_DETECTED)) {
+		if (RenderKitUtil.isStyleSheetResource(componentResource)) {
 			return (portalContext.getProperty(BridgePortalContext.ADD_STYLE_SHEET_RESOURCE_TO_HEAD_SUPPORT) != null);
 		}
-		else if (RenderKitUtil.isScriptResource(componentResource, BOOTSFACES_DETECTED)) {
+		else if (RenderKitUtil.isScriptResource(componentResource)) {
 			return (portalContext.getProperty(BridgePortalContext.ADD_SCRIPT_RESOURCE_TO_HEAD_SUPPORT) != null);
 		}
 		else if (isInlineStyleSheet(componentResource)) {
