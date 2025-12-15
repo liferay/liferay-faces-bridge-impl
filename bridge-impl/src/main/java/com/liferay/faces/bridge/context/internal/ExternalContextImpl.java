@@ -1010,9 +1010,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 			// the Faces runtime is attempting to capture the plain HTML markup that may appear after the closing
 			// </f:view> component tag (a.k.a. "after view markup"). For example, the Mojarra
 			// com.sun.faces.application.view.JspViewHandlingStrategy will attempt to decorate the response with an
-			// instance of com.sun.faces.application.ViewHandlerResponseWrapper. Similarly, the MyFaces
-			// org.apache.myfaces.view.jsp.JspViewDeclarationLanguage class will attempt to decorate the response with
-			// an instance of org.apache.myfaces.application.jsp.ServletViewResponseWrapper.
+			// instance of com.sun.faces.application.ViewHandlerResponseWrapper. 
 			else if (response instanceof HttpServletResponse) {
 
 				// If executing the HEADER_PHASE of the portlet lifecycle, then decorate the specified

@@ -570,10 +570,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 	 * If the portlet container does not support the POST-REDIRECT-GET design pattern, then the ACTION_PHASE and
 	 * RENDER_PHASE are both part of a single HTTP POST request. In such cases, the excluded request attributes must be
 	 * pro-actively removed. Note that this must take place prior to the FacesContext getting constructed because the
-	 * FacesContextFactory delegation chain might consult a request attribute that is supposed to be excluded. This is
-	 * indeed the case with Apache Trinidad
-	 * org.apache.myfaces.trinidadinternal.context.FacesContextFactoryImpl.CacheRenderKit constructor, which consults a
-	 * request attribute named "org.apache.myfaces.trinidad.util.RequestStateMap" that must first be excluded.
+	 * FacesContextFactory delegation chain might consult a request attribute that is supposed to be excluded.
 	 */
 	private void simulatePostRedirectGet(PortletRequest portletRequest, Set<String> nonExcludedAttributeNames) {
 

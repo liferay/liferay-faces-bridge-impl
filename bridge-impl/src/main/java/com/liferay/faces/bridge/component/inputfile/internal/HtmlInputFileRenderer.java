@@ -115,11 +115,6 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 			Renderer delegateRenderer;
 			String delegateRendererFQCN = "com.sun.faces.renderkit.html_basic.FileRenderer";
 			ExternalContext externalContext = facesContext.getExternalContext();
-			final Product MYFACES = ProductFactory.getProductInstance(externalContext, Product.Name.MYFACES);
-
-			if (MYFACES.isDetected()) {
-				delegateRendererFQCN = "org.apache.myfaces.renderkit.html.HtmlInputFileRenderer";
-			}
 
 			try {
 
