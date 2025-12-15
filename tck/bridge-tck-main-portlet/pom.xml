@@ -175,13 +175,6 @@
 				</osgi.require.capability>
 			</properties>
 		</profile>
-		<profile>
-			<id>websphere</id>
-			<properties>
-				<integration.host>192.168.10.110</integration.host>
-				<integration.port>9080</integration.port>
-			</properties>
-		</profile>
 		<!-- /containers -->
 		<!-- browsers -->
 		<profile>
