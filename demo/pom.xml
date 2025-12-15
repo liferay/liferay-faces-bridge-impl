@@ -15,7 +15,6 @@
 
 	<modules>
 		<module>alloy-showcase-portlet</module>
-		<module>bootsfaces-applicant-portlet</module>
 		<module>butterfaces-applicant-portlet</module>
 		<module>jsf-cdi-applicant-portlet</module>
 		<module>jsf-export-pdf-portlet</module>
