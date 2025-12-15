@@ -238,7 +238,6 @@
 		<liferay.faces.alloy.version>4.1.2-SNAPSHOT</liferay.faces.alloy.version>
 		<liferay.faces.bridge.ext.version>8.0.2-SNAPSHOT</liferay.faces.bridge.ext.version>
 		<liferay.faces.showcase.version>4.0.1-SNAPSHOT</liferay.faces.showcase.version>
-		<liferay.jboss.version>7.1.1</liferay.jboss.version>
 		<liferay.platform>liferay-ce</liferay.platform>
 		<liferay.tomcat.version>8.0.30</liferay.tomcat.version>
 		<liferay.version>7.4.3.ga102</liferay.version>
@@ -274,7 +273,6 @@
 		<war.dependency.scope.primefaces>${war.dependency.scope}</war.dependency.scope.primefaces>
 		<war.packaging.excludes>
 			WEB-INF/glassfish-*.xml,
-			WEB-INF/jboss-*.xml,
 			WEB-INF/sun-*.xml,
 			WEB-INF/web-*.xml,
 			WEB-INF/weblogic.xml
@@ -568,30 +566,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			</properties>
 		</profile>
 		<profile>
-			<id>jboss</id>
-			<properties>
-				<app.server.type>jboss</app.server.type>
-				<faces.impl.scope>provided</faces.impl.scope>
-				<liferay.app.server.dir>${liferay.home}/jboss-${liferay.jboss.version}</liferay.app.server.dir>
-				<liferay.deploy.dir>${liferay.app.server.dir}/standalone/deployments</liferay.deploy.dir>
-				<war.packaging.excludes>
-					WEB-INF/glassfish-*.xml,
-					WEB-INF/ibm-*.xml,
-					WEB-INF/sun-*.xml,
-					WEB-INF/web-*.xml,
-					WEB-INF/weblogic.xml
-				</war.packaging.excludes>
-			</properties>
-		</profile>
-		<profile>
-			<id>jboss-portlet-war</id>
-			<activation>
-				<file>
-					<exists>target/jboss-portlet-war-activation.tmp</exists>
-				</file>
-			</activation>
-		</profile>
-		<profile>
 			<id>liferay</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -678,7 +652,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<war.dependency.scope.primefaces>compile</war.dependency.scope.primefaces>
 				<war.packaging.excludes>
 					WEB-INF/glassfish-*.xml,
-					WEB-INF/jboss-*.xml,
 					WEB-INF/liferay-*.*,
 					WEB-INF/sun-*.xml,
 					WEB-INF/web-*.xml,
