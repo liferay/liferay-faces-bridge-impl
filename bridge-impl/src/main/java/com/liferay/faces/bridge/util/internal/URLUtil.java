@@ -26,8 +26,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.ResponseWriter;
 import javax.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.internal.BridgeURLBaseCompat;

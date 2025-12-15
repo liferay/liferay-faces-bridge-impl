@@ -17,10 +17,10 @@ package com.liferay.faces.issue.FACES_1618;
 
 import java.util.Iterator;
 
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitFactory;
+import jakarta.faces.application.Application;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.RenderKit;
+import jakarta.faces.render.RenderKitFactory;
 import javax.portlet.PortletConfig;
 
 import com.liferay.faces.util.application.ApplicationUtil;

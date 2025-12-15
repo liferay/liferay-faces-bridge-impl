@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.application.view.internal;
 
-import javax.faces.view.ViewDeclarationLanguage;
-import javax.faces.view.ViewDeclarationLanguageFactory;
+import jakarta.faces.view.ViewDeclarationLanguage;
+import jakarta.faces.view.ViewDeclarationLanguageFactory;
 
 
 /**

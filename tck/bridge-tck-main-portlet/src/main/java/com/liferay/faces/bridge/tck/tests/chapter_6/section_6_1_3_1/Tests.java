@@ -22,10 +22,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.application.Application;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.application.Application;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ResponseStateManager;
 import javax.portlet.ActionRequest;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.MimeResponse;
@@ -3202,8 +3202,8 @@ public class Tests {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			requestMap.put("myRequestObject", externalContext.getRequest()); // should be excluded because of value type
 			requestMap.put("myFacesContext", facesContext); // should be excluded because of value type
-			requestMap.put("javax.faces.myKey1", Boolean.TRUE); // should be excluded because its in exlcuded namespace
-			requestMap.put("javax.faces.myNamespace.myKey1", Boolean.TRUE); // should be retained because excluded
+			requestMap.put("jakarta.faces.myKey1", Boolean.TRUE); // should be excluded because its in exlcuded namespace
+			requestMap.put("jakarta.faces.myNamespace.myKey1", Boolean.TRUE); // should be retained because excluded
 																			// namespaces don't recurse
 			requestMap.put("myKey1", Boolean.TRUE); // should be retained
 			requestMap.put("myExcludedNamespace.myKey1", Boolean.TRUE); // should be excluded as defined in portlet.xml
@@ -3248,16 +3248,16 @@ public class Tests {
 				return Constants.TEST_FAILED;
 			}
 
-			if (requestMap.get("javax.faces.myKey1") != null) {
+			if (requestMap.get("jakarta.faces.myKey1") != null) {
 				testBean.setTestResult(false,
-					"The bridge request scope incorrectly preserved an attribute in the predefined exlcuded namespace javax.faces.");
+					"The bridge request scope incorrectly preserved an attribute in the predefined exlcuded namespace jakarta.faces.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (requestMap.get("javax.faces.myNamespace.myKey1") == null) {
+			if (requestMap.get("jakarta.faces.myNamespace.myKey1") == null) {
 				testBean.setTestResult(false,
-					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of the javax.faces namespace.  Exclusion rules aren't recursive.");
+					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of the jakarta.faces namespace.  Exclusion rules aren't recursive.");
 
 				return Constants.TEST_FAILED;
 			}

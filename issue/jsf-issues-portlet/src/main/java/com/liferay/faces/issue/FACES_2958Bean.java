@@ -23,11 +23,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import javax.faces.application.Application;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Application;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.RequestScoped;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 
 /**

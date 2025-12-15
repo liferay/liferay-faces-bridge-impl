@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.context.FacesContext;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ResponseStateManager;
 import javax.portlet.BaseURL;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletURL;
@@ -33,17 +33,17 @@ import com.liferay.faces.util.render.FacesURLEncoder;
 
 
 /**
- * The JavaDoc for {@link javax.faces.application.ViewHandler#getBookmarkableURL(FacesContext, String, Map, boolean)}
+ * The JavaDoc for {@link jakarta.faces.application.ViewHandler#getBookmarkableURL(FacesContext, String, Map, boolean)}
  * requires that the return value be suitable to be used as the target of a link. This means that the renderer for
  * h:link must be able to use the return value for the href attribute of an anchor element, and that the renderer for
  * h:button be able to use the return value for the onclick attribute of a button element. 
  * com.sun.faces.application.view.MultiViewHandler call
  * ExternalContext.encodeActionURL(ExternalContext.encodeBookmarkableURL(ViewHandler.getActionURL(viewId))) in order to
  * satisfy this requirement. As a result, the Bridge's implementation of {@link
- * javax.faces.context.ExternalContext#encodeBookmarkableURL(String, Map)} must not attempt to return the result of
+ * jakarta.faces.context.ExternalContext#encodeBookmarkableURL(String, Map)} must not attempt to return the result of
  * {@link PortletURL#toString()}. Instead, it must simply return a non-encoded String that appends the specified map of
  * bookmark parameters to the query-string of the specified URL. However, since the Bridge's version of {@link
- * javax.faces.context.ExternalContext#encodeActionURL(String url)} needs to detect whether or not the specified URL is
+ * jakarta.faces.context.ExternalContext#encodeActionURL(String url)} needs to detect whether or not the specified URL is
  * bookmarkable, {@link BridgeExt#BOOKMARKABLE_PARAMETER} must also be present in the query-string with a value of
  * "true".
  *

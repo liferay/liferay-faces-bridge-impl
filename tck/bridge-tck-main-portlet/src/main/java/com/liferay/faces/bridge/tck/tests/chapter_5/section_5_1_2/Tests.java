@@ -19,10 +19,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletPreferences;
@@ -428,8 +428,8 @@ public class Tests {
 
 			requestMap.put("javax.portlet.TestRequestScope", REQUEST_ATTR_VALUE);
 			requestMap.put("javax.portlet.faces.TestRequestScope", REQUEST_ATTR_VALUE);
-			requestMap.put("javax.faces.TestRequestScope", REQUEST_ATTR_VALUE);
-			requestMap.put("javax.servlet.TestRequestScope", REQUEST_ATTR_VALUE);
+			requestMap.put("jakarta.faces.TestRequestScope", REQUEST_ATTR_VALUE);
+			requestMap.put("jakarta.servlet.TestRequestScope", REQUEST_ATTR_VALUE);
 			requestMap.put("javax.servlet.include.TestRequestScope", REQUEST_ATTR_VALUE);
 
 			return "requestScopeContentsTest"; // action Navigation result
@@ -588,20 +588,20 @@ public class Tests {
 				return Constants.TEST_FAILED;
 			}
 
-			o = requestMap.get("javax.faces.TestRequestScope");
+			o = requestMap.get("jakarta.faces.TestRequestScope");
 
 			if (o != null) {
 				testBean.setTestResult(false,
-					"Attribute in the javax.faces namesapce unexpectedly retained: javax.faces.TestRequestScope.");
+					"Attribute in the jakarta.faces namesapce unexpectedly retained: jakarta.faces.TestRequestScope.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			o = requestMap.get("javax.servlet.TestRequestScope");
+			o = requestMap.get("jakarta.servlet.TestRequestScope");
 
 			if (o != null) {
 				testBean.setTestResult(false,
-					"Attribute in the javax.servlet namesapce unexpectedly retained: javax.servlet.TestRequestScope.");
+					"Attribute in the jakarta.servlet namesapce unexpectedly retained: jakarta.servlet.TestRequestScope.");
 
 				return Constants.TEST_FAILED;
 			}

@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.util.internal;
 
-import javax.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage;
 
 
 /**

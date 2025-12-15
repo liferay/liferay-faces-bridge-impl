@@ -25,10 +25,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContext;
 import javax.portlet.PortletContext;
 import javax.portlet.faces.BridgeFactoryFinder;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;
 

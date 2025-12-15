@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.demos.handler;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.faces.BridgePublicRenderParameterHandler;
 
 import com.liferay.faces.util.logging.Logger;

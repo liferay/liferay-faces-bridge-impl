@@ -19,7 +19,7 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContext;
 import javax.portlet.PortletContext;
 import javax.portlet.faces.BridgeFactoryFinder;
 
@@ -63,7 +63,7 @@ public class ApplicationScopeMap extends AbstractMutablePropertyMap<Object> {
 
 	/**
 	 * According to the JSF 2.0 JavaDocs for {@link ExternalContext#getApplicationMap}, before a managed-bean is removed
-	 * from the map, any public no-argument void return methods annotated with javax.annotation.PreDestroy must be
+	 * from the map, any public no-argument void return methods annotated with jakarta.annotation.PreDestroy must be
 	 * called first.
 	 */
 	@Override
@@ -87,7 +87,7 @@ public class ApplicationScopeMap extends AbstractMutablePropertyMap<Object> {
 
 	/**
 	 * According to the JSF 2.0 JavaDocs for {@link ExternalContext#getApplicationMap}, before a managed-bean is removed
-	 * from the map, any public no-argument void return methods annotated with javax.annotation.PreDestroy must be
+	 * from the map, any public no-argument void return methods annotated with jakarta.annotation.PreDestroy must be
 	 * called first.
 	 */
 	@Override

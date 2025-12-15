@@ -64,21 +64,21 @@
 								com.liferay.faces.bridge.internal,\
 								com.liferay.faces.bridge.renderkit.html_basic.internal,\
 								com.liferay.faces.bridge.scope.internal
-							# javax.el is automatically imported with the following versions:
-							# javax.el;version="[2.2.0,3.0.0)", but versions 3.0.0+ are also valid.
-							# javax.enterprise.context is automatically imported with the following versions:
-							# javax.enterprise.context;version="[1.1.0,2.0.0)" because of the CDI 1.2 API
+							# jakarta.el is automatically imported with the following versions:
+							# jakarta.el;version="[2.2.0,3.0.0)", but versions 3.0.0+ are also valid.
+							# jakarta.enterprise.context is automatically imported with the following versions:
+							# jakarta.enterprise.context;version="[1.1.0,2.0.0)" because of the CDI 1.2 API
 							# compile-time dependency. Need to compile against 1.2 since the CDI 2.0 API is
 							# compiled with JDK8. Need to require 2.0+ at run-time for Portlet 3.0
 							# Java EE 7 compatibility.
 							Import-Package: \
-								javax.el;version="[2.2.0,4.0.0)",\
-								javax.enterprise.context;version="[2.0.0,3.0.0)",\
-								javax.enterprise.context.spi;version="[2.0.0,3.0.0)",\
-								javax.enterprise.event;version="[2.0.0,3.0.0)",\
-								javax.enterprise.inject;version="[2.0.0,3.0.0)",\
-								javax.enterprise.inject.spi;version="[2.0.0,3.0.0)",\
-								javax.enterprise.util;version="[1.1.0,3.0.0)",\
+								jakarta.el;version="[2.2.0,4.0.0)",\
+								jakarta.enterprise.context;version="[2.0.0,3.0.0)",\
+								jakarta.enterprise.context.spi;version="[2.0.0,3.0.0)",\
+								jakarta.enterprise.event;version="[2.0.0,3.0.0)",\
+								jakarta.enterprise.inject;version="[2.0.0,3.0.0)",\
+								jakarta.enterprise.inject.spi;version="[2.0.0,3.0.0)",\
+								jakarta.enterprise.util;version="[1.1.0,3.0.0)",\
 								com.liferay.faces.util.*;version="[4.0.0,5.0.0)",\
 								com.liferay.faces.bridge.*;version="[6.0.0,7.0.0)",\
 								com.liferay.faces.portlet.*;version="[6.0.0,7.0.0)",\
@@ -135,12 +135,12 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.annotation</groupId>
-			<artifactId>javax.annotation-api</artifactId>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>javax.el-api</artifactId>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.enterprise</groupId>
@@ -149,20 +149,20 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.faces</groupId>
-			<artifactId>javax.faces-api</artifactId>
+			<groupId>jakarta.faces</groupId>
+			<artifactId>jakarta.faces-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
+			<groupId>jakarta.servlet.jsp</groupId>
+			<artifactId>jakarta.servlet.jsp-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>

@@ -15,13 +15,13 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.faces.FactoryFinder;
-import javax.faces.context.Flash;
-import javax.faces.context.FlashFactory;
+import jakarta.faces.FactoryFinder;
+import jakarta.faces.context.Flash;
+import jakarta.faces.context.FlashFactory;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 /**

@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.portlet.component.renderurl.internal;
 
-import javax.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContext;
 import javax.portlet.MimeResponse;
 import javax.portlet.RenderURL;
 

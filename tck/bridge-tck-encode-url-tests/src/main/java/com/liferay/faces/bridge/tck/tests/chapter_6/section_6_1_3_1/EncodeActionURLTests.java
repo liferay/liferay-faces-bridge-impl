@@ -18,9 +18,9 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1;
 import java.io.StringWriter;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ResponseStateManager;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;

@@ -21,9 +21,9 @@ import java.util.Locale;
 
 import javax.portlet.MimeResponse;
 import javax.portlet.filter.MimeResponseWrapper;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 /**

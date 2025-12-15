@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.ExternalContextWrapper;
-import javax.faces.webapp.FacesServlet;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContextWrapper;
+import jakarta.faces.webapp.FacesServlet;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
@@ -32,7 +32,7 @@ import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
 import javax.portlet.faces.BridgeFactoryFinder;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.model.UploadedFile;

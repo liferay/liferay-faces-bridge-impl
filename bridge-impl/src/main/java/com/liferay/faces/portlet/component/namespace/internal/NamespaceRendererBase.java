@@ -16,9 +16,9 @@
 package com.liferay.faces.portlet.component.namespace.internal;
 //J-
 
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
-import javax.faces.render.Renderer;
+import jakarta.faces.render.Renderer;
 
 
 /**

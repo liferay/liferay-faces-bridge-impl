@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import javax.faces.application.ConfigurableNavigationHandler;
-import javax.faces.application.NavigationHandler;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ConfigurableNavigationHandler;
+import jakarta.faces.application.NavigationHandler;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.PortletMode;
 import javax.portlet.StateAwareResponse;
 import javax.portlet.WindowState;

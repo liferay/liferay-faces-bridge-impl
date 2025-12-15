@@ -17,9 +17,9 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.util.Iterator;
 
-import javax.faces.context.FacesContext;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitFactory;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.RenderKit;
+import jakarta.faces.render.RenderKitFactory;
 
 import com.liferay.faces.util.application.ApplicationUtil;
 import com.liferay.faces.util.context.FacesRequestContext;

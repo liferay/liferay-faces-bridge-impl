@@ -23,9 +23,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.PortletConfig;
 
 import com.liferay.faces.util.i18n.I18n;

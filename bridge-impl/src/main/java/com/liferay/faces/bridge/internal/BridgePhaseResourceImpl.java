@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequestDispatcher;
 import javax.portlet.ResourceRequest;
@@ -31,7 +31,7 @@ import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.filter.BridgePortletRequestFactory;
 import javax.portlet.faces.filter.BridgePortletResponseFactory;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.application.ResourceValidator;

@@ -28,12 +28,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.FacesException;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 import javax.portlet.ActionResponse;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.HeaderResponse;
@@ -57,7 +57,7 @@ import javax.portlet.faces.BridgeFactoryFinder;
 import javax.portlet.faces.BridgeInvalidViewPathException;
 import javax.portlet.faces.BridgeURL;
 import javax.portlet.faces.GenericFacesPortlet;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.application.internal.BridgeNavigationUtil;
 import com.liferay.faces.bridge.context.BridgePortalContext;
@@ -93,7 +93,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 	// Private Constants
 	private static final String REQUEST_ATTR_PORTLET_REQUEST = "javax.portlet.request";
-	private static final String REQUEST_ATTR_QUERY_STRING = "javax.servlet.forward.query_string";
+	private static final String REQUEST_ATTR_QUERY_STRING = "jakarta.servlet.forward.query_string";
 
 	// Pre-initialized Data Members
 	private Map<String, Object> applicationMap;
@@ -482,7 +482,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	/**
 	 * This method returns the relative path to the viewId that is to be rendered.
 	 *
-	 * @see  javax.faces.context.ExternalContext#getRequestPathInfo()
+	 * @see  jakarta.faces.context.ExternalContext#getRequestPathInfo()
 	 */
 	@Override
 	public String getRequestPathInfo() {

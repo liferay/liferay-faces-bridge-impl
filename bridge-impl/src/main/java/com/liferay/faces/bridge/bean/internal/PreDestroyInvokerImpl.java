@@ -113,7 +113,7 @@ public class PreDestroyInvokerImpl implements PreDestroyInvoker {
 	}
 
 	/**
-	 * Determines whether or not the specified method is annotated with the {@link javax.annotation.PreDestroy}
+	 * Determines whether or not the specified method is annotated with the {@link jakarta.annotation.PreDestroy}
 	 * annotation. Note that the method signature must also have a void return type an zero parameters in order for this
 	 * method to return true.
 	 *
@@ -133,7 +133,7 @@ public class PreDestroyInvokerImpl implements PreDestroyInvoker {
 
 					for (Annotation annotation : annotations) {
 
-						if (annotation.annotationType().getName().equals("javax.annotation.PreDestroy")) {
+						if (annotation.annotationType().getName().equals("jakarta.annotation.PreDestroy")) {
 							return true;
 						}
 					}

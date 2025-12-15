@@ -23,11 +23,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UINamingContainer;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UINamingContainer;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.BaseURL;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
@@ -231,9 +231,9 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			baseURL = new BaseURLBridgeURIAdapterImpl(bridgeURI);
 		}
 
-		// Otherwise, if the URL is not a JSF2 portlet resource URL, but still contains the "javax.faces.resource"
+		// Otherwise, if the URL is not a JSF2 portlet resource URL, but still contains the "jakarta.faces.resource"
 		// resource URL identifier, then return a ResourceURL that can retrieve the JSF2 resource.
-		else if ((uri != null) && uri.contains("javax.faces.resource")) {
+		else if ((uri != null) && uri.contains("jakarta.faces.resource")) {
 			baseURL = createResourceURL(facesContext, bridgeURI.getParameterMap());
 		}
 

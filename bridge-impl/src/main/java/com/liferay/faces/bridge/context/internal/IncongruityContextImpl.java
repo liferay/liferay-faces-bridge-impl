@@ -18,8 +18,8 @@ package com.liferay.faces.bridge.context.internal;
 import java.io.IOException;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

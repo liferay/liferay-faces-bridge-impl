@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.tck.factories.filter;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.BridgeURL;
 import javax.portlet.faces.BridgeURLFactory;

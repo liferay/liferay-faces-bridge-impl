@@ -19,12 +19,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.FacesException;
-import javax.faces.application.ViewHandlerWrapper;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.ViewHandlerWrapper;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewDeclarationLanguage;
 import javax.portlet.PortletResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;

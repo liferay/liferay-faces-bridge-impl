@@ -17,10 +17,10 @@ package com.liferay.faces.bridge.application.view.internal;
 
 import java.io.IOException;
 
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewDeclarationLanguage;
 import javax.portlet.HeaderRequest;
 import javax.portlet.HeaderResponse;
 import javax.portlet.PortletRequest;

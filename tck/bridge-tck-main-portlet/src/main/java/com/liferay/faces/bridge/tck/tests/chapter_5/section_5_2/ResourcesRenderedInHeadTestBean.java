@@ -19,18 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
-import javax.faces.event.PreRenderComponentEvent;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ComponentSystemEventListener;
+import jakarta.faces.event.PreRenderComponentEvent;
 import javax.portlet.PortletResponse;
 import javax.portlet.filter.PortletResponseWrapper;
 
@@ -126,8 +126,8 @@ public class ResourcesRenderedInHeadTestBean {
 			String rendererType = headResource.getRendererType();
 
 			if ((headResource instanceof UIOutput) &&
-					(rendererType.equals("javax.faces.resource.Script") ||
-						rendererType.equals("javax.faces.resource.Stylesheet"))) {
+					(rendererType.equals("jakarta.faces.resource.Script") ||
+						rendererType.equals("jakarta.faces.resource.Stylesheet"))) {
 				headResource.subscribeToEvent(PreRenderComponentEvent.class, new ComponentSystemEventListener() {
 
 						@Override

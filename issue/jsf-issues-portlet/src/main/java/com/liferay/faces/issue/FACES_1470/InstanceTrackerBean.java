@@ -21,11 +21,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import jakarta.faces.bean.ApplicationScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
 
 
 /**

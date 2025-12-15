@@ -27,7 +27,7 @@ import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
 import javax.portlet.WindowState;
-import javax.servlet.http.Cookie;
+import jakarta.servlet.http.Cookie;
 
 
 /**

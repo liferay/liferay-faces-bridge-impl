@@ -96,7 +96,7 @@
 			<name>binding</name>
 			<required>false</required>
 			<deferred-value>
-				<type>javax.faces.component.UIComponent</type>
+				<type>jakarta.faces.component.UIComponent</type>
 			</deferred-value>
 		</attribute>
 		<attribute>
@@ -104,7 +104,7 @@
 			<name>fileUploadListener</name>
 			<required>false</required>
 			<deferred-value>
-				<type>javax.el.MethodExpression</type>
+				<type>jakarta.el.MethodExpression</type>
 			</deferred-value>
 		</attribute>
 	</tag>

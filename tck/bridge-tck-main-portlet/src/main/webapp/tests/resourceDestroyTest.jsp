@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
-<%@ page import="javax.faces.context.ExternalContext" %>
-<%@ page import="javax.faces.context.FacesContext" %>
+<%@ page import="jakarta.faces.context.ExternalContext" %>
+<%@ page import="jakarta.faces.context.FacesContext" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 

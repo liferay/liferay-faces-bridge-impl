@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Map;
 
-import javax.faces.FacesWrapper;
+import jakarta.faces.FacesWrapper;
 import javax.portlet.Portlet;
 import javax.portlet.PortletPreferences;
 import javax.portlet.ReadOnlyException;

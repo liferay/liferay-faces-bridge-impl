@@ -18,11 +18,11 @@ package com.liferay.faces.bridge.event.internal;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PhaseListener;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PhaseEvent;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PhaseListener;
 import javax.portlet.MutableRenderParameters;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;

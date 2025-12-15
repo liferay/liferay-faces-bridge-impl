@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.demos.portlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.render.ResponseStateManager;
 import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -46,7 +46,7 @@ public class ActionURLDemoPortlet extends GenericFacesPortlet {
 
 		for (String actionParameterName : actionParameters.getNames()) {
 
-			// With JSF 2.3, the "javax.faces.ViewState" parameter name is prepended with the portlet response
+			// With JSF 2.3, the "jakarta.faces.ViewState" parameter name is prepended with the portlet response
 			// namespace and the value of UINamingContainer.getSeparatorChar(facesContext), which is normally a colon.
 			// For this reason, and since we're not running within the JSF lifecyle (no access to FacesContext), it is
 			// necessary to iterate through the action parameter names in order to find the view state parameter.

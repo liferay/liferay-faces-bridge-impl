@@ -18,11 +18,11 @@ package com.liferay.faces.bridge.application.internal;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.PortletContext;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.util.application.ResourceValidator;
 import com.liferay.faces.util.application.ResourceValidatorFactory;
@@ -55,7 +55,7 @@ public class ResourceHandlerInnerImpl extends ResourceHandlerBridgeImpl {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
 
-		String resourceName = requestParameterMap.get("javax.faces.resource");
+		String resourceName = requestParameterMap.get("jakarta.faces.resource");
 
 		if (resourceName == null) {
 			resourceName = "";

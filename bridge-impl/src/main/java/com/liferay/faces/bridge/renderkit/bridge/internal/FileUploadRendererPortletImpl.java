@@ -18,11 +18,11 @@ package com.liferay.faces.bridge.renderkit.bridge.internal;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
-import javax.faces.render.RendererWrapper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.Renderer;
+import jakarta.faces.render.RendererWrapper;
 import javax.portlet.ClientDataRequest;
 
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;

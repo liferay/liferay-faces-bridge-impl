@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.Renderer;
-import javax.faces.render.RendererWrapper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.render.Renderer;
+import jakarta.faces.render.RendererWrapper;
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.util.application.ResourceUtil;

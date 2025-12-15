@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<faces-config version="3.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
 			  xmlns:bridge="http://www.liferay.com/xml/ns/liferay-faces-bridge-2.0-extension"
 			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+			  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
 
 	<application>
 		<application-extension>
@@ -58,7 +58,7 @@
 		</application-extension>
 		<system-event-listener>
 			<system-event-listener-class>com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_5.TCKApplicationStartupListener</system-event-listener-class>
-			<system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
+			<system-event-class>jakarta.faces.event.PostConstructApplicationEvent</system-event-class>
 		</system-event-listener>
 	</application>
 	<factory>

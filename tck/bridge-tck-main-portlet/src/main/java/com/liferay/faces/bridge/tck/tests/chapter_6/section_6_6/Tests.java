@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_6;
 
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.MimeResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;

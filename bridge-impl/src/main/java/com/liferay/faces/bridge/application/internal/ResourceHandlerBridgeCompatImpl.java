@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import javax.faces.application.ResourceHandlerWrapper;
+import jakarta.faces.application.ResourceHandlerWrapper;
 
 import com.liferay.faces.bridge.util.internal.PortletResourceUtilCompat;
 

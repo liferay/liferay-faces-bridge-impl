@@ -27,9 +27,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.application.Application;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Application;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;

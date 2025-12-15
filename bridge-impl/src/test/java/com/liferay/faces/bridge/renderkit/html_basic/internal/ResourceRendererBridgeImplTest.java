@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
-import javax.faces.render.Renderer;
+import jakarta.faces.render.Renderer;
 
 import org.junit.Assert;
 import org.junit.Test;

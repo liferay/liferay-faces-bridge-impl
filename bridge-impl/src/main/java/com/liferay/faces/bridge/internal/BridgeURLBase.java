@@ -25,9 +25,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ResponseStateManager;
 import javax.portlet.BaseURL;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletConfig;
@@ -393,7 +393,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 			}
 
 			// Note that preserved action parameters, parameters that already exist in the URL string,
-			// and "javax.faces.ViewState" must not be copied.
+			// and "jakarta.faces.ViewState" must not be copied.
 			if (!ResponseStateManager.VIEW_STATE_PARAM.equals(parameterName) &&
 					!bridgeURLParameterMap.containsKey(parameterName)) {
 				baseURL.setParameter(parameterName, mapEntry.getValue());
@@ -487,9 +487,9 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 			MimeResponse mimeResponse = (MimeResponse) externalContext.getResponse();
 			ResourceURL resourceURL = mimeResponse.createResourceURL();
 
-			// If the "javax.faces.resource" token is found in the URL, then
+			// If the "jakarta.faces.resource" token is found in the URL, then
 			String bridgeURIAsString = bridgeURI.toString();
-			int tokenPos = bridgeURIAsString.indexOf("javax.faces.resource");
+			int tokenPos = bridgeURIAsString.indexOf("jakarta.faces.resource");
 
 			if (tokenPos >= 0) {
 
@@ -511,12 +511,12 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 					resourceName = resourceName.substring(slashPos + 1);
 				}
 				else {
-					logger.debug("There is no slash after the [{0}] token in resourceURL=[{1}]", "javax.faces.resource",
+					logger.debug("There is no slash after the [{0}] token in resourceURL=[{1}]", "jakarta.faces.resource",
 						uriParameters);
 				}
 
-				resourceURL.setParameter("javax.faces.resource", resourceName);
-				logger.debug("Added parameter to portletURL name=[{0}] value=[{1}]", "javax.faces.resource",
+				resourceURL.setParameter("jakarta.faces.resource", resourceName);
+				logger.debug("Added parameter to portletURL name=[{0}] value=[{1}]", "jakarta.faces.resource",
 					resourceName);
 			}
 

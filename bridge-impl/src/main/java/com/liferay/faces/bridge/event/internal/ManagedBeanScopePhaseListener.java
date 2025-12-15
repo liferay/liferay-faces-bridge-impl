@@ -20,11 +20,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PhaseListener;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PhaseEvent;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PhaseListener;
 import javax.portlet.PortletContext;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.Bridge.PortletPhase;
@@ -38,7 +38,7 @@ import com.liferay.faces.util.config.ApplicationConfig;
 
 /**
  * <p>According to the JSF 2.0 JavaDocs for {@link ExternalContext#getApplicationMap}, before a managed-bean is removed
- * from the map, any public no-argument void return methods annotated with javax.annotation.PreDestroy must be called
+ * from the map, any public no-argument void return methods annotated with jakarta.annotation.PreDestroy must be called
  * first. This would be equally true of any custom JSF 2.0 scope, such as the bridgeRequestScope. This class is a JSF
  * PhaseListener that listens after the RENDER_RESPONSE phase completes. Its purpose is to force the managed-beans in
  * bridgeRequestScope and requestScope to go out-of-scope which will in turn cause any annotated PreDestroy methods to
@@ -72,7 +72,7 @@ public class ManagedBeanScopePhaseListener implements PhaseListener {
 
 				// Remove any managed-beans in request scope. According to the JSF 2.0 JavaDocs for {@link
 				// ExternalContext.getRequestMap}, before a managed-bean is removed from the map, any public no-argument
-				// void return methods annotated with javax.annotation.PreDestroy must be called first. Note that the
+				// void return methods annotated with jakarta.annotation.PreDestroy must be called first. Note that the
 				// bridge {@link RequestAttributeMap.remove(Object)} method will ensure that any @PreDestroy method(s)
 				// are called. The JavaDocs also state that this should only be the case for objects that are actually
 				// managed-beans.

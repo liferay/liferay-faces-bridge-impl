@@ -24,7 +24,7 @@
 					<scope>${war.dependency.scope}</scope>
 				</dependency>
 				<dependency>
-					<groupId>javax.validation</groupId>
+					<groupId>jakarta.validation</groupId>
 					<artifactId>validation-api</artifactId>
 				</dependency>
 			</dependencies>
@@ -50,16 +50,16 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax.annotation</groupId>
-			<artifactId>javax.annotation-api</artifactId>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
+			<groupId>jakarta.servlet.jsp</groupId>
+			<artifactId>jakarta.servlet.jsp-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.portlet</groupId>
@@ -93,7 +93,7 @@
 			<artifactId>hibernate-validator</artifactId>
 			<exclusions>
 				<exclusion>
-					<groupId>javax.validation</groupId>
+					<groupId>jakarta.validation</groupId>
 					<artifactId>validation-api</artifactId>
 				</exclusion>
 			</exclusions>

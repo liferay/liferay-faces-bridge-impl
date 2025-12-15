@@ -18,8 +18,8 @@ package com.liferay.faces.bridge.internal;
 import java.util.Enumeration;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.ExternalContextWrapper;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContextWrapper;
 import javax.portlet.PortletContext;
 import javax.portlet.faces.BridgeFactoryFinder;
 

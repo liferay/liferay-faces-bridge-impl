@@ -21,12 +21,12 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.FacesException;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialResponseWriter;
+import jakarta.faces.context.PartialViewContext;
+import jakarta.faces.context.ResponseWriter;
 import javax.portlet.ClientDataRequest;
 import javax.portlet.HeaderResponse;
 import javax.portlet.MimeResponse;
@@ -38,7 +38,7 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeException;
 import javax.portlet.faces.BridgeURL;
-import javax.servlet.http.Cookie;
+import jakarta.servlet.http.Cookie;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
@@ -478,7 +478,7 @@ public abstract class ExternalContextCompat_2_0_Impl extends ExternalContextComp
 	}
 
 	/**
-	 * The Portlet API does not have an equivalent to {@link javax.servlet.http.HttpServletResponse#sendError(int,
+	 * The Portlet API does not have an equivalent to {@link jakarta.servlet.http.HttpServletResponse#sendError(int,
 	 * String)}. Since the Mojarra JSF implementation basically only calls this when a Facelet is not found, better in a
 	 * portlet environment to simply log an error and throw an IOException up the call stack so that the portlet will
 	 * give the portlet container a chance to render an error message.

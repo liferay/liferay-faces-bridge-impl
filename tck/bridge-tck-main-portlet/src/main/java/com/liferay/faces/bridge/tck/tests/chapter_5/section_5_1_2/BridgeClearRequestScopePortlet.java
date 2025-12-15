@@ -22,12 +22,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.faces.FactoryFinder;
-import javax.faces.application.FacesMessage;
-import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PhaseListener;
-import javax.faces.lifecycle.LifecycleFactory;
+import jakarta.faces.FactoryFinder;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.event.PhaseEvent;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PhaseListener;
+import jakarta.faces.lifecycle.LifecycleFactory;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;

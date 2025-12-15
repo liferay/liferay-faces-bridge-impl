@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.portlet.PortletConfig;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import com.liferay.faces.bridge.servlet.BridgeSessionListener;
 import com.liferay.faces.util.cache.Cache;
@@ -56,7 +56,7 @@ public class BridgeRequestScopeManagerImpl implements BridgeRequestScopeManager 
 	}
 
 	/**
-	 * This method is designed to be invoked from a {@link javax.servlet.http.HttpSessionListener} like {@link
+	 * This method is designed to be invoked from a {@link jakarta.servlet.http.HttpSessionListener} like {@link
 	 * BridgeSessionListener} when a session timeout/expiration occurs.
 	 */
 	@Override

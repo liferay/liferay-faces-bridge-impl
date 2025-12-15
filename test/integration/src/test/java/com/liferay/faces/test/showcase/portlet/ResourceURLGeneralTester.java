@@ -37,6 +37,6 @@ public class ResourceURLGeneralTester extends TesterBase {
 		// Test that the image resource is rendered.
 		WaitingAsserter waitingAsserter = getWaitingAsserter();
 		assertImageRendered(browserDriver, waitingAsserter,
-			"//div[@class='showcase-example']//img[contains(@src,'javax.faces.resource')][contains(@src,'ln=images') or contains(@src,'ln:images')]");
+			"//div[@class='showcase-example']//img[contains(@src,'jakarta.faces.resource')][contains(@src,'ln=images') or contains(@src,'ln:images')]");
 	}
 }

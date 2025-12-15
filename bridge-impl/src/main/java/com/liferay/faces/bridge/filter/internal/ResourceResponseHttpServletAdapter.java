@@ -17,11 +17,11 @@ package com.liferay.faces.bridge.filter.internal;
 
 import java.util.Locale;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import javax.portlet.ActionURL;
 import javax.portlet.PortletURL;
 import javax.portlet.ResourceResponse;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 /**

@@ -22,11 +22,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ComponentSystemEvent;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.HeaderRequest;
@@ -38,8 +38,8 @@ import javax.portlet.RenderParameters;
 import javax.portlet.ResourceResponse;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;

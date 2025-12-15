@@ -15,10 +15,10 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.faces.context.ExceptionHandler;
-import javax.faces.context.ExceptionHandlerFactory;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.ExceptionHandler;
+import jakarta.faces.context.ExceptionHandlerFactory;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;

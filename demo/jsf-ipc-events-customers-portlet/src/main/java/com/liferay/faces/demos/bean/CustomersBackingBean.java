@@ -17,14 +17,14 @@ package com.liferay.faces.demos.bean;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.component.UICommand;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.RequestScoped;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
 import javax.portlet.ActionResponse;
 import javax.xml.namespace.QName;
 

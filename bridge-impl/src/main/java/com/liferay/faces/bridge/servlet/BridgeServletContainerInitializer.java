@@ -17,11 +17,11 @@ package com.liferay.faces.bridge.servlet;
 
 import java.util.Set;
 
-import javax.faces.annotation.FacesConfig;
-import javax.servlet.ServletContainerInitializer;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.HandlesTypes;
+import jakarta.faces.annotation.FacesConfig;
+import jakarta.servlet.ServletContainerInitializer;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.HandlesTypes;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 

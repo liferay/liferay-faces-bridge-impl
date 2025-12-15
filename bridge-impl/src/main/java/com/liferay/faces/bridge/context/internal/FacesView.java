@@ -20,7 +20,7 @@ import javax.portlet.faces.Bridge;
 
 /**
  * This interface represents a JSF View from the perspective of how it is mapped to the {@link
- * javax.faces.webapp.FacesServlet}.
+ * jakarta.faces.webapp.FacesServlet}.
  *
  * @author  Neil Griffin
  */
@@ -58,7 +58,7 @@ public interface FacesView {
 	String getViewId();
 
 	/**
-	 * Flag indicating whether or not the view is mapped to the {@link javax.faces.webapp.FacesServlet} via
+	 * Flag indicating whether or not the view is mapped to the {@link jakarta.faces.webapp.FacesServlet} via
 	 * extension-mapping (such as *.faces) or some other extension.
 	 *
 	 * @return  <code>true</code> if extension-mapped, otherwise <code>false</code>.
@@ -66,7 +66,7 @@ public interface FacesView {
 	boolean isExtensionMapped();
 
 	/**
-	 * Flag indicating whether or not the view is mapped to the {@link javax.faces.webapp.FacesServlet} via path-mapping
+	 * Flag indicating whether or not the view is mapped to the {@link jakarta.faces.webapp.FacesServlet} via path-mapping
 	 * (such as /faces/views/*) or some other extension.
 	 *
 	 * @return  <code>true</code> if extension-mapped, otherwise <code>false</code>.

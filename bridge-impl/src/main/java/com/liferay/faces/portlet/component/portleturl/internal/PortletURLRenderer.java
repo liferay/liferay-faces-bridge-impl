@@ -17,9 +17,9 @@ package com.liferay.faces.portlet.component.portleturl.internal;
 
 import java.io.IOException;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.BaseURL;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;

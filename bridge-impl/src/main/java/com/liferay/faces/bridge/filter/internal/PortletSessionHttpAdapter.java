@@ -20,9 +20,9 @@ import java.util.Map;
 
 import javax.portlet.PortletContext;
 import javax.portlet.PortletSession;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionContext;
 
 
 /**

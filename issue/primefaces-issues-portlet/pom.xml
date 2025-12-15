@@ -60,8 +60,8 @@
 					com.sun.enterprise.deployment;resolution:=optional,\
 					groovy.lang;resolution:=optional,\
 					groovy.util;resolution:=optional,\
-					javax.ejb;resolution:=optional,\
-					javax.faces.component.search;resolution:=optional,\
+					jakarta.ejb;resolution:=optional,\
+					jakarta.faces.component.search;resolution:=optional,\
 					io.nayuki.qrcodegen;resolution:=optional,\
 					net.glxn.qrgen.*;resolution:=optional,\
 					net.sf.ehcache;resolution:=optional,\
@@ -111,8 +111,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>javax.el-api</artifactId>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.portlet</groupId>

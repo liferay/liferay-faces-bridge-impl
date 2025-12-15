@@ -22,7 +22,7 @@ import java.util.Locale;
 
 import javax.portlet.MimeResponse;
 import javax.portlet.filter.MimeResponseWrapper;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 /**

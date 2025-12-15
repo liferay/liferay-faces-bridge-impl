@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.beans;
 
-import javax.annotation.PreDestroy;
-import javax.faces.context.FacesContext;
+import jakarta.annotation.PreDestroy;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.faces.annotation.BridgePreDestroy;
 import javax.portlet.faces.annotation.BridgeRequestScopeAttributeAdded;

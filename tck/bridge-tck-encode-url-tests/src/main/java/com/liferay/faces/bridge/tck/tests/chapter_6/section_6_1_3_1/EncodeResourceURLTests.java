@@ -17,9 +17,9 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1;
 
 import java.io.UnsupportedEncodingException;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;

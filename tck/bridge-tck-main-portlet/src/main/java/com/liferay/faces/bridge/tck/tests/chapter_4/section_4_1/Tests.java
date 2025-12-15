@@ -18,8 +18,8 @@ package com.liferay.faces.bridge.tck.tests.chapter_4.section_4_1;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.faces.BridgeEventHandler;
 import javax.portlet.faces.BridgePublicRenderParameterHandler;
 

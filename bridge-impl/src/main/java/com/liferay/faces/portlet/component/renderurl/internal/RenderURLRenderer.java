@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.portlet.component.renderurl.internal;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.render.FacesRenderer;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.render.FacesRenderer;
 import javax.portlet.PortletURL;
 import javax.portlet.faces.component.PortletRenderURL;
 

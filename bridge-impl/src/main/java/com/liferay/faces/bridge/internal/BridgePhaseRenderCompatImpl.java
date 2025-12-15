@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
-import javax.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;

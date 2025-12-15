@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.scope.internal;
 
 import java.util.Map;
 
-import javax.faces.FacesWrapper;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesWrapper;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.PortletMode;
 import javax.portlet.faces.Bridge.PortletPhase;
 

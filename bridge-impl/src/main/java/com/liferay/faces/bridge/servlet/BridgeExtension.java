@@ -21,17 +21,17 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.AfterBeanDiscovery;
-import javax.enterprise.inject.spi.AnnotatedConstructor;
-import javax.enterprise.inject.spi.AnnotatedField;
-import javax.enterprise.inject.spi.AnnotatedMethod;
-import javax.enterprise.inject.spi.AnnotatedType;
-import javax.enterprise.inject.spi.BeanManager;
-import javax.enterprise.inject.spi.BeforeBeanDiscovery;
-import javax.enterprise.inject.spi.Extension;
-import javax.enterprise.inject.spi.ProcessAnnotatedType;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.spi.AfterBeanDiscovery;
+import jakarta.enterprise.inject.spi.AnnotatedConstructor;
+import jakarta.enterprise.inject.spi.AnnotatedField;
+import jakarta.enterprise.inject.spi.AnnotatedMethod;
+import jakarta.enterprise.inject.spi.AnnotatedType;
+import jakarta.enterprise.inject.spi.BeanManager;
+import jakarta.enterprise.inject.spi.BeforeBeanDiscovery;
+import jakarta.enterprise.inject.spi.Extension;
+import jakarta.enterprise.inject.spi.ProcessAnnotatedType;
 import javax.portlet.faces.GenericFacesPortlet;
 import javax.portlet.faces.annotation.BridgeRequestScoped;
 
@@ -62,7 +62,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
  * bean. This is necessary in order for a JSF portlet to be registered as a Portlet 3.0 "bean" portlet via CDI. An
  * alternative approach would be to have a META-INF/beans.xml descriptor in the FacesBridge API jar. But this has at
  * least three drawbacks: 1) From a Liferay perspective, when the FacesBridge API jar is deployed to
- * $LIFERAY_HOME/osgi/modules, Liferay's CDI+OSGi integration can't find javax.faces.GenericFacesPortlet during
+ * $LIFERAY_HOME/osgi/modules, Liferay's CDI+OSGi integration can't find jakarta.faces.GenericFacesPortlet during
  * classpath scanning. 2) If the FacesBridge is bundled in WEB-INF/lib, <a
  * href="https://issues.liferay.com/browse/LPS-103984">LPS-103984</a> would prevent the META-INF/beans.xml descriptor
  * from setting bean-discovery-mode="annotated". Because of this, bean-discover-mode="all" would be required, which

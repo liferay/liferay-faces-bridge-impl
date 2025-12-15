@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

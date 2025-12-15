@@ -17,13 +17,13 @@ package com.liferay.faces.bridge.demos.bean;
 
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.component.UICommand;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedProperty;
+import jakarta.faces.bean.RequestScoped;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
 
 import com.liferay.faces.bridge.event.FileUploadEvent;
 import com.liferay.faces.bridge.model.UploadedFile;

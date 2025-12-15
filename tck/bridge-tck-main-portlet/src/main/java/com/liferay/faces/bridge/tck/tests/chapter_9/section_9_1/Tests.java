@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_9.section_9_1;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 

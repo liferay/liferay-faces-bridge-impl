@@ -20,12 +20,12 @@ import java.io.Writer;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.ExceptionHandler;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.ExceptionHandler;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ExceptionQueuedEvent;
+import jakarta.faces.event.ExceptionQueuedEventContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
 import javax.portlet.faces.BridgeConfig;

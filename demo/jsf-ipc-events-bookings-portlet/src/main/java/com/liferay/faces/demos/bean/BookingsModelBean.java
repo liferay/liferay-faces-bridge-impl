@@ -18,12 +18,12 @@ package com.liferay.faces.demos.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.RequestScoped;
+import jakarta.faces.bean.SessionScoped;
+import jakarta.faces.bean.ViewScoped;
 
 import com.liferay.faces.demos.dto.Booking;
 import com.liferay.faces.demos.dto.Customer;

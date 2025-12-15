@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.component.inputfile.internal;
 
 import java.io.IOException;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ResponseWriter;
 
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 

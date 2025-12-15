@@ -17,8 +17,8 @@ package com.liferay.faces.issue.FACES_1470;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ApplicationScoped;
+import jakarta.faces.bean.ManagedBean;
 
 
 /**

@@ -15,18 +15,18 @@
  */
 package com.liferay.faces.bridge.tck.common.util.faces.context;
 
-import javax.faces.FacesException;
-import javax.faces.FactoryFinder;
-import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
-import javax.faces.lifecycle.Lifecycle;
-import javax.faces.lifecycle.LifecycleFactory;
+import jakarta.faces.FacesException;
+import jakarta.faces.FactoryFinder;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.FacesContextFactory;
+import jakarta.faces.lifecycle.Lifecycle;
+import jakarta.faces.lifecycle.LifecycleFactory;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.faces.Bridge;
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletRequest;
 
 
 /**
@@ -86,7 +86,7 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 	}
 
 	private void verifyLifecycle(PortletContext context, PortletRequest portletRequest, Lifecycle lifecycle) {
-		String id = context.getInitParameter("javax.faces.LIFECYCLE_ID");
+		String id = context.getInitParameter("jakarta.faces.LIFECYCLE_ID");
 		LifecycleFactory lifecycleFactory = (LifecycleFactory) FactoryFinder.getFactory(
 				FactoryFinder.LIFECYCLE_FACTORY);
 

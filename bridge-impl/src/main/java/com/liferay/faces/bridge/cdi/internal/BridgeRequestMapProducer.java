@@ -17,14 +17,14 @@ package com.liferay.faces.bridge.cdi.internal;
 
 import java.util.Map;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Produces;
-import javax.faces.annotation.RequestMap;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import javax.interceptor.Interceptor;
+import jakarta.annotation.Priority;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Alternative;
+import jakarta.enterprise.inject.Produces;
+import jakarta.faces.annotation.RequestMap;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
+import jakarta.interceptor.Interceptor;
 import javax.portlet.annotations.PortletRequestScoped;
 
 

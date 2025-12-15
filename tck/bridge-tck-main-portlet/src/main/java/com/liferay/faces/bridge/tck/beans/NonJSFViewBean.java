@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.tck.beans;
 
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.faces.bridge.tck.common.Constants;
 

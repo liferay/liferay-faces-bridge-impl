@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.bean;
 
-import javax.faces.FacesWrapper;
+import jakarta.faces.FacesWrapper;
 import javax.portlet.PortletContext;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 
 /**

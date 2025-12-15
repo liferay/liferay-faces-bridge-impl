@@ -29,7 +29,7 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderParameters;
 import javax.portlet.WindowState;
 import javax.portlet.filter.HeaderRequestWrapper;
-import javax.servlet.http.Cookie;
+import jakarta.servlet.http.Cookie;
 
 
 /**

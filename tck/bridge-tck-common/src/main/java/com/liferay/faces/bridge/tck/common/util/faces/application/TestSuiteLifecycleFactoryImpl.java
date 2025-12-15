@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.tck.common.util.faces.application;
 
 import java.util.Iterator;
 
-import javax.faces.lifecycle.Lifecycle;
-import javax.faces.lifecycle.LifecycleFactory;
+import jakarta.faces.lifecycle.Lifecycle;
+import jakarta.faces.lifecycle.LifecycleFactory;
 
 
 /**

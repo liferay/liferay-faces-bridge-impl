@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.util.internal;
 
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.render.ResponseStateManager;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletContext;
 import javax.portlet.faces.BridgeFactoryFinder;

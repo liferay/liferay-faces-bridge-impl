@@ -23,8 +23,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.faces.context.FacesContext;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ResponseStateManager;
 import javax.portlet.BaseURL;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletURL;
@@ -34,16 +34,16 @@ import com.liferay.faces.util.render.FacesURLEncoder;
 
 
 /**
- * The JavaDoc for {@link javax.faces.application.ViewHandler#getRedirectURL(FacesContext, String, Map, boolean)}
- * requires that the {@link javax.faces.application.NavigationHandler} must be able to call
+ * The JavaDoc for {@link jakarta.faces.application.ViewHandler#getRedirectURL(FacesContext, String, Map, boolean)}
+ * requires that the {@link jakarta.faces.application.NavigationHandler} must be able to call
  * ExternalContext.redirect(ViewHandler.getRedirectURL(...)) in order to support the ability to redirect in a
  * navigation-rule. com.sun.faces.application.view.MultiViewHandler call
  * ExternalContext.encodeActionURL(ExternalContext.encodeRedirectURL(ViewHandler.getActionURL(viewId))) in order to
  * satisfy this requirement. As a result, the Bridge's implementation of {@link
- * javax.faces.context.ExternalContext#encodeRedirectURL(String url, Map parameters)} must not attempt to return the
+ * jakarta.faces.context.ExternalContext#encodeRedirectURL(String url, Map parameters)} must not attempt to return the
  * result of {@link PortletURL#toString()}. Instead, it must simply return a non-encoded String that appends the
  * specified map of redirect parameters to the query-string of the specified URL. However, since the Bridge's version of
- * {@link javax.faces.context.ExternalContext#encodeActionURL(String url)} needs to detect whether or not the specified
+ * {@link jakarta.faces.context.ExternalContext#encodeActionURL(String url)} needs to detect whether or not the specified
  * URL is for a redirect, {@link BridgeExt#REDIRECT_PARAMETER} must also be present in the query-string with a value of
  * "true".
  *

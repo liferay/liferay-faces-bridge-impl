@@ -18,12 +18,12 @@ package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 import java.util.List;
 import java.util.Locale;
 
-import javax.annotation.Resource;
-import javax.el.ELContext;
-import javax.el.ELResolver;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.Resource;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -52,7 +52,7 @@ import javax.portlet.annotations.WindowId;
 import javax.portlet.faces.Bridge;
 import javax.portlet.faces.BridgeUtil;
 import javax.portlet.faces.annotation.BridgeRequestScoped;
-import javax.servlet.http.Cookie;
+import jakarta.servlet.http.Cookie;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;

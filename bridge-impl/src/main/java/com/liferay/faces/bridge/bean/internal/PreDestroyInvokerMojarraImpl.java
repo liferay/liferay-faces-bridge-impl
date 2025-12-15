@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.bean.internal;
 import java.lang.reflect.Method;
 
 import javax.portlet.PortletContext;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -27,7 +27,7 @@ import com.liferay.faces.util.logging.LoggerFactory;
 /**
  * Mojarra has a vendor-specific Service Provider Interface (SPI) for dependency injection called the InjectionProvider.
  * This class provides the ability to leverage the InjectionProvider instance for invoking methods annotated with {@link
- * javax.annotation.PreDestroy}.
+ * jakarta.annotation.PreDestroy}.
  *
  * @author  Neil Griffin
  */

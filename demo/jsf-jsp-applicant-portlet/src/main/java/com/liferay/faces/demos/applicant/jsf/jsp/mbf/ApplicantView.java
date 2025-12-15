@@ -18,10 +18,10 @@ package com.liferay.faces.demos.applicant.jsf.jsp.mbf;
 import java.io.File;
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
+import jakarta.faces.event.ActionEvent;
 
 
 /**

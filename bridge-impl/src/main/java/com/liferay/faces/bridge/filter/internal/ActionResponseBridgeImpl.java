@@ -17,7 +17,7 @@ package com.liferay.faces.bridge.filter.internal;
 
 import java.io.IOException;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;

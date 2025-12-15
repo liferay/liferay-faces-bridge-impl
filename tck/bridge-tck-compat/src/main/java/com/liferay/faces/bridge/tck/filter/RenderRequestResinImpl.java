@@ -34,7 +34,7 @@ public class RenderRequestResinImpl extends RenderRequestWrapper {
 	@Override
 	public Object getAttribute(String name) {
 
-		if ("javax.servlet.include.servlet_path".equals(name)) {
+		if ("jakarta.servlet.include.servlet_path".equals(name)) {
 
 			// Workaround for FACES-1629
 			return null;

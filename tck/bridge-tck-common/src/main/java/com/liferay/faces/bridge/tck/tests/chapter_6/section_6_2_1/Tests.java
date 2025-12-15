@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_2_1;
 
 import java.util.Map;
 
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.faces.annotation.PortletNamingContainer;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;

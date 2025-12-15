@@ -22,18 +22,18 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
-import javax.el.ELContextListener;
-import javax.el.ELException;
-import javax.el.ELResolver;
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
-import javax.faces.FacesException;
-import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
-import javax.faces.application.ViewHandlerWrapper;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.el.ReferenceSyntaxException;
+import jakarta.el.ELContextListener;
+import jakarta.el.ELException;
+import jakarta.el.ELResolver;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.application.ViewHandlerWrapper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.el.ReferenceSyntaxException;
 
 
 /**
@@ -92,7 +92,7 @@ public class TestSuiteApplicationImpl extends Application {
 	 * @throws  FacesException  if there is no mapping defined for the specified componentType, or if an instance of the
 	 *                          specified type could not be created for any reason.
 	 */
-	public javax.faces.component.UIComponent createComponent(String componentType) throws FacesException {
+	public jakarta.faces.component.UIComponent createComponent(String componentType) throws FacesException {
 		return mWrapped.createComponent(componentType);
 	}
 
@@ -112,16 +112,16 @@ public class TestSuiteApplicationImpl extends Application {
 	 *
 	 * @deprecated
 	 */
-	public javax.faces.component.UIComponent createComponent(javax.faces.el.ValueBinding componentBinding,
-		javax.faces.context.FacesContext facesContext, String componentType) throws FacesException {
+	public jakarta.faces.component.UIComponent createComponent(jakarta.faces.el.ValueBinding componentBinding,
+		jakarta.faces.context.FacesContext facesContext, String componentType) throws FacesException {
 		return mWrapped.createComponent(componentBinding, facesContext, componentType);
 	}
 
-	public javax.faces.convert.Converter createConverter(String converterId) {
+	public jakarta.faces.convert.Converter createConverter(String converterId) {
 		return mWrapped.createConverter(converterId);
 	}
 
-	public javax.faces.convert.Converter createConverter(Class targetClass) {
+	public jakarta.faces.convert.Converter createConverter(Class targetClass) {
 		return mWrapped.createConverter(targetClass);
 	}
 
@@ -134,12 +134,12 @@ public class TestSuiteApplicationImpl extends Application {
 	 *
 	 * @deprecated
 	 */
-	public javax.faces.el.MethodBinding createMethodBinding(String ref, Class[] params)
+	public jakarta.faces.el.MethodBinding createMethodBinding(String ref, Class[] params)
 		throws ReferenceSyntaxException {
 		return mWrapped.createMethodBinding(ref, params);
 	}
 
-	public javax.faces.validator.Validator createValidator(String validatorId) throws FacesException {
+	public jakarta.faces.validator.Validator createValidator(String validatorId) throws FacesException {
 		return mWrapped.createValidator(validatorId);
 	}
 
@@ -152,7 +152,7 @@ public class TestSuiteApplicationImpl extends Application {
 	 *
 	 * @deprecated
 	 */
-	public javax.faces.el.ValueBinding createValueBinding(String ref) throws ReferenceSyntaxException {
+	public jakarta.faces.el.ValueBinding createValueBinding(String ref) throws ReferenceSyntaxException {
 		return mWrapped.createValueBinding(ref);
 	}
 
@@ -161,7 +161,7 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.evaluateExpressionGet(facesContext, expression, expectedType);
 	}
 
-	public javax.faces.event.ActionListener getActionListener() {
+	public jakarta.faces.event.ActionListener getActionListener() {
 		return mWrapped.getActionListener();
 	}
 
@@ -205,7 +205,7 @@ public class TestSuiteApplicationImpl extends Application {
 	 * Return the NavigationHandler object which is responsible for mapping from a logical (viewid, fromAction, outcome)
 	 * to the URL of a view to be rendered.
 	 */
-	public javax.faces.application.NavigationHandler getNavigationHandler() {
+	public jakarta.faces.application.NavigationHandler getNavigationHandler() {
 		return mWrapped.getNavigationHandler();
 	}
 
@@ -216,7 +216,7 @@ public class TestSuiteApplicationImpl extends Application {
 	 *
 	 * @deprecated
 	 */
-	public javax.faces.el.PropertyResolver getPropertyResolver() {
+	public jakarta.faces.el.PropertyResolver getPropertyResolver() {
 		return mWrapped.getPropertyResolver();
 	}
 
@@ -225,7 +225,7 @@ public class TestSuiteApplicationImpl extends Application {
 		return mWrapped.getResourceBundle(facesContext, name);
 	}
 
-	public javax.faces.application.StateManager getStateManager() {
+	public jakarta.faces.application.StateManager getStateManager() {
 		return mWrapped.getStateManager();
 	}
 
@@ -242,11 +242,11 @@ public class TestSuiteApplicationImpl extends Application {
 	 *
 	 * @deprecated
 	 */
-	public javax.faces.el.VariableResolver getVariableResolver() {
+	public jakarta.faces.el.VariableResolver getVariableResolver() {
 		return mWrapped.getVariableResolver();
 	}
 
-	public javax.faces.application.ViewHandler getViewHandler() {
+	public jakarta.faces.application.ViewHandler getViewHandler() {
 		return mWrapped.getViewHandler();
 	}
 
@@ -254,7 +254,7 @@ public class TestSuiteApplicationImpl extends Application {
 		mWrapped.removeELContextListener(listener);
 	}
 
-	public void setActionListener(javax.faces.event.ActionListener listener) {
+	public void setActionListener(jakarta.faces.event.ActionListener listener) {
 		mWrapped.setActionListener(listener);
 	}
 
@@ -270,18 +270,18 @@ public class TestSuiteApplicationImpl extends Application {
 		mWrapped.setMessageBundle(bundle);
 	}
 
-	public void setNavigationHandler(javax.faces.application.NavigationHandler handler) {
+	public void setNavigationHandler(jakarta.faces.application.NavigationHandler handler) {
 		mWrapped.setNavigationHandler(handler);
 	}
 
 	/**
 	 * @deprecated
 	 */
-	public void setPropertyResolver(javax.faces.el.PropertyResolver resolver) {
+	public void setPropertyResolver(jakarta.faces.el.PropertyResolver resolver) {
 		mWrapped.setPropertyResolver(resolver);
 	}
 
-	public void setStateManager(javax.faces.application.StateManager manager) {
+	public void setStateManager(jakarta.faces.application.StateManager manager) {
 		mWrapped.setStateManager(manager);
 	}
 
@@ -292,11 +292,11 @@ public class TestSuiteApplicationImpl extends Application {
 	/**
 	 * @deprecated
 	 */
-	public void setVariableResolver(javax.faces.el.VariableResolver resolver) {
+	public void setVariableResolver(jakarta.faces.el.VariableResolver resolver) {
 		mWrapped.setVariableResolver(resolver);
 	}
 
-	public void setViewHandler(javax.faces.application.ViewHandler viewHandler) {
+	public void setViewHandler(jakarta.faces.application.ViewHandler viewHandler) {
 
 		if (viewHandler instanceof ViewHandlerWrapper) {
 

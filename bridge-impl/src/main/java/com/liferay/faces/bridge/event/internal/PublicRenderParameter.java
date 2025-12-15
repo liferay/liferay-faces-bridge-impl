@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.event.internal;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 
 
 /**

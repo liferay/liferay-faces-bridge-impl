@@ -33,7 +33,7 @@ public final class RequestAttributeUtil {
 		// determine the viewId for a webapp environment. Because of this, it is necessary to return null so that the
 		// JSF runtime will attempt to determine the viewId a different way, namely by calling
 		// ExternalContext#getRequestPathInfo() or ExternalContext#getRequestServletPath().
-		if ("javax.servlet.include.path_info".equals(name) || "javax.servlet.include.servlet_path".equals(name)) {
+		if ("jakarta.servlet.include.path_info".equals(name) || "jakarta.servlet.include.servlet_path".equals(name)) {
 			return null;
 		}
 		else {

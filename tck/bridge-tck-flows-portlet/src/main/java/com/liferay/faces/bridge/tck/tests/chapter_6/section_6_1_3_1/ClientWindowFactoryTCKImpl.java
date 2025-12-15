@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1;
 
-import javax.faces.context.FacesContext;
-import javax.faces.lifecycle.ClientWindow;
-import javax.faces.lifecycle.ClientWindowFactory;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.lifecycle.ClientWindow;
+import jakarta.faces.lifecycle.ClientWindowFactory;
 
 
 /**

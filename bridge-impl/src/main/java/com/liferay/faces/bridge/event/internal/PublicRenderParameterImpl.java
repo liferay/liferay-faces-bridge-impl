@@ -15,10 +15,10 @@
  */
 package com.liferay.faces.bridge.event.internal;
 
-import javax.el.ELContext;
-import javax.el.PropertyNotFoundException;
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
+import jakarta.el.ELContext;
+import jakarta.el.PropertyNotFoundException;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -57,10 +57,10 @@ public class PublicRenderParameterImpl extends PublicRenderParameterCompatImpl {
 				String exceptionMessage = e.getMessage();
 
 				if (exceptionMessage == null) {
-					logger.error("javax.el.PropertyNotFoundException: model-el=[{0}]", modelEL);
+					logger.error("jakarta.el.PropertyNotFoundException: model-el=[{0}]", modelEL);
 				}
 				else {
-					logger.error("javax.el.PropertyNotFoundException: {0}: model-el=[{1}]", exceptionMessage, modelEL);
+					logger.error("jakarta.el.PropertyNotFoundException: {0}: model-el=[{1}]", exceptionMessage, modelEL);
 				}
 			}
 

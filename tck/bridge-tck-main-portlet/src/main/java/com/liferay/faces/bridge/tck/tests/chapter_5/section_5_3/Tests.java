@@ -17,13 +17,13 @@ package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_3;
 
 import java.util.Map;
 
-import javax.el.ELResolver;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PhaseListener;
-import javax.faces.render.ResponseStateManager;
+import jakarta.el.ELResolver;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PhaseEvent;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.event.PhaseListener;
+import jakarta.faces.render.ResponseStateManager;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;

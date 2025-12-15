@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.filter.internal;
 import javax.portlet.ActionURL;
 import javax.portlet.HeaderResponse;
 import javax.portlet.RenderURL;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 /**

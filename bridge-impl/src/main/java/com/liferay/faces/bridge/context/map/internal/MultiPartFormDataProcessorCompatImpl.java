@@ -33,7 +33,7 @@ import javax.portlet.PortletConfig;
 import javax.portlet.PortletParameters;
 import javax.portlet.ResourceRequest;
 import javax.portlet.faces.BridgeFactoryFinder;
-import javax.servlet.http.Part;
+import jakarta.servlet.http.Part;
 
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
 import com.liferay.faces.util.logging.Logger;

@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.issue;
 
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationWrapper;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ApplicationWrapper;
 
 
 /**

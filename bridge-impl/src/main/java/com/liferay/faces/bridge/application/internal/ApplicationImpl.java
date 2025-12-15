@@ -17,12 +17,12 @@ package com.liferay.faces.bridge.application.internal;
 
 import java.util.List;
 
-import javax.faces.FacesException;
-import javax.faces.application.Application;
-import javax.faces.application.NavigationHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.NavigationHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.faces.BridgeConfig;
 import javax.portlet.faces.BridgeUtil;
@@ -71,11 +71,11 @@ public class ApplicationImpl extends ApplicationCompatImpl {
 
 			// NOTE: Mojarra uses a servlet context listener to pre-load all the faces-config.xml files in the
 			// classpath. During this initialization, it will call subscribeToEvent() for source-class
-			// "javax.faces.component.UIViewRoot". But since, Liferay Faces Bridge uses a subclass of UIViewRoot named
+			// "jakarta.faces.component.UIViewRoot". But since, Liferay Faces Bridge uses a subclass of UIViewRoot named
 			// UIViewRootBridgeImpl, the events must instead be subscribed for source-class
 			// "com.liferay.faces.bridge.component.UIViewRootBridgeImpl". While this is necessary in general, it is
 			// especially the case for Mojarra since the com.sun.faces.application.view.ViewScopeManager class relies
-			// on javax.faces.event.PostConstructViewMapEvent and javax.faces.event.PreDestroyViewMapEvent in order
+			// on jakarta.faces.event.PostConstructViewMapEvent and jakarta.faces.event.PreDestroyViewMapEvent in order
 			// to cleanup @ViewScoped managed-beans.
 			if (subscribeToEventsAtRuntime) {
 

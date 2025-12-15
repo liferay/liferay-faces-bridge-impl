@@ -25,8 +25,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import com.javadocmd.simplelatlng.LatLng;
 import com.javadocmd.simplelatlng.LatLngTool;

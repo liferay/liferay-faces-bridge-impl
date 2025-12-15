@@ -20,14 +20,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedProperty;
+import jakarta.faces.bean.RequestScoped;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ValueChangeEvent;
 
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.model.UploadedFile;

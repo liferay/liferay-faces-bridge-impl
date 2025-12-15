@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_6;
 
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
-import javax.faces.lifecycle.ClientWindow;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.lifecycle.ClientWindow;
 
 
 /**

@@ -17,13 +17,13 @@ package com.liferay.faces.bridge.context.internal;
 
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.lifecycle.ClientWindow;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.lifecycle.ClientWindow;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.PortletSession;
-import javax.servlet.http.Cookie;
+import jakarta.servlet.http.Cookie;
 
 import com.liferay.faces.util.config.ApplicationConfig;
 

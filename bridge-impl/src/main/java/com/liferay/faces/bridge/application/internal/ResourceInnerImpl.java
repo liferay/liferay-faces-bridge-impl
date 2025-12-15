@@ -31,10 +31,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.application.ResourceWrapper;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.application.ResourceWrapper;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.faces.BridgeConfig;
 
 import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
@@ -62,7 +62,7 @@ public class ResourceInnerImpl extends ResourceWrapper implements Serializable {
 
 	// Private Constants: Resources that can't be cached.
 	private static final String EXTENSION_FACES = ".faces";
-	private static final String LIBRARY_NAME_JAVAX_FACES = "javax.faces";
+	private static final String LIBRARY_NAME_JAVAX_FACES = "jakarta.faces";
 	private static final Set<String> NON_CACHED_RESOURCES;
 
 	static {
@@ -137,7 +137,7 @@ public class ResourceInnerImpl extends ResourceWrapper implements Serializable {
 								String extension = configuredServletMapping.getExtension();
 
 								// Note: Both Mojarra and MyFaces construct a requestPath that looks something like
-								// "/javax.faces.resource/jsf.js.faces?ln=javax.faces" and so we look for the
+								// "/jakarta.faces.resource/jsf.js.faces?ln=jakarta.faces" and so we look for the
 								// ".faces?" as an indicator that ".faces" needs to be removed from the requestPath.
 								String token = extension + "?";
 								int pos = wrappedRequestPath.indexOf(token);
@@ -162,14 +162,14 @@ public class ResourceInnerImpl extends ResourceWrapper implements Serializable {
 									if (extension.equals(EXTENSION_FACES) &&
 											wrappedRequestPath.endsWith(LIBRARY_NAME_JAVAX_FACES)) {
 
-										// Special case: Don't remove ".faces" if request path ends with "javax.faces"
+										// Special case: Don't remove ".faces" if request path ends with "jakarta.faces"
 										// http://issues.liferay.com/browse/FACES-1202
 									}
 									else {
 
 										// Sometimes resources like the ICEfaces bridge.js file don't have a library
 										// name (ln=) parameter and simply look like this:
-										// /my-portlet/javax.faces.resource/bridge.js.faces
+										// /my-portlet/jakarta.faces.resource/bridge.js.faces
 										wrappedRequestPath = wrappedRequestPath.substring(0,
 												wrappedRequestPath.lastIndexOf(extension));
 										logger.debug("Removed extension=[{0}] from requestPath=[{1}]", extension,

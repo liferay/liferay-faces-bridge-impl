@@ -19,11 +19,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 import javax.portlet.PortletContext;
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.springframework.context.annotation.Scope;
 

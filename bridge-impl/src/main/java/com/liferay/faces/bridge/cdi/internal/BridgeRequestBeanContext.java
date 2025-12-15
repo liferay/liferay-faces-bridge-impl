@@ -18,12 +18,12 @@ package com.liferay.faces.bridge.cdi.internal;
 import java.lang.annotation.Annotation;
 import java.util.Map;
 
-import javax.enterprise.context.spi.Context;
-import javax.enterprise.context.spi.Contextual;
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.spi.Bean;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.enterprise.context.spi.Context;
+import jakarta.enterprise.context.spi.Contextual;
+import jakarta.enterprise.context.spi.CreationalContext;
+import jakarta.enterprise.inject.spi.Bean;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.faces.annotation.BridgeRequestScoped;
 
 

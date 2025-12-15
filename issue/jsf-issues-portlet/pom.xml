@@ -46,9 +46,9 @@
 					com.sun.enterprise.deployment;resolution:=optional,\
 					groovy.lang;resolution:=optional,\
 					groovy.util;resolution:=optional,\
-					javax.ejb;resolution:=optional,\
+					jakarta.ejb;resolution:=optional,\
 					javax.enterprise.*;resolution:=optional,\
-					javax.inject;resolution:=optional,\
+					jakarta.inject;resolution:=optional,\
 					org.apache;resolution:=optional,\
 					org.apache.bsf;resolution:=optional,\
 					org.apache.jasper.compiler;resolution:=optional,\
@@ -94,8 +94,8 @@
 			<artifactId>portlet-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces</groupId>

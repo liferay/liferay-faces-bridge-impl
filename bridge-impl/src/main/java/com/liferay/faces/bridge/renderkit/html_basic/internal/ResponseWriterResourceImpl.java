@@ -18,11 +18,11 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.context.ResponseWriterWrapper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriterWrapper;
 
 import com.liferay.faces.bridge.util.internal.URLUtil;
 import com.liferay.faces.util.render.FacesURLEncoder;

@@ -18,8 +18,8 @@ package com.liferay.faces.bridge.context.internal;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 
 /**
@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
  * to execution of methods on the {@link ExternalContext}. This class is designed to compensate for these incongruous
  * actions as much as possible.</p>
  *
- * <p>Example: Sometimes the JSF implementation or a JSF {@link javax.faces.event.ActionListener} will call methods like
+ * <p>Example: Sometimes the JSF implementation or a JSF {@link jakarta.faces.event.ActionListener} will call methods like
  * {@link ExternalContext#setResponseStatus(int)} during the Portlet {@link javax.portlet.PortletRequest#ACTION_PHASE}.
  * In this case, the Portlet lifecycle is working with a {@link javax.portlet.ActionResponse} but there is no
  * corresponding method. Technically the only time such a method could be called would be during the {@link

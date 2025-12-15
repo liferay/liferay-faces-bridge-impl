@@ -17,9 +17,9 @@ package com.liferay.faces.demos.bean;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedProperty;
+import jakarta.faces.bean.ViewScoped;
 
 import com.liferay.faces.demos.list.CustomersDataModel;
 import com.liferay.faces.demos.service.CustomerService;

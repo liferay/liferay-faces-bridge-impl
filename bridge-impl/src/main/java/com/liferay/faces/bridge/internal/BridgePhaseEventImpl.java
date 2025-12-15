@@ -19,9 +19,9 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.application.NavigationHandler;
-import javax.faces.event.PhaseListener;
-import javax.faces.lifecycle.Lifecycle;
+import jakarta.faces.application.NavigationHandler;
+import jakarta.faces.event.PhaseListener;
+import jakarta.faces.lifecycle.Lifecycle;
 import javax.portlet.Event;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;

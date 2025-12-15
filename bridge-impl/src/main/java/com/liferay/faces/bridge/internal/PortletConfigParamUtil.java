@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.faces.Bridge;

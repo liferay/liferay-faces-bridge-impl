@@ -17,8 +17,8 @@ package com.liferay.faces.demos.applicant.primefaces.facelets.mbf;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
 
 
 /**

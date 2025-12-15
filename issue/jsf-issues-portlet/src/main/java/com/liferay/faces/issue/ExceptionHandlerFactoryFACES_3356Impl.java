@@ -17,17 +17,17 @@ package com.liferay.faces.issue;
 
 import java.util.Iterator;
 
-import javax.faces.FacesException;
-import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExceptionHandler;
-import javax.faces.context.ExceptionHandlerFactory;
-import javax.faces.context.ExceptionHandlerWrapper;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExceptionHandler;
+import jakarta.faces.context.ExceptionHandlerFactory;
+import jakarta.faces.context.ExceptionHandlerWrapper;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ExceptionQueuedEvent;
+import jakarta.faces.event.ExceptionQueuedEventContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.faces.BridgeInvalidViewPathException;
 

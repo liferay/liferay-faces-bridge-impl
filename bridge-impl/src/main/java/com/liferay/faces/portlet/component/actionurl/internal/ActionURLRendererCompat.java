@@ -17,8 +17,8 @@ package com.liferay.faces.portlet.component.actionurl.internal;
 
 import java.util.List;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
 import javax.portlet.ActionURL;
 import javax.portlet.BaseURL;
 import javax.portlet.MimeResponse;

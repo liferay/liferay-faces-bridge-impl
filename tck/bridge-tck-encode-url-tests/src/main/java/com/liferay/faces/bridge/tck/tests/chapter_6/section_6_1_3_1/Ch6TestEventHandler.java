@@ -21,8 +21,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.Event;
 import javax.portlet.PortletRequest;
 import javax.portlet.faces.BridgeEventHandler;

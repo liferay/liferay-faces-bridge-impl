@@ -31,10 +31,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.faces.FacesException;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.FacesException;
+import jakarta.inject.Named;
 
 import com.liferay.faces.demos.dto.Airport;
 import com.liferay.faces.util.helper.LongHelper;

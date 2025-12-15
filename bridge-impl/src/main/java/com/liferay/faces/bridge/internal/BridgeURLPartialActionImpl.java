@@ -20,8 +20,8 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ResponseStateManager;
 import javax.portlet.BaseURL;
 import javax.portlet.PortletConfig;
 import javax.portlet.faces.Bridge;

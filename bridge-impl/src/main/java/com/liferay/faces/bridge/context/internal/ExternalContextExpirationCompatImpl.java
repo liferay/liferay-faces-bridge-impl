@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContext;
 
 
 /**

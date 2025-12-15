@@ -21,16 +21,16 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
-import javax.faces.application.Application;
-import javax.faces.application.ResourceHandler;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.Renderer;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.render.Renderer;
 
 import com.liferay.faces.bridge.component.internal.ResourceComponent;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.HeadRendererBridgeImpl;
@@ -129,12 +129,12 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 		if (externalResourceURLs.size() > 0) {
 
 			ExternalContext externalContext = facesContext.getExternalContext();
-			String resourceNameParam = externalContext.encodeNamespace("javax.faces.resource");
+			String resourceNameParam = externalContext.encodeNamespace("jakarta.faces.resource");
 			String libraryNameParam = externalContext.encodeNamespace("ln");
 
 			for (String externalResourceURL : externalResourceURLs) {
 
-				// Determine the value of the "javax.faces.resource" and "ln" parameters from the URL.
+				// Determine the value of the "jakarta.faces.resource" and "ln" parameters from the URL.
 				String resourceName = null;
 				String libraryName = null;
 				ResponseWriter responseWriter = facesContext.getResponseWriter();
@@ -147,7 +147,7 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 					String[] resourceNameParamValues = parsedParameterMapValuesArray.get(resourceNameParam);
 
 					if ((resourceNameParamValues == null) || (resourceNameParamValues.length < 1)) {
-						resourceNameParamValues = parsedParameterMapValuesArray.get("javax.faces.resource");
+						resourceNameParamValues = parsedParameterMapValuesArray.get("jakarta.faces.resource");
 					}
 
 					if ((resourceNameParamValues != null) && (resourceNameParamValues.length > 0)) {
@@ -156,12 +156,12 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 
 					if (resourceName == null) {
 
-						int indexOfResource = externalResourceURL.indexOf("javax.faces.resource/");
+						int indexOfResource = externalResourceURL.indexOf("jakarta.faces.resource/");
 						int indexOfQuery = externalResourceURL.indexOf("?");
 
 						if (indexOfResource > -1) {
 
-							int indexOfResourceName = indexOfResource + "javax.faces.resource/".length();
+							int indexOfResourceName = indexOfResource + "jakarta.faces.resource/".length();
 
 							if (indexOfQuery > -1) {
 								resourceName = externalResourceURL.substring(indexOfResourceName, indexOfQuery);
@@ -183,7 +183,7 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 					}
 				}
 
-				// If the "javax.faces.resource" and "ln" parameters were found, then create the corresponding JSF2
+				// If the "jakarta.faces.resource" and "ln" parameters were found, then create the corresponding JSF2
 				// resource and add it to the view root.
 				if ((resourceName != null) && (libraryName != null)) {
 
@@ -386,7 +386,7 @@ public class HeadRendererPrimeFacesImpl extends HeadRendererBridgeImpl {
 
 	/**
 	 * Returns true if a resource must be rendered in a certain place when PrimeFaces' PRIMEFACES_MOBILE RenderKit is
-	 * used. For more information, see {@link #isMobileComponentResource(javax.faces.component.UIComponent)}.
+	 * used. For more information, see {@link #isMobileComponentResource(jakarta.faces.component.UIComponent)}.
 	 */
 	private boolean isMobileComponentResource(UIComponent componentResource) {
 

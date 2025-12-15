@@ -25,7 +25,7 @@ import javax.portlet.PortletAsyncContext;
 import javax.portlet.ResourceParameters;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 /**

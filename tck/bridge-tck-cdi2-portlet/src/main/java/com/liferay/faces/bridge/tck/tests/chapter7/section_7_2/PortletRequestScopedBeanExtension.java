@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 
 
 /**

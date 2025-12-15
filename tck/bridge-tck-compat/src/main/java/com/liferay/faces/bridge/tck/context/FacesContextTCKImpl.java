@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.context;
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextWrapper;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.FacesContextWrapper;
 
 
 /**

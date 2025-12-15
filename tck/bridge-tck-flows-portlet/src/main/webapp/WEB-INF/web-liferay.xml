@@ -5,7 +5,7 @@
 		 version="3.0">
 	<display-name>bridge_Test_web_section6_1_3_1-flows</display-name>
 	<context-param>
-		<param-name>javax.faces.CLIENT_WINDOW_MODE</param-name>
+		<param-name>jakarta.faces.CLIENT_WINDOW_MODE</param-name>
 		<param-value>url</param-value>
 	</context-param>
 	<!-- BEGIN: LIFERAY PORTAL -->

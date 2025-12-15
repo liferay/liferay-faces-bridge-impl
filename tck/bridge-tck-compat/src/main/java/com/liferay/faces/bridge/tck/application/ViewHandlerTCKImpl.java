@@ -17,12 +17,12 @@ package com.liferay.faces.bridge.tck.application;
 
 import java.io.IOException;
 
-import javax.faces.FacesException;
-import javax.faces.application.ViewHandler;
-import javax.faces.application.ViewHandlerWrapper;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewDeclarationLanguage;
+import jakarta.faces.FacesException;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.application.ViewHandlerWrapper;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewDeclarationLanguage;
 
 import com.liferay.faces.bridge.tck.filter.RenderSelfException;
 import com.liferay.faces.util.logging.Logger;

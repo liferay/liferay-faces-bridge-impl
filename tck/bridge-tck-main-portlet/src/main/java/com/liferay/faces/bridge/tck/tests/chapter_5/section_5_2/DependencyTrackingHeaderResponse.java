@@ -51,7 +51,7 @@ public class DependencyTrackingHeaderResponse extends HeaderResponseWrapper {
 		// implement this method. Of the resources defined in ResourcesRenderedInHeadTestUtil, only jsf.js could fall
 		// into the category of being added without markup. For example, if the portlet container provided jsf.js
 		// out-of-the-box, then the bridge could elect to not provide the markup for the resource.
-		if ("jsf.js".equals(name) && "javax.faces".equals(scope)) {
+		if ("jsf.js".equals(name) && "jakarta.faces".equals(scope)) {
 			testHeadElementsAddedViaAddDependency.add("jsf.js");
 		}
 

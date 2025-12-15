@@ -19,15 +19,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.component.UICommand;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.component.UICommand;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import javax.portlet.faces.annotation.BridgeRequestScoped;
-import javax.servlet.http.Part;
+import jakarta.servlet.http.Part;
 
 import com.liferay.faces.demos.applicant.jsf.facelets.dto.Applicant;
 import com.liferay.faces.demos.applicant.jsf.facelets.dto.Attachment;

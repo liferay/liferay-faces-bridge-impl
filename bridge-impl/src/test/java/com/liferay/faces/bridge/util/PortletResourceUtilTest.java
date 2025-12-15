@@ -30,12 +30,12 @@ public class PortletResourceUtilTest {
 	@Test
 	public void testIsPortletResourceURL() {
 
-		Assert.assertTrue(PortletResourceUtilCompat.isPortletResourceURL("javax.faces.resource="));
-		Assert.assertFalse(PortletResourceUtilCompat.isPortletResourceURL("javax.faces.resource"));
+		Assert.assertTrue(PortletResourceUtilCompat.isPortletResourceURL("jakarta.faces.resource="));
+		Assert.assertFalse(PortletResourceUtilCompat.isPortletResourceURL("jakarta.faces.resource"));
 		Assert.assertTrue(PortletResourceUtilCompat.isPortletResourceURL(
-				"http://liferay.com?javax.faces.resource=example.js&ln=example"));
+				"http://liferay.com?jakarta.faces.resource=example.js&ln=example"));
 		Assert.assertFalse(PortletResourceUtilCompat.isPortletResourceURL(
-				"http://liferay.com/javax.faces.resource/example.js&ln=example"));
+				"http://liferay.com/jakarta.faces.resource/example.js&ln=example"));
 		Assert.assertTrue(PortletResourceUtilCompat.isPortletResourceURL(MissingResourceImpl.RES_NOT_FOUND));
 	}
 }

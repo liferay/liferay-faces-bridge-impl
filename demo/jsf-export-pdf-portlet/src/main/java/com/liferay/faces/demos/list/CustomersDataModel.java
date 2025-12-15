@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.faces.model.ListDataModel;
+import jakarta.faces.model.ListDataModel;
 
 import com.liferay.faces.demos.dto.Customer;
 import com.liferay.faces.demos.resource.CustomerExportResource;

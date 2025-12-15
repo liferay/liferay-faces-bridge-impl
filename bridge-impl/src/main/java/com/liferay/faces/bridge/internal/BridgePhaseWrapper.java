@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import javax.faces.FacesWrapper;
+import jakarta.faces.FacesWrapper;
 import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
 import javax.portlet.faces.BridgeException;
 

@@ -27,11 +27,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ResponseStateManager;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
@@ -76,7 +76,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 		"com.liferay.faces.bridge.faces.request.attributes";
 
 	// Other Private Constants
-	private static final String JAVAX_FACES_ENCODED_URL_PARAM = "javax.faces.encodedURL";
+	private static final String JAVAX_FACES_ENCODED_URL_PARAM = "jakarta.faces.encodedURL";
 
 	// Private Data Members
 	private Bridge.PortletPhase beganInPhase;
@@ -356,7 +356,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 			// Save the view root.
 			setAttribute(BRIDGE_REQ_SCOPE_ATTR_FACES_VIEW_ROOT, facesContext.getViewRoot());
 
-			// If the PortletMode hasn't changed, then preserve the "javax.faces.ViewState" request parameter value.
+			// If the PortletMode hasn't changed, then preserve the "jakarta.faces.ViewState" request parameter value.
 			if (!portletModeChanged) {
 
 				if (portletResponse instanceof ActionResponse) {
@@ -366,7 +366,7 @@ public class BridgeRequestScopeImpl extends BridgeRequestScopeCompat_2_2_Impl im
 					if (viewState != null) {
 
 						// NOTE: Although it is possible to save this as a render parameter, can't use that approach
-						// because portlet containers like Pluto will add the "javax.faces.ViewState" parameter to any
+						// because portlet containers like Pluto will add the "jakarta.faces.ViewState" parameter to any
 						// ResourceURLs that are created during the RENDER_PHASE of the portlet lifecycle.
 						setAttribute(ResponseStateManager.VIEW_STATE_PARAM, viewState);
 					}

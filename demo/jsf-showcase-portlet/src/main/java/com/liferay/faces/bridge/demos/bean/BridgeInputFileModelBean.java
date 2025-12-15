@@ -20,10 +20,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
 
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.util.logging.Logger;

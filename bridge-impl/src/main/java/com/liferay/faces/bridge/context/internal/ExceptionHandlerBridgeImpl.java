@@ -17,12 +17,12 @@ package com.liferay.faces.bridge.context.internal;
 
 import java.util.Iterator;
 
-import javax.faces.application.ProjectStage;
-import javax.faces.context.ExceptionHandler;
-import javax.faces.context.ExceptionHandlerWrapper;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
+import jakarta.faces.application.ProjectStage;
+import jakarta.faces.context.ExceptionHandler;
+import jakarta.faces.context.ExceptionHandlerWrapper;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ExceptionQueuedEvent;
+import jakarta.faces.event.ExceptionQueuedEventContext;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

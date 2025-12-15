@@ -17,10 +17,10 @@ package com.liferay.faces.bridge.tck.tests.chapter_3;
 
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.render.RenderKitFactory;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.RenderKitFactory;
+import jakarta.faces.render.ResponseStateManager;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.StateAwareResponse;

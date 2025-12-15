@@ -15,11 +15,11 @@
  */
 package com.liferay.faces.bridge.scope.internal;
 
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionListener;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionListener;
 
 import com.liferay.faces.util.cache.Cache;
 

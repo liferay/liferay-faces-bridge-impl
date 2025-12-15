@@ -19,12 +19,12 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Iterator;
 
-import javax.faces.context.ResponseStream;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.ClientBehaviorRenderer;
-import javax.faces.render.RenderKit;
-import javax.faces.render.Renderer;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.context.ResponseStream;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.render.ClientBehaviorRenderer;
+import jakarta.faces.render.RenderKit;
+import jakarta.faces.render.Renderer;
+import jakarta.faces.render.ResponseStateManager;
 
 
 /**

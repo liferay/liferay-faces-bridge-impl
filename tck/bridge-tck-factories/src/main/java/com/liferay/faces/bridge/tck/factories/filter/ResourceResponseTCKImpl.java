@@ -46,7 +46,7 @@ public class ResourceResponseTCKImpl extends ResourceResponseWrapper {
 	}
 
 	/**
-	 * @see {@link com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_3.Tests#responseResetPreRenderEventHandler(javax.faces.event.ComponentSystemEvent)}
+	 * @see {@link com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_3.Tests#responseResetPreRenderEventHandler(jakarta.faces.event.ComponentSystemEvent)}
 	 */
 	private class CapturingPrintWriter extends PrintWriter {
 

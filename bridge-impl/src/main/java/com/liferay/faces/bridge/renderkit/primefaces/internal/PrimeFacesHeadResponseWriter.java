@@ -21,8 +21,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ResponseWriter;
 
 import com.liferay.faces.bridge.renderkit.html_basic.internal.InlineScript;
 

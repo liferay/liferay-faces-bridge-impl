@@ -18,16 +18,16 @@ package com.liferay.faces.bridge.component.behavior.internal;
 import java.util.Collection;
 import java.util.Set;
 
-import javax.el.ValueExpression;
-import javax.faces.FacesWrapper;
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.component.behavior.ClientBehaviorHint;
-import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.AjaxBehaviorListener;
-import javax.faces.event.BehaviorEvent;
+import jakarta.el.ValueExpression;
+import jakarta.faces.FacesWrapper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.behavior.ClientBehaviorContext;
+import jakarta.faces.component.behavior.ClientBehaviorHint;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.AjaxBehaviorListener;
+import jakarta.faces.event.BehaviorEvent;
 
 
 /**

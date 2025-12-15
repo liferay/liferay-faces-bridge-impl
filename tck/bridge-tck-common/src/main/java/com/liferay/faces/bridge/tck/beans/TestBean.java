@@ -19,9 +19,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.common.Constants;

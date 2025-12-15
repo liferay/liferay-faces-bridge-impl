@@ -15,15 +15,15 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import javax.el.ValueExpression;
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationWrapper;
-import javax.faces.application.ResourceHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.event.SystemEvent;
-import javax.faces.event.SystemEventListener;
+import jakarta.el.ValueExpression;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ApplicationWrapper;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.SystemEvent;
+import jakarta.faces.event.SystemEventListener;
 import javax.portlet.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.component.internal.UIViewRootBridgeImpl;

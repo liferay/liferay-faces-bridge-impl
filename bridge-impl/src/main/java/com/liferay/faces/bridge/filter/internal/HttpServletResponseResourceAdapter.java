@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.filter.internal;
 import java.util.Locale;
 
 import javax.portlet.ResourceResponse;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 /**

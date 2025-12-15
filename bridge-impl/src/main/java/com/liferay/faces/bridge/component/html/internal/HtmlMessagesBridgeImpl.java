@@ -17,7 +17,7 @@ package com.liferay.faces.bridge.component.html.internal;
 
 import java.util.Map;
 
-import javax.faces.component.html.HtmlMessages;
+import jakarta.faces.component.html.HtmlMessages;
 
 
 /**

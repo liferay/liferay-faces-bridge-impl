@@ -24,14 +24,14 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.Map;
 
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
@@ -108,11 +108,11 @@ public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCom
 
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
-		String resourceName = requestParameterMap.get("javax.faces.resource");
+		String resourceName = requestParameterMap.get("jakarta.faces.resource");
 
 		// Assume that the resource  ExternalContext.encodeResourceURL(String) was properly called, and that
-		// which adds the "javax.faces.resource" request parameter.
-		// If the "javax.faces.resource" request parameter was found, then ask Faces to create the resource and
+		// which adds the "jakarta.faces.resource" request parameter.
+		// If the "jakarta.faces.resource" request parameter was found, then ask Faces to create the resource and
 		// assume that calling resource.getInputStream() will provide the ability to send the contents of the
 		// resource to the response.
 		if (resourceName != null) {
@@ -143,7 +143,7 @@ public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCom
 		else {
 
 			logger.debug("NOT HANDLED - Missing request parameter {0} so delegating handleResourceRequest to chain",
-				"javax.faces.resource");
+				"jakarta.faces.resource");
 			getWrapped().handleResourceRequest(facesContext);
 		}
 	}
@@ -151,21 +151,21 @@ public abstract class ResourceHandlerBridgeImpl extends ResourceHandlerBridgeCom
 	@Override
 	public boolean isResourceRequest(FacesContext facesContext) {
 
-		// If the "javax.faces.resource" request parameter is present, then that means the resource's URL was
+		// If the "jakarta.faces.resource" request parameter is present, then that means the resource's URL was
 		// properly created with the ExternalContext.encodeResourceURL(String) method.
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
-		String resourceId = requestParameterMap.get("javax.faces.resource");
+		String resourceId = requestParameterMap.get("jakarta.faces.resource");
 
 		if (resourceId != null) {
 			logger.debug("Found {0} request parameter and recognized resourceId=[{1}] as a resource",
-				"javax.faces.resource", resourceId);
+				"jakarta.faces.resource", resourceId);
 
 			return true;
 		}
 		else {
 			logger.debug("Did not find the {0} request parameter so delegating isResourceRequest to chain",
-				"javax.faces.resource");
+				"jakarta.faces.resource");
 
 			return getWrapped().isResourceRequest(facesContext);
 		}

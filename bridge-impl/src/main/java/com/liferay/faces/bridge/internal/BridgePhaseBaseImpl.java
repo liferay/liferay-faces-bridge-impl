@@ -17,14 +17,14 @@ package com.liferay.faces.bridge.internal;
 
 import java.util.Map;
 
-import javax.el.ELContext;
-import javax.faces.FactoryFinder;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
-import javax.faces.lifecycle.Lifecycle;
-import javax.faces.lifecycle.LifecycleFactory;
+import jakarta.el.ELContext;
+import jakarta.faces.FactoryFinder;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.FacesContextFactory;
+import jakarta.faces.lifecycle.Lifecycle;
+import jakarta.faces.lifecycle.LifecycleFactory;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
