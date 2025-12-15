@@ -27,7 +27,6 @@
 		<module>jsf-jsp-applicant-portlet</module>
 		<module>jsf-showcase-portlet</module>
 		<module>jsf-spring-applicant-portlet</module>
-		<module>icefaces-applicant-portlet</module>
 		<module>alloy-applicant-portlet</module>
 		<module>primefaces-applicant-portlet</module>
 		<module>richfaces-applicant-portlet</module>

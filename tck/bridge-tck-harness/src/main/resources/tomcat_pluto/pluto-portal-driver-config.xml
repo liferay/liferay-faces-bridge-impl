@@ -232,9 +232,6 @@ limitations under the License.
 		<page name="butterfaces-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.butterfaces.applicant.portlet" name="1"/>
 		</page>
-		<page name="icefaces-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.demo.icefaces.applicant.portlet" name="1"/>
-		</page>
 		<page name="jsf-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.jsf.applicant.portlet" name="1"/>
 		</page>
@@ -366,9 +363,6 @@ limitations under the License.
 		</page>
 		<page name="lsv-485-alloy" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.lsv.485.alloy.portlet" name="1"/>
-		</page>
-		<page name="lsv-485-ice" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.lsv.485.icefaces.portlet" name="1"/>
 		</page>
 		<page name="lsv-485-bridge" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.lsv.485.bridge.portlet" name="1"/>

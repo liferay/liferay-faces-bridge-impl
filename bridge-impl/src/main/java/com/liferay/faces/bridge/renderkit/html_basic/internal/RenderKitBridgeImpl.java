@@ -24,7 +24,6 @@ import javax.faces.render.RenderKitWrapper;
 import javax.faces.render.Renderer;
 
 import com.liferay.faces.bridge.renderkit.bridge.internal.FileUploadRendererPortletImpl;
-import com.liferay.faces.bridge.renderkit.icefaces.internal.HeadRendererICEfacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.FormRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.HeadRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.richfaces.internal.FileUploadRendererRichFacesImpl;
@@ -71,14 +70,7 @@ public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 		if (UIOutput.COMPONENT_FAMILY.equals(family)) {
 
 			if (JAVAX_FACES_HEAD.equals(rendererType)) {
-
-				final Product ICEFACES = productFactory.getProductInfo(Product.Name.ICEFACES);
-				final boolean ICEFACES_DETECTED = ICEFACES.isDetected();
-
-				if (ICEFACES_DETECTED) {
-					renderer = new HeadRendererICEfacesImpl();
-				}
-				else if (PRIMEFACES_DETECTED) {
+				if (PRIMEFACES_DETECTED) {
 					renderer = new HeadRendererPrimeFacesImpl();
 				}
 				else {

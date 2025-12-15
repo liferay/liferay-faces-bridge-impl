@@ -84,7 +84,6 @@
 								com.liferay.faces.portlet.*;version="[6.0.0,7.0.0)",\
 								javax.portlet;version="[3.0.0,4.0.0)",\
 								javax.portlet.faces.*;version="[6.0.0,7.0.0)",\
-								org.icefaces.ace.component.fileentry.*;resolution:=optional,\
 								*
 							Require-Capability: osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"
 							Provide-Capability: \
@@ -164,12 +163,6 @@
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>javax.servlet.jsp-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.icefaces</groupId>
-			<artifactId>icefaces-ace</artifactId>
-			<scope>provided</scope>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>

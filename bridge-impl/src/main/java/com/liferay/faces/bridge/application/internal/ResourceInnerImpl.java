@@ -73,12 +73,7 @@ public class ResourceInnerImpl extends ResourceWrapper implements Serializable {
 		nonCachedResources.add("bridge.uncompressed.js");
 		nonCachedResources.add("compat.js");
 		nonCachedResources.add("compat.uncompressed.js");
-		nonCachedResources.add("icefaces-compat.js");
-		nonCachedResources.add("icefaces-compat.uncompressed.js");
-		nonCachedResources.add("icepush.js");
-		nonCachedResources.add("icepush.uncompressed.js");
 		nonCachedResources.add("compat.js");
-		nonCachedResources.add("icefaces-compat.js");
 		NON_CACHED_RESOURCES = Collections.unmodifiableSet(nonCachedResources);
 	}
 
