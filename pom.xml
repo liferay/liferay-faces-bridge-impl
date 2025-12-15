@@ -188,7 +188,7 @@
 			io.undertow.*;resolution:=optional,\
 			javax.annotation.meta.*;resolution:=optional,\
 			jakarta.ejb.*;resolution:=optional,\
-			javax.enterprise.*;resolution:=optional,\
+			jakarta.enterprise.*;resolution:=optional,\
 			javax.money.*;resolution:=optional,\
 			javax.rmi.*;resolution:=optional,\
 			joptsimple.*;resolution:=optional,\
@@ -833,7 +833,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.enterprise</groupId>
+				<groupId>jakarta.enterprise</groupId>
 				<artifactId>cdi-api</artifactId>
 				<version>${cdi.version}</version>
 				<scope>provided</scope>

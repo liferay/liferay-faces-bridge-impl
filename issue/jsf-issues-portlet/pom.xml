@@ -47,7 +47,7 @@
 					groovy.lang;resolution:=optional,\
 					groovy.util;resolution:=optional,\
 					jakarta.ejb;resolution:=optional,\
-					javax.enterprise.*;resolution:=optional,\
+					jakarta.enterprise.*;resolution:=optional,\
 					jakarta.inject;resolution:=optional,\
 					org.apache;resolution:=optional,\
 					org.apache.bsf;resolution:=optional,\

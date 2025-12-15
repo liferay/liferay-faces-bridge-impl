@@ -65,7 +65,7 @@
 									<skip>${skip.thin.war.setup}</skip>
 									<target>
 										<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
-										<echo file="${project.build.outputDirectory}/META-INF/services/javax.enterprise.inject.spi.Extension">com.liferay.faces.bridge.servlet.BridgeExtension
+										<echo file="${project.build.outputDirectory}/META-INF/services/jakarta.enterprise.inject.spi.Extension">com.liferay.faces.bridge.servlet.BridgeExtension
 com.liferay.faces.util.servlet.internal.UtilExtension
 com.sun.faces.application.view.ViewScopeExtension
 com.sun.faces.cdi.CdiExtension
@@ -153,7 +153,7 @@ com.sun.faces.flow.FlowDiscoveryCDIExtension
 			<artifactId>jakarta.el-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.enterprise</groupId>
+			<groupId>jakarta.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
 		</dependency>
 		<dependency>
