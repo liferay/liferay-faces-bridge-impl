@@ -130,7 +130,7 @@
 		<osgi.import.package.hibernate>
 			com.thoughtworks.paranamer;resolution:=optional,\
 			javafx.beans.*;resolution:=optional,\
-			javax.money;resolution:=optional,\
+			jakarta.money;resolution:=optional,\
 			org.apache.logging.log4j.*;resolution:=optional,\
 			org.jboss.logmanager;resolution:=optional,\
 			org.joda.time;resolution:=optional
@@ -189,7 +189,7 @@
 			javax.annotation.meta.*;resolution:=optional,\
 			jakarta.ejb.*;resolution:=optional,\
 			jakarta.enterprise.*;resolution:=optional,\
-			javax.money.*;resolution:=optional,\
+			jakarta.money.*;resolution:=optional,\
 			javax.rmi.*;resolution:=optional,\
 			joptsimple.*;resolution:=optional,\
 			jrockit.vm.*;resolution:=optional,\

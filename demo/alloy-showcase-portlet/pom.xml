@@ -50,7 +50,7 @@
 					Import-Package:\
 						com.thoughtworks.paranamer;resolution:=optional,\
 						javafx.beans.*;resolution:=optional,\
-						javax.money;resolution:=optional,\
+						jakarta.money;resolution:=optional,\
 						org.apache.logging.log4j.*;resolution:=optional,\
 						org.jboss.logmanager;resolution:=optional,\
 						org.joda.time;resolution:=optional,\
