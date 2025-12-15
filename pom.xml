@@ -311,7 +311,7 @@
 								<skip>${skip.thin.war.setup}</skip>
 								<target>
 									<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
-									<echo file="${project.build.outputDirectory}/META-INF/services/javax.servlet.ServletContainerInitializer">com.sun.faces.config.FacesInitializer
+									<echo file="${project.build.outputDirectory}/META-INF/services/jakarta.servlet.ServletContainerInitializer">com.sun.faces.config.FacesInitializer
 com.liferay.faces.util.osgi.internal.FacesThinWabInitializer
 com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 </echo>
@@ -666,7 +666,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 								<configuration>
 									<target>
 										<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
-										<echo message="${faces.servlet.container.initializer}" file="${project.build.outputDirectory}/META-INF/services/javax.servlet.ServletContainerInitializer" />
+										<echo message="${faces.servlet.container.initializer}" file="${project.build.outputDirectory}/META-INF/services/jakarta.servlet.ServletContainerInitializer" />
 									</target>
 								</configuration>
 							</execution>

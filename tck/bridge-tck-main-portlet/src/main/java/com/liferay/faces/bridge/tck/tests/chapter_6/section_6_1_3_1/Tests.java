@@ -74,13 +74,13 @@ public class Tests {
 		}
 		else if (value.booleanValue()) {
 			testBean.setTestResult(true,
-				"Successfully accessed javax.servlet.forward.servletPath attribute indicating we are inside a dispatch.forward");
+				"Successfully accessed jakarta.servlet.forward.servletPath attribute indicating we are inside a dispatch.forward");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"javax.servlet.forward.servletPath not set, but it would be if we are inside a dispatch.forward");
+				"jakarta.servlet.forward.servletPath not set, but it would be if we are inside a dispatch.forward");
 
 			return Constants.TEST_FAILED;
 		}

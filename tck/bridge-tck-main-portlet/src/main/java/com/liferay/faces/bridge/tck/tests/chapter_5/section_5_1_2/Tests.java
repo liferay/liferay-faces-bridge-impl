@@ -430,7 +430,7 @@ public class Tests {
 			requestMap.put("jakarta.portlet.faces.TestRequestScope", REQUEST_ATTR_VALUE);
 			requestMap.put("jakarta.faces.TestRequestScope", REQUEST_ATTR_VALUE);
 			requestMap.put("jakarta.servlet.TestRequestScope", REQUEST_ATTR_VALUE);
-			requestMap.put("javax.servlet.include.TestRequestScope", REQUEST_ATTR_VALUE);
+			requestMap.put("jakarta.servlet.include.TestRequestScope", REQUEST_ATTR_VALUE);
 
 			return "requestScopeContentsTest"; // action Navigation result
 		}
@@ -606,11 +606,11 @@ public class Tests {
 				return Constants.TEST_FAILED;
 			}
 
-			o = requestMap.get("javax.servlet.include.TestRequestScope");
+			o = requestMap.get("jakarta.servlet.include.TestRequestScope");
 
 			if (o != null) {
 				testBean.setTestResult(false,
-					"Attribute in the javax.servlet.include namesapce unexpectedly retained: javax.servlet.include.TestRequestScope.");
+					"Attribute in the jakarta.servlet.include namesapce unexpectedly retained: jakarta.servlet.include.TestRequestScope.");
 
 				return Constants.TEST_FAILED;
 			}

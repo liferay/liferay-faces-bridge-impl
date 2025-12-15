@@ -62,7 +62,7 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 	private static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET = "jakarta.portlet";
 	private static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET_FACES = "jakarta.portlet.faces";
 	private static final String EXCLUCED_NAMESPACE_JAVAX_SERVLET = "jakarta.servlet";
-	private static final String EXCLUCED_NAMESPACE_JAVAX_SERVLET_INCLUDE = "javax.servlet.include";
+	private static final String EXCLUCED_NAMESPACE_JAVAX_SERVLET_INCLUDE = "jakarta.servlet.include";
 
 	// Private Data Members
 	private List<String> excludedAttributeNames;
