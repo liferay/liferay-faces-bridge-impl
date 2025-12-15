@@ -572,19 +572,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			</activation>
 		</profile>
 		<profile>
-			<id>ce72</id>
-			<properties>
-				<liferay.deploy.version>7.2.1.ga2</liferay.deploy.version>
-				<liferay.faces.alloy.version>3.1.1</liferay.faces.alloy.version>
-			</properties>
-		</profile>
-		<profile>
-			<id>ce73</id>
-			<properties>
-				<liferay.deploy.version>7.3.7.ga8</liferay.deploy.version>
-			</properties>
-		</profile>
-		<profile>
 			<id>liferay-portlet-war-redeploy</id>
 			<activation>
 				<file>
