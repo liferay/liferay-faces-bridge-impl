@@ -246,7 +246,6 @@
 		<liferay.version.major>7</liferay.version.major>
 		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
 		<mojarra.version>2.3.21</mojarra.version>
-		<myfaces.version>UNSUPPORTED</myfaces.version>
 		<pluto.deploy.dir>${pluto.tomcat.dir}/webapps</pluto.deploy.dir>
 		<pluto.home>${env.PORTALS_HOME}/liferay.com/pluto-${pluto.version}-jsf-${faces.spec.version}</pluto.home>
 		<pluto.tomcat.dir>${pluto.home}/tomcat-${pluto.tomcat.version}</pluto.tomcat.dir>
@@ -668,17 +667,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			</activation>
 		</profile>
 		<profile>
-			<id>myfaces</id>
-			<properties>
-				<faces.api.group.id>org.apache.myfaces.core</faces.api.group.id>
-				<faces.api.artifact.id>myfaces-api</faces.api.artifact.id>
-				<faces.impl.group.id>org.apache.myfaces.core</faces.impl.group.id>
-				<faces.impl.artifact.id>myfaces-impl</faces.impl.artifact.id>
-				<faces.servlet.container.initializer>org.apache.myfaces.ee6.MyFacesContainerInitializer</faces.servlet.container.initializer>
-				<faces.version>${myfaces.version}</faces.version>
-			</properties>
-		</profile>
-		<profile>
 			<id>pluto</id>
 			<properties>
 				<faces.api.scope>provided</faces.api.scope>
@@ -954,18 +942,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
 				<version>4.5.13</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.myfaces.core</groupId>
-				<artifactId>myfaces-api</artifactId>
-				<version>${myfaces.version}</version>
-				<scope>${war.dependency.scope}</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.myfaces.core</groupId>
-				<artifactId>myfaces-impl</artifactId>
-				<version>${myfaces.version}</version>
-				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.web</groupId>

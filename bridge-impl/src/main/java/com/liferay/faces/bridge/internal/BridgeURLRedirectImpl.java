@@ -37,8 +37,7 @@ import com.liferay.faces.util.render.FacesURLEncoder;
  * The JavaDoc for {@link javax.faces.application.ViewHandler#getRedirectURL(FacesContext, String, Map, boolean)}
  * requires that the {@link javax.faces.application.NavigationHandler} must be able to call
  * ExternalContext.redirect(ViewHandler.getRedirectURL(...)) in order to support the ability to redirect in a
- * navigation-rule. Both com.sun.faces.application.view.MultiViewHandler and
- * org.apache.myfaces.application.ViewHandlerImpl call
+ * navigation-rule. com.sun.faces.application.view.MultiViewHandler call
  * ExternalContext.encodeActionURL(ExternalContext.encodeRedirectURL(ViewHandler.getActionURL(viewId))) in order to
  * satisfy this requirement. As a result, the Bridge's implementation of {@link
  * javax.faces.context.ExternalContext#encodeRedirectURL(String url, Map parameters)} must not attempt to return the

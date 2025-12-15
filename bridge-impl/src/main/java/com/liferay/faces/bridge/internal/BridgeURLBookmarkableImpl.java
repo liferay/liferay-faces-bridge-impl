@@ -36,8 +36,8 @@ import com.liferay.faces.util.render.FacesURLEncoder;
  * The JavaDoc for {@link javax.faces.application.ViewHandler#getBookmarkableURL(FacesContext, String, Map, boolean)}
  * requires that the return value be suitable to be used as the target of a link. This means that the renderer for
  * h:link must be able to use the return value for the href attribute of an anchor element, and that the renderer for
- * h:button be able to use the return value for the onclick attribute of a button element. Both
- * com.sun.faces.application.view.MultiViewHandler and org.apache.myfaces.application.ViewHandlerImpl call
+ * h:button be able to use the return value for the onclick attribute of a button element. 
+ * com.sun.faces.application.view.MultiViewHandler call
  * ExternalContext.encodeActionURL(ExternalContext.encodeBookmarkableURL(ViewHandler.getActionURL(viewId))) in order to
  * satisfy this requirement. As a result, the Bridge's implementation of {@link
  * javax.faces.context.ExternalContext#encodeBookmarkableURL(String, Map)} must not attempt to return the result of

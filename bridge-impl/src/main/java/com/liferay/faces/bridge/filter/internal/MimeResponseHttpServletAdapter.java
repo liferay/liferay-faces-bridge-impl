@@ -213,7 +213,6 @@ public class MimeResponseHttpServletAdapter extends MimeResponseWrapper implemen
 	 */
 	@Override
 	public void setLocale(Locale loc) {
-		// no-op: called by org.apache.myfaces.view.jsp.JspViewDeclarationLanguage.buildView(FacesContext,UIViewRoot)
 	}
 
 	/**
