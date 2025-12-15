@@ -26,7 +26,6 @@ import javax.faces.render.Renderer;
 import com.liferay.faces.bridge.renderkit.bridge.internal.FileUploadRendererPortletImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.FormRendererPrimeFacesImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.HeadRendererPrimeFacesImpl;
-import com.liferay.faces.bridge.renderkit.richfaces.internal.FileUploadRendererRichFacesImpl;
 import com.liferay.faces.util.factory.FactoryExtensionFinder;
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;
@@ -48,8 +47,6 @@ public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 	private static final String JAVAX_FACES_FORM = "javax.faces.Form";
 	private static final String JAVAX_FACES_HEAD = "javax.faces.Head";
 	private static final String PRIMEFACES_FAMILY = "org.primefaces.component";
-	private static final String RICHFACES_FILE_UPLOAD_FAMILY = "org.richfaces.FileUpload";
-	private static final String RICHFACES_FILE_UPLOAD_RENDERER_TYPE = "org.richfaces.FileUploadRenderer";
 
 	public RenderKitBridgeImpl(RenderKit wrappedRenderKit) {
 		super(wrappedRenderKit);
@@ -93,10 +90,6 @@ public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 		}
 		else if (PRIMEFACES_FAMILY.equals(family) && PRIMEFACES_FILE_UPLOAD_RENDERER_TYPE.equals(rendererType)) {
 			renderer = new FileUploadRendererPortletImpl(renderer);
-		}
-		else if (RICHFACES_FILE_UPLOAD_FAMILY.equals(family) &&
-				RICHFACES_FILE_UPLOAD_RENDERER_TYPE.equals(rendererType)) {
-			renderer = new FileUploadRendererPortletImpl(new FileUploadRendererRichFacesImpl(renderer));
 		}
 
 		return renderer;

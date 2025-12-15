@@ -92,7 +92,6 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	private static final Logger logger = LoggerFactory.getLogger(ExternalContextImpl.class);
 
 	// Private Constants
-	private static final String ORG_RICHFACES_EXTENSION = "org.richfaces.extension";
 	private static final String REQUEST_ATTR_PORTLET_REQUEST = "javax.portlet.request";
 	private static final String REQUEST_ATTR_QUERY_STRING = "javax.servlet.forward.query_string";
 
@@ -224,16 +223,8 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	@Override
 	public String encodeNamespace(String name) {
 
-		final Product RICHFACES = ProductFactory.getProductInstance(this, Product.Name.RICHFACES);
-		final boolean RICHFACES_DETECTED = RICHFACES.isDetected();
-
 		if (name == null) {
 			return portletResponse.getNamespace();
-		}
-		else if (RICHFACES_DETECTED && (name.equals(ORG_RICHFACES_EXTENSION))) {
-
-			// http://issues.liferay.com/browse/FACES-1416
-			return name;
 		}
 		else {
 			return portletResponse.getNamespace() + name;

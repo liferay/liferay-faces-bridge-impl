@@ -22,7 +22,6 @@ import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
-import com.liferay.faces.bridge.util.internal.RichFacesUtil;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
 
@@ -77,13 +76,7 @@ public class ExternalContextFactoryImpl extends ExternalContextFactory {
 
 			String resourceName = portletRequest.getParameter("javax.faces.resource");
 
-			// Workaround for FACES-2133
-			if ("org.richfaces.resource.MediaOutputResource".equals(resourceName)) {
-				return new ExternalContextRichFacesResourceImpl(externalContext);
-			}
-			else {
-				return externalContext;
-			}
+			return externalContext;
 		}
 
 		// Otherwise, it is possible that a request hit the FacesServlet directly, and we should delegate
