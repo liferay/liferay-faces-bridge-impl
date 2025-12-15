@@ -244,7 +244,6 @@
 		<liferay.version>7.4.3.ga102</liferay.version>
 		<liferay.version.dtd>7.2</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
-		<liferay.websphere.version>8.0.0.6</liferay.websphere.version>
 		<mojarra.version>2.3.21</mojarra.version>
 		<pluto.deploy.dir>${pluto.tomcat.dir}/webapps</pluto.deploy.dir>
 		<pluto.home>${env.PORTALS_HOME}/liferay.com/pluto-${pluto.version}-jsf-${faces.spec.version}</pluto.home>
@@ -275,7 +274,6 @@
 		<war.dependency.scope.primefaces>${war.dependency.scope}</war.dependency.scope.primefaces>
 		<war.packaging.excludes>
 			WEB-INF/glassfish-*.xml,
-			WEB-INF/ibm-*.xml,
 			WEB-INF/jboss-*.xml,
 			WEB-INF/sun-*.xml,
 			WEB-INF/web-*.xml,
@@ -680,7 +678,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<war.dependency.scope.primefaces>compile</war.dependency.scope.primefaces>
 				<war.packaging.excludes>
 					WEB-INF/glassfish-*.xml,
-					WEB-INF/ibm-*.xml,
 					WEB-INF/jboss-*.xml,
 					WEB-INF/liferay-*.*,
 					WEB-INF/sun-*.xml,
@@ -816,21 +813,6 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-		</profile>
-		<profile>
-			<id>websphere</id>
-			<properties>
-				<app.server.type>websphere</app.server.type>
-				<faces.impl.scope>provided</faces.impl.scope>
-				<liferay.app.server.dir>${liferay.home}/websphere-${liferay.websphere.version}</liferay.app.server.dir>
-				<war.packaging.excludes>
-					WEB-INF/glassfish-*.xml,
-					WEB-INF/jboss-*.xml,
-					WEB-INF/sun-*.xml,
-					WEB-INF/web-*.xml,
-					WEB-INF/weblogic.xml
-				</war.packaging.excludes>
-			</properties>
 		</profile>
 	</profiles>
 

@@ -362,12 +362,6 @@
 				<cdi.library.name>JCDI</cdi.library.name>
 			</properties>
 		</profile>
-		<profile>
-			<id>websphere</id>
-			<properties>
-				<integration.port>9080</integration.port>
-			</properties>
-		</profile>
 	</profiles>
 
 	<dependencies>
