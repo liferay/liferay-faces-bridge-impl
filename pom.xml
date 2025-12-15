@@ -126,10 +126,6 @@
 		</osgi.dynamic.import.package.primefaces>
 		<!-- Specifies the Import-Package directive for use with the "thin" Maven profile. -->
 		<osgi.import.package />
-		<!-- Excludes unused ButterFaces transitive package dependencies so that a WAB can resolve. -->
-		<osgi.import.package.butterfaces>
-			sun.reflect.*;resolution:=optional
-		</osgi.import.package.butterfaces>
 		<!-- Excludes unused Hibernate Validator transitive package dependencies so that a WAB can resolve. -->
 		<osgi.import.package.hibernate>
 			com.thoughtworks.paranamer;resolution:=optional,\
