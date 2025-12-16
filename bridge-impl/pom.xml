@@ -51,7 +51,6 @@
 								com.liferay.faces.bridge.client.internal,\
 								com.liferay.faces.bridge.component.behavior.internal,\
 								com.liferay.faces.bridge.component.html.internal,\
-								com.liferay.faces.bridge.component.inputfile.internal,\
 								com.liferay.faces.bridge.component.internal,\
 								com.liferay.faces.bridge.component.visit.internal,\
 								com.liferay.faces.bridge.context.internal,\

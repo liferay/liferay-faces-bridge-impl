@@ -117,12 +117,4 @@
 		<!-- in a portlet. -->
 		<phase-listener>com.liferay.faces.bridge.renderkit.html_basic.internal.HeadPhaseListener</phase-listener>
 	</lifecycle>
-	<render-kit>
-		<renderer>
-			<description>HtmlInputFile Renderer</description>
-			<component-family>jakarta.faces.Input</component-family>
-			<renderer-type>jakarta.faces.File</renderer-type>
-			<renderer-class>com.liferay.faces.bridge.component.inputfile.internal.HtmlInputFileRenderer</renderer-class>
-		</renderer>
-	</render-kit>
 </faces-config>
