@@ -947,6 +947,10 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	}
 
 	@Override
+	public void release() {
+	}
+
+	@Override
 	public void setRequest(Object request) {
 
 		if ((request != null) && (request instanceof PortletRequest)) {

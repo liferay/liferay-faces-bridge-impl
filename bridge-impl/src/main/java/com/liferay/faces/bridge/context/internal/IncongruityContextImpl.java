@@ -58,4 +58,7 @@ public class IncongruityContextImpl extends IncongruityContextCompat_2_3_Impl {
 		}
 	}
 
+	@Override
+	public void release() {
+	}
 }

@@ -225,4 +225,8 @@ public class ExternalContextExpirationImpl extends ExternalContextExpirationComp
 	public void redirect(String url) throws IOException {
 		throw new UnsupportedOperationException();
 	}
+
+	@Override
+	public void release() {
+	}
 }

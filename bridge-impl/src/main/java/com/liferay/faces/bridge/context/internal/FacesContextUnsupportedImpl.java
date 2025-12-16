@@ -24,6 +24,7 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseStream;
 import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.lifecycle.Lifecycle;
 import jakarta.faces.render.RenderKit;
 
 
@@ -49,6 +50,11 @@ public abstract class FacesContextUnsupportedImpl extends FacesContext {
 
 	@Override
 	public ExternalContext getExternalContext() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Lifecycle getLifecycle() {
 		throw new UnsupportedOperationException();
 	}
 
