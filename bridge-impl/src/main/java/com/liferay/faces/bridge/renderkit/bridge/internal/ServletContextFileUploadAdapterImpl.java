@@ -96,6 +96,11 @@ public final class ServletContextFileUploadAdapterImpl implements ServletContext
 	}
 
 	@Override
+	public ServletRegistration.Dynamic addJspFile(String s, String s1) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public <T extends Filter> T createFilter(Class<T> clazz) throws ServletException {
 		throw new UnsupportedOperationException();
 	}
@@ -236,18 +241,8 @@ public final class ServletContextFileUploadAdapterImpl implements ServletContext
 	}
 
 	@Override
-	public Servlet getServlet(String name) throws ServletException {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public String getServletContextName() {
 		return portletContext.getPortletContextName();
-	}
-
-	@Override
-	public Enumeration<String> getServletNames() {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -261,16 +256,41 @@ public final class ServletContextFileUploadAdapterImpl implements ServletContext
 	}
 
 	@Override
-	public Enumeration<Servlet> getServlets() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public SessionCookieConfig getSessionCookieConfig() {
 		throw new UnsupportedOperationException();
 	}
 
 	public String getVirtualServerName() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public int getSessionTimeout() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setSessionTimeout(int i) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String getRequestCharacterEncoding() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setRequestCharacterEncoding(String s) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String getResponseCharacterEncoding() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setResponseCharacterEncoding(String s) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -282,11 +302,6 @@ public final class ServletContextFileUploadAdapterImpl implements ServletContext
 	@Override
 	public void log(String message, Throwable throwable) {
 		portletContext.log(message, throwable);
-	}
-
-	@Override
-	public void log(Exception exception, String msg) {
-		portletContext.log(msg, exception);
 	}
 
 	@Override

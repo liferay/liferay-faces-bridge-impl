@@ -173,32 +173,13 @@ public abstract class UIInputWrapper extends UIInput implements FacesWrapper<UII
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
-	public jakarta.faces.el.MethodBinding getValidator() {
-		return getWrapped().getValidator();
-	}
-
-	@Override
 	public String getValidatorMessage() {
 		return getWrapped().getValidatorMessage();
 	}
 
 	@Override
 	public Validator[] getValidators() {
-
 		return getWrapped().getValidators();
-	}
-
-	@Override
-	@SuppressWarnings("deprecation")
-	public jakarta.faces.el.ValueBinding getValueBinding(String name) {
-		return getWrapped().getValueBinding(name);
-	}
-
-	@Override
-	@SuppressWarnings("deprecation")
-	public jakarta.faces.el.MethodBinding getValueChangeListener() {
-		return getWrapped().getValueChangeListener();
 	}
 
 	@Override
@@ -371,12 +352,6 @@ public abstract class UIInputWrapper extends UIInput implements FacesWrapper<UII
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
-	public void setValidator(jakarta.faces.el.MethodBinding validatorBinding) {
-		getWrapped().setValidator(validatorBinding);
-	}
-
-	@Override
 	public void setValidatorMessage(String message) {
 		getWrapped().setValidatorMessage(message);
 	}
@@ -384,18 +359,6 @@ public abstract class UIInputWrapper extends UIInput implements FacesWrapper<UII
 	@Override
 	public void setValue(Object value) {
 		getWrapped().setValue(value);
-	}
-
-	@Override
-	@SuppressWarnings("deprecation")
-	public void setValueBinding(String name, jakarta.faces.el.ValueBinding binding) {
-		getWrapped().setValueBinding(name, binding);
-	}
-
-	@Override
-	@SuppressWarnings("deprecation")
-	public void setValueChangeListener(jakarta.faces.el.MethodBinding valueChangeListener) {
-		getWrapped().setValueChangeListener(valueChangeListener);
 	}
 
 	@Override

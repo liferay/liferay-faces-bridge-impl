@@ -22,7 +22,6 @@ import jakarta.portlet.PortletContext;
 import jakarta.portlet.PortletSession;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.HttpSessionContext;
 
 
 /**
@@ -101,21 +100,6 @@ public class PortletSessionHttpAdapter implements PortletSession, HttpSession {
 	}
 
 	@Override
-	public HttpSessionContext getSessionContext() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public Object getValue(String name) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public String[] getValueNames() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public void invalidate() {
 		wrappedPortletSession.invalidate();
 	}
@@ -126,11 +110,6 @@ public class PortletSessionHttpAdapter implements PortletSession, HttpSession {
 	}
 
 	@Override
-	public void putValue(String name, Object value) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
 	public void removeAttribute(String name) {
 		wrappedPortletSession.removeAttribute(name);
 	}
@@ -138,11 +117,6 @@ public class PortletSessionHttpAdapter implements PortletSession, HttpSession {
 	@Override
 	public void removeAttribute(String name, int scope) {
 		wrappedPortletSession.removeAttribute(name, scope);
-	}
-
-	@Override
-	public void removeValue(String name) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override

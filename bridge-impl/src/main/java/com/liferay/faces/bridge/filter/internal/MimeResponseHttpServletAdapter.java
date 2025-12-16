@@ -89,22 +89,6 @@ public class MimeResponseHttpServletAdapter extends MimeResponseWrapper implemen
 	}
 
 	/**
-	 * See {@link HttpServletResponse#encodeRedirectUrl(String)}
-	 */
-	@Override
-	public String encodeRedirectUrl(String url) {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * See {@link HttpServletResponse#encodeUrl(String)}
-	 */
-	@Override
-	public String encodeUrl(String url) {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
 	 * See {@link HttpServletResponse#getHeader(String)}
 	 */
 	@Override
@@ -184,6 +168,11 @@ public class MimeResponseHttpServletAdapter extends MimeResponseWrapper implemen
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public void setContentLengthLong(long l) {
+		throw new UnsupportedOperationException();
+	}
+
 	/**
 	 * See {@link HttpServletResponse#setDateHeader(String, long)}
 	 */
@@ -223,11 +212,4 @@ public class MimeResponseHttpServletAdapter extends MimeResponseWrapper implemen
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * See {@link HttpServletResponse#setStatus(int, String)}
-	 */
-	@Override
-	public void setStatus(int sc, String sm) {
-		throw new UnsupportedOperationException();
-	}
 }

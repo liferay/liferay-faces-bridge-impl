@@ -66,6 +66,11 @@ public class PartEmptyImpl implements Part {
 	}
 
 	@Override
+	public String getSubmittedFileName() {
+		return null;
+	}
+
+	@Override
 	public long getSize() {
 		return 0;
 	}
