@@ -17,7 +17,7 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.util.Set;
 
-import jakarta.faces.bean.ViewScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.faces.component.UICommand;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.Flash;

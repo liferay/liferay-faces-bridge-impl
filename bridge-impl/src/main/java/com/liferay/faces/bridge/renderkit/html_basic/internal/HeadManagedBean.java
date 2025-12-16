@@ -20,13 +20,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.el.ELResolver;
-import jakarta.faces.bean.ManagedBean;
-import jakarta.faces.bean.ViewScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
 
 
 /**
- * <p>This class is a JSF {@link ViewScoped} {@link ManagedBean} that maintains a list of JavaScript and/or CSS
+ * <p>This class is a JSF {@link ViewScoped} {@link Named} bean that maintains a list of JavaScript and/or CSS
  * resources that have been added to the &lt;head&gt; section of the portal page. Along with {@link HeadPhaseListener}
  * and {@link HeadRendererBridgeImpl}, this class helps provides a solution to an issue regarding Ajax-initiated
  * execution of navigation-rules in a portlet. See the class-level comments in the {@link HeadPhaseListener} for more
@@ -34,7 +34,7 @@ import jakarta.faces.context.FacesContext;
  *
  * @author  Neil Griffin
  */
-@ManagedBean
+@Named
 @ViewScoped
 public class HeadManagedBean implements Serializable {
 
