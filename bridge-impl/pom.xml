@@ -72,18 +72,17 @@
 							# compiled with JDK8. Need to require 2.0+ at run-time for Portlet 3.0
 							# Java EE 7 compatibility.
 							Import-Package: \
-								jakarta.el;version="[2.2.0,4.0.0)",\
-								jakarta.enterprise.context;version="[2.0.0,3.0.0)",\
-								jakarta.enterprise.context.spi;version="[2.0.0,3.0.0)",\
-								jakarta.enterprise.event;version="[2.0.0,3.0.0)",\
-								jakarta.enterprise.inject;version="[2.0.0,3.0.0)",\
-								jakarta.enterprise.inject.spi;version="[2.0.0,3.0.0)",\
-								jakarta.enterprise.util;version="[1.1.0,3.0.0)",\
-								com.liferay.faces.util.*;version="[4.0.0,5.0.0)",\
-								com.liferay.faces.bridge.*;version="[6.0.0,7.0.0)",\
-								com.liferay.faces.portlet.*;version="[6.0.0,7.0.0)",\
-								jakarta.portlet;version="[3.0.0,4.0.0)",\
-								jakarta.portlet.faces.*;version="[6.0.0,7.0.0)",\
+								jakarta.el;version="[2.2.0,6.0.0)",\
+								jakarta.enterprise.context;version="[2.0.0,5.0.0)",\
+								jakarta.enterprise.context.spi;version="[2.0.0,5.0.0)",\
+								jakarta.enterprise.event;version="[2.0.0,5.0.0)",\
+								jakarta.enterprise.inject;version="[2.0.0,5.0.0)",\
+								jakarta.enterprise.inject.spi;version="[2.0.0,5.0.0)",\
+								jakarta.enterprise.util;version="[1.1.0,5.0.0)",\
+								com.liferay.faces.util.*;version="[4.0.0,6.0.0)",\
+								com.liferay.faces.bridge.*;version="[6.0.0,8.0.0)",\
+								jakarta.portlet;version="[3.0.0,5.0.0)",\
+								jakarta.portlet.faces.*;version="[6.0.0,8.0.0)",\
 								*
 							Require-Capability: osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"
 							Provide-Capability: \
@@ -137,41 +136,58 @@
 		<dependency>
 			<groupId>jakarta.annotation</groupId>
 			<artifactId>jakarta.annotation-api</artifactId>
+			<version>2.1.1</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.el</groupId>
 			<artifactId>jakarta.el-api</artifactId>
+			<version>5.0.1</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>jakarta.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<optional>true</optional>
-			<scope>provided</scope>
+		    <groupId>jakarta.enterprise</groupId>
+		    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+		    <version>4.1.0</version>
+		    <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.faces</groupId>
 			<artifactId>jakarta.faces-api</artifactId>
+			<version>4.0.1</version>
+            <scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>com.liferay.jakarta.portlet</groupId>
+            <artifactId>com.liferay.jakarta.portlet-api</artifactId>
+            <version>4.0.0</version>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
-			<groupId>jakarta.portlet</groupId>
-			<artifactId>portlet-api</artifactId>
+			<groupId>jakarta.servlet.jsp</groupId>
+			<artifactId>jakarta.servlet.jsp-api</artifactId>
+			<version>3.1.1</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jakarta.servlet.jsp</groupId>
-			<artifactId>jakarta.servlet.jsp-api</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>osgi.annotation</artifactId>
+			<version>6.0.1</version>
+			<scope>provided</scope>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+            <version>4.13.2</version>
 			<scope>test</scope>
+            <optional>true</optional>
 		</dependency>
 	</dependencies>
 

@@ -97,7 +97,7 @@
 		<faces.impl.artifact.id>jakarta.faces</faces.impl.artifact.id>
 		<faces.impl.scope>runtime</faces.impl.scope>
 		<faces.servlet.container.initializer>com.sun.faces.config.FacesInitializer</faces.servlet.container.initializer>
-		<faces.spec.version>2.3</faces.spec.version>
+		<faces.spec.version>4.0.1</faces.spec.version>
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
 		<gdk.version>12.2.0-1-0</gdk.version>
@@ -117,7 +117,7 @@
 			com.liferay.faces.util.*,\
 			com.sun.faces.*,\
 			jakarta.faces.*,\
-			javax.portlet.faces.*
+			jakarta.portlet.faces.*
 		</osgi.dynamic.import.package.liferay.faces.bridge>
 		<!-- Ensures that the PrimeFaces component/renderer classes can be loaded dynamically via -->
 		<!-- Class.forName(String) -->
@@ -154,7 +154,7 @@
 			jakarta.annotation,\
 			jakarta.el,\
 			jakarta.faces,\
-			javax.portlet.faces,\
+			jakarta.portlet.faces,\
 			net.fortuna.ical4j.*;resolution:=optional,\
 			org.apache.axis.tools.ant.*;resolution:=optional,\
 			org.apache.poi.*;resolution:=optional,\
@@ -186,11 +186,11 @@
 			io.reactivex.*;resolution:=optional,\
 			io.smallrye.mutiny.*;resolution:=optional,\
 			io.undertow.*;resolution:=optional,\
-			javax.annotation.meta.*;resolution:=optional,\
+			jakarta.annotation.meta.*;resolution:=optional,\
 			jakarta.ejb.*;resolution:=optional,\
 			jakarta.enterprise.*;resolution:=optional,\
 			jakarta.money.*;resolution:=optional,\
-			javax.rmi.*;resolution:=optional,\
+			jakarta.rmi.*;resolution:=optional,\
 			joptsimple.*;resolution:=optional,\
 			jrockit.vm.*;resolution:=optional,\
 			kotlin.*;resolution:=optional,\
@@ -254,7 +254,7 @@
 		<pluto.version>${pluto.version.major}.${pluto.version.minor}.${pluto.version.patch}</pluto.version>
 		<portal.type>liferay</portal.type>
 		<portlet.api.version>${portlet.spec.version}.0</portlet.api.version>
-		<portlet.spec.version>3.0</portlet.spec.version>
+		<portlet.spec.version>4.0</portlet.spec.version>
 		<portlet.war.deployment.type>deploy</portlet.war.deployment.type>
 		<primefaces.version>15.0.6.LIFERAY-PATCHED-1</primefaces.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -793,7 +793,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.bridge.api</artifactId>
-				<version>6.0.0</version>
+				<version>7.0.0-SNAPSHOT</version>
 				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
@@ -805,38 +805,32 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>com.liferay.faces</groupId>
 				<artifactId>com.liferay.faces.util</artifactId>
-				<version>4.0.1-SNAPSHOT</version>
+				<version>5.0.0-SNAPSHOT</version>
 				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish</groupId>
 				<artifactId>jakarta.faces</artifactId>
-				<version>${mojarra.version}</version>
+				<version>4.0.1</version>
 				<scope>${faces.impl.scope}</scope>
-			</dependency>
-			<dependency>
-				<groupId>commons-logging</groupId>
-				<artifactId>commons-logging</artifactId>
-				<version>1.1.1</version>
-				<scope>${war.dependency.scope.commons.logging}</scope>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.annotation</groupId>
 				<artifactId>jakarta.annotation-api</artifactId>
-				<version>1.2</version>
+				<version>2.1.1</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.el</groupId>
 				<artifactId>jakarta.el-api</artifactId>
-				<version>2.2.1</version>
+				<version>5.0.1</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>jakarta.enterprise</groupId>
-				<artifactId>cdi-api</artifactId>
-				<version>${cdi.version}</version>
-				<scope>provided</scope>
+			    <groupId>jakarta.enterprise</groupId>
+			    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+			    <version>4.1.0</version>
+			    <scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.faces</groupId>
@@ -847,31 +841,31 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>jakarta.inject</groupId>
 				<artifactId>jakarta.inject</artifactId>
-				<version>1</version>
+				<version>2.0.1</version>
 				<scope>provided</scope>
 			</dependency>
-			<dependency>
-				<groupId>javax.portlet</groupId>
-				<artifactId>portlet-api</artifactId>
-				<version>${portlet.api.version}</version>
-				<scope>provided</scope>
-			</dependency>
+		    <dependency>
+			    <groupId>com.liferay.jakarta.portlet</groupId>
+			    <artifactId>com.liferay.jakarta.portlet-api</artifactId>
+			    <version>4.0.0</version>
+			    <scope>provided</scope>
+		    </dependency>
 			<dependency>
 				<groupId>jakarta.servlet.jsp</groupId>
 				<artifactId>jakarta.servlet.jsp-api</artifactId>
-				<version>2.2.1</version>
+				<version>3.1.1</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.servlet</groupId>
 				<artifactId>jakarta.servlet-api</artifactId>
-				<version>3.0.1</version>
+				<version>6.0.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.validation</groupId>
 				<artifactId>validation-api</artifactId>
-				<version>2.0.1.Final</version>
+				<version>3.1.0</version>
 				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
