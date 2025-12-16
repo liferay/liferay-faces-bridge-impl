@@ -23,8 +23,6 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.HandlesTypes;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 
 /**
  * @author  Kyle Stiemann
