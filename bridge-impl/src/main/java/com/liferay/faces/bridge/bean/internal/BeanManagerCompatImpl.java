@@ -15,8 +15,6 @@
  */
 package com.liferay.faces.bridge.bean.internal;
 
-import jakarta.faces.bean.ManagedBean;
-
 import com.liferay.faces.bridge.bean.BeanManager;
 
 
@@ -35,13 +33,7 @@ public abstract class BeanManagerCompatImpl implements BeanManager {
 	 * @return  true if the specified object is annotated as a JSF managed-bean, otherwise false.
 	 */
 	protected boolean hasManagedBeanAnnotation(Object object) {
-
-		if ((object != null) && (object.getClass().getAnnotation(ManagedBean.class) != null)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return false;
 	}
 
 }
