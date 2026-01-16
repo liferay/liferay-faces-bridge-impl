@@ -23,7 +23,6 @@
 		<module>jsf-ipc-events-customers-portlet</module>
 		<module>jsf-ipc-pub-render-params-portlet</module>
 		<module>jsf-applicant-portlet</module>
-		<module>jsf-jsp-applicant-portlet</module>
 		<module>jsf-showcase-portlet</module>
 		<module>jsf-spring-applicant-portlet</module>
 		<module>alloy-applicant-portlet</module>

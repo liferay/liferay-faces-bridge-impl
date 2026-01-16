@@ -245,9 +245,6 @@ limitations under the License.
 		<page name="jsf-html5-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.jsf.html5.applicant.portlet" name="1"/>
 		</page>
-		<page name="jsf-jsp-applicant" uri="/WEB-INF/themes/pluto-default-theme.jsp">
-			<portlet context="/com.liferay.faces.demo.jsf.jsp.applicant.portlet" name="1"/>
-		</page>
 		<page name="jsf-pdf" uri="/WEB-INF/themes/pluto-default-theme.jsp">
 			<portlet context="/com.liferay.faces.demo.jsf.export.pdf.portlet" name="1"/>
 		</page>
