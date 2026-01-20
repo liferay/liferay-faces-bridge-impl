@@ -212,7 +212,7 @@ public class ApplicantBacking {
 		File attachmentDir = attachmentManager.getAttachmentDir(facesContext);
 
 		if (!attachmentDir.exists()) {
-			attachmentDir.mkdir();
+			attachmentDir.mkdirs();
 		}
 
 		try {

@@ -156,7 +156,7 @@ public class ApplicantBacking implements Serializable {
 		File attachmentDir = attachmentManager.getAttachmentDir(facesContext);
 
 		if (!attachmentDir.exists()) {
-			attachmentDir.mkdir();
+			attachmentDir.mkdirs();
 		}
 
 		File copiedFile = new File(attachmentDir, PartUtil.getFileName(uploadedPart));
