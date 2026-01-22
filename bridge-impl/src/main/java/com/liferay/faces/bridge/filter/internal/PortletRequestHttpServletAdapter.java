@@ -26,6 +26,7 @@ import jakarta.portlet.filter.PortletRequestWrapper;
 import jakarta.servlet.AsyncContext;
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletConnection;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletInputStream;
@@ -34,6 +35,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpUpgradeHandler;
 import jakarta.servlet.http.Part;
 
 
@@ -76,6 +78,11 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 	}
 
 	@Override
+	public long getContentLengthLong() {
+		return 0;
+	}
+
+	@Override
 	public String getContentType() {
 		throw new UnsupportedOperationException();
 	}
@@ -87,6 +94,21 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 
 	@Override
 	public DispatcherType getDispatcherType() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String getRequestId() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String getProtocolRequestId() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public ServletConnection getServletConnection() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -141,6 +163,11 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 	}
 
 	@Override
+	public <T extends HttpUpgradeHandler> T upgrade(Class<T> aClass) throws IOException, ServletException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public Collection<Part> getParts() throws IOException, ServletException {
 		throw new UnsupportedOperationException();
 	}
@@ -167,11 +194,6 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 
 	@Override
 	public BufferedReader getReader() throws IOException {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public String getRealPath(String path) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -221,6 +243,11 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 	}
 
 	@Override
+	public String changeSessionId() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public HttpSession getSession(boolean create) {
 		return new PortletSessionHttpAdapter(super.getPortletSession(create));
 	}
@@ -242,11 +269,6 @@ public class PortletRequestHttpServletAdapter extends PortletRequestWrapper impl
 
 	@Override
 	public boolean isRequestedSessionIdFromURL() {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public boolean isRequestedSessionIdFromUrl() {
 		throw new UnsupportedOperationException();
 	}
 
