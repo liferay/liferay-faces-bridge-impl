@@ -25,7 +25,8 @@
 				</dependency>
 				<dependency>
 					<groupId>jakarta.validation</groupId>
-					<artifactId>validation-api</artifactId>
+					<artifactId>jakarta.validation-api</artifactId>
+					<version>3.1.0</version>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -62,8 +63,8 @@
 			<artifactId>jakarta.servlet.jsp-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>jakarta.portlet</groupId>
-			<artifactId>portlet-api</artifactId>
+			<groupId>com.liferay.jakarta.portlet</groupId>
+			<artifactId>com.liferay.jakarta.portlet-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
@@ -94,9 +95,17 @@
 			<exclusions>
 				<exclusion>
 					<groupId>jakarta.validation</groupId>
-					<artifactId>validation-api</artifactId>
+					<artifactId>jakarta.validation-api</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.enterprise</groupId>
+			<artifactId>jakarta.enterprise.cdi-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
 		</dependency>
 	</dependencies>
 

@@ -21,8 +21,8 @@
 			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
-					<groupId>jakarta.portlet</groupId>
-					<artifactId>portlet-api</artifactId>
+					<groupId>com.liferay.jakarta.portlet</groupId>
+					<artifactId>com.liferay.jakarta.portlet-api</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -75,8 +75,8 @@
 			<artifactId>jakarta.servlet.jsp-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>jakarta.portlet</groupId>
-			<artifactId>portlet-api</artifactId>
+			<groupId>com.liferay.jakarta.portlet</groupId>
+			<artifactId>com.liferay.jakarta.portlet-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.osgi</groupId>
@@ -306,8 +306,8 @@
 					<scope>test</scope>
 				</dependency>
 				<dependency>
-					<groupId>jakarta.portlet</groupId>
-					<artifactId>portlet-api</artifactId>
+					<groupId>com.liferay.jakarta.portlet</groupId>
+					<artifactId>com.liferay.jakarta.portlet-api</artifactId>
 					<scope>test</scope>
 				</dependency>
 				<dependency>

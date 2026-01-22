@@ -154,11 +154,11 @@ com.sun.faces.flow.FlowDiscoveryCDIExtension
 		</dependency>
 		<dependency>
 			<groupId>jakarta.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
+			<artifactId>jakarta.enterprise.cdi-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>jakarta.portlet</groupId>
-			<artifactId>portlet-api</artifactId>
+			<groupId>com.liferay.jakarta.portlet</groupId>
+			<artifactId>com.liferay.jakarta.portlet-api</artifactId>
 		</dependency>
 	</dependencies>
 

@@ -71,18 +71,18 @@
 							# compiled with JDK8. Need to require 2.0+ at run-time for Portlet 3.0
 							# Java EE 7 compatibility.
 							Import-Package: \
-								jakarta.el;version="[2.2.0,4.0.0)",\
-								jakarta.enterprise.context;version="[2.0.0,3.0.0)",\
-								jakarta.enterprise.context.spi;version="[2.0.0,3.0.0)",\
-								jakarta.enterprise.event;version="[2.0.0,3.0.0)",\
-								jakarta.enterprise.inject;version="[2.0.0,3.0.0)",\
-								jakarta.enterprise.inject.spi;version="[2.0.0,3.0.0)",\
-								jakarta.enterprise.util;version="[1.1.0,3.0.0)",\
-								com.liferay.faces.util.*;version="[4.0.0,5.0.0)",\
-								com.liferay.faces.bridge.*;version="[6.0.0,7.0.0)",\
-								com.liferay.faces.portlet.*;version="[6.0.0,7.0.0)",\
-								jakarta.portlet;version="[3.0.0,4.0.0)",\
-								jakarta.portlet.faces;version="[6.0.0,7.0.0)",\
+								jakarta.el;version="[5.0,6)",\
+								jakarta.enterprise.context;version="[4.0,5.0)",\
+								jakarta.enterprise.context.spi;version="[4.0,5.0)",\
+								jakarta.enterprise.event;version="[4.0,5.0)",\
+								jakarta.enterprise.inject;version="[4.0,5.0)",\
+								jakarta.enterprise.inject.spi;version="[4.0,5.0)",\
+								jakarta.enterprise.util;version="[4.0,5.0)",\
+								com.liferay.faces.util.*;version="[5.0.0,6.0.0)",\
+								com.liferay.faces.bridge.*;version="[7.0.0,8.0.0)",\
+								com.liferay.faces.portlet.*;version="[7.0.0,8.0.0)",\
+								jakarta.portlet;version="[4.0,5)",\
+								jakarta.portlet.faces.*;version="[7.0.0,8.0.0)",\
 								*
 							Require-Capability: osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"
 							Provide-Capability: \
@@ -143,7 +143,7 @@
 		</dependency>
 		<dependency>
 			<groupId>jakarta.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
+			<artifactId>jakarta.enterprise.cdi-api</artifactId>
 			<optional>true</optional>
 			<scope>provided</scope>
 		</dependency>
@@ -152,8 +152,8 @@
 			<artifactId>jakarta.faces-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>jakarta.portlet</groupId>
-			<artifactId>portlet-api</artifactId>
+			<groupId>com.liferay.jakarta.portlet</groupId>
+			<artifactId>com.liferay.jakarta.portlet-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
@@ -171,6 +171,14 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
+		</dependency>
+        <dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>jakarta.faces</artifactId>
 		</dependency>
 	</dependencies>
 
