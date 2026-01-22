@@ -17,9 +17,9 @@ package com.liferay.faces.demos.applicant.alloy.facelets.mbf;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ViewScoped;
+import jakarta.faces.event.ActionEvent;
 
 import com.liferay.faces.util.model.UploadedFile;
 

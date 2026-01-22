@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import javax.portlet.EventRequest;
-import javax.portlet.PortalContext;
-import javax.portlet.filter.EventRequestWrapper;
+import jakarta.portlet.EventRequest;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.filter.EventRequestWrapper;
 
 
 /**

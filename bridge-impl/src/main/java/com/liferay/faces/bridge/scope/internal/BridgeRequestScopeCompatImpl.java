@@ -20,10 +20,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.ExternalContextWrapper;
-import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContextWrapper;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.Flash;
 
 import com.liferay.faces.bridge.context.internal.ExternalContextImpl;
 import com.liferay.faces.util.logging.Logger;

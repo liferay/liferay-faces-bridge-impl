@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+<faces-config version="3.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd"
 	xmlns:bridge="http://www.liferay.com/xml/ns/liferay-faces-bridge-2.0-extension"
 	xmlns:util="http://www.liferay.com/xml/ns/liferay-faces-util-extension">
 	<name>LiferayFacesBridge</name>
@@ -31,44 +31,44 @@
 		<view-handler>com.liferay.faces.bridge.application.internal.ViewHandlerImpl</view-handler>
 	</application>
 	<component>
-		<component-type>javax.faces.HtmlMessage</component-type>
+		<component-type>jakarta.faces.HtmlMessage</component-type>
 		<component-class>com.liferay.faces.bridge.component.html.internal.HtmlMessageBridgeImpl</component-class>
 		<component-extension>
-			<base-component-type>javax.faces.Message</base-component-type>
-			<renderer-type>javax.faces.Message</renderer-type>
+			<base-component-type>jakarta.faces.Message</base-component-type>
+			<renderer-type>jakarta.faces.Message</renderer-type>
 		</component-extension>
 	</component>
 	<component>
-		<component-type>javax.faces.HtmlMessages</component-type>
+		<component-type>jakarta.faces.HtmlMessages</component-type>
 		<component-class>com.liferay.faces.bridge.component.html.internal.HtmlMessagesBridgeImpl</component-class>
 		<component-extension>
-			<base-component-type>javax.faces.Messages</base-component-type>
-			<renderer-type>javax.faces.Messages</renderer-type>
+			<base-component-type>jakarta.faces.Messages</base-component-type>
+			<renderer-type>jakarta.faces.Messages</renderer-type>
 		</component-extension>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.ActionURL</component-type>
-		<component-class>javax.portlet.faces.component.PortletActionURL</component-class>
+		<component-type>jakarta.portlet.faces.ActionURL</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletActionURL</component-class>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.Namespace</component-type>
-		<component-class>javax.portlet.faces.component.PortletNamespace</component-class>
+		<component-type>jakarta.portlet.faces.Namespace</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletNamespace</component-class>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.Param</component-type>
-		<component-class>javax.portlet.faces.component.PortletParam</component-class>
+		<component-type>jakarta.portlet.faces.Param</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletParam</component-class>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.Property</component-type>
-		<component-class>javax.portlet.faces.component.PortletProperty</component-class>
+		<component-type>jakarta.portlet.faces.Property</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletProperty</component-class>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.RenderURL</component-type>
-		<component-class>javax.portlet.faces.component.PortletRenderURL</component-class>
+		<component-type>jakarta.portlet.faces.RenderURL</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletRenderURL</component-class>
 	</component>
 	<component>
-		<component-type>javax.portlet.faces.ResourceURL</component-type>
-		<component-class>javax.portlet.faces.component.PortletResourceURL</component-class>
+		<component-type>jakarta.portlet.faces.ResourceURL</component-type>
+		<component-class>jakarta.portlet.faces.component.PortletResourceURL</component-class>
 	</component>
 	<factory>
 		<application-factory>com.liferay.faces.bridge.application.internal.ApplicationFactoryImpl</application-factory>

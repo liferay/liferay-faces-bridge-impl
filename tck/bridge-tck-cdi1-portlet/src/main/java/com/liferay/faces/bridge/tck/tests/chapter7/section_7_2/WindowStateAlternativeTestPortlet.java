@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
-import javax.portlet.annotations.InitParameter;
-import javax.portlet.annotations.PortletConfiguration;
-import javax.portlet.annotations.SecurityRoleRef;
+import jakarta.portlet.annotations.InitParameter;
+import jakarta.portlet.annotations.PortletConfiguration;
+import jakarta.portlet.annotations.SecurityRoleRef;
 
 import com.liferay.bean.portlet.LiferayPortletConfiguration;
 
@@ -31,7 +31,7 @@ import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 	portletName = "chapter7_2CDITests-windowStateAlternativeTest-portlet",
 	initParams = {
 			@InitParameter(
-				name = "javax.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/singleRequestTest.xhtml"
+				name = "jakarta.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/singleRequestTest.xhtml"
 			)
 		}, roleRefs = {
 			@SecurityRoleRef(roleName = "administrator"), @SecurityRoleRef(roleName = "guest"),

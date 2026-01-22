@@ -15,10 +15,10 @@
  */
 package com.liferay.faces.bridge.renderkit.primefaces.internal;
 
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationWrapper;
-import javax.faces.application.ResourceHandler;
-import javax.faces.application.ResourceHandlerWrapper;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ApplicationWrapper;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.application.ResourceHandlerWrapper;
 
 import com.liferay.faces.bridge.application.internal.ResourceHandlerOuterImpl;
 

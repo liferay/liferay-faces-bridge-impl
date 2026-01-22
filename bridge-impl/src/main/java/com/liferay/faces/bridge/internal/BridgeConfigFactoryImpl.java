@@ -17,10 +17,10 @@ package com.liferay.faces.bridge.internal;
 
 import java.io.Serializable;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeConfigFactory;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeConfigFactory;
 
 
 /**

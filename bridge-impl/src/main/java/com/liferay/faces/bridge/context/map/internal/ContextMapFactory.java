@@ -18,12 +18,12 @@ package com.liferay.faces.bridge.context.map.internal;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.FacesWrapper;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletSession;
-import javax.servlet.ServletContext;
+import jakarta.faces.FacesWrapper;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletSession;
+import jakarta.servlet.ServletContext;
 
 import com.liferay.faces.bridge.model.UploadedFile;
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
@@ -31,8 +31,8 @@ import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 
 /**
  * This abstract class provides a contract for defining a factory that knows how to create {@link Map} instances. It is
- * inspired by the factory pattern found in the JSF API like {@link javax.faces.context.FacesContextFactory} and {@link
- * javax.faces.context.ExternalContextFactory}. By implementing the {@link javax.faces.FacesWrapper} interface, the
+ * inspired by the factory pattern found in the JSF API like {@link jakarta.faces.context.FacesContextFactory} and {@link
+ * jakarta.faces.context.ExternalContextFactory}. By implementing the {@link jakarta.faces.FacesWrapper} interface, the
  * class provides implementations with the opportunity to wrap another factory (participate in a chain-of-responsibility
  * pattern). If an implementation wraps a factory, then it should provide a one-arg constructor so that the wrappable
  * factory can be passed at initialization time.
@@ -43,7 +43,7 @@ public abstract class ContextMapFactory implements FacesWrapper<ContextMapFactor
 
 	/**
 	 * Returns a {@link Map} of application-scoped attributes stored in the underlying {@link
-	 * javax.portlet.PortletContext}.
+	 * jakarta.portlet.PortletContext}.
 	 *
 	 * @param  portletContext    The current portlet context.
 	 * @param  preferPreDestroy  Flag indicating whether or not methods annotated with the @PreDestroy annotation are
@@ -93,7 +93,7 @@ public abstract class ContextMapFactory implements FacesWrapper<ContextMapFactor
 		String defaultRenderKitId, String facesViewQueryString);
 
 	/**
-	 * Returns a {@link Map} of request-scoped attributes stored in the underlying {@link javax.portlet.PortletRequest}.
+	 * Returns a {@link Map} of request-scoped attributes stored in the underlying {@link jakarta.portlet.PortletRequest}.
 	 *
 	 * @param  portletContext     The current portlet context.
 	 * @param  portletRequest     The current portlet request.
@@ -105,12 +105,12 @@ public abstract class ContextMapFactory implements FacesWrapper<ContextMapFactor
 		String responseNamespace, boolean preferPreDestroy);
 
 	/**
-	 * Returns a {@link Map} of attributes stored in the underlying {@link javax.servlet.ServletContext}.
+	 * Returns a {@link Map} of attributes stored in the underlying {@link jakarta.servlet.ServletContext}.
 	 */
 	public abstract Map<String, Object> getServletContextAttributeMap(ServletContext servletContext);
 
 	/**
-	 * Returns a {@link Map} of session-scoped attributes stored in the underlying {@link javax.portlet.PortletSession}.
+	 * Returns a {@link Map} of session-scoped attributes stored in the underlying {@link jakarta.portlet.PortletSession}.
 	 *
 	 * @param  portletContext    The current portlet context.
 	 * @param  portletSession    The current portlet session.

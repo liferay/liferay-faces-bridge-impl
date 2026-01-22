@@ -18,9 +18,9 @@ package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.portlet.HeaderResponse;
-import javax.portlet.MimeResponse;
-import javax.portlet.filter.HeaderResponseWrapper;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.filter.HeaderResponseWrapper;
 
 import org.w3c.dom.Element;
 
@@ -51,7 +51,7 @@ public class DependencyTrackingHeaderResponse extends HeaderResponseWrapper {
 		// implement this method. Of the resources defined in ResourcesRenderedInHeadTestUtil, only jsf.js could fall
 		// into the category of being added without markup. For example, if the portlet container provided jsf.js
 		// out-of-the-box, then the bridge could elect to not provide the markup for the resource.
-		if ("jsf.js".equals(name) && "javax.faces".equals(scope)) {
+		if ("jsf.js".equals(name) && "jakarta.faces".equals(scope)) {
 			testHeadElementsAddedViaAddDependency.add("jsf.js");
 		}
 

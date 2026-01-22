@@ -15,10 +15,10 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import javax.faces.context.FacesContext;
-import javax.faces.lifecycle.Lifecycle;
-import javax.portlet.PortletConfig;
-import javax.portlet.faces.BridgeConfig;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.lifecycle.Lifecycle;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.faces.BridgeConfig;
 
 
 /**

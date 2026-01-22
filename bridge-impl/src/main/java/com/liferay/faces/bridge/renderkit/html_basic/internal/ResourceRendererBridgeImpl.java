@@ -17,18 +17,18 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
 import java.io.IOException;
 
-import javax.faces.component.StateHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PostAddToViewEvent;
-import javax.faces.render.Renderer;
-import javax.faces.render.RendererWrapper;
+import jakarta.faces.component.StateHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ComponentSystemEventListener;
+import jakarta.faces.event.ListenerFor;
+import jakarta.faces.event.PostAddToViewEvent;
+import jakarta.faces.render.Renderer;
+import jakarta.faces.render.RendererWrapper;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -55,10 +55,10 @@ public class ResourceRendererBridgeImpl extends RendererWrapper implements Compo
 	private Renderer wrappedRenderer;
 
 	/**
-	 * This zero-arg constructor is required by the {@link javax.faces.component.StateHolderSaver} class during the
+	 * This zero-arg constructor is required by the {@link jakarta.faces.component.StateHolderSaver} class during the
 	 * RESTORE_VIEW phase of the JSF lifecycle. The reason why this class is involved in restoring state is because the
-	 * {@link javax.faces.component.UIComponent.ComponentSystemEventListenerAdapter} implements {@link
-	 * javax.faces.component.StateHolder} and will attempt to restore the state of any class in the restored view that
+	 * {@link jakarta.faces.component.UIComponent.ComponentSystemEventListenerAdapter} implements {@link
+	 * jakarta.faces.component.StateHolder} and will attempt to restore the state of any class in the restored view that
 	 * implements {@link ComponentSystemEventListener}. It does this first by instantiating the class with a zero-arg
 	 * constructor, and then calls the {@link #restoreState(FacesContext, Object)} method.
 	 */

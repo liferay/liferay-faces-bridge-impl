@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.component.internal;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.ValueHolder;
 
 
 /**

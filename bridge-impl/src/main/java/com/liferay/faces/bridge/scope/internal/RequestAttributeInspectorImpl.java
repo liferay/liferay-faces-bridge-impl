@@ -23,24 +23,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.PortalContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletSession;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.RequestAttributeInspector;
-import javax.portlet.faces.annotation.ExcludeFromManagedRequestScope;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.PortalContext;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletSession;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.RequestAttributeInspector;
+import jakarta.portlet.faces.annotation.ExcludeFromManagedRequestScope;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -58,11 +58,11 @@ public class RequestAttributeInspectorImpl implements RequestAttributeInspector,
 	private static final Logger logger = LoggerFactory.getLogger(RequestAttributeInspectorImpl.class);
 
 	// Private Constants for EXCLUDED namespaces listed in Section 5.1.2 of the JSR 329 Spec
-	private static final String EXCLUDED_NAMESPACE_JAVAX_FACES = "javax.faces";
-	private static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET = "javax.portlet";
-	private static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET_FACES = "javax.portlet.faces";
-	private static final String EXCLUCED_NAMESPACE_JAVAX_SERVLET = "javax.servlet";
-	private static final String EXCLUCED_NAMESPACE_JAVAX_SERVLET_INCLUDE = "javax.servlet.include";
+	private static final String EXCLUDED_NAMESPACE_JAVAX_FACES = "jakarta.faces";
+	private static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET = "jakarta.portlet";
+	private static final String EXCLUDED_NAMESPACE_JAVAX_PORTLET_FACES = "jakarta.portlet.faces";
+	private static final String EXCLUCED_NAMESPACE_JAVAX_SERVLET = "jakarta.servlet";
+	private static final String EXCLUCED_NAMESPACE_JAVAX_SERVLET_INCLUDE = "jakarta.servlet.include";
 
 	// Private Data Members
 	private List<String> excludedAttributeNames;

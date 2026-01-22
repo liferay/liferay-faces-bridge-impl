@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import javax.portlet.PortletURL;
-import javax.portlet.filter.PortletURLWrapper;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.filter.PortletURLWrapper;
 
 
 /**

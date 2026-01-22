@@ -15,16 +15,16 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.MimeResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.RenderRequest;
-import javax.portlet.faces.Bridge.PortletPhase;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeException;
-import javax.portlet.faces.filter.BridgePortletRequestFactory;
-import javax.portlet.faces.filter.BridgePortletResponseFactory;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.faces.Bridge.PortletPhase;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeException;
+import jakarta.portlet.faces.filter.BridgePortletRequestFactory;
+import jakarta.portlet.faces.filter.BridgePortletResponseFactory;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

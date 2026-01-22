@@ -15,10 +15,10 @@
  */
 package com.liferay.faces.issue;
 
-import javax.portlet.annotations.InitParameter;
-import javax.portlet.annotations.PortletConfiguration;
-import javax.portlet.annotations.SecurityRoleRef;
-import javax.portlet.faces.GenericFacesPortlet;
+import jakarta.portlet.annotations.InitParameter;
+import jakarta.portlet.annotations.PortletConfiguration;
+import jakarta.portlet.annotations.SecurityRoleRef;
+import jakarta.portlet.faces.GenericFacesPortlet;
 
 
 /**
@@ -26,7 +26,7 @@ import javax.portlet.faces.GenericFacesPortlet;
  */
 @PortletConfiguration(
 	portletName = "JSFSPEC-1433", initParams = {
-			@InitParameter(name = "javax.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/JSFSPEC-1433.xhtml")
+			@InitParameter(name = "jakarta.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/JSFSPEC-1433.xhtml")
 		}, roleRefs = {
 			@SecurityRoleRef(roleName = "administrator"), @SecurityRoleRef(roleName = "guest"),
 			@SecurityRoleRef(roleName = "power-user"), @SecurityRoleRef(roleName = "user")

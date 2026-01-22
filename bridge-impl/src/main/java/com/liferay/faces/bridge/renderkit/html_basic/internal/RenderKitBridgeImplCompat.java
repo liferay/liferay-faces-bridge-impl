@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitWrapper;
+import jakarta.faces.render.RenderKit;
+import jakarta.faces.render.RenderKitWrapper;
 
 
 /**

@@ -20,27 +20,27 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.URLEncoder;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.BaseURL;
-import javax.portlet.EventRequest;
-import javax.portlet.EventResponse;
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.MimeResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletURL;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.RenderURL;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
-import javax.portlet.ResourceURL;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.filter.BridgePortletResponseFactory;
-import javax.portlet.filter.HeaderResponseWrapper;
-import javax.portlet.filter.RenderResponseWrapper;
-import javax.portlet.filter.ResourceResponseWrapper;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.EventRequest;
+import jakarta.portlet.EventResponse;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.RenderURL;
+import jakarta.portlet.ResourceRequest;
+import jakarta.portlet.ResourceResponse;
+import jakarta.portlet.ResourceURL;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.filter.BridgePortletResponseFactory;
+import jakarta.portlet.filter.HeaderResponseWrapper;
+import jakarta.portlet.filter.RenderResponseWrapper;
+import jakarta.portlet.filter.ResourceResponseWrapper;
 
 
 /**
@@ -71,7 +71,7 @@ public final class BridgePortletResponseFactoryFACES_3404Impl extends BridgePort
 				setDoAsUserIdMethod.invoke(t, Long.MAX_VALUE);
 
 				// In Portlet 3.0 environments the proxy must have access to the
-				// javax.portlet.annotations.PortletSerializable class, but this WAR is limited to Portlet 2.0 classes
+				// jakarta.portlet.annotations.PortletSerializable class, but this WAR is limited to Portlet 2.0 classes
 				// due to the portlet.xml version. To work around this issue, use the portal's class loader to create
 				// the proxy.
 				Class<?> portalClassLoaderUtilClass = Class.forName(

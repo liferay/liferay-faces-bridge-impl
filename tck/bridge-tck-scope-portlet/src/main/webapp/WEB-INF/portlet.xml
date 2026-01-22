@@ -6,7 +6,7 @@
 		<portlet-name>chapter5_1_2ScopeCommonTests-requestRenderRedisplayTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/multiRequestTest.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -22,7 +22,7 @@
 		<portlet-name>chapter5_2ScopeCommonTests-scopeAfterRedisplayResourcePPRTest-portlet</portlet-name>
 		<portlet-class>com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/tests/redisplayResourceAjaxResult.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>

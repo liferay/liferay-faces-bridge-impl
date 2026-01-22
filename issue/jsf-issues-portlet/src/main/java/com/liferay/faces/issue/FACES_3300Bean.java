@@ -19,10 +19,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.Bridge;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.RequestScoped;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.Bridge;
 
 
 /**

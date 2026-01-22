@@ -18,13 +18,13 @@ package com.liferay.faces.bridge.tck.tests.chapter_3;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.portlet.MimeResponse;
-import javax.portlet.PortletException;
-import javax.portlet.PortletRequest;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeInvalidViewPathException;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeInvalidViewPathException;
 
 import com.liferay.faces.bridge.tck.common.portlet.RenderViewDispatchCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;

@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_1_3_1;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.lifecycle.ClientWindow;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.lifecycle.ClientWindow;
 
 
 /**

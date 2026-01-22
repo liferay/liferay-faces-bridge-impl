@@ -18,9 +18,9 @@ package com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_9;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
 
 import com.liferay.faces.bridge.tck.common.portlet.NonRenderResponseCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
@@ -29,14 +29,14 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 /**
  * Checks that GenericFacesPortlet#isPreserveActionParameters method works as stated in section 4.2.9. - Returns the
  * boolean value corresponding to the String value represented in the portlet initialization parameter,
- * javax.portlet.faces.preserveActionParams. If this initialization parameter doesn't exist, false is returned.
+ * jakarta.portlet.faces.preserveActionParams. If this initialization parameter doesn't exist, false is returned.
  */
 
 public class IsPreserveActionParametersMethodTestPortlet extends NonRenderResponseCompatPortlet {
 
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";
-	private static String IS_PRESERVE_ACTION_PARAMS_INIT_PARAM = "javax.portlet.faces.preserveActionParams";
+	private static String IS_PRESERVE_ACTION_PARAMS_INIT_PARAM = "jakarta.portlet.faces.preserveActionParams";
 
 	public boolean isPreserveActionParameters() {
 		boolean returnBoolean = super.isPreserveActionParameters();

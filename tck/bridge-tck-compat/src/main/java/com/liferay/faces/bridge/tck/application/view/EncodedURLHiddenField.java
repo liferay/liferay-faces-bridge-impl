@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.application.view;
 
-import javax.faces.component.html.HtmlInputHidden;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.html.HtmlInputHidden;
+import jakarta.faces.context.FacesContext;
 
 
 /**
@@ -26,6 +26,6 @@ public class EncodedURLHiddenField extends HtmlInputHidden {
 
 	@Override
 	public String getClientId(FacesContext facesContext) {
-		return "javax.faces.encodedURL";
+		return "jakarta.faces.encodedURL";
 	}
 }

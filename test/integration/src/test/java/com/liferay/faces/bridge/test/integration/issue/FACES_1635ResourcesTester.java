@@ -175,7 +175,7 @@ public class FACES_1635ResourcesTester extends BrowserDriverManagingTesterBase {
 						if (name.endsWith("ln")) {
 							resourceId = value + ":" + resourceId;
 						}
-						else if (name.endsWith("javax.faces.resource")) {
+						else if (name.endsWith("jakarta.faces.resource")) {
 							resourceId += value;
 						}
 					}

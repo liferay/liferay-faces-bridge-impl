@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.demos.applicant.jsf.facelets.util;
 
-import javax.servlet.http.Part;
+import jakarta.servlet.http.Part;
 
 
 /**

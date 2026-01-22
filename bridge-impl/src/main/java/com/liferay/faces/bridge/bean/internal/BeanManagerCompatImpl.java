@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.bean.internal;
 
-import javax.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedBean;
 
 import com.liferay.faces.bridge.bean.BeanManager;
 

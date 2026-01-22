@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.filter;
 
-import javax.portlet.RenderRequest;
-import javax.portlet.filter.RenderRequestWrapper;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.filter.RenderRequestWrapper;
 
 
 /**
@@ -34,7 +34,7 @@ public class RenderRequestResinImpl extends RenderRequestWrapper {
 	@Override
 	public Object getAttribute(String name) {
 
-		if ("javax.servlet.include.servlet_path".equals(name)) {
+		if ("jakarta.servlet.include.servlet_path".equals(name)) {
 
 			// Workaround for FACES-1629
 			return null;

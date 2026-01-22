@@ -15,16 +15,16 @@
  */
 package com.liferay.faces.demos.bean;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.ActionResponse;
-import javax.portlet.faces.annotation.BridgePreDestroy;
-import javax.portlet.faces.annotation.BridgeRequestScopeAttributeAdded;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedProperty;
+import jakarta.faces.bean.RequestScoped;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.faces.annotation.BridgePreDestroy;
+import jakarta.portlet.faces.annotation.BridgeRequestScopeAttributeAdded;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.util.logging.Logger;

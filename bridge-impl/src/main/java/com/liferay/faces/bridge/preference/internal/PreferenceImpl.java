@@ -17,9 +17,9 @@ package com.liferay.faces.bridge.preference.internal;
 
 import java.util.List;
 
-import javax.portlet.PortletPreferences;
-import javax.portlet.ReadOnlyException;
-import javax.portlet.faces.preference.Preference;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.ReadOnlyException;
+import jakarta.portlet.faces.preference.Preference;
 
 
 /**

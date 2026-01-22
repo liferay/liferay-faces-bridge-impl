@@ -5,13 +5,13 @@
 	<portlet>
 		<portlet-name>customers</portlet-name>
 		<display-name>jsf-ipc-events-customers</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/customers.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.bridgeEventHandler</name>
+			<name>jakarta.portlet.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.demos.event.CustomerEditedEventHandler</value>
 		</init-param>
 		<supports>

@@ -5,12 +5,12 @@
 
 	<!-- Inform the JSF runtime of additional faces-config.xml files. -->
 	<context-param>
-		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-name>jakarta.faces.CONFIG_FILES</param-name>
 		<param-value>/WEB-INF/navigation-rule.xml</param-value>
 	</context-param>
     <!-- Inform the JSF runtime (Mojarra) that this application is under development. -->
 	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-name>jakarta.faces.PROJECT_STAGE</param-name>
 		<param-value>${project.stage}</param-value>
 	</context-param>
     <!-- Instruct Mojarra to namespace parameters according to NamingContainer rules. -->
@@ -25,7 +25,7 @@
 	<!-- Although the FacesServlet will not be invoked by any portlet requests, it is required to initialize JSF. -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<!-- MyFaces will not initialize unless a servlet-mapping to the Faces Servlet is present. -->

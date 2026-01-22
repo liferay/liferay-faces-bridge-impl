@@ -17,9 +17,9 @@ package com.liferay.faces.bridge.internal;
 
 import java.io.Serializable;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.faces.BridgePublicRenderParameterHandler;
-import javax.portlet.faces.BridgePublicRenderParameterHandlerFactory;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.faces.BridgePublicRenderParameterHandler;
+import jakarta.portlet.faces.BridgePublicRenderParameterHandlerFactory;
 
 import com.liferay.faces.bridge.util.internal.TCCLUtil;
 import com.liferay.faces.util.logging.Logger;
@@ -45,7 +45,7 @@ public class BridgePublicRenderParameterHandlerFactoryImpl extends BridgePublicR
 
 		// TCK: initMethodTest
 		String bridgePublicRenderParameterHandlerClass = portletConfig.getInitParameter(
-				"javax.portlet.faces.bridgePublicRenderParameterHandler");
+				"jakarta.portlet.faces.bridgePublicRenderParameterHandler");
 
 		if (bridgePublicRenderParameterHandlerClass != null) {
 

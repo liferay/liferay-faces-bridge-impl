@@ -17,11 +17,11 @@ package com.liferay.faces.demos.bean;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.flow.FlowScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.faces.flow.FlowScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import com.liferay.faces.demos.dto.Customer;
 import com.liferay.faces.util.logging.Logger;

@@ -20,8 +20,8 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.faces.GenericFacesPortlet;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.faces.GenericFacesPortlet;
 
 import com.liferay.faces.bridge.context.map.internal.AbstractImmutablePropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;

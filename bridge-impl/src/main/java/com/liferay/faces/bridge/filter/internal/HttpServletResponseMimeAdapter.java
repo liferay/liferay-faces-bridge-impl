@@ -20,9 +20,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Locale;
 
-import javax.portlet.MimeResponse;
-import javax.portlet.filter.MimeResponseWrapper;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.filter.MimeResponseWrapper;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 /**

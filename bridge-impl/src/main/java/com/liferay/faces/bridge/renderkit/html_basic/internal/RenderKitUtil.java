@@ -19,8 +19,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
 
 
 /**
@@ -30,9 +30,9 @@ import javax.faces.context.FacesContext;
 
 	// Package-Private Constants
 	/* package-private */ static final String HEAD_RESOURCES_TO_RENDER_IN_BODY = "headResourcesToRenderInBody";
-	/* package-private */ static final String SCRIPT_RENDERER_TYPE = "javax.faces.resource.Script";
+	/* package-private */ static final String SCRIPT_RENDERER_TYPE = "jakarta.faces.resource.Script";
 	/* package-private */ static final String STYLE_CLASS_PORTLET_BODY = "liferay-faces-bridge-body";
-	/* package-private */ static final String STYLESHEET_RENDERER_TYPE = "javax.faces.resource.Stylesheet";
+	/* package-private */ static final String STYLESHEET_RENDERER_TYPE = "jakarta.faces.resource.Stylesheet";
 
 	private RenderKitUtil() {
 		throw new AssertionError();

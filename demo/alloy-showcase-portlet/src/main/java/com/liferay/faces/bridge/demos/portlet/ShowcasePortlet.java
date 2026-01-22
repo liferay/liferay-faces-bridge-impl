@@ -17,12 +17,12 @@ package com.liferay.faces.bridge.demos.portlet;
 
 import java.io.IOException;
 
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.PortletException;
-import javax.portlet.RenderParameters;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.GenericFacesPortlet;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderParameters;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.GenericFacesPortlet;
 
 
 /**

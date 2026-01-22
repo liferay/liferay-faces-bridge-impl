@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.portlet.faces.BridgeException;
+import jakarta.portlet.faces.BridgeException;
 
 
 /**

@@ -18,9 +18,9 @@ package com.liferay.faces.bridge.renderkit.html_basic.internal;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
+import jakarta.faces.component.UIComponentBase;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
 
 
 /**

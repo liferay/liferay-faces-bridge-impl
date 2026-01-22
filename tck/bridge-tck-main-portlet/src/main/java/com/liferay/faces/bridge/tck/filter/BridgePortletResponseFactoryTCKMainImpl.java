@@ -17,19 +17,19 @@ package com.liferay.faces.bridge.tck.filter;
 
 import java.io.Serializable;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.EventRequest;
-import javax.portlet.EventResponse;
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.filter.BridgePortletResponseFactory;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.EventRequest;
+import jakarta.portlet.EventResponse;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.ResourceRequest;
+import jakarta.portlet.ResourceResponse;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.filter.BridgePortletResponseFactory;
 
 import com.liferay.faces.bridge.tck.common.Constants;
 import com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2.DependencyTrackingHeaderResponse;

@@ -21,12 +21,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.Event;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.BridgeEventHandler;
-import javax.portlet.faces.event.EventNavigationResult;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.Event;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.BridgeEventHandler;
+import jakarta.portlet.faces.event.EventNavigationResult;
 
 import com.liferay.faces.bridge.tck.common.Constants;
 

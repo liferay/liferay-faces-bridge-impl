@@ -18,8 +18,8 @@ package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.portlet.RenderResponse;
-import javax.portlet.filter.RenderResponseWrapper;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.filter.RenderResponseWrapper;
 
 
 /**

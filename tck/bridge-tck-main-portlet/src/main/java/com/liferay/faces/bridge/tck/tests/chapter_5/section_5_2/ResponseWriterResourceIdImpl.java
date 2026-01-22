@@ -18,17 +18,17 @@ package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.context.ResponseWriterWrapper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriterWrapper;
 
 
 /**
  * This {@link ResponseWriter} writes the id attribute of script and stylesheet resources as the resource name or the
  * client id if the resource name is unavailable. See src/main/webapp/resources/test/resourcesRenderedInHeadTest.js for
  * details on how this id is used. This {@link ResponseWriter} is set in {@link
- * ResourcesRenderedInHeadTestBean#preRenderHeadListener(javax.faces.event.ComponentSystemEvent)}.
+ * ResourcesRenderedInHeadTestBean#preRenderHeadListener(jakarta.faces.event.ComponentSystemEvent)}.
  *
  * @author  Kyle Stiemann
  */

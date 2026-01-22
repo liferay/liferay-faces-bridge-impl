@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.internal;
 
 import java.util.HashMap;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import com.liferay.faces.util.product.Product;
 import com.liferay.faces.util.product.ProductFactory;

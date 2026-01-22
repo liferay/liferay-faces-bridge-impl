@@ -15,12 +15,12 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.faces.FacesException;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.ExternalContextFactory;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
+import jakarta.faces.FacesException;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContextFactory;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
@@ -74,7 +74,7 @@ public class ExternalContextFactoryImpl extends ExternalContextFactory {
 				externalContext = new ExternalContextImpl(portletContext, portletRequest, portletResponse);
 			}
 
-			String resourceName = portletRequest.getParameter("javax.faces.resource");
+			String resourceName = portletRequest.getParameter("jakarta.faces.resource");
 
 			return externalContext;
 		}

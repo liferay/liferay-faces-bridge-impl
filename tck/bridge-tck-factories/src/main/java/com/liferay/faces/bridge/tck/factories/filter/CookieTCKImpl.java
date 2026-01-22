@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.tck.factories.filter;
 
-import javax.servlet.http.Cookie;
+import jakarta.servlet.http.Cookie;
 
 
 /**

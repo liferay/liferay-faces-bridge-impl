@@ -17,10 +17,10 @@ package com.liferay.faces.demos.bean;
 
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.event.ValueChangeEvent;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.event.ValueChangeEvent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import com.liferay.faces.demos.dto.Booking;
 import com.liferay.faces.demos.service.BookingTypeService;

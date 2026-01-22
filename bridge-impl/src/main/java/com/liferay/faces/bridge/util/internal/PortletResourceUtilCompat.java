@@ -26,7 +26,7 @@ import com.liferay.faces.util.product.ProductFactory;
 public final class PortletResourceUtilCompat {
 
 	// Public Constants
-	public static final String PORTLET_RESOURCE_IDENTIFIER = "javax.faces.resource=";
+	public static final String PORTLET_RESOURCE_IDENTIFIER = "jakarta.faces.resource=";
 
 	// Private Constants
 	private static final boolean PLUTO_DETECTED = ProductFactory.getProduct(Product.Name.PLUTO).isDetected();
@@ -37,7 +37,7 @@ public final class PortletResourceUtilCompat {
 
 	public static boolean isPortletResourceURL(String url) {
 		return (url != null) &&
-			((PLUTO_DETECTED && url.contains("javax.faces.resource:")) || url.contains(PORTLET_RESOURCE_IDENTIFIER) ||
+			((PLUTO_DETECTED && url.contains("jakarta.faces.resource:")) || url.contains(PORTLET_RESOURCE_IDENTIFIER) ||
 				url.equals(MissingResourceImpl.RES_NOT_FOUND));
 	}
 }

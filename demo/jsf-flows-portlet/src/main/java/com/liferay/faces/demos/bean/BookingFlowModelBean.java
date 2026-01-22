@@ -20,11 +20,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.faces.flow.FlowScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.faces.flow.FlowScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import com.liferay.faces.demos.dto.Booking;
 import com.liferay.faces.demos.dto.Country;

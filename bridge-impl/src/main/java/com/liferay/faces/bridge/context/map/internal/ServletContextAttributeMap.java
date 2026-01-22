@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.context.map.internal;
 import java.util.Enumeration;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 

@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.render.ResponseStateManager;
-import javax.portlet.faces.Bridge;
+import jakarta.faces.render.ResponseStateManager;
+import jakarta.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;
@@ -43,7 +43,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 
 	// Private Constants
 	private static final String COM_LIFERAY_FACES_BRIDGE = "com.liferay.faces.bridge";
-	private static final String JAVAX_FACES = "javax.faces";
+	private static final String JAVAX_FACES = "jakarta.faces";
 	private static final String PRIMEFACES_DYNAMIC_CONTENT_PARAM = "pfdrid";
 
 	// Private Data Members
@@ -170,7 +170,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 
 				String keyAsString = (String) key;
 
-				// If the key is "javax.faces.ViewState" then avoid the performance impact of the superclass delegation
+				// If the key is "jakarta.faces.ViewState" then avoid the performance impact of the superclass delegation
 				// by handling this special case here.
 				if (keyAsString.endsWith(ResponseStateManager.VIEW_STATE_PARAM)) {
 
@@ -194,9 +194,9 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 				// Otherwise,
 				else {
 
-					// If the key starts with "javax.faces" then the previous lookup in the parameter-map within the
+					// If the key starts with "jakarta.faces" then the previous lookup in the parameter-map within the
 					// PortletRequest is good enough. The JSF implementation (and also the PrimeFaces
-					// PrimePartialViewContext) will sometimes ask for request parameters with the "javax.faces" prefix
+					// PrimePartialViewContext) will sometimes ask for request parameters with the "jakarta.faces" prefix
 					// in the name. This is especially the case when a ResourceRequest is looking for JSF2 resources.
 					if (keyAsString.startsWith(JAVAX_FACES)) {
 						// nothing to do -- just here for comments readability.
@@ -308,7 +308,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 			requestParameterNameList.add(ResponseStateManager.RENDER_KIT_ID_PARAM);
 		}
 
-		// If the "javax.faces.ViewState" parameter was preserved in the BridgeRequestScope, then add it to the return
+		// If the "jakarta.faces.ViewState" parameter was preserved in the BridgeRequestScope, then add it to the return
 		// value list of names.
 		String viewStateParam = getFirst(ResponseStateManager.VIEW_STATE_PARAM);
 
@@ -396,7 +396,7 @@ public class FacesRequestParameterMapImpl implements FacesRequestParameterMap {
 
 			// If not found in the request, Section 6.9 of the Bridge spec requires that the value of the
 			// ResponseStateManager.RENDER_KIT_ID_PARAM request parameter be set to the value of the
-			// "javax.portlet.faces.<portletName>.defaultRenderKitId" PortletContext attribute.
+			// "jakarta.portlet.faces.<portletName>.defaultRenderKitId" PortletContext attribute.
 			specialParameterValue = defaultRenderKitId;
 		}
 		else if (ResponseStateManager.VIEW_STATE_PARAM.equals(nonPrefixedParameterName)) {

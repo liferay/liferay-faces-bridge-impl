@@ -20,21 +20,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.ViewHandler;
-import javax.faces.component.ActionSource;
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionListener;
-import javax.faces.render.Renderer;
-import javax.faces.render.RendererWrapper;
-import javax.portlet.PortletContext;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeException;
-import javax.portlet.faces.BridgeFactoryFinder;
-import javax.portlet.faces.BridgeURL;
-import javax.portlet.faces.BridgeURLFactory;
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.component.ActionSource;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.event.ActionListener;
+import jakarta.faces.render.Renderer;
+import jakarta.faces.render.RendererWrapper;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeException;
+import jakarta.portlet.faces.BridgeFactoryFinder;
+import jakarta.portlet.faces.BridgeURL;
+import jakarta.portlet.faces.BridgeURLFactory;
 
 import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.bridge.renderkit.html_basic.internal.RenderKitBridgeImpl;
@@ -85,7 +85,7 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 
 		// FACES-1194: If running PrimeFaces 3.2 or older, then p:fileUpload must be forced to use a ResourceURL. This
 		// is because the component uses the value of the form "action" attribute as the postback URL, rather than the
-		// "javax.faces.encodedURL" hidden field.
+		// "jakarta.faces.encodedURL" hidden field.
 		if ((majorVersion == 3) && (minorVersion < 3) && isMultiPartForm(uiComponent)) {
 
 			boolean hasPrimeFacesAjaxFileUploadChild = false;
@@ -112,8 +112,8 @@ public class FormRendererPrimeFacesImpl extends RendererWrapper {
 		}
 
 		// Otherwise, if the specified form has a non-Ajax action listener child like p:dataExporter or p:fileDownload,
-		// then ensure that the value of "action" attribute of the rendered form is a javax.portlet.ResourceURL that
-		// will invoke the RESOURCE_PHASE portlet lifecycle rather than a default javax.portlet.ActionURL that invokes
+		// then ensure that the value of "action" attribute of the rendered form is a jakarta.portlet.ResourceURL that
+		// will invoke the RESOURCE_PHASE portlet lifecycle rather than a default jakarta.portlet.ActionURL that invokes
 		// the ACTION_PHASE of the portlet lifecycle.
 		else if (hasNonAjaxActionListener(uiComponent)) {
 			ViewHandler viewHandler = facesContext.getApplication().getViewHandler();

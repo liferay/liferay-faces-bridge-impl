@@ -20,18 +20,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequestDispatcher;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeDefaultViewNotSpecifiedException;
-import javax.portlet.faces.BridgeException;
-import javax.portlet.faces.filter.BridgePortletRequestFactory;
-import javax.portlet.faces.filter.BridgePortletResponseFactory;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.faces.context.ExternalContext;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletRequestDispatcher;
+import jakarta.portlet.ResourceRequest;
+import jakarta.portlet.ResourceResponse;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeDefaultViewNotSpecifiedException;
+import jakarta.portlet.faces.BridgeException;
+import jakarta.portlet.faces.filter.BridgePortletRequestFactory;
+import jakarta.portlet.faces.filter.BridgePortletResponseFactory;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.application.ResourceValidator;
@@ -270,7 +270,7 @@ public class BridgePhaseResourceImpl extends BridgePhaseCompat_2_2_Impl {
 
 				// The default behavior of Liferay Faces Bridge is to not manage the BridgeRequestScope during the
 				// RESOURCE_PHASE of the portlet lifecycle. But if the developer has enabled it via the
-				// "javax.portlet.faces.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED" configuration parameter, then
+				// "jakarta.portlet.faces.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED" configuration parameter, then
 				if (bridgeRequestScope != null) {
 
 					// PROPOSED-FOR-BRIDGE3-API: https://issues.apache.org/jira/browse/PORTLETBRIDGE-202

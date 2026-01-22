@@ -17,10 +17,10 @@ package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 /**
@@ -30,7 +30,7 @@ public class NonFacesResourceServlet extends HttpServlet {
 
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		if (request.getAttribute("javax.servlet.forward.request_uri") != null) {
+		if (request.getAttribute("jakarta.servlet.forward.request_uri") != null) {
 			request.getSession(true).setAttribute("com.liferay.faces.bridge.tck.NonFacesResourceInvokedInForward",
 				Boolean.TRUE);
 		}

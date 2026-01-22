@@ -89,8 +89,8 @@
 		<bnd.version>5.3.0</bnd.version>
 		<cdi.version>1.2</cdi.version>
 		<component.namespace>none</component.namespace>
-		<faces.api.group.id>javax.faces</faces.api.group.id>
-		<faces.api.artifact.id>javax.faces-api</faces.api.artifact.id>
+		<faces.api.group.id>jakarta.faces</faces.api.group.id>
+		<faces.api.artifact.id>jakarta.faces-api</faces.api.artifact.id>
 		<faces.api.scope>provided</faces.api.scope>
 		<faces.api.version>${faces.spec.version}</faces.api.version>
 		<faces.impl.group.id>org.glassfish</faces.impl.group.id>
@@ -116,8 +116,8 @@
 			com.liferay.faces.portlet.*,\
 			com.liferay.faces.util.*,\
 			com.sun.faces.*,\
-			javax.faces.*,\
-			javax.portlet.faces.*
+			jakarta.faces.*,\
+			jakarta.portlet.faces
 		</osgi.dynamic.import.package.liferay.faces.bridge>
 		<!-- Ensures that the PrimeFaces component/renderer classes can be loaded dynamically via -->
 		<!-- Class.forName(String) -->
@@ -130,7 +130,7 @@
 		<osgi.import.package.hibernate>
 			com.thoughtworks.paranamer;resolution:=optional,\
 			javafx.beans.*;resolution:=optional,\
-			javax.money;resolution:=optional,\
+			jakarta.money;resolution:=optional,\
 			org.apache.logging.log4j.*;resolution:=optional,\
 			org.jboss.logmanager;resolution:=optional,\
 			org.joda.time;resolution:=optional
@@ -143,7 +143,7 @@
 		<!-- Specifies that $LIFERAY_HOME/osgi/modules/com.liferay.faces.bridge.api.jar, -->
 		<!-- $LIFERAY_HOME/osgi/modules/com.liferay.faces.bridge.impl.jar, -->
 		<!-- $LIFERAY_HOME/osgi/modules/com.liferay.faces.bridge.ext.jar, -->
-		<!-- and javax.faces.jar (the JSF runtime) are required for a WAB to resolve, and ensures that each JAR -->
+		<!-- and jakarta.faces.jar (the JSF runtime) are required for a WAB to resolve, and ensures that each JAR -->
 		<!-- will be included for scanning of descriptors like META-INF/faces-config.xml. The optional imports are -->
 		<!-- unused transitive package dependencies. They are added automatically by the Liferay WAB generator at -->
 		<!-- deploy time, but must be marked as optional since they are not present in the runtime classpath. -->
@@ -151,10 +151,10 @@
 			com.liferay.faces.bridge.ext,\
 			com.liferay.faces.bridge.impl,\
 			com.sun.faces,\
-			javax.annotation,\
-			javax.el,\
-			javax.faces,\
-			javax.portlet.faces,\
+			jakarta.annotation,\
+			jakarta.el,\
+			jakarta.faces,\
+			jakarta.portlet.faces,\
 			net.fortuna.ical4j.*;resolution:=optional,\
 			org.apache.axis.tools.ant.*;resolution:=optional,\
 			org.apache.poi.*;resolution:=optional,\
@@ -186,10 +186,10 @@
 			io.reactivex.*;resolution:=optional,\
 			io.smallrye.mutiny.*;resolution:=optional,\
 			io.undertow.*;resolution:=optional,\
-			javax.annotation.meta.*;resolution:=optional,\
-			javax.ejb.*;resolution:=optional,\
-			javax.enterprise.*;resolution:=optional,\
-			javax.money.*;resolution:=optional,\
+			jakarta.annotation.meta.*;resolution:=optional,\
+			jakarta.ejb.*;resolution:=optional,\
+			jakarta.enterprise.*;resolution:=optional,\
+			jakarta.money.*;resolution:=optional,\
 			javax.rmi.*;resolution:=optional,\
 			joptsimple.*;resolution:=optional,\
 			jrockit.vm.*;resolution:=optional,\
@@ -311,7 +311,7 @@
 								<skip>${skip.thin.war.setup}</skip>
 								<target>
 									<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
-									<echo file="${project.build.outputDirectory}/META-INF/services/javax.servlet.ServletContainerInitializer">com.sun.faces.config.FacesInitializer
+									<echo file="${project.build.outputDirectory}/META-INF/services/jakarta.servlet.ServletContainerInitializer">com.sun.faces.config.FacesInitializer
 com.liferay.faces.util.osgi.internal.FacesThinWabInitializer
 com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 </echo>
@@ -666,7 +666,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 								<configuration>
 									<target>
 										<mkdir dir="${project.build.outputDirectory}/META-INF/services" />
-										<echo message="${faces.servlet.container.initializer}" file="${project.build.outputDirectory}/META-INF/services/javax.servlet.ServletContainerInitializer" />
+										<echo message="${faces.servlet.container.initializer}" file="${project.build.outputDirectory}/META-INF/services/jakarta.servlet.ServletContainerInitializer" />
 									</target>
 								</configuration>
 							</execution>
@@ -821,55 +821,55 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<scope>${war.dependency.scope.commons.logging}</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.annotation</groupId>
-				<artifactId>javax.annotation-api</artifactId>
+				<groupId>jakarta.annotation</groupId>
+				<artifactId>jakarta.annotation-api</artifactId>
 				<version>1.2</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.el</groupId>
-				<artifactId>javax.el-api</artifactId>
+				<groupId>jakarta.el</groupId>
+				<artifactId>jakarta.el-api</artifactId>
 				<version>2.2.1</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.enterprise</groupId>
+				<groupId>jakarta.enterprise</groupId>
 				<artifactId>cdi-api</artifactId>
 				<version>${cdi.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.faces</groupId>
-				<artifactId>javax.faces-api</artifactId>
+				<groupId>jakarta.faces</groupId>
+				<artifactId>jakarta.faces-api</artifactId>
 				<version>${faces.api.version}</version>
 				<scope>${faces.api.scope}</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.inject</groupId>
-				<artifactId>javax.inject</artifactId>
+				<groupId>jakarta.inject</groupId>
+				<artifactId>jakarta.inject</artifactId>
 				<version>1</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.portlet</groupId>
+				<groupId>jakarta.portlet</groupId>
 				<artifactId>portlet-api</artifactId>
 				<version>${portlet.api.version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.servlet.jsp</groupId>
-				<artifactId>javax.servlet.jsp-api</artifactId>
+				<groupId>jakarta.servlet.jsp</groupId>
+				<artifactId>jakarta.servlet.jsp-api</artifactId>
 				<version>2.2.1</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>javax.servlet-api</artifactId>
+				<groupId>jakarta.servlet</groupId>
+				<artifactId>jakarta.servlet-api</artifactId>
 				<version>3.0.1</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>javax.validation</groupId>
+				<groupId>jakarta.validation</groupId>
 				<artifactId>validation-api</artifactId>
 				<version>2.0.1.Final</version>
 				<scope>${war.dependency.scope}</scope>
@@ -892,11 +892,11 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<scope>${war.dependency.scope.jstl}</scope>
 				<exclusions>
 				    <exclusion>
-				        <groupId>javax.servlet</groupId>
+				        <groupId>jakarta.servlet</groupId>
 				        <artifactId>servlet-api</artifactId>
 				    </exclusion>
 				    <exclusion>
-				        <groupId>javax.servlet.jsp</groupId>
+				        <groupId>jakarta.servlet.jsp</groupId>
 				        <artifactId>jsp-api</artifactId>
 				    </exclusion>
 				</exclusions>

@@ -18,9 +18,9 @@ package com.liferay.faces.bridge.tck.factories.renderkit;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.faces.application.StateManager;
-import javax.faces.context.FacesContext;
-import javax.faces.render.ResponseStateManager;
+import jakarta.faces.application.StateManager;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ResponseStateManager;
 
 
 /**

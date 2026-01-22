@@ -32,7 +32,7 @@ public final class ResourcesRenderedInHeadTestUtil {
 	static {
 
 		Set<String[]> testHeadResourceIds = new HashSet<String[]>();
-		testHeadResourceIds.add(new String[] { "jsf.js", "javax.faces" });
+		testHeadResourceIds.add(new String[] { "jsf.js", "jakarta.faces" });
 		testHeadResourceIds.add(new String[] { "resourcesRenderedInHeadTest.js", "test" });
 		testHeadResourceIds.add(new String[] { "resource1.css", "test" });
 		testHeadResourceIds.add(new String[] { "resource1.js" });

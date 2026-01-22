@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.context.map.internal;
 
-import javax.portlet.PortletSession;
+import jakarta.portlet.PortletSession;
 
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 

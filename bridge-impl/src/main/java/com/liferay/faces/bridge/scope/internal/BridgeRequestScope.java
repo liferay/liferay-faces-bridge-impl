@@ -17,11 +17,11 @@ package com.liferay.faces.bridge.scope.internal;
 
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
-import javax.portlet.ActionRequest;
-import javax.portlet.PortletMode;
-import javax.portlet.RenderRequest;
-import javax.portlet.faces.Bridge;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.faces.Bridge;
 
 
 /**
@@ -30,7 +30,7 @@ import javax.portlet.faces.Bridge;
  * HTTP POST operation by clicking on a Submit button, the portlet lifecycle's ACTION_PHASE will be invoked, and the
  * bridge will execute all the phases of the JSF lifecycle except for RENDER_RESPONSE -- which is to be done later in
  * the portlet lifecycle's RENDER_PHASE. The problem is that there might be FacesContext attributes or {@link
- * javax.faces.bean.RequestScoped} managed-beans (request attributes) created during in the ACTION_PHASE that also need
+ * jakarta.faces.bean.RequestScoped} managed-beans (request attributes) created during in the ACTION_PHASE that also need
  * to be referenced in the RENDER_PHASE. Technically, the {@link ActionRequest} created for the ACTION_PHASE and the
  * {@link RenderRequest} created for the RENDER_PHASE are two different objects, and so the BridgeRequestScope exists to
  * maintain the existence of scoped data between the two phases.
@@ -58,10 +58,10 @@ public interface BridgeRequestScope {
 	}
 
 	/**
-	 * Determines the {@link javax.portlet.faces.Bridge.PortletPhase} in which the bridge request scope instance was
+	 * Determines the {@link jakarta.portlet.faces.Bridge.PortletPhase} in which the bridge request scope instance was
 	 * created.
 	 *
-	 * @return  The {@link javax.portlet.faces.Bridge.PortletPhase} in which the bridge request scope instance was
+	 * @return  The {@link jakarta.portlet.faces.Bridge.PortletPhase} in which the bridge request scope instance was
 	 *          created.
 	 */
 	public Bridge.PortletPhase getBeganInPhase();
@@ -77,13 +77,13 @@ public interface BridgeRequestScope {
 	public PortletMode getPortletMode();
 
 	/**
-	 * If the javax.portlet.faces.preserveActionParams init-param is set to <code>true</code> in WEB-INF/portlet.xml
+	 * If the jakarta.portlet.faces.preserveActionParams init-param is set to <code>true</code> in WEB-INF/portlet.xml
 	 * then this returns the action parameters that were found in the ACTION_PHASE.
 	 */
 	public Map<String, String> getPreservedActionParameterMap();
 
 	/**
-	 * Returns the value of the {@link javax.faces.render.ResponseStateManager#VIEW_STATE_PARAM} parameter that was
+	 * Returns the value of the {@link jakarta.faces.render.ResponseStateManager#VIEW_STATE_PARAM} parameter that was
 	 * found in the ACTION_PHASE.
 	 */
 	public String getPreservedViewStateParam();
@@ -136,7 +136,7 @@ public interface BridgeRequestScope {
 
 	/**
 	 * This method preserves the scoped data (as defined in Section 5.1.2 of the Bridge Spec). It should only be called
-	 * during the {@link javax.portlet.PortletRequest#ACTION_PHASE} and {@link javax.portlet.PortletRequest#EVENT_PHASE}
+	 * during the {@link jakarta.portlet.PortletRequest#ACTION_PHASE} and {@link jakarta.portlet.PortletRequest#EVENT_PHASE}
 	 * of the portlet lifecycle.
 	 *
 	 * @param  facesContext  The current {@link FacesContext}.

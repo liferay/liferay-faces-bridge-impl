@@ -18,10 +18,10 @@ package com.liferay.faces.bridge.tck.tests.chapter_4.section_4_1;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.faces.BridgeEventHandler;
-import javax.portlet.faces.BridgePublicRenderParameterHandler;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.faces.BridgeEventHandler;
+import jakarta.portlet.faces.BridgePublicRenderParameterHandler;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
@@ -111,7 +111,7 @@ public class Tests {
 		// Section 4.1
 		// Tests whether the GenericFacesPortlet portlet initialization
 		// parameters have been correctly set as Bridge attributes.
-		String PARAM_NAMESPACE = "javax.portlet.faces.chapter4_1Tests-portletInitializationParametersTest-portlet.";
+		String PARAM_NAMESPACE = "jakarta.portlet.faces.chapter4_1Tests-portletInitializationParametersTest-portlet.";
 		Map<String, Object> expectedInitParams = new HashMap<String, Object>();
 		Map<String, String> viewIds = new HashMap<String, String>();
 		viewIds.put("view", "/tests/singleRequestTest.xhtml");

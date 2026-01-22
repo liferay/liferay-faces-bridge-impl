@@ -21,9 +21,9 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Stack;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ResponseWriter;
-import javax.faces.context.ResponseWriterWrapper;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriterWrapper;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

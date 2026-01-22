@@ -21,8 +21,8 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.Flash;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.Flash;
 
 import com.liferay.faces.bridge.lifecycle.internal.DelayedResponseOutputStream;
 import com.liferay.faces.bridge.lifecycle.internal.DelayedResponseOutputWriter;

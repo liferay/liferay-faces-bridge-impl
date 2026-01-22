@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationFactory;
+import jakarta.faces.application.Application;
+import jakarta.faces.application.ApplicationFactory;
 
 
 /**

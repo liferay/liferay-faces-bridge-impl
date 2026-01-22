@@ -21,8 +21,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletContext;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletContext;
 
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;
 

@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.demos.list;
 
-import javax.faces.FacesWrapper;
+import jakarta.faces.FacesWrapper;
 
 import com.liferay.faces.demos.dto.Customer;
 

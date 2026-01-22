@@ -15,12 +15,12 @@
  */
 package com.liferay.faces.issue;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.MimeResponse;
-import javax.portlet.PortletURL;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.RequestScoped;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.PortletURL;
 
 
 /**

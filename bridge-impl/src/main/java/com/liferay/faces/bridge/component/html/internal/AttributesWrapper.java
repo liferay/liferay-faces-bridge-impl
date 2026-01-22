@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.FacesWrapper;
+import jakarta.faces.FacesWrapper;
 
 
 /**

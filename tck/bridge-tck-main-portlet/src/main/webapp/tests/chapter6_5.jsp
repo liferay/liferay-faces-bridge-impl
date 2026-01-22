@@ -5,11 +5,11 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
-<%@ page import="javax.faces.context.FacesContext" %>
-<%@ page import="javax.faces.component.*" %>
-<%@ page import="javax.portlet.PortletRequest" %>
-<%@ page import="javax.portlet.PortletSession" %>
-<%@ page import="javax.portlet.faces.preference.Preference" %>
+<%@ page import="jakarta.faces.context.FacesContext" %>
+<%@ page import="jakarta.faces.component.*" %>
+<%@ page import="jakarta.portlet.PortletRequest" %>
+<%@ page import="jakarta.portlet.PortletSession" %>
+<%@ page import="jakarta.portlet.faces.preference.Preference" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>

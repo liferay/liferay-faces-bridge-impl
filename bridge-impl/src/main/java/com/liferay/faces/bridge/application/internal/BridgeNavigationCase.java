@@ -18,10 +18,10 @@ package com.liferay.faces.bridge.application.internal;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.NavigationCase;
-import javax.portlet.PortletMode;
-import javax.portlet.WindowState;
-import javax.portlet.faces.Bridge;
+import jakarta.faces.application.NavigationCase;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.WindowState;
+import jakarta.portlet.faces.Bridge;
 
 
 /**

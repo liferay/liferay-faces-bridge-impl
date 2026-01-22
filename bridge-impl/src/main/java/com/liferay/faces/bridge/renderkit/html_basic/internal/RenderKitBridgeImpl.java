@@ -15,13 +15,13 @@
  */
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
-import javax.faces.component.UIForm;
-import javax.faces.component.UIOutput;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitWrapper;
-import javax.faces.render.Renderer;
+import jakarta.faces.component.UIForm;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.RenderKit;
+import jakarta.faces.render.RenderKitWrapper;
+import jakarta.faces.render.Renderer;
 
 import com.liferay.faces.bridge.renderkit.bridge.internal.FileUploadRendererPortletImpl;
 import com.liferay.faces.bridge.renderkit.primefaces.internal.FormRendererPrimeFacesImpl;
@@ -43,9 +43,9 @@ public class RenderKitBridgeImpl extends RenderKitBridgeImplCompat {
 	public static final String PRIMEFACES_FILE_UPLOAD_RENDERER_TYPE = "org.primefaces.component.FileUploadRenderer";
 
 	// Private Constants
-	private static final String JAVAX_FACES_BODY = "javax.faces.Body";
-	private static final String JAVAX_FACES_FORM = "javax.faces.Form";
-	private static final String JAVAX_FACES_HEAD = "javax.faces.Head";
+	private static final String JAVAX_FACES_BODY = "jakarta.faces.Body";
+	private static final String JAVAX_FACES_FORM = "jakarta.faces.Form";
+	private static final String JAVAX_FACES_HEAD = "jakarta.faces.Head";
 	private static final String PRIMEFACES_FAMILY = "org.primefaces.component";
 
 	public RenderKitBridgeImpl(RenderKit wrappedRenderKit) {

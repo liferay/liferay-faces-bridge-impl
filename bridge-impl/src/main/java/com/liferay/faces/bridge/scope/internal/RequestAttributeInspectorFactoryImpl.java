@@ -17,11 +17,11 @@ package com.liferay.faces.bridge.scope.internal;
 
 import java.io.Serializable;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.RequestAttributeInspector;
-import javax.portlet.faces.RequestAttributeInspectorFactory;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.RequestAttributeInspector;
+import jakarta.portlet.faces.RequestAttributeInspectorFactory;
 
 
 /**

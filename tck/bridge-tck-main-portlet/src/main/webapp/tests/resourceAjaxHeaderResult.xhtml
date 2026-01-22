@@ -16,7 +16,7 @@
 		<h:outputScript>
 			var sendRequest = function sendRequest(source) {
 				var paramPrefix = "#{facesContext.externalContext.encodeNamespace('')}#{facesContext.namingContainerSeparatorChar}";
-				var encodedURLHiddenInput = document.getElementsByName(paramPrefix + "javax.faces.encodedURL")[0];
+				var encodedURLHiddenInput = document.getElementsByName(paramPrefix + "jakarta.faces.encodedURL")[0];
 				var encodedURL = encodedURLHiddenInput.getAttribute("value");
 				var sourceForm = source.form;
 				var xmlHttpRequest = new XMLHttpRequest();
@@ -100,12 +100,12 @@
 				xmlHttpRequest.open("POST", encodedURL, true);
 				xmlHttpRequest.setRequestHeader("Faces-Request", "partial/ajax");
 				var formData = new FormData();
-				formData.append(paramPrefix + "javax.faces.source", source.name);
-				formData.append(paramPrefix + "javax.faces.partial.event", "click");
-				formData.append(paramPrefix + "javax.faces.partial.execute", source.name + " " + source.form.name);
-				formData.append(paramPrefix + "javax.faces.partial.render", source.form.name);
-				formData.append(paramPrefix + "javax.faces.behavior.event", "action");
-				formData.append(paramPrefix + "javax.faces.partial.ajax", "true");
+				formData.append(paramPrefix + "jakarta.faces.source", source.name);
+				formData.append(paramPrefix + "jakarta.faces.partial.event", "click");
+				formData.append(paramPrefix + "jakarta.faces.partial.execute", source.name + " " + source.form.name);
+				formData.append(paramPrefix + "jakarta.faces.partial.render", source.form.name);
+				formData.append(paramPrefix + "jakarta.faces.behavior.event", "action");
+				formData.append(paramPrefix + "jakarta.faces.partial.ajax", "true");
 				xmlHttpRequest.send(formData);
 			}
 		</h:outputScript>

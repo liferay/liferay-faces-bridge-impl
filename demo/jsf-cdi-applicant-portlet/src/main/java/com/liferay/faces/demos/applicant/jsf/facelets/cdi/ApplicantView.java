@@ -17,9 +17,9 @@ package com.liferay.faces.demos.applicant.jsf.facelets.cdi;
 
 import java.io.Serializable;
 
-import javax.faces.event.ActionEvent;
-import javax.faces.view.ViewScoped;
-import javax.inject.Named;
+import jakarta.faces.event.ActionEvent;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 
 
 /**

@@ -22,22 +22,22 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.faces.application.Application;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.render.ResponseStateManager;
-import javax.portlet.ActionRequest;
-import javax.portlet.ClientDataRequest;
-import javax.portlet.MimeResponse;
-import javax.portlet.PortletRequest;
-import javax.portlet.RenderRequest;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
-import javax.portlet.StateAwareResponse;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
-import javax.portlet.filter.ActionRequestWrapper;
-import javax.portlet.filter.RenderRequestWrapper;
+import jakarta.faces.application.Application;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.render.ResponseStateManager;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.ClientDataRequest;
+import jakarta.portlet.MimeResponse;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.ResourceRequest;
+import jakarta.portlet.ResourceResponse;
+import jakarta.portlet.StateAwareResponse;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeUtil;
+import jakarta.portlet.filter.ActionRequestWrapper;
+import jakarta.portlet.filter.RenderRequestWrapper;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
@@ -74,13 +74,13 @@ public class Tests {
 		}
 		else if (value.booleanValue()) {
 			testBean.setTestResult(true,
-				"Successfully accessed javax.servlet.forward.servletPath attribute indicating we are inside a dispatch.forward");
+				"Successfully accessed jakarta.servlet.forward.servletPath attribute indicating we are inside a dispatch.forward");
 
 			return Constants.TEST_SUCCESS;
 		}
 		else {
 			testBean.setTestResult(false,
-				"javax.servlet.forward.servletPath not set, but it would be if we are inside a dispatch.forward");
+				"jakarta.servlet.forward.servletPath not set, but it would be if we are inside a dispatch.forward");
 
 			return Constants.TEST_FAILED;
 		}
@@ -3202,8 +3202,8 @@ public class Tests {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 			requestMap.put("myRequestObject", externalContext.getRequest()); // should be excluded because of value type
 			requestMap.put("myFacesContext", facesContext); // should be excluded because of value type
-			requestMap.put("javax.faces.myKey1", Boolean.TRUE); // should be excluded because its in exlcuded namespace
-			requestMap.put("javax.faces.myNamespace.myKey1", Boolean.TRUE); // should be retained because excluded
+			requestMap.put("jakarta.faces.myKey1", Boolean.TRUE); // should be excluded because its in exlcuded namespace
+			requestMap.put("jakarta.faces.myNamespace.myKey1", Boolean.TRUE); // should be retained because excluded
 																			// namespaces don't recurse
 			requestMap.put("myKey1", Boolean.TRUE); // should be retained
 			requestMap.put("myExcludedNamespace.myKey1", Boolean.TRUE); // should be excluded as defined in portlet.xml
@@ -3248,16 +3248,16 @@ public class Tests {
 				return Constants.TEST_FAILED;
 			}
 
-			if (requestMap.get("javax.faces.myKey1") != null) {
+			if (requestMap.get("jakarta.faces.myKey1") != null) {
 				testBean.setTestResult(false,
-					"The bridge request scope incorrectly preserved an attribute in the predefined exlcuded namespace javax.faces.");
+					"The bridge request scope incorrectly preserved an attribute in the predefined exlcuded namespace jakarta.faces.");
 
 				return Constants.TEST_FAILED;
 			}
 
-			if (requestMap.get("javax.faces.myNamespace.myKey1") == null) {
+			if (requestMap.get("jakarta.faces.myNamespace.myKey1") == null) {
 				testBean.setTestResult(false,
-					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of the javax.faces namespace.  Exclusion rules aren't recursive.");
+					"The bridge request scope incorrectly exlcuded an attribute that is in a subnamespace of the jakarta.faces namespace.  Exclusion rules aren't recursive.");
 
 				return Constants.TEST_FAILED;
 			}

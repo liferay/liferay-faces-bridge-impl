@@ -15,10 +15,10 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.portlet.ActionResponse;
-import javax.portlet.filter.ActionResponseWrapper;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.PartialViewContext;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.filter.ActionResponseWrapper;
 
 
 /**

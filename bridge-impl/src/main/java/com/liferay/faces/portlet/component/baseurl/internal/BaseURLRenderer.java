@@ -20,16 +20,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.portlet.BaseURL;
-import javax.portlet.PortletSecurityException;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.BridgeUtil;
-import javax.portlet.faces.component.PortletParam;
-import javax.portlet.faces.component.PortletProperty;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.PortletSecurityException;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.BridgeUtil;
+import jakarta.portlet.faces.component.PortletParam;
+import jakarta.portlet.faces.component.PortletProperty;
 
 import com.liferay.faces.bridge.util.internal.XMLUtil;
 

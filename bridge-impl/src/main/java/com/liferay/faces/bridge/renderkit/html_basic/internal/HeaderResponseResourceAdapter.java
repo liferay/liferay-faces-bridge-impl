@@ -15,9 +15,9 @@
  */
 package com.liferay.faces.bridge.renderkit.html_basic.internal;
 
-import javax.portlet.HeaderResponse;
-import javax.portlet.ResourceResponse;
-import javax.portlet.filter.ResourceResponseWrapper;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.ResourceResponse;
+import jakarta.portlet.filter.ResourceResponseWrapper;
 
 
 /**

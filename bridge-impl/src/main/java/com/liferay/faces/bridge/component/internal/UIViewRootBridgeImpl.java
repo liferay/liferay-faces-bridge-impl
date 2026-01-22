@@ -15,10 +15,10 @@
  */
 package com.liferay.faces.bridge.component.internal;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.portlet.faces.BridgeUtil;
-import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.faces.BridgeUtil;
+import jakarta.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

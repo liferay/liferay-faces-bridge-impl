@@ -17,15 +17,15 @@ package com.liferay.faces.portlet.component.portleturl.internal;
 
 import java.io.IOException;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.portlet.BaseURL;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletModeException;
-import javax.portlet.PortletRequest;
-import javax.portlet.WindowState;
-import javax.portlet.WindowStateException;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletModeException;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.WindowState;
+import jakarta.portlet.WindowStateException;
 
 
 /**
@@ -33,7 +33,7 @@ import javax.portlet.WindowStateException;
  */
 public abstract class PortletURLRenderer extends PortletURLRendererBase {
 
-	protected abstract javax.portlet.PortletURL createPortletURL(ExternalContext externalContext,
+	protected abstract jakarta.portlet.PortletURL createPortletURL(ExternalContext externalContext,
 		UIComponent uiComponent);
 
 	protected abstract String getPortletMode(UIComponent uiComponent);
@@ -46,7 +46,7 @@ public abstract class PortletURLRenderer extends PortletURLRendererBase {
 	protected BaseURL createBaseURL(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
 		ExternalContext externalContext = facesContext.getExternalContext();
-		javax.portlet.PortletURL portletURL = createPortletURL(externalContext, uiComponent);
+		jakarta.portlet.PortletURL portletURL = createPortletURL(externalContext, uiComponent);
 		PortletRequest portletRequest = (PortletRequest) externalContext.getRequest();
 
 		String portletModeString = getPortletMode(uiComponent);

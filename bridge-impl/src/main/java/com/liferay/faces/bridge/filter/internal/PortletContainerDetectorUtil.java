@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.filter.internal;
 
-import javax.portlet.PortletResponse;
-import javax.portlet.filter.PortletResponseWrapper;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.filter.PortletResponseWrapper;
 
 
 /**
@@ -29,12 +29,12 @@ public final class PortletContainerDetectorUtil {
 	}
 
 	/**
-	 * Determines whether or not the specified {@link javax.portlet.PortletResponse} is one created by Pluto Portal. If
-	 * the specified {@link javax.portlet.PortletResponse} is an instance of {@link
-	 * javax.portlet.filter.PortletResponseWrapper} then it will work with the wrapped {@link
-	 * javax.portlet.PortletResponse}.
+	 * Determines whether or not the specified {@link jakarta.portlet.PortletResponse} is one created by Pluto Portal. If
+	 * the specified {@link jakarta.portlet.PortletResponse} is an instance of {@link
+	 * jakarta.portlet.filter.PortletResponseWrapper} then it will work with the wrapped {@link
+	 * jakarta.portlet.PortletResponse}.
 	 *
-	 * @param   portletResponse  The current {@link javax.portlet.PortletResponse}.
+	 * @param   portletResponse  The current {@link jakarta.portlet.PortletResponse}.
 	 *
 	 * @return  true if the specified portletResponse was created by Pluto.
 	 */

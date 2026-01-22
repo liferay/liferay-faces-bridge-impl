@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.issue.FACES_1618;
 
-import javax.faces.render.Renderer;
+import jakarta.faces.render.Renderer;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -19,20 +19,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
-import javax.faces.event.PreRenderComponentEvent;
-import javax.portlet.PortletResponse;
-import javax.portlet.filter.PortletResponseWrapper;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.event.AbortProcessingException;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.event.ComponentSystemEventListener;
+import jakarta.faces.event.PreRenderComponentEvent;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.filter.PortletResponseWrapper;
 
 
 /**
@@ -54,8 +54,8 @@ public class ResourcesRenderedInHeadTestBean {
 
 	/**
 	 * This method returns the elements that were EXPECTED to be added via {@link
-	 * javax.portlet.HeaderResponse#addDependency(String, String, String)} or {@link
-	 * javax.portlet.HeaderResponse#addDependency(String, String, String, String)} but were not. If this method returns
+	 * jakarta.portlet.HeaderResponse#addDependency(String, String, String)} or {@link
+	 * jakarta.portlet.HeaderResponse#addDependency(String, String, String, String)} but were not. If this method returns
 	 * a non-empty value then that would indicate a test condition failure.
 	 */
 	public String getTestHeadElementsNotAddedViaAddDependency() {
@@ -87,7 +87,7 @@ public class ResourcesRenderedInHeadTestBean {
 	}
 
 	/**
-	 * Determines whether or not the {@link javax.portlet.HeaderResponse#addProperty(String, org.w3c.dom.Element)}
+	 * Determines whether or not the {@link jakarta.portlet.HeaderResponse#addProperty(String, org.w3c.dom.Element)}
 	 * method was called in order to add a resource to the &lt;head&gt;...&lt;/head&gt; section of the page. Since the
 	 * FacesBridge is not supposed to do this, returning a value of <code>true</code> would indicate a test condition
 	 * failure.
@@ -126,8 +126,8 @@ public class ResourcesRenderedInHeadTestBean {
 			String rendererType = headResource.getRendererType();
 
 			if ((headResource instanceof UIOutput) &&
-					(rendererType.equals("javax.faces.resource.Script") ||
-						rendererType.equals("javax.faces.resource.Stylesheet"))) {
+					(rendererType.equals("jakarta.faces.resource.Script") ||
+						rendererType.equals("jakarta.faces.resource.Stylesheet"))) {
 				headResource.subscribeToEvent(PreRenderComponentEvent.class, new ComponentSystemEventListener() {
 
 						@Override

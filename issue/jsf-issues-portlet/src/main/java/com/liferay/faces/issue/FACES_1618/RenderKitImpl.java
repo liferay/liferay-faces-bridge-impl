@@ -17,10 +17,10 @@ package com.liferay.faces.issue.FACES_1618;
 
 import java.io.Writer;
 
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.RenderKit;
-import javax.faces.render.RenderKitWrapper;
-import javax.faces.render.Renderer;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.render.RenderKit;
+import jakarta.faces.render.RenderKitWrapper;
+import jakarta.faces.render.Renderer;
 
 
 /**
@@ -29,8 +29,8 @@ import javax.faces.render.Renderer;
 public class RenderKitImpl extends RenderKitWrapper {
 
 	// Private Constants
-	private static final String SCRIPT_RENDERER_TYPE = "javax.faces.resource.Script";
-	private static final String STYLESHEET_RENDERER_TYPE = "javax.faces.resource.Stylesheet";
+	private static final String SCRIPT_RENDERER_TYPE = "jakarta.faces.resource.Script";
+	private static final String STYLESHEET_RENDERER_TYPE = "jakarta.faces.resource.Stylesheet";
 
 	// Private Data Members
 	private RenderKit wrappedRenderKit;

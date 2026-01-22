@@ -15,13 +15,13 @@
  */
 package com.liferay.faces.bridge.application.internal;
 
-import javax.faces.application.ConfigurableNavigationHandler;
-import javax.faces.application.NavigationHandler;
-import javax.faces.context.FacesContext;
-import javax.portlet.PortletMode;
-import javax.portlet.StateAwareResponse;
-import javax.portlet.WindowState;
-import javax.portlet.faces.Bridge;
+import jakarta.faces.application.ConfigurableNavigationHandler;
+import jakarta.faces.application.NavigationHandler;
+import jakarta.faces.context.FacesContext;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.StateAwareResponse;
+import jakarta.portlet.WindowState;
+import jakarta.portlet.faces.Bridge;
 
 
 /**

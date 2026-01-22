@@ -22,12 +22,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-import javax.faces.context.FacesContextFactory;
-import javax.portlet.GenericPortlet;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import jakarta.faces.context.FacesContextFactory;
+import jakarta.portlet.GenericPortlet;
+import jakarta.portlet.PortletContext;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
 
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
@@ -50,11 +50,11 @@ public class FacesContextFactoryServiceProviderTest extends GenericPortlet {
 		BridgeTCKResultWriter resultWriter = new BridgeTCKResultWriter(TEST_NAME);
 
 		String className = getFromServicesPath(this.getPortletContext(),
-				"META-INF/services/javax.faces.context.FacesContextFactory");
+				"META-INF/services/jakarta.faces.context.FacesContextFactory");
 
 		if (className == null) {
 			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
-			resultWriter.setDetail("META-INF/services/javax.faces.context.FacesContextFactory not found.");
+			resultWriter.setDetail("META-INF/services/jakarta.faces.context.FacesContextFactory not found.");
 
 			return;
 		}

@@ -15,11 +15,11 @@
  */
 package com.liferay.faces.portlet.component.renderurl.internal;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.render.FacesRenderer;
-import javax.portlet.PortletURL;
-import javax.portlet.faces.component.PortletRenderURL;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.render.FacesRenderer;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.faces.component.PortletRenderURL;
 
 
 /**
@@ -27,7 +27,7 @@ import javax.portlet.faces.component.PortletRenderURL;
  */
 
 //J-
-@FacesRenderer(componentFamily = PortletRenderURL.COMPONENT_FAMILY, rendererType = "javax.portlet.faces.RenderURL")
+@FacesRenderer(componentFamily = PortletRenderURL.COMPONENT_FAMILY, rendererType = "jakarta.portlet.faces.RenderURL")
 //J+
 public class RenderURLRenderer extends RenderURLRendererCompat {
 

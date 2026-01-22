@@ -15,13 +15,13 @@
  */
 package com.liferay.faces.demos.applicant.jsf.facelets.portlet;
 
-import javax.portlet.annotations.InitParameter;
-import javax.portlet.annotations.LocaleString;
-import javax.portlet.annotations.PortletConfiguration;
-import javax.portlet.annotations.Preference;
-import javax.portlet.annotations.SecurityRoleRef;
-import javax.portlet.annotations.Supports;
-import javax.portlet.faces.GenericFacesPortlet;
+import jakarta.portlet.annotations.InitParameter;
+import jakarta.portlet.annotations.LocaleString;
+import jakarta.portlet.annotations.PortletConfiguration;
+import jakarta.portlet.annotations.Preference;
+import jakarta.portlet.annotations.SecurityRoleRef;
+import jakarta.portlet.annotations.Supports;
+import jakarta.portlet.faces.GenericFacesPortlet;
 
 import com.liferay.bean.portlet.LiferayPortletConfiguration;
 
@@ -33,13 +33,13 @@ import com.liferay.bean.portlet.LiferayPortletConfiguration;
 	portletName = "1", displayName = { @LocaleString("jsf-cdi-applicant") },
 	initParams = {
 			@InitParameter(
-				name = "javax.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/portletViewMode.xhtml"
+				name = "jakarta.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/portletViewMode.xhtml"
 			),
 			@InitParameter(
-				name = "javax.portlet.faces.defaultViewId.edit", value = "/WEB-INF/views/portletEditMode.xhtml"
+				name = "jakarta.portlet.faces.defaultViewId.edit", value = "/WEB-INF/views/portletEditMode.xhtml"
 			),
 			@InitParameter(
-				name = "javax.portlet.faces.defaultViewId.help", value = "/WEB-INF/views/portletHelpMode.xhtml"
+				name = "jakarta.portlet.faces.defaultViewId.help", value = "/WEB-INF/views/portletHelpMode.xhtml"
 			),
 		}, keywords = { @LocaleString("jsf-cdi-applicant") }, prefs = {
 			@Preference(name = "datePattern", values = "MM/dd/yyyy"),

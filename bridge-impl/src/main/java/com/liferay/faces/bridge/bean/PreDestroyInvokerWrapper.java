@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.bean;
 
-import javax.faces.FacesWrapper;
+import jakarta.faces.FacesWrapper;
 
 
 /**

@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.context;
 
-import javax.portlet.PortalContext;
+import jakarta.portlet.PortalContext;
 
 import org.junit.Assert;
 import org.junit.Test;

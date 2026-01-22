@@ -18,16 +18,16 @@ package com.liferay.faces.demos.applicant.jsf.facelets.spring;
 import java.util.Enumeration;
 import java.util.Map;
 
-import javax.el.ELResolver;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-import javax.portlet.WindowState;
-import javax.portlet.faces.preference.Preference;
+import jakarta.el.ELResolver;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Named;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.WindowState;
+import jakarta.portlet.faces.preference.Preference;
 
 import org.springframework.context.annotation.Scope;
 

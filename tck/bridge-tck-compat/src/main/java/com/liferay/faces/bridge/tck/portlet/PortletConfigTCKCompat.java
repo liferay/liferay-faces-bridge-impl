@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.portlet;
 
-import javax.portlet.PortletConfig;
-import javax.portlet.filter.PortletConfigWrapper;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.filter.PortletConfigWrapper;
 
 
 /**

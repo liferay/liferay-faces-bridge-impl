@@ -18,7 +18,7 @@ package com.liferay.faces.demos.applicant.jsf.facelets.spring;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 import org.springframework.context.annotation.Scope;
 

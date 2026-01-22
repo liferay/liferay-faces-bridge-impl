@@ -17,9 +17,9 @@ package com.liferay.faces.bridge.component.internal;
 
 import java.util.Map;
 
-import javax.faces.application.ResourceHandler;
-import javax.faces.component.UIOutput;
-import javax.faces.context.FacesContext;
+import jakarta.faces.application.ResourceHandler;
+import jakarta.faces.component.UIOutput;
+import jakarta.faces.context.FacesContext;
 
 
 /**

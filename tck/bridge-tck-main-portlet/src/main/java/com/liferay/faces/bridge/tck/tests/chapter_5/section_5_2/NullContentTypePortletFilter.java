@@ -17,13 +17,13 @@ package com.liferay.faces.bridge.tck.tests.chapter_5.section_5_2;
 
 import java.io.IOException;
 
-import javax.portlet.HeaderRequest;
-import javax.portlet.HeaderResponse;
-import javax.portlet.PortletException;
-import javax.portlet.filter.FilterConfig;
-import javax.portlet.filter.HeaderFilter;
-import javax.portlet.filter.HeaderFilterChain;
-import javax.portlet.filter.HeaderResponseWrapper;
+import jakarta.portlet.HeaderRequest;
+import jakarta.portlet.HeaderResponse;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.filter.FilterConfig;
+import jakarta.portlet.filter.HeaderFilter;
+import jakarta.portlet.filter.HeaderFilterChain;
+import jakarta.portlet.filter.HeaderResponseWrapper;
 
 
 /**

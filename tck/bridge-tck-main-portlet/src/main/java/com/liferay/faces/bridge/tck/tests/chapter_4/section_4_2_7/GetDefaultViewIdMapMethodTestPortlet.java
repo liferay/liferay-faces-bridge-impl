@@ -20,9 +20,9 @@ import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.Map;
 
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
 
 import com.liferay.faces.bridge.tck.common.portlet.NonRenderResponseCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
@@ -30,7 +30,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 /**
  * Checks that GenericFacesPortlet#getDefaultViewIdMap method works as stated in section 4.2.7. - The default view id
- * for a portlet mode is defined as a portlet initialization parameter named javax.portlet.faces.defaultViewId.[mode].
+ * for a portlet mode is defined as a portlet initialization parameter named jakarta.portlet.faces.defaultViewId.[mode].
  * This test confirms that the method returns a map where the key is the string version of [mode] and the map value is
  * the portlet initialization parameter value.
  */
@@ -39,7 +39,7 @@ public class GetDefaultViewIdMapMethodTestPortlet extends NonRenderResponseCompa
 	private static String TEST_NAME = "getDefaultViewIdMapMethodTest";
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";
-	private static String DEFAULT_VIEW_ID_INIT_PARAM = "javax.portlet.faces.defaultViewId.";
+	private static String DEFAULT_VIEW_ID_INIT_PARAM = "jakarta.portlet.faces.defaultViewId.";
 
 	public Map getDefaultViewIdMap() {
 		Map returnMap = super.getDefaultViewIdMap();

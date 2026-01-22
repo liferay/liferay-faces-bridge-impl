@@ -18,16 +18,16 @@ package com.liferay.faces.bridge.tck.common.portlet;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletException;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.faces.Bridge;
-import javax.portlet.faces.GenericFacesPortlet;
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.ActionResponse;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.faces.Bridge;
+import jakarta.portlet.faces.GenericFacesPortlet;
 
 import com.liferay.faces.bridge.tck.common.Constants;
 

@@ -15,12 +15,12 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import javax.portlet.faces.Bridge;
+import jakarta.portlet.faces.Bridge;
 
 
 /**
  * This interface represents a JSF View from the perspective of how it is mapped to the {@link
- * javax.faces.webapp.FacesServlet}.
+ * jakarta.faces.webapp.FacesServlet}.
  *
  * @author  Neil Griffin
  */
@@ -40,7 +40,7 @@ public interface FacesView {
 	 * Bridge#NONFACES_TARGET_PATH_PARAMETER}, {@link Bridge#PORTLET_SECURE_PARAMETER}, {@link
 	 * Bridge#PORTLET_WINDOWSTATE_PARAMETER}, {@link Bridge#FACES_VIEW_ID_PARAMETER}, or {@link
 	 * Bridge#FACES_VIEW_PATH_PARAMETER}. Note that "navigation" does not refer to JSF navigation-rules, but rather
-	 * changes in {@link javax.portlet.PortletMode}, {@link javax.portlet.WindowState}, etc. It could also contain
+	 * changes in {@link jakarta.portlet.PortletMode}, {@link jakarta.portlet.WindowState}, etc. It could also contain
 	 * user-define name=value parameters specified in a {@link Bridge#VIEW_ID} request attribute.
 	 */
 	String getQueryString();
@@ -58,7 +58,7 @@ public interface FacesView {
 	String getViewId();
 
 	/**
-	 * Flag indicating whether or not the view is mapped to the {@link javax.faces.webapp.FacesServlet} via
+	 * Flag indicating whether or not the view is mapped to the {@link jakarta.faces.webapp.FacesServlet} via
 	 * extension-mapping (such as *.faces) or some other extension.
 	 *
 	 * @return  <code>true</code> if extension-mapped, otherwise <code>false</code>.
@@ -66,7 +66,7 @@ public interface FacesView {
 	boolean isExtensionMapped();
 
 	/**
-	 * Flag indicating whether or not the view is mapped to the {@link javax.faces.webapp.FacesServlet} via path-mapping
+	 * Flag indicating whether or not the view is mapped to the {@link jakarta.faces.webapp.FacesServlet} via path-mapping
 	 * (such as /faces/views/*) or some other extension.
 	 *
 	 * @return  <code>true</code> if extension-mapped, otherwise <code>false</code>.

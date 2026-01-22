@@ -21,16 +21,16 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletRequest;
-import javax.portlet.faces.BridgeConfig;
-import javax.portlet.faces.BridgeException;
-import javax.portlet.faces.BridgeURL;
-import javax.portlet.faces.BridgeURLFactory;
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.faces.BridgeConfig;
+import jakarta.portlet.faces.BridgeException;
+import jakarta.portlet.faces.BridgeURL;
+import jakarta.portlet.faces.BridgeURLFactory;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.bridge.util.internal.URLUtil;

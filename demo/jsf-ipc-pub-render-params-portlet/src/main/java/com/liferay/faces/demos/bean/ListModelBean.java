@@ -17,10 +17,10 @@ package com.liferay.faces.demos.bean;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.bean.ApplicationScoped;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.ManagedProperty;
 
 import com.liferay.faces.demos.dto.BookingType;
 import com.liferay.faces.demos.service.BookingTypeService;

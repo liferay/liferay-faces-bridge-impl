@@ -18,9 +18,9 @@ package com.liferay.faces.demos.applicant.jsf.facelets.spring;
 import java.io.File;
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
-import javax.faces.event.ActionEvent;
-import javax.inject.Named;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.event.ActionEvent;
+import jakarta.inject.Named;
 
 import org.springframework.context.annotation.Scope;
 

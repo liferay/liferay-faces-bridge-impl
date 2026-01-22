@@ -7,17 +7,17 @@
 	<portlet>
 		<portlet-name>1</portlet-name>
 		<display-name>jsf-cdi-applicant</display-name>
-		<portlet-class>javax.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.view</name>
+			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/portletViewMode.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.edit</name>
+			<name>jakarta.portlet.faces.defaultViewId.edit</name>
 			<value>/WEB-INF/views/portletEditMode.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>javax.portlet.faces.defaultViewId.help</name>
+			<name>jakarta.portlet.faces.defaultViewId.help</name>
 			<value>/WEB-INF/views/portletHelpMode.xhtml</value>
 		</init-param>
 		<supports>

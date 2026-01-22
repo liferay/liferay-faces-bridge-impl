@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.internal;
 
-import javax.portlet.BaseURL;
-import javax.portlet.PortletResponse;
+import jakarta.portlet.BaseURL;
+import jakarta.portlet.PortletResponse;
 
 
 /**

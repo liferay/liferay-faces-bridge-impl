@@ -19,10 +19,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
-import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.faces.BridgeEventHandler;
+import jakarta.portlet.PortletException;
+import jakarta.portlet.RenderRequest;
+import jakarta.portlet.RenderResponse;
+import jakarta.portlet.faces.BridgeEventHandler;
 
 import com.liferay.faces.bridge.tck.common.portlet.NonRenderResponseCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
@@ -31,7 +31,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 /**
  * Checks that GenericFacesPortlet#getBridgeEventHandler method works as stated in section 4.2.12. - The
  * GenericFacesPortlet implements getBridgeEventHandler by returning an instance of the configured event handler
- * corresponding to the value of the portlet initialization parameter javax.portlet.faces.bridgeEventHandler or null if
+ * corresponding to the value of the portlet initialization parameter jakarta.portlet.faces.bridgeEventHandler or null if
  * this parameter doesn't exist.
  */
 public class GetBridgeEventHandlerTestPortlet extends NonRenderResponseCompatPortlet {
