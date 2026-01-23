@@ -92,7 +92,7 @@
 		<faces.api.group.id>jakarta.faces</faces.api.group.id>
 		<faces.api.artifact.id>jakarta.faces-api</faces.api.artifact.id>
 		<faces.api.scope>provided</faces.api.scope>
-		<faces.api.version>3.0.0</faces.api.version>
+		<faces.api.version>2.3.21-JAKARTA</faces.api.version>
 		<faces.impl.group.id>org.glassfish</faces.impl.group.id>
 		<faces.impl.artifact.id>jakarta.faces</faces.impl.artifact.id>
 		<faces.impl.scope>runtime</faces.impl.scope>
@@ -812,7 +812,7 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			<dependency>
 				<groupId>org.glassfish</groupId>
 				<artifactId>jakarta.faces</artifactId>
-				<version>4.0.1</version>
+				<version>2.3.21.LIFERAY-PATCHED-1-JAKARTA</version>
 				<scope>${faces.impl.scope}</scope>
 			</dependency>
 			<dependency>

@@ -165,6 +165,10 @@ com.sun.faces.flow.FlowDiscoveryCDIExtension
 			<artifactId>com.liferay.faces.bridge.api</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.liferay.faces</groupId>
 			<artifactId>com.liferay.faces.bridge.impl</artifactId>
 		</dependency>
