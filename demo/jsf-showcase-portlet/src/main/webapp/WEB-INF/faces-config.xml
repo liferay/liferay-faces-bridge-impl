@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config version="2.3" xmlns="https://jakarta.ee/xml/ns/jakartaee"
+<faces-config version="2.2" xmlns="https://jakarta.ee/xml/ns/jakartaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_2_3.xsd"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_2_2.xsd"
 	xmlns:util="http://www.liferay.com/xml/ns/liferay-faces-util-extension">
 
 	<lifecycle>
