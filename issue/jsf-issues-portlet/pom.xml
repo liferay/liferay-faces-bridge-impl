@@ -90,6 +90,10 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.liferay.jakarta.portlet</groupId>
 			<artifactId>com.liferay.jakarta.portlet-api</artifactId>
 		</dependency>

@@ -30,6 +30,10 @@
 			<groupId>com.liferay.jakarta.portlet</groupId>
 			<artifactId>com.liferay.jakarta.portlet-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>jakarta.el</groupId>
+			<artifactId>jakarta.el-api</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>
