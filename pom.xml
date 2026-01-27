@@ -230,7 +230,7 @@
 			osgi.extender;filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://java.sun.com/jsf/core))",\
 			osgi.extender;filter:="(&amp;(osgi.extender=jsp.taglib)(uri=http://liferay.com/faces/bridge))"
 		</osgi.require.capability.jsp>
-		<jstl.version>1.2</jstl.version>
+		<jstl.version>3.0.1</jstl.version>
 		<liferay.app.server.dir>${liferay.home}/tomcat-${liferay.tomcat.version}</liferay.app.server.dir>
 		<liferay.auto.deploy.dir>${liferay.home}/deploy</liferay.auto.deploy.dir>
 		<liferay.deploy.dir>${liferay.app.server.dir}/webapps</liferay.deploy.dir>
@@ -882,18 +882,17 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.web</groupId>
-				<artifactId>jstl-impl</artifactId>
+				<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 				<version>${jstl.version}</version>
-				<scope>${war.dependency.scope.jstl}</scope>
 				<exclusions>
-				    <exclusion>
-				        <groupId>jakarta.servlet</groupId>
-				        <artifactId>servlet-api</artifactId>
-				    </exclusion>
-				    <exclusion>
-				        <groupId>jakarta.servlet.jsp</groupId>
-				        <artifactId>jsp-api</artifactId>
-				    </exclusion>
+					<exclusion>
+						<groupId>jakarta.servlet</groupId>
+						<artifactId>jakarta.servlet-api</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>jakarta.servlet.jsp</groupId>
+						<artifactId>jakarta.servlet.jsp-api</artifactId>
+					</exclusion>
 				</exclusions>
 			</dependency>
 			<dependency>

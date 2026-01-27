@@ -50,7 +50,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
-			<artifactId>jstl-impl</artifactId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.jakarta.portlet</groupId>
