@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.component.inputfile.internal;
 
-import javax.faces.webapp.UIComponentELTag;
+import jakarta.faces.webapp.UIComponentELTag;
 
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 

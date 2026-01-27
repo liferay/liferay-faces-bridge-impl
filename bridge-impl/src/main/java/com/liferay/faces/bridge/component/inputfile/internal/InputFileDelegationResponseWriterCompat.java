@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.component.inputfile.internal;
 
-import javax.faces.context.ResponseWriter;
-import javax.faces.context.ResponseWriterWrapper;
+import jakarta.faces.context.ResponseWriter;
+import jakarta.faces.context.ResponseWriterWrapper;
 
 
 /**

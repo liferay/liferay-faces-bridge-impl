@@ -41,13 +41,13 @@
 			<description><![CDATA[An EL expression that binds the Java reference to this component in the component tree to a bean property.]]></description>
 			<name>binding</name>
 			<required>false</required>
-			<type>javax.faces.component.UIComponent</type>
+			<type>jakarta.faces.component.UIComponent</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[The class name of the converter instance that is to be used by this component.]]></description>
 			<name>converter</name>
 			<required>false</required>
-			<type>javax.faces.convert.Converter</type>
+			<type>jakarta.faces.convert.Converter</type>
 		</attribute>
 		<attribute>
 			<description><![CDATA[This message or the result of the specified expression, will be used as the text of the converter message instead of any message that comes from the registered converter for this component.]]></description>
@@ -257,7 +257,7 @@
 			<description><![CDATA[A method that is executed in the PROCESS_VALIDATIONS phase of the lifecycle. The method must be <code>public</code>, return <code>void</code>, and take three arguments of <code>FacesContext</code>, <code>UIComponent</code>, and <code>Object</code>.]]></description>
 			<name>validator</name>
 			<required>false</required>
-			<method-signature>void validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
+			<method-signature>void validate(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent,
 java.lang.Object)</method-signature>
 		</attribute>
 		<attribute>
@@ -276,7 +276,7 @@ java.lang.Object)</method-signature>
 			<description><![CDATA[A method that is executed when the value of this component changes. The method must be <code>public</code>, return <code>void</code>, and take no arguments or one argument of <code>ValueChangeEvent</code>.]]></description>
 			<name>valueChangeListener</name>
 			<required>false</required>
-			<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
+			<method-signature>void valueChange(jakarta.faces.event.ValueChangeEvent)</method-signature>
 		</attribute>
 		<tag-extension>
 			<vdldoc:example-url>http://www.liferayfaces.org/web/guest/jsf-showcase/-/jsf-tag/bridge/inputfile/general</vdldoc:example-url>

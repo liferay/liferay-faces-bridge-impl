@@ -18,13 +18,13 @@ package com.liferay.faces.bridge.component.inputfile.internal;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputFile;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
-import javax.faces.render.Renderer;
-import javax.servlet.http.Part;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.html.HtmlInputFile;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.ConverterException;
+import jakarta.faces.render.Renderer;
+import jakarta.servlet.http.Part;
 
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.model.UploadedFile;
@@ -104,7 +104,7 @@ public class HtmlInputFileRenderer extends DelegatingRendererBase {
 
 	@Override
 	public String getDelegateRendererType() {
-		return "javax.faces.File";
+		return "jakarta.faces.File";
 	}
 
 	private static final class DelegateRendererAccessor extends ThreadSafeAccessor<Renderer, FacesContext> {

@@ -120,8 +120,8 @@
 	<render-kit>
 		<renderer>
 			<description>HtmlInputFile Renderer</description>
-			<component-family>javax.faces.Input</component-family>
-			<renderer-type>javax.faces.File</renderer-type>
+			<component-family>jakarta.faces.Input</component-family>
+			<renderer-type>jakarta.faces.File</renderer-type>
 			<renderer-class>com.liferay.faces.bridge.component.inputfile.internal.HtmlInputFileRenderer</renderer-class>
 		</renderer>
 	</render-kit>

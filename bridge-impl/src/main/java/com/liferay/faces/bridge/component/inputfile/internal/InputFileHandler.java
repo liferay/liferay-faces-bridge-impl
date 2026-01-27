@@ -17,13 +17,13 @@ package com.liferay.faces.bridge.component.inputfile.internal;
 
 import java.lang.reflect.Method;
 
-import javax.faces.view.facelets.ComponentConfig;
-import javax.faces.view.facelets.ComponentHandler;
-import javax.faces.view.facelets.MetaRule;
-import javax.faces.view.facelets.MetaRuleset;
-import javax.faces.view.facelets.Metadata;
-import javax.faces.view.facelets.MetadataTarget;
-import javax.faces.view.facelets.TagAttribute;
+import jakarta.faces.view.facelets.ComponentConfig;
+import jakarta.faces.view.facelets.ComponentHandler;
+import jakarta.faces.view.facelets.MetaRule;
+import jakarta.faces.view.facelets.MetaRuleset;
+import jakarta.faces.view.facelets.Metadata;
+import jakarta.faces.view.facelets.MetadataTarget;
+import jakarta.faces.view.facelets.TagAttribute;
 
 import com.liferay.faces.bridge.component.inputfile.InputFile;
 import com.liferay.faces.bridge.event.FileUploadEvent;

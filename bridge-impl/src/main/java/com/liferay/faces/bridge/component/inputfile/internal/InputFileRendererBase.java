@@ -16,7 +16,7 @@
 package com.liferay.faces.bridge.component.inputfile.internal;
 //J-
 
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 import com.liferay.faces.util.render.DelegatingRendererBase;
 
@@ -41,7 +41,7 @@ public abstract class InputFileRendererBase extends DelegatingRendererBase {
 
 	@Override
 	public String getDelegateRendererType() {
-		return "javax.faces.File";
+		return "jakarta.faces.File";
 	}
 }
 //J+

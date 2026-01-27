@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.servlet.http.Part;
+import jakarta.servlet.http.Part;
 
 
 /**
@@ -62,6 +62,11 @@ public class PartEmptyImpl implements Part {
 
 	@Override
 	public String getName() {
+		return null;
+	}
+
+	@Override
+	public String getSubmittedFileName() {
 		return null;
 	}
 

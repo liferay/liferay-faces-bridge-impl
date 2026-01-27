@@ -50,10 +50,10 @@
 			<type><![CDATA[java.lang.String]]></type>
 		</attribute>
 		<tag-extension>
-			<delegate-renderer-type>"javax.faces.File"</delegate-renderer-type>
+			<delegate-renderer-type>"jakarta.faces.File"</delegate-renderer-type>
 			<extends-tags>altInherited autocompleteInherited disabledInherited facesMessageLabelInherited htmlAccessibilityEventsInherited htmlInputEventsInherited sizeInherited</extends-tags>
 			<generate-component>false</generate-component>
-			<parent-class><![CDATA[javax.faces.component.html.HtmlInputFile]]></parent-class>
+			<parent-class><![CDATA[jakarta.faces.component.html.HtmlInputFile]]></parent-class>
 			<renderer-parent-class><![CDATA[com.liferay.faces.util.render.DelegatingRendererBase]]></renderer-parent-class>
 		</tag-extension>
 	</tag>
