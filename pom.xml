@@ -101,7 +101,7 @@
 		<faces.version>${mojarra.version}</faces.version>
 		<full.version>${project.version} (${timestamp} AD)</full.version>
 		<gdk.version>12.2.0-1-0</gdk.version>
-		<hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
+		<hibernate.validator.version>6.2.5.Final.JAKARTA-LIFERAY-PATCHED-1</hibernate.validator.version>
 		<!-- Specifies the DynamicImport-Package directive for use with the "thin" Maven profile. -->
 		<osgi.dynamic.import.package />
 		<!-- Ensures that the Liferay Faces Alloy component/renderer classes can be loaded dynamically via -->
@@ -897,8 +897,8 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				</exclusions>
 			</dependency>
 			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-validator</artifactId>
+				<groupId>com.liferay</groupId>
+				<artifactId>org.hibernate.validator</artifactId>
 				<version>${hibernate.validator.version}</version>
 				<exclusions>
 					<exclusion>
