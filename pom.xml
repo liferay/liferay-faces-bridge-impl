@@ -221,7 +221,16 @@
 			org.yaml.snakeyaml.*;resolution:=optional,\
 			reactor.*;resolution:=optional,\
 			rx.*;resolution:=optional,\
-			sun.reflect;resolution:=optional
+			sun.reflect;resolution:=optional,\
+			io.micrometer.*;resolution:=optional,\
+			io.netty5.*;resolution:=optional,\
+			okio.*;resolution:=optional,\
+			org.crac.*;resolution:=optional,\
+			!javax.annotation.*,\
+			!javax.money.*,\
+			!jdk.internal.*,\
+			!com.oracle.svm.core.annotate,\
+			!org.graalvm.*
 		</osgi.import.package.spring>
 		<osgi.require.capability />
 		<!-- Specifies that JSP capabilities are required so that a WAB can resolve. -->
@@ -263,7 +272,7 @@
 		<project.stage>Production</project.stage>
 		<selenium.version>3.8.1</selenium.version>
 		<skip.thin.war.setup>true</skip.thin.war.setup>
-		<spring.version>5.3.39</spring.version>
+		<spring.version>6.2.9</spring.version>
 		<surefire.version>2.12</surefire.version>
 		<thick.or.thin>thick</thick.or.thin>
 		<tck.trinidad.version>2.0.1</tck.trinidad.version>
@@ -930,11 +939,23 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
 				<version>${spring.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>io.micrometer</groupId>
+						<artifactId>micrometer-observation</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-web</artifactId>
 				<version>${spring.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>io.micrometer</groupId>
+						<artifactId>micrometer-observation</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 
 			<!-- Integration test dependencies. -->
