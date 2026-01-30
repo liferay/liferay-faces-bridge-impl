@@ -15,8 +15,7 @@
 
 	<modules>
 		<module>jsf-issues-portlet</module>
-		
-
+		<module>primefaces-issues-portlet</module>
 	</modules>
 
 	<profiles>
