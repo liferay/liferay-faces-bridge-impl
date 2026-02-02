@@ -103,11 +103,11 @@ public final class PDFUtil {
 			itextRenderer.createPDF(byteArrayOutputStream);
 			pdf = byteArrayOutputStream.toByteArray();
 		}
-		catch (Exception e) {
-			logger.error(e.getMessage(), e);
+		catch (Throwable throwable) {
+			logger.error(throwable.getMessage(), throwable);
 			logger.error("vvv--- Offending XHTML ---vvv");
 			logger.error(xhtml);
-			throw new IOException(e.getMessage());
+			throw new IOException(throwable);
 		}
 
 		return pdf;

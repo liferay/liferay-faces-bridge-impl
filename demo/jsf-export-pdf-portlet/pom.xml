@@ -32,7 +32,12 @@
 				<osgi.import.package>
 					Import-Package:\
 						com.apple.mrj;resolution:=optional,\
+						com.google.errorprone.*;resolution:=optional,\
 						junit.*;resolution:=optional,\
+						org.apache.batik.*;resolution:=optional,\
+						org.jspecify.*;resolution:=optional,\
+						org.mozilla.*;resolution:=optional,\
+						org.python.*;resolution:=optional,\
 						org.xhtmlrenderer.*;resolution:=optional,\
 						${osgi.import.package.liferay.faces.bridge}
 				</osgi.import.package>
@@ -59,8 +64,14 @@
 		</dependency>
 		<dependency>
 			<groupId>org.xhtmlrenderer</groupId>
-			<artifactId>core-renderer</artifactId>
-			<version>R8</version>
+			<artifactId>flying-saucer-pdf</artifactId>
+			<version>9.13.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>xml-apis</groupId>
+					<artifactId>xml-apis</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
