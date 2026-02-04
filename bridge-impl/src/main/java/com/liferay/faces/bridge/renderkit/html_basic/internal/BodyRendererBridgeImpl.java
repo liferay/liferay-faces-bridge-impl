@@ -29,8 +29,6 @@ import jakarta.faces.render.RendererWrapper;
 import jakarta.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.util.application.ResourceUtil;
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
 
 
 /**

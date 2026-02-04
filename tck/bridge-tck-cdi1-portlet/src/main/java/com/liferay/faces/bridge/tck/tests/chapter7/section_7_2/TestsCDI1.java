@@ -18,7 +18,6 @@ package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 import java.util.List;
 import java.util.Locale;
 
-import jakarta.annotation.Resource;
 import jakarta.el.ELContext;
 import jakarta.el.ELResolver;
 import jakarta.faces.context.FacesContext;

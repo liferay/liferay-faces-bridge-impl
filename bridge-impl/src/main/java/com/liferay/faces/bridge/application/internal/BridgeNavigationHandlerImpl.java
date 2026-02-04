@@ -36,7 +36,6 @@ import jakarta.portlet.faces.BridgeFactoryFinder;
 import jakarta.portlet.faces.BridgeURL;
 import jakarta.portlet.faces.BridgeURLFactory;
 
-import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.bridge.util.internal.ViewUtil;
 import com.liferay.faces.util.logging.Logger;

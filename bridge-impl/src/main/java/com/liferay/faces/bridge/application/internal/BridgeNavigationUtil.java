@@ -26,8 +26,6 @@ import jakarta.portlet.WindowState;
 import jakarta.portlet.WindowStateException;
 import jakarta.portlet.faces.Bridge;
 
-import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
-
 
 /**
  * @author  Neil Griffin

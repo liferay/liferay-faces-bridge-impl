@@ -21,7 +21,6 @@ import java.util.Map;
 import jakarta.faces.application.ViewHandler;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.PhaseEvent;
 import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;

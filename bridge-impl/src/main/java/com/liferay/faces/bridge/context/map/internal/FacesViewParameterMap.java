@@ -15,13 +15,8 @@
  */
 package com.liferay.faces.bridge.context.map.internal;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
-
-import jakarta.portlet.faces.Bridge;
 
 import com.liferay.faces.bridge.internal.PortletURLHelper;
 import com.liferay.faces.util.logging.Logger;

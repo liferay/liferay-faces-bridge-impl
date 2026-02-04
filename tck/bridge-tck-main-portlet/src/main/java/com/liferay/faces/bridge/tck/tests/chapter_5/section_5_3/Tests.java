@@ -25,7 +25,6 @@ import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;
 import jakarta.faces.render.ResponseStateManager;
 import jakarta.portlet.PortletConfig;
-import jakarta.portlet.PortletContext;
 import jakarta.portlet.PortletMode;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.faces.Bridge;

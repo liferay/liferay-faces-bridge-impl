@@ -17,7 +17,6 @@ package com.liferay.faces.portlet.component.actionurl.internal;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
 import jakarta.portlet.ActionRequest;
 import jakarta.portlet.ActionURL;

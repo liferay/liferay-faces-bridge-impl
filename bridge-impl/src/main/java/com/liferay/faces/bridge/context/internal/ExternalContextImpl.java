@@ -67,7 +67,6 @@ import com.liferay.faces.bridge.context.map.internal.RequestHeaderValuesMap;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseHeaderAdapter;
 import com.liferay.faces.bridge.filter.internal.HttpServletResponseResourceAdapter;
 import com.liferay.faces.bridge.internal.BridgeExt;
-import com.liferay.faces.bridge.internal.BridgePhaseCompat_2_0_Impl;
 import com.liferay.faces.bridge.internal.BridgePhaseHeaderRenderCommon;
 import com.liferay.faces.bridge.internal.BridgeURI;
 import com.liferay.faces.bridge.internal.PortletConfigParam;
@@ -77,8 +76,6 @@ import com.liferay.faces.bridge.util.internal.ViewUtil;
 import com.liferay.faces.util.config.ConfiguredServletMapping;
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;
-import com.liferay.faces.util.product.Product;
-import com.liferay.faces.util.product.ProductFactory;
 import com.liferay.faces.util.render.FacesURLEncoder;
 import com.liferay.faces.util.render.FacesURLEncoderFactory;
 

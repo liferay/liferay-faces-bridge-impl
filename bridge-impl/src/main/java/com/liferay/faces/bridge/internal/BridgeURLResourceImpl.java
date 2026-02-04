@@ -18,10 +18,6 @@ package com.liferay.faces.bridge.internal;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 import jakarta.faces.application.Application;
 import jakarta.faces.application.ViewHandler;

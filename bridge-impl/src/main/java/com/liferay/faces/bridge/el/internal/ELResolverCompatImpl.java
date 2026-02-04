@@ -31,7 +31,6 @@ import jakarta.portlet.PortletRequest;
 import jakarta.portlet.PortletResponse;
 import jakarta.portlet.faces.Bridge;
 import jakarta.portlet.faces.BridgeUtil;
-import jakarta.portlet.filter.PortletConfigWrapper;
 
 
 /**
