@@ -70,23 +70,23 @@ public class TestSuiteViewHandlerImpl extends ViewHandlerWrapper {
 			}
 			else if (testName.equals("encodeActionURLWithModeRenderTest") ||
 					testName.equals("encodeResourceURLWithModeTest")) {
-				return appendQueryString(resultURL, "jakarta.portlet.faces.PortletMode=edit&param1=testValue");
+				return appendQueryString(resultURL, "com.liferay.faces.PortletMode=edit&param1=testValue");
 			}
 			else if (testName.equals("encodeActionURLWithInvalidModeRenderTest")) {
-				return appendQueryString(resultURL, "jakarta.portlet.faces.PortletMode=blue&param1=testValue");
+				return appendQueryString(resultURL, "com.liferay.faces.PortletMode=blue&param1=testValue");
 			}
 			else if (testName.equals("encodeActionURLWithWindowStateRenderTest") ||
 					testName.equals("encodeResourceURLWithWindowStateTest")) {
-				return appendQueryString(resultURL, "jakarta.portlet.faces.WindowState=maximized&param1=testValue");
+				return appendQueryString(resultURL, "com.liferay.faces.WindowState=maximized&param1=testValue");
 			}
 			else if (testName.equals("encodeActionURLWithInvalidWindowStateRenderTest")) {
-				return appendQueryString(resultURL, "jakarta.portlet.faces.WindowState=blue&param1=testValue");
+				return appendQueryString(resultURL, "com.liferay.faces.WindowState=blue&param1=testValue");
 			}
 			else if (testName.equals("encodeActionURLWithSecurityRenderTest")) {
-				return appendQueryString(resultURL, "jakarta.portlet.faces.Secure=true&param1=testValue");
+				return appendQueryString(resultURL, "com.liferay.faces.Secure=true&param1=testValue");
 			}
 			else if (testName.equals("encodeActionURLWithInvalidSecurityRenderTest")) {
-				return appendQueryString(resultURL, "jakarta.portlet.faces.Secure=blue&param1=testValue");
+				return appendQueryString(resultURL, "com.liferay.faces.Secure=blue&param1=testValue");
 			}
 		}
 

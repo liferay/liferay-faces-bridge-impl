@@ -43,7 +43,7 @@ public class BridgeEventHandlerFactoryImpl extends BridgeEventHandlerFactory imp
 		BridgeEventHandler bridgeEventHandler = null;
 
 		// TCK: initMethodTest
-		String bridgeEventHandlerClass = portletConfig.getInitParameter("jakarta.portlet.faces.bridgeEventHandler");
+		String bridgeEventHandlerClass = portletConfig.getInitParameter("com.liferay.faces.bridgeEventHandler");
 
 		if (bridgeEventHandlerClass != null) {
 

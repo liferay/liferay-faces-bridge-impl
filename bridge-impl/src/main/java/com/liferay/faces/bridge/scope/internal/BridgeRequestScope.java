@@ -77,7 +77,7 @@ public interface BridgeRequestScope {
 	public PortletMode getPortletMode();
 
 	/**
-	 * If the jakarta.portlet.faces.preserveActionParams init-param is set to <code>true</code> in WEB-INF/portlet.xml
+	 * If the com.liferay.faces.preserveActionParams init-param is set to <code>true</code> in WEB-INF/portlet.xml
 	 * then this returns the action parameters that were found in the ACTION_PHASE.
 	 */
 	public Map<String, String> getPreservedActionParameterMap();

@@ -28,7 +28,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 /**
  * Checks that a bridge implementation class name has been picked up from either: - A portlet context attribute,
- * jakarta.portlet.faces.BridgeClassName - the resource META-INF/services/com.liferay.faces.Bridge (default) bridge
+ * com.liferay.faces.BridgeClassName - the resource META-INF/services/com.liferay.faces.Bridge (default) bridge
  * implementation jar.
  */
 public class BridgeClassDefaultTestPortlet extends GenericFacesPortlet {

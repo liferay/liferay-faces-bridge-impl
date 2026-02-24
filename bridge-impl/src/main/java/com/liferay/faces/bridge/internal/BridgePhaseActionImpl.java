@@ -69,7 +69,7 @@ public class BridgePhaseActionImpl extends BridgePhaseCompat_2_2_Impl {
 			// PROPOSED-FOR-BRIDGE3-API: https://issues.apache.org/jira/browse/PORTLETBRIDGE-202
 			bridgeRequestScope.setPortletMode(actionRequest.getPortletMode());
 
-			// If the "jakarta.portlet.faces.PortletMode" request parameter has a value, then the developer probably
+			// If the "com.liferay.faces.PortletMode" request parameter has a value, then the developer probably
 			// specified a URL like <h:outputLink value="portlet:render"> using f:param to set the request parameter
 			// for switching modes. This is one of the tests in the TCK.
 			String portletModeParam = actionRequest.getParameter(Bridge.PORTLET_MODE_PARAMETER);

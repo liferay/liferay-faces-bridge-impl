@@ -28,7 +28,7 @@ import com.liferay.faces.GenericFacesPortlet;
 	portletName = "MOJARRA-4340-workaround",
 	initParams = {
 			@InitParameter(
-				name = "jakarta.portlet.faces.defaultViewId.view",
+				name = "com.liferay.faces.defaultViewId.view",
 				value = "/WEB-INF/views/MOJARRA-4340-workaround/start.xhtml"
 			)
 		}, roleRefs = {

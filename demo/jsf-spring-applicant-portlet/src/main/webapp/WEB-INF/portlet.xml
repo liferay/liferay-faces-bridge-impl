@@ -7,15 +7,15 @@
 		<display-name>jsf-spring-applicant</display-name>
 		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>jakarta.portlet.faces.defaultViewId.view</name>
+			<name>com.liferay.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/portletViewMode.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>jakarta.portlet.faces.defaultViewId.edit</name>
+			<name>com.liferay.faces.defaultViewId.edit</name>
 			<value>/WEB-INF/views/portletEditMode.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>jakarta.portlet.faces.defaultViewId.help</name>
+			<name>com.liferay.faces.defaultViewId.help</name>
 			<value>/WEB-INF/views/portletHelpMode.xhtml</value>
 		</init-param>
 		<supports>

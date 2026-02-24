@@ -54,7 +54,7 @@ public class BridgeNavigationUtil {
 				firstParameterValue = parameterValues[0];
 			}
 
-			// If the URL contains the "jakarta.portlet.faces.PortletMode" parameter, then set the
+			// If the URL contains the "com.liferay.faces.PortletMode" parameter, then set the
 			// PortletMode on the ActionResponse.
 			if (Bridge.PORTLET_MODE_PARAMETER.equals(parameterName)) {
 
@@ -66,7 +66,7 @@ public class BridgeNavigationUtil {
 				}
 			}
 
-			// Otherwise, if the URL contains the "jakarta.portlet.faces.WindowState" parameter, then
+			// Otherwise, if the URL contains the "com.liferay.faces.WindowState" parameter, then
 			// set the WindowState on the ActionResponse.
 			else if (Bridge.PORTLET_WINDOWSTATE_PARAMETER.equals(parameterName)) {
 

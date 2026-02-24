@@ -27,7 +27,7 @@ import com.liferay.faces.GenericFacesPortlet;
 @PortletConfiguration(
 	portletName = "FACES1470", initParams = {
 			@InitParameter(
-				name = "jakarta.portlet.faces.defaultViewId.view",
+				name = "com.liferay.faces.defaultViewId.view",
 				value = "/WEB-INF/views/FACES-1470/as7LeakTracker.xhtml"
 			)
 		}, roleRefs = {

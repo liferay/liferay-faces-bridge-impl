@@ -138,7 +138,7 @@ public class InitMethodTestPortlet extends NonRenderResponseCompatPortlet {
 			msg.append("  getExcludedRequestAttributes() not called.");
 		}
 
-		List<String> attrs = (List<String>) getPortletContext().getAttribute("jakarta.portlet.faces." + getPortletName() +
+		List<String> attrs = (List<String>) getPortletContext().getAttribute("com.liferay.faces." + getPortletName() +
 				".excludedRequestAttributes");
 
 		for (String expectedAttr : mExcludedRequestAttrs) {
@@ -160,7 +160,7 @@ public class InitMethodTestPortlet extends NonRenderResponseCompatPortlet {
 			msg.append("  isPreserveActionParameters() not called.");
 		}
 
-		Boolean contextValue = (Boolean) getPortletContext().getAttribute("jakarta.portlet.faces." + getPortletName() +
+		Boolean contextValue = (Boolean) getPortletContext().getAttribute("com.liferay.faces." + getPortletName() +
 				".preserveActionParams");
 
 		if (!Boolean.valueOf(bIsPreserveActionParametersResult).equals(contextValue)) {
@@ -179,13 +179,13 @@ public class InitMethodTestPortlet extends NonRenderResponseCompatPortlet {
 			bTestPassed = false;
 		}
 
-		Map viewIdMapAttr = (Map) getPortletContext().getAttribute("jakarta.portlet.faces." + getPortletName() +
+		Map viewIdMapAttr = (Map) getPortletContext().getAttribute("com.liferay.faces." + getPortletName() +
 				".defaultViewIdMap");
 
 		if (!mDefaultViewIdMap.isEmpty()) {
 
 			if (viewIdMapAttr == null) {
-				msg.append("  Portlet context attribute jakarta.portlet.faces.").append(getPortletName()).append(
+				msg.append("  Portlet context attribute com.liferay.faces.").append(getPortletName()).append(
 					".defaultViewIdMap has not been set.");
 			}
 			else {
@@ -195,7 +195,7 @@ public class InitMethodTestPortlet extends NonRenderResponseCompatPortlet {
 					if (viewIdMapAttr.get(mode) == null) {
 						bTestPassed = false;
 						msg.append("  Mode, ").append(mode).append(
-							", has been set in the map returned by getDefaultViewIdMap but has not been set in jakarta.portlet.faces.")
+							", has been set in the map returned by getDefaultViewIdMap but has not been set in com.liferay.faces.")
 							.append(getPortletName()).append(".defaultViewIdMap");
 					}
 				}
@@ -204,7 +204,7 @@ public class InitMethodTestPortlet extends NonRenderResponseCompatPortlet {
 		else {
 
 			if (viewIdMapAttr != null) {
-				msg.append("  Portlet context attribute jakarta.portlet.faces.").append(getPortletName()).append(
+				msg.append("  Portlet context attribute com.liferay.faces.").append(getPortletName()).append(
 					".defaultViewIdMap has been set while the getDefaultViewIdMap returns null.");
 				bTestPassed = false;
 			}
@@ -220,7 +220,7 @@ public class InitMethodTestPortlet extends NonRenderResponseCompatPortlet {
 			msg.append("  getBridgeEventHandler() not called.");
 		}
 
-		BridgeEventHandler eventHandler = (BridgeEventHandler) getPortletContext().getAttribute("jakarta.portlet.faces." +
+		BridgeEventHandler eventHandler = (BridgeEventHandler) getPortletContext().getAttribute("com.liferay.faces." +
 				getPortletName() + ".bridgeEventHandler");
 
 		if (((eventHandler == null) && (mEventHandler != null)) ||
@@ -241,7 +241,7 @@ public class InitMethodTestPortlet extends NonRenderResponseCompatPortlet {
 		}
 
 		BridgePublicRenderParameterHandler prpHandler = (BridgePublicRenderParameterHandler) getPortletContext()
-			.getAttribute("jakarta.portlet.faces." + getPortletName() + ".bridgePublicRenderParameterHandler");
+			.getAttribute("com.liferay.faces." + getPortletName() + ".bridgePublicRenderParameterHandler");
 
 		if (((prpHandler == null) && (mPRPhandler != null)) || ((mPRPhandler == null) && (prpHandler != null)) ||
 				(!mPRPhandler.equals(prpHandler))) {
@@ -260,7 +260,7 @@ public class InitMethodTestPortlet extends NonRenderResponseCompatPortlet {
 			msg.append("  getDefaultRenderKitId() not called.");
 		}
 
-		String defaultRenderKitId = (String) getPortletContext().getAttribute("jakarta.portlet.faces." +
+		String defaultRenderKitId = (String) getPortletContext().getAttribute("com.liferay.faces." +
 				getPortletName() + ".defaultRenderKitId");
 
 		if (((defaultRenderKitId == null) && (mDefaultRenderKitId != null)) ||

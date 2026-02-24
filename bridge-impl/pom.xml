@@ -83,7 +83,7 @@
 								com.liferay.faces.bridge.*;version="[7.0.0,8.0.0)",\
 								com.liferay.faces.portlet.*;version="[7.0.0,8.0.0)",\
 								jakarta.portlet;version="[4.0,5)",\
-								jakarta.portlet.faces.*;version="[7.0.0,8.0.0)",\
+								com.liferay.faces.*;version="[7.0.0,8.0.0)",\
 								*
 							Require-Capability: osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"
 							Provide-Capability: \

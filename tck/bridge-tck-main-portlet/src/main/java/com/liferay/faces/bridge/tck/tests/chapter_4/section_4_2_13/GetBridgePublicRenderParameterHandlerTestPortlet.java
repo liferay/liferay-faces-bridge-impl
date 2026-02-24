@@ -32,7 +32,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
  * Checks that GenericFacesPortlet#getBridgePublicRenderParameterHandler method works as stated in section 4.2.13. - The
  * GenericFacesPortlet getBridgePublicRenderParameterHandler getBridgeEventHandler by returning an instance of the
  * configured prp handler corresponding to the value of the portlet initialization parameter
- * jakarta.portlet.faces.bridgePublicRenderParameter or null if this parameter doesn't exist.
+ * com.liferay.faces.bridgePublicRenderParameter or null if this parameter doesn't exist.
  */
 public class GetBridgePublicRenderParameterHandlerTestPortlet extends NonRenderResponseCompatPortlet {
 

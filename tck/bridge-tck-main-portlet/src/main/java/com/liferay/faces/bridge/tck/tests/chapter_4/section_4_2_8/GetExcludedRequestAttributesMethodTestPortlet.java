@@ -30,14 +30,14 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 /**
  * Checks that GenericFacesPortlet#getExcludedRequestAttributes method works as stated in section 4.2.8. - Excluded
  * request attributes are defined in a portlet initialisation parameter with name
- * jakarta.portlet.faces.excludedRequestAttributes and value one or more comma separated strings. This test confirms that
+ * com.liferay.faces.excludedRequestAttributes and value one or more comma separated strings. This test confirms that
  * the method returns a list of string values based on parsing the initialisation parameter value.
  */
 public class GetExcludedRequestAttributesMethodTestPortlet extends NonRenderResponseCompatPortlet {
 
 	private static String TEST_FAIL_PREFIX = "test.fail.";
 	private static String TEST_PASS_PREFIX = "test.pass.";
-	private static String EXCLUDED_REQUEST_ATTRIBUTES_INIT_PARAM = "jakarta.portlet.faces.excludedRequestAttributes";
+	private static String EXCLUDED_REQUEST_ATTRIBUTES_INIT_PARAM = "com.liferay.faces.excludedRequestAttributes";
 
 	public List<String> getExcludedRequestAttributes() {
 		List<String> returnList = super.getExcludedRequestAttributes();

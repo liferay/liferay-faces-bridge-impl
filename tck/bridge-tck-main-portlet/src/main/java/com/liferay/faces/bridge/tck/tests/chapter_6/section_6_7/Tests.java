@@ -79,11 +79,11 @@ public class Tests {
 
 			// Now see if isPostback returns true as it should
 			Boolean isPostback = (Boolean) facesContext.getExternalContext().getRequestMap().get(
-					"jakarta.portlet.faces.isPostback");
+					"com.liferay.faces.isPostback");
 
 			if (isPostback == null) {
 				testBean.setTestResult(false,
-					"Didn't set the jakarta.portlet.faces.isPostback attribute in render request following an action (Postback).");
+					"Didn't set the com.liferay.faces.isPostback attribute in render request following an action (Postback).");
 
 				return Constants.TEST_FAILED;
 			}
@@ -91,13 +91,13 @@ public class Tests {
 
 				if (isPostback.booleanValue()) {
 					testBean.setTestResult(true,
-						"Correctly set the jakarta.portlet.faces.isPostback attribute as TRUE in render request following an action (Postback).");
+						"Correctly set the com.liferay.faces.isPostback attribute as TRUE in render request following an action (Postback).");
 
 					return Constants.TEST_SUCCESS;
 				}
 				else {
 					testBean.setTestResult(false,
-						"Incorrectly set the jakarta.portlet.faces.isPostback attribute as FALSE in render request following an action (Postback).");
+						"Incorrectly set the com.liferay.faces.isPostback attribute as FALSE in render request following an action (Postback).");
 
 					return Constants.TEST_FAILED;
 				}

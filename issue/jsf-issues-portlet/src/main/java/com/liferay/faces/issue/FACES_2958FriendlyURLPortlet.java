@@ -28,7 +28,7 @@ import com.liferay.faces.GenericFacesPortlet;
 	portletName = "FACES2958-friendlyURL",
 	initParams = {
 			@InitParameter(
-				name = "jakarta.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/FACES-2958/index.xhtml"
+				name = "com.liferay.faces.defaultViewId.view", value = "/WEB-INF/views/FACES-2958/index.xhtml"
 			)
 		}, roleRefs = {
 			@SecurityRoleRef(roleName = "administrator"), @SecurityRoleRef(roleName = "guest"),

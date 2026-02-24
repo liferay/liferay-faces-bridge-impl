@@ -45,7 +45,7 @@ public class BridgePublicRenderParameterHandlerFactoryImpl extends BridgePublicR
 
 		// TCK: initMethodTest
 		String bridgePublicRenderParameterHandlerClass = portletConfig.getInitParameter(
-				"jakarta.portlet.faces.bridgePublicRenderParameterHandler");
+				"com.liferay.faces.bridgePublicRenderParameterHandler");
 
 		if (bridgePublicRenderParameterHandlerClass != null) {
 

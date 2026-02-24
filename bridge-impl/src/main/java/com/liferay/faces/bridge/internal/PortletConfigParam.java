@@ -78,7 +78,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	ContainerAbleToSetHttpStatusCode(false, "com.liferay.faces.bridge.containerAbleToSetHttpStatusCode",
 		"org.portletfaces.bridge.containerAbleToSetHttpStatusCode"),
 
-	DefaultRenderKitId(null, "jakarta.portlet.faces.defaultRenderKitId"),
+	DefaultRenderKitId(null, "com.liferay.faces.defaultRenderKitId"),
 
 	/**
 	 * Flag indicating whether or not the bridge should manage incongruities between the JSF lifecycle and the Portlet
@@ -93,8 +93,8 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 	 */
 	PreferPreDestroy(true, "com.liferay.faces.bridge.preferPreDestroy", "org.portletfaces.bridge.preferPreDestroy"),
 
-	/** Flag indicating the value of the "jakarta.portlet.faces.preserveActionParams" init-param. The default is false. */
-	PreserveActionParams(false, "jakarta.portlet.faces.preserveActionParams"),
+	/** Flag indicating the value of the "com.liferay.faces.preserveActionParams" init-param. The default is false. */
+	PreserveActionParams(false, "com.liferay.faces.preserveActionParams"),
 
 	/**
 	 * Flag indicating whether or not the render-redirect standard feature is enabled. Default value is false for the

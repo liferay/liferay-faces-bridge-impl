@@ -973,7 +973,7 @@ public class Tests extends HeaderTests implements PhaseListener {
 		testBean.setTestComplete(true);
 
 		// Are we in the rightview???
-		String s = (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletObjectsPass");
+		String s = (String) requestMap.get("com.liferay.faces.tck.verifyPortletObjectsPass");
 
 		if (s != null) {
 			testBean.setTestResult(true, s);
@@ -981,7 +981,7 @@ public class Tests extends HeaderTests implements PhaseListener {
 			return Constants.TEST_SUCCESS;
 		}
 		else {
-			testBean.setTestResult(false, (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletObjectsFail"));
+			testBean.setTestResult(false, (String) requestMap.get("com.liferay.faces.tck.verifyPortletObjectsFail"));
 
 			return Constants.TEST_FAILED;
 		}
@@ -1006,8 +1006,8 @@ public class Tests extends HeaderTests implements PhaseListener {
 
 			// Now verify that what should have been carried forward has and what shouldn't hasn't.
 
-			String s = (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletPhaseDuringActionPass");
-			String s1 = (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletPhaseDuringRenderPass");
+			String s = (String) requestMap.get("com.liferay.faces.tck.verifyPortletPhaseDuringActionPass");
+			String s1 = (String) requestMap.get("com.liferay.faces.tck.verifyPortletPhaseDuringRenderPass");
 
 			if ((s != null) && (s1 != null)) {
 				testBean.setTestResult(true, s + s1);
@@ -1016,11 +1016,11 @@ public class Tests extends HeaderTests implements PhaseListener {
 			}
 
 			if (s == null) {
-				s = (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletPhaseDuringActionFail");
+				s = (String) requestMap.get("com.liferay.faces.tck.verifyPortletPhaseDuringActionFail");
 			}
 
 			if (s1 == null) {
-				s1 = (String) requestMap.get("jakarta.portlet.faces.tck.verifyPortletPhaseDuringRenderFail");
+				s1 = (String) requestMap.get("com.liferay.faces.tck.verifyPortletPhaseDuringRenderFail");
 			}
 
 			testBean.setTestResult(false, s + s1);

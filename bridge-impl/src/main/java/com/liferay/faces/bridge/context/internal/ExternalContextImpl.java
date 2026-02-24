@@ -753,7 +753,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 					(portletPhase == Bridge.PortletPhase.RENDER_PHASE)) {
 
 				// If the specified URL starts with a "#" character, is external to this application, or has a
-				// "jakarta.portlet.faces.DirectLink" parameter value of "true", then
+				// "com.liferay.faces.DirectLink" parameter value of "true", then
 				try {
 
 					FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -1129,11 +1129,11 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 	 * <p>This method returns the target view (and optional query string) as described in section 5.2.3 of the Bridge
 	 * Spec titled "Determining the Target View".</p>
 	 *
-	 * <p>Try#1: Get the viewId from the {@link Bridge#VIEW_ID} (jakarta.portlet.faces.viewId) request attribute. As
+	 * <p>Try#1: Get the viewId from the {@link Bridge#VIEW_ID} (com.liferay.faces.viewId) request attribute. As
 	 * described in sections 3.4 and 4.2.5 of the bridge spec, this attribute is set by the {@link GenericFacesPortlet}
 	 * when it encounters the {@link Bridge#FACES_VIEW_ID_PARAMETER} request parameter.</p>
 	 *
-	 * <p>Try#2: Get the viewId from the {@link Bridge#VIEW_PATH} (jakarta.portlet.faces.viewPath) request attribute. As
+	 * <p>Try#2: Get the viewId from the {@link Bridge#VIEW_PATH} (com.liferay.faces.viewPath) request attribute. As
 	 * described in sections 3.4 and 4.2.5 of the bridge spec, this attribute is set by the {@link GenericFacesPortlet}
 	 * when it encounters the {@link Bridge#FACES_VIEW_PATH_PARAMETER} request parameter. If the viewId cannot be
 	 * determined, then {@link BridgeInvalidViewPathException} is thrown.</p>
@@ -1156,14 +1156,14 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 
 		if (viewIdAndQueryString == null) {
 
-			// Try#1: Get the viewId the "jakarta.portlet.faces.viewId" request attribute.
+			// Try#1: Get the viewId the "com.liferay.faces.viewId" request attribute.
 			if (PortletConfigParam.ViewIdParameterEnabled.getBooleanValue(portletConfig)) {
 				viewIdAndQueryString = getFacesViewIdRequestAttribute(Bridge.VIEW_ID);
 			}
 
 			if (viewIdAndQueryString == null) {
 
-				// Try#2: Get the viewId from the "jakarta.portlet.faces.viewPath" request attribute.
+				// Try#2: Get the viewId from the "com.liferay.faces.viewPath" request attribute.
 				String viewPath = null;
 
 				if (PortletConfigParam.ViewPathParameterEnabled.getBooleanValue(portletConfig)) {
@@ -1266,7 +1266,7 @@ public class ExternalContextImpl extends ExternalContextCompat_Portlet3_Impl {
 				}
 			}
 			else {
-				logger.debug("jakarta.portlet.faces.viewId=[{0}]", viewIdAndQueryString);
+				logger.debug("com.liferay.faces.viewId=[{0}]", viewIdAndQueryString);
 			}
 		}
 

@@ -44,7 +44,7 @@ public class EncodeResourceURLTests {
 	public String encodeResourceURLBackLinkTest(TestBean testBean) {
 		testBean.setTestComplete(true);
 
-		final String URL_BACKLINK_TEST_STRING = "/resources/myImage.jpg?jakarta.portlet.faces.BackLink=myBackLinkParam";
+		final String URL_BACKLINK_TEST_STRING = "/resources/myImage.jpg?com.liferay.faces.BackLink=myBackLinkParam";
 		final String URL_BACKLINK_VERIFY_STRING = "/resources/myImage.jpg?myBackLinkParam=";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -91,7 +91,7 @@ public class EncodeResourceURLTests {
 		testBean.setTestComplete(true);
 
 		final String FOREIGNEXTERNALURL_BACKLINK_TEST_STRING =
-			"http://www.apache.org?jakarta.portlet.faces.BackLink=myBackLinkParam";
+			"http://www.apache.org?com.liferay.faces.BackLink=myBackLinkParam";
 		final String FOREIGNEXTERNALURL_BACKLINK_VERIFY_STRING = "http://www.apache.org?myBackLinkParam=";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -193,7 +193,7 @@ public class EncodeResourceURLTests {
 		testBean.setTestComplete(true);
 
 		final String RELATIVEURL_BACKLINK_TEST_STRING =
-			"../resources/myImage.jpg?jakarta.portlet.faces.BackLink=myBackLinkParam";
+			"../resources/myImage.jpg?com.liferay.faces.BackLink=myBackLinkParam";
 		final String RELATIVEURL_BACKLINK_VERIFY_STRING = "/resources/myImage.jpg?myBackLinkParam=";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -298,7 +298,7 @@ public class EncodeResourceURLTests {
 
 		// assume web.xml does Faces suffix mapping of .jsf to .jsp
 		final String URL_VIEWLINK_TEST_STRING =
-			"/tests/viewLink.jsf?jakarta.portlet.faces.ViewLink=true&param1=testValue";
+			"/tests/viewLink.jsf?com.liferay.faces.ViewLink=true&param1=testValue";
 		final String URL_VIEWLINK_VERIFY_STRING = "/tests/viewLink.jsf?param1=testValue";
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -330,7 +330,7 @@ public class EncodeResourceURLTests {
 		testBean.setTestComplete(true);
 
 		final String URL_VIEWLINK_BACKLINK_TEST_STRING =
-			"/tests/viewLink.jsf?jakarta.portlet.faces.ViewLink=true&param1=testValue&jakarta.portlet.faces.BackLink=myBackLinkParam";
+			"/tests/viewLink.jsf?com.liferay.faces.ViewLink=true&param1=testValue&com.liferay.faces.BackLink=myBackLinkParam";
 		final String URL_VIEWLINK_BACKLINK_VERIFY_STRING = "/tests/viewLink.jsf?param1=testValue&myBackLinkParam=";
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();

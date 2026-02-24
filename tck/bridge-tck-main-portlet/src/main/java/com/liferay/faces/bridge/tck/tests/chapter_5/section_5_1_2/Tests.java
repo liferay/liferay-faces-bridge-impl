@@ -175,7 +175,7 @@ public class Tests {
 		if (BridgeUtil.getPortletRequestPhase(facesContext) == Bridge.PortletPhase.ACTION_PHASE) {
 
 			// Add elements that should be preserved but won't be because we are navigating from VIEW to EDIT mode
-			// due to the presence of jakarta.portlet.faces.PortletMode=edit in the navigation-rule.
+			// due to the presence of com.liferay.faces.PortletMode=edit in the navigation-rule.
 			requestMap.put("com.liferay.faces.bridge.tck.TestRequestScope_a", REQUEST_ATTR_VALUE);
 
 			return "requestNoScopeOnModeChangeTest"; // action Navigation result
@@ -427,7 +427,7 @@ public class Tests {
 			// Note:  no way to test the servlet objects
 
 			requestMap.put("jakarta.portlet.TestRequestScope", REQUEST_ATTR_VALUE);
-			requestMap.put("jakarta.portlet.faces.TestRequestScope", REQUEST_ATTR_VALUE);
+			requestMap.put("com.liferay.faces.TestRequestScope", REQUEST_ATTR_VALUE);
 			requestMap.put("jakarta.faces.TestRequestScope", REQUEST_ATTR_VALUE);
 			requestMap.put("jakarta.servlet.TestRequestScope", REQUEST_ATTR_VALUE);
 			requestMap.put("jakarta.servlet.include.TestRequestScope", REQUEST_ATTR_VALUE);
@@ -579,11 +579,11 @@ public class Tests {
 				return Constants.TEST_FAILED;
 			}
 
-			o = requestMap.get("jakarta.portlet.faces.TestRequestScope");
+			o = requestMap.get("com.liferay.faces.TestRequestScope");
 
 			if (o != null) {
 				testBean.setTestResult(false,
-					"Attribute in the jakarta.portlet.faces namesapce unexpectedly retained: jakarta.portlet.faces.TestRequestScope.");
+					"Attribute in the com.liferay.faces namesapce unexpectedly retained: com.liferay.faces.TestRequestScope.");
 
 				return Constants.TEST_FAILED;
 			}

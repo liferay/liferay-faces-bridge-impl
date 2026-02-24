@@ -9,7 +9,7 @@
 <%@ page import="jakarta.faces.component.*" %>
 <%@ page import="jakarta.portlet.PortletRequest" %>
 <%@ page import="jakarta.portlet.PortletSession" %>
-<%@ page import="jakarta.portlet.faces.preference.Preference" %>
+<%@ page import="com.liferay.faces.preference.Preference" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.HashSet" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>

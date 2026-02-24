@@ -26,7 +26,7 @@ import com.liferay.faces.GenericFacesPortlet;
  */
 @PortletConfiguration(
 	portletName = "JSFSPEC-1433", initParams = {
-			@InitParameter(name = "jakarta.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/JSFSPEC-1433.xhtml")
+			@InitParameter(name = "com.liferay.faces.defaultViewId.view", value = "/WEB-INF/views/JSFSPEC-1433.xhtml")
 		}, roleRefs = {
 			@SecurityRoleRef(roleName = "administrator"), @SecurityRoleRef(roleName = "guest"),
 			@SecurityRoleRef(roleName = "power-user"), @SecurityRoleRef(roleName = "user")

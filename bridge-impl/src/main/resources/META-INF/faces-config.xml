@@ -47,27 +47,27 @@
 		</component-extension>
 	</component>
 	<component>
-		<component-type>jakarta.portlet.faces.ActionURL</component-type>
+		<component-type>com.liferay.faces.ActionURL</component-type>
 		<component-class>com.liferay.faces.component.PortletActionURL</component-class>
 	</component>
 	<component>
-		<component-type>jakarta.portlet.faces.Namespace</component-type>
+		<component-type>com.liferay.faces.Namespace</component-type>
 		<component-class>com.liferay.faces.component.PortletNamespace</component-class>
 	</component>
 	<component>
-		<component-type>jakarta.portlet.faces.Param</component-type>
+		<component-type>com.liferay.faces.Param</component-type>
 		<component-class>com.liferay.faces.component.PortletParam</component-class>
 	</component>
 	<component>
-		<component-type>jakarta.portlet.faces.Property</component-type>
+		<component-type>com.liferay.faces.Property</component-type>
 		<component-class>com.liferay.faces.component.PortletProperty</component-class>
 	</component>
 	<component>
-		<component-type>jakarta.portlet.faces.RenderURL</component-type>
+		<component-type>com.liferay.faces.RenderURL</component-type>
 		<component-class>com.liferay.faces.component.PortletRenderURL</component-class>
 	</component>
 	<component>
-		<component-type>jakarta.portlet.faces.ResourceURL</component-type>
+		<component-type>com.liferay.faces.ResourceURL</component-type>
 		<component-class>com.liferay.faces.component.PortletResourceURL</component-class>
 	</component>
 	<factory>

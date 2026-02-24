@@ -147,18 +147,18 @@ public class Tests {
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 
 		// Lifecycle check done in the FacesContextFactory -- so test/results set on every request
-		msg = (String) requestMap.get("jakarta.portlet.faces.tck.testLifecyclePass");
+		msg = (String) requestMap.get("com.liferay.faces.tck.testLifecyclePass");
 
 		if (msg != null) {
 			pass = true;
 		}
 		else {
-			msg = (String) requestMap.get("jakarta.portlet.faces.tck.testLifecycleFail");
+			msg = (String) requestMap.get("com.liferay.faces.tck.testLifecycleFail");
 		}
 
 		// remove them in case we are called to render more than once
-		requestMap.remove("jakarta.portlet.faces.tck.testLifecyclePass");
-		requestMap.remove("jakarta.portlet.faces.tck.testLifecycleFail");
+		requestMap.remove("com.liferay.faces.tck.testLifecyclePass");
+		requestMap.remove("com.liferay.faces.tck.testLifecycleFail");
 
 		testBean.setTestResult(pass, msg);
 

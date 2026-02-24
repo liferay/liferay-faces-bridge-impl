@@ -42,7 +42,7 @@ public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompat
 	private static String TEST_RUN = "testRun";
 	private static String TEST_FAIL = "testFailMsg";
 	private static String TEST_PASS = "testPassMsg";
-	private static String TEST_BRIDGE_SERVICE_CLASSPATH = "META-INF/services/jakarta.portlet.faces.Bridge";
+	private static String TEST_BRIDGE_SERVICE_CLASSPATH = "META-INF/services/com.liferay.faces.Bridge";
 
 	public String getBridgeClassName() {
 		String bridgeClassName = super.getBridgeClassName();
@@ -54,7 +54,7 @@ public class GetBridgeClassNameMethodTestPortlet extends NonRenderResponseCompat
 
 			// Get expected class name from PortletContext attribute
 			String expectedClassName = getPortletConfig().getPortletContext().getInitParameter(
-					"jakarta.portlet.faces.BridgeClassName");
+					"com.liferay.faces.BridgeClassName");
 
 			StringBuilder failMsg = new StringBuilder();
 

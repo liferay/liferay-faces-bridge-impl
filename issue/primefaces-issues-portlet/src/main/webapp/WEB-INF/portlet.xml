@@ -9,7 +9,7 @@
 		<display-name>FACES-1513-2185</display-name>
 		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>jakarta.portlet.faces.defaultViewId.view</name>
+			<name>com.liferay.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-1513-2185.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -40,7 +40,7 @@
 		<display-name>FACES-2921</display-name>
 		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>jakarta.portlet.faces.defaultViewId.view</name>
+			<name>com.liferay.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-2921.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -71,7 +71,7 @@
 		<display-name>FACES-3031</display-name>
 		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>jakarta.portlet.faces.defaultViewId.view</name>
+			<name>com.liferay.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-3031.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -102,7 +102,7 @@
 		<display-name>FACES-3250</display-name>
 		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>jakarta.portlet.faces.defaultViewId.view</name>
+			<name>com.liferay.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-3250.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -133,7 +133,7 @@
 		<display-name>FACES-3327</display-name>
 		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>jakarta.portlet.faces.defaultViewId.view</name>
+			<name>com.liferay.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-3327/start.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -165,7 +165,7 @@
 		<display-name>FACES-3328</display-name>
 		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>jakarta.portlet.faces.defaultViewId.view</name>
+			<name>com.liferay.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/FACES-3328.xhtml</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>

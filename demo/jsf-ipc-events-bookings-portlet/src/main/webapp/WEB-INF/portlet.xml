@@ -7,11 +7,11 @@
 		<display-name>jsf-ipc-events-bookings</display-name>
 		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
-			<name>jakarta.portlet.faces.defaultViewId.view</name>
+			<name>com.liferay.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/noCustomerSelected.xhtml</value>
 		</init-param>
 		<init-param>
-			<name>jakarta.portlet.faces.bridgeEventHandler</name>
+			<name>com.liferay.faces.bridgeEventHandler</name>
 			<value>com.liferay.faces.demos.event.CustomerSelectedEventHandler</value>
 		</init-param>
 		<init-param>

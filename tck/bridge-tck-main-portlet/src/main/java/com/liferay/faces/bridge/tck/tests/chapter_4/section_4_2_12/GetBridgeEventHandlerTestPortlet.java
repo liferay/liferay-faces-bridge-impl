@@ -31,7 +31,7 @@ import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 /**
  * Checks that GenericFacesPortlet#getBridgeEventHandler method works as stated in section 4.2.12. - The
  * GenericFacesPortlet implements getBridgeEventHandler by returning an instance of the configured event handler
- * corresponding to the value of the portlet initialization parameter jakarta.portlet.faces.bridgeEventHandler or null if
+ * corresponding to the value of the portlet initialization parameter com.liferay.faces.bridgeEventHandler or null if
  * this parameter doesn't exist.
  */
 public class GetBridgeEventHandlerTestPortlet extends NonRenderResponseCompatPortlet {

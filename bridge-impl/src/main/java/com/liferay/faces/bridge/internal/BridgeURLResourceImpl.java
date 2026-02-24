@@ -66,16 +66,16 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		this.inProtocol = (bridgeURI.getParameter(Bridge.IN_PROTOCOL_RESOURCE_LINK) != null);
 		this.viewLink = BooleanHelper.isTrueToken(bridgeURI.getParameter(Bridge.VIEW_LINK));
 
-		// If the "jakarta.portlet.faces.ViewLink" parameter is found and set to "true", then
+		// If the "com.liferay.faces.ViewLink" parameter is found and set to "true", then
 		String viewLinkParam = bridgeURI.getParameter(Bridge.VIEW_LINK);
 
 		if (BooleanHelper.isTrueToken(viewLinkParam)) {
 
 			// Since this is going to be a URL that represents navigation to a different viewId, the
-			// "jakarta.portlet.faces.ViewLink" parameter must be removed from the URI's query-string.
+			// "com.liferay.faces.ViewLink" parameter must be removed from the URI's query-string.
 			bridgeURI.removeParameter(Bridge.VIEW_LINK);
 
-			// If the "jakarta.portlet.faces.BackLink" parameter is found in the URI query-string, then replace it's value
+			// If the "com.liferay.faces.BackLink" parameter is found in the URI query-string, then replace it's value
 			// with an encoded URL that can cause navigation back to the current view.
 			if (bridgeURI.getParameter(Bridge.BACK_LINK) != null) {
 				String newParamName = bridgeURI.removeParameter(Bridge.BACK_LINK);
@@ -113,7 +113,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// Otherwise, if the URI is hierarchical and targets an external resource, then
 		else if (bridgeURI.isHierarchical() && bridgeURI.isExternal(contextPath)) {
 
-			// If the "jakarta.portlet.faces.BackLink" parameter is found, then replace it's value with an encoded URL
+			// If the "com.liferay.faces.BackLink" parameter is found, then replace it's value with an encoded URL
 			// that can cause navigation back to the current view.
 			if (bridgeURI.getParameter(Bridge.BACK_LINK) != null) {
 				String newParamName = bridgeURI.removeParameter(Bridge.BACK_LINK);
@@ -124,18 +124,18 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 		// Otherwise, if the URI is hierarchical and targets a resource internal to this application, then
 		else if (bridgeURI.isHierarchical() && !bridgeURI.isExternal(contextPath)) {
 
-			// If the "jakarta.portlet.faces.BackLink" parameter is found, then replace it's value with an encoded URL
+			// If the "com.liferay.faces.BackLink" parameter is found, then replace it's value with an encoded URL
 			// that can cause navigation back to the current view.
 			if (bridgeURI.getParameter(Bridge.BACK_LINK) != null) {
 				String newParamName = bridgeURI.removeParameter(Bridge.BACK_LINK);
 				bridgeURI.setParameter(newParamName, getBackLinkURL(facesContext));
 			}
 
-			// If the "jakarta.portlet.faces.InProtocolResourceLink" parameter is found, then
+			// If the "com.liferay.faces.InProtocolResourceLink" parameter is found, then
 			if ((bridgeURI.getParameter(Bridge.IN_PROTOCOL_RESOURCE_LINK) != null)) {
 
-				// Since an in-protocol-resource URL must be a ResourceURL, the "jakarta.portlet.faces.PortletMode" and
-				// "jakarta.portlet.faces.WindowState" parameters must be removed from the URI query-string (if present)
+				// Since an in-protocol-resource URL must be a ResourceURL, the "com.liferay.faces.PortletMode" and
+				// "com.liferay.faces.WindowState" parameters must be removed from the URI query-string (if present)
 				// because it is not possible to change a PortletMode or WindowState in a ResourceRequest.
 				bridgeURI.removeParameter(Bridge.PORTLET_MODE_PARAMETER);
 				bridgeURI.removeParameter(Bridge.PORTLET_WINDOWSTATE_PARAMETER);
@@ -206,7 +206,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 				String secure = getParameter(Bridge.PORTLET_SECURE_PARAMETER);
 				PortletURLHelper.setSecure(baseURL, secure);
 
-				// According to the Bridge Spec, the "jakarta.portlet.faces.Secure" parameter must not be "carried
+				// According to the Bridge Spec, the "com.liferay.faces.Secure" parameter must not be "carried
 				// forward to the generated reference." According to a clarification in the Portlet 3.0 JavaDoc for
 				// BaseURL#setProperty(String,String), setting the parameter to null will remove it.
 				baseURL.setParameter(Bridge.PORTLET_SECURE_PARAMETER, (String) null);
@@ -253,7 +253,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 			baseURL = new BaseURLPortletResponseEncodedImpl(bridgeURI, portletResponse);
 		}
 
-		// Otherwise, if the URL originally contained the "jakarta.portlet.faces.ViewLink" which represents navigation
+		// Otherwise, if the URL originally contained the "com.liferay.faces.ViewLink" which represents navigation
 		// to a different Faces view, then
 		else if (viewLink) {
 
@@ -275,7 +275,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 				PortletURLHelper.setWindowState(actionURL, windowState, portletRequest);
 				PortletURLHelper.setSecure(actionURL, secure);
 
-				// According to the Bridge Spec, the "jakarta.portlet.faces.Secure" parameter must not be "carried
+				// According to the Bridge Spec, the "com.liferay.faces.Secure" parameter must not be "carried
 				// forward to the generated reference." According to a clarification in the Portlet 3.0 JavaDoc for
 				// BaseURL#setProperty(String,String), setting the parameter to null will remove it.
 				actionURL.setParameter(Bridge.PORTLET_SECURE_PARAMETER, (String) null);
@@ -313,7 +313,7 @@ public class BridgeURLResourceImpl extends BridgeURLBase {
 					PortletURLHelper.setWindowState(renderURL, windowState, portletRequest);
 					PortletURLHelper.setSecure(renderURL, secure);
 
-					// According to the Bridge Spec, the "jakarta.portlet.faces.Secure" parameter must not be "carried
+					// According to the Bridge Spec, the "com.liferay.faces.Secure" parameter must not be "carried
 					// forward to the generated reference." According to a clarification in the Portlet 3.0 JavaDoc for
 					// BaseURL#setProperty(String,String), setting the parameter to null will remove it.
 					renderURL.setParameter(Bridge.PORTLET_SECURE_PARAMETER, (String) null);

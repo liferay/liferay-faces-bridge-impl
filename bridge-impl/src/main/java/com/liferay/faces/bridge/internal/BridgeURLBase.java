@@ -618,7 +618,7 @@ public abstract class BridgeURLBase extends BridgeURLBaseCompat implements Bridg
 			// Otherwise,
 			else {
 
-				// Note that if the "jakarta.portlet.faces.PortletMode" parameter is specified, then a mode change is
+				// Note that if the "com.liferay.faces.PortletMode" parameter is specified, then a mode change is
 				// being requested and the target Faces viewId parameter must NOT be added.
 				if (!modeChanged) {
 

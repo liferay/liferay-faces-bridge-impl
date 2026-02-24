@@ -244,7 +244,7 @@ public class EncodeActionURLResourceTests {
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
-			"/tests/viewLink.jsf?jakarta.portlet.faces.PortletMode=blue&param1=testValue";
+			"/tests/viewLink.jsf?com.liferay.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
 		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
@@ -314,7 +314,7 @@ public class EncodeActionURLResourceTests {
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
-			"/tests/viewLink.jsf?jakarta.portlet.faces.PortletMode=blue&param1=testValue";
+			"/tests/viewLink.jsf?com.liferay.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
 		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
@@ -384,7 +384,7 @@ public class EncodeActionURLResourceTests {
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
-			"/tests/viewLink.jsf?jakarta.portlet.faces.PortletMode=blue&param1=testValue";
+			"/tests/viewLink.jsf?com.liferay.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
 		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
@@ -454,7 +454,7 @@ public class EncodeActionURLResourceTests {
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
-			"/tests/viewLink.jsf?jakarta.portlet.faces.PortletMode=edit&param1=testValue";
+			"/tests/viewLink.jsf?com.liferay.faces.PortletMode=edit&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
 		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
@@ -594,7 +594,7 @@ public class EncodeActionURLResourceTests {
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
-			"/tests/viewLink.jsf?jakarta.portlet.faces.PortletMode=blue&param1=testValue";
+			"/tests/viewLink.jsf?com.liferay.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
 		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;
@@ -664,7 +664,7 @@ public class EncodeActionURLResourceTests {
 		Map<String, Object> requestMap = externalContext.getRequestMap();
 		Map<String, Object> sessionMap = externalContext.getSessionMap();
 		final String ENCODE_ACTIONURL_TEST_STRING =
-			"/tests/viewLink.jsf?jakarta.portlet.faces.PortletMode=blue&param1=testValue";
+			"/tests/viewLink.jsf?com.liferay.faces.PortletMode=blue&param1=testValue";
 
 		// ensure this url is prefixed by the ContextPath as all encode routines expect this for things starting with /
 		String testString = externalContext.getRequestContextPath() + ENCODE_ACTIONURL_TEST_STRING;

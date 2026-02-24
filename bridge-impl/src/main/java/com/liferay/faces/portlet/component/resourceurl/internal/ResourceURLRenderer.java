@@ -31,7 +31,7 @@ import com.liferay.faces.component.PortletResourceURL;
  */
 
 //J-
-@FacesRenderer(componentFamily = PortletResourceURL.COMPONENT_FAMILY, rendererType = "jakarta.portlet.faces.ResourceURL")
+@FacesRenderer(componentFamily = PortletResourceURL.COMPONENT_FAMILY, rendererType = "com.liferay.faces.ResourceURL")
 //J+
 public class ResourceURLRenderer extends ResourceURLRendererBase {
 

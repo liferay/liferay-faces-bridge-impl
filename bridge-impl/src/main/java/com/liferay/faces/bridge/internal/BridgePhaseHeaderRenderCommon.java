@@ -334,7 +334,7 @@ public abstract class BridgePhaseHeaderRenderCommon extends BridgePhaseCompat_2_
 	}
 
 	/**
-	 * Sets the "jakarta.portlet.faces.viewIdHistory.<code>portletMode</code>" session attribute according to the
+	 * Sets the "com.liferay.faces.viewIdHistory.<code>portletMode</code>" session attribute according to the
 	 * requirements in Section 5.4.3 of the Bridge Spec. There is no corresponding getter method, because the value is
 	 * meant to be retrieved by developers via an EL expression.
 	 *

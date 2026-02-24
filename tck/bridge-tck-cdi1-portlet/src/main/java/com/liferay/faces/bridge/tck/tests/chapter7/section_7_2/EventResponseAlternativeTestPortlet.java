@@ -41,10 +41,10 @@ import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 	portletName = "chapter7_2CDITests-eventResponseAlternativeTest-portlet",
 	initParams = {
 			@InitParameter(
-				name = "jakarta.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/multiRequestTest.xhtml"
-			), @InitParameter(name = "jakarta.portlet.faces.autoDispatchEvents", value = "true"),
+				name = "com.liferay.faces.defaultViewId.view", value = "/WEB-INF/views/multiRequestTest.xhtml"
+			), @InitParameter(name = "com.liferay.faces.autoDispatchEvents", value = "true"),
 			@InitParameter(
-				name = "jakarta.portlet.faces.bridgeEventHandler",
+				name = "com.liferay.faces.bridgeEventHandler",
 				value = "com.liferay.faces.bridge.tck.tests.chapter7.section_7_2.Ch7TestEventHandler"
 			)
 		}, roleRefs = {

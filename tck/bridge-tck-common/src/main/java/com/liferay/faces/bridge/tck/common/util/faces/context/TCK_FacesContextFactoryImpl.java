@@ -94,11 +94,11 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 			Lifecycle l = lifecycleFactory.getLifecycle(id);
 
 			if (l == lifecycle) {
-				portletRequest.setAttribute("jakarta.portlet.faces.tck.testLifecyclePass",
+				portletRequest.setAttribute("com.liferay.faces.tck.testLifecyclePass",
 					"Correctly used the configured lifcycle: " + id);
 			}
 			else {
-				portletRequest.setAttribute("jakarta.portlet.faces.tck.testLifecycleFail",
+				portletRequest.setAttribute("com.liferay.faces.tck.testLifecycleFail",
 					"Didn't use the configured lifecycle: " + id);
 			}
 		}
@@ -106,11 +106,11 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 			Lifecycle l = lifecycleFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
 
 			if (l == lifecycle) {
-				portletRequest.setAttribute("jakarta.portlet.faces.tck.testLifecyclePass",
+				portletRequest.setAttribute("com.liferay.faces.tck.testLifecyclePass",
 					"Correctly used the default lifcycle as none was configured.");
 			}
 			else {
-				portletRequest.setAttribute("jakarta.portlet.faces.tck.testLifecycleFail",
+				portletRequest.setAttribute("com.liferay.faces.tck.testLifecycleFail",
 					"Didn't use the default lifecycle when none was configured.");
 			}
 		}
@@ -120,37 +120,37 @@ public class TCK_FacesContextFactoryImpl extends FacesContextFactory {
 
 		if ((context instanceof PortletContext) && (request instanceof PortletRequest) &&
 				(response instanceof PortletResponse)) {
-			((PortletRequest) request).setAttribute("jakarta.portlet.faces.tck.verifyPortletObjectsPass",
+			((PortletRequest) request).setAttribute("com.liferay.faces.tck.verifyPortletObjectsPass",
 				"Correctly passed a PortletContext, PortletRequest, and PortletResponse in acquiring a FacesContext");
 		}
 		else {
-			((PortletRequest) request).setAttribute("jakarta.portlet.faces.tck.verifyPortletObjectsFail",
+			((PortletRequest) request).setAttribute("com.liferay.faces.tck.verifyPortletObjectsFail",
 				"At least one of the objects passed to acquire a FacesContext wasn't a  PortletContext, PortletRequest, or PortletResponse");
 		}
 	}
 
 	private void verifyPortletPhase(PortletRequest portletRequest) {
-		Bridge.PortletPhase phase = (Bridge.PortletPhase) portletRequest.getAttribute("jakarta.portlet.faces.phase");
+		Bridge.PortletPhase phase = (Bridge.PortletPhase) portletRequest.getAttribute("com.liferay.faces.phase");
 
 		if (portletRequest instanceof ActionRequest) {
 
 			if ((phase != null) && (phase == Bridge.PortletPhase.ACTION_PHASE)) {
-				portletRequest.setAttribute("jakarta.portlet.faces.tck.verifyPortletPhaseDuringActionPass",
+				portletRequest.setAttribute("com.liferay.faces.tck.verifyPortletPhaseDuringActionPass",
 					"Phase attribute correctly set during action ... ");
 			}
 			else {
-				portletRequest.setAttribute("jakarta.portlet.faces.tck.verifyPortletPhaseDuringActionFail",
+				portletRequest.setAttribute("com.liferay.faces.tck.verifyPortletPhaseDuringActionFail",
 					"Phase attribute either not set or has incorrect value during action ... ");
 			}
 		}
 		else {
 
 			if (Bridge.PortletPhase.HEADER_PHASE.equals(phase)) {
-				portletRequest.setAttribute("jakarta.portlet.faces.tck.verifyPortletPhaseDuringRenderPass",
+				portletRequest.setAttribute("com.liferay.faces.tck.verifyPortletPhaseDuringRenderPass",
 					"Phase attribute correctly set during render.");
 			}
 			else {
-				portletRequest.setAttribute("jakarta.portlet.faces.tck.verifyPortletPhaseDuringRenderFail",
+				portletRequest.setAttribute("com.liferay.faces.tck.verifyPortletPhaseDuringRenderFail",
 					"Phase attribute either not set or has incorrect value during render.");
 			}
 		}

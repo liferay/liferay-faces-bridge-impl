@@ -111,7 +111,7 @@ public class Tests {
 		// Section 4.1
 		// Tests whether the GenericFacesPortlet portlet initialization
 		// parameters have been correctly set as Bridge attributes.
-		String PARAM_NAMESPACE = "jakarta.portlet.faces.chapter4_1Tests-portletInitializationParametersTest-portlet.";
+		String PARAM_NAMESPACE = "com.liferay.faces.chapter4_1Tests-portletInitializationParametersTest-portlet.";
 		Map<String, Object> expectedInitParams = new HashMap<String, Object>();
 		Map<String, String> viewIds = new HashMap<String, String>();
 		viewIds.put("view", "/tests/singleRequestTest.xhtml");

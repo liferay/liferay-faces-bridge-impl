@@ -31,7 +31,7 @@ import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 	portletName = "chapter7_2CDITests-headerResponseAlternativeTest-portlet",
 	initParams = {
 			@InitParameter(
-				name = "jakarta.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/singleRequestTest.xhtml"
+				name = "com.liferay.faces.defaultViewId.view", value = "/WEB-INF/views/singleRequestTest.xhtml"
 			)
 		}, roleRefs = {
 			@SecurityRoleRef(roleName = "administrator"), @SecurityRoleRef(roleName = "guest"),

@@ -33,13 +33,13 @@ import com.liferay.bean.portlet.LiferayPortletConfiguration;
 	portletName = "1", displayName = { @LocaleString("jsf-cdi-applicant") },
 	initParams = {
 			@InitParameter(
-				name = "jakarta.portlet.faces.defaultViewId.view", value = "/WEB-INF/views/portletViewMode.xhtml"
+				name = "com.liferay.faces.defaultViewId.view", value = "/WEB-INF/views/portletViewMode.xhtml"
 			),
 			@InitParameter(
-				name = "jakarta.portlet.faces.defaultViewId.edit", value = "/WEB-INF/views/portletEditMode.xhtml"
+				name = "com.liferay.faces.defaultViewId.edit", value = "/WEB-INF/views/portletEditMode.xhtml"
 			),
 			@InitParameter(
-				name = "jakarta.portlet.faces.defaultViewId.help", value = "/WEB-INF/views/portletHelpMode.xhtml"
+				name = "com.liferay.faces.defaultViewId.help", value = "/WEB-INF/views/portletHelpMode.xhtml"
 			),
 		}, keywords = { @LocaleString("jsf-cdi-applicant") }, prefs = {
 			@Preference(name = "datePattern", values = "MM/dd/yyyy"),
