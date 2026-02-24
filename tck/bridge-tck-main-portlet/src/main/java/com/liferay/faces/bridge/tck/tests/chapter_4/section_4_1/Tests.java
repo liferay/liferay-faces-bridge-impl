@@ -20,8 +20,8 @@ import java.util.Map;
 
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import jakarta.portlet.faces.BridgeEventHandler;
-import jakarta.portlet.faces.BridgePublicRenderParameterHandler;
+import com.liferay.faces.BridgeEventHandler;
+import com.liferay.faces.BridgePublicRenderParameterHandler;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;

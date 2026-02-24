@@ -18,8 +18,8 @@ package com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_14;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.portlet.StateAwareResponse;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeUtil;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeUtil;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;

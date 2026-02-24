@@ -18,9 +18,9 @@ package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeUtil;
-import jakarta.portlet.faces.annotation.BridgeRequestScoped;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeUtil;
+import com.liferay.faces.annotation.BridgeRequestScoped;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;

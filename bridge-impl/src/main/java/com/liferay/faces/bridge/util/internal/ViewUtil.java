@@ -20,7 +20,7 @@ import java.util.Map;
 import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletContext;
 import jakarta.portlet.PortletMode;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 
 /**

@@ -22,8 +22,8 @@ import jakarta.faces.application.ViewHandler;
 import jakarta.faces.application.ViewHandlerWrapper;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeUtil;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.common.Constants;
 

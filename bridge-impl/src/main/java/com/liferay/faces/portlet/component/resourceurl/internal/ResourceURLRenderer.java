@@ -23,7 +23,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.FacesRenderer;
 import jakarta.portlet.BaseURL;
 import jakarta.portlet.MimeResponse;
-import jakarta.portlet.faces.component.PortletResourceURL;
+import com.liferay.faces.component.PortletResourceURL;
 
 
 /**

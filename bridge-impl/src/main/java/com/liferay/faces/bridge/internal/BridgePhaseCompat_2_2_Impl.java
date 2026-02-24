@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.internal;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.lifecycle.Lifecycle;
 import jakarta.portlet.PortletConfig;
-import jakarta.portlet.faces.BridgeConfig;
+import com.liferay.faces.BridgeConfig;
 
 
 /**

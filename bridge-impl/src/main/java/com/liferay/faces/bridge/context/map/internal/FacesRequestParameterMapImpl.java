@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import jakarta.faces.render.ResponseStateManager;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;

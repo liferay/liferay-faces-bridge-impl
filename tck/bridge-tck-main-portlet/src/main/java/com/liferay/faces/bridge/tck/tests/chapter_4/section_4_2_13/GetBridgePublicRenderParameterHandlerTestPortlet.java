@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 import jakarta.portlet.PortletException;
 import jakarta.portlet.RenderRequest;
 import jakarta.portlet.RenderResponse;
-import jakarta.portlet.faces.BridgePublicRenderParameterHandler;
+import com.liferay.faces.BridgePublicRenderParameterHandler;
 
 import com.liferay.faces.bridge.tck.common.portlet.NonRenderResponseCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;

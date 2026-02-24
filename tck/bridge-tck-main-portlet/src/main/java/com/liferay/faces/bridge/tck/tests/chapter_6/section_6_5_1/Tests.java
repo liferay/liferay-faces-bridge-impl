@@ -46,10 +46,10 @@ import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletContext;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.PortletSession;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeConfigFactory;
-import jakarta.portlet.faces.BridgeUtil;
-import jakarta.portlet.faces.preference.Preference;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeConfigFactory;
+import com.liferay.faces.BridgeUtil;
+import com.liferay.faces.preference.Preference;
 import jakarta.portlet.filter.ActionRequestWrapper;
 import jakarta.portlet.filter.ActionResponseWrapper;
 import jakarta.portlet.filter.HeaderRequestWrapper;
@@ -392,7 +392,7 @@ public class Tests {
 					(PortletSession) externalContext.getSession(true));
 
 				// mutablePortletPreferencesValues: mutable Map of type Map<String,
-				// jakarta.portlet.faces.preference.Preference>.
+				// com.liferay.faces.preference.Preference>.
 				testMutablePortletPreferencesValues(testBean, facesResolver, facesContext,
 					"mutablePortletPreferencesValues", ((PortletRequest) request).getPreferences().getMap());
 
@@ -493,7 +493,7 @@ public class Tests {
 					(PortletSession) externalContext.getSession(true));
 
 				// mutablePortletPreferencesValues: mutable Map of type Map<String,
-				// jakarta.portlet.faces.preference.Preference>.
+				// com.liferay.faces.preference.Preference>.
 				testMutablePortletPreferencesValues(testBean, facesResolver, facesContext,
 					"mutablePortletPreferencesValues", ((PortletRequest) request).getPreferences().getMap());
 

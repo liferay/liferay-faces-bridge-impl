@@ -21,7 +21,7 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.render.ResponseStateManager;
 import jakarta.portlet.PortalContext;
 import jakarta.portlet.PortletContext;
-import jakarta.portlet.faces.BridgeFactoryFinder;
+import com.liferay.faces.BridgeFactoryFinder;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.util.factory.FactoryExtensionFinder;

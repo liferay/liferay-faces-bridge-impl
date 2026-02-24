@@ -24,7 +24,7 @@ import java.util.Set;
 
 import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletContext;
-import jakarta.portlet.faces.BridgeConfig;
+import com.liferay.faces.BridgeConfig;
 
 import com.liferay.faces.util.config.ApplicationConfig;
 import com.liferay.faces.util.config.ConfiguredElement;

@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter7.section_7_2;
 
-import jakarta.portlet.faces.annotation.BridgeRequestScoped;
+import com.liferay.faces.annotation.BridgeRequestScoped;
 
 
 /**

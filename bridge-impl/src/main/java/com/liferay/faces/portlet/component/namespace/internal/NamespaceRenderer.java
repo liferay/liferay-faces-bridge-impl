@@ -22,7 +22,7 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.ResponseWriter;
 import jakarta.faces.render.FacesRenderer;
-import jakarta.portlet.faces.component.PortletNamespace;
+import com.liferay.faces.component.PortletNamespace;
 
 
 /**

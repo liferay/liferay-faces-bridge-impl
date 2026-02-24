@@ -18,8 +18,8 @@ package com.liferay.faces.bridge.filter.internal;
 import jakarta.portlet.HeaderRequest;
 import jakarta.portlet.HeaderResponse;
 import jakarta.portlet.PortletConfig;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.filter.BridgePortletResponseFactory;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.filter.BridgePortletResponseFactory;
 
 
 /**

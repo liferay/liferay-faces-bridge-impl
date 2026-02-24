@@ -29,8 +29,8 @@ import jakarta.portlet.RenderRequest;
 import jakarta.portlet.RenderResponse;
 import jakarta.portlet.ResourceRequest;
 import jakarta.portlet.ResourceResponse;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeUninitializedException;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeUninitializedException;
 
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 

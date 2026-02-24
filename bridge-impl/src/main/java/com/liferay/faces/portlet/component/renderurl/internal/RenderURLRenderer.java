@@ -19,7 +19,7 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.render.FacesRenderer;
 import jakarta.portlet.PortletURL;
-import jakarta.portlet.faces.component.PortletRenderURL;
+import com.liferay.faces.component.PortletRenderURL;
 
 
 /**

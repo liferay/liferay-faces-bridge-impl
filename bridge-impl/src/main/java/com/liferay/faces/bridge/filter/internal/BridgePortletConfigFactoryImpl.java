@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.filter.internal;
 import java.io.Serializable;
 
 import jakarta.portlet.PortletConfig;
-import jakarta.portlet.faces.filter.BridgePortletConfigFactory;
+import com.liferay.faces.filter.BridgePortletConfigFactory;
 
 
 /**

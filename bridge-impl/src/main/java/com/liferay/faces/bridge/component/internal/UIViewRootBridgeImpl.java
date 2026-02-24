@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.component.internal;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
-import jakarta.portlet.faces.BridgeUtil;
-import jakarta.portlet.faces.component.PortletNamingContainerUIViewRoot;
+import com.liferay.faces.BridgeUtil;
+import com.liferay.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.util.logging.Logger;
 import com.liferay.faces.util.logging.LoggerFactory;

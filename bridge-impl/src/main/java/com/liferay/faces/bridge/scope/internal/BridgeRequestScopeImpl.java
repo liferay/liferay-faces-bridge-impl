@@ -39,12 +39,12 @@ import jakarta.portlet.PortletMode;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.PortletResponse;
 import jakarta.portlet.PortletSession;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.Bridge.PortletPhase;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.BridgeUtil;
-import jakarta.portlet.faces.RequestAttributeInspector;
-import jakarta.portlet.faces.RequestAttributeInspectorFactory;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.Bridge.PortletPhase;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.BridgeUtil;
+import com.liferay.faces.RequestAttributeInspector;
+import com.liferay.faces.RequestAttributeInspectorFactory;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;
 import com.liferay.faces.bridge.context.internal.IncongruityContext;

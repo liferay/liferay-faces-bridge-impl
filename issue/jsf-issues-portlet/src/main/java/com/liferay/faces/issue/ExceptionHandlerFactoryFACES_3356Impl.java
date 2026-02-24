@@ -29,7 +29,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ExceptionQueuedEvent;
 import jakarta.faces.event.ExceptionQueuedEventContext;
 import jakarta.portlet.PortletRequest;
-import jakarta.portlet.faces.BridgeInvalidViewPathException;
+import com.liferay.faces.BridgeInvalidViewPathException;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 

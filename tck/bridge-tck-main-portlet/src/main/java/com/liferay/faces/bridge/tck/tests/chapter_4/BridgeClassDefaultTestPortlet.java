@@ -21,14 +21,14 @@ import java.io.PrintWriter;
 import jakarta.portlet.PortletException;
 import jakarta.portlet.RenderRequest;
 import jakarta.portlet.RenderResponse;
-import jakarta.portlet.faces.GenericFacesPortlet;
+import com.liferay.faces.GenericFacesPortlet;
 
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 
 
 /**
  * Checks that a bridge implementation class name has been picked up from either: - A portlet context attribute,
- * jakarta.portlet.faces.BridgeClassName - the resource META-INF/services/jakarta.portlet.faces.Bridge (default) bridge
+ * jakarta.portlet.faces.BridgeClassName - the resource META-INF/services/com.liferay.faces.Bridge (default) bridge
  * implementation jar.
  */
 public class BridgeClassDefaultTestPortlet extends GenericFacesPortlet {

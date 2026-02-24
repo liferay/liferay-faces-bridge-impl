@@ -21,7 +21,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.portlet.ActionRequest;
 import jakarta.portlet.PortletMode;
 import jakarta.portlet.RenderRequest;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 
 /**
@@ -58,10 +58,10 @@ public interface BridgeRequestScope {
 	}
 
 	/**
-	 * Determines the {@link jakarta.portlet.faces.Bridge.PortletPhase} in which the bridge request scope instance was
+	 * Determines the {@link Bridge.PortletPhase} in which the bridge request scope instance was
 	 * created.
 	 *
-	 * @return  The {@link jakarta.portlet.faces.Bridge.PortletPhase} in which the bridge request scope instance was
+	 * @return  The {@link Bridge.PortletPhase} in which the bridge request scope instance was
 	 *          created.
 	 */
 	public Bridge.PortletPhase getBeganInPhase();

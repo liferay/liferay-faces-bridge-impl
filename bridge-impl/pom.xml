@@ -41,7 +41,7 @@
 				<version>${bnd.version}</version>
 				<configuration>
 					<bnd>
-						<![CDATA[
+                        <![CDATA[
 							# Consult individual package-info.java files to determine Export-Packages and versions.
 							-exportcontents: ${packages;VERSIONED}
 							Export-Package:\
@@ -87,12 +87,12 @@
 								*
 							Require-Capability: osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"
 							Provide-Capability: \
-								osgi.serviceloader;osgi.serviceloader=jakarta.portlet.faces.Bridge,\
-								osgi.serviceloader;osgi.serviceloader=jakarta.portlet.faces.BridgeFactoryFinder,\
+								osgi.serviceloader;osgi.serviceloader=com.liferay.faces.Bridge,\
+								osgi.serviceloader;osgi.serviceloader=com.liferay.faces.BridgeFactoryFinder,\
 								osgi.extender;osgi.extender="jsp.taglib";uri="http://liferay.com/faces/bridge";\
 								version:Version="1.0.0"
 						]]>
-					</bnd>
+                    </bnd>
 				</configuration>
 				<executions>
 					<execution>

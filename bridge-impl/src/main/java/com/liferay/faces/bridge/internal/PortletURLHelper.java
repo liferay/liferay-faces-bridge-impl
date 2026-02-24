@@ -27,7 +27,7 @@ import jakarta.portlet.PortletSecurityException;
 import jakarta.portlet.PortletURL;
 import jakarta.portlet.WindowState;
 import jakarta.portlet.WindowStateException;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.logging.Logger;

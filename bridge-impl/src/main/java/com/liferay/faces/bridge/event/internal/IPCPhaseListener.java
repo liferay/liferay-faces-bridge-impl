@@ -27,11 +27,11 @@ import jakarta.portlet.MutableRenderParameters;
 import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.StateAwareResponse;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.BridgePublicRenderParameterHandler;
-import jakarta.portlet.faces.BridgePublicRenderParameterHandlerFactory;
-import jakarta.portlet.faces.BridgeUtil;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.BridgePublicRenderParameterHandler;
+import com.liferay.faces.BridgePublicRenderParameterHandlerFactory;
+import com.liferay.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;
 import com.liferay.faces.util.logging.Logger;

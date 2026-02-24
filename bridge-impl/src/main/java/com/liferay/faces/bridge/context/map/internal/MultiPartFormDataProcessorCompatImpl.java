@@ -32,7 +32,7 @@ import jakarta.portlet.ClientDataRequest;
 import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletParameters;
 import jakarta.portlet.ResourceRequest;
-import jakarta.portlet.faces.BridgeFactoryFinder;
+import com.liferay.faces.BridgeFactoryFinder;
 import jakarta.servlet.http.Part;
 
 import com.liferay.faces.util.context.map.FacesRequestParameterMap;

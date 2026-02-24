@@ -24,9 +24,9 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
 import jakarta.portlet.PortletRequest;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.BridgeUtil;
-import jakarta.portlet.faces.component.PortletNamingContainerUIViewRoot;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.BridgeUtil;
+import com.liferay.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.bridge.component.internal.UIViewRootBridgeImpl;
 import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;

@@ -15,7 +15,7 @@
  */
 package com.liferay.faces.bridge.context.internal;
 
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 
 /**

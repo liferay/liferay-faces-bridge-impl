@@ -27,7 +27,7 @@ import java.util.Set;
 
 import jakarta.faces.context.ExternalContext;
 import jakarta.portlet.PortletContext;
-import jakarta.portlet.faces.BridgeFactoryFinder;
+import com.liferay.faces.BridgeFactoryFinder;
 import jakarta.servlet.ServletContext;
 
 import com.liferay.faces.bridge.context.map.internal.ContextMapFactory;

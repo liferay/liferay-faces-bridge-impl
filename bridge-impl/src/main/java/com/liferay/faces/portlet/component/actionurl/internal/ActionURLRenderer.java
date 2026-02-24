@@ -21,7 +21,7 @@ import jakarta.faces.render.FacesRenderer;
 import jakarta.portlet.ActionRequest;
 import jakarta.portlet.ActionURL;
 import jakarta.portlet.PortletURL;
-import jakarta.portlet.faces.component.PortletActionURL;
+import com.liferay.faces.component.PortletActionURL;
 
 
 /**

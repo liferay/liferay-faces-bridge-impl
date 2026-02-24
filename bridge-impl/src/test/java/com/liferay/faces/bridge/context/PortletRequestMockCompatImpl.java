@@ -22,7 +22,7 @@ import java.util.Map;
 import jakarta.portlet.PortletContext;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.RenderParameters;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 
 /**

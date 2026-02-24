@@ -19,7 +19,7 @@ import jakarta.portlet.PortletContext;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.PortletResponse;
 import jakarta.portlet.ResourceResponse;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 
 /**

@@ -19,7 +19,7 @@ import java.util.List;
 
 import jakarta.portlet.PortletPreferences;
 import jakarta.portlet.ReadOnlyException;
-import jakarta.portlet.faces.preference.Preference;
+import com.liferay.faces.preference.Preference;
 
 
 /**

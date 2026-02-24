@@ -35,10 +35,10 @@ import jakarta.portlet.PortletMode;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.PortletSession;
 import jakarta.portlet.RenderRequest;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.BridgeException;
-import jakarta.portlet.faces.BridgeInvalidViewPathException;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.BridgeException;
+import com.liferay.faces.BridgeInvalidViewPathException;
 
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandler;
 import com.liferay.faces.bridge.application.internal.BridgeNavigationHandlerImpl;

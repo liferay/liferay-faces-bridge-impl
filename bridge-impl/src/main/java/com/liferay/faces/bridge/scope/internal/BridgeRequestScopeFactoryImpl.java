@@ -17,7 +17,7 @@ package com.liferay.faces.bridge.scope.internal;
 
 import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletRequest;
-import jakarta.portlet.faces.BridgeConfig;
+import com.liferay.faces.BridgeConfig;
 
 
 /**

@@ -25,9 +25,9 @@ import jakarta.faces.event.PhaseListener;
 import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletMode;
 import jakarta.portlet.PortletRequest;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeException;
-import jakarta.portlet.faces.BridgeUtil;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeException;
+import com.liferay.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.internal.PortletConfigParam;
 import com.liferay.faces.bridge.util.internal.RequestMapUtil;

@@ -18,8 +18,8 @@ package com.liferay.faces.bridge.internal;
 import java.io.Serializable;
 
 import jakarta.portlet.PortletConfig;
-import jakarta.portlet.faces.BridgeEventHandler;
-import jakarta.portlet.faces.BridgeEventHandlerFactory;
+import com.liferay.faces.BridgeEventHandler;
+import com.liferay.faces.BridgeEventHandlerFactory;
 
 import com.liferay.faces.bridge.util.internal.TCCLUtil;
 import com.liferay.faces.util.logging.Logger;

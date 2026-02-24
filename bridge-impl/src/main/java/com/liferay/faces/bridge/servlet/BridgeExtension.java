@@ -32,8 +32,8 @@ import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.enterprise.inject.spi.BeforeBeanDiscovery;
 import jakarta.enterprise.inject.spi.Extension;
 import jakarta.enterprise.inject.spi.ProcessAnnotatedType;
-import jakarta.portlet.faces.GenericFacesPortlet;
-import jakarta.portlet.faces.annotation.BridgeRequestScoped;
+import com.liferay.faces.GenericFacesPortlet;
+import com.liferay.faces.annotation.BridgeRequestScoped;
 
 import com.liferay.faces.bridge.cdi.internal.BridgeAlternativesProducer;
 import com.liferay.faces.bridge.cdi.internal.BridgeExternalContextProducer;

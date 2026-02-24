@@ -35,9 +35,9 @@ import jakarta.portlet.PortletContext;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.PortletResponse;
 import jakarta.portlet.ResourceResponse;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeException;
-import jakarta.portlet.faces.BridgeURL;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeException;
+import com.liferay.faces.BridgeURL;
 import jakarta.servlet.http.Cookie;
 
 import com.liferay.faces.bridge.context.BridgePortalContext;

@@ -19,7 +19,7 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletRequest;
-import jakarta.portlet.faces.BridgeConfig;
+import com.liferay.faces.BridgeConfig;
 
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;
 

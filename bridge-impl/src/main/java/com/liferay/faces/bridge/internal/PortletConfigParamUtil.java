@@ -24,7 +24,7 @@ import java.util.Set;
 import jakarta.faces.context.ExternalContext;
 import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletContext;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.helper.IntegerHelper;

@@ -21,7 +21,7 @@ import java.util.Map;
 import jakarta.faces.application.NavigationCase;
 import jakarta.portlet.PortletMode;
 import jakarta.portlet.WindowState;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 
 /**

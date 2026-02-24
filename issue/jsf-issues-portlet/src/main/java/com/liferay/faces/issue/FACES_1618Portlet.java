@@ -18,7 +18,7 @@ package com.liferay.faces.issue;
 import jakarta.portlet.annotations.InitParameter;
 import jakarta.portlet.annotations.PortletConfiguration;
 import jakarta.portlet.annotations.SecurityRoleRef;
-import jakarta.portlet.faces.GenericFacesPortlet;
+import com.liferay.faces.GenericFacesPortlet;
 
 
 /**

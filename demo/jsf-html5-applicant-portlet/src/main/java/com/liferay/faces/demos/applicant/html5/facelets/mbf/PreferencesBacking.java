@@ -28,7 +28,7 @@ import jakarta.portlet.PortletMode;
 import jakarta.portlet.PortletPreferences;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.WindowState;
-import jakarta.portlet.faces.preference.Preference;
+import com.liferay.faces.preference.Preference;
 
 import com.liferay.faces.util.context.FacesContextHelperUtil;
 

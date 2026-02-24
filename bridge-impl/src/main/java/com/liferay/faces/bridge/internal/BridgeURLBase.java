@@ -34,10 +34,10 @@ import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.PortletURL;
 import jakarta.portlet.ResourceURL;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.BridgeURL;
-import jakarta.portlet.faces.BridgeUtil;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.BridgeURL;
+import com.liferay.faces.BridgeUtil;
 import jakarta.portlet.filter.PortletURLWrapper;
 
 import com.liferay.faces.util.config.ConfiguredServletMapping;

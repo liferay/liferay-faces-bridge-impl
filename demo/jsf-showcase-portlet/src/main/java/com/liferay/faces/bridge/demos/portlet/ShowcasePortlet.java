@@ -21,7 +21,7 @@ import jakarta.portlet.HeaderRequest;
 import jakarta.portlet.HeaderResponse;
 import jakarta.portlet.PortletException;
 import jakarta.portlet.RenderParameters;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 
 /**

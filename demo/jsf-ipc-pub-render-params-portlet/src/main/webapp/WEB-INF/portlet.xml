@@ -5,7 +5,7 @@
 	<portlet>
 		<portlet-name>customersPortlet</portlet-name>
 		<display-name>jsf-ipc-pub-render-params-customers</display-name>
-		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
 			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/customers.xhtml</value>
@@ -28,7 +28,7 @@
 	<portlet>
 		<portlet-name>bookingsPortlet</portlet-name>
 		<display-name>jsf-ipc-pub-render-params-bookings</display-name>
-		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
 			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/bookings.xhtml</value>

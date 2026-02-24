@@ -13,6 +13,14 @@
 	<name>Alloy Showcase Portlet</name>
 	<description>This plugin is the Liferay Faces Alloy Showcase demo portlet.</description>
 
+	<properties>
+		<osgi.import.package>
+			Import-Package:\
+				com.liferay.portal.kernel.model,\
+				*
+		</osgi.import.package>
+	</properties>
+
 	<profiles>
 		<profile>
 			<id>liferay</id>

@@ -16,8 +16,8 @@
 package com.liferay.faces.bridge.tck.factories.filter;
 
 import jakarta.portlet.PortletConfig;
-import jakarta.portlet.faces.BridgeEventHandler;
-import jakarta.portlet.faces.BridgeEventHandlerFactory;
+import com.liferay.faces.BridgeEventHandler;
+import com.liferay.faces.BridgeEventHandlerFactory;
 
 
 /**

@@ -19,10 +19,10 @@ import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.portlet.MimeResponse;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeUtil;
-import jakarta.portlet.faces.annotation.PortletNamingContainer;
-import jakarta.portlet.faces.component.PortletNamingContainerUIViewRoot;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeUtil;
+import com.liferay.faces.annotation.PortletNamingContainer;
+import com.liferay.faces.component.PortletNamingContainerUIViewRoot;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;
@@ -107,7 +107,7 @@ public class Tests {
 		}
 		else {
 			testBean.setTestResult(false,
-				"UIViewRoot is not annotated with jakarta.portlet.faces.annotation.PortletNamingContainer.");
+				"UIViewRoot is not annotated with com.liferay.faces.annotation.PortletNamingContainer.");
 
 			return Constants.TEST_FAILED;
 		}

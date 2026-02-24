@@ -22,7 +22,7 @@ import jakarta.portlet.ActionResponse;
 import jakarta.portlet.PortletException;
 import jakarta.portlet.RenderRequest;
 import jakarta.portlet.RenderResponse;
-import jakarta.portlet.faces.BridgeException;
+import com.liferay.faces.BridgeException;
 
 import com.liferay.faces.bridge.tck.common.portlet.GenericFacesTestSuitePortlet;
 

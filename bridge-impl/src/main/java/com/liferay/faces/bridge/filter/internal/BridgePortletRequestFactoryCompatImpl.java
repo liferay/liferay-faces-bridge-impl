@@ -19,8 +19,8 @@ import jakarta.portlet.HeaderRequest;
 import jakarta.portlet.HeaderResponse;
 import jakarta.portlet.PortalContext;
 import jakarta.portlet.PortletConfig;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.filter.BridgePortletRequestFactory;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.filter.BridgePortletRequestFactory;
 
 import com.liferay.faces.bridge.context.internal.PortalContextBridgeImpl;
 

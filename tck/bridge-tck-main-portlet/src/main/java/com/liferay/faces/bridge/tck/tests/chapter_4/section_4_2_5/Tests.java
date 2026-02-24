@@ -15,8 +15,8 @@
  */
 package com.liferay.faces.bridge.tck.tests.chapter_4.section_4_2_5;
 
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeUtil;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;

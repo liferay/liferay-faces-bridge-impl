@@ -21,7 +21,7 @@ import java.util.Map;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.ExternalContextWrapper;
 import jakarta.portlet.PortletContext;
-import jakarta.portlet.faces.BridgeFactoryFinder;
+import com.liferay.faces.BridgeFactoryFinder;
 
 import com.liferay.faces.bridge.context.map.internal.AbstractMutablePropertyMap;
 import com.liferay.faces.bridge.context.map.internal.ApplicationScopeMapEntry;

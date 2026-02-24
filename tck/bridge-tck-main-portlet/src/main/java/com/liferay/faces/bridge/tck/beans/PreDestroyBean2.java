@@ -18,8 +18,8 @@ package com.liferay.faces.bridge.tck.beans;
 import jakarta.annotation.PreDestroy;
 import jakarta.faces.context.FacesContext;
 import jakarta.portlet.PortletRequest;
-import jakarta.portlet.faces.annotation.BridgePreDestroy;
-import jakarta.portlet.faces.annotation.BridgeRequestScopeAttributeAdded;
+import com.liferay.faces.annotation.BridgePreDestroy;
+import com.liferay.faces.annotation.BridgeRequestScopeAttributeAdded;
 
 
 /**

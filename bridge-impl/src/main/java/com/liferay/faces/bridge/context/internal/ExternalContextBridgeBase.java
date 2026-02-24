@@ -22,9 +22,9 @@ import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletContext;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.PortletResponse;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.BridgeFactoryFinder;
-import jakarta.portlet.faces.BridgeURLFactory;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.BridgeFactoryFinder;
+import com.liferay.faces.BridgeURLFactory;
 
 import com.liferay.faces.bridge.internal.BridgeConfigAttributeMap;
 import com.liferay.faces.bridge.internal.PortletConfigParam;

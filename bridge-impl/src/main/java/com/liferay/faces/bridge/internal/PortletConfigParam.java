@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.internal;
 
 import java.util.Set;
 
+import com.liferay.faces.Bridge;
 import jakarta.portlet.PortletConfig;
-import jakarta.portlet.faces.Bridge;
 
 import com.liferay.faces.util.config.ConfigParam;
 import com.liferay.faces.util.config.WebConfigParam;
@@ -42,7 +42,7 @@ public enum PortletConfigParam implements ConfigParam<PortletConfig> {
 
 	/**
 	 * Flag indicating whether or not the bridge should manage BridgeRequestScope during the RESOURCE_PHASE of the
-	 * portlet lifecycle when the {@link jakarta.portlet.faces.Bridge#FACES_AJAX_PARAMETER} resource request parameter is
+	 * portlet lifecycle when the {@link Bridge#FACES_AJAX_PARAMETER} resource request parameter is
 	 * "true". Default value is false.
 	 */
 	BridgeRequestScopeAjaxEnabled(false, Bridge.BRIDGE_REQUEST_SCOPE_AJAX_ENABLED,

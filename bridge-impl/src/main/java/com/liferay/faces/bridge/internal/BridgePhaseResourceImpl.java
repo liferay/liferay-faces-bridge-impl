@@ -25,12 +25,12 @@ import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletRequestDispatcher;
 import jakarta.portlet.ResourceRequest;
 import jakarta.portlet.ResourceResponse;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.BridgeDefaultViewNotSpecifiedException;
-import jakarta.portlet.faces.BridgeException;
-import jakarta.portlet.faces.filter.BridgePortletRequestFactory;
-import jakarta.portlet.faces.filter.BridgePortletResponseFactory;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.BridgeDefaultViewNotSpecifiedException;
+import com.liferay.faces.BridgeException;
+import com.liferay.faces.filter.BridgePortletRequestFactory;
+import com.liferay.faces.filter.BridgePortletResponseFactory;
 import jakarta.servlet.http.HttpServletResponse;
 
 import com.liferay.faces.bridge.scope.internal.BridgeRequestScope;

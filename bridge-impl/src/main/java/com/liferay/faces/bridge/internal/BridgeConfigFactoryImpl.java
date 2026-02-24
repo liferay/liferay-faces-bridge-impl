@@ -19,8 +19,8 @@ import java.io.Serializable;
 
 import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletContext;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.BridgeConfigFactory;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.BridgeConfigFactory;
 
 
 /**

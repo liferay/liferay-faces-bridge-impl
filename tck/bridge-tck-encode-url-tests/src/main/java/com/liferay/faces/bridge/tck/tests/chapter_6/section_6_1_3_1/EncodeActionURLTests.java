@@ -27,8 +27,8 @@ import jakarta.portlet.PortletRequest;
 import jakarta.portlet.PortletURL;
 import jakarta.portlet.StateAwareResponse;
 import jakarta.portlet.WindowState;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeUtil;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeUtil;
 import javax.xml.namespace.QName;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;

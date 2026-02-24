@@ -48,9 +48,9 @@ import jakarta.portlet.annotations.ContextPath;
 import jakarta.portlet.annotations.Namespace;
 import jakarta.portlet.annotations.PortletName;
 import jakarta.portlet.annotations.WindowId;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeUtil;
-import jakarta.portlet.faces.annotation.BridgeRequestScoped;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeUtil;
+import com.liferay.faces.annotation.BridgeRequestScoped;
 import jakarta.servlet.http.Cookie;
 import javax.xml.namespace.QName;
 

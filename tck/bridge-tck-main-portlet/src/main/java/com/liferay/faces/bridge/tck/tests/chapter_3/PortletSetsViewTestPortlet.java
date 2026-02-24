@@ -23,8 +23,8 @@ import jakarta.portlet.PortletException;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.RenderRequest;
 import jakarta.portlet.RenderResponse;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeInvalidViewPathException;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeInvalidViewPathException;
 
 import com.liferay.faces.bridge.tck.common.portlet.RenderViewDispatchCompatPortlet;
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;

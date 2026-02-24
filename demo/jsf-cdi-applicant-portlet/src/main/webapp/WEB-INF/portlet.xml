@@ -7,7 +7,7 @@
 	<portlet>
 		<portlet-name>1</portlet-name>
 		<display-name>jsf-cdi-applicant</display-name>
-		<portlet-class>jakarta.portlet.faces.GenericFacesPortlet</portlet-class>
+		<portlet-class>com.liferay.faces.GenericFacesPortlet</portlet-class>
 		<init-param>
 			<name>jakarta.portlet.faces.defaultViewId.view</name>
 			<value>/WEB-INF/views/portletViewMode.xhtml</value>

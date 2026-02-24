@@ -46,7 +46,7 @@ public class BridgeVersionTestPortlet extends GenericPortlet {
 
 		// Get the version info from the Bridge class
 		try {
-			Class c = Class.forName("jakarta.portlet.faces.Bridge");
+			Class c = Class.forName("com.liferay.faces.Bridge");
 
 			String name = c.getPackage().getSpecificationTitle();
 			String version = c.getPackage().getSpecificationVersion();
@@ -68,7 +68,7 @@ public class BridgeVersionTestPortlet extends GenericPortlet {
 		}
 		catch (ClassNotFoundException e) {
 			resultWriter.setStatus(BridgeTCKResultWriter.FAIL);
-			resultWriter.setDetail("jakarta.portlet.faces.Bridge class not found.");
+			resultWriter.setDetail("com.liferay.faces.Bridge class not found.");
 		}
 
 		responsePrintWriter.println(resultWriter.toString());

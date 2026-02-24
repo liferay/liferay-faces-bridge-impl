@@ -21,7 +21,7 @@ import jakarta.portlet.annotations.PortletConfiguration;
 import jakarta.portlet.annotations.Preference;
 import jakarta.portlet.annotations.SecurityRoleRef;
 import jakarta.portlet.annotations.Supports;
-import jakarta.portlet.faces.GenericFacesPortlet;
+import com.liferay.faces.GenericFacesPortlet;
 
 import com.liferay.bean.portlet.LiferayPortletConfiguration;
 

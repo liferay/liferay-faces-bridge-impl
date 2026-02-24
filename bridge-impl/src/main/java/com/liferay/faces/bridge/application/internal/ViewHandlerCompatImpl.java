@@ -26,9 +26,9 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewDeclarationLanguage;
 import jakarta.portlet.PortletResponse;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.Bridge.PortletPhase;
-import jakarta.portlet.faces.BridgeUtil;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.Bridge.PortletPhase;
+import com.liferay.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.internal.BridgeExt;
 import com.liferay.faces.util.product.Product;

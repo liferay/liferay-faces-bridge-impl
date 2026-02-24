@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Map;
 
 import jakarta.faces.context.FacesContext;
-import jakarta.portlet.faces.BridgeException;
-import jakarta.portlet.faces.BridgeURL;
-import jakarta.portlet.faces.BridgeURLFactory;
+import com.liferay.faces.BridgeException;
+import com.liferay.faces.BridgeURL;
+import com.liferay.faces.BridgeURLFactory;
 
 
 /**

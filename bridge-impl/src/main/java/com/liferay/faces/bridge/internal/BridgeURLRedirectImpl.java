@@ -28,7 +28,7 @@ import jakarta.faces.render.ResponseStateManager;
 import jakarta.portlet.BaseURL;
 import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletURL;
-import jakarta.portlet.faces.BridgeConfig;
+import com.liferay.faces.BridgeConfig;
 
 import com.liferay.faces.util.render.FacesURLEncoder;
 

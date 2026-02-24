@@ -17,7 +17,7 @@ package com.liferay.faces.bridge.context.internal;
 
 import jakarta.portlet.PortalContext;
 import jakarta.portlet.PortletRequest;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 import jakarta.portlet.filter.PortalContextWrapper;
 
 import com.liferay.faces.util.helper.BooleanHelper;

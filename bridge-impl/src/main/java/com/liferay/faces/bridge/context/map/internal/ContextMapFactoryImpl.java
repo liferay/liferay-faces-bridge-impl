@@ -31,7 +31,7 @@ import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletContext;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.PortletSession;
-import jakarta.portlet.faces.BridgeFactoryFinder;
+import com.liferay.faces.BridgeFactoryFinder;
 import jakarta.servlet.ServletContext;
 
 import com.liferay.faces.bridge.internal.PortletConfigParam;

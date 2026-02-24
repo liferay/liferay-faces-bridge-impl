@@ -21,7 +21,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.portlet.PortletMode;
 import jakarta.portlet.StateAwareResponse;
 import jakarta.portlet.WindowState;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 
 /**

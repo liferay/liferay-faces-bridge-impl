@@ -24,7 +24,7 @@ import jakarta.portlet.MimeResponse;
 import jakarta.portlet.PortletException;
 import jakarta.portlet.RenderRequest;
 import jakarta.portlet.RenderResponse;
-import jakarta.portlet.faces.Bridge;
+import com.liferay.faces.Bridge;
 
 import com.liferay.faces.bridge.tck.common.util.BridgeTCKResultWriter;
 

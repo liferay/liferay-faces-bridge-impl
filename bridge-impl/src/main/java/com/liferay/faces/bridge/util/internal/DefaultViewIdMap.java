@@ -21,7 +21,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 import jakarta.portlet.PortletConfig;
-import jakarta.portlet.faces.GenericFacesPortlet;
+import com.liferay.faces.GenericFacesPortlet;
 
 import com.liferay.faces.bridge.context.map.internal.AbstractImmutablePropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;

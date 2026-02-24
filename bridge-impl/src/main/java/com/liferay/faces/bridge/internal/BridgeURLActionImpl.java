@@ -28,10 +28,10 @@ import jakarta.portlet.BaseURL;
 import jakarta.portlet.PortletConfig;
 import jakarta.portlet.PortletRequest;
 import jakarta.portlet.PortletURL;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.Bridge.PortletPhase;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.BridgeUtil;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.Bridge.PortletPhase;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.BridgeUtil;
 
 import com.liferay.faces.util.helper.BooleanHelper;
 import com.liferay.faces.util.render.FacesURLEncoder;

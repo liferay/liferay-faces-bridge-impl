@@ -16,7 +16,7 @@
 package com.liferay.faces.bridge.bean.internal;
 
 import jakarta.portlet.PortletContext;
-import jakarta.portlet.faces.BridgeFactoryFinder;
+import com.liferay.faces.BridgeFactoryFinder;
 import jakarta.servlet.ServletContext;
 
 import com.liferay.faces.bridge.bean.PreDestroyInvoker;

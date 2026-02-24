@@ -19,9 +19,9 @@ import java.util.Map;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.portlet.Event;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeEventHandler;
-import jakarta.portlet.faces.event.EventNavigationResult;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeEventHandler;
+import com.liferay.faces.event.EventNavigationResult;
 
 import com.liferay.faces.bridge.tck.common.Constants;
 

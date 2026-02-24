@@ -23,7 +23,7 @@ import jakarta.portlet.ActionURL;
 import jakarta.portlet.BaseURL;
 import jakarta.portlet.MimeResponse;
 import jakarta.portlet.MutablePortletParameters;
-import jakarta.portlet.faces.component.PortletParam;
+import com.liferay.faces.component.PortletParam;
 
 
 /**

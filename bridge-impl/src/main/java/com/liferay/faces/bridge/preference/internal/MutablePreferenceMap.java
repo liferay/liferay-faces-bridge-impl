@@ -18,7 +18,7 @@ package com.liferay.faces.bridge.preference.internal;
 import java.util.Enumeration;
 
 import jakarta.portlet.PortletPreferences;
-import jakarta.portlet.faces.preference.Preference;
+import com.liferay.faces.preference.Preference;
 
 import com.liferay.faces.util.map.AbstractPropertyMap;
 import com.liferay.faces.util.map.AbstractPropertyMapEntry;

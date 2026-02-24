@@ -155,7 +155,7 @@
 			jakarta.el,\
 			jakarta.faces,\
 			jakarta.portlet.faces,\
-            jakarta.portlet.faces.component,\
+			com.liferay.faces.component,\
 			net.fortuna.ical4j.*;resolution:=optional,\
 			org.apache.axis.tools.ant.*;resolution:=optional,\
 			org.apache.poi.*;resolution:=optional,\

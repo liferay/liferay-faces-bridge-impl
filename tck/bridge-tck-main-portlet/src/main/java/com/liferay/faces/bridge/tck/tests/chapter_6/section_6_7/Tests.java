@@ -17,8 +17,8 @@ package com.liferay.faces.bridge.tck.tests.chapter_6.section_6_7;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.ResponseStateManager;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeUtil;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeUtil;
 
 import com.liferay.faces.bridge.tck.annotation.BridgeTest;
 import com.liferay.faces.bridge.tck.beans.TestBean;

@@ -45,10 +45,10 @@ import jakarta.portlet.RenderRequest;
 import jakarta.portlet.RenderResponse;
 import jakarta.portlet.ResourceRequest;
 import jakarta.portlet.ResourceResponse;
-import jakarta.portlet.faces.Bridge;
-import jakarta.portlet.faces.BridgeConfig;
-import jakarta.portlet.faces.BridgeFactoryFinder;
-import jakarta.portlet.faces.BridgeUtil;
+import com.liferay.faces.Bridge;
+import com.liferay.faces.BridgeConfig;
+import com.liferay.faces.BridgeFactoryFinder;
+import com.liferay.faces.BridgeUtil;
 import jakarta.servlet.jsp.JspContext;
 
 import com.liferay.faces.bridge.context.internal.LegacyBridgeContext;
