@@ -149,8 +149,8 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>jakarta.faces</groupId>
-			<artifactId>jakarta.faces-api</artifactId>
+			<groupId>${faces.api.group.id}</groupId>
+			<artifactId>${faces.api.artifact.id}</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.jakarta.portlet</groupId>
@@ -178,8 +178,8 @@
 			<artifactId>jakarta.inject-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>jakarta.faces</artifactId>
+			<groupId>${faces.impl.group.id}</groupId>
+			<artifactId>${faces.impl.artifact.id}</artifactId>
 		</dependency>
 	</dependencies>
 

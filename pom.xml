@@ -89,11 +89,11 @@
 		<bnd.version>5.3.0</bnd.version>
 		<cdi.version>4.1.0</cdi.version>
 		<component.namespace>none</component.namespace>
-		<faces.api.group.id>jakarta.faces</faces.api.group.id>
-		<faces.api.artifact.id>jakarta.faces-api</faces.api.artifact.id>
+		<faces.api.group.id>com.liferay</faces.api.group.id>
+		<faces.api.artifact.id>jakarta.faces.api</faces.api.artifact.id>
 		<faces.api.scope>provided</faces.api.scope>
-		<faces.api.version>2.3.21-JAKARTA</faces.api.version>
-		<faces.impl.group.id>org.glassfish</faces.impl.group.id>
+		<faces.api.version>2.3.2.JAKARTA-LIFERAY-PATCHED-1</faces.api.version>
+		<faces.impl.group.id>com.liferay</faces.impl.group.id>
 		<faces.impl.artifact.id>jakarta.faces</faces.impl.artifact.id>
 		<faces.impl.scope>runtime</faces.impl.scope>
 		<faces.servlet.container.initializer>com.sun.faces.config.FacesInitializer</faces.servlet.container.initializer>
@@ -255,7 +255,7 @@
 		<liferay.version>7.4.3.ga102</liferay.version>
 		<liferay.version.dtd>7.2</liferay.version.dtd>
 		<liferay.version.major>7</liferay.version.major>
-		<mojarra.version>2.3.21</mojarra.version>
+		<mojarra.version>2.3.21.LIFERAY-PATCHED-2.JAKARTA-LIFERAY-PATCHED-1</mojarra.version>
 		<pluto.deploy.dir>${pluto.tomcat.dir}/webapps</pluto.deploy.dir>
 		<pluto.home>${env.PORTALS_HOME}/liferay.com/pluto-${pluto.version}-jsf-${faces.spec.version}</pluto.home>
 		<pluto.tomcat.dir>${pluto.home}/tomcat-${pluto.tomcat.version}</pluto.tomcat.dir>
@@ -821,9 +821,9 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.glassfish</groupId>
-				<artifactId>jakarta.faces</artifactId>
-				<version>2.3.21.LIFERAY-PATCHED-1-JAKARTA</version>
+				<groupId>${faces.impl.group.id}</groupId>
+				<artifactId>${faces.impl.artifact.id}</artifactId>
+				<version>${faces.version}</version>
 				<scope>${faces.impl.scope}</scope>
 			</dependency>
 			<dependency>
@@ -845,8 +845,8 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 			    <scope>provided</scope>
 			</dependency>
 			<dependency>
-				<groupId>jakarta.faces</groupId>
-				<artifactId>jakarta.faces-api</artifactId>
+				<groupId>${faces.api.group.id}</groupId>
+				<artifactId>${faces.api.artifact.id}</artifactId>
 				<version>${faces.api.version}</version>
 				<scope>${faces.api.scope}</scope>
 			</dependency>

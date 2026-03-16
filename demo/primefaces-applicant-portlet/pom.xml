@@ -66,11 +66,10 @@
 			<artifactId>jakarta.servlet-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>15.0.6</version>
+			<groupId>com.liferay</groupId>
+			<artifactId>org.primefaces</artifactId>
+			<version>15.0.6.LIFERAY-PATCHED-1.JAKARTA-LIFERAY-PATCHED-1</version>
 			<scope>${war.dependency.scope.primefaces}</scope>
-			<classifier>jakarta</classifier>
 		</dependency>
 		<dependency>
 			<groupId>com.liferay.faces</groupId>
