@@ -8,7 +8,7 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.liferay.faces</groupId>
+	<groupId>com.liferay</groupId>
 	<artifactId>com.liferay.faces.bridge.impl.parent</artifactId>
 	<version>7.0.0</version>
 	<packaging>pom</packaging>
@@ -791,31 +791,31 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>com.liferay.faces</groupId>
+				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.faces.alloy</artifactId>
 				<version>${liferay.faces.alloy.version}</version>
 				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.liferay.faces</groupId>
+				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.faces.alloy.reslib</artifactId>
 				<version>${liferay.faces.alloy.version}</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.liferay.faces</groupId>
+				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.faces.bridge.api</artifactId>
 				<version>7.0.0</version>
 				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.liferay.faces</groupId>
+				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.faces.bridge.impl</artifactId>
 				<version>${project.version}</version>
 				<scope>${war.dependency.scope}</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.liferay.faces</groupId>
+				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.faces.util</artifactId>
 				<version>5.0.0</version>
 				<scope>${war.dependency.scope}</scope>
