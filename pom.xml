@@ -1056,4 +1056,17 @@ com.liferay.faces.bridge.servlet.BridgeServletContainerInitializer
 		</plugins>
 	</reporting>
 
+   <repositories>
+    <repository>
+      <id>liferay-public-releases</id>
+      <name>Liferay Public Releases</name>
+      <url>https://repository.liferay.com/nexus/content/repositories/liferay-public-releases/</url>
+    </repository>
+    <repository>
+      <id>liferay-third-party</id>
+      <name>Liferay Third Party</name>
+      <url>https://repository.liferay.com/nexus/content/repositories/third-party/</url>
+    </repository>
+  </repositories>
+
 </project>
