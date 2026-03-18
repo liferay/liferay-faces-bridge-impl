@@ -22,7 +22,7 @@
 			<id>liferay</id>
 			<dependencies>
 				<dependency>
-					<groupId>com.liferay.faces</groupId>
+					<groupId>com.liferay</groupId>
 					<artifactId>com.liferay.faces.bridge.ext</artifactId>
 					<version>${liferay.faces.bridge.ext.version}</version>
 					<scope>${war.dependency.scope}</scope>
@@ -119,7 +119,7 @@
 			<artifactId>com.liferay.jakarta.portlet-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.liferay.faces</groupId>
+			<groupId>com.liferay</groupId>
 			<artifactId>com.liferay.faces.bridge.impl</artifactId>
 		</dependency>
 		<dependency>

@@ -14,7 +14,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.liferay.faces</groupId>
+			<groupId>com.liferay</groupId>
 			<artifactId>com.liferay.faces.bridge.api</artifactId>
 		</dependency>
 		<dependency>

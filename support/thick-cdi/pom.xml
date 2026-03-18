@@ -14,7 +14,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.liferay.faces</groupId>
+			<groupId>com.liferay</groupId>
 			<artifactId>com.liferay.faces.util</artifactId>
 		</dependency>
 		<dependency>
