@@ -16,8 +16,7 @@
 	<properties>
 		<osgi.import.package>
 			Import-Package:\
-				com.liferay.portal.kernel.model,\
-				*
+				com.liferay.portal.kernel.model
 		</osgi.import.package>
 	</properties>
 
