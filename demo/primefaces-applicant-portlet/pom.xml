@@ -87,6 +87,10 @@
 			<groupId>jakarta.annotation</groupId>
 			<artifactId>jakarta.annotation-api</artifactId>
 		</dependency>
-	</dependencies>
+                <dependency>
+                    <groupId>com.liferay</groupId>
+                    <artifactId>com.liferay.faces.util</artifactId>
+                </dependency>
+        </dependencies>
 
 </project>
