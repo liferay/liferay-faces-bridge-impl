@@ -160,6 +160,10 @@ com.sun.faces.flow.FlowDiscoveryCDIExtension
 			<groupId>com.liferay.jakarta.portlet</groupId>
 			<artifactId>com.liferay.jakarta.portlet-api</artifactId>
 		</dependency>
+                <dependency>
+                    <groupId>com.liferay</groupId>
+                    <artifactId>com.liferay.faces.util</artifactId>
+                </dependency>
 	</dependencies>
 
 </project>
